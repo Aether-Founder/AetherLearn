@@ -16,8 +16,6 @@ import {
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { OfflineStorage, LocalStudySet, LocalCard } from '@/lib/offline/storage';
 import {
-  Globe,
-  Lock,
   Plus,
   Trash2,
   GripVertical,
@@ -52,7 +50,7 @@ export function StudySetEditorView({
   initialSetId,
   initialTitle = '',
   initialDescription = '',
-  initialIsPublic = true,
+  initialIsPublic = false,
   initialCards = [],
   onSaved,
   isModal = false,

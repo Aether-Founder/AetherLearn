@@ -330,9 +330,9 @@ function WorkspaceSidebar() {
   };
   if (isInitialLoading) {
     return (
-      <aside className="flex w-72 shrink-0 flex-col border-r border-border bg-secondary/20">
+      <aside className="flex w-72 shrink-0 flex-col border-r border-border bg-background">
         <div className="flex items-center justify-between px-5 py-4">
-          <h1 className="text-sm font-semibold tracking-wide text-foreground">WERKRUIMTE</h1>
+          <h1 className="text-sm font-semibold tracking-wide text-foreground">Werkruimte</h1>
           <div className="flex items-center gap-1">
             <div className="skeleton-line h-8 w-8 rounded"></div>
             <div className="skeleton-line h-8 w-8 rounded"></div>
@@ -350,9 +350,9 @@ function WorkspaceSidebar() {
   }
 
   return (
-    <aside className="flex w-72 shrink-0 flex-col border-r border-border bg-secondary/20">
+    <aside className="flex w-72 shrink-0 flex-col border-r border-border bg-background">
       <div className="flex items-center justify-between px-5 py-4">
-        <h1 className="text-sm font-semibold tracking-wide text-foreground">WERKRUIMTE</h1>
+        <h1 className="text-sm font-semibold tracking-wide text-foreground">Werkruimte</h1>
         <div className="flex items-center gap-1">
           <button
             type="button"

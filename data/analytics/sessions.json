@@ -1,24 +1,137 @@
 {
-  "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c": {
-    "id": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
+  "0b044266-1f74-4bc5-b8bd-94dc1110c5ea": {
+    "id": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
     "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
-    "startTime": 1785419531202,
-    "endTime": 1785419541903,
-    "duration": 13397,
+    "startTime": 1788119632489,
+    "endTime": 1788119689139,
+    "duration": 28133,
     "events": [
       {
+        "eventType": "page_view",
+        "timestamp": 1788119632489,
+        "data": {
+          "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
+          "referrer": "http://localhost:3000/vakken/Aardrijkskunde"
+        }
+      },
+      {
+        "eventType": "session_end",
+        "timestamp": 1788119637800,
+        "data": {
+          "duration": 5310
+        }
+      },
+      {
+        "eventType": "session_start",
+        "timestamp": 1788119641641,
+        "data": {
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+          "language": "nl-NL",
+          "screenResolution": "1280x800"
+        }
+      },
+      {
+        "eventType": "page_view",
+        "timestamp": 1788119641641,
+        "data": {
+          "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
+          "referrer": "http://localhost:3000/vakken/Aardrijkskunde"
+        }
+      },
+      {
+        "eventType": "session_start",
+        "timestamp": 1788119641675,
+        "data": {
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+          "language": "nl-NL",
+          "screenResolution": "1280x800"
+        }
+      },
+      {
+        "eventType": "page_view",
+        "timestamp": 1788119641675,
+        "data": {
+          "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
+          "referrer": "http://localhost:3000/vakken/Aardrijkskunde"
+        }
+      },
+      {
+        "eventType": "session_end",
+        "timestamp": 1788119659949,
+        "data": {
+          "duration": 18273
+        }
+      },
+      {
+        "eventType": "session_start",
+        "timestamp": 1788119661006,
+        "data": {
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+          "language": "nl-NL",
+          "screenResolution": "1280x800"
+        }
+      },
+      {
+        "eventType": "page_view",
+        "timestamp": 1788119661007,
+        "data": {
+          "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
+          "referrer": "http://localhost:3000/vakken/Aardrijkskunde"
+        }
+      },
+      {
         "eventType": "mode_switch",
-        "timestamp": 1785419531202,
+        "timestamp": 1788119676867,
         "data": {
           "from": "simple",
           "to": "study"
         }
       },
       {
-        "eventType": "session_end",
-        "timestamp": 1785419541903,
+        "eventType": "mode_switch",
+        "timestamp": 1788119684051,
         "data": {
-          "duration": 13397
+          "from": "study",
+          "to": "samenvatting"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788119684679,
+        "data": {
+          "from": "samenvatting",
+          "to": "alles-leren-2-dagen"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788119685787,
+        "data": {
+          "from": "alles-leren-2-dagen",
+          "to": "complete-oefentoets"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788119686528,
+        "data": {
+          "from": "complete-oefentoets",
+          "to": "alle-leerdoelen-opdrachten"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788119686875,
+        "data": {
+          "from": "alle-leerdoelen-opdrachten",
+          "to": "vragenlijst"
+        }
+      },
+      {
+        "eventType": "session_end",
+        "timestamp": 1788119689139,
+        "data": {
+          "duration": 28133
         }
       }
     ]

@@ -3,6 +3,7 @@ import { Inter, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import { InitialLoader } from '@/components/InitialLoader';
 import { ClientProviders } from '@/components/ClientProviders';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -53,7 +54,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${cormorant.variable}`}>
         <InitialLoader />
-        <ClientProviders>{children}</ClientProviders>
+        <ErrorBoundary><ClientProviders>{children}</ClientProviders></ErrorBoundary>
       </body>
     </html>
   );

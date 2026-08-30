@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "id": "aardrijkskunde-h5",
+      "title": "Aardrijkskunde — hoofdstuk 5",
+      "description": "Interactief lesmateriaal met leer-, samenvattings- en quizmodi.",
+      "subjectId": "aardrijkskunde",
+      "jsonPath": "old/aardrijkskunde-h5.json"
+    }
+  ]
+}

@@ -1,16 +1,13 @@
 import {
   loadSubject,
   loadChapters,
-  loadLearningSet,
-  loadQuiz,
-  loadSummary,
-  loadPracticeTest,
-  type Chapter,
 } from '@/lib/content-loader';
 import { AppShell } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Folder, FileText, Brain } from 'lucide-react';
 import Link from 'next/link';
+import { findContentPage, normalizeSubjectId } from '@/lib/json-content-pages';
+import JsonLessonPage from '@/app/[page]/page';
 
 export default async function ChapterDetailPage({
   params,
@@ -18,6 +15,10 @@ export default async function ChapterDetailPage({
   params: { subjectId: string; chapterId: string };
 }) {
   const { subjectId, chapterId } = params;
+  const jsonLesson = findContentPage(chapterId);
+  if (jsonLesson && normalizeSubjectId(jsonLesson.subjectId) === normalizeSubjectId(subjectId)) {
+    return <JsonLessonPage params={{ page: chapterId }} />;
+  }
 
   // Load subject and chapters from JSON
   const subject = await loadSubject(subjectId);

@@ -1,0 +1,140 @@
+{
+  "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c": {
+    "id": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "startTime": 1785419531202,
+    "endTime": 1785419541903,
+    "duration": 13397,
+    "events": [
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1785419531202,
+        "data": {
+          "from": "simple",
+          "to": "study"
+        }
+      },
+      {
+        "eventType": "session_end",
+        "timestamp": 1785419541903,
+        "data": {
+          "duration": 13397
+        }
+      }
+    ]
+  },
+  "d3a6c7b8-f76b-4d6f-98b8-3cd16fe28e4e": {
+    "id": "d3a6c7b8-f76b-4d6f-98b8-3cd16fe28e4e",
+    "userId": "5266954a-74f1-47e0-810a-897177f64930",
+    "startTime": 1788093888016,
+    "endTime": null,
+    "duration": 0,
+    "events": [
+      {
+        "eventType": "session_start",
+        "timestamp": 1788093888016,
+        "data": {
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+          "language": "nl-NL",
+          "screenResolution": "1920x1080"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788093894165,
+        "data": {
+          "from": "simple",
+          "to": "study"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788093894997,
+        "data": {
+          "from": "study",
+          "to": "samenvatting"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788093895627,
+        "data": {
+          "from": "samenvatting",
+          "to": "alles-leren-2-dagen"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788093896133,
+        "data": {
+          "from": "alles-leren-2-dagen",
+          "to": "complete-oefentoets"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788093896572,
+        "data": {
+          "from": "complete-oefentoets",
+          "to": "alle-leerdoelen-opdrachten"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788093897191,
+        "data": {
+          "from": "alle-leerdoelen-opdrachten",
+          "to": "vragenlijst"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788093897843,
+        "data": {
+          "from": "vragenlijst",
+          "to": "alle-leerdoelen-opdrachten"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788093898427,
+        "data": {
+          "from": "alle-leerdoelen-opdrachten",
+          "to": "complete-oefentoets"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788093899036,
+        "data": {
+          "from": "complete-oefentoets",
+          "to": "alles-leren-2-dagen"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788093899497,
+        "data": {
+          "from": "alles-leren-2-dagen",
+          "to": "samenvatting"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788093899878,
+        "data": {
+          "from": "samenvatting",
+          "to": "study"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1788093900206,
+        "data": {
+          "from": "study",
+          "to": "simple"
+        }
+      }
+    ]
+  }
+}

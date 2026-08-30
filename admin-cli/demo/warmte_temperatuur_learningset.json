@@ -1,0 +1,68 @@
+{
+  "subject_id": "PLACEHOLDER_SUBJECT_ID",
+  "chapter_id": "PLACEHOLDER_THERMODYNAMICA_CHAPTER_ID",
+  "title": "Warmte en Temperatuur",
+  "description": "Flashcards over warmteoverdracht, temperatuur en thermodynamica",
+  "cards": [
+    {
+      "front": "Wat is temperatuur?",
+      "back": "Een maat voor de gemiddelde kinetische energie van deeltjes in een stof"
+    },
+    {
+      "front": "Wat is de eenheid van temperatuur?",
+      "back": "Kelvin (K) in het SI-systeem"
+    },
+    {
+      "front": "Wat is absolute nul?",
+      "back": "De laagst mogelijke temperatuur (0 K of -273.15°C) waar moleculaire beweging stopt"
+    },
+    {
+      "front": "Wat is warmte?",
+      "back": "Overdracht van thermische energie van een warmer naar een kouder object"
+    },
+    {
+      "front": "Wat is de eenheid van warmte?",
+      "back": "Joule (J)"
+    },
+    {
+      "front": "Wat is calorimetrie?",
+      "back": "De studie van warmteoverdracht en meting van warmte"
+    },
+    {
+      "front": "Wat is soortelijke warmte?",
+      "back": "De hoeveelheid warmte nodig om 1 kg stof met 1°C te verwarmen: c = Q / (m × ΔT)"
+    },
+    {
+      "front": "Wat is de eenheid van soortelijke warmte?",
+      "back": "J/(kg·K) of J/(kg·°C)"
+    },
+    {
+      "front": "Wat is latente warmte?",
+      "back": "Warmte die nodig is voor faseovergang zonder temperatuurverandering"
+    },
+    {
+      "front": "Wat is verdampingswarmte?",
+      "back": "Warmte nodig om vloeistof om te zetten in gas bij kookpunt"
+    },
+    {
+      "front": "Wat is smeltwarmte?",
+      "back": "Warmte nodig om vaste stof om te zetten in vloeistof bij smeltpunt"
+    },
+    {
+      "front": "Wat is warmtegeleiding?",
+      "back": "Overdracht van warmte door direct contact tussen deeltjes"
+    },
+    {
+      "front": "Wat is convectie?",
+      "back": "Overdracht van warmte door beweging van vloeistoffen of gassen"
+    },
+    {
+      "front": "Wat is straling?",
+      "back": "Overdracht van warmte door elektromagnetische golven"
+    },
+    {
+      "front": "Wat is de eerste wet van de thermodynamica?",
+      "back": "Energie kan niet worden gecreëerd of vernietigd, alleen omgezet (behoud van energie)"
+    }
+  ]
+}

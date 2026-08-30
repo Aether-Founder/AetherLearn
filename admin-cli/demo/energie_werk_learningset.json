@@ -1,0 +1,68 @@
+{
+  "subject_id": "PLACEHOLDER_SUBJECT_ID",
+  "chapter_id": "PLACEHOLDER_MECHANICA_CHAPTER_ID",
+  "title": "Energie en Werk",
+  "description": "Flashcards over energie, arbeid, vermogen en behoud van energie",
+  "cards": [
+    {
+      "front": "Wat is energie?",
+      "back": "Het vermogen om werk te verrichten of warmte af te geven"
+    },
+    {
+      "front": "Wat is de eenheid van energie?",
+      "back": "Joule (J)"
+    },
+    {
+      "front": "Wat is arbeid (werk)?",
+      "back": "Arbeid is kracht vermenigvuldigd met afstand in de richting van de kracht: W = F × d"
+    },
+    {
+      "front": "Wat is kinetische energie?",
+      "back": "Energie van beweging: Ek = ½ × m × v²"
+    },
+    {
+      "front": "Wat is potentiële energie?",
+      "back": "Energie van positie: Ep = m × g × h"
+    },
+    {
+      "front": "Wat is het behoud van energie?",
+      "back": "Energie kan niet worden gecreëerd of vernietigd, alleen omgezet van de ene vorm in de andere"
+    },
+    {
+      "front": "Wat is vermogen?",
+      "back": "De snelheid waarmee werk wordt verricht: P = W / t (Watt)"
+    },
+    {
+      "front": "Wat is de eenheid van vermogen?",
+      "back": "Watt (W)"
+    },
+    {
+      "front": "Wat is 1 Watt?",
+      "back": "1 Joule per seconde (1 J/s)"
+    },
+    {
+      "front": "Wat is mechanische energie?",
+      "back": "De som van kinetische en potentiële energie: Em = Ek + Ep"
+    },
+    {
+      "front": "Wat is elastische potentiële energie?",
+      "back": "Energie opgeslagen in een veer: Ep = ½ × k × x²"
+    },
+    {
+      "front": "Wat is de wet van behoud van mechanische energie?",
+      "back": "In een gesloten systeem zonder wrijving blijft de totale mechanische energie constant"
+    },
+    {
+      "front": "Wat is efficiëntie?",
+      "back": "De verhouding tussen nuttige energie en ingevoerde energie: η = (nuttig / ingevoerd) × 100%"
+    },
+    {
+      "front": "Wat is warmte?",
+      "back": "Overdracht van thermische energie van een warmer naar een kouder object"
+    },
+    {
+      "front": "Wat is temperatuur?",
+      "back": "Een maat voor de gemiddelde kinetische energie van deeltjes in een stof"
+    }
+  ]
+}

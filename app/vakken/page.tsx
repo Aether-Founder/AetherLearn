@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { AppShell, PageHeader } from '@/components/AppShell';
+import { AppShell, PageHeader, Meter } from '@/components/AppShell';
 import { useUser, useUserProfile } from '@/hooks/useAuth';
 import { useTranslation } from '@/lib/useTranslation';
 import { useEffect, useMemo, useState } from 'react';
@@ -26,6 +26,11 @@ type Subject = {
   status?: string;
   upcoming_tests?: number;
   average_grade?: number;
+  chapter_count?: number;
+  set_count?: number;
+  topics_done?: number;
+  topics_total?: number;
+  due_cards?: number;
 };
 
 type SubjectForm = {
@@ -34,7 +39,6 @@ type SubjectForm = {
   color: string;
   description: string;
   teacher: string;
-  exam_relevance: string;
 };
 
 const DEFAULT_SUBJECTS = [
@@ -77,21 +81,17 @@ const PROFILE_SUBJECTS: Record<string, string[]> = {
 
 function SubjectSkeleton() {
   return (
-    <>
-      <div className="space-y-3">
-        <div className="skeleton-line h-8 w-1/3 rounded"></div>
-        <div className="skeleton-line h-4 w-2/3 rounded"></div>
-        <div className="skeleton-line h-4 w-1/2 rounded"></div>
-      </div>
-      <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {Array.from({ length: 9 }, (_, index) => (
-          <div
-            key={index}
-            className="subject-skeleton h-24 rounded-lg border border-border bg-card"
-          />
-        ))}
-      </div>
-    </>
+    <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+      {Array.from({ length: 9 }, (_, index) => (
+        <div key={index} className="bg-background p-6">
+          <div className="skeleton-line h-3 w-20 rounded"></div>
+          <div className="skeleton-line mt-2 h-7 w-3/4 rounded"></div>
+          <div className="skeleton-line mt-1 h-3 w-1/2 rounded"></div>
+          <div className="skeleton-line mt-5 h-2 w-full rounded"></div>
+          <div className="skeleton-line mt-4 h-3 w-2/3 rounded"></div>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -105,23 +105,16 @@ function SubjectTile({
   onPrioritize: () => void;
 }) {
   const [open, setOpen] = useState(false);
-
-  const getStatusColor = (status?: string) => {
-    switch (status) {
-      case 'beheerst':
-        return 'text-muted-foreground';
-      case 'herhalen':
-        return 'text-muted-foreground';
-      case 'leren':
-        return 'text-muted-foreground';
-      default:
-        return 'text-muted-foreground';
-    }
-  };
+  const mastery = subject.mastery_percentage || 0;
+  const topicsDone = subject.topics_done || 0;
+  const topicsTotal = subject.topics_total || 0;
+  const chapterCount = subject.chapter_count || 0;
+  const setCount = subject.set_count || 0;
+  const dueCards = subject.due_cards || 0;
 
   return (
     <div
-      className="relative"
+      className="relative bg-background transition-colors hover:bg-secondary/50"
       onContextMenu={(event) => {
         event.preventDefault();
         setOpen(true);
@@ -129,33 +122,41 @@ function SubjectTile({
     >
       <Link
         href={`/vakken/${subject.id}`}
-        className="flex min-h-24 flex-col justify-between rounded-lg border border-border bg-card px-5 py-4 transition-colors hover:bg-secondary"
+        className="flex h-full flex-col p-6"
       >
-        <div className="flex items-start justify-between">
-          <span className="text-lg font-medium">{subject.name}</span>
-          {subject.mastery_percentage !== undefined && (
-            <span className="text-sm font-semibold text-muted-foreground">
-              {subject.mastery_percentage}%
+        <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+          {subject.code || 'Vak'}
+        </p>
+        <h2 className="mt-2 font-display text-2xl font-semibold">{subject.name}</h2>
+        <p className="mt-1 text-xs text-muted-foreground">
+          {chapterCount} mappen · {setCount} sets{subject.teacher ? ` · ${subject.teacher}` : ''}
+        </p>
+        
+        <div className="mt-5">
+          <div className="mb-1.5 flex items-baseline justify-between text-xs text-muted-foreground">
+            <span>
+              {topicsDone} van {topicsTotal} onderwerpen
             </span>
-          )}
+            <span className="tabular-nums">{mastery}%</span>
+          </div>
+          <Meter value={mastery} />
         </div>
-        <div className="flex items-center justify-between mt-2">
-          {subject.status && (
-            <span className={`text-xs ${getStatusColor(subject.status)}`}>{subject.status}</span>
-          )}
-          {subject.upcoming_tests !== undefined && subject.upcoming_tests > 0 && (
-            <span className="text-xs text-muted-foreground">{subject.upcoming_tests} toetsen</span>
-          )}
-        </div>
+        
+        <p className="mt-4 text-xs text-muted-foreground">
+          {dueCards === 0 ? 'Alles bij' : `${dueCards} kaarten te herhalen`}
+        </p>
       </Link>
+
       {open && (
         <div
-          className="absolute right-2 top-2 z-20 w-36 rounded-md border border-border bg-background p-1 text-xs shadow-lg"
+          className="absolute right-4 top-4 z-20 w-36 rounded-md border border-border bg-background p-1 text-xs shadow-lg"
           onMouseLeave={() => setOpen(false)}
         >
           <button
             type="button"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               onPrioritize();
               setOpen(false);
             }}
@@ -165,7 +166,9 @@ function SubjectTile({
           </button>
           <button
             type="button"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               onHide();
               setOpen(false);
             }}
@@ -185,7 +188,7 @@ export default function VakkenIndex() {
   const { profile, loading: profileLoading } = useUserProfile();
   const [ready, setReady] = useState(false);
   const [setupOpen, setSetupOpen] = useState(false);
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(true);
   const [hidden, setHidden] = useState<string[]>([]);
   const [prioritized, setPrioritized] = useState<string[]>([]);
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -197,7 +200,6 @@ export default function VakkenIndex() {
     color: '#3b82f6',
     description: '',
     teacher: '',
-    exam_relevance: 'normaal',
   });
   const [saving, setSaving] = useState(false);
 
@@ -239,18 +241,24 @@ export default function VakkenIndex() {
           id,
           name,
           slug,
+          code,
           color,
           icon,
           description,
           teacher,
           exam_relevance,
           subject_chapters (
+            id,
             subject_topics (
+              id,
               mastery_tracking (
                 mastery_percentage,
                 status
               )
             )
+          ),
+          study_sets (
+            id
           ),
           subject_tests (
             test_date
@@ -269,15 +277,25 @@ export default function VakkenIndex() {
           // Calculate average mastery
           let totalMastery = 0;
           let masteryCount = 0;
+          let topicsDone = 0;
+          let topicsTotal = 0;
+          
           subject.subject_chapters?.forEach((chapter: any) => {
             chapter.subject_topics?.forEach((topic: any) => {
+              topicsTotal++;
               if (topic.mastery_tracking) {
                 totalMastery += topic.mastery_tracking.mastery_percentage || 0;
                 masteryCount++;
+                if (topic.mastery_tracking.mastery_percentage >= 80) {
+                  topicsDone++;
+                }
               }
             });
           });
-          const avgMastery = masteryCount > 0 ? Math.round(totalMastery / masteryCount) : undefined;
+          
+          const avgMastery = masteryCount > 0 ? Math.round(totalMastery / masteryCount) : 0;
+          const chapterCount = subject.subject_chapters?.length || 0;
+          const setCount = subject.study_sets?.length || 0;
 
           // Count upcoming tests
           const now = new Date();
@@ -292,11 +310,19 @@ export default function VakkenIndex() {
               ? (grades.reduce((a: number, b: number) => a + b, 0) / grades.length).toFixed(1)
               : undefined;
 
+          // Estimate due cards (placeholder logic)
+          const dueCards = Math.max(0, Math.floor((100 - avgMastery) / 10));
+
           return {
             ...subject,
             mastery_percentage: avgMastery,
             upcoming_tests: upcomingTests,
             average_grade: avgGrade,
+            chapter_count: chapterCount,
+            set_count: setCount,
+            topics_done: topicsDone,
+            topics_total: topicsTotal,
+            due_cards: dueCards,
           };
         });
         setSubjects(processedSubjects);
@@ -308,6 +334,12 @@ export default function VakkenIndex() {
           color: '#3b82f6',
           icon: 'BookOpen',
           exam_relevance: 'normaal',
+          mastery_percentage: 0,
+          chapter_count: 0,
+          set_count: 0,
+          topics_done: 0,
+          topics_total: 0,
+          due_cards: 0,
         }));
         setSubjects(defaultSubjects);
       }
@@ -320,6 +352,12 @@ export default function VakkenIndex() {
         color: '#3b82f6',
         icon: 'BookOpen',
         exam_relevance: 'normaal',
+        mastery_percentage: 0,
+        chapter_count: 0,
+        set_count: 0,
+        topics_done: 0,
+        topics_total: 0,
+        due_cards: 0,
       }));
       setSubjects(defaultSubjects);
     } finally {
@@ -382,23 +420,12 @@ export default function VakkenIndex() {
         icon: 'BookOpen',
         description: form.description.trim() || null,
         teacher: form.teacher.trim() || null,
-        exam_relevance: form.exam_relevance,
       });
 
       if (error) throw error;
 
       // Reload subjects
-      const { data } = await supabase.from('subjects').select('*').eq('user_id', user.id);
-      if (data) {
-        setSubjects(
-          data.map((s: any) => ({
-            ...s,
-            mastery_percentage: undefined,
-            upcoming_tests: 0,
-            average_grade: undefined,
-          }))
-        );
-      }
+      loadSubjects();
 
       setCreateOpen(false);
       setForm({
@@ -407,7 +434,6 @@ export default function VakkenIndex() {
         color: '#3b82f6',
         description: '',
         teacher: '',
-        exam_relevance: 'normaal',
       });
     } catch (error) {
       console.error('Error creating subject:', error);
@@ -419,9 +445,9 @@ export default function VakkenIndex() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={t('subjects_eyebrow')}
-        title={t('subjects_title')}
-        description={t('subjects_description')}
+        eyebrow="Bibliotheek"
+        title="Vakken"
+        description="Elk vak is een map. Open een vak om de hoofdstukken te zien en klik door naar een studieset."
         action={
           user && (
             <div className="flex gap-2">
@@ -454,7 +480,7 @@ export default function VakkenIndex() {
               </Button>
             </div>
           ) : (
-            <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
               {display.map((subject) => (
                 <SubjectTile
                   key={subject.id}
@@ -533,19 +559,6 @@ export default function VakkenIndex() {
                 onChange={(e) => setForm({ ...form, teacher: e.target.value })}
                 placeholder="Naam van docent"
               />
-            </div>
-            <div>
-              <Label htmlFor="subject-relevance">Examenrelevantie</Label>
-              <select
-                id="subject-relevance"
-                value={form.exam_relevance}
-                onChange={(e) => setForm({ ...form, exam_relevance: e.target.value })}
-                className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
-              >
-                <option value="laag">Laag</option>
-                <option value="normaal">Normaal</option>
-                <option value="hoog">Hoog</option>
-              </select>
             </div>
             <div>
               <Label htmlFor="subject-description">Beschrijving</Label>

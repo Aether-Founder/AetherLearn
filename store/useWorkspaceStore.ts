@@ -20,26 +20,26 @@ interface WorkspaceState {
   isLoading: boolean;
   selectedId: string | null;
   expandedMaps: Set<string>;
-  
+
   // Actions
   setItems: (items: WorkspaceItem[]) => void;
   setLoading: (loading: boolean) => void;
   setSelectedId: (id: string | null) => void;
   toggleMapExpanded: (id: string) => void;
-  
+
   // Local persistence helpers
   loadFromLocalStorage: () => void;
-  
+
   // Optimistic updates
   createItemOptimistic: (item: Omit<WorkspaceItem, 'id' | 'created_at' | 'updated_at'>) => string;
   updateItemOptimistic: (id: string, updates: Partial<WorkspaceItem>) => void;
   deleteItemOptimistic: (id: string) => void;
   moveItemOptimistic: (id: string, newParentId: string | null, newIndex: number) => void;
-  
+
   // Selectors
   getChildren: (parentId: string | null) => WorkspaceItem[];
   getSelectedItem: () => WorkspaceItem | null;
-  
+
   // Content updates
   updateContent: (id: string, content: any) => void;
 }
@@ -91,7 +91,7 @@ export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
 
   setLoading: (loading) => set({ isLoading: loading }),
   setSelectedId: (id) => set({ selectedId: id }),
-  
+
   toggleMapExpanded: (id) => {
     const expanded = new Set(get().expandedMaps);
     if (expanded.has(id)) {
@@ -126,7 +126,9 @@ export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
 
   deleteItemOptimistic: (id) => {
     const deleteRecursive = (itemId: string, currentItems: WorkspaceItem[]): WorkspaceItem[] => {
-      const childrenIds = new Set(currentItems.filter((i) => i.parent_id === itemId).map((i) => i.id));
+      const childrenIds = new Set(
+        currentItems.filter((i) => i.parent_id === itemId).map((i) => i.id)
+      );
       let remaining = currentItems.filter((i) => i.id !== itemId && i.parent_id !== itemId);
       for (const childId of childrenIds) {
         remaining = deleteRecursive(childId, remaining);
@@ -149,7 +151,12 @@ export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
 
     const updatedItems = state.items.map((i) => {
       if (i.id === id) {
-        return { ...i, parent_id: newParentId, order_index: newIndex, updated_at: new Date().toISOString() };
+        return {
+          ...i,
+          parent_id: newParentId,
+          order_index: newIndex,
+          updated_at: new Date().toISOString(),
+        };
       }
       if (i.parent_id === newParentId && i.id !== id) {
         if (i.order_index >= newIndex) {

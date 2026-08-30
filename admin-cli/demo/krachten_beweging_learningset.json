@@ -1,0 +1,68 @@
+{
+  "subject_id": "PLACEHOLDER_SUBJECT_ID",
+  "chapter_id": "PLACEHOLDER_MECHANICA_CHAPTER_ID",
+  "title": "Krachten en Beweging",
+  "description": "Flashcards over Newton's wetten, krachten en bewegingsprincipes",
+  "cards": [
+    {
+      "front": "Wat is de eerste wet van Newton?",
+      "back": "Een object in rust blijft in rust en een object in beweging blijft in beweging met constante snelheid, tenzij een uitwendige kracht daarop werkt (inertiewet)"
+    },
+    {
+      "front": "Wat is de formule voor kracht volgens de tweede wet van Newton?",
+      "back": "F = m × a (Kracht = massa × versnelling)"
+    },
+    {
+      "front": "Wat is de derde wet van Newton?",
+      "back": "Voor elke actie is er een gelijke en tegengestelde reactie"
+    },
+    {
+      "front": "Wat is de eenheid van kracht?",
+      "back": "Newton (N)"
+    },
+    {
+      "front": "Wat is massa?",
+      "back": "De hoeveelheid materie in een object, gemeten in kilogram (kg)"
+    },
+    {
+      "front": "Wat is gewicht?",
+      "back": "De kracht die zwaartekracht uitoefent op een object, gemeten in Newton (N)"
+    },
+    {
+      "front": "Wat is de formule voor gewicht?",
+      "back": "W = m × g (Gewicht = massa × zwaartekrachtversnelling)"
+    },
+    {
+      "front": "Wat is de zwaartekrachtversnelling op aarde?",
+      "back": "Ongeveer 9.8 m/s²"
+    },
+    {
+      "front": "Wat is wrijving?",
+      "back": "Een kracht die beweging tegenwerkt tussen oppervlakken die tegen elkaar bewegen"
+    },
+    {
+      "front": "Wat is statische wrijving?",
+      "back": "Wrijving die voorkomt dat een object begint te bewegen"
+    },
+    {
+      "front": "Wat is kinetische wrijving?",
+      "back": "Wrijving die werkt op een object dat al in beweging is"
+    },
+    {
+      "front": "Wat is het verschil tussen massa en gewicht?",
+      "back": "Massa is een eigenschap van materie (kg), gewicht is een kracht (N) die afhangt van zwaartekracht"
+    },
+    {
+      "front": "Wat is traagheid?",
+      "back": "De weerstand van een object tegen verandering van zijn bewegingstoestand"
+    },
+    {
+      "front": "Wat is versnelling?",
+      "back": "De verandering van snelheid per tijdseenheid, gemeten in m/s²"
+    },
+    {
+      "front": "Wat is de formule voor versnelling?",
+      "back": "a = Δv / Δt (versnelling = verandering in snelheid / verandering in tijd)"
+    }
+  ]
+}

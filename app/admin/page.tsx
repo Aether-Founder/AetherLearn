@@ -1,595 +1,122 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog';
-import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import {
-  LayoutDashboard,
-  BookOpen,
-  FolderOpen,
-  FileText,
-  Target,
-  Brain,
-  Plus,
-  CheckCircle,
-  AlertCircle,
-  ChevronRight,
-  Lock,
-} from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { BookOpen, ChevronRight, FilePlus2, FileText, Folder, LayoutDashboard, Lock, Plus, Trash2, Wrench } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase as browserClient } from '@/lib/supabase/client';
 
 const supabase = browserClient as any;
+type Subject = { id: string; name: string; slug?: string };
+type StudySet = { id: string; title: string; description?: string | null; subject_id?: string | null };
+type LessonPage = { id: string; title: string; subjectId: string };
+type FolderNode = { name: string; path: string; kind?: 'folder' | 'file'; children?: FolderNode[] };
+const slugify = (value: string) => value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-type ContentType = 'subject' | 'chapter' | 'learningset' | 'quiz' | 'summary' | 'practice-test';
-
-interface ContentExample {
-  title: string;
-  description: string;
-  jsonExample: string;
-  schema: string;
+function parseCards(value: string, separator: string) {
+  const delimiter = separator === '\\t' ? '\t' : separator;
+  const cards = value.split(/\r?\n/).flatMap((line) => {
+    const position = line.indexOf(delimiter);
+    if (!line.trim() || position < 0) return [];
+    const front = line.slice(0, position).trim();
+    const back = line.slice(position + delimiter.length).trim();
+    return front && back ? [{ front, back }] : [];
+  });
+  return cards;
 }
 
-const contentExamples: Record<ContentType, ContentExample> = {
-  subject: {
-    title: 'Vak',
-    description: 'Voeg een nieuw vak toe aan de platform',
-    jsonExample: `{
-  "name": "Biologie",
-  "description": "Leer over levende organismen en hun processen",
-  "color": "#22c55e",
-  "icon": "flask"
-}`,
-    schema: `{
-  "name": "string (required) - Naam van het vak",
-  "description": "string (required) - Beschrijving van het vak",
-  "color": "string (optional) - Hex kleur code",
-  "icon": "string (optional) - Icon naam"
-}`,
-  },
-  chapter: {
-    title: 'Hoofdstuk',
-    description: 'Voeg een hoofdstuk toe aan een vak',
-    jsonExample: `{
-  "subject_id": "uuid-of-subject",
-  "title": "Celbiologie",
-  "description": "Inleiding tot cellen en hun functies",
-  "order": 1
-}`,
-    schema: `{
-  "subject_id": "string (required) - UUID van het bijbehorende vak",
-  "title": "string (required) - Titel van het hoofdstuk",
-  "description": "string (required) - Beschrijving",
-  "order": "number (optional) - Volgorde nummer"
-}`,
-  },
-  learningset: {
-    title: 'Leerset',
-    description: 'Voeg een leerset (flashcards) toe',
-    jsonExample: `{
-  "subject_id": "uuid-of-subject",
-  "chapter_id": "uuid-of-chapter",
-  "title": "Celstructure Flashcards",
-  "description": "Flashcards over celstructuren",
-  "cards": [
-    {
-      "front": "Wat is de functie van de celkern?",
-      "back": "De celkern bevat het DNA en controleert alle celactiviteiten",
-      "source_text": "Biologie tekstboek pagina 45"
-    },
-    {
-      "front": "Wat zijn ribosomen?",
-      "back": "Ribosomen zijn verantwoordelijk voor eiwitsynthese",
-      "source_text": null
-    }
-  ]
-}`,
-    schema: `{
-  "subject_id": "string (required) - UUID van het vak",
-  "chapter_id": "string (optional) - UUID van het hoofdstuk",
-  "title": "string (required) - Titel van de leerset",
-  "description": "string (required) - Beschrijving",
-  "cards": "array (required) - Array van flashcard objecten",
-  "cards[].front": "string (required) - Vraag",
-  "cards[].back": "string (required) - Antwoord",
-  "cards[].source_text": "string (optional) - Bron tekst"
-}`,
-  },
-  quiz: {
-    title: 'Quiz',
-    description: 'Voeg een quiz toe met vragen',
-    jsonExample: `{
-  "subject_id": "uuid-of-subject",
-  "chapter_id": "uuid-of-chapter",
-  "title": "Celbiologie Quiz",
-  "description": "Test je kennis over cellen",
-  "questions": [
-    {
-      "type": "multiple_choice",
-      "question": "Wat is de functie van mitochondria?",
-      "options": [
-        "Eiwitsynthese",
-        "Energieproductie",
-        "DNA opslag",
-        "Celdeling"
-      ],
-      "correct_answer": 1,
-      "explanation": "Mitochondria staan bekend als de energiecentrales van de cel"
-    },
-    {
-      "type": "open",
-      "question": "Beschrijf het proces van celdeling",
-      "model_answer": "Celdeling is het proces waarbij een cel zich splitst in twee dochtercellen...",
-      "explanation": "Dit omvat mitose en meiose"
-    }
-  ]
-}`,
-    schema: `{
-  "subject_id": "string (required) - UUID van het vak",
-  "chapter_id": "string (optional) - UUID van het hoofdstuk",
-  "title": "string (required) - Titel van de quiz",
-  "description": "string (required) - Beschrijving",
-  "questions": "array (required) - Array van vraag objecten",
-  "questions[].type": "string (required) - 'multiple_choice' of 'open'",
-  "questions[].question": "string (required) - De vraag",
-  "questions[].options": "array (optional) - Opties voor multiple choice",
-  "questions[].correct_answer": "number (optional) - Index van correct antwoord",
-  "questions[].model_answer": "string (optional) - Model antwoord voor open vragen",
-  "questions[].explanation": "string (optional) - Uitleg van het antwoord"
-}`,
-  },
-  summary: {
-    title: 'Samenvatting',
-    description: 'Voeg een samenvatting toe',
-    jsonExample: `{
-  "subject_id": "uuid-of-subject",
-  "chapter_id": "uuid-of-chapter",
-  "title": "Samenvatting Celbiologie",
-  "content": "# Celbiologie\\n\\nCellen zijn de basisbouwstenen van alle levende organismen...",
-  "tags": ["cel", "biologie", "basis"],
-  "difficulty": "beginner"
-}`,
-    schema: `{
-  "subject_id": "string (required) - UUID van het vak",
-  "chapter_id": "string (optional) - UUID van het hoofdstuk",
-  "title": "string (required) - Titel van de samenvatting",
-  "content": "string (required) - Inhoud (kan markdown bevatten)",
-  "tags": "array (optional) - Array van tags",
-  "difficulty": "string (optional) - 'beginner', 'intermediate', of 'advanced'"
-}`,
-  },
-  'practice-test': {
-    title: 'Oefentoets',
-    description: 'Voeg een oefentoets toe',
-    jsonExample: `{
-  "subject_id": "uuid-of-subject",
-  "chapter_id": "uuid-of-chapter",
-  "title": "Oefentoets Celbiologie",
-  "description": "Complete oefentoets over celbiologie",
-  "duration_minutes": 45,
-  "passing_score": 70,
-  "questions": [
-    {
-      "type": "multiple_choice",
-      "question": "Wat is de functie van de celmembraan?",
-      "options": ["Bescherming", "Transport", "Beide", "Geen"],
-      "correct_answer": 2,
-      "points": 5
-    }
-  ]
-}`,
-    schema: `{
-  "subject_id": "string (required) - UUID van het vak",
-  "chapter_id": "string (optional) - UUID van het hoofdstuk",
-  "title": "string (required) - Titel van de oefentoets",
-  "description": "string (required) - Beschrijving",
-  "duration_minutes": "number (required) - Tijdslimiet in minuten",
-  "passing_score": "number (required) - Minimum score om te slagen (0-100)",
-  "questions": "array (required) - Array van vraag objecten",
-  "questions[].type": "string (required) - Type vraag",
-  "questions[].question": "string (required) - De vraag",
-  "questions[].options": "array (optional) - Opties",
-  "questions[].correct_answer": "number (optional) - Correct antwoord index",
-  "questions[].points": "number (required) - Punten voor deze vraag"
-}`,
-  },
-};
-
-const adminSections = [
-  {
-    title: 'Analytics',
-    description: 'Bekijk gebruikersstatistieken en activiteit',
-    icon: LayoutDashboard,
-    href: '/admin/analytics',
-    color: 'text-blue-500',
-  },
-  {
-    title: 'Artisan',
-    description: 'Beheer Artisan AI verwerkingswachtrij',
-    icon: BookOpen,
-    href: '/admin/artisan',
-    color: 'text-purple-500',
-  },
-  {
-    title: 'Lessen',
-    description: 'Beheer lesinhoud en structuur',
-    icon: FileText,
-    href: '/admin/lessons',
-    color: 'text-green-500',
-  },
-];
+function ExplorerNode({ node, selected, onSelect, sets, pages, depth = 0 }: { node: FolderNode; selected: string; onSelect: (path: string) => void; sets: StudySet[]; pages: LessonPage[]; depth?: number }) {
+  const subjectId = node.path.split('/')[0];
+  return <div style={{ paddingLeft: depth * 12 }}>
+    <button type="button" onClick={() => onSelect(node.path)} className={'flex w-full items-center gap-2 rounded px-2 py-1.5 text-left text-sm ' + (selected === node.path ? 'bg-primary text-primary-foreground' : 'hover:bg-secondary')}>
+      {node.kind === 'file' ? <FileText className="h-4 w-4 shrink-0" /> : <Folder className="h-4 w-4 shrink-0" />}{node.name}
+    </button>
+    {node.children?.map((child) => <ExplorerNode key={child.path} node={child} selected={selected} onSelect={onSelect} sets={sets} pages={pages} depth={depth + 1} />)}
+    {depth === 0 && <div className="ml-6 border-l border-border pl-2 text-xs text-muted-foreground">
+      {sets.filter((set) => set.subject_id === subjectId).map((set) => <p key={set.id} className="py-1">▤ {set.title}</p>)}
+      {pages.filter((page) => page.subjectId === subjectId).map((page) => <p key={page.id} className="py-1">▤ {page.title}</p>)}
+    </div>}
+  </div>;
+}
 
 export default function AdminPortal() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState('');
-  const [authError, setAuthError] = useState('');
-  const [showContentModal, setShowContentModal] = useState(false);
-  const [selectedContentType, setSelectedContentType] = useState<ContentType | null>(null);
-  const [jsonInput, setJsonInput] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [email, setEmail] = useState(''); const [password, setPassword] = useState('');
+  const [subjects, setSubjects] = useState<Subject[]>([]);
+  const [sets, setSets] = useState<StudySet[]>([]);
+  const [pages, setPages] = useState<LessonPage[]>([]);
+  const [tree, setTree] = useState<FolderNode[]>([]);
+  const [saving, setSaving] = useState(false);
+  const [subjectOpen, setSubjectOpen] = useState(false);
+  const [setOpen, setSetOpen] = useState(false);
+  const [pageOpen, setPageOpen] = useState(false);
+  const [subjectForm, setSubjectForm] = useState({ name: '', description: '' });
+  const [setForm, setSetForm] = useState({ title: '', description: '', separator: '=', entries: '', location: '' });
+  const [pageForm, setPageForm] = useState({ title: '', id: '', description: '', subjectId: '', subjectDatabaseId: '', chapterId: '', paragraphId: '', jsonPath: '' });
+  const [pageStep, setPageStep] = useState(1);
+  const subjectNames = useMemo(() => new Map(subjects.map((subject) => [subject.id, subject.name])), [subjects]);
+  const [selectedSubject, selectedChapter, selectedParagraph] = setForm.location.split('/');
 
-  // Server-side authentication - no client-side access to credentials
-  const [authenticating, setAuthenticating] = useState(false);
-  const [authEmail, setAuthEmail] = useState('');
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setAuthError('');
-    setAuthenticating(true);
-
-    try {
-      const response = await fetch('/api/admin/auth', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: authEmail,
-          password: password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setIsAuthenticated(true);
-        setPassword('');
-        setAuthEmail('');
-        toast.success('Admin authentication successful');
-      } else {
-        setAuthError(data.error || 'Authentication failed');
-      }
-    } catch (error) {
-      setAuthError('Failed to authenticate. Please try again.');
-    } finally {
-      setAuthenticating(false);
-    }
+  const loadData = async () => {
+    const [subjectData, setData, pageResponse, treeResponse] = await Promise.all([
+      supabase.from('subjects').select('id,name,slug').order('name'),
+      supabase.from('study_sets').select('id,title,description,subject_id').order('created_at', { ascending: false }),
+      fetch('/api/admin/content-pages'), fetch('/api/admin/curriculum'),
+    ]);
+    const curriculumData = treeResponse.ok ? await treeResponse.json() : { subjects: [], chapters: [], paragraphs: [] };
+    const known = new Map<string, Subject>();
+    (curriculumData.subjects || subjectData.data || []).forEach((subject: Subject) => known.set(subject.id, subject));
+    const pageData = pageResponse.ok ? await pageResponse.json() : { pages: [] };
+    setSubjects(Array.from(known.values()).sort((a, b) => a.name.localeCompare(b.name, 'nl')));
+    setSets(setData.data || []); setPages(pageData.pages || []);
+    const paragraphsByChapter = new Map<string, any[]>();
+    (curriculumData.paragraphs || []).forEach((paragraph: any) => paragraphsByChapter.set(paragraph.chapter_id, [...(paragraphsByChapter.get(paragraph.chapter_id) || []), paragraph]));
+    const chaptersBySubject = new Map<string, any[]>();
+    (curriculumData.chapters || []).forEach((chapter: any) => chaptersBySubject.set(chapter.subject_id, [...(chaptersBySubject.get(chapter.subject_id) || []), chapter]));
+    setTree((curriculumData.subjects || []).map((subject: Subject) => ({ name: subject.name, path: subject.id, kind: 'folder', children: (chaptersBySubject.get(subject.id) || []).map((chapter) => ({ name: chapter.title, path: subject.id + '/' + chapter.id, kind: 'folder', children: (paragraphsByChapter.get(chapter.id) || []).map((paragraph) => ({ name: paragraph.title, path: subject.id + '/' + chapter.id + '/' + paragraph.id, kind: 'folder' })) })) })));
   };
+  useEffect(() => { if (authenticated) void loadData().catch(() => toast.error('Gegevens konden niet worden geladen.')); }, [authenticated]);
 
-  const openContentModal = (type: ContentType) => {
-    setSelectedContentType(type);
-    setJsonInput(contentExamples[type].jsonExample);
-    setShowContentModal(true);
+  const login = async (event: React.FormEvent) => {
+    event.preventDefault(); setSaving(true);
+    try { const response = await fetch('/api/admin/auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) }); const body = await response.json(); if (!response.ok) throw new Error(body.error); setAuthenticated(true); setPassword(''); } catch (error) { toast.error(error instanceof Error ? error.message : 'Inloggen mislukt.'); } finally { setSaving(false); }
   };
-
-  const handleSubmitContent = async () => {
-    if (!selectedContentType) return;
-
-    setIsSubmitting(true);
-
-    try {
-      const parsedJson = JSON.parse(jsonInput);
-
-      let tableName = '';
-      let insertData = {};
-
-      switch (selectedContentType) {
-        case 'subject':
-          tableName = 'subjects';
-          insertData = {
-            name: parsedJson.name,
-            description: parsedJson.description,
-            color: parsedJson.color || '#3b82f6',
-            icon: parsedJson.icon || 'book',
-            user_id: null, // Global content
-            mastery: 0,
-          };
-          break;
-        case 'chapter':
-          tableName = 'chapters';
-          insertData = {
-            subject_id: parsedJson.subject_id,
-            title: parsedJson.title,
-            description: parsedJson.description,
-            order: parsedJson.order || 0,
-          };
-          break;
-        case 'learningset':
-          tableName = 'decks';
-          insertData = {
-            user_id: null, // Global content
-            name: parsedJson.title,
-            description: parsedJson.description,
-            subject_id: parsedJson.subject_id,
-            chapter_id: parsedJson.chapter_id,
-          };
-          break;
-        case 'quiz':
-          tableName = 'quizzes';
-          insertData = {
-            subject_id: parsedJson.subject_id,
-            chapter_id: parsedJson.chapter_id,
-            title: parsedJson.title,
-            description: parsedJson.description,
-            questions: parsedJson.questions,
-            user_id: null, // Global content
-          };
-          break;
-        case 'summary':
-          tableName = 'summaries';
-          insertData = {
-            subject_id: parsedJson.subject_id,
-            chapter_id: parsedJson.chapter_id,
-            title: parsedJson.title,
-            content: parsedJson.content,
-            tags: parsedJson.tags || [],
-            difficulty: parsedJson.difficulty || 'intermediate',
-            user_id: null, // Global content
-          };
-          break;
-        case 'practice-test':
-          tableName = 'practice_tests';
-          insertData = {
-            subject_id: parsedJson.subject_id,
-            chapter_id: parsedJson.chapter_id,
-            title: parsedJson.title,
-            description: parsedJson.description,
-            duration_minutes: parsedJson.duration_minutes,
-            passing_score: parsedJson.passing_score,
-            questions: parsedJson.questions,
-            user_id: null, // Global content
-          };
-          break;
-      }
-
-      const { data, error } = await supabase.from(tableName).insert([insertData]).select().single();
-
-      if (error) throw error;
-
-      // If learningset, also insert the cards
-      if (selectedContentType === 'learningset' && parsedJson.cards) {
-        const cards = parsedJson.cards.map((card: any) => ({
-          deck_id: data.id,
-          front: card.front,
-          back: card.back,
-          source_text: card.source_text || null,
-        }));
-
-        const { error: cardsError } = await supabase.from('cards').insert(cards);
-
-        if (cardsError) throw cardsError;
-      }
-
-      toast.success(`${contentExamples[selectedContentType].title} succesvol toegevoegd!`);
-      setShowContentModal(false);
-      setJsonInput('');
-    } catch (error) {
-      console.error('Error adding content:', error);
-      toast.error('Fout bij toevoegen content. Controleer de JSON en probeer opnieuw.');
-    } finally {
-      setIsSubmitting(false);
-    }
+  const addSubject = async (event: React.FormEvent) => {
+    event.preventDefault(); setSaving(true);
+    try { const { error } = await supabase.from('subjects').insert({ name: subjectForm.name.trim(), slug: slugify(subjectForm.name), description: subjectForm.description.trim() || null, icon: 'BookOpen', color: '#3b82f6', user_id: null, mastery: 0 }); if (error) throw error; setSubjectOpen(false); setSubjectForm({ name: '', description: '' }); await loadData(); toast.success('Vak toegevoegd.'); } catch (error) { toast.error(error instanceof Error ? error.message : 'Vak toevoegen mislukt.'); } finally { setSaving(false); }
   };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-      handleSubmitContent();
-    }
+  const addSet = async (event: React.FormEvent) => {
+    event.preventDefault(); const cards = parseCards(setForm.entries, setForm.separator);
+    if (!setForm.title.trim() || !selectedSubject || !cards.length) { toast.error('Kies een locatie, vul een titel in en voeg minstens één kaart toe.'); return; }
+    setSaving(true);
+    try { const response = await fetch('/api/admin/study-sets', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: setForm.title, description: setForm.description, subjectId: selectedSubject, chapterId: selectedChapter, paragraphId: selectedParagraph, locationPath: setForm.location, cards }) }); const body = await response.json(); if (!response.ok) throw new Error(body.error); setSetOpen(false); setSetForm({ title: '', description: '', separator: '=', entries: '', location: '' }); await loadData(); toast.success('Leerset toegevoegd.'); } catch (error) { toast.error(error instanceof Error ? error.message : 'Leerset toevoegen mislukt.'); } finally { setSaving(false); }
   };
+  const addPage = async () => {
+    setSaving(true);
+    try { const selected = subjects.find((subject) => subject.id === pageForm.subjectDatabaseId || subject.id === pageForm.subjectId); const response = await fetch('/api/admin/content-pages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...pageForm, subjectDatabaseId: selected?.id, subjectId: selected?.slug || slugify(selected?.name || ''), id: pageForm.id || slugify(pageForm.title) }) }); const body = await response.json(); if (!response.ok) throw new Error(body.error); setPageOpen(false); await loadData(); toast.success('Lespagina toegevoegd.'); } catch (error) { toast.error(error instanceof Error ? error.message : 'Lespagina toevoegen mislukt.'); } finally { setSaving(false); }
+  };
+  const deleteSet = async (id: string) => { if (!confirm('Leerset verwijderen?')) return; const response = await fetch('/api/admin/study-sets?id=' + encodeURIComponent(id), { method: 'DELETE' }); if (!response.ok) return toast.error('Verwijderen mislukt.'); setSets((current) => current.filter((set) => set.id !== id)); };
+  const deletePage = async (id: string) => { if (!confirm('Lespagina verwijderen uit het overzicht?')) return; const response = await fetch('/api/admin/content-pages?id=' + encodeURIComponent(id), { method: 'DELETE' }); if (!response.ok) return toast.error('Verwijderen mislukt.'); setPages((current) => current.filter((page) => page.id !== id)); };
 
-  // Show authentication screen if not authenticated
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <div className="w-full max-w-md">
-          <div className="bg-card border border-border rounded-lg p-8 shadow-lg">
-            <div className="flex items-center gap-3 mb-6">
-              <Lock className="w-6 h-6 text-primary" />
-              <h1 className="text-2xl font-bold text-foreground">Admin Portal</h1>
-            </div>
+  if (!authenticated) return <main className="grid min-h-screen place-items-center bg-background p-4"><Card className="w-full max-w-md p-8"><div className="mb-6 flex gap-3"><Lock className="h-6 w-6 text-white" /><h1 className="text-2xl font-bold">Admin Portal</h1></div><form className="space-y-4" onSubmit={login}><div><Label htmlFor="email">Admin e-mail</Label><Input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} required /></div><div><Label htmlFor="password">Wachtwoord</Label><Input id="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} required /></div><Button className="w-full" disabled={saving}>Inloggen</Button></form></Card></main>;
 
-            <div className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Voer je admin credentials in om toegang te krijgen tot de admin portal.
-              </p>
-              <form onSubmit={handleLogin} className="space-y-4">
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                    Admin Email
-                  </label>
-                  <Input
-                    type="email"
-                    id="email"
-                    value={authEmail}
-                    onChange={(e) => setAuthEmail(e.target.value)}
-                    placeholder="Voer admin email in"
-                    required
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-foreground mb-2"
-                  >
-                    Admin Wachtwoord
-                  </label>
-                  <Input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Voer admin wachtwoord in"
-                    required
-                  />
-                </div>
-                {authError && <p className="text-sm text-red-500">{authError}</p>}
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={authenticating || !authEmail.trim() || !password.trim()}
-                >
-                  {authenticating ? 'Authenticeren...' : 'Inloggen'}
-                </Button>
-              </form>
-              <p className="text-xs text-muted-foreground text-center">
-                Both email and password are validated server-side for maximum security.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  return <AppShell><PageHeader eyebrow="Admin" title="Content beheren" description="Maak vakken, leersets en interactieve lespagina's." /><div className="mt-10 space-y-8">
+    <div className="grid gap-4 md:grid-cols-3">{[{ href: '/admin/analytics', label: 'Analytics', Icon: LayoutDashboard }, { href: '/admin/lessons', label: 'Lessen', Icon: FileText }, { href: '/admin/artisan', label: 'Artisan wachtrij', Icon: Wrench }].map(({ href, label, Icon }) => <Link key={href} href={href}><Card className="flex items-center gap-3 p-5 hover:bg-secondary/30"><Icon className="h-5 w-5 text-white" />{label}<ChevronRight className="ml-auto h-4 w-4" /></Card></Link>)}</div>
+    <div className="grid gap-4 md:grid-cols-3"><Card className="p-6"><BookOpen className="h-5 w-5 text-white" /><h2 className="mt-3 font-semibold">Vak</h2><p className="mt-1 text-sm text-muted-foreground">Naam en beschrijving.</p><Button className="mt-4" onClick={() => setSubjectOpen(true)}><Plus className="mr-2 h-4 w-4" />Vak toevoegen</Button></Card><Card className="p-6"><FileText className="h-5 w-5 text-white" /><h2 className="mt-3 font-semibold">Leerset</h2><p className="mt-1 text-sm text-muted-foreground">Termen en definities in één keer.</p><Button className="mt-4" onClick={() => setSetOpen(true)}><Plus className="mr-2 h-4 w-4" />Leerset toevoegen</Button></Card><Card className="p-6"><FilePlus2 className="h-5 w-5 text-white" /><h2 className="mt-3 font-semibold">JSON-lespagina</h2><p className="mt-1 text-sm text-muted-foreground">Koppel een JSON-bestand aan een vak.</p><Button className="mt-4" onClick={() => { setPageStep(1); setPageOpen(true); }}><Plus className="mr-2 h-4 w-4" />Lespagina toevoegen</Button></Card></div>
+    <div className="grid gap-6 lg:grid-cols-2"><Card className="p-6"><h2 className="font-semibold">Bestaande leersets</h2>{sets.map((set) => <div key={set.id} className="mt-3 flex items-center gap-3 border-t border-border pt-3"><div className="min-w-0 flex-1"><p className="truncate">{set.title}</p><p className="text-xs text-muted-foreground">{subjectNames.get(set.subject_id || '') || 'Geen vak'}</p></div><Button size="icon" variant="ghost" onClick={() => void deleteSet(set.id)}><Trash2 className="h-4 w-4" /></Button></div>)}</Card><Card className="p-6"><h2 className="font-semibold">Bestaande lespagina's</h2>{pages.map((page) => <div key={page.id} className="mt-3 flex items-center gap-3 border-t border-border pt-3"><div className="min-w-0 flex-1"><p className="truncate">{page.title}</p><p className="text-xs text-muted-foreground">/{page.id}</p></div><Button size="icon" variant="ghost" onClick={() => void deletePage(page.id)}><Trash2 className="h-4 w-4" /></Button></div>)}</Card></div>
+  </div>
 
-  return (
-    <AppShell>
-      <PageHeader
-        eyebrow="Admin"
-        title="Admin Portal"
-        description="Beheer platform content en bekijk statistieken"
-      />
+  <Dialog open={subjectOpen} onOpenChange={setSubjectOpen}><DialogContent><DialogHeader><DialogTitle>Vak toevoegen</DialogTitle></DialogHeader><form onSubmit={addSubject} className="space-y-4"><div><Label htmlFor="subject-name">Vaknaam *</Label><Input id="subject-name" value={subjectForm.name} onChange={(event) => setSubjectForm({ ...subjectForm, name: event.target.value })} required /></div><div><Label htmlFor="subject-description">Beschrijving</Label><Textarea id="subject-description" value={subjectForm.description} onChange={(event) => setSubjectForm({ ...subjectForm, description: event.target.value })} /></div><DialogFooter><Button type="button" variant="outline" onClick={() => setSubjectOpen(false)}>Annuleren</Button><Button disabled={saving}>Vak toevoegen</Button></DialogFooter></form></DialogContent></Dialog>
 
-      <div className="mt-10 space-y-8">
-        {/* Existing Admin Sections */}
-        <div>
-          <h2 className="font-display text-xl font-semibold mb-4">Beheer Secties</h2>
-          <div className="grid gap-4 md:grid-cols-3">
-            {adminSections.map((section) => {
-              const Icon = section.icon;
-              return (
-                <Link key={section.href} href={section.href}>
-                  <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
-                    <div className="flex items-start gap-4">
-                      <div className={`p-3 rounded-lg bg-secondary ${section.color}`}>
-                        <Icon className="h-6 w-6" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-lg">{section.title}</h3>
-                        <p className="mt-1 text-sm text-muted-foreground">{section.description}</p>
-                      </div>
-                      <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                    </div>
-                  </Card>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
+  <Dialog open={setOpen} onOpenChange={setSetOpen}><DialogContent className="max-h-[90vh] max-w-5xl overflow-y-auto"><DialogHeader><DialogTitle>Leerset toevoegen</DialogTitle></DialogHeader><form onSubmit={addSet} className="grid gap-6 py-2 lg:grid-cols-[1fr_360px]"><div className="space-y-4"><div><Label htmlFor="set-title">Naam *</Label><Input id="set-title" value={setForm.title} onChange={(event) => setSetForm({ ...setForm, title: event.target.value })} required /></div><div><Label htmlFor="set-description">Beschrijving</Label><Input id="set-description" value={setForm.description} onChange={(event) => setSetForm({ ...setForm, description: event.target.value })} /></div><div><Label htmlFor="separator">Scheidingsteken</Label><div className="flex gap-2"><Input id="separator" value={setForm.separator === '\t' ? '\\t' : setForm.separator} onChange={(event) => setSetForm({ ...setForm, separator: event.target.value })} /><Button type="button" variant="outline" onClick={() => setSetForm({ ...setForm, separator: '=' })}>=</Button><Button type="button" variant="outline" onClick={() => setSetForm({ ...setForm, separator: ';' })}>;</Button><Button type="button" variant="outline" onClick={() => setSetForm({ ...setForm, separator: '\t' })}>Tab</Button></div></div><div><Label htmlFor="entries">Termen en definities *</Label><Textarea id="entries" rows={12} className="font-mono" value={setForm.entries} onChange={(event) => setSetForm({ ...setForm, entries: event.target.value })} placeholder={'Term = Definitie\nNog een term = Nog een definitie'} /></div></div><aside className="rounded-lg border border-border bg-secondary/30 p-4"><div className="mb-4"><p className="font-semibold">Contentverkenner</p><p className="text-xs text-muted-foreground">Kies de exacte map. Mappen, hoofdstukken, paragrafen en bestaande sets worden weergegeven.</p></div><div className="max-h-[430px] overflow-y-auto">{tree.map((node) => <ExplorerNode key={node.path} node={node} selected={setForm.location} onSelect={(location) => setSetForm({ ...setForm, location })} sets={sets} pages={pages} />)}</div><p className="mt-4 rounded bg-background p-2 text-xs text-muted-foreground">Gekozen: content/subjects/{setForm.location || '—'}</p></aside><DialogFooter className="lg:col-span-2"><Button type="button" variant="outline" onClick={() => setSetOpen(false)}>Annuleren</Button><Button disabled={saving || !selectedSubject}>{saving ? 'Opslaan...' : 'Leerset toevoegen'}</Button></DialogFooter></form></DialogContent></Dialog>
 
-        {/* Content Management */}
-        <div>
-          <h2 className="font-display text-xl font-semibold mb-4">Content Toevoegen</h2>
-          <p className="text-muted-foreground mb-6">
-            Voeg globale content toe via JSON. Deze content is zichtbaar voor alle gebruikers.
-          </p>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {(Object.keys(contentExamples) as ContentType[]).map((type) => {
-              const example = contentExamples[type];
-              return (
-                <Card key={type} className="p-6 hover:shadow-lg transition-shadow">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="p-3 rounded-lg bg-primary/10 text-primary">
-                      <Plus className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold">{example.title}</h3>
-                      <p className="mt-1 text-sm text-muted-foreground">{example.description}</p>
-                    </div>
-                  </div>
-                  <Button
-                    onClick={() => openContentModal(type)}
-                    className="w-full"
-                    variant="outline"
-                  >
-                    Voeg {example.title.toLowerCase()} toe
-                  </Button>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* Content Modal */}
-      <Dialog open={showContentModal} onOpenChange={setShowContentModal}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>
-              {selectedContentType && contentExamples[selectedContentType].title} Toevoegen
-            </DialogTitle>
-          </DialogHeader>
-
-          {selectedContentType && (
-            <div className="space-y-4 py-4">
-              {/* Documentation */}
-              <div className="bg-secondary/50 rounded-lg p-4">
-                <h4 className="font-semibold mb-2">JSON Schema</h4>
-                <pre className="text-xs text-muted-foreground whitespace-pre-wrap font-mono">
-                  {contentExamples[selectedContentType].schema}
-                </pre>
-              </div>
-
-              {/* JSON Input */}
-              <div>
-                <label className="text-sm font-medium mb-2 block">
-                  JSON Content (Ctrl+Enter om op te slaan)
-                </label>
-                <Textarea
-                  value={jsonInput}
-                  onChange={(e) => setJsonInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder={contentExamples[selectedContentType].jsonExample}
-                  rows={15}
-                  className="font-mono text-sm"
-                />
-              </div>
-
-              {/* Example */}
-              <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
-                <h4 className="font-semibold mb-2 text-blue-500">Voorbeeld</h4>
-                <pre className="text-xs text-muted-foreground whitespace-pre-wrap font-mono">
-                  {contentExamples[selectedContentType].jsonExample}
-                </pre>
-              </div>
-            </div>
-          )}
-
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setShowContentModal(false)}
-              disabled={isSubmitting}
-            >
-              Annuleren
-            </Button>
-            <Button onClick={handleSubmitContent} disabled={isSubmitting || !jsonInput.trim()}>
-              {isSubmitting ? 'Toevoegen...' : 'Toevoegen'}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </AppShell>
-  );
+  <Dialog open={pageOpen} onOpenChange={setPageOpen}><DialogContent><DialogHeader><DialogTitle>JSON-lespagina — stap {pageStep} van 3</DialogTitle></DialogHeader>{pageStep === 1 && <div className="space-y-4"><div><Label>Titel *</Label><Input value={pageForm.title} onChange={(event) => setPageForm({ ...pageForm, title: event.target.value })} /></div><div><Label>Pagina-id voor URL</Label><Input value={pageForm.id} onChange={(event) => setPageForm({ ...pageForm, id: event.target.value })} placeholder={slugify(pageForm.title)} /></div><div><Label>Beschrijving</Label><Input value={pageForm.description} onChange={(event) => setPageForm({ ...pageForm, description: event.target.value })} /></div></div>}{pageStep === 2 && <div><Label>Vak *</Label><select className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3" value={pageForm.subjectDatabaseId} onChange={(event) => setPageForm({ ...pageForm, subjectDatabaseId: event.target.value })}>{subjects.map((subject) => <option key={subject.id} value={subject.id}>{subject.name}</option>)}</select><p className="mt-3 text-xs text-muted-foreground">Koppel eventueel aan een precieze digitale locatie:</p><select className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3" value={pageForm.chapterId} onChange={(event) => setPageForm({ ...pageForm, chapterId: event.target.value, paragraphId: '' })}><option value="">Op vakniveau</option>{tree.find((node) => node.path === pageForm.subjectDatabaseId)?.children?.map((chapter) => <option key={chapter.path} value={chapter.path.split('/')[1]}>{chapter.name}</option>)}</select><select className="mt-2 h-10 w-full rounded-md border border-input bg-background px-3" value={pageForm.paragraphId} onChange={(event) => setPageForm({ ...pageForm, paragraphId: event.target.value })} disabled={!pageForm.chapterId}><option value="">Geen paragraaf</option>{tree.find((node) => node.path === pageForm.subjectDatabaseId)?.children?.find((chapter) => chapter.path.endsWith('/' + pageForm.chapterId))?.children?.map((paragraph) => <option key={paragraph.path} value={paragraph.path.split('/')[2]}>{paragraph.name}</option>)}</select></div>}{pageStep === 3 && <div><Label>JSON-bestand binnen content/ *</Label><Input value={pageForm.jsonPath} onChange={(event) => setPageForm({ ...pageForm, jsonPath: event.target.value })} placeholder="aardrijkskunde/h5.json" /></div>}<DialogFooter className="mt-5"><Button variant="outline" onClick={() => pageStep === 1 ? setPageOpen(false) : setPageStep(pageStep - 1)}>Vorige</Button>{pageStep < 3 ? <Button onClick={() => setPageStep(pageStep + 1)} disabled={(pageStep === 1 && !pageForm.title) || (pageStep === 2 && !pageForm.subjectDatabaseId)}>Volgende</Button> : <Button onClick={() => void addPage()} disabled={saving || !pageForm.jsonPath}>Opslaan</Button>}</DialogFooter></DialogContent></Dialog>
+  </AppShell>;
 }

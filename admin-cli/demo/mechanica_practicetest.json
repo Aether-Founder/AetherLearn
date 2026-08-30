@@ -1,0 +1,185 @@
+{
+  "subject_id": "PLACEHOLDER_SUBJECT_ID",
+  "chapter_id": "PLACEHOLDER_MECHANICA_CHAPTER_ID",
+  "title": "Mechanica Oefentoets",
+  "description": "Complete oefentoets over mechanica met krachten, beweging en energie",
+  "duration_minutes": 45,
+  "passing_score": 70,
+  "questions": [
+    {
+      "type": "multiple_choice",
+      "question": "Een object met massa 10 kg wordt versneld met 5 m/s². Wat is de netto kracht?",
+      "options": ["2 N", "15 N", "50 N", "500 N"],
+      "correct_answer": 2,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de kinetische energie van een 2 kg object dat beweegt met 3 m/s?",
+      "options": ["3 J", "6 J", "9 J", "18 J"],
+      "correct_answer": 2,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Een 5 kg object wordt 10 meter omhoog getild. Wat is de potentiële energie?",
+      "options": ["50 J", "98 J", "490 J", "500 J"],
+      "correct_answer": 2,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de gewicht van een 50 kg persoon op aarde?",
+      "options": ["50 N", "98 N", "490 N", "500 N"],
+      "correct_answer": 2,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Welke wet stelt dat voor elke actie een gelijke en tegengestelde reactie is?",
+      "options": [
+        "Eerste wet van Newton",
+        "Tweede wet van Newton",
+        "Derde wet van Newton",
+        "Wet van Ohm"
+      ],
+      "correct_answer": 2,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Een motor levert 1000 J werk in 5 seconden. Wat is het vermogen?",
+      "options": ["50 W", "100 W", "200 W", "500 W"],
+      "correct_answer": 2,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de eenheid van arbeid?",
+      "options": ["Newton", "Joule", "Watt", "Pascal"],
+      "correct_answer": 1,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Een object beweegt met constante snelheid. Wat is de netto kracht?",
+      "options": ["Gelijk aan de massa", "Gelijk aan de snelheid", "Nul", "Onbepaald"],
+      "correct_answer": 2,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is versnelling?",
+      "options": [
+        "Verandering van positie",
+        "Verandering van snelheid per tijd",
+        "Verandering van kracht",
+        "Verandering van massa"
+      ],
+      "correct_answer": 1,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Welke grootheid wordt gemeten in Watt?",
+      "options": ["Kracht", "Energie", "Vermogen", "Arbeid"],
+      "correct_answer": 2,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de formule voor arbeid?",
+      "options": ["W = F/m", "W = F × d", "W = F × v", "W = F × a"],
+      "correct_answer": 1,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Een object valt van 20 meter hoogte. Wat is de snelheid bij impact (negeer luchtweerstand)?",
+      "options": ["10 m/s", "14 m/s", "20 m/s", "28 m/s"],
+      "correct_answer": 2,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is inertie?",
+      "options": [
+        "De kracht van zwaartekracht",
+        "De weerstand tegen verandering van beweging",
+        "De snelheid van een object",
+        "De massa van een object"
+      ],
+      "correct_answer": 1,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Welke wet beschrijft de relatie tussen kracht, massa en versnelling?",
+      "options": [
+        "Eerste wet van Newton",
+        "Tweede wet van Newton",
+        "Derde wet van Newton",
+        "Wet van behoud van energie"
+      ],
+      "correct_answer": 1,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat gebeurt er met de kinetische energie als de snelheid verdubbelt?",
+      "options": ["Verdubbelt", "Vier keer zo groot", "Acht keer zo groot", "Blijft gelijk"],
+      "correct_answer": 1,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de eenheid van massa?",
+      "options": ["Newton", "Joule", "Kilogram", "Meter per seconde"],
+      "correct_answer": 2,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Een veer wordt uitgerekt. Wat voor energie heeft de veer?",
+      "options": [
+        "Kinetische energie",
+        "Potentiële energie",
+        "Thermische energie",
+        "Chemische energie"
+      ],
+      "correct_answer": 1,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de zwaartekrachtversnelling op de maan?",
+      "options": ["1.6 m/s²", "3.7 m/s²", "9.8 m/s²", "24.8 m/s²"],
+      "correct_answer": 0,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is wrijving?",
+      "options": [
+        "Een kracht die beweging bevordert",
+        "Een kracht die beweging tegenwerkt",
+        "Een vorm van energie",
+        "Een type versnelling"
+      ],
+      "correct_answer": 1,
+      "points": 5
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de wet van behoud van mechanische energie?",
+      "options": [
+        "Energie neemt altijd toe",
+        "Energie neemt altijd af",
+        "Totale mechanische energie blijft constant in gesloten systeem",
+        "Energie kan worden gecreëerd"
+      ],
+      "correct_answer": 2,
+      "points": 5
+    }
+  ]
+}

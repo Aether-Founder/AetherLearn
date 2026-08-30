@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  cleanDistDir: true,
   images: {
     remotePatterns: [
       {
@@ -21,35 +22,16 @@ const nextConfig = {
           },
         ],
       },
+      {
+        source: '/:path*',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+        ],
+      },
     ];
-  },
-  // Exclude UI-REFERENCE and magister-extension-project folders from build
-  webpack: (config, { isServer }) => {
-    config.module.rules.push({
-      test: /\.tsx?$/,
-      exclude: [/UI-REFERENCE/, /magister-extension-project/],
-    });
-    
-    // Optimize for faster builds
-    if (!isServer) {
-      config.optimization = {
-        ...config.optimization,
-        splitChunks: {
-          chunks: 'all',
-          cacheGroups: {
-            default: false,
-            vendors: false,
-            commons: {
-              name: 'commons',
-              chunks: 'all',
-              minChunks: 2,
-            },
-          },
-        },
-      };
-    }
-    
-    return config;
   },
   // Optimize production builds
   swcMinify: true,

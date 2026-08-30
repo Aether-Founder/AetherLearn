@@ -13,8 +13,6 @@ import {
   Plus,
   FileText,
   FilePlus2,
-  BookOpen,
-  Menu,
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useUser, useUserProfile } from '@/hooks/useAuth';
@@ -186,7 +184,7 @@ function QuickCreateMenu() {
   }
 
   return (
-    <div className="relative" ref={ref}>
+    <div className="relative ml-2" ref={ref}>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
@@ -202,7 +200,7 @@ function QuickCreateMenu() {
             onClick={() => setOpen(false)}
             className="flex items-center gap-2 rounded-[6px] px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground text-muted-foreground"
           >
-            <FilePlus2 className="h-4 w-4" />+ Voeg je eerste leerlijst toe
+            <FilePlus2 className="h-4 w-4" />+ Voeg een leerlijst toe
           </Link>
           <button
             type="button"
@@ -396,7 +394,8 @@ export function AppShell({
     );
   }
 
-  const visibleNav = allNav.filter((item) => !overflowItems.some((oi) => oi.href === item.href));
+  // Filter out dashboard ('/') from top navbar as requested
+  const visibleNav = allNav.filter((item) => !overflowItems.some((oi) => oi.href === item.href) && item.href !== '/');
 
   return (
     <div className="min-h-screen bg-background">
@@ -405,10 +404,17 @@ export function AppShell({
           mask-image: linear-gradient(to right, black 90%, transparent 100%);
           -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
         }
+        ::-webkit-scrollbar {
+          display: none;
+        }
+        * {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
       `}</style>
       <header className="sticky top-0 z-30 border-b border-border bg-background/90 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-6xl items-center px-6">
-          <div className="flex items-center gap-2.5">
+        <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-6">
+          <div className="flex items-center justify-self-center gap-2.5">
             <MobileNavigation />
             <Link href="/" className="flex items-center gap-2.5">
               <Image
@@ -424,32 +430,34 @@ export function AppShell({
             </Link>
           </div>
 
-          <nav ref={navRef} className="hidden items-center justify-center gap-0.5 lg:flex ml-2">
-            {visibleNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-foreground ${
-                  isActive(item.href) ? 'text-foreground' : 'text-muted-foreground'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <div className="group">
-              <BijhoudenMenu
-                items={[
-                  { href: PAGE_HREFS.inbox, label: PAGE_LABELS.inbox },
-                  { href: PAGE_HREFS.foutenlogboek, label: PAGE_LABELS.foutenlogboek },
-                  { href: PAGE_HREFS.planner, label: PAGE_LABELS.planner },
-                ]}
-              />
+          <nav ref={navRef} className="hidden items-center justify-center gap-0.5 lg:flex">
+            <div className="flex items-center gap-0.5">
+              {visibleNav.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-foreground ${
+                    isActive(item.href) ? 'text-foreground' : 'text-muted-foreground'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <div className="group">
+                <BijhoudenMenu
+                  items={[
+                    { href: PAGE_HREFS.inbox, label: PAGE_LABELS.inbox },
+                    { href: PAGE_HREFS.foutenlogboek, label: PAGE_LABELS.foutenlogboek },
+                    { href: PAGE_HREFS.planner, label: PAGE_LABELS.planner },
+                  ]}
+                />
+              </div>
+              {overflowItems.length > 0 && <MoreMenu items={overflowItems} />}
             </div>
-            {overflowItems.length > 0 && <MoreMenu items={overflowItems} />}
             <QuickCreateMenu />
           </nav>
 
-          <div className="flex items-center gap-3 ml-auto">
+          <div className="flex items-center justify-self-center gap-3">
             <SearchField
               {...(search !== undefined ? { value: search } : {})}
               {...(onSearch ? { onChange: onSearch } : {})}
@@ -512,7 +520,7 @@ export function PageHeader({
     >
       <div className="max-w-2xl text-left">
         {eyebrow && (
-          <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{eyebrow}</p>
+          <p className="text-[11px] tracking-[0.18em] text-muted-foreground">{eyebrow}</p>
         )}
         <h1 className="mt-3 font-display text-4xl font-semibold leading-[1.1] max-w-[480px]:text-[1.75rem] max-w-[480px]:leading-[1.2]">
           {title}

@@ -1,0 +1,16 @@
+# Admin Portal Configuration
+# Copy these variables to your .env.local file for local development
+
+# Admin email for authentication (server-side only)
+ADMIN_EMAIL=your-email@example.com
+
+# Admin password for authentication (server-side only)
+ADMIN_PASSWORD=your-secure-admin-password
+
+# Note: 
+# - Both variables are server-side only (no NEXT_PUBLIC_ prefix)
+# - This provides maximum security as credentials never reach the browser
+# - Authentication is done via secure API route
+# - Never commit .env.local file to version control
+# - Use strong, unique passwords for production
+# - Wrap passwords in quotes if they contain special characters like #

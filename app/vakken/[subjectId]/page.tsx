@@ -1,27 +1,11 @@
 import {
   loadSubject,
   loadChapters,
-  type Subject as JsonSubject,
-  type Chapter,
 } from '@/lib/content-loader';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, Folder, FileText } from 'lucide-react';
+import { Folder, FileText } from 'lucide-react';
 import Link from 'next/link';
-
-type Subject = {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  color: string;
-  icon: string;
-  level: string;
-  mastery: number;
-  topics: number;
-  topics_done: number;
-  due_count: number;
-};
+import { listContentPagesForSubject } from '@/lib/json-content-pages';
 
 export default async function SubjectDetailPage({ params }: { params: { subjectId: string } }) {
   const subjectId = params.subjectId;
@@ -35,35 +19,46 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
 
   // Load chapters from JSON
   const chapters = await loadChapters(subjectId);
+  const contentPages = listContentPagesForSubject(subjectId);
+  const itemCount = chapters.length + contentPages.length;
 
   return (
     <AppShell fullWidth>
       <PageHeader title={subjectName} description={subjectDescription} fullWidth />
 
       <div className="space-y-6">
-        {/* Filesystem-like Content Structure */}
-        <div className="border border-border rounded-lg overflow-hidden">
-          <div className="bg-muted/50 px-4 py-2 border-b border-border">
-            <span className="text-sm text-muted-foreground">{chapters.length} items</span>
-          </div>
-
-          <div className="divide-y divide-border">
+        <p className="text-sm text-muted-foreground">{itemCount} onderdelen</p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {chapters.map((chapter) => (
               <Link
                 key={chapter.id}
                 href={`/vakken/${subjectId}/${chapter.id}`}
-                className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors"
+                className="rounded-xl border border-border bg-card p-5 transition-colors hover:bg-secondary/40"
               >
-                <Folder className="h-5 w-5 text-primary" />
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium truncate">{chapter.title}</div>
-                  <div className="text-sm text-muted-foreground truncate">
+                <Folder className="mb-4 h-6 w-6 text-primary" />
+                <div className="min-w-0">
+                  <div className="font-semibold truncate">{chapter.title}</div>
+                  <div className="mt-1 text-sm text-muted-foreground line-clamp-2">
                     {chapter.description}
                   </div>
                 </div>
               </Link>
             ))}
-          </div>
+            {contentPages.map((page) => (
+              <Link
+                key={page.id}
+                href={`/vakken/${subjectId}/${page.id}`}
+                className="rounded-xl border border-border bg-card p-5 transition-colors hover:bg-secondary/40"
+              >
+                <FileText className="mb-4 h-6 w-6 text-primary" />
+                <div className="min-w-0">
+                  <div className="font-semibold truncate">{page.title}</div>
+                  {page.description && (
+                    <div className="mt-1 text-sm text-muted-foreground line-clamp-2">{page.description}</div>
+                  )}
+                </div>
+              </Link>
+            ))}
         </div>
       </div>
     </AppShell>

@@ -20,8 +20,7 @@ import { useBookmarks } from '@/hooks/useBookmarks';
 import { getSectionTitle } from '@/lib/section-title';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
-import { ChevronRight, Play } from 'lucide-react';
-import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export type ViewMode =
   | 'book'
@@ -493,7 +492,7 @@ export default function Page({ params }: { params: { page: string } }) {
 
       <div className="w-full border-t border-border"></div>
 
-      <main className="min-h-screen bg-background">
+      <main className="json-lesson-page min-h-screen bg-background">
         <div className="flex flex-col md:flex-row md:gap-8 mt-8 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Sidebar — independently scrollable, does not propagate wheel to page */}
           <aside
@@ -640,13 +639,6 @@ export default function Page({ params }: { params: { page: string } }) {
                           <h2 className="text-2xl font-serif text-foreground font-normal">
                             {getSectionTitle(section)}
                           </h2>
-                          <Link
-                            href={`/lessen?subject=${params.page}&chapter=${section.id}`}
-                            className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary/50 px-3 py-2 text-xs font-medium transition-colors hover:bg-secondary hover:text-foreground"
-                          >
-                            <Play className="h-3.5 w-3.5" />
-                            Les starten
-                          </Link>
                         </div>
                         <TextbookSection
                           section={{
@@ -682,13 +674,6 @@ export default function Page({ params }: { params: { page: string } }) {
                         <h2 className="text-2xl font-serif text-foreground font-normal">
                           {getSectionTitle(section)}
                         </h2>
-                        <Link
-                          href={`/lessen?subject=${params.page}&chapter=${section.id}`}
-                          className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary/50 px-3 py-2 text-xs font-medium transition-colors hover:bg-secondary hover:text-foreground"
-                        >
-                          <Play className="h-3.5 w-3.5" />
-                          Les starten
-                        </Link>
                       </div>
                       <SimpleMode section={section} />
                     </div>

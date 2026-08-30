@@ -1,0 +1,101 @@
+{
+  "subject_id": "PLACEHOLDER_SUBJECT_ID",
+  "chapter_id": "PLACEHOLDER_THERMODYNAMICA_CHAPTER_ID",
+  "title": "Thermodynamica Quiz",
+  "description": "Test je kennis van warmte, temperatuur en thermodynamica",
+  "questions": [
+    {
+      "type": "multiple_choice",
+      "question": "Wat is absolute nul in graden Celsius?",
+      "options": ["-273.15°C", "-200°C", "-100°C", "0°C"],
+      "correct_answer": 0,
+      "explanation": "Absolute nul is 0 Kelvin, wat gelijk is aan -273.15°C"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de eenheid van temperatuur in het SI-systeem?",
+      "options": ["Celsius", "Fahrenheit", "Kelvin", "Rankine"],
+      "correct_answer": 2,
+      "explanation": "Kelvin is de SI-eenheid voor temperatuur"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is soortelijke warmte?",
+      "options": [
+        "De hoeveelheid warmte in een object",
+        "De temperatuur van een object",
+        "Warmte nodig om 1 kg met 1°C te verwarmen",
+        "De dichtheid van een stof"
+      ],
+      "correct_answer": 2,
+      "explanation": "Soortelijke warmte is de warmtecapaciteit per kilogram"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de eerste wet van de thermodynamica?",
+      "options": [
+        "Warmte stroomt van warm naar koud",
+        "Energie kan niet worden gecreëerd of vernietigd",
+        "Entropie neemt altijd toe",
+        "Absolute nul is onbereikbaar"
+      ],
+      "correct_answer": 1,
+      "explanation": "De eerste wet is het behoud van energie"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is latente warmte?",
+      "options": [
+        "Warmte die temperatuur verhoogt",
+        "Warmte voor faseovergang zonder temperatuurverandering",
+        "Warmte die straling veroorzaakt",
+        "Warmte die convectie veroorzaakt"
+      ],
+      "correct_answer": 1,
+      "explanation": "Latente warmte wordt gebruikt voor faseovergangen"
+    },
+    {
+      "type": "open",
+      "question": "Beschrijf het verschil tussen warmtegeleiding en convectie",
+      "model_answer": "Warmtegeleiding is overdracht door direct contact, convectie is overdracht door vloeistof/gas beweging",
+      "explanation": "Geleiding werkt in vaste stoffen, convectie in vloeistoffen en gassen"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is warmtegeleiding?",
+      "options": [
+        "Warmteoverdracht door straling",
+        "Warmteoverdracht door vloeistofbeweging",
+        "Warmteoverdracht door direct contact",
+        "Geen van bovenstaande"
+      ],
+      "correct_answer": 2,
+      "explanation": "Warmtegeleiding gebeurt door direct contact tussen deeltjes"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de eenheid van soortelijke warmte?",
+      "options": ["J/K", "J/(kg·K)", "J/kg", "K/J"],
+      "correct_answer": 1,
+      "explanation": "Soortelijke warmte wordt uitgedrukt in J/(kg·K)"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is verdampingswarmte?",
+      "options": [
+        "Warmte om te smelten",
+        "Warmte om te verdampen",
+        "Warmte om te bevriezen",
+        "Warmte om te condenseren"
+      ],
+      "correct_answer": 1,
+      "explanation": "Verdampingswarmte is de warmte nodig voor vloeistof naar gas"
+    },
+    {
+      "type": "open",
+      "question": "Leg uit waarom absolute nul theoretisch onbereikbaar is",
+      "model_answer": "Om absolute nul te bereiken zou alle moleculaire beweging moeten stoppen, wat onmogelijk is volgens de kwantummechanica",
+      "explanation": "Er blijft altijd wat beweging door onzekerheidsprincipe"
+    }
+  ]
+}

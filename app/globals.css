@@ -412,6 +412,12 @@
     font-family: var(--font-display);
   }
 
+  .json-lesson-page h1,
+  .json-lesson-page h2,
+  .json-lesson-page h3 {
+    font-family: var(--font-display);
+  }
+
   .tint-success {
     background-color: color-mix(in oklab, var(--success) 12%, transparent);
     color: var(--success);

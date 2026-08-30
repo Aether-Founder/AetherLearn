@@ -1,0 +1,68 @@
+{
+  "subject_id": "PLACEHOLDER_SUBJECT_ID",
+  "chapter_id": "PLACEHOLDER_ELEKTRICITEIT_MAGNETISME_CHAPTER_ID",
+  "title": "Elektrische Stromen",
+  "description": "Flashcards over elektrische stroom, spanning, weerstand en circuits",
+  "cards": [
+    {
+      "front": "Wat is elektrische stroom?",
+      "back": "De stroom van elektrische ladingen door een geleider, gemeten in Ampère (A)"
+    },
+    {
+      "front": "Wat is de wet van Ohm?",
+      "back": "V = I × R (Spanning = stroom × weerstand)"
+    },
+    {
+      "front": "Wat is spanning?",
+      "back": "Het elektrisch potentiaalverschil tussen twee punten, gemeten in Volt (V)"
+    },
+    {
+      "front": "Wat is weerstand?",
+      "back": "De tegenstand die een materiaal biedt tegen de stroom van elektrische lading, gemeten in Ohm (Ω)"
+    },
+    {
+      "front": "Wat is een serie schakeling?",
+      "back": "Componenten achter elkaar geschakeld, dezelfde stroom door alle componenten"
+    },
+    {
+      "front": "Wat is een parallel schakeling?",
+      "back": "Componenten naast elkaar geschakeld, dezelfde spanning over alle componenten"
+    },
+    {
+      "front": "Wat is vermogen in een elektrisch circuit?",
+      "back": "P = V × I (Vermogen = spanning × stroom), gemeten in Watt (W)"
+    },
+    {
+      "front": "Wat is elektrisch vermogen?",
+      "back": "De snelheid waarmee elektrische energie wordt omgezet in andere vormen van energie"
+    },
+    {
+      "front": "Wat is een geleider?",
+      "back": "Een materiaal dat elektrische stroom goed geleidt (bijv. koper, aluminium)"
+    },
+    {
+      "front": "Wat is een isolator?",
+      "back": "Een materiaal dat elektrische stroom niet goed geleidt (bijv. rubber, plastic)"
+    },
+    {
+      "front": "Wat is een halfgeleider?",
+      "back": "Een materiaal dat geleidt tussen een geleider en isolator in (bijv. silicium, germanium)"
+    },
+    {
+      "front": "Wat is Kirchhoff's stroomwet?",
+      "back": "De som van stromen die een knooppunt binnenkomen is gelijk aan de som van stromen die het knooppunt verlaten"
+    },
+    {
+      "front": "Wat is Kirchhoff's spanningswet?",
+      "back": "De som van alle spanningen in een gesloten lus is gelijk aan nul"
+    },
+    {
+      "front": "Wat is capaciteit?",
+      "back": "Het vermogen om elektrische lading op te slaan, gemeten in Farad (F)"
+    },
+    {
+      "front": "Wat is inductie?",
+      "back": "Het vermogen van een spoel om magnetische energie op te slaan, gemeten in Henry (H)"
+    }
+  ]
+}

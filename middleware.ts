@@ -12,6 +12,7 @@ import { createServerClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import type { Database } from '@/types/database.types';
+import { rateLimits } from '@/lib/rate-limit';
 
 export async function middleware(req: NextRequest) {
   let res = NextResponse.next({
@@ -19,7 +20,23 @@ export async function middleware(req: NextRequest) {
       headers: req.headers,
     },
   });
-  
+
+  if (req.nextUrl.pathname.startsWith('/api/') && req.nextUrl.pathname !== '/api/health' && rateLimits) {
+    const key = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'anonymous';
+    const limiter = req.nextUrl.pathname.startsWith('/api/ai/')
+      ? rateLimits.ai
+      : req.nextUrl.pathname.startsWith('/api/admin/auth')
+        ? rateLimits.auth
+        : rateLimits.general;
+    const result = await limiter.limit(key);
+    if (!result.success) {
+      return NextResponse.json({ success: false, error: 'Te veel verzoeken. Probeer het later opnieuw.' }, {
+        status: 429,
+        headers: { 'Retry-After': String(Math.ceil((result.reset - Date.now()) / 1000)) },
+      });
+    }
+  }
+
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -32,7 +49,7 @@ export async function middleware(req: NextRequest) {
   // Validate URL format
   try {
     new URL(supabaseUrl);
-  } catch (e) {
+  } catch {
     console.error('❌ Invalid NEXT_PUBLIC_SUPABASE_URL:', supabaseUrl);
     return res;
   }
@@ -71,12 +88,11 @@ export async function middleware(req: NextRequest) {
     req.nextUrl.pathname.startsWith('/agenda') ||
     req.nextUrl.pathname.startsWith('/calendar') ||
     req.nextUrl.pathname.startsWith('/lessen') ||
-    req.nextUrl.pathname.startsWith('/decks') ||
+    req.nextUrl.pathname.startsWith('/leersets') ||
     req.nextUrl.pathname.startsWith('/planner') ||
     req.nextUrl.pathname.startsWith('/statistieken') ||
     req.nextUrl.pathname.startsWith('/groepen') ||
     req.nextUrl.pathname.startsWith('/notities') ||
-    req.nextUrl.pathname.startsWith('/cijfers') ||
     req.nextUrl.pathname.startsWith('/instellingen') ||
     req.nextUrl.pathname.startsWith('/admin');
 

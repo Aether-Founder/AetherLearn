@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
@@ -136,7 +136,7 @@ export default function ArtisanTracker({ jobId, onComplete }: ArtisanTrackerProp
           {logs.length === 0 && status === 'queued' && (
             <p className="text-gray-500 italic">Awaiting queue assignment...</p>
           )}
-          
+
           {logs.map((log, index) => {
             // Parse timestamp and message
             const match = log.match(/\[(\d{2}:\d{2}:\d{2})\] (.+)/);
@@ -144,17 +144,13 @@ export default function ArtisanTracker({ jobId, onComplete }: ArtisanTrackerProp
             const message = match ? match[2] : log;
 
             return (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="flex gap-3 opacity-0 animate-fade-in"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <span className="text-gray-600 shrink-0">
-                  {timestamp ? `[${timestamp}]` : '>'}
-                </span>
-                <span className={message.includes('✓') ? 'text-green-300' : ''}>
-                  {message}
-                </span>
+                <span className="text-gray-600 shrink-0">{timestamp ? `[${timestamp}]` : '>'}</span>
+                <span className={message.includes('✓') ? 'text-green-300' : ''}>{message}</span>
               </div>
             );
           })}
@@ -169,7 +165,9 @@ export default function ArtisanTracker({ jobId, onComplete }: ArtisanTrackerProp
           {status === 'failed' && (
             <div className="mt-4 p-3 bg-red-900/20 border border-red-500/30 rounded text-red-300">
               <p className="font-semibold">Processing failed</p>
-              <p className="text-sm mt-1">Check the logs above for details. The job can be retried.</p>
+              <p className="text-sm mt-1">
+                Check the logs above for details. The job can be retried.
+              </p>
             </div>
           )}
         </div>
@@ -179,11 +177,11 @@ export default function ArtisanTracker({ jobId, onComplete }: ArtisanTrackerProp
           <div className="mt-4 pt-4 border-t border-gray-700">
             <div className="flex items-center gap-3 text-xs text-gray-400">
               <div className="flex-1 h-1 bg-gray-700 rounded-full overflow-hidden">
-                <div 
+                <div
                   className="h-full bg-green-500 transition-all duration-500"
-                  style={{ 
+                  style={{
                     width: `${Math.min(logs.length * 20, 100)}%`,
-                    animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                   }}
                 />
               </div>

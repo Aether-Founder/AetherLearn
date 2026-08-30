@@ -1,0 +1,86 @@
+{
+  "subject_id": "PLACEHOLDER_SUBJECT_ID",
+  "chapter_id": "PLACEHOLDER_MECHANICA_CHAPTER_ID",
+  "title": "Mechanica Quiz",
+  "description": "Test je kennis van krachten, beweging en Newton's wetten",
+  "questions": [
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de eenheid van kracht?",
+      "options": ["Joule", "Newton", "Watt", "Pascal"],
+      "correct_answer": 1,
+      "explanation": "Kracht wordt gemeten in Newton (N), genoemd naar Isaac Newton"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de eerste wet van Newton ook bekend als?",
+      "options": ["Versnellingswet", "Inertiewet", "Actie-reactiewet", "Zwaartekrachtwet"],
+      "correct_answer": 1,
+      "explanation": "De eerste wet van Newton wordt ook wel de inertiewet genoemd"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de formule voor kracht volgens de tweede wet van Newton?",
+      "options": ["F = m/v", "F = m × a", "F = m × g", "F = v/t"],
+      "correct_answer": 1,
+      "explanation": "F = m × a (Kracht = massa × versnelling)"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de zwaartekrachtversnelling op aarde?",
+      "options": ["8.9 m/s²", "9.8 m/s²", "10.8 m/s²", "11.8 m/s²"],
+      "correct_answer": 1,
+      "explanation": "De zwaartekrachtversnelling op aarde is ongeveer 9.8 m/s²"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de eenheid van arbeid?",
+      "options": ["Newton", "Joule", "Watt", "Pascal"],
+      "correct_answer": 1,
+      "explanation": "Arbeid wordt gemeten in Joule (J)"
+    },
+    {
+      "type": "open",
+      "question": "Beschrijf het verschil tussen massa en gewicht",
+      "model_answer": "Massa is de hoeveelheid materie in kg, gewicht is de kracht die zwaartekracht uitoefent in Newton",
+      "explanation": "Gewicht = massa × zwaartekrachtversnelling"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is kinetische energie?",
+      "options": [
+        "Energie van positie",
+        "Energie van beweging",
+        "Thermische energie",
+        "Chemische energie"
+      ],
+      "correct_answer": 1,
+      "explanation": "Kinetische energie is de energie van beweging"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is de formule voor kinetische energie?",
+      "options": ["Ek = m × v", "Ek = ½ × m × v²", "Ek = m × v²", "Ek = ½ × m × v"],
+      "correct_answer": 1,
+      "explanation": "Ek = ½ × m × v² (kinetische energie)"
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Wat is potentiële energie?",
+      "options": [
+        "Energie van beweging",
+        "Energie van positie",
+        "Thermische energie",
+        "Chemische energie"
+      ],
+      "correct_answer": 1,
+      "explanation": "Potentiële energie is de energie van positie"
+    },
+    {
+      "type": "open",
+      "question": "Leg de derde wet van Newton uit in je eigen woorden",
+      "model_answer": "Voor elke actie is er een gelijke en tegengestelde reactie",
+      "explanation": "Als object A op object B duwt, duwt object B even hard terug op object A"
+    }
+  ]
+}

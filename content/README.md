@@ -272,6 +272,17 @@ node admin-cli/dist/index.js sync-subject natuurkunde
 
 ## Adding New Content
 
+### Adding an Interactive JSON Lesson Page
+
+Use this for a complete JSON-driven page that uses the legacy learning layout: interactive table of contents and the modes defined by the JSON (`simple`, `study`, `samenvatting`, `quiz`, and so on).
+
+1. Put the completed JSON file anywhere below `content/`, for example `content/aardrijkskunde/h5.json`.
+2. Sign in to **Admin Portal** and choose **JSON-lespagina → Start stap-voor-stap**.
+3. Enter a page title and URL id, select the subject id, and enter the path relative to `content/` (for example `aardrijkskunde/h5.json`).
+4. The portal verifies the file and JSON before adding it to `content/content-pages.json`.
+
+The page then appears as a document item in `/vakken/{subject-id}` and opens at `/{page-id}`. `content-pages.json` is the editable registry; it only stores the page metadata and location, while the learning material stays in its own JSON file.
+
 ### Adding a New Subject
 
 1. Create folder: `content/subjects/{subject-id}/`

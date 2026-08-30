@@ -1,223 +1,162 @@
 [
   {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
+    "eventType": "page_view",
+    "timestamp": 1788119632489,
+    "data": {
+      "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
+      "referrer": "http://localhost:3000/vakken/Aardrijkskunde"
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
+    "eventType": "session_end",
+    "timestamp": 1788119637800,
+    "data": {
+      "duration": 5310
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
+    "eventType": "session_start",
+    "timestamp": 1788119641641,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+      "language": "nl-NL",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
+    "eventType": "page_view",
+    "timestamp": 1788119641641,
+    "data": {
+      "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
+      "referrer": "http://localhost:3000/vakken/Aardrijkskunde"
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
+    "eventType": "session_start",
+    "timestamp": 1788119641675,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+      "language": "nl-NL",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
+    "eventType": "page_view",
+    "timestamp": 1788119641675,
+    "data": {
+      "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
+      "referrer": "http://localhost:3000/vakken/Aardrijkskunde"
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
+    "eventType": "session_end",
+    "timestamp": 1788119659949,
+    "data": {
+      "duration": 18273
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
+    "eventType": "session_start",
+    "timestamp": 1788119661006,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+      "language": "nl-NL",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
+    "eventType": "page_view",
+    "timestamp": 1788119661007,
+    "data": {
+      "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
+      "referrer": "http://localhost:3000/vakken/Aardrijkskunde"
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
     "eventType": "mode_switch",
-    "timestamp": 1780389309591,
+    "timestamp": 1788119676867,
     "data": {
       "from": "simple",
       "to": "study"
     }
   },
   {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
     "eventType": "mode_switch",
-    "timestamp": 1780389356246,
+    "timestamp": 1788119684051,
     "data": {
       "from": "study",
       "to": "samenvatting"
     }
   },
   {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "eventType": "session_end",
-    "timestamp": 1780389362905,
-    "data": {
-      "duration": 72483
-    }
-  },
-  {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "eventType": "session_start",
-    "timestamp": 1780389366930,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
-      "language": "en",
-      "screenResolution": "1280x800"
-    }
-  },
-  {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "eventType": "page_view",
-    "timestamp": 1780389366931,
-    "data": {
-      "path": "/economie",
-      "referrer": "http://localhost:3000/aardrijkskunde-h5"
-    }
-  },
-  {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "eventType": "session_end",
-    "timestamp": 1780389388572,
-    "data": {
-      "duration": 21641
-    }
-  },
-  {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "eventType": "session_start",
-    "timestamp": 1780389389951,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
-      "language": "en",
-      "screenResolution": "1280x800"
-    }
-  },
-  {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "eventType": "page_view",
-    "timestamp": 1780389389951,
-    "data": {
-      "path": "/aardrijkskunde-h5",
-      "referrer": "http://localhost:3000/economie"
-    }
-  },
-  {
-    "userId": "ba9710ba-93c2-455b-8433-16935ac82404",
-    "sessionId": "3abab317-88ae-4da2-bcc5-8a009b7c6450",
-    "eventType": "session_start",
-    "timestamp": 1780389479213,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
-      "language": "en",
-      "screenResolution": "1280x800"
-    }
-  },
-  {
-    "userId": "ba9710ba-93c2-455b-8433-16935ac82404",
-    "sessionId": "3abab317-88ae-4da2-bcc5-8a009b7c6450",
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
     "eventType": "mode_switch",
-    "timestamp": 1780389493252,
-    "data": {
-      "from": "simple",
-      "to": "samenvatting"
-    }
-  },
-  {
-    "userId": "ba9710ba-93c2-455b-8433-16935ac82404",
-    "sessionId": "3abab317-88ae-4da2-bcc5-8a009b7c6450",
-    "eventType": "mode_switch",
-    "timestamp": 1780389546911,
+    "timestamp": 1788119684679,
     "data": {
       "from": "samenvatting",
       "to": "alles-leren-2-dagen"
     }
   },
   {
-    "userId": "ba9710ba-93c2-455b-8433-16935ac82404",
-    "sessionId": "3abab317-88ae-4da2-bcc5-8a009b7c6450",
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
     "eventType": "mode_switch",
-    "timestamp": 1780389547745,
+    "timestamp": 1788119685787,
     "data": {
       "from": "alles-leren-2-dagen",
       "to": "complete-oefentoets"
     }
   },
   {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "eventType": "session_end",
-    "timestamp": 1780389628521,
-    "data": {
-      "duration": 238568
-    }
-  },
-  {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "eventType": "session_start",
-    "timestamp": 1780389632151,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
-      "language": "en",
-      "screenResolution": "1280x800"
-    }
-  },
-  {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "eventType": "session_start",
-    "timestamp": 1780389632152,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
-      "language": "en",
-      "screenResolution": "1280x800"
-    }
-  },
-  {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
     "eventType": "mode_switch",
-    "timestamp": 1780389655212,
+    "timestamp": 1788119686528,
     "data": {
-      "from": "simple",
-      "to": "samenvatting"
-    }
-  },
-  {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "eventType": "session_end",
-    "timestamp": 1780389656951,
-    "data": {
-      "duration": 24799
-    }
-  },
-  {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "eventType": "session_start",
-    "timestamp": 1780389660557,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
-      "language": "en",
-      "screenResolution": "1280x800"
-    }
-  },
-  {
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "eventType": "mode_switch",
-    "timestamp": 1780389663271,
-    "data": {
-      "from": "study",
-      "to": "simple"
+      "from": "complete-oefentoets",
+      "to": "alle-leerdoelen-opdrachten"
     }
   },
   {
     "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
-    "sessionId": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
-    "eventType": "page_view",
-    "timestamp": 1785419528507,
-    "data": {
-      "path": "/toetsweekvoorbereiding/aardrijkskunde-h5",
-      "referrer": ""
-    }
-  },
-  {
-    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
-    "sessionId": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
     "eventType": "mode_switch",
-    "timestamp": 1785419531202,
+    "timestamp": 1788119686875,
     "data": {
-      "from": "simple",
-      "to": "study"
+      "from": "alle-leerdoelen-opdrachten",
+      "to": "vragenlijst"
     }
   },
   {
     "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
-    "sessionId": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
+    "sessionId": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
     "eventType": "session_end",
-    "timestamp": 1785419541903,
+    "timestamp": 1788119689139,
     "data": {
-      "duration": 13397
+      "duration": 28133
     }
   }
 ]

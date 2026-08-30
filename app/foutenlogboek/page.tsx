@@ -1,24 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import type { FormEvent } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { AlertTriangle, Plus, Filter, CheckCircle, XCircle, Clock } from 'lucide-react';
-import { supabase as browserClient } from '@/lib/supabase/client';
+import { CheckCircle2, Clock3, Filter, Plus, Trash2, X } from 'lucide-react';
+import { logActivity } from '@/lib/activity';
 
-const supabase = browserClient as any;
+type FoutStatus = 'nieuw' | 'leren' | 'herhalen' | 'beheerst';
 
-type ErrorEntry = {
+interface ErrorEntry {
   id: string;
   vak: string;
   hoofdstuk: string;
@@ -29,151 +19,239 @@ type ErrorEntry = {
   fouttype: string;
   oorzaak: string;
   nieuwe_regel: string;
-  herhaalstatus: 'nieuw' | 'leren' | 'herhalen' | 'beheerst';
-  volgende_herhaling: string;
-  datum: string;
+  status: FoutStatus;
+  created_at: string;
+  updated_at: string;
+}
+
+interface ErrorFormState {
+  vak: string;
+  hoofdstuk: string;
+  onderwerp: string;
+  vraag: string;
+  mijn_antwoord: string;
+  correct_antwoord: string;
+  fouttype: string;
+  oorzaak: string;
+  nieuwe_regel: string;
+}
+
+const STORAGE_KEY = 'aether_foutenlogboek';
+
+const STATUS_OPTIONS: FoutStatus[] = ['leren', 'herhalen', 'beheerst'];
+
+const STATUS_LABELS: Record<FoutStatus, string> = {
+  nieuw: 'Nieuw',
+  leren: 'Leren',
+  herhalen: 'Herhalen',
+  beheerst: 'Beheerst',
 };
 
-const FOOTTYPES = [
-  'Begripsfout',
-  'Rekenfout',
-  'Slordigheidsfout',
-  'Verkeerde formule',
-  'Verkeerde strategie',
-  'Verkeerde eenheid',
-  'Verkeerde notatie',
-  'Verkeerde vakterm',
-  'Niet goed gelezen',
-  'Tijdtekort',
-  'Vergeten kennis',
-  'Te vaag antwoord',
-  'Fout in redenering',
-  'Fout in interpretatie',
-  'Fout in grafiek',
-  'Fout in vertaling',
-  'Fout in grammatica',
-  'Codefout',
-  'Debugfout',
+const STATUS_STYLES: Record<FoutStatus, string> = {
+  nieuw: 'border-slate-200 bg-slate-50 text-slate-800 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-200',
+  leren: 'border-blue-200 bg-blue-50 text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200',
+  herhalen:
+    'border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200',
+  beheerst:
+    'border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-200',
+};
+
+const FILTERS: Array<{ id: 'all' | FoutStatus; label: string }> = [
+  { id: 'all', label: 'Alles' },
+  { id: 'nieuw', label: 'Nieuw' },
+  { id: 'leren', label: 'Leren' },
+  { id: 'herhalen', label: 'Herhalen' },
+  { id: 'beheerst', label: 'Beheerst' },
 ];
 
-export default function FoutenlogboekPage() {
-  const [errors, setErrors] = useState<ErrorEntry[]>([]);
-  const [loading, setLoading] = useState(true);
+const inputClass =
+  'h-10 w-full rounded-md border border-input bg-background px-3 text-sm shadow-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring';
 
-  const [showDialog, setShowDialog] = useState(false);
-  const [filterType, setFilterType] = useState<string>('all');
-  const [formData, setFormData] = useState({
-    vak: '',
-    hoofdstuk: '',
-    onderwerp: '',
-    vraag: '',
-    mijn_antwoord: '',
-    correct_antwoord: '',
-    fouttype: '',
-    oorzaak: '',
-    nieuwe_regel: '',
-  });
+const textareaClass =
+  'min-h-20 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring';
+
+const primaryButtonClass =
+  'inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50';
+
+const outlineButtonClass =
+  'inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm transition-colors hover:bg-secondary disabled:pointer-events-none disabled:opacity-50';
+
+function createId(): string {
+  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
+    return crypto.randomUUID();
+  }
+
+  return `fout_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function normalizeEntry(raw: unknown): ErrorEntry | null {
+  if (!raw || typeof raw !== 'object') return null;
+
+  const record = raw as Record<string, unknown>;
+  const vraag = typeof record.vraag === 'string' ? record.vraag.trim() : '';
+  const onderwerp = typeof record.onderwerp === 'string' ? record.onderwerp.trim() : '';
+
+  if (!vraag && !onderwerp) return null;
+
+  const now = new Date().toISOString();
+  const rawStatus = record.status;
+  const status: FoutStatus =
+    rawStatus === 'leren' || rawStatus === 'herhalen' || rawStatus === 'beheerst'
+      ? rawStatus
+      : 'nieuw';
+
+  return {
+    id: typeof record.id === 'string' && record.id ? record.id : createId(),
+    vak: typeof record.vak === 'string' ? record.vak : '',
+    hoofdstuk: typeof record.hoofdstuk === 'string' ? record.hoofdstuk : '',
+    onderwerp,
+    vraag,
+    mijn_antwoord: typeof record.mijn_antwoord === 'string' ? record.mijn_antwoord : '',
+    correct_antwoord: typeof record.correct_antwoord === 'string' ? record.correct_antwoord : '',
+    fouttype: typeof record.fouttype === 'string' ? record.fouttype : '',
+    oorzaak: typeof record.oorzaak === 'string' ? record.oorzaak : '',
+    nieuwe_regel: typeof record.nieuwe_regel === 'string' ? record.nieuwe_regel : '',
+    status,
+    created_at: typeof record.created_at === 'string' ? record.created_at : now,
+    updated_at: typeof record.updated_at === 'string' ? record.updated_at : now,
+  };
+}
+
+function loadEntries(): ErrorEntry[] {
+  if (typeof window === 'undefined') return [];
+
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed
+      .map(normalizeEntry)
+      .filter((entry): entry is ErrorEntry => entry !== null)
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+  } catch {
+    return [];
+  }
+}
+
+function saveEntries(entries: ErrorEntry[]) {
+  if (typeof window === 'undefined') return;
+
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  } catch {
+    // If storage is unavailable, keep entries in memory only.
+  }
+}
+
+const emptyForm: ErrorFormState = {
+  vak: '',
+  hoofdstuk: '',
+  onderwerp: '',
+  vraag: '',
+  mijn_antwoord: '',
+  correct_antwoord: '',
+  fouttype: '',
+  oorzaak: '',
+  nieuwe_regel: '',
+};
+
+export default function FoutenlogboekPage() {
+  const [entries, setEntries] = useState<ErrorEntry[]>([]);
+  const [loaded, setLoaded] = useState(false);
+  const [filter, setFilter] = useState<'all' | FoutStatus>('all');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [form, setForm] = useState<ErrorFormState>(emptyForm);
+  const [formError, setFormError] = useState('');
 
   useEffect(() => {
-    fetchErrors();
+    setEntries(loadEntries());
+    setLoaded(true);
   }, []);
 
-  const fetchErrors = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) return;
+  useEffect(() => {
+    if (!loaded) return;
+    saveEntries(entries);
+  }, [entries, loaded]);
 
-    const { data, error } = await supabase
-      .from('error_log')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('datum', { ascending: false });
+  const filteredEntries = useMemo(() => {
+    if (filter === 'all') return entries;
+    return entries.filter((entry) => entry.status === filter);
+  }, [entries, filter]);
 
-    if (error) {
-      console.error('Failed to fetch errors:', error);
-    } else if (data) {
-      setErrors(data);
-    }
-    setLoading(false);
+  const openCreate = () => {
+    setForm(emptyForm);
+    setFormError('');
+    setModalOpen(true);
   };
 
-  const filteredErrors =
-    filterType === 'all' ? errors : errors.filter((e) => e.herhaalstatus === filterType);
-
-  const handleAddError = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) return;
-
-    const { data, error } = await supabase
-      .from('error_log')
-      .insert({
-        user_id: user.id,
-        vak: formData.vak,
-        hoofdstuk: formData.hoofdstuk,
-        onderwerp: formData.onderwerp,
-        vraag: formData.vraag,
-        mijn_antwoord: formData.mijn_antwoord,
-        correct_antwoord: formData.correct_antwoord,
-        fouttype: formData.fouttype,
-        oorzaak: formData.oorzaak,
-        nieuwe_regel: formData.nieuwe_regel,
-        herhaalstatus: 'nieuw',
-        volgende_herhaling: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-        datum: new Date().toISOString().split('T')[0],
-      })
-      .select()
-      .single();
-
-    if (error) {
-      console.error('Failed to add error:', error);
-    } else if (data) {
-      setErrors([data, ...errors]);
-      setShowDialog(false);
-      setFormData({
-        vak: '',
-        hoofdstuk: '',
-        onderwerp: '',
-        vraag: '',
-        mijn_antwoord: '',
-        correct_antwoord: '',
-        fouttype: '',
-        oorzaak: '',
-        nieuwe_regel: '',
-      });
-    }
+  const closeModal = () => {
+    setModalOpen(false);
+    setFormError('');
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'nieuw':
-        return 'bg-red-500/10 text-red-600';
-      case 'leren':
-        return 'bg-yellow-500/10 text-yellow-600';
-      case 'herhalen':
-        return 'bg-blue-500/10 text-blue-600';
-      case 'beheerst':
-        return 'bg-green-500/10 text-green-600';
-      default:
-        return 'bg-gray-500/10 text-gray-600';
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const vraag = form.vraag.trim();
+    const onderwerp = form.onderwerp.trim();
+
+    if (!vraag && !onderwerp) {
+      setFormError('Vul minimaal een vraag of onderwerp in.');
+      return;
     }
+
+    const now = new Date().toISOString();
+
+    const entry: ErrorEntry = {
+      id: createId(),
+      vak: form.vak.trim(),
+      hoofdstuk: form.hoofdstuk.trim(),
+      onderwerp,
+      vraag,
+      mijn_antwoord: form.mijn_antwoord.trim(),
+      correct_antwoord: form.correct_antwoord.trim(),
+      fouttype: form.fouttype.trim(),
+      oorzaak: form.oorzaak.trim(),
+      nieuwe_regel: form.nieuwe_regel.trim(),
+      status: 'nieuw',
+      created_at: now,
+      updated_at: now,
+    };
+
+    setEntries((previous) => [entry, ...previous]);
+    logActivity({
+      type: 'foutenlogboek_nieuw',
+      label: entry.vraag || entry.onderwerp || 'Nieuwe fout',
+    });
+    closeModal();
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'nieuw':
-        return <AlertTriangle className="h-4 w-4" />;
-      case 'leren':
-        return <Clock className="h-4 w-4" />;
-      case 'herhalen':
-        return <Clock className="h-4 w-4" />;
-      case 'beheerst':
-        return <CheckCircle className="h-4 w-4" />;
-      default:
-        return <XCircle className="h-4 w-4" />;
-    }
+  const updateStatus = (id: string, status: FoutStatus) => {
+    setEntries((previous) =>
+      previous.map((entry) =>
+        entry.id === id
+          ? {
+              ...entry,
+              status,
+              updated_at: new Date().toISOString(),
+            }
+          : entry
+      )
+    );
+
+    const entry = entries.find((current) => current.id === id);
+
+    logActivity({
+      type: `foutenlogboek_${status}`,
+      label: entry?.vraag || entry?.onderwerp || 'Foutstatus aangepast',
+    });
+  };
+
+  const deleteEntry = (id: string) => {
+    setEntries((previous) => previous.filter((entry) => entry.id !== id));
   };
 
   return (
@@ -181,257 +259,329 @@ export default function FoutenlogboekPage() {
       <PageHeader
         eyebrow="Foutenanalyse"
         title="Foutenlogboek"
-        description="Registreer, analyseer en herhaal je fouten"
+        description="Registreer fouten en markeer ze als leren, herhalen of beheerst."
         action={
-          <Button onClick={() => setShowDialog(true)}>
+          <button type="button" onClick={openCreate} className={primaryButtonClass}>
             <Plus className="mr-2 h-4 w-4" />
             Nieuwe fout
-          </Button>
+          </button>
         }
       />
 
-      <div className="mt-10">
-        {/* Filters */}
-        <div className="flex items-center gap-2 mb-6">
+      <div className="mt-8 space-y-6">
+        <div className="flex flex-wrap items-center gap-2">
           <Filter className="h-4 w-4 text-muted-foreground" />
-          <div className="flex gap-2">
-            <Button
-              variant={filterType === 'all' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFilterType('all')}
+
+          {FILTERS.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setFilter(item.id)}
+              className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
+                filter === item.id
+                  ? 'border-primary bg-primary text-primary-foreground'
+                  : 'border-border bg-background text-muted-foreground hover:bg-secondary'
+              }`}
             >
-              Alle ({errors.length})
-            </Button>
-            <Button
-              variant={filterType === 'nieuw' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFilterType('nieuw')}
-            >
-              Nieuw ({errors.filter((e) => e.herhaalstatus === 'nieuw').length})
-            </Button>
-            <Button
-              variant={filterType === 'leren' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFilterType('leren')}
-            >
-              Leren ({errors.filter((e) => e.herhaalstatus === 'leren').length})
-            </Button>
-            <Button
-              variant={filterType === 'herhalen' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFilterType('herhalen')}
-            >
-              Herhalen ({errors.filter((e) => e.herhaalstatus === 'herhalen').length})
-            </Button>
-            <Button
-              variant={filterType === 'beheerst' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFilterType('beheerst')}
-            >
-              Beheerst ({errors.filter((e) => e.herhaalstatus === 'beheerst').length})
-            </Button>
-          </div>
+              {item.label}
+            </button>
+          ))}
         </div>
 
-        {loading ? (
+        {!loaded ? (
           <div className="space-y-4">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="h-32 rounded-lg border border-border bg-card" />
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div
+                key={index}
+                className="h-28 animate-pulse rounded-xl border border-border bg-card"
+              />
             ))}
           </div>
-        ) : filteredErrors.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-border p-10 text-center">
-            <AlertTriangle className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-            <h2 className="font-display text-xl font-semibold mb-2">Geen fouten gevonden</h2>
-            <p className="text-sm text-muted-foreground mb-4">
-              {filterType === 'all'
-                ? 'Je hebt nog geen fouten geregistreerd. Begin met het toevoegen van je eerste fout.'
-                : 'Geen fouten met deze status.'}
+        ) : filteredEntries.length === 0 ? (
+          <section className="rounded-xl border border-dashed border-border bg-card/40 p-10 text-center">
+            <CheckCircle2 className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
+            <h2 className="font-display text-2xl font-semibold">Geen fouten gevonden</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Voeg een fout toe om te starten met analyseren en herhalen.
             </p>
-            {filterType === 'all' && (
-              <Button onClick={() => setShowDialog(true)}>
-                <Plus className="mr-2 h-4 w-4" />
-                Eerste fout toevoegen
-              </Button>
-            )}
-          </div>
+            <button type="button" onClick={openCreate} className={`${primaryButtonClass} mt-6`}>
+              <Plus className="mr-2 h-4 w-4" />
+              Nieuwe fout
+            </button>
+          </section>
         ) : (
           <div className="space-y-4">
-            {filteredErrors.map((error) => (
-              <div key={error.id} className="rounded-xl border border-border bg-card p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <span
-                      className={`rounded-full px-3 py-1 text-xs font-medium flex items-center gap-1.5 ${getStatusColor(error.herhaalstatus)}`}
-                    >
-                      {getStatusIcon(error.herhaalstatus)}
-                      {error.herhaalstatus.charAt(0).toUpperCase() + error.herhaalstatus.slice(1)}
-                    </span>
-                    <span className="text-sm text-muted-foreground">{error.datum}</span>
+            {filteredEntries.map((entry) => (
+              <article
+                key={entry.id}
+                className="rounded-xl border border-border bg-card p-5 shadow-sm"
+              >
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                  <div className="min-w-0 space-y-2">
+                    <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                      {entry.vak && (
+                        <span className="rounded-full bg-secondary px-2.5 py-1 font-medium">
+                          {entry.vak}
+                        </span>
+                      )}
+
+                      {entry.hoofdstuk && (
+                        <span className="rounded-full bg-secondary px-2.5 py-1 font-medium">
+                          {entry.hoofdstuk}
+                        </span>
+                      )}
+
+                      {entry.onderwerp && (
+                        <span className="rounded-full bg-secondary px-2.5 py-1 font-medium">
+                          {entry.onderwerp}
+                        </span>
+                      )}
+
+                      <span className={`rounded-full border px-2.5 py-1 font-medium ${STATUS_STYLES[entry.status]}`}>
+                        {STATUS_LABELS[entry.status]}
+                      </span>
+                    </div>
+
+                    <h3 className="font-display text-xl font-semibold">
+                      {entry.vraag || entry.onderwerp}
+                    </h3>
+
+                    {entry.mijn_antwoord && (
+                      <p className="text-sm text-muted-foreground">
+                        <span className="font-medium text-foreground">Mijn antwoord:</span>{' '}
+                        {entry.mijn_antwoord}
+                      </p>
+                    )}
+
+                    {entry.correct_antwoord && (
+                      <p className="text-sm text-muted-foreground">
+                        <span className="font-medium text-foreground">Correct antwoord:</span>{' '}
+                        {entry.correct_antwoord}
+                      </p>
+                    )}
+
+                    {entry.oorzaak && (
+                      <p className="text-sm text-muted-foreground">
+                        <span className="font-medium text-foreground">Oorzaak:</span> {entry.oorzaak}
+                      </p>
+                    )}
+
+                    {entry.nieuwe_regel && (
+                      <p className="text-sm text-muted-foreground">
+                        <span className="font-medium text-foreground">Nieuwe regel:</span>{' '}
+                        {entry.nieuwe_regel}
+                      </p>
+                    )}
                   </div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="font-medium">{error.vak}</span>
-                    <span className="text-muted-foreground">•</span>
-                    <span className="text-muted-foreground">{error.hoofdstuk}</span>
+
+                  <div className="w-full shrink-0 space-y-3 lg:w-64">
+                    <div className="grid grid-cols-3 gap-2">
+                      {STATUS_OPTIONS.map((status) => (
+                        <button
+                          key={status}
+                          type="button"
+                          onClick={() => updateStatus(entry.id, status)}
+                          className={`rounded-md border px-2 py-2 text-xs font-medium transition-colors ${
+                            entry.status === status
+                              ? STATUS_STYLES[status]
+                              : 'border-border bg-background text-muted-foreground hover:bg-secondary'
+                          }`}
+                        >
+                          {STATUS_LABELS[status]}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+                      <span className="inline-flex items-center gap-1">
+                        <Clock3 className="h-3.5 w-3.5" />
+                        {new Date(entry.updated_at).toLocaleDateString('nl-NL', {
+                          day: 'numeric',
+                          month: 'short',
+                        })}
+                      </span>
+
+                      <button
+                        type="button"
+                        onClick={() => deleteEntry(entry.id)}
+                        className="inline-flex items-center gap-1 rounded-md px-2 py-1 transition-colors hover:bg-secondary hover:text-destructive"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                        Verwijderen
+                      </button>
+                    </div>
                   </div>
                 </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-sm font-medium mb-1">Vraag</p>
-                    <p className="text-sm text-muted-foreground">{error.vraag}</p>
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <p className="text-sm font-medium mb-1">Mijn antwoord</p>
-                      <p className="text-sm text-red-600">{error.mijn_antwoord}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium mb-1">Correct antwoord</p>
-                      <p className="text-sm text-green-600">{error.correct_antwoord}</p>
-                    </div>
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-3">
-                    <div>
-                      <p className="text-sm font-medium mb-1">Fouttype</p>
-                      <p className="text-sm text-muted-foreground">{error.fouttype}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium mb-1">Oorzaak</p>
-                      <p className="text-sm text-muted-foreground">{error.oorzaak}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium mb-1">Volgende herhaling</p>
-                      <p className="text-sm text-muted-foreground">{error.volgende_herhaling}</p>
-                    </div>
-                  </div>
-
-                  <div className="rounded-lg bg-secondary/50 p-4">
-                    <p className="font-medium mb-1">Nieuwe regel</p>
-                    <p className="text-sm text-foreground">{error.nieuwe_regel}</p>
-                  </div>
-                </div>
-              </div>
+              </article>
             ))}
           </div>
         )}
       </div>
 
-      {/* Add Error Dialog */}
-      <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Nieuwe fout registreren</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <Label htmlFor="vak">Vak</Label>
-                <Input
-                  id="vak"
-                  value={formData.vak}
-                  onChange={(e) => setFormData({ ...formData, vak: e.target.value })}
-                  placeholder="Bijv. Wiskunde B"
-                />
-              </div>
-              <div>
-                <Label htmlFor="hoofdstuk">Hoofdstuk</Label>
-                <Input
-                  id="hoofdstuk"
-                  value={formData.hoofdstuk}
-                  onChange={(e) => setFormData({ ...formData, hoofdstuk: e.target.value })}
-                  placeholder="Bijv. H4"
-                />
-              </div>
-            </div>
-            <div>
-              <Label htmlFor="onderwerp">Onderwerp</Label>
-              <Input
-                id="onderwerp"
-                value={formData.onderwerp}
-                onChange={(e) => setFormData({ ...formData, onderwerp: e.target.value })}
-                placeholder="Bijv. Differentiëren"
-              />
-            </div>
-            <div>
-              <Label htmlFor="vraag">Vraag of opgave</Label>
-              <Textarea
-                id="vraag"
-                value={formData.vraag}
-                onChange={(e) => setFormData({ ...formData, vraag: e.target.value })}
-                placeholder="De vraag of opgave waar je de fout maakte..."
-                rows={3}
-              />
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <Label htmlFor="mijn_antwoord">Mijn antwoord</Label>
-                <Textarea
-                  id="mijn_antwoord"
-                  value={formData.mijn_antwoord}
-                  onChange={(e) => setFormData({ ...formData, mijn_antwoord: e.target.value })}
-                  placeholder="Wat was jouw (foute) antwoord?"
-                  rows={3}
-                />
-              </div>
-              <div>
-                <Label htmlFor="correct_antwoord">Correct antwoord</Label>
-                <Textarea
-                  id="correct_antwoord"
-                  value={formData.correct_antwoord}
-                  onChange={(e) => setFormData({ ...formData, correct_antwoord: e.target.value })}
-                  placeholder="Wat was het juiste antwoord?"
-                  rows={3}
-                />
-              </div>
-            </div>
-            <div>
-              <Label htmlFor="fouttype">Fouttype</Label>
-              <select
-                id="fouttype"
-                value={formData.fouttype}
-                onChange={(e) => setFormData({ ...formData, fouttype: e.target.value })}
-                className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+      {modalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={closeModal}
+            aria-hidden="true"
+          />
+
+          <div className="relative z-10 max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-xl border border-border bg-background p-6 shadow-xl">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="font-display text-2xl font-semibold">Nieuwe fout</h2>
+
+              <button
+                type="button"
+                onClick={closeModal}
+                className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
               >
-                <option value="">Selecteer een fouttype...</option>
-                {FOOTTYPES.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
+                <X className="h-4 w-4" />
+              </button>
             </div>
-            <div>
-              <Label htmlFor="oorzaak">Oorzaak</Label>
-              <Textarea
-                id="oorzaak"
-                value={formData.oorzaak}
-                onChange={(e) => setFormData({ ...formData, oorzaak: e.target.value })}
-                placeholder="Waarom maakte je deze fout? (bijv. Ik herkende het opgavetype niet, Ik las te snel, etc.)"
-                rows={2}
-              />
-            </div>
-            <div>
-              <Label htmlFor="nieuwe_regel">Nieuwe regel</Label>
-              <Textarea
-                id="nieuwe_regel"
-                value={formData.nieuwe_regel}
-                onChange={(e) => setFormData({ ...formData, nieuwe_regel: e.target.value })}
-                placeholder="Schrijf één concrete regel om deze fout in de toekomst te voorkomen..."
-                rows={2}
-              />
-            </div>
+
+            {formError && (
+              <p className="mb-4 rounded-md border border-rose-500/30 bg-rose-500/5 p-3 text-sm text-rose-500">
+                {formError}
+              </p>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid gap-4 sm:grid-cols-3">
+                <div>
+                  <label htmlFor="fout-vak" className="mb-1 block text-sm font-medium">
+                    Vak
+                  </label>
+                  <input
+                    id="fout-vak"
+                    value={form.vak}
+                    onChange={(event) => setForm({ ...form, vak: event.target.value })}
+                    className={inputClass}
+                    placeholder="Bijv. Wiskunde"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="fout-hoofdstuk" className="mb-1 block text-sm font-medium">
+                    Hoofdstuk
+                  </label>
+                  <input
+                    id="fout-hoofdstuk"
+                    value={form.hoofdstuk}
+                    onChange={(event) => setForm({ ...form, hoofdstuk: event.target.value })}
+                    className={inputClass}
+                    placeholder="Bijv. H4"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="fout-onderwerp" className="mb-1 block text-sm font-medium">
+                    Onderwerp
+                  </label>
+                  <input
+                    id="fout-onderwerp"
+                    value={form.onderwerp}
+                    onChange={(event) => setForm({ ...form, onderwerp: event.target.value })}
+                    className={inputClass}
+                    placeholder="Bijv. Breuken"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="fout-vraag" className="mb-1 block text-sm font-medium">
+                  Vraag of opgave
+                </label>
+                <textarea
+                  id="fout-vraag"
+                  value={form.vraag}
+                  onChange={(event) => setForm({ ...form, vraag: event.target.value })}
+                  className={textareaClass}
+                  placeholder="De vraag of opgave waar je de fout maakte..."
+                />
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="fout-mijn-antwoord" className="mb-1 block text-sm font-medium">
+                    Mijn antwoord
+                  </label>
+                  <textarea
+                    id="fout-mijn-antwoord"
+                    value={form.mijn_antwoord}
+                    onChange={(event) => setForm({ ...form, mijn_antwoord: event.target.value })}
+                    className={textareaClass}
+                    placeholder="Wat had jij ingevuld?"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="fout-correct-antwoord" className="mb-1 block text-sm font-medium">
+                    Correct antwoord
+                  </label>
+                  <textarea
+                    id="fout-correct-antwoord"
+                    value={form.correct_antwoord}
+                    onChange={(event) => setForm({ ...form, correct_antwoord: event.target.value })}
+                    className={textareaClass}
+                    placeholder="Wat is het juiste antwoord?"
+                  />
+                </div>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="fout-type" className="mb-1 block text-sm font-medium">
+                    Fouttype
+                  </label>
+                  <input
+                    id="fout-type"
+                    value={form.fouttype}
+                    onChange={(event) => setForm({ ...form, fouttype: event.target.value })}
+                    className={inputClass}
+                    placeholder="Bijv. rekenfout"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="fout-oorzaak" className="mb-1 block text-sm font-medium">
+                    Oorzaak
+                  </label>
+                  <input
+                    id="fout-oorzaak"
+                    value={form.oorzaak}
+                    onChange={(event) => setForm({ ...form, oorzaak: event.target.value })}
+                    className={inputClass}
+                    placeholder="Bijv. te snel gelezen"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="fout-nieuwe-regel" className="mb-1 block text-sm font-medium">
+                  Nieuwe regel
+                </label>
+                <textarea
+                  id="fout-nieuwe-regel"
+                  value={form.nieuwe_regel}
+                  onChange={(event) => setForm({ ...form, nieuwe_regel: event.target.value })}
+                  className={textareaClass}
+                  placeholder="Wat doe je de volgende keer anders?"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-2">
+                <button type="button" onClick={closeModal} className={outlineButtonClass}>
+                  Annuleren
+                </button>
+
+                <button type="submit" className={primaryButtonClass}>
+                  Fout registreren
+                </button>
+              </div>
+            </form>
           </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowDialog(false)}>
-              Annuleren
-            </Button>
-            <Button onClick={handleAddError}>Fout registreren</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+        </div>
+      )}
     </AppShell>
   );
 }

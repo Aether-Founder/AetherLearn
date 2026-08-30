@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Panel, Field, inputClass } from '@/components/ui-kit';
 import { Button } from '@/components/ui/button';
@@ -293,7 +294,7 @@ export default function InstellingenPage() {
               onClick={() => setActiveSection('profile')}
               className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                 activeSection === 'profile'
-                  ? 'bg-primary text-primary-foreground'
+                  ? 'bg-blue-600 text-white'
                   : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
               }`}
             >
@@ -304,7 +305,7 @@ export default function InstellingenPage() {
               onClick={() => setActiveSection('appearance')}
               className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                 activeSection === 'appearance'
-                  ? 'bg-primary text-primary-foreground'
+                  ? 'bg-blue-600 text-white'
                   : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
               }`}
             >
@@ -315,7 +316,7 @@ export default function InstellingenPage() {
               onClick={() => setActiveSection('navigation')}
               className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                 activeSection === 'navigation'
-                  ? 'bg-primary text-primary-foreground'
+                  ? 'bg-blue-600 text-white'
                   : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
               }`}
             >
@@ -326,7 +327,7 @@ export default function InstellingenPage() {
               onClick={() => setActiveSection('statistics')}
               className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                 activeSection === 'statistics'
-                  ? 'bg-primary text-primary-foreground'
+                  ? 'bg-blue-600 text-white'
                   : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
               }`}
             >
@@ -337,7 +338,7 @@ export default function InstellingenPage() {
               onClick={() => setActiveSection('account')}
               className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                 activeSection === 'account'
-                  ? 'bg-primary text-primary-foreground'
+                  ? 'bg-blue-600 text-white'
                   : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
               }`}
             >
