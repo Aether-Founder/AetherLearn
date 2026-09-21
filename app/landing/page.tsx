@@ -51,26 +51,8 @@ export default function LandingPage() {
       observer.observe(el);
     });
 
-    // CTA pulse animation
-    const ctaObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('cta-visible');
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    const ctaButton = document.querySelector('.cta-button');
-    if (ctaButton) {
-      ctaObserver.observe(ctaButton);
-    }
-
     return () => {
       observer.disconnect();
-      ctaObserver.disconnect();
     };
   }, [mounted]);
 
@@ -115,18 +97,6 @@ export default function LandingPage() {
             }
           }
 
-          @keyframes ctaPulse {
-            0% {
-              box-shadow: 0 0 0 0 rgba(255,255,255,0.25);
-            }
-            40% {
-              box-shadow: 0 0 0 12px rgba(255,255,255,0);
-            }
-            100% {
-              box-shadow: 0 0 0 0 rgba(255,255,255,0);
-            }
-          }
-
           .reveal {
             opacity: 1;
             transform: translateY(0);
@@ -143,8 +113,16 @@ export default function LandingPage() {
             transform: translateY(0);
           }
 
-          .cta-button.cta-visible {
-            animation: ctaPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          .demo-button {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+
+          .demo-button:active {
+            transform: scale(0.95);
+          }
+
+          .demo-button.active {
+            transform: scale(1.02);
           }
 
           .glass-nav {
@@ -165,7 +143,7 @@ export default function LandingPage() {
           @media (prefers-reduced-motion: reduce) {
             .reveal,
             .reveal.visible,
-            .cta-button.cta-visible {
+            .demo-button {
               animation: none;
               transition: none;
               opacity: 1;
@@ -253,7 +231,7 @@ export default function LandingPage() {
             <Button 
               asChild 
               size="lg" 
-              className="text-base hover:scale-105 transition-transform duration-200"
+              className="text-base hover:scale-102 active:scale-100 transition-transform duration-150"
             >
               <Link href="/register">
                 Maak gratis account
@@ -264,7 +242,7 @@ export default function LandingPage() {
               asChild 
               size="lg" 
               variant="outline" 
-              className="text-base hover:scale-105 transition-transform duration-200"
+              className="text-base hover:scale-102 active:scale-100 transition-transform duration-150"
             >
               <Link href="#demo">
                 Bekijk demo
@@ -291,9 +269,9 @@ export default function LandingPage() {
                 <button
                   key={option.id}
                   onClick={() => handleDemoChange(option.id)}
-                  className={`relative z-10 text-left px-4 py-3 rounded-lg transition-all ${
+                  className={`demo-button relative z-10 text-left px-4 py-3 rounded-lg transition-all ${
                     activeDemo === option.id
-                      ? 'bg-white text-black font-medium shadow-sm'
+                      ? 'bg-white text-black font-medium shadow-sm active'
                       : 'bg-transparent border border-border text-muted-foreground hover:text-foreground hover:bg-white/5'
                   }`}
                 >
@@ -392,7 +370,7 @@ export default function LandingPage() {
           <Button 
             asChild 
             size="lg" 
-            className="mt-8 text-base cta-button"
+            className="mt-8 text-base hover:scale-102 active:scale-100 transition-transform duration-150"
           >
             <Link href="/register">
               Start gratis
