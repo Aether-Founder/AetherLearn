@@ -3,7 +3,7 @@
 import { AppShell, PageHeader } from '@/components/AppShell';
 import Link from 'next/link';
 
-export default function TermsPage() {
+export default function TermsPageNL() {
   return (
     <AppShell>
       <PageHeader 

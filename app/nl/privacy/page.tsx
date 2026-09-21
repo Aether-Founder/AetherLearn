@@ -2,7 +2,7 @@
 
 import { AppShell, PageHeader } from '@/components/AppShell';
 
-export default function PrivacyPage() {
+export default function PrivacyPageNL() {
   return (
     <AppShell>
       <PageHeader
