@@ -39,11 +39,6 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
       // This happens on a fresh clone or in CI before env vars are configured.
       // We render children without a Supabase client instead of crashing the
       // whole app (and the build's prerendering) at module load time.
-      if (typeof window !== 'undefined') {
-        console.warn(
-          '[SupabaseProvider] NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY are not configured. Supabase features are disabled.'
-        );
-      }
       return null;
     }
 

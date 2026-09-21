@@ -17,7 +17,6 @@ export async function populateFilesystemFromDatabase() {
     if (subjectsError) throw subjectsError;
 
     if (!subjects || subjects.length === 0) {
-      console.log('No subjects found in database');
       return;
     }
 
@@ -43,7 +42,6 @@ export async function populateFilesystemFromDatabase() {
         .order('number');
 
       if (chaptersError) {
-        console.error(`Error fetching chapters for subject ${subject.id}:`, chaptersError);
         continue;
       }
 
@@ -70,7 +68,6 @@ export async function populateFilesystemFromDatabase() {
           .order('name');
 
         if (topicsError) {
-          console.error(`Error fetching topics for chapter ${chapter.id}:`, topicsError);
           continue;
         }
 
@@ -91,10 +88,7 @@ export async function populateFilesystemFromDatabase() {
         }
       }
     }
-
-    console.log('Filesystem populated successfully from database');
   } catch (error) {
-    console.error('Error populating filesystem from database:', error);
     throw error;
   }
 }

@@ -27,10 +27,8 @@ export const metadata = {
     icon: '/icons/aetherlearn/favicon.png',
     apple: '/icons/aetherlearn/icon-192x192.png',
   },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'AetherLearn',
+  other: {
+    'mobile-web-app-capable': 'yes',
   },
 };
 
@@ -138,7 +136,7 @@ export default function RootLayout({
                     }
                   }
                 } catch (e) {
-                  console.error('Theme initialization error:', e);
+                  // Theme initialization error - silently ignore
                 }
               })();
             `,
