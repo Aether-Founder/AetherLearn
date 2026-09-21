@@ -17,6 +17,7 @@ export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDemo, setActiveDemo] = useState('flashcards');
   const [demoAnimating, setDemoAnimating] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,8 +27,14 @@ export default function LandingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Scroll reveal animations
   useEffect(() => {
+    if (!mounted) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -39,7 +46,10 @@ export default function LandingPage() {
       { threshold: 0.1 }
     );
 
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach((el) => {
+      el.classList.add('animate');
+      observer.observe(el);
+    });
 
     // CTA pulse animation
     const ctaObserver = new IntersectionObserver(
@@ -62,7 +72,7 @@ export default function LandingPage() {
       observer.disconnect();
       ctaObserver.disconnect();
     };
-  }, []);
+  }, [mounted]);
 
   const demoOptions = [
     { id: 'flashcards', label: 'Flashcards' },
@@ -85,56 +95,70 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-background scrollbar-hide">
-      <style>{`
-        @keyframes heroFadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(32px);
+      {!mounted ? (
+        <style>{`
+          .reveal {
+            opacity: 1 !important;
+            transform: none !important;
           }
-          to {
+        `}</style>
+      ) : (
+        <style>{`
+          @keyframes heroFadeUp {
+            from {
+              opacity: 0;
+              transform: translateY(32px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes ctaPulse {
+            0% {
+              box-shadow: 0 0 0 0 rgba(255,255,255,0.25);
+            }
+            40% {
+              box-shadow: 0 0 0 12px rgba(255,255,255,0);
+            }
+            100% {
+              box-shadow: 0 0 0 0 rgba(255,255,255,0);
+            }
+          }
+
+          .reveal {
             opacity: 1;
             transform: translateY(0);
           }
-        }
 
-        @keyframes ctaPulse {
-          0% {
-            box-shadow: 0 0 0 0 rgba(255,255,255,0.25);
+          .reveal.animate {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1);
           }
-          40% {
-            box-shadow: 0 0 0 12px rgba(255,255,255,0);
-          }
-          100% {
-            box-shadow: 0 0 0 0 rgba(255,255,255,0);
-          }
-        }
 
-        .reveal {
-          opacity: 0;
-          transform: translateY(32px);
-          transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1);
-        }
-
-        .reveal.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .cta-button.cta-visible {
-          animation: ctaPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .reveal,
-          .reveal.visible,
-          .cta-button.cta-visible {
-            animation: none;
-            transition: none;
+          .reveal.visible {
             opacity: 1;
-            transform: none;
+            transform: translateY(0);
           }
-        }
-      `}</style>
+
+          .cta-button.cta-visible {
+            animation: ctaPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .reveal,
+            .reveal.visible,
+            .cta-button.cta-visible {
+              animation: none;
+              transition: none;
+              opacity: 1;
+              transform: none;
+            }
+          }
+        `}</style>
+      )}
 
       {/* Navbar */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -246,7 +270,7 @@ export default function LandingPage() {
           </p>
 
           <div className="flex gap-8 items-start">
-            {/* Vertical Navigation with Sliding Indicator */}
+            {/* Vertical Navigation */}
             <div className="relative flex flex-col gap-2 w-48 flex-shrink-0">
               {demoOptions.map((option, index) => (
                 <button
