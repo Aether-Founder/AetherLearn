@@ -10,16 +10,13 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Menu, X } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDemo, setActiveDemo] = useState('flashcards');
   const [demoAnimating, setDemoAnimating] = useState(false);
-  const button1Ref = useRef<HTMLButtonElement>(null);
-  const button2Ref = useRef<HTMLButtonElement>(null);
-  const [ctaVisible, setCtaVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,25 +63,6 @@ export default function LandingPage() {
       ctaObserver.disconnect();
     };
   }, []);
-
-  // Magnetic hover effect
-  const handleMagneticHover = (e: React.MouseEvent<HTMLButtonElement>, ref: React.RefObject<HTMLButtonElement>) => {
-    const button = ref.current;
-    if (!button) return;
-
-    const rect = button.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-
-    button.style.transform = `translate(${x * 0.12}px, ${y * 0.12 - 2}px)`;
-  };
-
-  const handleMagneticLeave = (ref: React.RefObject<HTMLButtonElement>) => {
-    const button = ref.current;
-    if (!button) return;
-
-    button.style.transform = '';
-  };
 
   const demoOptions = [
     { id: 'flashcards', label: 'Flashcards' },
@@ -160,7 +138,7 @@ export default function LandingPage() {
 
       {/* Navbar */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/80 backdrop-blur-lg border-b border-border' : 'bg-transparent'
+        isScrolled ? 'bg-background/50 backdrop-blur-xl' : 'bg-transparent'
       }`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
@@ -236,10 +214,7 @@ export default function LandingPage() {
             <Button 
               asChild 
               size="lg" 
-              className="text-base"
-              ref={button1Ref}
-              onMouseMove={(e) => handleMagneticHover(e, button1Ref)}
-              onMouseLeave={() => handleMagneticLeave(button1Ref)}
+              className="text-base hover:scale-105 transition-transform duration-200"
             >
               <Link href="/register">
                 Maak gratis account
@@ -250,10 +225,7 @@ export default function LandingPage() {
               asChild 
               size="lg" 
               variant="outline" 
-              className="text-base"
-              ref={button2Ref}
-              onMouseMove={(e) => handleMagneticHover(e, button2Ref)}
-              onMouseLeave={() => handleMagneticLeave(button2Ref)}
+              className="text-base hover:scale-105 transition-transform duration-200"
             >
               <Link href="#demo">
                 Bekijk demo
@@ -276,20 +248,13 @@ export default function LandingPage() {
           <div className="flex gap-8 items-start">
             {/* Vertical Navigation with Sliding Indicator */}
             <div className="relative flex flex-col gap-2 w-48 flex-shrink-0">
-              <div 
-                className="absolute left-0 w-full transition-all duration-300 ease-out bg-white rounded-lg"
-                style={{
-                  top: `${demoOptions.findIndex(o => o.id === activeDemo) * 52}px`,
-                  height: '44px',
-                }}
-              />
-              {demoOptions.map((option) => (
+              {demoOptions.map((option, index) => (
                 <button
                   key={option.id}
                   onClick={() => handleDemoChange(option.id)}
                   className={`relative z-10 text-left px-4 py-3 rounded-lg transition-all ${
                     activeDemo === option.id
-                      ? 'bg-transparent text-black font-medium'
+                      ? 'bg-white text-black font-medium shadow-sm'
                       : 'bg-transparent border border-border text-muted-foreground hover:text-foreground hover:bg-white/5'
                   }`}
                 >
