@@ -259,7 +259,7 @@ export default function LandingPage() {
               </Link>
               <Button asChild size="sm">
                 <Link href="/register">
-                  Gratis starten
+                  Aanmelden
                 </Link>
               </Button>
             </div>
@@ -285,7 +285,7 @@ export default function LandingPage() {
               </Link>
               <Button asChild size="sm" className="w-full">
                 <Link href="/register">
-                  Gratis starten
+                  Aanmelden
                 </Link>
               </Button>
             </div>
@@ -302,7 +302,7 @@ export default function LandingPage() {
         >
           <div className="reveal inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm text-muted-foreground mb-6" style={{ transitionDelay: '0.1s' }}>
             <img src="/icons/aetherlearn/icon-96x96.png" alt="AetherLearn" className="h-4 w-4" />
-            <span>De toekomst van studeren</span>
+            <span>Slimmer leren</span>
           </div>
           <h1 className="reveal font-display text-5xl font-semibold leading-tight md:text-7xl" style={{ transitionDelay: '0.2s' }}>
             Leer slimmer,
@@ -310,8 +310,7 @@ export default function LandingPage() {
             leer beter
           </h1>
           <p className="reveal mt-6 text-lg text-muted-foreground md:text-xl" style={{ transitionDelay: '0.35s' }}>
-            AetherLearn helpt je om effectiever te studeren met gepersonaliseerde leerpaden,
-            actieve herhaling en slimme planning.
+            AetherLearn helpt je om slimmer te leren. Je oefent met flashcards, maakt notities en houdt al je vakken op één plek bij.
           </p>
           <div className="reveal mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center" style={{ transitionDelay: '0.5s' }}>
             <Button 
@@ -320,7 +319,7 @@ export default function LandingPage() {
               className="text-base hover:scale-102 active:scale-100 transition-transform duration-150"
             >
               <Link href="/register">
-                Maak gratis account
+                Account aanmaken
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
@@ -345,7 +344,7 @@ export default function LandingPage() {
             Bekijk in actie
           </h2>
           <p className="text-center text-muted-foreground mb-16">
-            Klik op een optie om de demo te bekijken
+            Kies een onderdeel om te zien hoe het werkt.
           </p>
 
           <div className="flex gap-8 items-start">
@@ -391,7 +390,7 @@ export default function LandingPage() {
                   demoAnimating ? 'opacity-0 translate-y-1' : 'opacity-100 translate-y-0'
                 }`}
               >
-                Preview: {activeDemoLabel}
+                Voorbeeld: {activeDemoLabel}
               </div>
             </div>
           </div>
@@ -409,43 +408,43 @@ export default function LandingPage() {
             <div className="reveal flex gap-4" style={{ transitionDelay: '0ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                Actief leren met spatiële herhaling en gepersonaliseerde herhalingsmomenten
+                Je herhaalt op de momenten die voor jou het beste werken
               </p>
             </div>
             <div className="reveal flex gap-4" style={{ transitionDelay: '70ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                Organiseer je studiemateriaal in vakken, hoofdstukken en studiesets
+                Al je vakken, hoofdstukken en oefensets op één plek
               </p>
             </div>
             <div className="reveal flex gap-4" style={{ transitionDelay: '140ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                Automatische planning van je herhalingsmomenten
+                AetherLearn plant je herhalingen automatisch voor je in
               </p>
             </div>
             <div className="reveal flex gap-4" style={{ transitionDelay: '210ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                Compleet overzicht van al je vakken, toetsen en voortgang
+                Altijd zicht op je vakken, toetsen en voortgang
               </p>
             </div>
             <div className="reveal flex gap-4" style={{ transitionDelay: '280ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                Rijke notities met diagrammen, mind maps en tekeningen
+                Maak notities met tekst, tekeningen en mind maps
               </p>
             </div>
             <div className="reveal flex gap-4" style={{ transitionDelay: '350ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                AI-gestuurde content creatie met Artisan
+                Laat Artisan flashcards en oefenvragen voor je maken
               </p>
             </div>
             <div className="reveal flex gap-4" style={{ transitionDelay: '420ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                Werk offline en synchroniseer automatisch
+                Werkt ook offline en synchroniseert vanzelf
               </p>
             </div>
           </div>
@@ -464,8 +463,7 @@ export default function LandingPage() {
             Klaar om te beginnen?
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Maak vandaag nog een account en start met effectiever studeren.
-            Geen creditcard nodig.
+            Maak een account en begin met leren.
           </p>
           <Button 
             asChild 
@@ -473,7 +471,7 @@ export default function LandingPage() {
             className="mt-8 text-base hover:scale-102 active:scale-100 transition-transform duration-150"
           >
             <Link href="/register">
-              Start gratis
+              Account aanmaken
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
