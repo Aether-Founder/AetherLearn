@@ -1,7 +1,7 @@
 {
   "name": "AetherLearn",
   "short_name": "Aether",
-  "description": "Jouw persoonlijke studieplatform voor VWO-leerlingen",
+  "description": "De AetherLearn-app",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",

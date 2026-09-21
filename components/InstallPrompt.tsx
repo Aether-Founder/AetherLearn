@@ -77,7 +77,7 @@ export function InstallPrompt() {
                 Installeer AetherLearn
               </h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Voor de beste ervaring, inclusief offline studeren
+                Voor de beste ervaring, inclusief offline leren
               </p>
 
               <div className="flex space-x-2">
