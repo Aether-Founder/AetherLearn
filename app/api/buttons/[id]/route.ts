@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase/server';
+import { createRouteClient } from '@/lib/supabase/server';
 
 /**
  * DELETE /api/buttons/[id]
@@ -10,6 +10,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    const supabase = createRouteClient();
     const { id } = params;
 
     // Get user from session

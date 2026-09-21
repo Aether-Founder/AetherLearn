@@ -265,7 +265,7 @@ export default function FileOperationsMenu({
         open={showDeleteDialog}
         onOpenChange={setShowDeleteDialog}
         title={`"${node.name}" verwijderen`}
-        description={`Weet je zeker dat je "${node.name}" wilt verwijderen? ${node.type === 'folder' || node.type === 'note_folder' ? 'Alle inhoud in deze map zal ook worden verwijderd.' : ''} Deze actie kan niet ongedaan worden gemaakt.`}
+        description={`Weet je zeker dat je "${node.name}" wilt verwijderen? ${node.type === 'note_folder' ? 'Alle inhoud in deze map zal ook worden verwijderd.' : ''} Deze actie kan niet ongedaan worden gemaakt.`}
         onConfirm={confirmDelete}
         confirmText="Verwijderen"
         cancelText="Annuleren"

@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase/server';
+import { createServerClient } from '@/lib/supabase/server';
 import { createNode } from '@/lib/filesystem/filesystemService';
 
 /**
@@ -8,6 +8,7 @@ import { createNode } from '@/lib/filesystem/filesystemService';
  */
 export async function populateFilesystemFromDatabase() {
   try {
+    const supabase = createServerClient();
     // Fetch all subjects
     const { data: subjects, error: subjectsError } = await supabase
       .from('subjects')

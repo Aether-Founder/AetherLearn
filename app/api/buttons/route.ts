@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase/server';
+import { createRouteClient } from '@/lib/supabase/server';
 
 /**
  * GET /api/buttons
@@ -8,6 +8,7 @@ import { supabase } from '@/lib/supabase/server';
  */
 export async function GET(request: NextRequest) {
   try {
+    const supabase = createRouteClient();
     const { searchParams } = new URL(request.url);
     const placement = searchParams.get('placement');
     const placementId = searchParams.get('placementId');
@@ -55,6 +56,7 @@ export async function GET(request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
+    const supabase = createRouteClient();
     const body = await request.json();
     const {
       target_type,
