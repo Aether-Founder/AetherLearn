@@ -19,13 +19,60 @@ export default function LandingPage() {
   const [demoAnimating, setDemoAnimating] = useState(false);
   const [indicatorPosition, setIndicatorPosition] = useState({ top: 0, height: 0 });
   const demoContainerRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
 
+  // Consolidated scroll handler with parallax effects
   useEffect(() => {
+    let rafId: number | null = null;
+    let ticking = false;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (ticking) return;
+      ticking = true;
+
+      rafId = requestAnimationFrame(() => {
+        // Update navbar scroll state
+        setIsScrolled(window.scrollY > 50);
+
+        if (!prefersReducedMotion) {
+          // Hero parallax effect
+          if (heroRef.current && heroContentRef.current) {
+            const heroRect = heroRef.current.getBoundingClientRect();
+            const progress = Math.max(0, Math.min(1, -heroRect.top / (heroRect.height * 0.8)));
+            
+            const translateY = progress * 40;
+            const scale = 1 - progress * 0.08;
+            const opacity = Math.max(0, 1 - progress * 1.1);
+
+            heroContentRef.current.style.transform = `translateY(${translateY}px) scale(${scale})`;
+            heroContentRef.current.style.opacity = opacity.toString();
+          }
+
+          // Preview parallax effect
+          if (previewRef.current) {
+            const previewRect = previewRef.current.getBoundingClientRect();
+            const progress = Math.max(0, Math.min(1, (window.innerHeight - previewRect.top) / (window.innerHeight * 0.9)));
+            
+            const scale = 0.94 + progress * 0.06;
+            previewRef.current.style.transform = `scale(${scale})`;
+          }
+        }
+
+        ticking = false;
+      });
     };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
+    };
   }, []);
 
   // Scroll reveal animations
@@ -182,6 +229,10 @@ export default function LandingPage() {
             transform: none;
           }
         }
+
+        .will-change-transform {
+          will-change: transform;
+        }
       `}</style>
 
       {/* Navbar */}
@@ -243,8 +294,12 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden px-4 py-32 md:py-48 pt-32 scroll-smooth">
-        <div className="mx-auto max-w-4xl text-center">
+      <section ref={heroRef} className="relative overflow-hidden px-4 py-32 md:py-48 pt-32 scroll-smooth">
+        <div 
+          ref={heroContentRef}
+          className="mx-auto max-w-4xl text-center will-change-transform"
+          style={{ transformOrigin: 'center top' }}
+        >
           <div className="reveal inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm text-muted-foreground mb-6" style={{ transitionDelay: '0.1s' }}>
             <img src="/icons/aetherlearn/icon-96x96.png" alt="AetherLearn" className="h-4 w-4" />
             <span>De toekomst van studeren</span>
@@ -326,8 +381,9 @@ export default function LandingPage() {
 
             {/* Big Preview with Animation */}
             <div 
+              ref={previewRef}
               className={`flex-1 aspect-video bg-secondary rounded-2xl overflow-hidden flex items-center justify-center min-w-0 transition-all duration-300 ${
-                demoAnimating ? 'scale-[0.992] border-white/40' : ''
+                demoAnimating ? 'border-white/40 shadow-[0_0_40px_rgba(255,255,255,0.03)]' : ''
               }`}
             >
               <div 
