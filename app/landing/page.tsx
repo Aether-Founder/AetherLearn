@@ -17,7 +17,6 @@ export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDemo, setActiveDemo] = useState('flashcards');
   const [demoAnimating, setDemoAnimating] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,14 +26,8 @@ export default function LandingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   // Scroll reveal animations
   useEffect(() => {
-    if (!mounted) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -53,8 +46,12 @@ export default function LandingPage() {
 
     return () => {
       observer.disconnect();
+      // Clean up animations on unmount
+      document.querySelectorAll('.reveal').forEach((el) => {
+        el.classList.remove('animate', 'visible');
+      });
     };
-  }, [mounted]);
+  }, []);
 
   const demoOptions = [
     { id: 'flashcards', label: 'Flashcards' },
@@ -77,81 +74,72 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-background scrollbar-hide">
-      {!mounted ? (
-        <style>{`
-          .reveal {
-            opacity: 1 !important;
-            transform: none !important;
-          }
-        `}</style>
-      ) : (
-        <style>{`
-          @keyframes heroFadeUp {
-            from {
-              opacity: 0;
-              transform: translateY(32px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-
-          .reveal {
-            opacity: 1;
-            transform: translateY(0);
-          }
-
-          .reveal.animate {
+      <style>{`
+        @keyframes heroFadeUp {
+          from {
             opacity: 0;
             transform: translateY(32px);
-            transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1);
           }
-
-          .reveal.visible {
+          to {
             opacity: 1;
             transform: translateY(0);
           }
+        }
 
+        .reveal {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .reveal.animate {
+          opacity: 0;
+          transform: translateY(32px);
+          transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1);
+        }
+
+        .reveal.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .demo-button {
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .demo-button:active {
+          transform: scale(0.95);
+        }
+
+        .demo-button.active {
+          transform: scale(1.02);
+        }
+
+        .glass-nav {
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.05) 50%,
+            rgba(255, 255, 255, 0.1) 100%
+          );
+          backdrop-filter: blur(24px) saturate(180%);
+          -webkit-backdrop-filter: blur(24px) saturate(180%);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+          box-shadow: 
+            0 4px 30px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .reveal,
+          .reveal.visible,
           .demo-button {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: none;
+            transition: none;
+            opacity: 1;
+            transform: none;
           }
-
-          .demo-button:active {
-            transform: scale(0.95);
-          }
-
-          .demo-button.active {
-            transform: scale(1.02);
-          }
-
-          .glass-nav {
-            background: linear-gradient(
-              135deg,
-              rgba(255, 255, 255, 0.1) 0%,
-              rgba(255, 255, 255, 0.05) 50%,
-              rgba(255, 255, 255, 0.1) 100%
-            );
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 
-              0 4px 30px rgba(0, 0, 0, 0.1),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
-          }
-
-          @media (prefers-reduced-motion: reduce) {
-            .reveal,
-            .reveal.visible,
-            .demo-button {
-              animation: none;
-              transition: none;
-              opacity: 1;
-              transform: none;
-            }
-          }
-        `}</style>
-      )}
+        }
+      `}</style>
 
       {/* Navbar */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
