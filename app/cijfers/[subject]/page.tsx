@@ -18,7 +18,6 @@ export default function SubjectGradesPage() {
     return (
       <AppShell>
         <PageHeader
-          eyebrow={t('grades_eyebrow')}
           title={t('grades_subject_not_found')}
           description={t('grades_subject_not_found_desc')}
         />
@@ -39,7 +38,6 @@ export default function SubjectGradesPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={t('grades_title')}
         title={subject.name}
         description={t('grades_subject_desc', undefined, {
           teacher: subject.teacher,

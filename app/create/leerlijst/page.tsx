@@ -7,7 +7,6 @@ export default function CreateLeerlijstPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Leersets"
         title="Nieuwe leerlijst"
         description="Maak een nieuwe leerset met vragen en antwoorden."
       />

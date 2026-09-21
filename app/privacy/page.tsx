@@ -9,7 +9,6 @@ export default function PrivacyPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Privacy"
         title={t('privacy_title')}
         description={t('privacy_description')}
       />

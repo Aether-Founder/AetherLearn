@@ -18,7 +18,7 @@ export async function processQueueItem(item: ArtisanQueueItem): Promise<void> {
   await supabase.from('artisan_queue').update({ status: 'processing' }).eq('id', item.id);
 
   const localFileName = `${item.id}_${item.file_name}`;
-  const localPath = path.join(config.inboxPath, localFileName);
+  const localPath = path.join(config.workspace.inbox, localFileName);
 
   try {
     // Download file with exponential backoff and validation
@@ -122,11 +122,11 @@ async function markAsFailed(item: ArtisanQueueItem, errorMessage: string): Promi
 }
 
 export async function checkOutboxForResults(): Promise<void> {
-  const outboxFiles = await fs.readdir(config.outboxPath);
+  const outboxFiles = await fs.readdir(config.workspace.outbox);
 
   for (const file of outboxFiles) {
     if (file.endsWith('.json')) {
-      const filePath = path.join(config.outboxPath, file);
+      const filePath = path.join(config.workspace.outbox, file);
       await writeLog(`Found result file in outbox: ${file}`);
 
       try {

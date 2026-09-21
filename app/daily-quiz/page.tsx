@@ -108,7 +108,6 @@ export default function DailyQuizPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Dagelijkse quiz"
         title="Dagelijkse quiz"
         description="Een korte dagelijkse oefening op basis van je leersets."
       />

@@ -71,9 +71,14 @@ export async function middleware(req: NextRequest) {
   });
 
   // Refresh session if expired - required for Server Components
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  let session = null;
+  try {
+    const { data } = await supabase.auth.getSession();
+    session = data.session;
+  } catch (error) {
+    console.warn('Failed to get session in middleware:', error);
+    // Continue without session - allows app to load even if Supabase is unreachable
+  }
 
   // Define route patterns
   const isAuthPage =

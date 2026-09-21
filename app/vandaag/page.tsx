@@ -273,7 +273,6 @@ export default function VandaagPage() {
     return (
       <AppShell>
         <PageHeader
-          eyebrow="Dashboard"
           title="Vandaag"
           description="Je dagelijkse leeroverzicht en actiepunten"
         />
@@ -296,7 +295,6 @@ export default function VandaagPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Dashboard"
         title="Vandaag"
         description="Je dagelijkse leeroverzicht en actiepunten"
       />

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plantaardige en Dierlijke Cellen</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #a8e6cf 0%, #88d8b0 100%);
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #2d3436;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+    
+    .cells-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .cell-card {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    
+    .cell-title {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    
+    .plant-title {
+      background: linear-gradient(135deg, #00b894, #00cec9);
+      color: white;
+    }
+    
+    .animal-title {
+      background: linear-gradient(135deg, #e17055, #d63031);
+      color: white;
+    }
+    
+    .cell-visual {
+      width: 100%;
+      height: 300px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .plant-cell {
+      background: linear-gradient(135deg, #55efc4, #00b894);
+      border: 8px solid #27ae60;
+    }
+    
+    .animal-cell {
+      background: linear-gradient(135deg, #fab1a0, #e17055);
+      border: 4px solid #d63031;
+    }
+    
+    .organel {
+      position: absolute;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .organel:hover {
+      transform: scale(1.1);
+      z-index: 10;
+    }
+    
+    .nucleus {
+      background: #6c5ce7;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .mitochondria {
+      background: #fdcb6e;
+      border-radius: 20px;
+    }
+    
+    .chloroplast {
+      background: #27ae60;
+      border-radius: 15px;
+    }
+    
+    .vacuole {
+      background: #74b9ff;
+      border-radius: 50%;
+    }
+    
+    .ribosome {
+      background: #e84393;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 8px;
+    }
+    
+    .cell-wall {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 12px solid #27ae60;
+      border-radius: 15px;
+      pointer-events: none;
+    }
+    
+    .cell-membrane {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 4px solid #d63031;
+      border-radius: 15px;
+      pointer-events: none;
+    }
+    
+    .organel-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    
+    .organel-item {
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .organel-item:hover {
+      background: #e9ecef;
+      border-color: #6c5ce7;
+    }
+    
+    .organel-item.common {
+      background: #dfe6e9;
+    }
+    
+    .organel-item.plant-only {
+      background: #d5f5e3;
+    }
+    
+    .organel-item.animal-only {
+      background: #fadbd8;
+    }
+    
+    .info-panel {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .info-panel h3 {
+      color: #2d3436;
+      margin-bottom: 10px;
+    }
+    
+    .info-panel p {
+      color: #636e72;
+      line-height: 1.6;
+    }
+    
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #dfe6e9;
+    }
+    
+    .comparison-table th {
+      background: #6c5ce7;
+      color: white;
+    }
+    
+    .comparison-table tr:hover {
+      background: #f8f9fa;
+    }
+    
+    .check {
+      color: #27ae60;
+      font-weight: bold;
+    }
+    
+    .cross {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔬 Plantaardige en Dierlijke Cellen</h1>
+    
+    <div class="cells-container">
+      <div class="cell-card">
+        <div class="cell-title plant-title">🌿 Plantaardige Cel</div>
+        <div class="cell-visual plant-cell" id="plantCell">
+          <div class="cell-wall"></div>
+          <div class="organel nucleus" onclick="showOrganelInfo('nucleus')">Celkern</div>
+          <div class="organel chloroplast" style="top: 20%; left: 20%;" onclick="showOrganelInfo('chloroplast')">Chloroplast</div>
+          <div class="organel chloroplast" style="top: 20%; right: 20%;" onclick="showOrganelInfo('chloroplast')">Chloroplast</div>
+          <div class="organel chloroplast" style="bottom: 20%; left: 30%;" onclick="showOrganelInfo('chloroplast')">Chloroplast</div>
+          <div class="organel vacuole" style="width: 100px; height: 100px; top: 50%; left: 50%; transform: translate(-50%, -50%);" onclick="showOrganelInfo('vacuole')">Vacuole</div>
+          <div class="organel mitochondria" style="bottom: 15%; right: 15%; width: 60px; height: 30px;" onclick="showOrganelInfo('mitochondria')">Mitochondrium</div>
+          <div class="organel ribosome" style="top: 30%; left: 40%;" onclick="showOrganelInfo('ribosome')">R</div>
+          <div class="organel ribosome" style="top: 60%; right: 30%;" onclick="showOrganelInfo('ribosome')">R</div>
+        </div>
+        <div class="organel-list">
+          <div class="organel-item common" onclick="showOrganelInfo('nucleus')">✓ Celkern</div>
+          <div class="organel-item common" onclick="showOrganelInfo('mitochondria')">✓ Mitochondriën</div>
+          <div class="organel-item common" onclick="showOrganelInfo('ribosome')">✓ Ribosomen</div>
+          <div class="organel-item common" onclick="showOrganelInfo('cytoplasm')">✓ Cytoplasma</div>
+          <div class="organel-item plant-only" onclick="showOrganelInfo('cellwall')">🌿 Celwand</div>
+          <div class="organel-item plant-only" onclick="showOrganelInfo('chloroplast')">🌿 Chloroplasten</div>
+          <div class="organel-item plant-only" onclick="showOrganelInfo('vacuole')">🌿 Grote vacuole</div>
+        </div>
+      </div>
+      
+      <div class="cell-card">
+        <div class="cell-title animal-title">🦁 Dierlijke Cel</div>
+        <div class="cell-visual animal-cell" id="animalCell">
+          <div class="cell-membrane"></div>
+          <div class="organel nucleus" onclick="showOrganelInfo('nucleus')">Celkern</div>
+          <div class="organel mitochondria" style="top: 25%; left: 20%; width: 50px; height: 25px;" onclick="showOrganelInfo('mitochondria')">Mitochondrium</div>
+          <div class="organel mitochondria" style="top: 25%; right: 20%; width: 50px; height: 25px;" onclick="showOrganelInfo('mitochondria')">Mitochondrium</div>
+          <div class="organel mitochondria" style="bottom: 30%; left: 30%; width: 50px; height: 25px;" onclick="showOrganelInfo('mitochondria')">Mitochondrium</div>
+          <div class="organel vacuole" style="width: 40px; height: 40px; top: 60%; right: 25%;" onclick="showOrganelInfo('vacuole')">Vacuole</div>
+          <div class="organel ribosome" style="top: 40%; left: 35%;" onclick="showOrganelInfo('ribosome')">R</div>
+          <div class="organel ribosome" style="top: 50%; right: 35%;" onclick="showOrganelInfo('ribosome')">R</div>
+          <div class="organel ribosome" style="bottom: 40%; left: 45%;" onclick="showOrganelInfo('ribosome')">R</div>
+        </div>
+        <div class="organel-list">
+          <div class="organel-item common" onclick="showOrganelInfo('nucleus')">✓ Celkern</div>
+          <div class="organel-item common" onclick="showOrganelInfo('mitochondria')">✓ Mitochondriën</div>
+          <div class="organel-item common" onclick="showOrganelInfo('ribosome')">✓ Ribosomen</div>
+          <div class="organel-item common" onclick="showOrganelInfo('cytoplasm')">✓ Cytoplasma</div>
+          <div class="organel-item animal-only" onclick="showOrganelInfo('centrioles')">🦁 Centriolen</div>
+          <div class="organel-item animal-only" onclick="showOrganelInfo('lysosomes')">🦁 Lysosomen</div>
+          <div class="organel-item animal-only" style="opacity: 0.5;">✗ Geen celwand</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="info-panel" id="infoPanel">
+      <h3>Klik op een organel voor meer informatie</h3>
+      <p>Plantaardige en dierlijke cellen hebben veel overeenkomsten, maar ook belangrijke verschillen. Klik op de organellen in de cellen of in de lijsten om meer te leren over hun functies.</p>
+      
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Eigenschap</th>
+            <th>Plantaardige Cel</th>
+            <th>Dierlijke Cel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Celwand</td>
+            <td class="check">✓ (cellulose)</td>
+            <td class="cross">✗</td>
+          </tr>
+          <tr>
+            <td>Chloroplasten</td>
+            <td class="check">✓ (fotosynthese)</td>
+            <td class="cross">✗</td>
+          </tr>
+          <tr>
+            <td>Grote centrale vacuole</td>
+            <td class="check">✓</td>
+            <td class="cross">✗ (kleine vacuoles)</td>
+          </tr>
+          <tr>
+            <td>Celkern</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Mitochondriën</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Ribosomen</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Centriolen</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <script>
+    const organelInfo = {
+      nucleus: {
+        title: "🔵 Celkern",
+        description: "De celkern bevat het DNA met erfelijke informatie. Het is omgeven door het kernmembraan en bevat kernplasma met chromosomen. De celkern reguleert alle activiteiten van de cel."
+      },
+      mitochondria: {
+        title: "⚡ Mitochondriën",
+        description: "De 'energiecentrales' van de cel. Ze produceren ATP (energie) door verbranding van glucose met zuurstof. Hoe actiever een cel, hoe meer mitochondriën deze bevat."
+      },
+      chloroplast: {
+        title: "🌿 Chloroplasten",
+        description: "Organellen die fotosynthese uitvoeren. Ze bevatten chlorofyl (groen pigment) en zetten koolstofdioxide en water om in glucose en zuurstof met behulp van lichtenergie."
+      },
+      vacuole: {
+        title: "💧 Vacuole",
+        description: "Een met vocht gevuld blaasje. In plantencellen is er een grote centrale vacuole die zorgt voor stevigheid (turgor). In dierlijke cellen zijn er meerdere kleine vacuoles."
+      },
+      ribosome: {
+        title: "🔴 Ribosomen",
+        description: "Kleine bolvormige organellen die eiwitten maken (eiwitsynthese) op basis van de informatie in het DNA. Ze kunnen vrij in het cytoplasma voorkomen of aan het endoplasmatisch reticulum zitten."
+      },
+      cellwall: {
+        title: "🧱 Celwand",
+        description: "Een stevig laagje om de plantencel dat niet tot de cel behoort. Het bestaat uit cellulose en geeft de cel stevigheid en vorm. Dierlijke cellen hebben geen celwand."
+      },
+      cytoplasm: {
+        title: "💠 Cytoplasma",
+        description: "De inhoud van de cel, bestaande uit grondplasma (water met opgeloste stoffen) met daarin allerlei organellen. Het cytoplasma vult de cel en is de plaats waar veel chemische reacties plaatsvinden."
+      },
+      centrioles: {
+        title: "🎯 Centriolen",
+        description: "Cilindervormige structuren die een rol spelen bij celdeling. Ze vormen de spoelfiguur tijdens mitose en meiose. Komt alleen voor in dierlijke cellen."
+      },
+      lysosomes: {
+        title: "🗑️ Lysosomen",
+        description: "Blaasjes met enzymen die afvalstoffen afbreken. Ze spelen een rol bij het opruimen van cellulaire afval en bij het verteren van opgenomen stoffen. Komt vooral voor in dierlijke cellen."
+      }
+    };
+    
+    function showOrganelInfo(organel) {
+      const panel = document.getElementById('infoPanel');
+      const info = organelInfo[organel];
+      panel.innerHTML = `
+        <h3>${info.title}</h3>
+        <p>${info.description}</p>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Eigenschap</th>
+              <th>Plantaardige Cel</th>
+              <th>Dierlijke Cel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Celwand</td>
+              <td class="check">✓ (cellulose)</td>
+              <td class="cross">✗</td>
+            </tr>
+            <tr>
+              <td>Chloroplasten</td>
+              <td class="check">✓ (fotosynthese)</td>
+              <td class="cross">✗</td>
+            </tr>
+            <tr>
+              <td>Grote centrale vacuole</td>
+              <td class="check">✓</td>
+              <td class="cross">✗ (kleine vacuoles)</td>
+            </tr>
+            <tr>
+              <td>Celkern</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+            </tr>
+            <tr>
+              <td>Mitochondriën</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+            </tr>
+            <tr>
+              <td>Ribosomen</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+            </tr>
+            <tr>
+              <td>Centriolen</td>
+              <td class="cross">✗</td>
+              <td class="check">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+    }
+  </script>
+</body>
+</html>

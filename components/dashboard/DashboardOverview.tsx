@@ -452,6 +452,7 @@ function getActivityChart(entries: ActivityEntry[], now: Date) {
 
 export default function DashboardOverview() {
   const [mounted, setMounted] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
   const [now, setNow] = useState(() => new Date());
   const [events, setEvents] = useState<AgendaEvent[]>([]);
   const [tasks, setTasks] = useState<PlannerTask[]>([]);
@@ -497,6 +498,8 @@ export default function DashboardOverview() {
           .map(normalizeActivity)
           .filter((entry): entry is ActivityEntry => entry !== null)
       );
+      
+      setDataLoaded(true);
     };
 
     refreshData();
@@ -644,7 +647,7 @@ export default function DashboardOverview() {
           ? 'Goedemorgen'
           : 'Hallo';
 
-  if (!mounted) {
+  if (!mounted || !dataLoaded || !subjectsLoaded) {
     return (
       <AppShell>
         <div className="space-y-6">

@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, CheckCircle, XCircle, AlertCircle, FileText, Image as ImageIcon, File, RefreshCw } from 'lucide-react';
+import { AppShell } from '@/components/AppShell';
 
 interface QueueItem {
   id: string;
@@ -53,7 +54,7 @@ export default function ArtisanPage() {
   const fetchQueueItems = useCallback(async () => {
     if (!user) return;
 
-    const { data, error } = await supabase
+    const { data, error } = await (supabase as any)
       .from('artisan_queue')
       .select('*')
       .eq('user_id', user.id)
@@ -154,7 +155,7 @@ export default function ArtisanPage() {
 
     try {
       // Upload to Supabase Storage with progress tracking
-      const { data: uploadData, error: uploadError } = await new Promise((resolve, reject) => {
+      const uploadResult = await new Promise<any>((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         
         xhr.upload.addEventListener('progress', (e) => {
@@ -180,21 +181,17 @@ export default function ArtisanPage() {
           reject(new Error('Upload geannuleerd'));
         });
 
-        const { data: { session } } = supabase.auth.getSession();
-        const token = session?.access_token;
-
         xhr.open('POST', `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/${storagePath}`);
-        xhr.setRequestHeader('Authorization', `Bearer ${token}`);
         xhr.setRequestHeader('Content-Type', file.type);
         xhr.setRequestHeader('x-upsert', 'false');
         
         xhr.send(file);
       });
 
-      if (uploadError) throw uploadError;
+      if (uploadResult.error) throw uploadResult.error;
 
       // Insert into artisan_queue
-      const { data: queueData, error: queueError } = await supabase
+      const { data: queueData, error: queueError } = await (supabase as any)
         .from('artisan_queue')
         .insert({
           user_id: user.id,
@@ -215,7 +212,7 @@ export default function ArtisanPage() {
       await new Promise(resolve => setTimeout(resolve, 15000));
 
       // After animation, show pending state
-      setUploadState({ progress: 100, status: 'success', queueItemId: queueData.id });
+      setUploadState({ progress: 100, status: 'success', queueItemId: queueData?.id });
       setRetryCount(0);
 
     } catch (error: any) {
@@ -278,21 +275,21 @@ export default function ArtisanPage() {
   };
 
   const getFileIcon = (mimeType: string) => {
-    if (mimeType === 'application/pdf') return <FileText className="w-8 h-8 text-red-500" />;
-    if (mimeType.startsWith('image/')) return <ImageIcon className="w-8 h-8 text-blue-500" />;
-    return <File className="w-8 h-8 text-gray-500" />;
+    if (mimeType === 'application/pdf') return <FileText className="w-8 h-8 text-destructive" />;
+    if (mimeType.startsWith('image/')) return <ImageIcon className="w-8 h-8 text-primary" />;
+    return <File className="w-8 h-8 text-muted-foreground" />;
   };
 
   const getStatusIcon = (status: QueueItem['status']) => {
     switch (status) {
       case 'completed':
-        return <CheckCircle className="w-5 h-5 text-green-500" />;
+        return <CheckCircle className="w-5 h-5 text-success" />;
       case 'failed':
-        return <XCircle className="w-5 h-5 text-red-500" />;
+        return <XCircle className="w-5 h-5 text-destructive" />;
       case 'processing':
-        return <RefreshCw className="w-5 h-5 text-blue-500 animate-spin" />;
+        return <RefreshCw className="w-5 h-5 text-primary animate-spin" />;
       default:
-        return <AlertCircle className="w-5 h-5 text-yellow-500" />;
+        return <AlertCircle className="w-5 h-5 text-warning" />;
     }
   };
 
@@ -314,12 +311,13 @@ export default function ArtisanPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 className="text-4xl font-bold mb-2 text-gray-900 dark:text-white">
+    <AppShell>
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4 py-12 max-w-4xl">
+        <h1 className="font-display text-4xl font-semibold mb-2 text-foreground">
           Artisan Werkplaats
         </h1>
-        <p className="text-gray-600 dark:text-gray-400 mb-8">
+        <p className="text-muted-foreground mb-8">
           Upload je studiemateriaal en wij maken er leersets van
         </p>
 
@@ -331,8 +329,8 @@ export default function ArtisanPage() {
           onDragOver={handleDragOver}
           className={`relative border-2 border-dashed rounded-xl p-12 text-center transition-all ${
             dragActive
-              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-              : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800'
+              ? 'border-primary bg-primary/10'
+              : 'border-border bg-card'
           }`}
         >
           <input
@@ -352,22 +350,22 @@ export default function ArtisanPage() {
                 exit={{ opacity: 0 }}
                 className="space-y-4"
               >
-                <Upload className="w-16 h-16 mx-auto text-gray-400" />
+                <Upload className="w-16 h-16 mx-auto text-muted-foreground" />
                 <div>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <p className="text-lg font-semibold text-foreground mb-2">
                     Sleep je bestand hierheen
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  <p className="text-sm text-muted-foreground mb-4">
                     of klik om te selecteren
                   </p>
                 </div>
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="h-10 px-6 py-3 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
                 >
                   Bestand kiezen
                 </button>
-                <div className="text-xs text-gray-500 dark:text-gray-500 mt-4">
+                <div className="text-xs text-muted-foreground mt-4">
                   <p>Toegestane formaten: PDF, JPEG, PNG, Word document</p>
                   <p>Maximale grootte: 50MB</p>
                 </div>
@@ -382,19 +380,19 @@ export default function ArtisanPage() {
                 exit={{ opacity: 0 }}
                 className="space-y-4"
               >
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
+                <div className="w-full bg-secondary rounded-full h-4 overflow-hidden">
                   <motion.div
-                    className="h-full bg-blue-600"
+                    className="h-full bg-primary"
                     initial={{ width: 0 }}
                     animate={{ width: `${uploadState.progress}%` }}
                     transition={{ duration: 0.3 }}
                   />
                 </div>
-                <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                <p className="text-lg font-semibold text-foreground">
                   Uploaden... {uploadState.progress}%
                 </p>
                 {retryCount > 0 && (
-                  <p className="text-sm text-yellow-600 dark:text-yellow-500">
+                  <p className="text-sm text-warning">
                     Poging {retryCount + 1} van 4
                   </p>
                 )}
@@ -420,15 +418,15 @@ export default function ArtisanPage() {
                   }}
                   className="w-20 h-20 mx-auto"
                 >
-                  <div className="w-full h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                    <RefreshCw className="w-10 h-10 text-white" />
+                  <div className="w-full h-full rounded-full bg-primary flex items-center justify-center">
+                    <RefreshCw className="w-10 h-10 text-primary-foreground" />
                   </div>
                 </motion.div>
                 <div>
-                  <p className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  <p className="text-xl font-bold text-foreground mb-2">
                     Onze ambachten zijn aan het werk...
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-muted-foreground">
                     Dit kan even duren. Je bestand wordt zorgvuldig verwerkt.
                   </p>
                 </div>
@@ -436,7 +434,7 @@ export default function ArtisanPage() {
                   {[0, 1, 2].map((i) => (
                     <motion.div
                       key={i}
-                      className="w-3 h-3 rounded-full bg-blue-600"
+                      className="w-3 h-3 rounded-full bg-primary"
                       animate={{
                         y: [0, -10, 0],
                       }}
@@ -459,12 +457,12 @@ export default function ArtisanPage() {
                 exit={{ opacity: 0, y: -20 }}
                 className="space-y-4"
               >
-                <CheckCircle className="w-16 h-16 mx-auto text-green-500" />
+                <CheckCircle className="w-16 h-16 mx-auto text-success" />
                 <div>
-                  <p className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  <p className="text-xl font-bold text-foreground mb-2">
                     {uploadState.resultDeckId ? 'Voltooid!' : 'In de werkplaats'}
                   </p>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-muted-foreground">
                     {uploadState.resultDeckId
                       ? 'Je leerset is klaar!'
                       : 'Je bestand wordt verwerkt. Je ontvangt een melding zodra het klaar is.'}
@@ -473,7 +471,7 @@ export default function ArtisanPage() {
                 {uploadState.resultDeckId && (
                   <a
                     href={`/leersets/${uploadState.resultDeckId}`}
-                    className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="inline-block h-10 px-6 py-3 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
                   >
                     Bekijk leerset
                   </a>
@@ -483,7 +481,7 @@ export default function ArtisanPage() {
                     setUploadState({ progress: 0, status: 'idle' });
                     if (fileInputRef.current) fileInputRef.current.value = '';
                   }}
-                  className="block mx-auto text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400"
+                  className="block mx-auto text-sm text-primary hover:opacity-80"
                 >
                   Nog een bestand uploaden
                 </button>
@@ -498,19 +496,19 @@ export default function ArtisanPage() {
                 exit={{ opacity: 0, y: -20 }}
                 className="space-y-4"
               >
-                <XCircle className="w-16 h-16 mx-auto text-red-500" />
+                <XCircle className="w-16 h-16 mx-auto text-destructive" />
                 <div>
-                  <p className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  <p className="text-xl font-bold text-foreground mb-2">
                     Upload mislukt
                   </p>
-                  <p className="text-red-600 dark:text-red-400">
+                  <p className="text-destructive">
                     {uploadState.errorMessage || 'Er is een fout opgetreden'}
                   </p>
                 </div>
                 <div className="flex justify-center space-x-3">
                   <button
                     onClick={handleRetry}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="h-10 px-6 py-3 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
                   >
                     Opnieuw proberen
                   </button>
@@ -519,7 +517,7 @@ export default function ArtisanPage() {
                       setUploadState({ progress: 0, status: 'idle' });
                       if (fileInputRef.current) fileInputRef.current.value = '';
                     }}
-                    className="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                    className="h-10 px-6 py-3 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80 transition-colors"
                   >
                     Annuleren
                   </button>
@@ -532,7 +530,7 @@ export default function ArtisanPage() {
         {/* Queue Items */}
         {queueItems.length > 0 && (
           <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+            <h2 className="font-display text-2xl font-semibold mb-4 text-foreground">
               Je uploads
             </h2>
             <div className="space-y-3">
@@ -541,28 +539,28 @@ export default function ArtisanPage() {
                   key={item.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 flex items-center justify-between"
+                  className="bg-card rounded-lg shadow-sm p-4 flex items-center justify-between border border-border"
                 >
                   <div className="flex items-center space-x-4">
-                    <File className="w-8 h-8 text-gray-400" />
+                    <File className="w-8 h-8 text-muted-foreground" />
                     <div>
-                      <p className="font-semibold text-gray-900 dark:text-white">
+                      <p className="font-semibold text-foreground">
                         {item.file_name}
                       </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-muted-foreground">
                         {new Date(item.created_at).toLocaleDateString('nl-NL')}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     {getStatusIcon(item.status)}
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <span className="text-sm font-medium text-foreground">
                       {getStatusLabel(item.status)}
                     </span>
                     {item.status === 'completed' && item.result_deck_id && (
                       <a
                         href={`/leersets/${item.result_deck_id}`}
-                        className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+                        className="h-8 px-4 py-2 bg-primary text-primary-foreground text-sm rounded-md hover:opacity-90 transition-opacity"
                       >
                         Bekijk
                       </a>
@@ -575,5 +573,6 @@ export default function ArtisanPage() {
         )}
       </div>
     </div>
+    </AppShell>
   );
 }

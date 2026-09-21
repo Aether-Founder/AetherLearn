@@ -409,10 +409,13 @@ const BookMode = memo(function BookMode({
 // ─── SIMPLE MODE ──────────────────────────────────────────────────────────────
 
 const SimpleMode = memo(function SimpleMode({ section }: { section: TextbookSectionData }) {
+  const sectionTitles = getSectionTitles(section);
+  const mainSectionTitle = sectionTitles.length ? sectionTitles[0] : getSectionTitle(section);
+
   return (
     <article className="max-w-3xl mx-auto space-y-10">
       {/* Text blocks only */}
-      {section.blocks?.map((block) => {
+      {section.blocks?.map((block, idx) => {
         if (block.type === 'image' && block.src) {
           return (
             <figure key={block.id} id={block.id} className="scroll-mt-16">
@@ -430,12 +433,24 @@ const SimpleMode = memo(function SimpleMode({ section }: { section: TextbookSect
           );
         }
         if (block.type !== 'text') return null;
+
+        // Skip rendering block title if it matches the main section title
+        const shouldSkipTitle = idx === 0 && block.title === mainSectionTitle;
+        const contentToRender = shouldSkipTitle ? block.content : block.content;
+        // If block has a title and we're not skipping it, render it as a header
+        const blockTitle = shouldSkipTitle ? undefined : block.title;
+
         return (
           <div key={block.id} id={block.id} className="scroll-mt-16">
+            {blockTitle && (
+              <h3 className="text-2xl font-serif font-medium text-foreground mb-4">
+                {blockTitle}
+              </h3>
+            )}
             <div className="flex gap-4 items-start">
               <div className="flex-1">
                 <MarkdownRenderer className="text-[17px] leading-[1.75] text-foreground">
-                  {processNewlines(block.content ?? '')}
+                  {processNewlines(contentToRender ?? '')}
                 </MarkdownRenderer>
               </div>
               {block.imageLeft || block.imageRight ? (

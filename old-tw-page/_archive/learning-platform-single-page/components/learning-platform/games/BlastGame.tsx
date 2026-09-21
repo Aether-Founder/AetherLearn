@@ -7,7 +7,7 @@ import type { GameShellProps } from "@/lib/learning-platform/game-registry";
 import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
 import type { FallingItem } from "@/types/learning-platform";
 import { createId } from "@/lib/learning-platform/question-generator";
-import { useTranslation } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 import { GameShell } from "../GameShell";
 
 function getCanvasTextColor() {
@@ -16,7 +16,7 @@ function getCanvasTextColor() {
 }
 
 export function BlastGame({ onQuit }: GameShellProps) {
-  const { t } = useTranslation();
+  const t = i18n.t.bind(i18n);
   const { playableTerms, settings, recordAnswer, beginSession, endSession } =
     useLearningPlatformStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);

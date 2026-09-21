@@ -4,13 +4,11 @@ import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
 import {
-  Clock,
   CheckCircle,
   XCircle,
   Brain,
   Target,
   AlertTriangle,
-  TrendingUp,
   RotateCcw,
 } from 'lucide-react';
 import { supabase as browserClient } from '@/lib/supabase/client';
@@ -206,7 +204,6 @@ export default function DailyQuizPage() {
     return (
       <AppShell>
         <PageHeader
-          eyebrow="Dagelijkse Quiz"
           title="Daily Quiz"
           description="Test je kennis met een dagelijkse quiz van 10 vragen"
         />
@@ -285,7 +282,6 @@ export default function DailyQuizPage() {
     return (
       <AppShell>
         <PageHeader
-          eyebrow="Daily Quiz"
           title="Quiz Voltooid"
           description="Hier zijn je resultaten"
           action={
@@ -401,7 +397,6 @@ export default function DailyQuizPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Daily Quiz"
         title="Vraag {session.currentIndex + 1}/{session.vragen.length}"
         description={`${currentQuestion.vak} • ${currentQuestion.onderwerp}`}
       />

@@ -1,14 +1,14 @@
 "use client";
 
 import type { Term } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 
 interface MasteryProgressBarProps {
   terms: Term[];
 }
 
 export function MasteryProgressBar({ terms }: MasteryProgressBarProps) {
-  const { t } = useTranslation();
+  const t = i18n.t.bind(i18n);
   const total = terms.length || 1;
   const unstudied = terms.filter((t) => t.masteryStatus === "unstudied").length;
   const learning = terms.filter((t) => t.masteryStatus === "learning").length;

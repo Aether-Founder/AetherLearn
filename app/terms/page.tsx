@@ -8,7 +8,7 @@ export default function TermsPage() {
 
   return (
     <AppShell>
-      <PageHeader eyebrow="Terms" title={t('terms_title')} description={t('terms_description')} />
+      <PageHeader title={t('terms_title')} description={t('terms_description')} />
 
       <div className="mt-10 max-w-4xl space-y-8">
         <section>

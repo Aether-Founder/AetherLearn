@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="nl" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AetherLearn — UI Styling System &amp; Leerpagina Live Preview</title>
+  
+  <!-- Google Fonts: Cormorant Garamond (Headings) & Inter (Body / UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- KaTeX CSS for LaTeX Math Formulas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & COLOR DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      /* Light Mode: Calibrated Ice / Light Blue background (NOT white) */
+      --background-hsl: 222.2 84% 95.1%;
+      --foreground-hsl: 222.2 84% 4.9%;
+      --card-hsl: 222.2 84% 95.1%;
+      --border-hsl: 222.2 84% 4.9% / 0.18;
+      --border-solid-hsl: 214.3 31.8% 91.4%;
+      --muted-hsl: 210 40% 96%;
+      --muted-foreground-hsl: 215.4 16.3% 46.9%;
+      --secondary-hsl: 210 40% 96%;
+      --secondary-foreground-hsl: 222.2 84% 4.9%;
+      --primary-hsl: 222.2 47.4% 11.2%;
+      --primary-foreground-hsl: 210 40% 98%;
+
+      /* Direct Color Values (Light Mode) */
+      --bg-color: #E8EEFD;               /* rgb(232, 238, 253) */
+      --fg-color: #020817;               /* rgb(2, 8, 23) */
+      --card-bg: #E8EEFD;                /* rgb(232, 238, 253) */
+      --card-alt: #FFFFFF;               /* rgb(255, 255, 255) */
+      --border-color: rgba(2, 8, 23, 0.18); /* #020817 at 18% */
+      --border-solid: #E2E8F0;           /* rgb(226, 232, 240) */
+      --muted-bg: #F1F5F9;               /* rgb(241, 245, 249) */
+      --muted-text: #64748B;             /* rgb(100, 116, 139) */
+      --secondary-bg: #F1F5F9;           /* rgb(241, 245, 249) */
+      --secondary-text: #020817;         /* rgb(2, 8, 23) */
+      --primary-btn-bg: #0F172A;         /* rgb(15, 23, 42) */
+      --primary-btn-hover: #1E293B;      /* rgb(30, 41, 59) */
+      --primary-btn-text: #F8FAFC;       /* rgb(248, 250, 252) */
+      --code-bg: #E2E8F0;                /* rgb(226, 232, 240) */
+      --focus-ring: rgba(15, 23, 42, 0.2);
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-serif: 'Cormorant Garamond', Georgia, Cambria, serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    html.dark {
+      /* Dark Mode: Deep Midnight Navy (NOT pitch black) */
+      --background-hsl: 222.2 84% 4.9%;
+      --foreground-hsl: 210 40% 98%;
+      --card-hsl: 222.2 84% 4.9%;
+      --border-hsl: 217.2 32.6% 17.5%;
+      --border-solid-hsl: 217.2 32.6% 17.5%;
+      --muted-hsl: 217.2 32.6% 17.5%;
+      --muted-foreground-hsl: 215 20.2% 65.1%;
+      --secondary-hsl: 217.2 32.6% 17.5%;
+      --secondary-foreground-hsl: 210 40% 98%;
+      --primary-hsl: 210 40% 98%;
+      --primary-foreground-hsl: 222.2 47.4% 11.2%;
+
+      /* Direct Color Values (Dark Mode) */
+      --bg-color: #020817;               /* rgb(2, 8, 23) */
+      --fg-color: #F8FAFC;               /* rgb(248, 250, 252) */
+      --card-bg: #020817;                /* rgb(2, 8, 23) */
+      --card-alt: #0B1120;               /* rgb(11, 17, 32) */
+      --border-color: #1E293B;           /* rgb(30, 41, 59) */
+      --border-solid: #1E293B;           /* rgb(30, 41, 59) */
+      --muted-bg: #1E293B;               /* rgb(30, 41, 59) */
+      --muted-text: #94A3B8;             /* rgb(148, 163, 184) */
+      --secondary-bg: #1E293B;           /* rgb(30, 41, 59) */
+      --secondary-text: #F8FAFC;         /* rgb(248, 250, 252) */
+      --primary-btn-bg: #F8FAFC;         /* rgb(248, 250, 252) */
+      --primary-btn-hover: #E2E8F0;      /* rgb(226, 232, 240) */
+      --primary-btn-text: #020817;       /* rgb(2, 8, 23) */
+      --code-bg: #1E293B;                /* rgb(30, 41, 59) */
+      --focus-ring: rgba(248, 250, 252, 0.25);
+    }
+
+    /* ==========================================================================
+       2. BASE RESET & GLOBAL STYLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    *::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      font-family: var(--font-sans);
+      color-scheme: light dark;
+      scroll-behavior: smooth;
+      background-color: var(--bg-color);
+      color: var(--fg-color);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--fg-color);
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Typography font assignments */
+    h1, h2, h3, h4, h5, h6, .font-serif {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .font-sans {
+      font-family: var(--font-sans);
+    }
+    .font-mono {
+      font-family: var(--font-mono);
+    }
+
+    /* Container */
+    .container-custom {
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+
+    /* Cards */
+    .card-base {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.95rem;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: var(--font-sans);
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+      user-select: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-btn-bg);
+      color: var(--primary-btn-text);
+      border-color: var(--primary-btn-bg);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-btn-hover);
+      opacity: 0.95;
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-color);
+      color: var(--fg-color);
+      border-color: var(--border-color);
+    }
+    .btn-secondary:hover {
+      background-color: var(--secondary-bg);
+    }
+
+    .btn-icon {
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      background-color: transparent;
+      color: var(--muted-text);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .btn-icon:hover {
+      color: var(--fg-color);
+      background-color: var(--secondary-bg);
+    }
+
+    /* Tab switcher for Style Guide sections */
+    .tab-bar {
+      display: flex;
+      gap: 0.25rem;
+      padding: 0.25rem;
+      background-color: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted-text);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .tab-btn:hover {
+      color: var(--fg-color);
+    }
+    .tab-btn.active {
+      background-color: var(--bg-color);
+      color: var(--fg-color);
+      border-color: var(--border-color);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Color Swatch Card */
+    .swatch-card {
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
+      background-color: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+    }
+    .swatch-preview {
+      height: 80px;
+      width: 100%;
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+    }
+    .swatch-info {
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .swatch-title {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--fg-color);
+    }
+    .swatch-code {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--muted-text);
+    }
+
+    /* 3D Flashcard styles */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      min-height: 240px;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+    .flashcard-inner.flipped {
+      transform: rotateY(180deg);
+    }
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .flashcard-front {
+      background-color: var(--card-bg);
+    }
+    .flashcard-back {
+      background-color: var(--secondary-bg);
+      transform: rotateY(180deg);
+    }
+
+    /* Accordion */
+    .accordion-item {
+      border-top: 1px solid var(--border-color);
+    }
+    .accordion-header {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: transparent;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      color: var(--fg-color);
+      font-size: 14px;
+      font-family: var(--font-sans);
+      transition: background-color 0.15s ease;
+    }
+    .accordion-header:hover {
+      background-color: var(--secondary-bg);
+    }
+    .accordion-chevron {
+      color: var(--muted-text);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .accordion-item.open .accordion-chevron {
+      transform: rotate(90deg);
+    }
+    .accordion-content {
+      display: none;
+      padding: 0.5rem 1rem 1.25rem 3.25rem;
+      font-size: 13.5px;
+      color: var(--muted-text);
+      line-height: 1.6;
+    }
+    .accordion-item.open .accordion-content {
+      display: block;
+    }
+
+    /* Badges & Pills */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-primary {
+      background-color: var(--secondary-bg);
+      color: var(--fg-color);
+      border: 1px solid var(--border-color);
+    }
+    .badge-goal {
+      background-color: rgba(15, 23, 42, 0.06);
+      color: var(--fg-color);
+      border: 1px solid var(--border-color);
+    }
+    html.dark .badge-goal {
+      background-color: rgba(248, 250, 252, 0.08);
+    }
+
+    /* Math formatting */
+    .math-formula {
+      font-family: 'KaTeX_Math', 'Times New Roman', serif;
+      font-style: italic;
+    }
+    .math-display {
+      text-align: center;
+      padding: 0.75rem 0;
+      font-size: 18px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Top Sticky Navigation Bar */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: var(--bg-color);
+      border-bottom: 1px solid var(--border-color);
+      backdrop-filter: blur(8px);
+      padding: 0.75rem 0;
+      margin-bottom: 2rem;
+    }
+
+    /* Grid utilities */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.85rem;
+    }
+
+    /* Layout sidebar & content */
+    .layout-split {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    @media (min-width: 1024px) {
+      .layout-split {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+      .layout-sidebar {
+        width: 260px;
+        position: sticky;
+        top: 5rem;
+        flex-shrink: 0;
+      }
+      .layout-main {
+        flex: 1;
+        min-width: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       GLOBAL TOP BAR (NAV + THEME SWITCHER)
+       ========================================================================== -->
+  <nav class="site-nav">
+    <div class="container-custom" style="display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span style="font-family: var(--font-serif); font-size: 24px; font-weight: 600;">AetherLearn</span>
+        <span class="badge badge-primary">Design System &amp; Practice Guide</span>
+      </div>
+
+      <!-- Live Theme Toggle & View Mode -->
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <button id="themeToggleBtn" class="btn btn-secondary" style="padding: 0.4rem 0.75rem;" title="Wissel tussen Donker en Licht">
+          <svg id="themeIconSun" style="width: 15px; height: 15px; display: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg id="themeIconMoon" style="width: 15px; height: 15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <span id="themeToggleText">Donkere Modus</span>
+        </button>
+
+        <a href="#previewSection" class="btn btn-primary" style="padding: 0.4rem 0.75rem;">
+          Bekijk Leerpagina Preview &darr;
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-custom" style="padding-bottom: 5rem;">
+
+    <!-- ==========================================================================
+         SECTION 1: UI & STYLING RULES SPECIFICATION & EXPLANATION
+         ========================================================================== -->
+    <header style="margin-bottom: 2.5rem;">
+      <h1 style="font-size: 42px; line-height: 1.15; margin-bottom: 0.5rem;">
+        AetherLearn UI Styling Architecture &amp; Design Regels
+      </h1>
+      <p style="font-size: 16px; color: var(--muted-text); max-width: 860px; line-height: 1.6;">
+        Volledig overzicht en praktische implementatie van alle UI-conventies, typografische hi&euml;rarchie, 
+        exacte kleurwaarden (in hex, rgb en hsl) voor zowel Light Mode als Dark Mode, interactieve componenten en een 
+        volledige live preview van een JSON leerpagina conform de <code style="font-family: var(--font-mono); background: var(--code-bg); padding: 2px 6px; border-radius: 3px;">old-tw-page</code> specificatie.
+      </p>
+    </header>
+
+    <!-- SECTION SWITCHER NAVIGATION -->
+    <div class="tab-bar" style="margin-bottom: 2.5rem;">
+      <button class="tab-btn active" onclick="switchGuideTab('tab-colors', this)">
+        <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 0 0 0 14v6"/></svg>
+        1. Kleursysteem &amp; Tokens (Hex &amp; RGB)
+      </button>
+      <button class="tab-btn" onclick="switchGuideTab('tab-typography', this)">
+        <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        2. Typografie &amp; Fonts
+      </button>
+      <button class="tab-btn" onclick="switchGuideTab('tab-components', this)">
+        <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        3. Componenten &amp; Knoppen
+      </button>
+      <button class="tab-btn" onclick="switchGuideTab('tab-leerpagina', this)">
+        <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        4. Live Leerpagina Preview
+      </button>
+    </div>
+
+    <!-- TAB 1: COLOR SYSTEM & EXACT VALUES -->
+    <div id="tab-colors" class="guide-tab-content">
+      <div style="margin-bottom: 2rem;">
+        <h2 style="font-size: 28px; margin-bottom: 0.75rem;">1. Het Kleursysteem: Filosofie &amp; Exacte Waarden</h2>
+        <div class="card-base" style="padding: 1.25rem; margin-bottom: 1.5rem; background-color: var(--secondary-bg);">
+          <p style="font-size: 14.5px; line-height: 1.65; color: var(--fg-color);">
+            <strong>Belangrijke AetherLearn Design Regel:</strong> In Light Mode wordt <em>geen</em> puur wit (<code style="font-family: var(--font-mono); background: var(--code-bg); padding: 1px 4px;">#FFFFFF</code>) gebruikt als hoofdachtergrond. In plaats daarvan heeft de achtergrond een zachte, rustgevende <strong>lichtblauwe ijstint</strong> (<code style="font-family: var(--font-mono); background: var(--code-bg); padding: 1px 4px;">#E8EEFD</code> / <code style="font-family: var(--font-mono); background: var(--code-bg); padding: 1px 4px;">hsl(222.2, 84%, 95.1%)</code>) om oogvermoeidheid tijdens intensieve studiesessies tegen te gaan. In Dark Mode wordt gekozen voor een <strong>diepe middernachtblauwe tint</strong> (<code style="font-family: var(--font-mono); background: var(--code-bg); padding: 1px 4px;">#020817</code> / <code style="font-family: var(--font-mono); background: var(--code-bg); padding: 1px 4px;">hsl(222.2, 84%, 4.9%)</code>). Flitsende of verzadigde vak-kleuren zijn strikt uitgesloten ten gunste van een serene, academische esthetiek.
+          </p>
+        </div>
+
+        <h3 style="font-size: 20px; margin-bottom: 1rem;">Light Mode Kleuren (Lichtblauwe basis)</h3>
+        <div class="grid-4" style="margin-bottom: 2rem;">
+          
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #E8EEFD; border: 1px dashed rgba(0,0,0,0.15);"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Background / Card</span>
+              <span class="swatch-code">HEX: #E8EEFD</span>
+              <span class="swatch-code">RGB: 232, 238, 253</span>
+              <span class="swatch-code">HSL: 222.2&deg;, 84%, 95.1%</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #020817;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Foreground / Main Text</span>
+              <span class="swatch-code">HEX: #020817</span>
+              <span class="swatch-code">RGB: 2, 8, 23</span>
+              <span class="swatch-code">HSL: 222.2&deg;, 84%, 4.9%</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #0F172A;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Primary Button / Accent</span>
+              <span class="swatch-code">HEX: #0F172A</span>
+              <span class="swatch-code">RGB: 15, 23, 42</span>
+              <span class="swatch-code">HSL: 222.2&deg;, 47.4%, 11.2%</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #64748B;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Muted Foreground</span>
+              <span class="swatch-code">HEX: #64748B</span>
+              <span class="swatch-code">RGB: 100, 116, 139</span>
+              <span class="swatch-code">HSL: 215.4&deg;, 16.3%, 46.9%</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #F1F5F9; border: 1px dashed rgba(0,0,0,0.15);"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Secondary / Muted BG</span>
+              <span class="swatch-code">HEX: #F1F5F9</span>
+              <span class="swatch-code">RGB: 241, 245, 249</span>
+              <span class="swatch-code">HSL: 210&deg;, 40%, 96%</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #E2E8F0;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Border Solid / Code</span>
+              <span class="swatch-code">HEX: #E2E8F0</span>
+              <span class="swatch-code">RGB: 226, 232, 240</span>
+              <span class="swatch-code">HSL: 214.3&deg;, 31.8%, 91.4%</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #1E293B;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Primary Hover State</span>
+              <span class="swatch-code">HEX: #1E293B</span>
+              <span class="swatch-code">RGB: 30, 41, 59</span>
+              <span class="swatch-code">opacity: 0.90 - 0.95</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: rgba(2, 8, 23, 0.18); border: 1px solid #E2E8F0;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Border with Opacity</span>
+              <span class="swatch-code">RGBA: (2, 8, 23, 0.18)</span>
+              <span class="swatch-code">Tailwind: border-border</span>
+              <span class="swatch-code">CSS: --border</span>
+            </div>
+          </div>
+
+        </div>
+
+        <h3 style="font-size: 20px; margin-bottom: 1rem;">Dark Mode Kleuren (Donkerblauwe Middernacht basis)</h3>
+        <div class="grid-4" style="margin-bottom: 2rem;">
+          
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #020817; border: 1px solid #1E293B;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Dark Background / Card</span>
+              <span class="swatch-code">HEX: #020817</span>
+              <span class="swatch-code">RGB: 2, 8, 23</span>
+              <span class="swatch-code">HSL: 222.2&deg;, 84%, 4.9%</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #F8FAFC;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Dark Foreground / Text</span>
+              <span class="swatch-code">HEX: #F8FAFC</span>
+              <span class="swatch-code">RGB: 248, 250, 252</span>
+              <span class="swatch-code">HSL: 210&deg;, 40%, 98%</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #F8FAFC;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Dark Primary Button</span>
+              <span class="swatch-code">HEX: #F8FAFC (Text: #020817)</span>
+              <span class="swatch-code">RGB: 248, 250, 252</span>
+              <span class="swatch-code">HSL: 210&deg;, 40%, 98%</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #94A3B8;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Dark Muted Foreground</span>
+              <span class="swatch-code">HEX: #94A3B8</span>
+              <span class="swatch-code">RGB: 148, 163, 184</span>
+              <span class="swatch-code">HSL: 215&deg;, 20.2%, 65.1%</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #1E293B; border: 1px solid #334155;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Dark Secondary / Border</span>
+              <span class="swatch-code">HEX: #1E293B</span>
+              <span class="swatch-code">RGB: 30, 41, 59</span>
+              <span class="swatch-code">HSL: 217.2&deg;, 32.6%, 17.5%</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #0B1120; border: 1px solid #1E293B;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Dark Sub-panel / Card Alt</span>
+              <span class="swatch-code">HEX: #0B1120</span>
+              <span class="swatch-code">RGB: 11, 17, 32</span>
+              <span class="swatch-code">Slate-950 deep navy</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: #E2E8F0;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Dark Primary Hover</span>
+              <span class="swatch-code">HEX: #E2E8F0</span>
+              <span class="swatch-code">RGB: 226, 232, 240</span>
+              <span class="swatch-code">Light slate hover</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: rgba(248, 250, 252, 0.25); border: 1px solid #1E293B;"></div>
+            <div class="swatch-info">
+              <span class="swatch-title">Dark Focus Ring</span>
+              <span class="swatch-code">RGBA: (248, 250, 252, 0.25)</span>
+              <span class="swatch-code">ring-primary/20</span>
+              <span class="swatch-code">Focus Outline</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Color Mapping Matrix Table -->
+        <h3 style="font-size: 20px; margin-bottom: 0.75rem;">Volledige Kleur Token Mapping Tabel</h3>
+        <div class="card-base" style="overflow-x: auto; margin-bottom: 2rem;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border-color); background-color: var(--secondary-bg);">
+                <th style="padding: 0.75rem 1rem;">UI Rol &amp; CSS Variabele</th>
+                <th style="padding: 0.75rem 1rem;">Light Mode (Lichtblauw)</th>
+                <th style="padding: 0.75rem 1rem;">Dark Mode (Donkerblauw)</th>
+                <th style="padding: 0.75rem 1rem;">Tailwind Utility Class</th>
+                <th style="padding: 0.75rem 1rem;">Doel / Gebruik</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.75rem 1rem; font-family: var(--font-mono);"><code style="color:var(--muted-text)">--background</code></td>
+                <td style="padding: 0.75rem 1rem;"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#E8EEFD;border:1px solid #ccc;margin-right:6px;vertical-align:middle;"></span>#E8EEFD (rgb 232, 238, 253)</td>
+                <td style="padding: 0.75rem 1rem;"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#020817;border:1px solid #444;margin-right:6px;vertical-align:middle;"></span>#020817 (rgb 2, 8, 23)</td>
+                <td style="padding: 0.75rem 1rem; font-family: var(--font-mono);">bg-background</td>
+                <td style="padding: 0.75rem 1rem;">Hoofdachtergrond gehele viewport</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.75rem 1rem; font-family: var(--font-mono);"><code style="color:var(--muted-text)">--foreground</code></td>
+                <td style="padding: 0.75rem 1rem;"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#020817;margin-right:6px;vertical-align:middle;"></span>#020817 (rgb 2, 8, 23)</td>
+                <td style="padding: 0.75rem 1rem;"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#F8FAFC;margin-right:6px;vertical-align:middle;"></span>#F8FAFC (rgb 248, 250, 252)</td>
+                <td style="padding: 0.75rem 1rem; font-family: var(--font-mono);">text-foreground</td>
+                <td style="padding: 0.75rem 1rem;">Hoofdtekst, titels, actieve elementen</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.75rem 1rem; font-family: var(--font-mono);"><code style="color:var(--muted-text)">--card</code></td>
+                <td style="padding: 0.75rem 1rem;"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#E8EEFD;border:1px solid #ccc;margin-right:6px;vertical-align:middle;"></span>#E8EEFD / #FFFFFF</td>
+                <td style="padding: 0.75rem 1rem;"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#020817;border:1px solid #444;margin-right:6px;vertical-align:middle;"></span>#020817 / #0B1120</td>
+                <td style="padding: 0.75rem 1rem; font-family: var(--font-mono);">bg-card</td>
+                <td style="padding: 0.75rem 1rem;">Cards, vraagpanelen, theorieblokken</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.75rem 1rem; font-family: var(--font-mono);"><code style="color:var(--muted-text)">--border</code></td>
+                <td style="padding: 0.75rem 1rem;"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#E2E8F0;margin-right:6px;vertical-align:middle;"></span>rgba(2, 8, 23, 0.18)</td>
+                <td style="padding: 0.75rem 1rem;"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#1E293B;margin-right:6px;vertical-align:middle;"></span>#1E293B (rgb 30, 41, 59)</td>
+                <td style="padding: 0.75rem 1rem; font-family: var(--font-mono);">border-border</td>
+                <td style="padding: 0.75rem 1rem;">Lijnen, kaders, scheidingen, inputs</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.75rem 1rem; font-family: var(--font-mono);"><code style="color:var(--muted-text)">--muted-foreground</code></td>
+                <td style="padding: 0.75rem 1rem;"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#64748B;margin-right:6px;vertical-align:middle;"></span>#64748B (rgb 100, 116, 139)</td>
+                <td style="padding: 0.75rem 1rem;"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#94A3B8;margin-right:6px;vertical-align:middle;"></span>#94A3B8 (rgb 148, 163, 184)</td>
+                <td style="padding: 0.75rem 1rem; font-family: var(--font-mono);">text-muted-foreground</td>
+                <td style="padding: 0.75rem 1rem;">Subtitels, metadata, vraagnummers, hints</td>
+              </tr>
+              <tr>
+                <td style="padding: 0.75rem 1rem; font-family: var(--font-mono);"><code style="color:var(--muted-text)">--primary</code></td>
+                <td style="padding: 0.75rem 1rem;"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#0F172A;margin-right:6px;vertical-align:middle;"></span>#0F172A (rgb 15, 23, 42)</td>
+                <td style="padding: 0.75rem 1rem;"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#F8FAFC;margin-right:6px;vertical-align:middle;"></span>#F8FAFC (rgb 248, 250, 252)</td>
+                <td style="padding: 0.75rem 1rem; font-family: var(--font-mono);">bg-primary text-primary-fg</td>
+                <td style="padding: 0.75rem 1rem;">Primaire call-to-actions, actieknoppen</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: TYPOGRAPHY SYSTEM -->
+    <div id="tab-typography" class="guide-tab-content" style="display: none;">
+      <div style="margin-bottom: 2rem;">
+        <h2 style="font-size: 28px; margin-bottom: 0.75rem;">2. Typografie &amp; Font Regels</h2>
+        <p style="color: var(--muted-text); margin-bottom: 1.5rem;">
+          AetherLearn hanteert een strikte twee-font typografische structuur gecombineerd met een monospace font voor numerieke waarden:
+        </p>
+
+        <div class="grid-2" style="margin-bottom: 2rem;">
+          
+          <div class="card-base" style="padding: 1.5rem;">
+            <div class="badge badge-primary" style="margin-bottom: 0.75rem;">Header &amp; Titel Font</div>
+            <h3 style="font-size: 32px; font-family: var(--font-serif); margin-bottom: 0.5rem;">Cormorant Garamond</h3>
+            <p style="font-size: 13.5px; color: var(--muted-text); margin-bottom: 1rem;">
+              Een elegante, klassieke serif ontworpen voor academische en literaire helderheid. Wordt uitsluitend gebruikt voor:
+            </p>
+            <ul style="padding-left: 1.25rem; font-size: 13.5px; line-height: 1.7; color: var(--fg-color);">
+              <li>Hoofdstuktitels (H1: 36px &ndash; 48px)</li>
+              <li>Sectiekoppen (H2: 24px &ndash; 30px)</li>
+              <li>Subparagrafen (H3: 20px &ndash; 24px)</li>
+              <li>Flashcard vraagteksten en theoriekoppen</li>
+            </ul>
+            <div style="margin-top: 1rem; padding: 0.75rem; background-color: var(--secondary-bg); border-radius: 4px; font-family: var(--font-serif); font-size: 20px; font-style: italic;">
+              &ldquo;De natuurkunde van elektriciteit en velden verklaart onze wereld.&rdquo;
+            </div>
+          </div>
+
+          <div class="card-base" style="padding: 1.5rem;">
+            <div class="badge badge-primary" style="margin-bottom: 0.75rem;">Body &amp; UI Font</div>
+            <h3 style="font-size: 26px; font-family: var(--font-sans); font-weight: 600; margin-bottom: 0.5rem;">Inter</h3>
+            <p style="font-size: 13.5px; color: var(--muted-text); margin-bottom: 1rem;">
+              Een moderne, uitermate leesbare sans-serif geoptimaliseerd voor schermen en UI-bedieningselementen:
+            </p>
+            <ul style="padding-left: 1.25rem; font-size: 13.5px; line-height: 1.7; color: var(--fg-color);">
+              <li>Lopende leerstof en uitlegteksten (16px / line-height: 1.75)</li>
+              <li>Knoppen, navigatiebalken en menutabs (13px - 14px, weight: 500)</li>
+              <li>Vragen, antwoorden en beschrijvingen</li>
+              <li>Formulelabels en tabellen</li>
+            </ul>
+            <div style="margin-top: 1rem; padding: 0.75rem; background-color: var(--secondary-bg); border-radius: 4px; font-family: var(--font-sans); font-size: 13.5px;">
+              Elektrische apparaten hebben energie nodig geleverd door een spanningsbron.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Typography scale demo -->
+        <h3 style="font-size: 20px; margin-bottom: 1rem;">Typografische Schaal Demonstratie</h3>
+        <div class="card-base" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+          <div>
+            <span class="badge badge-primary">H1 &middot; 48px &middot; Cormorant Garamond</span>
+            <h1 style="font-size: 42px; margin-top: 0.3rem;">Hoofdstuk 4: Elektriciteit &amp; Energie</h1>
+          </div>
+          <div style="border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <span class="badge badge-primary">H2 &middot; 28px &middot; Cormorant Garamond</span>
+            <h2 style="font-size: 28px; margin-top: 0.3rem;">&sect;4.1 Spanning, stroomsterkte en elektrisch vermogen</h2>
+          </div>
+          <div style="border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <span class="badge badge-primary">H3 &middot; 22px &middot; Cormorant Garamond</span>
+            <h3 style="font-size: 22px; margin-top: 0.3rem;">Capaciteit van een accu en ladingsbehoud</h3>
+          </div>
+          <div style="border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <span class="badge badge-primary">Body &middot; 16px (Leading: 1.75) &middot; Inter</span>
+            <p style="font-size: 16px; line-height: 1.75; margin-top: 0.3rem; color: var(--fg-color);">
+              Een elektrische stroom bestaat uit bewegende elektronen. De spanningsbron levert de <em>elektrische energie</em> aan de elektronen. Hoe groter de spanning, hoe meer energie de elektronen meekrijgen. Naarmate er meer elektronen per seconde door een stroomdraad bewegen, is de stroomsterkte groter.
+            </p>
+          </div>
+          <div style="border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <span class="badge badge-primary">Monospace / Timestamps &middot; 12px &middot; JetBrains Mono</span>
+            <div style="font-family: var(--font-mono); font-size: 12px; color: var(--muted-text); margin-top: 0.3rem;">
+              [00:14:32] &middot; Q_ID: q-4-1-2a &middot; SECTION_HASH: 0x8F9A &middot; FORMULA: P = U * I
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: COMPONENT SHOWCASE -->
+    <div id="tab-components" class="guide-tab-content" style="display: none;">
+      <div style="margin-bottom: 2rem;">
+        <h2 style="font-size: 28px; margin-bottom: 0.75rem;">3. Componenten &amp; Interactieve Elementen</h2>
+        <p style="color: var(--muted-text); margin-bottom: 1.5rem;">
+          Alle interactieve elementen zijn pixel-perfect nagebouwd met ondersteuning voor zowel Light Mode als Dark Mode.
+        </p>
+
+        <!-- Button Matrix -->
+        <h3 style="font-size: 20px; margin-bottom: 0.75rem;">Knoppen &amp; Actie-elementen</h3>
+        <div class="card-base" style="padding: 1.5rem; margin-bottom: 2rem;">
+          <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+            
+            <button class="btn btn-primary">
+              <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              Watch on YouTube
+            </button>
+
+            <button class="btn btn-secondary">
+              <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="4" rx="0.5"/><rect x="3" y="9" width="18" height="4" rx="0.5"/><path d="M3 15h18v6L12 17l-9 4v-6z"/></svg>
+              Read on Substack
+            </button>
+
+            <button class="btn btn-secondary">
+              <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Exporteer Anki (.txt)
+            </button>
+
+            <button class="btn btn-icon" title="Terug naar overzicht">
+              <svg style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </button>
+
+            <button class="btn btn-icon" title="Taal wisselen">
+              <svg style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Mode Switcher Demo -->
+        <h3 style="font-size: 20px; margin-bottom: 0.75rem;">Mode Switcher Toolbar (ViewModes)</h3>
+        <div class="card-base" style="padding: 1.5rem; margin-bottom: 2rem;">
+          <div class="tab-bar" style="width: fit-content;">
+            <button class="tab-btn active">
+              <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Uitleg (Simple)
+            </button>
+            <button class="tab-btn">
+              <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              Leren (Study)
+            </button>
+            <button class="tab-btn">
+              <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              Samenvatting
+            </button>
+            <button class="tab-btn">
+              <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Quiz
+            </button>
+          </div>
+        </div>
+
+        <!-- Interactive 3D Flashcard Component -->
+        <h3 style="font-size: 20px; margin-bottom: 0.75rem;">Interactieve 3D Flashcard (Leren Modus)</h3>
+        <p style="color: var(--muted-text); font-size: 13.5px; margin-bottom: 1rem;">
+          Klik op de kaart om de uitwerking te bekijken (3D rotateY transformatie).
+        </p>
+
+        <div style="max-width: 650px; margin-bottom: 2rem;">
+          <!-- Progress bar -->
+          <div style="width: 100%; height: 6px; background-color: var(--secondary-bg); border-radius: 9999px; margin-bottom: 1rem; overflow: hidden;">
+            <div id="flashcardProgressBar" style="height: 100%; width: 33.3%; background-color: var(--fg-color); transition: width 0.3s ease;"></div>
+          </div>
+
+          <div class="perspective-1000">
+            <div id="demoFlashcard" class="flashcard-inner" onclick="toggleDemoFlashcard()">
+              <!-- Front -->
+              <div class="flashcard-front">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span class="badge badge-primary" id="fcQuestionNumber">Opgave 1</span>
+                  <span style="font-size: 12px; color: var(--muted-text);">§4.1 Vermogen</span>
+                </div>
+                <div style="text-align: center; margin: 1.5rem 0;">
+                  <h3 id="fcQuestionText" style="font-size: 22px; font-family: var(--font-serif); font-weight: 500; line-height: 1.4;">
+                    Met welke grootheid geef je aan hoeveel energie een apparaat per seconde omzet?
+                  </h3>
+                </div>
+                <div style="text-align: center; font-size: 12px; color: var(--muted-text);">
+                  Klik om te omdraaien &bull; Spatie = omdraaien
+                </div>
+              </div>
+
+              <!-- Back -->
+              <div class="flashcard-back">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span class="badge badge-primary" style="background: var(--bg-color);" id="fcAnswerNumber">Uitwerking 1</span>
+                  <span style="font-size: 12px; color: var(--muted-text);">Correct Antwoord</span>
+                </div>
+                <div style="text-align: center; margin: 1.5rem 0;">
+                  <p id="fcAnswerText" style="font-size: 18px; font-family: var(--font-sans); font-weight: 500; line-height: 1.5; color: var(--fg-color);">
+                    Het <strong>elektrisch vermogen</strong> (symbool: <span class="math-formula">P</span>, eenheid: watt of <strong>W</strong>).
+                  </p>
+                </div>
+                <div style="text-align: center; font-size: 12px; color: var(--muted-text);">
+                  Klik om terug te draaien
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flashcard controls -->
+          <div style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-top: 1.25rem;">
+            <button class="btn btn-secondary" onclick="prevDemoCard()" style="padding: 0.5rem 0.75rem;">&larr; Vorige</button>
+            <button class="btn btn-primary" onclick="toggleDemoFlashcard()" style="min-width: 140px;" id="fcToggleBtn">Toon Uitwerking</button>
+            <button class="btn btn-secondary" onclick="nextDemoCard()" style="padding: 0.5rem 0.75rem;">Volgende &rarr;</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         SECTION 4: COMPLETE AUTHENTIC LIVE PREVIEW OF JSON LEERPAGINA
+         ========================================================================== -->
+    <div id="tab-leerpagina" class="guide-tab-content" style="display: none;">
+      
+      <div id="previewSection" style="margin-bottom: 2rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div>
+            <div class="badge badge-primary" style="margin-bottom: 0.4rem;">Live Preview Mode</div>
+            <h2 style="font-size: 32px; margin: 0;">Volledige Leerpagina Preview (JSON Layout)</h2>
+          </div>
+          <div style="font-size: 13px; color: var(--muted-text);">
+            Exacte weergave van <code style="font-family: var(--font-mono); background: var(--code-bg); padding: 2px 6px; border-radius: 3px;">natuurkunde-elektriciteit.json</code>
+          </div>
+        </div>
+
+        <!-- AUTHENTIC LEERPAGINA WRAPPER -->
+        <div style="border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem sm:padding: 2.5rem; background-color: var(--bg-color); box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+          
+          <!-- Leerpagina Header -->
+          <header style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.75rem;">
+            
+            <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem;">
+              <button class="btn-icon" title="Terug naar overzicht" style="margin-top: 4px;">
+                <svg style="width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              </button>
+              
+              <div style="flex: 1;">
+                <h1 style="font-size: 38px; line-height: 1.15; font-family: var(--font-serif); font-weight: 500; margin-bottom: 0.4rem;">
+                  Natuurkunde - Hoofdstuk 4: Elektriciteit
+                </h1>
+                <p style="font-size: 15px; color: var(--muted-text); line-height: 1.5;">
+                  Natuurkunde hoofdstuk 4 over elektriciteit, met uitleg, oefenvragen, bronnen en leerbare begrippen.
+                </p>
+              </div>
+            </div>
+
+            <!-- Header Action Buttons -->
+            <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center;">
+              <a href="https://youtube.com" target="_blank" class="btn btn-primary">
+                <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                Watch on YouTube
+              </a>
+              <a href="https://substack.com" target="_blank" class="btn btn-secondary">
+                <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="4" rx="0.5"/><rect x="3" y="9" width="18" height="4" rx="0.5"/><path d="M3 15h18v6L12 17l-9 4v-6z"/></svg>
+                Read on Substack
+              </a>
+              <button class="btn btn-secondary">
+                <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Exporteer Anki
+              </button>
+            </div>
+
+          </header>
+
+          <!-- Mode Switcher Bar -->
+          <div style="margin-bottom: 2rem;">
+            <div class="tab-bar" style="width: fit-content;">
+              <button class="tab-btn active">
+                <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Uitleg
+              </button>
+              <button class="tab-btn">
+                <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                Leren
+              </button>
+              <button class="tab-btn">
+                <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                Samenvatting
+              </button>
+              <button class="tab-btn">
+                <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                Quiz
+              </button>
+            </div>
+          </div>
+
+          <!-- Split Layout: Sidebar & Content Area -->
+          <div class="layout-split">
+            
+            <!-- Sidebar TOC -->
+            <aside class="layout-sidebar">
+              <div class="card-base" style="padding: 1rem;">
+                <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--muted-text); letter-spacing: 0.06em; margin-bottom: 0.75rem;">
+                  Inhoudsopgave
+                </div>
+                <nav style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 13px;">
+                  <a href="#sec-4-1" style="color: var(--fg-color); font-weight: 600; text-decoration: none; padding: 0.35rem 0.5rem; background: var(--secondary-bg); border-radius: 4px; display: block;">
+                    §4.1 Spanning &amp; Energie
+                  </a>
+                  <a href="#sec-4-1-q" style="color: var(--muted-text); text-decoration: none; padding: 0.35rem 0.5rem; display: block;">
+                    §4.1 Opdrachten (1 t/m 5)
+                  </a>
+                  <a href="#sec-4-2" style="color: var(--muted-text); text-decoration: none; padding: 0.35rem 0.5rem; display: block;">
+                    §4.2 Weerstand &amp; Wet van Ohm
+                  </a>
+                  <a href="#sec-4-3" style="color: var(--muted-text); text-decoration: none; padding: 0.35rem 0.5rem; display: block;">
+                    §4.3 Serie- en Parallelschakelingen
+                  </a>
+                </nav>
+              </div>
+            </aside>
+
+            <!-- Main Theory & Question Sections -->
+            <main class="layout-main">
+              
+              <!-- Section 4.1 -->
+              <section id="sec-4-1" style="margin-bottom: 2.5rem;">
+                
+                <!-- Section Heading -->
+                <div style="padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                  <h2 style="font-size: 28px; font-family: var(--font-serif); font-weight: 500;">
+                    &sect;4.1 Spanning, stroomsterkte en energie
+                  </h2>
+                </div>
+
+                <!-- Theory Block (Card) -->
+                <article class="card-base" style="padding: 1.75rem; margin-bottom: 1.5rem;">
+                  
+                  <div style="margin-bottom: 1.25rem;">
+                    <h3 style="font-size: 24px; font-family: var(--font-serif); margin-bottom: 0.5rem;">
+                      Elektrisch vermogen en capaciteit
+                    </h3>
+                    <div class="badge badge-goal" style="padding: 0.35rem 0.65rem; font-size: 12px; font-family: var(--font-sans); font-weight: 500; text-transform: none; letter-spacing: normal;">
+                      <strong>DOEL</strong> &rarr; Je leert rekenen met elektrisch vermogen en capaciteit.
+                    </div>
+                  </div>
+
+                  <div style="font-size: 16px; line-height: 1.8; color: var(--fg-color);">
+                    <h4 style="font-size: 19px; font-family: var(--font-serif); margin: 1.25rem 0 0.5rem 0;">
+                      Spanning, stroomsterkte en energie
+                    </h4>
+                    <p style="margin-bottom: 1rem;">
+                      Elektrische apparaten hebben energie nodig. Deze energie wordt geleverd door een spanningsbron. Door een apparaat op een spanningsbron aan te sluiten, gaat er een elektrische stroom door het apparaat lopen.
+                    </p>
+                    <p style="margin-bottom: 1rem;">
+                      Een elektrische stroom bestaat uit bewegende elektronen. De spanningsbron levert de <em>elektrische energie</em> aan de elektronen. Hoe groter de spanning, hoe meer energie de elektronen meekrijgen. Naarmate er meer elektronen per seconde door een stroomdraad bewegen, is de stroomsterkte groter. Het symbool van spanning is <span class="math-formula">U</span> en de eenheid is volt (V). Het symbool voor stroomsterkte is <span class="math-formula">I</span> en de eenheid is amp&egrave;re (A).
+                    </p>
+
+                    <h4 style="font-size: 19px; font-family: var(--font-serif); margin: 1.25rem 0 0.5rem 0;">
+                      Elektrisch vermogen
+                    </h4>
+                    <p style="margin-bottom: 1rem;">
+                      De energie die een apparaat per seconde gebruikt, is het vermogen. Het symbool voor vermogen is <span class="math-formula">P</span> en de eenheid is watt (W). Het vermogen kun je berekenen met de formule <span class="math-formula">P = E / t</span>. Hoe groter het vermogen, hoe meer energie het apparaat per seconde gebruikt.
+                    </p>
+
+                    <!-- Formula Box -->
+                    <div style="margin: 1.25rem 0; padding: 1.25rem; background-color: var(--secondary-bg); border: 1px solid var(--border-color); border-radius: 6px;">
+                      <div class="math-display">
+                        <strong>P = U &times; I</strong>
+                      </div>
+                      <ul style="list-style: none; font-size: 13.5px; color: var(--muted-text); display: flex; flex-direction: column; gap: 0.25rem; align-items: center;">
+                        <li><span class="math-formula">P</span> = elektrisch vermogen in watt (W)</li>
+                        <li><span class="math-formula">U</span> = spanning in volt (V)</li>
+                        <li><span class="math-formula">I</span> = stroomsterkte in amp&egrave;re (A)</li>
+                      </ul>
+                    </div>
+
+                    <h4 style="font-size: 19px; font-family: var(--font-serif); margin: 1.25rem 0 0.5rem 0;">
+                      Capaciteit van een batterij of accu
+                    </h4>
+                    <p>
+                      In een accu of batterij kun je een bepaalde hoeveelheid energie tijdelijk opslaan. De hoeveelheid opgeslagen energie in een accu wordt bepaald door de spanning en de <em>capaciteit</em> (<span class="math-formula">C</span>) van de accu in amp&egrave;re-uur (Ah). Formule: <span class="math-formula">C = I &times; t</span>.
+                    </p>
+                  </div>
+
+                </article>
+
+              </section>
+
+              <!-- Section 4.1 Questions & Exercises (Accordion / NestedSection) -->
+              <section id="sec-4-1-q" style="margin-bottom: 2.5rem;">
+                
+                <div class="card-base" style="overflow: hidden;">
+                  
+                  <div style="padding: 1rem 1.25rem; background-color: var(--secondary-bg); display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <h3 style="font-size: 22px; font-family: var(--font-serif); font-weight: 500; margin: 0;">
+                        &sect;4.1 Opdrachten &amp; Oefenvragen
+                      </h3>
+                      <p style="font-size: 13px; color: var(--muted-text); margin-top: 2px;">
+                        Beantwoord de volgende opgaven over §4.1. Klik op een opgave om de uitwerking te openen.
+                      </p>
+                    </div>
+                    <button class="btn btn-secondary" style="font-size: 12px; padding: 0.35rem 0.65rem;" onclick="toggleAllQuestions()">
+                      Alles uitklappen / inklappen
+                    </button>
+                  </div>
+
+                  <!-- Question 1 -->
+                  <div class="accordion-item open">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                      <svg class="accordion-chevron" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                      <span style="font-family: var(--font-mono); font-size: 13px; color: var(--muted-text); width: 24px;">01</span>
+                      <span style="font-weight: 500;">Met welke grootheid geef je aan hoeveel energie een apparaat per seconde omzet?</span>
+                    </button>
+                    <div class="accordion-content">
+                      <div style="padding: 0.75rem; background-color: var(--secondary-bg); border-radius: 4px; border-left: 3px solid var(--fg-color);">
+                        <strong>Uitwerking:</strong> Het elektrisch vermogen (symbool <span class="math-formula">P</span> in watt, W).
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Question 2a -->
+                  <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                      <svg class="accordion-chevron" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                      <span style="font-family: var(--font-mono); font-size: 13px; color: var(--muted-text); width: 24px;">2a</span>
+                      <span style="font-weight: 500;">Waar of niet waar? Met de formule P = U &times; I bereken je het elektrisch vermogen.</span>
+                    </button>
+                    <div class="accordion-content">
+                      <div style="padding: 0.75rem; background-color: var(--secondary-bg); border-radius: 4px; border-left: 3px solid var(--fg-color);">
+                        <strong>Uitwerking:</strong> Waar. Vermogen = spanning &times; stroomsterkte.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Question 2b -->
+                  <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                      <svg class="accordion-chevron" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                      <span style="font-family: var(--font-mono); font-size: 13px; color: var(--muted-text); width: 24px;">2b</span>
+                      <span style="font-weight: 500;">Waar of niet waar? Een accu met een capaciteit van 40 Ah kan gedurende een half uur een stroom van 20 A laten lopen.</span>
+                    </button>
+                    <div class="accordion-content">
+                      <div style="padding: 0.75rem; background-color: var(--secondary-bg); border-radius: 4px; border-left: 3px solid var(--fg-color);">
+                        <strong>Uitwerking:</strong> Niet waar. Een accu van 40 Ah kan 20 A leveren gedurende <span class="math-formula">40 \text{ Ah} / 20 \text{ A} = 2 \text{ uur}</span> (dus veel langer dan een half uur).
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Question 3 -->
+                  <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                      <svg class="accordion-chevron" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                      <span style="font-family: var(--font-mono); font-size: 13px; color: var(--muted-text); width: 24px;">03</span>
+                      <span style="font-weight: 500;">Een straalkachel heeft een stand van 1000 W en 2000 W. Bereken de stroomsterkte bij stand 1000 W (U = 230 V).</span>
+                    </button>
+                    <div class="accordion-content">
+                      <div style="padding: 0.75rem; background-color: var(--secondary-bg); border-radius: 4px; border-left: 3px solid var(--fg-color);">
+                        <strong>Uitwerking:</strong><br />
+                        Gegeven: <span class="math-formula">P = 1000 \text{ W}</span>, <span class="math-formula">U = 230 \text{ V}</span>.<br />
+                        Formule: <span class="math-formula">I = P / U = 1000 / 230 \approx 4{,}35 \text{ A}</span>.
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </section>
+
+            </main>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+       JAVASCRIPT INTERACTIONS (THEME, TABS, FLASHCARD, ACCORDION)
+       ========================================================================== -->
+  <script>
+    // 1. Theme Management (Light / Dark Mode)
+    const htmlEl = document.documentElement;
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const sunIcon = document.getElementById('themeIconSun');
+    const moonIcon = document.getElementById('themeIconMoon');
+    const themeText = document.getElementById('themeToggleText');
+
+    function updateThemeUI(isDark) {
+      if (isDark) {
+        htmlEl.classList.add('dark');
+        htmlEl.classList.remove('light');
+        sunIcon.style.display = 'inline-block';
+        moonIcon.style.display = 'none';
+        themeText.textContent = 'Lichte Modus';
+      } else {
+        htmlEl.classList.remove('dark');
+        htmlEl.classList.add('light');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'inline-block';
+        themeText.textContent = 'Donkere Modus';
+      }
+    }
+
+    themeBtn.addEventListener('click', () => {
+      const isCurrentlyDark = htmlEl.classList.contains('dark');
+      updateThemeUI(!isCurrentlyDark);
+    });
+
+    // 2. Guide Tab Navigation
+    function switchGuideTab(tabId, btn) {
+      document.querySelectorAll('.guide-tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.tab-bar .tab-btn').forEach(el => el.classList.remove('active'));
+      
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.style.display = 'block';
+      }
+      btn.classList.add('active');
+    }
+
+    // Initialize with first tab visible
+    document.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash;
+      if (hash === '#previewSection') {
+        const previewTabBtn = document.querySelectorAll('.tab-bar .tab-btn')[3];
+        if (previewTabBtn) switchGuideTab('tab-leerpagina', previewTabBtn);
+      }
+    });
+
+    // 3. Demo Flashcard Interactive State
+    const flashcardQuestions = [
+      {
+        qNum: "Opgave 1",
+        qText: "Met welke grootheid geef je aan hoeveel energie een apparaat per seconde omzet?",
+        aNum: "Uitwerking 1",
+        aText: "Het <strong>elektrisch vermogen</strong> (symbool: <span class=\"math-formula\">P</span>, eenheid: watt of <strong>W</strong>)."
+      },
+      {
+        qNum: "Opgave 2a",
+        qText: "Met welke formule bereken je het elektrisch vermogen uit spanning en stroomsterkte?",
+        aNum: "Uitwerking 2a",
+        aText: "Formule: <span class=\"math-formula\"><strong>P = U &times; I</strong></span> (Vermogen = Spanning &times; Stroomsterkte)."
+      },
+      {
+        qNum: "Opgave 3",
+        qText: "Wat is de eenheid en het symbool van capaciteit van een batterij of accu?",
+        aNum: "Uitwerking 3",
+        aText: "Het symbool is <span class=\"math-formula\"><strong>C</strong></span> en de eenheid is <strong>amp&egrave;re-uur (Ah)</strong>."
+      }
+    ];
+
+    let currentCardIndex = 0;
+    const cardEl = document.getElementById('demoFlashcard');
+    const toggleBtn = document.getElementById('fcToggleBtn');
+    const progressBar = document.getElementById('flashcardProgressBar');
+
+    function updateCardUI() {
+      const item = flashcardQuestions[currentCardIndex];
+      document.getElementById('fcQuestionNumber').textContent = item.qNum;
+      document.getElementById('fcQuestionText').innerHTML = item.qText;
+      document.getElementById('fcAnswerNumber').textContent = item.aNum;
+      document.getElementById('fcAnswerText').innerHTML = item.aText;
+      cardEl.classList.remove('flipped');
+      toggleBtn.textContent = 'Toon Uitwerking';
+      
+      const percent = ((currentCardIndex + 1) / flashcardQuestions.length) * 100;
+      progressBar.style.width = percent + '%';
+    }
+
+    function toggleDemoFlashcard() {
+      cardEl.classList.toggle('flipped');
+      const isFlipped = cardEl.classList.contains('flipped');
+      toggleBtn.textContent = isFlipped ? 'Toon Opgave' : 'Toon Uitwerking';
+    }
+
+    function nextDemoCard() {
+      currentCardIndex = (currentCardIndex + 1) % flashcardQuestions.length;
+      updateCardUI();
+    }
+
+    function prevDemoCard() {
+      currentCardIndex = (currentCardIndex - 1 + flashcardQuestions.length) % flashcardQuestions.length;
+      updateCardUI();
+    }
+
+    // Keyboard support for space and arrow keys
+    window.addEventListener('keydown', (e) => {
+      if (document.getElementById('tab-components').style.display !== 'none') {
+        if (e.code === 'Space') {
+          e.preventDefault();
+          toggleDemoFlashcard();
+        } else if (e.code === 'ArrowRight') {
+          e.preventDefault();
+          nextDemoCard();
+        } else if (e.code === 'ArrowLeft') {
+          e.preventDefault();
+          prevDemoCard();
+        }
+      }
+    });
+
+    // 4. Accordion Toggle Functions
+    function toggleAccordion(headerBtn) {
+      const item = headerBtn.closest('.accordion-item');
+      if (item) {
+        item.classList.toggle('open');
+      }
+    }
+
+    function toggleAllQuestions() {
+      const items = document.querySelectorAll('.accordion-item');
+      const anyClosed = Array.from(items).some(i => !i.classList.contains('open'));
+      items.forEach(item => {
+        if (anyClosed) {
+          item.classList.add('open');
+        } else {
+          item.classList.remove('open');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -16,19 +16,27 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Plus, BookOpen, Calendar, TrendingUp, Edit, Trash2, ChevronRight } from 'lucide-react';
+import { Plus, BookOpen, Calendar, TrendingUp, Edit } from 'lucide-react';
 import Link from 'next/link';
 
 type Subject = {
   id: string;
+  user_id: string;
   name: string;
+  slug: string;
+  level: string | null;
+  color: string | null;
+  icon: string | null;
+  mastery: number;
+  topics: number;
+  topics_done: number;
+  due_count: number;
+  created_at: string;
+  updated_at: string;
   code?: string;
-  color: string;
-  icon: string;
   description?: string;
   teacher?: string;
-  exam_relevance: string;
-  created_at: string;
+  exam_relevance?: string;
 };
 
 type Chapter = {
@@ -119,8 +127,8 @@ export default function SubjectDetailPage() {
         const { data: subjectData, error: subjectError } = await supabase
           .from('subjects')
           .select('*')
-          .eq('id', params.id)
-          .eq('user_id', user.id)
+          .eq('id', Array.isArray(params.id) ? params.id[0] : params.id)
+          .eq('user_id', user!.id)
           .single();
 
         if (subjectError || !subjectData) {
@@ -132,14 +140,14 @@ export default function SubjectDetailPage() {
         setSubject(subjectData);
         setEditForm({
           name: subjectData.name,
-          code: subjectData.code || '',
-          description: subjectData.description || '',
-          teacher: subjectData.teacher || '',
-          exam_relevance: subjectData.exam_relevance,
+          code: '',
+          description: '',
+          teacher: '',
+          exam_relevance: '',
         });
 
         // Load chapters with topics and mastery
-        const { data: chaptersData } = await supabase
+        const { data: chaptersData } = await (supabase as any)
           .from('subject_chapters')
           .select(
             `
@@ -176,10 +184,10 @@ export default function SubjectDetailPage() {
         }
 
         // Load tests
-        const { data: testsData } = await supabase
+        const { data: testsData } = await (supabase as any)
           .from('subject_tests')
           .select('*')
-          .eq('subject_id', params.id)
+          .eq('subject_id', Array.isArray(params.id) ? params.id[0] : params.id)
           .order('test_date');
 
         if (testsData) {
@@ -187,10 +195,10 @@ export default function SubjectDetailPage() {
         }
 
         // Load grades
-        const { data: gradesData } = await supabase
+        const { data: gradesData } = await (supabase as any)
           .from('subject_grades')
           .select('*')
-          .eq('subject_id', params.id)
+          .eq('subject_id', Array.isArray(params.id) ? params.id[0] : params.id)
           .order('test_date', { ascending: false });
 
         if (gradesData) {
@@ -215,10 +223,6 @@ export default function SubjectDetailPage() {
         .from('subjects')
         .update({
           name: editForm.name,
-          code: editForm.code || null,
-          description: editForm.description || null,
-          teacher: editForm.teacher || null,
-          exam_relevance: editForm.exam_relevance,
         })
         .eq('id', subject.id);
 
@@ -243,7 +247,7 @@ export default function SubjectDetailPage() {
     if (!subject || !chapterForm.name.trim()) return;
 
     try {
-      const { error } = await supabase.from('subject_chapters').insert({
+      const { error } = await (supabase as any).from('subject_chapters').insert({
         subject_id: subject.id,
         name: chapterForm.name.trim(),
         number: chapterForm.number,
@@ -253,7 +257,7 @@ export default function SubjectDetailPage() {
       if (error) throw error;
 
       // Reload chapters
-      const { data } = await supabase
+      const { data } = await (supabase as any)
         .from('subject_chapters')
         .select(
           `
@@ -301,19 +305,19 @@ export default function SubjectDetailPage() {
     if (!subject || !testForm.title.trim() || !testForm.test_date) return;
 
     try {
-      const { error } = await supabase.from('subject_tests').insert({
+      const { error } = await (supabase as any).from('subject_tests').insert({
         subject_id: subject.id,
         title: testForm.title.trim(),
         test_date: testForm.test_date,
         weight_factor: testForm.weight_factor,
-        required_grade: parseFloat(testForm.required_grade),
+        required_grade: testForm.required_grade,
         notes: testForm.notes.trim() || null,
       });
 
       if (error) throw error;
 
       // Reload tests
-      const { data } = await supabase
+      const { data } = await (supabase as any)
         .from('subject_tests')
         .select('*')
         .eq('subject_id', subject.id)
@@ -333,7 +337,7 @@ export default function SubjectDetailPage() {
     if (!subject || !gradeForm.grade || !gradeForm.test_date) return;
 
     try {
-      const { error } = await supabase.from('subject_grades').insert({
+      const { error } = await (supabase as any).from('subject_grades').insert({
         subject_id: subject.id,
         grade: parseFloat(gradeForm.grade),
         test_date: gradeForm.test_date,
@@ -344,7 +348,7 @@ export default function SubjectDetailPage() {
       if (error) throw error;
 
       // Reload grades
-      const { data } = await supabase
+      const { data } = await (supabase as any)
         .from('subject_grades')
         .select('*')
         .eq('subject_id', subject.id)
@@ -398,8 +402,7 @@ export default function SubjectDetailPage() {
     return (
       <AppShell>
         <PageHeader
-          eyebrow="Vak"
-          title={params.id || 'Vak'}
+          title={Array.isArray(params.id) ? params.id[0] : params.id || 'Vak'}
           description="Maak je eerste studyset om te beginnen"
         />
         <div className="mt-10 rounded-xl border border-dashed border-border p-10 text-center">
@@ -423,7 +426,6 @@ export default function SubjectDetailPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={subject.code || 'Vak'}
         title={subject.name}
         description={subject.description || 'Beheer je voortgang voor dit vak'}
         action={
@@ -743,7 +745,7 @@ export default function SubjectDetailPage() {
                 type="number"
                 step="0.1"
                 value={testForm.required_grade}
-                onChange={(e) => setTestForm({ ...testForm, required_grade: e.target.value })}
+                onChange={(e) => setTestForm({ ...testForm, required_grade: parseFloat(e.target.value) })}
               />
             </div>
             <div>

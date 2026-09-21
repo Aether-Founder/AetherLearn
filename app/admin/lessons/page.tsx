@@ -140,7 +140,6 @@ export default function AdminLessonsPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Admin"
         title="Lessen Beheer"
         description="Beheer lesinhoud en structuur"
         action={

@@ -5,7 +5,7 @@ import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
 import { buildLearnQuestion, buildMcqQuestion, buildWrittenQuestion, createId, pickDistractors } from "@/lib/learning-platform/question-generator";
 import { fisherYatesShuffle, getPromptAndAnswer } from "@/lib/learning-platform/term-filters";
 import type { LerenActivity, Question, Term, TermResult } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 import { McqQuestion } from "../questions/McqQuestion";
 import { WrittenQuestion } from "../questions/WrittenQuestion";
 import { MarkdownContent } from "../shared/MarkdownContent";
@@ -20,7 +20,7 @@ interface LearnModeProps {
 }
 
 export function LearnMode({ useImages = false }: LearnModeProps = {}) {
-  const { t } = useTranslation();
+  const t = i18n.t.bind(i18n);
   const {
     playableTerms,
     studySet,

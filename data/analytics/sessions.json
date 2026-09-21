@@ -1,87 +1,95 @@
 {
-  "0b044266-1f74-4bc5-b8bd-94dc1110c5ea": {
-    "id": "0b044266-1f74-4bc5-b8bd-94dc1110c5ea",
+  "9132bc00-fb33-44c7-a196-c94f6faae40e": {
+    "id": "9132bc00-fb33-44c7-a196-c94f6faae40e",
     "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
-    "startTime": 1788119632489,
-    "endTime": 1788119689139,
-    "duration": 28133,
+    "startTime": 1789337821394,
+    "endTime": 1789338172337,
+    "duration": 43555,
     "events": [
       {
         "eventType": "page_view",
-        "timestamp": 1788119632489,
+        "timestamp": 1789337821394,
         "data": {
           "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
-          "referrer": "http://localhost:3000/vakken/Aardrijkskunde"
-        }
-      },
-      {
-        "eventType": "session_end",
-        "timestamp": 1788119637800,
-        "data": {
-          "duration": 5310
-        }
-      },
-      {
-        "eventType": "session_start",
-        "timestamp": 1788119641641,
-        "data": {
-          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
-          "language": "nl-NL",
-          "screenResolution": "1280x800"
+          "referrer": "http://localhost:3000/vakken"
         }
       },
       {
         "eventType": "page_view",
-        "timestamp": 1788119641641,
+        "timestamp": 1789337828400,
         "data": {
           "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
-          "referrer": "http://localhost:3000/vakken/Aardrijkskunde"
-        }
-      },
-      {
-        "eventType": "session_start",
-        "timestamp": 1788119641675,
-        "data": {
-          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
-          "language": "nl-NL",
-          "screenResolution": "1280x800"
+          "referrer": "http://localhost:3000/vakken"
         }
       },
       {
         "eventType": "page_view",
-        "timestamp": 1788119641675,
+        "timestamp": 1789337828431,
         "data": {
           "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
-          "referrer": "http://localhost:3000/vakken/Aardrijkskunde"
-        }
-      },
-      {
-        "eventType": "session_end",
-        "timestamp": 1788119659949,
-        "data": {
-          "duration": 18273
+          "referrer": "http://localhost:3000/vakken"
         }
       },
       {
         "eventType": "session_start",
-        "timestamp": 1788119661006,
+        "timestamp": 1789337828430,
         "data": {
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
           "language": "nl-NL",
           "screenResolution": "1280x800"
-        }
-      },
-      {
-        "eventType": "page_view",
-        "timestamp": 1788119661007,
-        "data": {
-          "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
-          "referrer": "http://localhost:3000/vakken/Aardrijkskunde"
         }
       },
       {
         "eventType": "mode_switch",
-        "timestamp": 1788119676867,
+        "timestamp": 1789337845962,
+        "data": {
+          "from": "simple",
+          "to": "alle-leerdoelen-opdrachten"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1789337847119,
+        "data": {
+          "from": "alle-leerdoelen-opdrachten",
+          "to": "complete-oefentoets"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1789337847909,
+        "data": {
+          "from": "complete-oefentoets",
+          "to": "alles-leren-2-dagen"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1789337848713,
+        "data": {
+          "from": "alles-leren-2-dagen",
+          "to": "samenvatting"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1789337849242,
+        "data": {
+          "from": "samenvatting",
+          "to": "study"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1789337849574,
+        "data": {
+          "from": "study",
+          "to": "simple"
+        }
+      },
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1789337854634,
         "data": {
           "from": "simple",
           "to": "study"
@@ -89,49 +97,119 @@
       },
       {
         "eventType": "mode_switch",
-        "timestamp": 1788119684051,
+        "timestamp": 1789337863366,
         "data": {
           "from": "study",
-          "to": "samenvatting"
+          "to": "simple"
         }
       },
       {
-        "eventType": "mode_switch",
-        "timestamp": 1788119684679,
+        "eventType": "session_start",
+        "timestamp": 1789337883980,
         "data": {
-          "from": "samenvatting",
-          "to": "alles-leren-2-dagen"
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+          "language": "nl-NL",
+          "screenResolution": "1280x800"
         }
       },
       {
-        "eventType": "mode_switch",
-        "timestamp": 1788119685787,
+        "eventType": "session_start",
+        "timestamp": 1789337883978,
         "data": {
-          "from": "alles-leren-2-dagen",
-          "to": "complete-oefentoets"
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+          "language": "nl-NL",
+          "screenResolution": "1280x800"
         }
       },
       {
-        "eventType": "mode_switch",
-        "timestamp": 1788119686528,
+        "eventType": "session_start",
+        "timestamp": 1789338049180,
         "data": {
-          "from": "complete-oefentoets",
-          "to": "alle-leerdoelen-opdrachten"
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+          "language": "nl-NL",
+          "screenResolution": "1280x800"
         }
       },
       {
-        "eventType": "mode_switch",
-        "timestamp": 1788119686875,
+        "eventType": "page_view",
+        "timestamp": 1789338049184,
         "data": {
-          "from": "alle-leerdoelen-opdrachten",
-          "to": "vragenlijst"
+          "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
+          "referrer": "http://localhost:3000/vakken"
+        }
+      },
+      {
+        "eventType": "session_start",
+        "timestamp": 1789338126660,
+        "data": {
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+          "language": "nl-NL",
+          "screenResolution": "1280x800"
+        }
+      },
+      {
+        "eventType": "page_view",
+        "timestamp": 1789338126661,
+        "data": {
+          "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
+          "referrer": "http://localhost:3000/vakken"
+        }
+      },
+      {
+        "eventType": "session_start",
+        "timestamp": 1789338128780,
+        "data": {
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+          "language": "nl-NL",
+          "screenResolution": "1280x800"
+        }
+      },
+      {
+        "eventType": "page_view",
+        "timestamp": 1789338128782,
+        "data": {
+          "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
+          "referrer": "http://localhost:3000/vakken"
         }
       },
       {
         "eventType": "session_end",
-        "timestamp": 1788119689139,
+        "timestamp": 1789338172337,
         "data": {
-          "duration": 28133
+          "duration": 43555
+        }
+      }
+    ]
+  },
+  "282f59e3-28f5-4c37-893f-a97927a0c517": {
+    "id": "282f59e3-28f5-4c37-893f-a97927a0c517",
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "startTime": 1789399544283,
+    "endTime": 1789399853686,
+    "duration": 3334,
+    "events": [
+      {
+        "eventType": "session_start",
+        "timestamp": 1789399544283,
+        "data": {
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+          "language": "nl-NL",
+          "screenResolution": "1920x1080"
+        }
+      },
+      {
+        "eventType": "page_view",
+        "timestamp": 1789399850323,
+        "data": {
+          "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
+          "referrer": "http://localhost:3000/instellingen"
+        }
+      },
+      {
+        "eventType": "session_end",
+        "timestamp": 1789399853686,
+        "data": {
+          "duration": 3334
         }
       }
     ]

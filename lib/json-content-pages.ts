@@ -3,6 +3,7 @@ import path from 'path';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content');
 const REGISTRY_PATH = path.join(CONTENT_DIR, 'content-pages.json');
+const SUBJECTS_DIR = path.join(CONTENT_DIR, 'subjects');
 
 export type JsonContentPage = {
   id: string;
@@ -60,4 +61,61 @@ export function listContentPagesForSubject(subjectId: string) {
 export function findContentPage(id: string) {
   const normalizedId = normalizePageId(id);
   return loadContentPageRegistry().pages.find((page) => page.id === normalizedId);
+}
+
+export function hasLocalContentForSubject(subjectName: string): boolean {
+  try {
+    const subjectsDir = path.join(process.cwd(), 'content', 'subjects');
+    if (!fs.existsSync(subjectsDir)) {
+      return false;
+    }
+
+    const folders = fs.readdirSync(subjectsDir, { withFileTypes: true });
+    const normalizedSubjectName = subjectName.toLowerCase();
+
+    return folders.some(folder => {
+      if (!folder.isDirectory()) return false;
+      return folder.name.toLowerCase() === normalizedSubjectName;
+    });
+  } catch {
+    return false;
+  }
+}
+
+export function getLocalContentForSubject(subjectName: string): Array<{ id: string; title: string; jsonPath: string }> {
+  try {
+    const subjectsDir = path.join(process.cwd(), 'content', 'subjects');
+    if (!fs.existsSync(subjectsDir)) {
+      return [];
+    }
+
+    const folders = fs.readdirSync(subjectsDir, { withFileTypes: true });
+    const normalizedSubjectName = subjectName.toLowerCase();
+
+    const matchingFolder = folders.find(folder => {
+      if (!folder.isDirectory()) return false;
+      return folder.name.toLowerCase() === normalizedSubjectName;
+    });
+
+    if (!matchingFolder) {
+      return [];
+    }
+
+    const subjectPath = path.join(subjectsDir, matchingFolder.name);
+    const files = fs.readdirSync(subjectPath);
+
+    return files
+      .filter(file => file.endsWith('.json'))
+      .map(file => {
+        const filePath = path.join('subjects', matchingFolder.name, file);
+        const id = file.replace('.json', '');
+        return {
+          id,
+          title: id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+          jsonPath: filePath
+        };
+      });
+  } catch {
+    return [];
+  }
 }

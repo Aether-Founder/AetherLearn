@@ -118,7 +118,6 @@ export default function StudySetPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Leerset"
         title={set.title}
         description={set.description ?? 'Oefen met deze leerset.'}
         action={

@@ -8,6 +8,7 @@ import { ArrowLeft, Folder, FileText, Brain } from 'lucide-react';
 import Link from 'next/link';
 import { findContentPage, normalizeSubjectId } from '@/lib/json-content-pages';
 import JsonLessonPage from '@/app/[page]/page';
+import ButtonSection from '@/components/ButtonSection';
 
 export default async function ChapterDetailPage({
   params,
@@ -60,24 +61,29 @@ export default async function ChapterDetailPage({
           </div>
         </div>
 
+        {/* Render chapter-level buttons */}
+        <ButtonSection placement="chapter" placementId={chapterId} />
+
         {/* Filesystem-like Content Structure */}
         <div className="border border-border rounded-lg overflow-hidden">
           <div className="bg-muted/50 px-4 py-2 border-b border-border">
             <span className="text-sm text-muted-foreground">
-              {chapter.content.learningSets.length +
-                chapter.content.quizzes.length +
-                chapter.content.summaries.length +
-                chapter.content.practiceTests.length}{' '}
+              {typeof chapter.content === 'object' && chapter.content
+                ? ((chapter.content as any).learningSets?.length || 0) +
+                  ((chapter.content as any).quizzes?.length || 0) +
+                  ((chapter.content as any).summaries?.length || 0) +
+                  ((chapter.content as any).practiceTests?.length || 0)
+                : 0}{' '}
               items
             </span>
           </div>
 
           <div className="divide-y divide-border">
             {/* Learning Sets */}
-            {chapter.content.learningSets.length > 0 && (
+            {typeof chapter.content === 'object' && chapter.content && (chapter.content as any).learningSets?.length > 0 && (
               <div>
                 <div className="px-4 py-2 bg-muted/30 font-medium text-sm">Leersets</div>
-                {chapter.content.learningSets.map((lsId) => (
+                {(chapter.content as any).learningSets?.map((lsId: string) => (
                   <Link
                     key={lsId}
                     href={`/vakken/${subjectId}/${chapterId}/learning-set/${lsId}`}
@@ -96,10 +102,10 @@ export default async function ChapterDetailPage({
             )}
 
             {/* Quizzes */}
-            {chapter.content.quizzes.length > 0 && (
+            {typeof chapter.content === 'object' && chapter.content && (chapter.content as any).quizzes?.length > 0 && (
               <div>
                 <div className="px-4 py-2 bg-muted/30 font-medium text-sm">Quizzes</div>
-                {chapter.content.quizzes.map((quizId) => (
+                {(chapter.content as any).quizzes?.map((quizId: string) => (
                   <Link
                     key={quizId}
                     href={`/vakken/${subjectId}/${chapterId}/quiz/${quizId}`}
@@ -118,10 +124,10 @@ export default async function ChapterDetailPage({
             )}
 
             {/* Summaries */}
-            {chapter.content.summaries.length > 0 && (
+            {typeof chapter.content === 'object' && chapter.content && (chapter.content as any).summaries?.length > 0 && (
               <div>
                 <div className="px-4 py-2 bg-muted/30 font-medium text-sm">Samenvattingen</div>
-                {chapter.content.summaries.map((summaryId) => (
+                {(chapter.content as any).summaries?.map((summaryId: string) => (
                   <Link
                     key={summaryId}
                     href={`/vakken/${subjectId}/${chapterId}/summary/${summaryId}`}
@@ -142,10 +148,10 @@ export default async function ChapterDetailPage({
             )}
 
             {/* Practice Tests */}
-            {chapter.content.practiceTests.length > 0 && (
+            {typeof chapter.content === 'object' && chapter.content && (chapter.content as any).practiceTests?.length > 0 && (
               <div>
                 <div className="px-4 py-2 bg-muted/30 font-medium text-sm">Oefentoetsen</div>
-                {chapter.content.practiceTests.map((testId) => (
+                {(chapter.content as any).practiceTests?.map((testId: string) => (
                   <Link
                     key={testId}
                     href={`/vakken/${subjectId}/${chapterId}/practice-test/${testId}`}
@@ -164,10 +170,11 @@ export default async function ChapterDetailPage({
             )}
 
             {/* Empty state */}
-            {chapter.content.learningSets.length === 0 &&
-              chapter.content.quizzes.length === 0 &&
-              chapter.content.summaries.length === 0 &&
-              chapter.content.practiceTests.length === 0 && (
+            {typeof chapter.content === 'object' && chapter.content &&
+              (chapter.content as any).learningSets?.length === 0 &&
+              (chapter.content as any).quizzes?.length === 0 &&
+              (chapter.content as any).summaries?.length === 0 &&
+              (chapter.content as any).practiceTests?.length === 0 && (
                 <div className="text-center py-12">
                   <Folder className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
                   <p className="text-lg font-medium mb-2">Nog geen inhoud</p>

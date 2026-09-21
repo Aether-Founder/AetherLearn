@@ -243,7 +243,7 @@ export default function AdminArtisanPage() {
 
   return (
     <AppShell>
-      <PageHeader eyebrow="Admin" title="De Werkplaats" description="Artisan wachtrij beheer" />
+      <PageHeader title="De Werkplaats" description="Artisan wachtrij beheer" />
 
       <div className="mt-10 space-y-6">
         {/* Stats */}

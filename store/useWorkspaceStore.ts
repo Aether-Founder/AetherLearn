@@ -13,16 +13,29 @@ export interface WorkspaceItem {
   content: Json;
   created_at: string;
   updated_at: string;
+  workspace_id: string;
+}
+
+export interface Workspace {
+  id: string;
+  user_id: string;
+  name: string;
+  created_at: string;
+  updated_at: string;
 }
 
 interface WorkspaceState {
   items: WorkspaceItem[];
+  workspaces: Workspace[];
+  currentWorkspaceId: string;
   isLoading: boolean;
   selectedId: string | null;
   expandedMaps: Set<string>;
 
   // Actions
   setItems: (items: WorkspaceItem[]) => void;
+  setWorkspaces: (workspaces: Workspace[]) => void;
+  setCurrentWorkspaceId: (id: string) => void;
   setLoading: (loading: boolean) => void;
   setSelectedId: (id: string | null) => void;
   toggleMapExpanded: (id: string) => void;
@@ -36,6 +49,10 @@ interface WorkspaceState {
   deleteItemOptimistic: (id: string) => void;
   moveItemOptimistic: (id: string, newParentId: string | null, newIndex: number) => void;
 
+  // Workspace management
+  createWorkspace: (name: string) => string;
+  deleteWorkspace: (id: string) => void;
+
   // Selectors
   getChildren: (parentId: string | null) => WorkspaceItem[];
   getSelectedItem: () => WorkspaceItem | null;
@@ -45,6 +62,8 @@ interface WorkspaceState {
 }
 
 const STORAGE_KEY = 'aether_workspace_items';
+const WORKSPACES_KEY = 'aether_workspaces';
+const CURRENT_WORKSPACE_KEY = 'aether_current_workspace';
 
 function saveLocal(items: WorkspaceItem[]) {
   if (typeof window !== 'undefined') {
@@ -71,8 +90,38 @@ function getInitialLocalItems(): WorkspaceItem[] {
   return [];
 }
 
+function getInitialWorkspaces(): Workspace[] {
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = localStorage.getItem(WORKSPACES_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      /* fallback */
+    }
+  }
+  return [];
+}
+
+function getInitialCurrentWorkspaceId(): string {
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = localStorage.getItem(CURRENT_WORKSPACE_KEY);
+      if (stored) return stored;
+    } catch (e) {
+      /* fallback */
+    }
+  }
+  const workspaces = getInitialWorkspaces();
+  return workspaces.length > 0 ? workspaces[0].id : '';
+}
+
 export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
   items: getInitialLocalItems(),
+  workspaces: getInitialWorkspaces(),
+  currentWorkspaceId: getInitialCurrentWorkspaceId(),
   isLoading: false,
   selectedId: null,
   expandedMaps: new Set(),
@@ -80,6 +129,20 @@ export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
   setItems: (items) => {
     saveLocal(items);
     set({ items });
+  },
+
+  setWorkspaces: (workspaces) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(WORKSPACES_KEY, JSON.stringify(workspaces));
+    }
+    set({ workspaces });
+  },
+
+  setCurrentWorkspaceId: (id) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(CURRENT_WORKSPACE_KEY, id);
+    }
+    set({ currentWorkspaceId: id, selectedId: null });
   },
 
   loadFromLocalStorage: () => {
@@ -107,6 +170,7 @@ export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
     const newItem: WorkspaceItem = {
       ...itemData,
       id,
+      workspace_id: get().currentWorkspaceId,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     };
@@ -172,10 +236,39 @@ export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
     set({ items: updatedItems });
   },
 
+  createWorkspace: (name) => {
+    const id = crypto.randomUUID();
+    const newWorkspace: Workspace = {
+      id,
+      user_id: 'local-user',
+      name,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+    const updatedWorkspaces = [...get().workspaces, newWorkspace];
+    get().setWorkspaces(updatedWorkspaces);
+    return id;
+  },
+
+  deleteWorkspace: (id) => {
+    const updatedWorkspaces = get().workspaces.filter((w) => w.id !== id);
+    get().setWorkspaces(updatedWorkspaces);
+
+    // Delete all items in this workspace
+    const remainingItems = get().items.filter((item) => item.workspace_id !== id);
+    saveLocal(remainingItems);
+    set({ items: remainingItems });
+
+    // If deleting current workspace, switch to first available
+    if (get().currentWorkspaceId === id && updatedWorkspaces.length > 0) {
+      get().setCurrentWorkspaceId(updatedWorkspaces[0].id);
+    }
+  },
+
   getChildren: (parentId) => {
-    const { items } = get();
+    const { items, currentWorkspaceId } = get();
     return items
-      .filter((item) => item.parent_id === parentId)
+      .filter((item) => item.parent_id === parentId && item.workspace_id === currentWorkspaceId)
       .sort((a, b) => a.order_index - b.order_index);
   },
 

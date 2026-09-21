@@ -18,7 +18,7 @@ import { STUDY_GAMES, getGameById } from "@/lib/learning-platform/game-registry"
 import { reviewForecast } from "@/lib/learning-platform/srs";
 import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
 import type { LearningMode } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 import { SessionSettingsPanel } from "./SessionSettingsPanel";
 import { MasteryProgressBar } from "./MasteryProgressBar";
 import { TermList } from "./TermList";
@@ -119,7 +119,7 @@ function StudyModeView({ mode }: { mode: LearningMode }) {
 }
 
 export function LearningPlatform({ pageId, sections, enableImageLearning, learningSet: providedLearningSet }: LearningPlatformProps) {
-  const { t } = useTranslation();
+  const t = i18n.t.bind(i18n);
   const {
     init,
     studySet,

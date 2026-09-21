@@ -153,7 +153,6 @@ export default function InboxPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Inbox"
         title="Inbox"
         description="Snel notities, taken en herinneringen — alleen lokaal opgeslagen."
       />

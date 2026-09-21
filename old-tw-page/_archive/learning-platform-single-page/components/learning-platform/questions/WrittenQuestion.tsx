@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import { evaluateAnswer, type GradingOptions } from "@/lib/learning-platform/grading";
 import type { Question } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 import { MarkdownContent } from "../shared/MarkdownContent";
 import { GradingFeedback } from "../shared/GradingFeedback";
 
@@ -22,7 +22,7 @@ export function WrittenQuestion({
   retypeAnswers,
   onComplete,
 }: WrittenQuestionProps) {
-  const { t } = useTranslation();
+  const t = i18n.t.bind(i18n);
   const [input, setInput] = useState("");
   const [phase, setPhase] = useState<"input" | "feedback" | "retype">("input");
   const [result, setResult] = useState<{

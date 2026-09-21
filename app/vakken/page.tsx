@@ -12,6 +12,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/lib/supabase/client';
+import ButtonSection from '@/components/ButtonSection';
+import { useFilesystem } from '@/hooks/useFilesystem';
 
 type Subject = {
   id: string;
@@ -43,19 +45,19 @@ type SubjectForm = {
 
 const DEFAULT_SUBJECTS = [
   'Aardrijkskunde',
-  'BSM',
+  'Bewegen, Sport en Maatschappij',
   'Biologie',
-  'CKV',
+  'Culturele en Kunstzinnige Vorming',
   'Decanaat',
-  'Duits algemeen',
+  'Duits',
   'Economie',
   'Engels',
   'Frans',
   'Geschiedenis',
   'Informatica',
-  'KUMU',
-  'Kunst BV',
-  'LO',
+  'Kunst Muziek',
+  'Kunst Beeldende Vorming',
+  'Lichamelijke Opvoeding',
   'Levensbeschouwing',
   'Mentoraat',
   'Natuurkunde',
@@ -124,27 +126,26 @@ function SubjectTile({
         href={`/vakken/${subject.id}`}
         className="flex h-full flex-col p-6"
       >
-        <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          {subject.code || 'Vak'}
-        </p>
-        <h2 className="mt-2 font-display text-2xl font-semibold">{subject.name}</h2>
+        <h2 className="font-display text-2xl font-semibold">{subject.name}</h2>
         <p className="mt-1 text-xs text-muted-foreground">
-          {chapterCount} mappen · {setCount} sets{subject.teacher ? ` · ${subject.teacher}` : ''}
+          {chapterCount} hoofdstukken · {setCount} sets{subject.teacher ? ` · ${subject.teacher}` : ''}
         </p>
-        
+
         <div className="mt-5">
           <div className="mb-1.5 flex items-baseline justify-between text-xs text-muted-foreground">
             <span>
-              {topicsDone} van {topicsTotal} onderwerpen
+              {topicsDone} van {topicsTotal} leerdoelen
             </span>
             <span className="tabular-nums">{mastery}%</span>
           </div>
           <Meter value={mastery} />
         </div>
-        
-        <p className="mt-4 text-xs text-muted-foreground">
-          {dueCards === 0 ? 'Alles bij' : `${dueCards} kaarten te herhalen`}
-        </p>
+
+        {dueCards > 0 && (
+          <p className="mt-4 text-xs text-muted-foreground">
+            {dueCards} kaarten te herhalen
+          </p>
+        )}
       </Link>
 
       {open && (
@@ -186,6 +187,7 @@ export default function VakkenIndex() {
   const { t } = useTranslation();
   const { user, loading: userLoading } = useUser();
   const { profile, loading: profileLoading } = useUserProfile();
+  const { createNode } = useFilesystem();
   const [ready, setReady] = useState(false);
   const [setupOpen, setSetupOpen] = useState(false);
   const [showAll, setShowAll] = useState(true);
@@ -413,16 +415,29 @@ export default function VakkenIndex() {
 
     setSaving(true);
     try {
-      const { error } = await supabase.from('subjects').insert({
+      const { data, error } = await supabase.from('subjects').insert({
         user_id: user.id,
         name: form.name.trim(),
+        slug: form.name.trim().toLowerCase().replace(/\s+/g, '-'),
         color: form.color,
         icon: 'BookOpen',
-        description: form.description.trim() || null,
-        teacher: form.teacher.trim() || null,
-      });
+      }).select().single();
 
       if (error) throw error;
+
+      // Sync to filesystem
+      if (data) {
+        await createNode('subject', data.name, 'root', {
+          subject: {
+            id: data.id,
+            name: data.name,
+            slug: data.slug,
+            color: data.color,
+            icon: data.icon,
+            description: form.description,
+          },
+        });
+      }
 
       // Reload subjects
       loadSubjects();
@@ -445,7 +460,6 @@ export default function VakkenIndex() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Bibliotheek"
         title="Vakken"
         description="Elk vak is een map. Open een vak om de hoofdstukken te zien en klik door naar een studieset."
         action={
@@ -463,6 +477,9 @@ export default function VakkenIndex() {
           )
         }
       />
+
+      {/* Render root-level buttons */}
+      <ButtonSection placement="root" className="mt-4" />
       {loading ? (
         <SubjectSkeleton />
       ) : (
@@ -480,7 +497,7 @@ export default function VakkenIndex() {
               </Button>
             </div>
           ) : (
-            <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-3" style={{ gridAutoRows: '1fr' }}>
               {display.map((subject) => (
                 <SubjectTile
                   key={subject.id}
@@ -502,14 +519,31 @@ export default function VakkenIndex() {
               Alle vakken tonen
             </button>
           )}
-          {showAll && hidden.length > 0 && (
-            <button
-              type="button"
-              onClick={() => setHidden([])}
-              className="mt-5 text-sm text-muted-foreground hover:text-foreground"
-            >
-              Verborgen vakken herstellen
-            </button>
+          {hidden.length > 0 && (
+            <div className="mt-12 border-t border-border pt-8">
+              <h3 className="text-sm font-semibold text-muted-foreground mb-4">Verborgen vakken</h3>
+              <div className="grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-3" style={{ gridAutoRows: '1fr' }}>
+                {subjects.filter((subject) => hidden.includes(subject.name)).map((subject) => (
+                  <SubjectTile
+                    key={subject.id}
+                    subject={subject}
+                    onHide={() => setHidden((current) => current.filter((name) => name !== subject.name))}
+                    onPrioritize={() =>
+                      setPrioritized((current) => [...new Set([...current, subject.name])])
+                    }
+                  />
+                ))}
+              </div>
+              {hidden.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setHidden([])}
+                  className="mt-4 text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Alle verborgen vakken herstellen
+                </button>
+              )}
+            </div>
           )}
         </>
       )}

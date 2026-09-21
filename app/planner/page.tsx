@@ -235,7 +235,6 @@ export default function PlannerPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Planner"
         title="Taken"
         description="Beheer je schooltaken en huiswerk."
         action={

@@ -5,7 +5,7 @@ import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
 import { getGameById, type GameShellProps } from "@/lib/learning-platform/game-registry";
 import { getHighScore, saveHighScore, type GameScoreId } from "@/lib/learning-platform/game-scores";
 import type { LearningMode } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 import { Confetti } from "./ui/Confetti";
 
 export function GameShell({
@@ -23,7 +23,7 @@ export function GameShell({
     showHighScoreLabel: boolean;
   }) => React.ReactNode;
 }) {
-  const { t } = useTranslation();
+  const t = i18n.t.bind(i18n);
   const studySetId = useLearningPlatformStore((s) => s.studySet?.id ?? "");
   const game = getGameById(gameId);
   const scoreId = (game?.scoreId ?? "blast") as GameScoreId;

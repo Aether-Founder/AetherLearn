@@ -527,6 +527,117 @@ export interface Database {
           created_at?: string;
         };
       };
+      user_settings: {
+        Row: {
+          user_id: string;
+          settings: Json;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          user_id: string;
+          settings?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          settings?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      ai_usage: {
+        Row: {
+          id: string;
+          user_id: string;
+          action: string;
+          model_used: string;
+          tokens_in: number;
+          tokens_out: number;
+          provider: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          action: string;
+          model_used?: string;
+          tokens_in?: number;
+          tokens_out?: number;
+          provider?: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          action?: string;
+          model_used?: string;
+          tokens_in?: number;
+          tokens_out?: number;
+          provider?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      deck_ratings: {
+        Row: {
+          deck_id: string;
+          user_id: string;
+          rating: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          deck_id: string;
+          user_id: string;
+          rating: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          deck_id?: string;
+          user_id?: string;
+          rating?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      embeddings: {
+        Row: {
+          id: string;
+          user_id: string;
+          source_type: string;
+          source_id: string;
+          content: string;
+          embedding: number[];
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          source_type: string;
+          source_id: string;
+          content: string;
+          embedding: number[];
+          metadata?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          source_type?: string;
+          source_id?: string;
+          content?: string;
+          embedding?: number[];
+          metadata?: Json;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       subject_analytics: {
@@ -563,6 +674,31 @@ export interface Database {
           column_name: string;
         };
         Returns: void;
+      };
+      match_embeddings: {
+        Args: {
+          query_embedding: number[];
+          match_user_id: string;
+          match_threshold: number;
+          match_count: number;
+        };
+        Returns: {
+          id: string;
+          source_type: string;
+          source_id: string;
+          content: string;
+          metadata: Json;
+          similarity: number;
+        }[];
+      };
+      clone_study_set: {
+        Args: {
+          source_deck_id: string;
+          target_user_id: string;
+        };
+        Returns: {
+          id: string;
+        };
       };
     };
     Enums: {

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { fisherYatesShuffle } from "@/lib/learning-platform/term-filters";
 import type { GameShellProps } from "@/lib/learning-platform/game-registry";
 import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import { useTranslation } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 import { MarkdownContent } from "../shared/MarkdownContent";
 import { GameShell } from "../GameShell";
 
@@ -33,7 +33,7 @@ function formatTime(seconds: number) {
 }
 
 export function MatchGame({ onQuit }: GameShellProps) {
-  const { t } = useTranslation();
+  const t = i18n.t.bind(i18n);
   const { playableTerms, recordAnswer, beginSession, endSession } = useLearningPlatformStore();
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [pairs, setPairs] = useState<PairRow[]>([]);

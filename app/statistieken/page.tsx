@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Panel } from '@/components/ui-kit';
-import { Button } from '@/components/ui/button';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { useTranslation } from '@/lib/useTranslation';
 import { Clock, Flame, BookOpen, Target, Calendar, Brain, AlertTriangle } from 'lucide-react';
@@ -179,7 +178,6 @@ export default function StatistiekenPage() {
     return (
       <AppShell>
         <PageHeader
-          eyebrow={t('stats_eyebrow')}
           title={t('stats_title')}
           description={t('stats_description')}
         />
@@ -210,7 +208,6 @@ export default function StatistiekenPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={t('stats_eyebrow')}
         title={t('stats_title')}
         description={t('stats_description')}
       />

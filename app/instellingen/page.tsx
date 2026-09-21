@@ -30,11 +30,16 @@ import {
   Layout,
   BarChart3,
   Shield,
+  Sparkles,
+  Key,
+  Zap,
+  Accessibility,
+  Loader2,
 } from 'lucide-react';
 
 const supabase = browserClient as any;
 
-type SettingsSection = 'profile' | 'appearance' | 'navigation' | 'statistics' | 'account';
+type SettingsSection = 'profile' | 'appearance' | 'navigation' | 'statistics' | 'account' | 'ai' | 'accessibility';
 
 export default function InstellingenPage() {
   const { t, currentLanguage, changeLanguage } = useTranslation();
@@ -72,8 +77,20 @@ export default function InstellingenPage() {
     confirmPassword: '',
   });
 
+  // AI Settings State
+  const [useBYOK, setUseBYOK] = useState(false);
+  const [openrouterKey, setOpenrouterKey] = useState('');
+  const [deepseekKey, setDeepseekKey] = useState('');
+  const [preferredProvider, setPreferredProvider] = useState<'qwen' | 'deepseek' | 'openrouter-free'>('qwen');
+  const [usageSummary, setUsageSummary] = useState<any>(null);
+  const [aiSaving, setAiSaving] = useState(false);
+  const [aiTestResult, setAiTestResult] = useState<{ success: boolean; message: string } | null>(null);
+  const [aiTesting, setAiTesting] = useState(false);
+  const [aiLoading, setAiLoading] = useState(true);
+
   useEffect(() => {
     fetchUserProfile();
+    loadAISettings();
   }, []);
 
   const fetchUserProfile = async () => {
@@ -246,33 +263,158 @@ export default function InstellingenPage() {
     }
   };
 
+  // AI Settings Functions
+  const loadAISettings = async () => {
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser();
+    if (!authUser) return;
+
+    try {
+      const { data, error } = await supabase
+        .from('user_settings')
+        .select('settings')
+        .eq('user_id', authUser.id)
+        .single();
+
+      if (data?.settings) {
+        const settings = data.settings as any;
+        setUseBYOK(settings.useBYOK || false);
+        setOpenrouterKey(settings.openrouterApiKey || '');
+        setDeepseekKey(settings.deepseekApiKey || '');
+        setPreferredProvider(settings.preferredProvider || 'qwen');
+      }
+
+      const { getUsageSummary } = await import('@/lib/ai/rate-limiter');
+      const summary = await getUsageSummary(authUser.id, supabase);
+      setUsageSummary(summary);
+    } catch (error) {
+      console.error('Error loading AI settings:', error);
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
+  const handleAISave = async () => {
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser();
+    if (!authUser) return;
+
+    setAiSaving(true);
+    setAiTestResult(null);
+
+    try {
+      const settings = {
+        useBYOK,
+        openrouterApiKey: useBYOK ? openrouterKey : '',
+        deepseekApiKey: useBYOK ? deepseekKey : '',
+        preferredProvider,
+      };
+
+      const { error } = await supabase
+        .from('user_settings')
+        .upsert({
+          user_id: authUser.id,
+          settings,
+        });
+
+      if (error) throw error;
+
+      setAiTestResult({ success: true, message: 'Instellingen opgeslagen!' });
+
+      const { getUsageSummary } = await import('@/lib/ai/rate-limiter');
+      const summary = await getUsageSummary(authUser.id, supabase);
+      setUsageSummary(summary);
+    } catch (error: any) {
+      setAiTestResult({ success: false, message: error.message });
+    } finally {
+      setAiSaving(false);
+    }
+  };
+
+  const handleAITestConnection = async () => {
+    if (!openrouterKey) {
+      setAiTestResult({ success: false, message: 'Voer eerst een API-key in' });
+      return;
+    }
+
+    setAiTesting(true);
+    setAiTestResult(null);
+
+    try {
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${openrouterKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'meta-llama/llama-3.1-8b-instruct:free',
+          messages: [{ role: 'user', content: 'Zeg "Verbinding succesvol" in het Nederlands' }],
+          max_tokens: 50,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API fout: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.choices && data.choices.length > 0) {
+        setAiTestResult({
+          success: true,
+          message: 'Verbinding succesvol! Je API-key werkt.',
+        });
+      } else {
+        throw new Error('Ongeldig antwoord van API');
+      }
+    } catch (error: any) {
+      setAiTestResult({
+        success: false,
+        message: `Verbinding mislukt: ${error.message}`,
+      });
+    } finally {
+      setAiTesting(false);
+    }
+  };
+
   if (loading) {
     return (
       <AppShell>
         <PageHeader
-          eyebrow={t('settings_eyebrow')}
           title={t('settings_title')}
           description={t('settings_description')}
         />
-        <div className="mt-10 space-y-6 max-w-4xl">
-          <div className="border border-border rounded-lg p-6 space-y-4">
-            <div className="flex items-start gap-6">
-              <div className="skeleton-circle h-24 w-24 rounded-full"></div>
-              <div className="flex-1 space-y-3">
+        <div className="mt-10 flex gap-8 max-w-7xl mx-auto px-4">
+          <aside className="w-56 shrink-0">
+            <div className="space-y-1">
+              {Array.from({ length: 7 }).map((_, index) => (
+                <div key={index} className="skeleton-line h-10 w-full rounded-lg"></div>
+              ))}
+            </div>
+          </aside>
+          <main className="flex-1 max-w-4xl space-y-6">
+            <div className="border border-border rounded-lg p-6 space-y-4">
+              <div className="flex items-start gap-6">
+                <div className="skeleton-circle h-24 w-24 rounded-full"></div>
+                <div className="flex-1 space-y-3">
+                  <div className="skeleton-line h-4 w-1/3 rounded"></div>
+                  <div className="skeleton-line h-10 w-full rounded"></div>
+                </div>
+              </div>
+            </div>
+            <div className="border border-border rounded-lg p-6 space-y-4">
+              <div className="skeleton-line h-6 w-1/4 rounded mb-4"></div>
+              <div className="space-y-3">
+                <div className="skeleton-line h-4 w-1/3 rounded"></div>
+                <div className="skeleton-line h-10 w-full rounded"></div>
                 <div className="skeleton-line h-4 w-1/3 rounded"></div>
                 <div className="skeleton-line h-10 w-full rounded"></div>
               </div>
             </div>
-          </div>
-          <div className="border border-border rounded-lg p-6 space-y-4">
-            <div className="skeleton-line h-6 w-1/4 rounded mb-4"></div>
-            <div className="space-y-3">
-              <div className="skeleton-line h-4 w-1/3 rounded"></div>
-              <div className="skeleton-line h-10 w-full rounded"></div>
-              <div className="skeleton-line h-4 w-1/3 rounded"></div>
-              <div className="skeleton-line h-10 w-full rounded"></div>
-            </div>
-          </div>
+          </main>
         </div>
       </AppShell>
     );
@@ -281,20 +423,19 @@ export default function InstellingenPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={t('settings_eyebrow')}
         title={t('settings_title')}
         description={t('settings_description')}
       />
 
-      <div className="mt-10 flex gap-8">
+      <div className="mt-10 grid grid-cols-[224px_1fr] gap-8 max-w-7xl mx-auto px-4">
         {/* Sidebar Navigation */}
-        <aside className="w-64 shrink-0">
-          <nav className="space-y-1">
+        <aside className="w-56 shrink-0">
+          <nav className="space-y-1 sticky top-24">
             <button
               onClick={() => setActiveSection('profile')}
               className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                 activeSection === 'profile'
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-primary text-primary-foreground'
                   : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
               }`}
             >
@@ -305,7 +446,7 @@ export default function InstellingenPage() {
               onClick={() => setActiveSection('appearance')}
               className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                 activeSection === 'appearance'
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-primary text-primary-foreground'
                   : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
               }`}
             >
@@ -316,7 +457,7 @@ export default function InstellingenPage() {
               onClick={() => setActiveSection('navigation')}
               className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                 activeSection === 'navigation'
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-primary text-primary-foreground'
                   : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
               }`}
             >
@@ -327,7 +468,7 @@ export default function InstellingenPage() {
               onClick={() => setActiveSection('statistics')}
               className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                 activeSection === 'statistics'
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-primary text-primary-foreground'
                   : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
               }`}
             >
@@ -338,12 +479,34 @@ export default function InstellingenPage() {
               onClick={() => setActiveSection('account')}
               className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                 activeSection === 'account'
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-primary text-primary-foreground'
                   : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
               }`}
             >
               <Shield className="h-4 w-4" />
               Account
+            </button>
+            <button
+              onClick={() => setActiveSection('ai')}
+              className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+                activeSection === 'ai'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+              }`}
+            >
+              <Sparkles className="h-4 w-4" />
+              AI
+            </button>
+            <button
+              onClick={() => setActiveSection('accessibility')}
+              className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+                activeSection === 'accessibility'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+              }`}
+            >
+              <Accessibility className="h-4 w-4" />
+              Toegankelijkheid
             </button>
           </nav>
         </aside>
@@ -485,6 +648,14 @@ export default function InstellingenPage() {
                     <option value="dark">{t('settings_theme_dark')}</option>
                   </select>
                 </Field>
+                <div className="pt-2">
+                  <Link href="/settings/appearance">
+                    <Button variant="outline" className="w-full">
+                      <Palette className="mr-2 h-4 w-4" />
+                      Kies thema
+                    </Button>
+                  </Link>
+                </div>
                 <Field label={t('settings_language')}>
                   <select
                     className={inputClass}
@@ -592,6 +763,199 @@ export default function InstellingenPage() {
                 <Button variant="outline" size="sm" onClick={() => setShowPasswordDialog(true)}>
                   Wachtwoord wijzigen
                 </Button>
+              </div>
+            </Panel>
+          )}
+
+          {activeSection === 'ai' && (
+            <Panel title="AI Instellingen">
+              <div className="space-y-4">
+                {aiLoading ? (
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Loader2 className="h-4 w-4 animate-spin" /> Laden...
+                  </div>
+                ) : (
+                  <>
+                    {/* Usage Summary */}
+                    {usageSummary && !usageSummary.isBYOK && (
+                      <div className="p-4 bg-secondary rounded-lg border border-border">
+                        <h3 className="font-semibold mb-3">Vandaag gebruikt</h3>
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-muted-foreground">AI-acties</span>
+                            <span className="font-medium">
+                              {usageSummary.actions.used}/{usageSummary.actions.limit}
+                            </span>
+                          </div>
+                          <div className="w-full bg-muted rounded-full h-2">
+                            <div
+                              className="bg-primary h-2 rounded-full transition-all"
+                              style={{ width: `${(usageSummary.actions.used / usageSummary.actions.limit) * 100}%` }}
+                            />
+                          </div>
+                          <div className="flex justify-between text-sm mt-3">
+                            <span className="text-muted-foreground">Chat berichten</span>
+                            <span className="font-medium">
+                              {usageSummary.chat.used}/{usageSummary.chat.limit}
+                            </span>
+                          </div>
+                          <div className="w-full bg-muted rounded-full h-2">
+                            <div
+                              className="bg-primary h-2 rounded-full transition-all"
+                              style={{ width: `${(usageSummary.chat.used / usageSummary.chat.limit) * 100}%` }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Provider Toggle */}
+                    <Field label="AI Provider">
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="checkbox"
+                          id="byok-toggle"
+                          checked={useBYOK}
+                          onChange={(e) => setUseBYOK(e.target.checked)}
+                          className="h-4 w-4 rounded border-border bg-background text-primary focus:ring-primary"
+                        />
+                        <div>
+                          <label htmlFor="byok-toggle" className="font-medium cursor-pointer">
+                            Gebruik eigen API-key
+                          </label>
+                          <p className="text-xs text-muted-foreground">
+                            {useBYOK
+                              ? 'Onbeperkt gebruik met je eigen key'
+                              : 'Aether AI (gratis, gelimiteerd: 5 acties + 20 chat/dag)'}
+                          </p>
+                        </div>
+                      </div>
+                    </Field>
+
+                    {/* BYOK Settings */}
+                    {useBYOK && (
+                      <div className="space-y-4 pt-2">
+                        <Field label="OpenRouter API Key">
+                          <div className="relative">
+                            <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                            <Input
+                              type="password"
+                              value={openrouterKey}
+                              onChange={(e) => setOpenrouterKey(e.target.value)}
+                              placeholder="sk-or-v1-..."
+                              className="pl-10"
+                            />
+                          </div>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Verkrijg een key op{' '}
+                            <a
+                              href="https://openrouter.ai/keys"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-primary hover:underline"
+                            >
+                              openrouter.ai/keys
+                            </a>
+                          </p>
+                        </Field>
+
+                        <Field label="DeepSeek API Key (optioneel)">
+                          <div className="relative">
+                            <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                            <Input
+                              type="password"
+                              value={deepseekKey}
+                              onChange={(e) => setDeepseekKey(e.target.value)}
+                              placeholder="sk-..."
+                              className="pl-10"
+                            />
+                          </div>
+                        </Field>
+
+                        <Field label="Voorkeursprovider">
+                          <select
+                            value={preferredProvider}
+                            onChange={(e) => setPreferredProvider(e.target.value as any)}
+                            className={inputClass}
+                          >
+                            <option value="qwen">Qwen 2.5 72B (aanbevolen)</option>
+                            <option value="deepseek">DeepSeek V3</option>
+                            <option value="openrouter-free">Llama 3.1 8B (gratis)</option>
+                          </select>
+                        </Field>
+
+                        <Button
+                          variant="outline"
+                          onClick={handleAITestConnection}
+                          disabled={aiTesting || !openrouterKey}
+                          className="w-full"
+                        >
+                          {aiTesting ? (
+                            <>
+                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              Verbinding testen...
+                            </>
+                          ) : (
+                            <>
+                              <Zap className="mr-2 h-4 w-4" />
+                              Test verbinding
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    )}
+
+                    {/* Test Result */}
+                    {aiTestResult && (
+                      <div
+                        className={`p-4 rounded-lg flex items-start gap-3 ${
+                          aiTestResult.success
+                            ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
+                            : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
+                        }`}
+                      >
+                        {aiTestResult.success ? (
+                          <Check className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                        ) : (
+                          <X className="h-5 w-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                        )}
+                        <p className="text-sm">{aiTestResult.message}</p>
+                      </div>
+                    )}
+
+                    <Button onClick={handleAISave} disabled={aiSaving} className="w-full">
+                      {aiSaving ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Opslaan...
+                        </>
+                      ) : (
+                        <>
+                          <Check className="mr-2 h-4 w-4" />
+                          Instellingen opslaan
+                        </>
+                      )}
+                    </Button>
+                  </>
+                )}
+              </div>
+            </Panel>
+          )}
+
+          {activeSection === 'accessibility' && (
+            <Panel title="Toegankelijkheid">
+              <div className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Pas de toegankelijkheidsinstellingen aan aan jouw behoeften.
+                </p>
+                <div className="pt-4">
+                  <Link href="/toegankelijkheid">
+                    <Button className="w-full">
+                      Ga naar Toegankelijkheid
+                      <Accessibility className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </Panel>
           )}

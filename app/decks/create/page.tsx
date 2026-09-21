@@ -7,7 +7,6 @@ export default function CreateDeckPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Leersets"
         title="Nieuwe leerset"
         description="Maak een nieuwe leerset met vragen en antwoorden."
       />

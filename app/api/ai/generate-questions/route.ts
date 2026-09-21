@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
 
     // Simulate AI question generation (in production, this would call an AI service)
     // For now, generate simple questions based on content analysis
-    const sentences = content.split(/[.!?]+/).filter((s) => s.trim().length > 20);
+    const sentences = content.split(/[.!?]+/).filter((s: string) => s.trim().length > 20);
     const questions: Array<{ question: string; answer: string }> = [];
 
     // Generate up to 5 questions from the content
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       const sentenceIndex = i * 2;
       if (sentences[sentenceIndex]) {
         const sentence = sentences[sentenceIndex].trim();
-        const words = sentence.split(' ').filter((w) => w.length > 4);
+        const words = sentence.split(' ').filter((w: string) => w.length > 4);
 
         if (words.length > 0) {
           const keyword = words[Math.floor(Math.random() * words.length)];

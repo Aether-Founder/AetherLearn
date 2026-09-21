@@ -79,7 +79,6 @@ export default function GraphPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={t('graph_eyebrow')}
         title={t('graph_title')}
         description={t('graph_description')}
         action={

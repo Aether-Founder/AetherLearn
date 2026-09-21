@@ -6,7 +6,6 @@ export default function ArtisanHubPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Artisan Hub"
         title="Coming Soon"
         description="The AI-generated content hub is currently under development. This will be available in Phase 3."
       />

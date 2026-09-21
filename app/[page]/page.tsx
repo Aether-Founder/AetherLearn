@@ -15,6 +15,7 @@ import { ScrollToTop } from '@/components/ScrollToTop';
 import { SummaryMode } from '@/components/SummaryMode';
 import { QuizMode } from '@/components/QuizMode';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
+import { VisualPlaceholderSection } from '@/components/VisualPlaceholderSection';
 import { useTranslation } from '@/lib/useTranslation';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import { getSectionTitle } from '@/lib/section-title';
@@ -466,7 +467,7 @@ export default function Page({ params }: { params: { page: string } }) {
 
         {/* Header — pushed down below the controls row */}
         <div
-          className="w-full px-4 sm:px-6 lg:px-8 pt-14 pb-2"
+          className="w-full px-4 sm:px-6 lg:px-8 pt-20 pb-8"
           style={{ paddingRight: 'max(1rem, 280px)' }}
         >
           {showSkeleton ? (
@@ -517,7 +518,7 @@ export default function Page({ params }: { params: { page: string } }) {
               </div>
 
               {/* Scrollable nav — takes all remaining height, scrollbar hidden */}
-              <nav className="flex-1 overflow-y-auto overscroll-contain min-h-0">
+              <nav className="flex-1 overflow-y-auto overscroll-contain min-h-0 scrollbar-hide">
                 <div className="space-y-1 px-2 pb-4">
                   {showSkeleton && <SidebarSkeleton />}
                   {!showSkeleton && data.sections && data.sections.length > 0 && (
@@ -633,6 +634,20 @@ export default function Page({ params }: { params: { page: string } }) {
                         />
                       ) : null;
                     }
+                    
+                    // Handle visual-placeholder sections in textbook mode
+                    if (section.contentType === 'visual-placeholder' && section.visualTag) {
+                      return (
+                        <div key={section.id}>
+                          <VisualPlaceholderSection
+                            visualTag={section.visualTag}
+                            pageId={params.page}
+                            title={getSectionTitle(section)}
+                          />
+                        </div>
+                      );
+                    }
+                    
                     return (
                       <div key={section.id}>
                         <div className="mb-4 flex items-center justify-between">
@@ -668,6 +683,20 @@ export default function Page({ params }: { params: { page: string } }) {
                       />
                     ) : null;
                   }
+                  
+                  // Handle visual-placeholder sections
+                  if (section.contentType === 'visual-placeholder' && section.visualTag) {
+                    return (
+                      <div key={section.id}>
+                        <VisualPlaceholderSection
+                          visualTag={section.visualTag}
+                          pageId={params.page}
+                          title={getSectionTitle(section)}
+                        />
+                      </div>
+                    );
+                  }
+                  
                   return (
                     <div key={section.id}>
                       <div className="mb-4 flex items-center justify-between">

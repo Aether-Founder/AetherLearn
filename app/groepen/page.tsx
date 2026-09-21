@@ -93,7 +93,6 @@ export default function GroepenPage() {
     return (
       <AppShell>
         <PageHeader
-          eyebrow={t('groups_eyebrow')}
           title={t('groups_title')}
           description={t('groups_description')}
         />

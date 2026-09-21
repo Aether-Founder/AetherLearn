@@ -15,6 +15,7 @@ import {
 } from '@/lib/learning-platform/progress-store';
 import { filterPlayableTerms, prioritizeTermsForExam } from '@/lib/learning-platform/term-filters';
 import { defaultSrsProgress } from '@/lib/learning-platform/srs';
+import { createClient } from '@supabase/supabase-js';
 import type {
   LearningMode,
   StudySession,
@@ -34,6 +35,7 @@ interface LearningPlatformState {
   currentQuestionIndex: number;
   currentSession: StudySession | null;
   initialized: boolean;
+  isOnline: boolean,
 
   init: (set: StudySet) => void;
   setActiveMode: (mode: LearningMode | null) => void;
@@ -50,6 +52,7 @@ interface LearningPlatformState {
   beginSession: (mode: LearningMode, totalQuestions: number) => void;
   endSession: (score?: number) => void;
   getTerm: (id: string) => Term | undefined;
+  syncProgressToServer: () => Promise<void>;
 }
 
 export const useLearningPlatformStore = create<LearningPlatformState>((set, get) => ({
@@ -61,6 +64,7 @@ export const useLearningPlatformStore = create<LearningPlatformState>((set, get)
   currentQuestionIndex: 0,
   currentSession: null,
   initialized: false,
+  isOnline: typeof window !== 'undefined' ? navigator.onLine : true,
 
   init: (studySet) => {
     const stored = loadProgressStore(studySet.id);
@@ -287,4 +291,31 @@ export const useLearningPlatformStore = create<LearningPlatformState>((set, get)
   },
 
   getTerm: (id) => get().studySet?.terms.find((t) => t.id === id),
+
+  syncProgressToServer: async () => {
+    const { studySet, progressMap } = get();
+    if (!studySet || !process.env.NEXT_PUBLIC_SUPABASE_URL) return;
+
+    try {
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!
+      );
+
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      await supabase
+        .from('study_set_progress')
+        .upsert({
+          study_set_id: studySet.id,
+          user_id: user.id,
+          progress: progressMap,
+          updated_at: new Date().toISOString(),
+        })
+        .select();
+    } catch (error) {
+      console.error('Failed to sync progress to server', error);
+    }
+  },
 }));

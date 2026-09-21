@@ -1048,7 +1048,6 @@ export default function AgendaPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Planning"
         title="Agenda"
         description="Je persoonlijke afspraken, lessen, huiswerk en toetsen."
         action={

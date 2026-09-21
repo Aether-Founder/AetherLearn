@@ -30,6 +30,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import ExportDialog, { ExportOptions } from '@/components/ExportDialog';
+import { exportCards } from '@/utils/enhancedExportUtils';
 
 const supabase = browserClient as any;
 
@@ -80,6 +82,7 @@ export default function DecksPage() {
   const [loading, setLoading] = useState(true);
   const [showSetDialog, setShowSetDialog] = useState(false);
   const [showCardDialog, setShowCardDialog] = useState(false);
+  const [showExportDialog, setShowExportDialog] = useState(false);
   const [editingSet, setEditingSet] = useState<StudySet | null>(null);
   const [editingCard, setEditingCard] = useState<Flashcard | null>(null);
   const [selectedSet, setSelectedSet] = useState<StudySet | null>(null);
@@ -318,38 +321,22 @@ export default function DecksPage() {
     setCardFormData({ question: '', answer: '' });
   };
 
-  const handleExportCSV = (set: StudySet) => {
-    const csvContent = [
-      ['Question', 'Answer'],
-      ...cards.map((card) => [card.question, card.answer]),
-    ]
-      .map((row) => row.map((cell) => `"${cell.replace(/"/g, '""')}"`).join(','))
-      .join('\n');
+  const handleExport = (options: ExportOptions) => {
+    if (!selectedSet) return;
 
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `${set.title.replace(/[^a-z0-9]/gi, '_')}_cards.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const cardData = cards.map((card) => ({
+      question: card.question,
+      answer: card.answer,
+    }));
+
+    const filename = selectedSet.title.replace(/[^a-z0-9]/gi, '_');
+    exportCards(cardData, options, filename);
   };
 
-  const handleExportAnki = (set: StudySet) => {
-    // Anki format: tab-separated with HTML
-    const ankiContent = cards
-      .map(
-        (card) => `${card.question.replace(/\n/g, '<br>')}\t${card.answer.replace(/\n/g, '<br>')}`
-      )
-      .join('\n');
-
-    const blob = new Blob([ankiContent], { type: 'text/plain;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `${set.title.replace(/[^a-z0-9]/gi, '_')}_anki.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const openExportDialog = (set: StudySet) => {
+    setSelectedSet(set);
+    fetchCards(set.id);
+    setShowExportDialog(true);
   };
 
   const handleImportCSV = async (file: File) => {
@@ -411,7 +398,6 @@ export default function DecksPage() {
     return (
       <AppShell>
         <PageHeader
-          eyebrow={t('decks_eyebrow')}
           title={t('decks_title')}
           description={t('decks_description')}
         />
@@ -431,7 +417,6 @@ export default function DecksPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={t('decks_eyebrow')}
         title={t('decks_title')}
         description={t('decks_description')}
         action={
@@ -482,13 +467,9 @@ export default function DecksPage() {
                 <Edit2 className="mr-2 h-4 w-4" />
                 Leerset bewerken
               </Button>
-              <Button onClick={() => handleExportCSV(selectedSet)} variant="outline" size="sm">
+              <Button onClick={() => openExportDialog(selectedSet)} variant="outline" size="sm">
                 <Download className="mr-2 h-4 w-4" />
-                CSV
-              </Button>
-              <Button onClick={() => handleExportAnki(selectedSet)} variant="outline" size="sm">
-                <Download className="mr-2 h-4 w-4" />
-                Anki
+                Exporteren
               </Button>
               <label className="inline-flex">
                 <Button variant="outline" size="sm" asChild>
@@ -755,6 +736,14 @@ export default function DecksPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Export Dialog */}
+      <ExportDialog
+        open={showExportDialog}
+        onClose={() => setShowExportDialog(false)}
+        onExport={handleExport}
+        cardCount={cards.length}
+      />
     </AppShell>
   );
 }

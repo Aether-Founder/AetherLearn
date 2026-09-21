@@ -15,7 +15,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { SummaryMode } from "@/components/SummaryMode";
 import { QuizMode } from "@/components/QuizMode";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
-import { useTranslation } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 import { useBookmarks } from "@/hooks/useBookmarks";
 import { getSectionTitle } from "@/lib/section-title";
 import { useSearchParams } from "next/navigation";
@@ -235,7 +235,7 @@ export default function Page({ params }: { params: { page: string } }) {
   const searchParams = useSearchParams();
   const progressiveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const { t } = useTranslation();
+  const t = i18n.t.bind(i18n);
   const { bookmarks, toggleBookmark } = useBookmarks(params.page);
 
   const totalSections = useMemo(() => data?.sections?.length || 0, [data]);

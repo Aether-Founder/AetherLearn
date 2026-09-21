@@ -194,7 +194,6 @@ export default function ActiveRecallPage() {
     return (
       <AppShell>
         <PageHeader
-          eyebrow="Leermodule"
           title="Active Recall Engine"
           description="Kies een vraagtype om actief je kennis te testen"
           action={
@@ -302,7 +301,6 @@ export default function ActiveRecallPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Leermodule"
         title="Active Recall"
         description={`Vraagtype: ${QUESTION_TYPES.find((t) => t.id === selectedType)?.label}`}
         action={

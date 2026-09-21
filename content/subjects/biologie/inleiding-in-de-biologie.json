@@ -1,0 +1,551 @@
+{
+  "id": "biologie-h1-inleiding",
+  "subject": "Biologie",
+  "siteMetadata": {
+    "title": "Hoofdstuk 1: Inleiding in de biologie",
+    "description": "Leer over de basisprincipes van biologie, cellen, weefsels, organen en natuurwetenschappelijk onderzoek"
+  },
+  "defaultViewMode": "simple",
+  "availableModes": ["simple", "study", "samenvatting", "quiz"],
+  "summary": "# Samenvatting\n\nBiologie is een natuurwetenschap die organismen bestudeert. Organismen vertonen levensverschijnselen zoals voortplanting, groei, ontwikkeling en stofwisseling. De biologie kent verschillende organisatieniveaus van molecuul tot systeem aarde. Cellen zijn de kleinste biologische eenheden die kunnen leven. Planten- en dierlijke cellen hebben overeenkomsten en verschillen. Organellen in cellen hebben specifieke functies bij energieproductie, eiwitsynthese en transport. Transport door membranen vindt plaats via diffusie, osmose en actief/passief transport. Natuurwetenschappelijk onderzoek volgt een gestructureerde aanpak met fasen zoals waarneming, onderzoeksvraag, hypothese, experiment, resultaten en conclusie.",
+  "summaryContentType": "markdown",
+  "showExportButtons": false,
+  "showTranscriptExport": false,
+  "showAnkiExport": false,
+  "sections": [
+    {
+      "id": "1-1-leerdoelen",
+      "title": "1.1 - Wat kun je met biologie?",
+      "contentType": "markdown",
+      "content": "# Leerdoelen\n\n- 1.1.1 Je kunt beschrijven wat biologie is en uitleggen dat biologie op veel gebieden een rol speelt.\n- 1.1.2 Je kunt het verschil tussen levensloop en levenscyclus beschrijven.\n- 1.1.3 Je kunt de organisatieniveaus van de biologie benoemen en uitleggen dat op elk hoger organisatieniveau emergente eigenschappen kunnen ontstaan.\n\n## Biologie is overal\n\nMiljarden jaren geleden verschenen de eerste levensvormen op het aardoppervlak. Sindsdien is de aarde veranderd van een zand- en steenachtige omgeving in een omgeving vol met kleuren en diverse levensvormen. De biologie probeert deze verscheidenheid aan levensvormen te verklaren en te beschrijven.\n\nBiologie is een breed vak. Het strekt zich uit van moleculen, zoals DNA, tot aan ecosystemen. Ook het observeren van gedrag en de geschiedenis van het leven (evolutie) hoort bij de biologie. Doordat biologie zo'n divers vak is, specialiseren biologen zich vaak in een bepaald onderwerp. Zo heb je bijvoorbeeld moleculair biologen, microbiologen, neurobiologen en gedragsbiologen.\n\nBinnen alle onderdelen van de biologie hebben wetenschappers kennis verzameld. Deze kennis heeft ervoor gezorgd dat we bijvoorbeeld meer inzicht hebben in wat een gezonde levensstijl is, dat we het DNA van organismen kunnen aanpassen, dat we meer te weten zijn gekomen over ziekteverwekkers en dat we topsporters beter kunnen laten presteren.\n\nBiologie is ook een heel dynamisch vak. Door meer en beter wetenschappelijk onderzoek neemt de biologische kennis elke dag toe. Soms moet door nieuwe inzichten kennis worden aangepast. Zo worden inzichten over voeding regelmatig bijgesteld, net zoals kennis binnen de evolutietheorie. Biologie is ook steeds relevanter bij belangrijke vraagstukken over de toekomst van voedselvoorziening en voedselzekerheid, gezondheid, duurzame ontwikkeling, energie en veiligheid. Het vak biologie staat daardoor nooit stil en is continu in beweging.\n\nBiologie is een van de natuurwetenschappen. In de natuurwetenschappen bestuderen wetenschappers natuurverschijnselen. Andere natuurwetenschappen zijn onder andere scheikunde, natuurkunde en geologie. Tussen biologie en deze natuurwetenschappen bestaan overgangsgebieden, zoals biochemie, biomedische wetenschappen en paleontologie. Al deze wetenschappen dragen bij aan de kennis van het leven die we nu hebben."
+    },
+    {
+      "id": "1-1-overgangsgebieden",
+      "title": "Overgangsgebieden tussen wetenschappen",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual1-overgangsgebieden"
+    },
+    {
+      "id": "1-1-contexten",
+      "title": "Contexten in de biologie",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual2-contexten"
+    },
+    {
+      "id": "1-1-organismen",
+      "title": "Organismen",
+      "contentType": "markdown",
+      "content": "In de biologie bestudeer je organismen. Organismen zijn levende wezens, zoals planten, dieren, schimmels en bacteriën. Alle levende organismen vertonen levensverschijnselen, zoals voortplanten, groeien, ontwikkelen en stofwisseling. Met stofwisseling worden alle chemische (scheikundige) reacties in een organisme bedoeld. In de biologie kun je bestuderen wat er inwendig in een organisme gebeurt. Je kunt ook onderzoeken welke relaties er zijn met andere organismen en met de omgeving.\n\nAls een organisme geen levensverschijnselen meer vertoont, noem je het dood. Dingen in de natuur die nooit hebben geleefd, noem je levenloos, bijvoorbeeld water, zuurstof, koolstofdioxide en gesteenten.\n\n### Belangrijke begrippen\n\n- **Organismen**: levende wezens zoals planten, dieren, schimmels en bacteriën\n- **Stofwisseling**: alle chemische (scheikundige) reacties in een organisme"
+    },
+    {
+      "id": "1-1-levenscyclus",
+      "title": "De levenscyclus van organismen",
+      "contentType": "markdown",
+      "content": "Elk individueel organisme of individu heeft een unieke levensloop. De levensloop begint direct na het ontstaan van het organisme. Dan begint een organisme met groeien en ontwikkelen. Tijdens de ontwikkeling treden er veranderingen op in de bouw en het functioneren van het organisme of van bepaalde delen ervan. Je kunt een levensloop daardoor verdelen in verschillende fasen of stadia. De levensloop eindigt met de dood van het individu.\n\nHoewel de individuen van een soort sterven, blijft de soort voortbestaan. Individuen behoren tot dezelfde soort als zij zich onderling kunnen voortplanten en daarbij vruchtbare nakomelingen kunnen voortbrengen. Alle individuen van een soort doorlopen tijdens hun levensloop dezelfde stadia. Dit noem je de levenscyclus van een soort. De levenscyclus eindigt alleen als de soort uitsterft."
+    },
+    {
+      "id": "1-1-levenscyclus-visual",
+      "title": "Levenscyclus van het koolwitje",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual3-levenscyclus"
+    },
+    {
+      "id": "1-1-organisatieniveaus",
+      "title": "Organisatieniveaus in de biologie",
+      "contentType": "markdown",
+      "content": "Doordat biologie een breed vak is, bestuderen biologen biologische systemen op verschillende niveaus: de organisatieniveaus of biologische eenheden. Organismen zijn georganiseerd in biologische eenheden. De kleinste biologische eenheid is een molecuul. Moleculen zijn de bouwstenen van stoffen. Een belangrijk molecuul in organismen is DNA. Dit bevat de erfelijke informatie van een organisme.\n\nEen cel is een grotere biologische eenheid en een hoger organisatieniveau dan een molecuul. In een cel tref je onderdelen aan met een bepaalde functie: de organellen. Een celkern is een voorbeeld van een organel. Een groep van een of meer verschillende celtypen die een gemeenschappelijke functie hebben, noem je een weefsel. Verschillende weefsels bij elkaar vormen samen een orgaan. Een orgaan is een deel van een organisme met een specifieke bouw en functie. Je hart, je ogen en je hersenen zijn organen. Organen die samen een bepaalde functie uitoefenen, vormen een orgaanstelsel. Voorbeelden van orgaanstelsels zijn het verteringsstelsel en het ademhalingsstelsel. De longen en de luchtpijp horen bij het ademhalingsstelsel.\n\nNog complexer is een organisme. Een organisme zoals een wolf is meercellig. Eenvoudige organismen zoals bacteriën bestaan uit slechts één cel. Organismen behoren tot een populatie. Zo noem je een groep individuen van dezelfde soort die in een bepaald gebied leeft en zich onderling voortplant. Populaties leven nooit alleen, maar altijd samen met andere populaties. Dit kunnen populaties van dezelfde soort zijn, maar ook van andere soorten. Alle verschillende populaties die in een gebied samenleven, noem je een levensgemeenschap. Een ecosysteem is een min of meer begrensd gebied waarvan een levensgemeenschap en de niet-levende natuur deel uitmaken. Tot de niet-levende natuur in een ecosysteem behoren bijvoorbeeld de temperatuur en de hoeveelheid zonlicht. Voorbeelden van ecosystemen zijn een weidegebied, een bos, een sloot of een koraalrif. Het geheel aan ecosystemen op aarde vormt het systeem aarde.\n\n### Emergente eigenschappen\n\nAls er op een hoger organisatieniveau een nieuwe eigenschap ontstaat die er op het lagere organisatieniveau niet is, noem je dat een emergente eigenschap. 'Emergent' is afgeleid van het Engelse werkwoord 'to emerge' (tevoorschijn komen). Een cel bestaat bijvoorbeeld uit veel moleculen. Eén enkele molecuul van een cel leeft niet. Maar interactie tussen alle moleculen levert wel een levende cel op. Interactie betekent op elkaar reageren. De moleculen van een cel reageren ook op invloeden uit de omgeving. Door interactie van organen zoals spieren, zenuwen, ogen, beenderen, hersenen en bloedvaten verschijnt de nieuwe eigenschap 'lopen' op het hogere organisatieniveau organisme. De genoemde organen kunnen niet zelfstandig lopen. Daarvoor is samenwerking nodig tussen de biologische eenheden van de verschillende organisatieniveaus."
+    },
+    {
+      "id": "1-1-organisatieniveaus-visual",
+      "title": "Organisatieniveaus van de biologie",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual4-organisatieniveaus"
+    },
+    {
+      "id": "1-2-leerdoelen",
+      "title": "1.2 - Organen, weefsels en cellen",
+      "contentType": "markdown",
+      "content": "# Leerdoelen\n\n- 1.2.1 Je kunt orgaanstelsels, organen, weefsels en cellen bij een mens herkennen en hun kenmerken en functies beschrijven.\n- 1.2.2 Je kunt beschrijven dat groepen cellen in een weefsel, orgaan of orgaanstelsel een gezamenlijke functie uitoefenen.\n- 1.2.3 Je kunt bij (delen van) organismen het verband aangeven tussen vorm en functie.\n\nStel dat je vanuit het heelal naar de aarde kijkt en steeds verder kunt inzoomen. Wanneer je uitkomt bij een mens, zoom je nog verder in op zijn lichaam. Wat zie je dan?"
+    },
+    {
+      "id": "1-2-orgaanstelsels",
+      "title": "Orgaanstelsels met organen",
+      "contentType": "markdown",
+      "content": "Een orgaanstelsel bestaat uit een aantal organen die samen een bepaalde functie uitoefenen. Voorbeelden van orgaanstelsels zijn het verteringsstelsel, het ademhalingsstelsel en het bloedvatenstelsel. In de romp van een mens bevinden zich verschillende organen zoals lever, maag, strottenhoofd, long, hart, middenrif, dikke darm, dunne darm, wervels, ribben, borstbeen, galblaas, nier en aorta. Het middenrif scheidt de romp in de borstholte en de buikholte en is betrokken bij de ademhaling."
+    },
+    {
+      "id": "1-2-torso-visual",
+      "title": "Torso van een mens met organen",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual5-torso"
+    },
+    {
+      "id": "1-2-weefsels",
+      "title": "Weefsels",
+      "contentType": "markdown",
+      "content": "Bij meercellige organismen zijn de organen opgebouwd uit verschillende typen weefsels. Een weefsel is een groep van een of meer verschillende celtypen die een gemeenschappelijke functie hebben. Bij meercellige organismen ontstaan bij de ontwikkeling verschillende soorten cellen, zoals huidcellen, zenuwcellen en beencellen. Deze cellen hebben allemaal een eigen vorm en functie. Vorm en functie hangen nauw met elkaar samen. In je lichaam komen verschillende soorten weefsels voor.\n\n### Soorten weefsels\n\n**Dekweefsel** komt op verschillende plaatsen in je lichaam voor. Dit weefsel bekleedt en beschermt inwendige en uitwendige lichaamsoppervlakken. Holle organen zoals de longen en het darmkanaal zijn bekleed met dekweefsel dat slijmvlies wordt genoemd. Ook de binnenkant van je mond is bedekt met slijmvlies, het wangslijmvlies. Slijmvlies heeft een beschermende functie. De bovenste laag van je huid, de opperhuid, is een ander type dekweefsel. Alle typen dekweefsels hebben gemeenschappelijke kenmerken. De cellen zijn vaak rechthoekig en liggen heel dicht tegen elkaar aan.\n\n**Zenuwweefsel** vind je in de organen van je zenuwstelsel: in je hersenen, je ruggenmerg en je zenuwen. Zenuwweefsel bestaat uit zenuwcellen en gliacellen. Zenuwcellen geven informatie door, waarvoor ze sterk vertakte uitlopers bezitten die een netwerk vormen. Gliacellen voorzien zenuwcellen onder andere van voeding.\n\n**Spierweefsel** bestaat uit cellen die kunnen samentrekken en zo beweging mogelijk maken."
+    },
+    {
+      "id": "1-2-weefsels-visual",
+      "title": "Drie soorten weefsel",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual6-weefsels"
+    },
+    {
+      "id": "1-2-tussencelstof",
+      "title": "Tussencelstof en vezels",
+      "contentType": "markdown",
+      "content": "Bij veel weefsels liggen de cellen niet direct tegen elkaar aan, maar komt tussencelstof voor. Het soort tussencelstof hangt samen met de functie van het weefsel. De tussencelstof kan bijvoorbeeld ter versteviging dienen. De celwand bij planten is tussencelstof en geeft de cel stevigheid.\n\nIn bindweefsel liggen cellen relatief ver uit elkaar, met daartussen verschillende soorten vezels en tussencelstof. Bindweefsel geeft steun en vorm aan afzonderlijke organen bij een dier. Het verbindt de lichaamsdelen onderling en het vult ruimten tussen organen op. De functie van het bindweefsel bepaalt het type vezel, de dichtheid ervan en het soort tussencelstof:\n\n- In pezen zitten bijvoorbeeld veel stevige vezels.\n- In de wand van grote slagaders zitten veel elastische vezels.\n- Vezels die een netwerk vormen, geven ondersteuning aan organen, zoals de lever en de milt.\n\nIn beenweefsel bevinden zich tussen de cellen kalkzouten en collageenvezels. De kalkzouten geven stevigheid aan beenweefsel. Collageenvezels zijn lijmvormende vezels die in beenweefsel zorgen voor de samenhang en elasticiteit van het weefsel. Beenweefsel zou zonder collageenvezels hard, maar ook heel bros zijn en gemakkelijk breken. In de kanaaltjes in het beenweefsel bevinden zich bloedvaten en zenuwen.\n\nKraakbeenweefsel bestaat uit veel tussencelstof waarin groepjes van twee of drie cellen tegen elkaar aan liggen. De tussencelstof bevat bij kraakbeen minder kalkzouten, maar meer collageenvezels. Die zorgen ervoor dat het kraakbeen elastisch en buigzaam is. Hierdoor kan het weefsel enigszins vervormen."
+    },
+    {
+      "id": "1-2-weefsels-tussencelstof-visual",
+      "title": "Weefsels met tussencelstof",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual7-weefsels-tussencelstof"
+    },
+    {
+      "id": "1-2-vorm-functie",
+      "title": "Vorm en functie",
+      "contentType": "markdown",
+      "content": "Organismen zijn opgebouwd uit biologische eenheden, zoals cellen en weefsels. Tussen de vorm en de functie van biologische eenheden kun je verbanden zien. Kijk bijvoorbeeld naar het beenderstelsel. Een dijbeen is een langwerpig hol been. In de kop van een dijbeen bestaat het beenweefsel uit beenbalkjes met daartussen beenmerg. De beenbalkjes lopen in de richtingen waarin de grootste krachten op het bot worden uitgeoefend. Hierdoor zijn dijbeenderen zo licht mogelijk zonder dat dit ten koste gaat van de stevigheid. Je benen kunnen je lichaamsgewicht dragen zonder dat het je te veel energie kost om ze te verzetten. De beenderen in de voeten hebben samen een gewelfde vorm. Door deze vorm zijn de voeten goed in staat het gewicht van je lichaam te dragen en schokken op te vangen.\n\nDiersoorten die in het water leven, hebben in het algemeen een lichaamsvorm die weinig weerstand van het water ondervindt. Kop, romp en staart gaan geleidelijk在 elkaar over. Deze lichaamsvorm heet een stroomlijnvorm. Behalve bij vissen kun je deze lichaamsvorm ook aantreffen bij vogels en zoogdieren. Wetenschappers kijken voor het ontwerpen van een product soms goed naar de natuur. De vorm en functie van biologische eenheden staan dan model voor een technisch ontwerp. Een duikboot heeft bijvoorbeeld een gestroomlijnde vorm en ondervindt daardoor weinig weerstand van het water."
+    },
+    {
+      "id": "1-2-vorm-functie-visual",
+      "title": "Vorm en functie gaan samen",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual8-vorm-functie"
+    },
+    {
+      "id": "1-2-stroomlijn-visual",
+      "title": "Gestroomlijnde lichaamsvorm bij een dolfijn",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual9-stroomlijn"
+    },
+    {
+      "id": "1-3-leerdoelen",
+      "title": "1.3 - Plantaardige en dierlijke cellen",
+      "contentType": "markdown",
+      "content": "# Leerdoelen\n\n- 1.3.1 Je kunt een microscoop gebruiken en daarmee (delen van) organismen bestuderen.\n- 1.3.2 Je kunt delen van dierlijke cellen en van plantaardige cellen benoemen en de functies ervan beschrijven.\n\nEen cel is de kleinste biologische eenheid die kan leven. Cellen kunnen sterk van elkaar verschillen, maar ze vertonen ook overeenkomsten. Met een microscoop kun je zien dat cellen complex zijn gebouwd."
+    },
+    {
+      "id": "1-3-microscoop",
+      "title": "Cellen waarnemen",
+      "contentType": "markdown",
+      "content": "In 1665 bekeek Robert Hooke een stukje kurk met een zelfgebouwde microscoop die 30× kon vergroten. Hij ontdekte dat kurk uit kleine hokjes bestaat, die hij cellen noemde. Hooke introduceerde daarmee het begrip 'cel' in de biologie. Zijn tijdgenoot Antoni van Leeuwenhoek ontwikkelde enkele jaren later een microscoop die 266× kon vergroten. Met deze microscoop kon hij als eerste mens micro-organismen waarnemen. Van Leeuwenhoek bestudeerde, beschreef en tekende heel kleine organismen, cellen en weefsels die hij met zijn eenvoudige microscoop waarnam.\n\nModerne microscopen spelen een belangrijke rol bij biologisch onderzoek. Als je de waterkwaliteit wilt bepalen, kun je met een microscoop bekijken welke soorten organismen in het water leven. Klinisch pathologen onderzoeken in laboratoria van ziekenhuizen cellen en weefsels met behulp van microscopen.\n\nDe meeste microscopen op school kunnen 400× tot 600× vergroten. De vergroting van een microscoop reken je uit door de vergroting van het oculair te vermenigvuldigen met de vergroting van het objectief. Als het oculair 10× vergroot en het objectief 40×, dan is de totale vergroting 400×.\n\nOp school gebruik je een microscoop waarbij licht door het preparaat valt. Zo'n microscoop noem je een lichtmicroscoop. Met een lichtmicroscoop kun je bijvoorbeeld verschillen tussen plantaardige en dierlijke cellen bestuderen."
+    },
+    {
+      "id": "1-3-microscoop-visual",
+      "title": "Een microscoop van Antoni van Leeuwenhoek",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual10-microscoop"
+    },
+    {
+      "id": "1-3-cellen",
+      "title": "Cellen van planten en dieren",
+      "contentType": "markdown",
+      "content": "Als je kijkt naar cellen van plantaardige en dierlijke organismen zie je overeenkomsten en verschillen. Elk deel van een cel met een eigen functie noem je een organel.\n\n### Onderdelen van een cel\n\n**Celmembraan**: De buitenste laag van een cel heet celmembraan. Bij cellen van planten ligt om het celmembraan een celwand. Celwanden bestaan uit tussencelstof en behoren niet tot de cel. De tussencelstof van de celwand bevat onder andere cellulose en geeft de plantencel stevigheid. Het celmembraan bestaat voor het grootste deel uit vetmoleculen, net als alle andere membranen in de cel. Hierdoor wordt het inwendige van de cel, het cytoplasma (celplasma), gescheiden van het milieu buiten de cel.\n\n**Cytoplasma**: Het cytoplasma bestaat uit grondplasma met daarin allerlei organellen. Grondplasma bestaat uit water en opgeloste stoffen. Ook de celkern wordt omgeven door het grondplasma. Het kernmembraan vormt de buitenste laag van de celkern.\n\n**Celkern**: De celkern is omgeven door het kernmembraan en bevat DNA met erfelijke informatie.\n\n**Vacuole**: Veel plantaardige cellen hebben een grote centrale vacuole. Deze is gevuld met vacuolevocht en wordt omgeven door het vacuolemembraan. Het cytoplasma ligt in een dunne laag tegen het celmembraan aan. De grote centrale vacuole speelt een belangrijke rol bij de stevigheid van plantaardige cellen. Ook kan de vacuole van een plantaardige cel kleurstoffen bevatten. De kleurstoffen geven kleur aan bijvoorbeeld bloemen en vruchten.\n\n**Plastiden**: Bij planten kunnen in het cytoplasma van de cellen plastiden voorkomen. Van deze organellen bestaan verschillende typen:\n- Chloroplasten (bladgroenkorrels): bevatten groene kleurstoffen (chlorofyl)\n- Chromoplasten (kleurstofkorrels): bevatten gele (xanthofyl), oranje (caroteen) en rode kleurstoffen\n- Leukoplasten: dienen om stoffen zoals vet, zetmeel en eiwit in op te slaan\n\nSommige plastiden kunnen overgaan in andere. Zo gaan chloroplasten tijdens het rijpen van vruchten over in chromoplasten. Dit gebeurt bijvoorbeeld tijdens het rijpen van een tomaat.\n\nOp plaatsen waar plantaardige cellen niet helemaal op elkaar aansluiten ontstaan intercellulaire ruimten. Deze ruimten zijn gevuld met lucht of vocht."
+    },
+    {
+      "id": "1-3-cellen-visual",
+      "title": "Een plantaardige en een dierlijke cel",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual11-plantaardige-dierlijke-cel"
+    },
+    {
+      "id": "1-3-elektronenmicroscopen",
+      "title": "Elektronenmicroscopen",
+      "contentType": "markdown",
+      "content": "In cellen komen organellen voor die met een lichtmicroscoop niet zichtbaar zijn. Om deze organellen te bekijken, gebruik je een elektronenmicroscoop. Hierbij wordt een elektronenbundel op het object gericht. Bij een transmissie-elektronenmicroscoop of TEM gaat de elektronenbundel, net als licht bij een lichtmicroscoop, door het object. Onder in de microscoop ontstaat op een speciaal scherm een beeld van het object. Een andere methode is om een object af te tasten met een elektronenbundel. Het object weerkaatst de elektronen, waardoor een beeld ontstaat. Dit gebeurt met een rasterelektronenmicroscoop of SEM. Bij een transmissie-elektronenmicroscoop en bij een lichtmicroscoop heeft het beeld geen diepte. Het beeld bij een rasterelektronenmicroscoop heeft wel diepte.\n\nElektronenmicroscopen zijn aangesloten op computers. Een computer bewerkt de beelden en toont ze op een beeldscherm. Vaak worden de beelden ingekleurd, waardoor bepaalde structuren beter zichtbaar zijn."
+    },
+    {
+      "id": "1-3-elektronenmicroscoop-visual",
+      "title": "Een elektronenmicroscoop",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual12-elektronenmicroscoop"
+    },
+    {
+      "id": "1-3-em-foto-visual",
+      "title": "Elektronenmicroscopische foto's",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual13-em-foto"
+    },
+    {
+      "id": "1-4-leerdoelen",
+      "title": "1.4 - Organellen",
+      "contentType": "markdown",
+      "content": "# Leerdoelen\n\n- 1.4.1 Je kunt een cel beschrijven als zelfstandig functionerende biologische eenheid.\n- 1.4.2 Je kunt beschrijven hoe transport van stoffen via (cel)membranen plaatsvindt.\n- 1.4.3 Je kunt de bouw en functie van het cytoskelet en het celmembraan beschrijven.\n\nDat het in een cel een levendige boel is, kun je op afbeeldingen niet zien. In een cel liggen de celorganellen niet op een vaste plaats. Ze bewegen continu en er is interactie met andere organellen."
+    },
+    {
+      "id": "1-4-celkern",
+      "title": "Celkern",
+      "contentType": "markdown",
+      "content": "De celkern, vacuolen en plastiden zijn relatief grote organellen die met een lichtmicroscoop meestal goed zichtbaar zijn. Wanneer je cellen met een elektronenmicroscoop bekijkt, zie je dat er ook andere organellen in de cel aanwezig zijn. Ook zie je meer eigenschappen van de organellen die je al kent.\n\nJe kunt bijvoorbeeld zien dat de kern is omgeven door het kernmembraan en kernplasma bevat. In het kernplasma liggen chromosomen. Deze bestaan uit lange moleculen DNA die rond een aantal eiwitten zijn gewikkeld. Het DNA bevat informatie over de bouw van eiwitten. Eiwitten bepalen de erfelijke eigenschappen van een organisme, zoals de bouw en functie van een cel, de kleur van de ogen en de bloedgroep.\n\nIn het kernplasma kun je het kernlichaampje onderscheiden. Dit is de plaats waar delen van ribosomen worden gemaakt. Deze delen verlaten de celkern via de kernporiën in het kernmembraan en gaan naar het cytoplasma. Een kernporie is een opening die het transport van stoffen in en uit de kern kan regelen. Ribosomen zijn kleine bolvormige organellen die eiwitten maken met behulp van de informatie die is vastgelegd in het DNA. Ribosomen werken samen met andere organellen bij het maken van eiwitten (eiwitsynthese)."
+    },
+    {
+      "id": "1-4-celkern-visual",
+      "title": "De celkern",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual14-celkern"
+    },
+    {
+      "id": "1-4-er-golgi",
+      "title": "Endoplasmatisch reticulum en golgisysteem",
+      "contentType": "markdown",
+      "content": "Het endoplasmatisch reticulum (ER) is een uitgebreid netwerk van dubbele membranen dat aansluit op het kernmembraan. De membranen liggen dicht tegen elkaar aan en vormen afgeplatte holten en kanaaltjes. De ruimten tussen de membranen staan met elkaar in verbinding. Er zijn twee typen endoplasmatisch reticulum: ruw en glad.\n\nOp het membraan van het ruw endoplasmatisch reticulum (RER) komen ribosomen voor. Ook in het cytoplasma komen ribosomen voor. Ribosomen op het ruw endoplasmatisch reticulum geven hun eiwitten af in de holten van het endoplasmatisch reticulum. De eiwitmoleculen worden verpakt in een blaasje dat wordt afgesnoerd van het membraan van het RER.\n\nGlad endoplasmatisch reticulum (GER) heeft geen ribosomen. GER speelt een rol bij de stofwisseling in de cel, zoals bij de productie van vetten of het afbreken van gifstoffen.\n\nHet RER heeft een transportfunctie. De eiwitmoleculen in de blaasjes die het ruw endoplasmatisch reticulum afsnoert, hebben nog niet de uiteindelijke vorm en worden naar het golgisysteem getransporteerd. Het golgisysteem bestaat uit series opeengestapelde platte membranen in het cytoplasma van de cel. Het golgisysteem neemt de blaasjes op en bewerkt de eiwitmoleculen totdat ze hun definitieve vorm hebben. Dan snoert het golgisysteem de eiwitten in blaasjes af."
+    },
+    {
+      "id": "1-4-er-visual",
+      "title": "Celkern met aansluitend ruw endoplasmatisch reticulum",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual15-er"
+    },
+    {
+      "id": "1-4-golgi-visual",
+      "title": "Een stapel membranen van het golgisysteem",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual16-golgi"
+    },
+    {
+      "id": "1-4-exocytose",
+      "title": "Transport via blaasjes",
+      "contentType": "markdown",
+      "content": "Blaasjes die afgesnoerd zijn van het golgisysteem, kunnen versmelten met het celmembraan en de eiwitten afgeven, zodat ze buiten de cel terechtkomen. Het afsnoeren van blaasjes door het celmembraan om stoffen naar buiten de cel te transporteren, noem je exocytose. Het afgeven van stoffen door cellen noem je secretie. In cellen van klieren (bijvoorbeeld een speekselklier) en cellen van slijmvlies vindt veel secretie plaats.\n\nEr zijn ook blaasjes die van het golgisysteem afsnoeren en in de cel blijven, zoals lysosomen. De eiwitten in lysosomen zijn enzymen en kunnen stoffen afbreken. Lysosomen kunnen samensmelten met blaasjes die zijn gevuld met voedingsstoffen of afvalstoffen. Vervolgens zetten de enzymen deze stoffen om in andere producten, die in de cel worden gebruikt of worden uitgescheiden."
+    },
+    {
+      "id": "1-4-exocytose-visual",
+      "title": "Exocytose",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual17-exocytose"
+    },
+    {
+      "id": "1-4-eiwitsynthese-visual",
+      "title": "Van eiwitsynthese tot secretie",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual18-eiwitsynthese"
+    },
+    {
+      "id": "1-4-mitochondrien",
+      "title": "Mitochondriën en chloroplasten",
+      "contentType": "markdown",
+      "content": "Voor veel processen in de cel is energie nodig, die geleverd wordt door mitochondriën. Mitochondriën (enkelvoud: mitochondrium) zijn ovaalvormige organellen. Ze hebben dubbele membranen waarvan het binnenmembraan sterk is geplooid. In het binnenmembraan van mitochondriën wordt via verbranding glucose afgebroken. Daarvoor zijn onder andere enzymen en zuurstof nodig. Met de energie die hierbij vrijkomt worden energierijke moleculen van de stof ATP (adenosinetrifosfaat) gemaakt. Als ergens in de cel energie nodig is, wordt die geleverd door de ATP-moleculen.\n\nDe enzymen die nodig zijn voor de productie van ATP liggen in het binnenmembraan van een mitochondrium. Door de plooiing van dit binnenmembraan is de oppervlakte wel 5× zo groot als die van het buitenmembraan. Hierdoor is er veel ruimte voor de productie van ATP-moleculen. De ATP-moleculen worden vanuit het mitochondrium getransporteerd naar plaatsen in de cel waar energie nodig is. Het aantal mitochondriën in een cel is het afhankelijk van de activiteit van de cel.\n\nBij fotosynthese zetten de chloroplasten in plantaardige cellen koolstofdioxide en water om in glucose en zuurstof met behulp van licht. Chloroplasten bezitten, net als mitochondriën, een dubbel membraan. Binnenin bevinden zich membranen die een soort platte blaasjes vormen met daartussen verbindingen. De platte blaasjes lijken gerangschikt te liggen als stapels munten. In deze membranen liggen het lichtgevoelige pigment chlorofyl en de enzymen voor de fotosynthese."
+    },
+    {
+      "id": "1-4-mitochondri-visual",
+      "title": "Een mitochondrium",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual19-mitochondrium"
+    },
+    {
+      "id": "1-4-chloroplast-visual",
+      "title": "Een chloroplast",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual20-chloroplast"
+    },
+    {
+      "id": "1-4-cytoskelet",
+      "title": "Cytoskelet",
+      "contentType": "markdown",
+      "content": "Binnen in cellen bevindt zich een netwerk van eiwitvezels dat het cytoskelet heet. Het cytoskelet zorgt ervoor dat cellen hun vorm behouden. Het kan er ook voor zorgen dat cellen van vorm kunnen veranderen en zich kunnen verplaatsen. Het cytoskelet kan, zoals bij een amoebe, uitstulpingen (schijnvoetjes) vormen, doordat de vezels langer of korter worden. Met die schijnvoetjes kan een amoebe zich voortbewegen of voedsel insluiten.\n\nCiliën (enkelvoud cilium) of trilharen zijn organellen die eiwitvezels bevatten en ook behoren tot het cytoskelet. Ze kunnen signalen uit de omgeving waarnemen en doorgeven aan de cel. Daarnaast hebben ze ook een functie bij de voortbeweging. Zo kunnen pantoffeldiertjes zich met de ciliën op de buitenkant van hun cel snel verplaatsen. Ze kunnen er ook voedseldeeltjes mee naar hun celmond toe bewegen. Sommige eencelligen (bijvoorbeeld oogdiertjes) en voortplantingscellen hebben een flagel (zweephaar) waarmee ze zich kunnen voortbewegen.\n\nSpeciale eiwitten, de motoreiwitten, gebruiken het cytoskelet als transportsysteem. Motoreiwitten lijken op een lichaam met twee voetjes die om de beurt een stapje zetten. Zo verplaatsen zij zich langs het cytoskelet en transporteren organellen of blaasjes die zijn gevuld met eiwitten, bijvoorbeeld een lysosoom. Op die manier kunnen bijvoorbeeld zenuwcellen eiwitten over een afstand van wel 1 meter vervoeren."
+    },
+    {
+      "id": "1-4-cytoskelet-visual",
+      "title": "Een cytoskelet",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual21-cytoskelet"
+    },
+    {
+      "id": "1-4-amoebe-visual",
+      "title": "Amoebe met schijnvoetjes sluit alg in",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual22-amoebe"
+    },
+    {
+      "id": "1-4-cilien-flagel-visual",
+      "title": "Pantoffeldiertjes met ciliën en oogdiertjes met een flagel",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual23-cilien-flagel"
+    },
+    {
+      "id": "1-4-motoreiwitten-visual",
+      "title": "Motoreiwitten transporteren blaasjes in de cel",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual24-motoreiwitten"
+    },
+    {
+      "id": "1-4-zenuwcel-visual",
+      "title": "Transport met motoreiwitten door een zenuwceluitloper",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual25-zenuwcel"
+    },
+    {
+      "id": "1-4-membranen",
+      "title": "Membranen",
+      "contentType": "markdown",
+      "content": "Cellen nemen stoffen uit hun omgeving op en geven stoffen aan hun omgeving af. Deze stoffen passeren hierbij het celmembraan. Stoffen passeren in de cel ook membranen van organellen.\n\nMembranen in de cel bestaan uit een dubbele laag fosfolipiden (vetachtige stoffen) met daartussen eiwitmoleculen. Een fosfolipidemolecuul bestaat aan de ene kant uit een fosfaatgroep die in water oplosbaar is. In water oplosbaar noem je hydrofiel (polair). De andere kant is waterafstotend of hydrofoob (apolair) en bestaat uit twee lange vetzuurstaarten. Apolaire moleculen zijn oplosbaar in vetachtige stoffen. In een membraan trekken de hydrofiele koppen van de fosfolipidemoleculen naar de waterige omgeving toe. De hydrofobe staarten trekken elkaar aan en keren zich juist van water af. Zo ontstaat een dubbele laag van fosfolipiden. De fosfolipiden in het membraan zijn voortdurend in beweging, waardoor een membraan geen vaste of harde wand is, maar een dun vloeibaar vliesje. Membranen kunnen hierdoor allerlei vormen aannemen.\n\nIn een celmembraan liggen membraaneiwitten. Veel van deze eiwitten spelen een rol bij het transport van stoffen in en uit een cel. Daarnaast zijn er receptoreiwitten waaraan koolhydraatketens zitten, net als aan sommige fosfolipiden. Die koolhydraatketens spelen een rol bij de herkenning van de cel door eiwitten in het membraan van andere cellen."
+    },
+    {
+      "id": "1-4-membraan-visual",
+      "title": "De bouw van een membraan",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual26-membraan"
+    },
+    {
+      "id": "1-4-endocytose",
+      "title": "Transport via blaasjes",
+      "contentType": "markdown",
+      "content": "Blaasjes die zijn afgesnoerd van het golgisysteem, kunnen versmelten met het celmembraan. Veel cellen kunnen hun membraan ook instulpingen naar binnen toe laten maken en zo stoffen uit de omgeving opnemen. Het afsnoeren van blaasjes door het celmembraan om stoffen in de cel op te nemen, noem je endocytose. Het blaasje dat zich afsnoert van het celmembraan noem je een endosoom. In de cel versmelt het endosoom met een lysosoom, waarna enzymen uit het lysosoom de stoffen in het endosoom afbreken. Via transporteiwitten komen de afbraakproducten in het cytoplasma."
+    },
+    {
+      "id": "1-4-endocytose-visual",
+      "title": "Endocytose",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual27-endocytose"
+    },
+    {
+      "id": "1-5-leerdoelen",
+      "title": "1.5 - Transport door membranen",
+      "contentType": "markdown",
+      "content": "# Leerdoelen\n\n- 1.5.1 Je kunt de concentratie van een oplossing berekenen.\n- 1.5.2 Je kunt uitleggen wat diffusie en osmose is en toelichten welke rol osmose speelt bij de stevigheid van planten.\n- 1.5.3 Je kunt beschrijven hoe transport van stoffen via (cel)membranen plaatsvindt.\n\nHet celmembraan vormt de afscheiding tussen een cel en de omgeving. Het membraan van organellen vormt de scheiding met het grondplasma. Organellen en cellen wisselen stoffen uit met hun omgeving, maar hoe passeren die stoffen de membranen?"
+    },
+    {
+      "id": "1-5-stoffentransport",
+      "title": "Stoffentransport in cellen",
+      "contentType": "markdown",
+      "content": "Voor een goed verloop van processen in en om een cel, is het nodig om stoffen door membranen te transporteren. Alleen apolaire stoffen zoals sommige vetten, zuurstof, stikstof en koolstofdioxide, kunnen de fosfolipidenlaag van membranen ongehinderd passeren. Voor polaire stoffen zoals ionen, eiwitten en water, zijn membranen vrijwel ondoordringbaar.\n\nIn membranen zitten speciale eiwitten die ervoor zorgen dat ook andere stoffen de membranen kunnen passeren. Bij het transport van deze stoffen speelt de concentratie van stoffen aan beide zijden van een membraan een belangrijke rol."
+    },
+    {
+      "id": "1-5-concentratie",
+      "title": "Concentratie",
+      "contentType": "markdown",
+      "content": "Stoffen in organismen kunnen in water zijn opgelost. Water is een oplosmiddel. Een oplossing bestaat uit een oplosmiddel en een of meer opgeloste stoffen. De concentratie geeft de hoeveelheid opgeloste stof in een bepaalde hoeveelheid oplosmiddel aan. De concentratie van een opgeloste stof kun je aangeven in de eenheden gram per liter oplossing (g/L of g·L−1).\n\nHet is ook mogelijk om de concentratie aan te geven in gewichtseenheden, bijvoorbeeld mg opgeloste stof per kg oplossing. In dat geval kun je de concentratie ook als percentage uitdrukken. De concentratie bereken je dan ten opzichte van het totale gewicht van de oplossing, dus niet ten opzichte van de hoeveelheid oplosmiddel.\n\nEen voorbeeld: voor een infuus wordt vaak een fysiologische zoutoplossing gebruikt die in de bloedbaan van een patiënt komt. Dit is een oplossing van 0,9% keukenzout. De concentratie in procenten bereken je door het gewicht van de stof te delen door het totale gewicht van de oplossing. Om het percentage te bepalen, vermenigvuldig je dit getal met 100%. Een fysiologische zoutoplossing kun je dus maken door 9 g keukenzout op te lossen in 991 g water. De totale oplossing weegt dan 1000 g. Dus: 9 g / 1000 g × 100% = 0,9%.\n\nEen erg lage concentratie van een stof kun je uitdrukken in ppm (parts per million). 1 ppm komt overeen met een concentratie van 0,0001%. De concentratie kun je ook aangeven in mol per liter (mol/L of mol·L−1). Een mol is de eenheid voor het aantal deeltjes (moleculen, atomen, ionen)."
+    },
+    {
+      "id": "1-5-diffusie",
+      "title": "Diffusie",
+      "contentType": "markdown",
+      "content": "Als je in de hoek van het lokaal een gaskraan even openzet, ruik je een tijdje later overal in de klas gas. De gasmoleculen vermengen zich met de lucht en verspreiden zich over de hele ruimte. Als je in een glas water een geconcentreerde oplossing van een kleurstof druppelt en deze enige tijd laat staan, dan vermengt de kleurstof zich met het water. Na een tijdje is het hele glas water gekleurd. Dit verschijnsel heet diffusie. Diffusie is de verplaatsing van een stof van een plaats met een hoge concentratie naar een plaats met een lage concentratie van die stof. De afgifte van zuurstof door plantaardige cellen en de opname van zuurstof door dierlijke cellen vindt bijvoorbeeld plaats door diffusie.\n\nDiffusie vindt plaats in een gasvormig of vloeibaar medium doordat de moleculen van gassen en vloeistoffen bewegen. Het medium kan bijvoorbeeld lucht of water zijn. De bewegingen van de moleculen zijn ongericht. Elk molecuul beweegt in een rechte lijn tot het tegen een ander molecuul botst. Door de botsing verandert de richting van de beweging. Hierdoor bewegen moleculen naar alle kanten door de ruimte die de vloeistof of het gas inneemt. Door diffusie verdelen moleculen zich gelijkmatig (homogeen) over de beschikbare ruimte. De concentratie is daardoor uiteindelijk overal gelijk. Er is dan een nettoverplaatsing opgetreden van moleculen (van zowel het oplosmiddel als de opgeloste stof) van plaatsen met de hoogste concentratie naar plaatsen met de laagste concentratie. In een ruimte met een gas of oplossing waarbij de concentratie overal gelijk is, bewegen de moleculen nog steeds, maar blijft de concentratie overal gelijk."
+    },
+    {
+      "id": "1-5-diffusie-visual",
+      "title": "Diffusie van een kleurstof in water",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual28-diffusie"
+    },
+    {
+      "id": "1-5-diffusie-weg-visual",
+      "title": "De afgelegde weg van een gasmolecuul",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual29-diffusie-weg"
+    },
+    {
+      "id": "1-5-osmose",
+      "title": "Osmose",
+      "contentType": "markdown",
+      "content": "Oplossingen kunnen gescheiden zijn door een membraan met poriën. Als de moleculen van het oplosmiddel en van de opgeloste stoffen kleiner zijn dan de poriën in het membraan, kunnen ze passeren en kan er diffusie optreden. Zo'n membraan met poriën noem je permeabel of doorlatend.\n\nOplossingen kunnen ook zijn gescheiden door een membraan met poriën waar kleine moleculen wel doorheen kunnen, maar grote moleculen niet. Zo'n membraan noem je semipermeabel of selectief permeabel. In afbeelding 48 bevindt zich links van het membraan een oplossing en rechts alleen water. Het membraan is semipermeabel: de kleine watermoleculen kunnen er wel doorheen, maar de grotere moleculen van de opgeloste stof niet. Watermoleculen gaan door diffusie van de plaats met de hoogste concentratie watermoleculen (het water rechts) naar de plaats met de laagste concentratie watermoleculen (de oplossing links). Het vloeistofniveau van de oplossing links stijgt hierdoor en de concentratie van de opgeloste stoffen in deze oplossing neemt af. Het waterniveau rechts daalt. Dit proces van diffusie van water door een semipermeabel membraan heet osmose."
+    },
+    {
+      "id": "1-5-permeabel-visual",
+      "title": "Diffusie door een permeabel membraan",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual30-permeabel"
+    },
+    {
+      "id": "1-5-semipermeabel-visual",
+      "title": "Diffusie door een semipermeabel membraan (osmose)",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual31-semipermeabel"
+    },
+    {
+      "id": "1-5-osmotische-waarde",
+      "title": "Osmotische waarde en osmotische druk",
+      "contentType": "markdown",
+      "content": "Door de concentratie aan opgeloste stoffen heeft een oplossing een bepaalde osmotische waarde. De osmotische waarde wordt bepaald door het aantal opgeloste deeltjes per volume-eenheid. Hoe meer deeltjes zich in een oplossing bevinden, des te hoger is de osmotische waarde. Het maakt hierbij niet uit welke stof is opgelost, alleen het totale aantal opgeloste deeltjes per volume-eenheid telt. Sommige stoffen vallen in water uiteen in ionen. Bijvoorbeeld keukenzout (natriumchloride, NaCl) valt in water uiteen in natriumionen (Na+) en chloride-ionen (Cl−). Als je glucose oplost, valt deze stof niet uit elkaar. Een oplossing met een bepaald aantal moleculen NaCl heeft daardoor een hogere osmotische waarde dan een oplossing met hetzelfde aantal moleculen glucose.\n\nWanneer twee oplossingen met een verschillende osmotische waarde zijn gescheiden door een semipermeabel membraan, gaat er water van de oplossing met de laagste osmotische waarde naar de oplossing met de hoogste osmotische waarde. De oplossing met de laagste osmotische waarde oefent een druk uit op de andere oplossing. Die druk noem je osmotische druk. De grootte van de osmotische druk wordt bepaald door het verschil in de concentratie van opgeloste deeltjes tussen de beide oplossingen. Hoe groter dit verschil, hoe groter de osmotische druk."
+    },
+    {
+      "id": "1-5-membranen-semipermeabel",
+      "title": "Membranen zijn semipermeabel",
+      "contentType": "markdown",
+      "content": "Celmembranen en membranen van organellen zijn semipermeabel. Deze membranen scheiden oplossingen met een verschillende concentratie. Diffusie en osmose spelen daardoor een belangrijke rol bij het transport van stoffen in cellen van organismen. Via diffusie kunnen zuurstof en koolstofdioxide membranen ongehinderd passeren en de cel in of uit worden getransporteerd. Watermoleculen kunnen de fosfolipidenlaag van celmembranen wel passeren, maar heel traag. Sommige celmembranen bevatten speciale eiwitten, aquaporines (aqua = water, porine = porie) voor een snel transport van watermoleculen. Hierdoor zijn deze membranen semipermeabel. Hoe hoger de dichtheid van aquaporines in een celmembraan, hoe groter de doorlaatbaarheid voor water is. De celmembranen van niercellen hebben bijvoorbeeld een hoge dichtheid van aquaporines."
+    },
+    {
+      "id": "1-5-aquaporine-visual",
+      "title": "Aquaporine",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual32-aquaporine"
+    },
+    {
+      "id": "1-5-osmose-dierlijk",
+      "title": "Osmose bij dierlijke cellen",
+      "contentType": "markdown",
+      "content": "Dierlijke en plantaardige cellen reageren op veranderingen van de osmotische waarde van het vocht in hun directe omgeving. Wanneer je een dierlijke cel, bijvoorbeeld een rode bloedcel, in een oplossing legt waarvan de osmotische waarde gelijk is (isotoon) aan de osmotische waarde van het grondplasma in de rode bloedcel, dan blijft het volume van de cel gelijk. Er gaan evenveel watermoleculen door het celmembraan de cel in als de cel uit. Leg je een rode bloedcel in een oplossing waarvan de osmotische waarde lager is (hypotoon) dan die van het grondplasma in de rode bloedcel, dan zal water door osmose de cel in gaan. Het volume van de rode bloedcel neemt daardoor toe. Uiteindelijk kan het celmembraan barsten. In een oplossing waarvan de osmotische waarde hoger is (hypertoon) dan die van het grondplasma in de rode bloedcel, gaat water de cel uit, waardoor het volume van de cel afneemt en de cel krimpt. De cel kan sterven door het waterverlies.\n\nDoordat celmembranen semipermeabel zijn, hebben dieren die leven in een hypertoon of hypotoon milieu, aanpassingen om het verlies van water of het teveel aan opname van water te reguleren. Bij een eencellig zoetwaterorganisme, zoals het pantoffeldiertje, heeft het grondplasma een hogere osmotische waarde dan het slootwater waarin het leeft. Hierdoor neemt het pantoffeldiertje door osmose voortdurend water op. Dit water wordt verzameld in een vacuole die zich regelmatig samentrekt: de kloppende vacuole. De vacuole perst het teveel aan water door een porie naar buiten."
+    },
+    {
+      "id": "1-5-osmose-dierlijk-visual",
+      "title": "Effecten van verschillende osmotische waarden op dierlijke cellen",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual33-osmose-dierlijk"
+    },
+    {
+      "id": "1-5-kloppende-vacuole-visual",
+      "title": "Pantoffeldiertje met kloppende vacuolen",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual34-kloppende-vacuole"
+    },
+    {
+      "id": "1-5-turgor",
+      "title": "Stevigheid door osmose",
+      "contentType": "markdown",
+      "content": "Celwanden van planten zijn volledig permeabel voor water en opgeloste stoffen. Plantaardige cellen nemen via de celwand water op of geven het aan de celwand af.\n\nAls de osmotische waarde in de celwand lager is dan die van het grondplasma, stroomt water via aquaporines de plantencel binnen, waardoor deze opzwelt. Vanwege de stevige celwand om de plantaardige cellen barsten zij niet zoals dierlijke cellen. Wel neemt de druk van het grondplasma op de celwand toe. Deze druk heet turgor en zorgt ervoor dat plantaardige cellen stevig zijn. Je kunt dit vergelijken met een fietsband die je oppompt. De druk in de binnenband neemt toe, maar door de stevige buitenband kan de binnenband op een bepaald moment niet verder uitzetten. De band is dan hard.\n\nOnder normale omstandigheden hebben plantaardige cellen een omgeving met voldoende water. Dan hebben plantaardige cellen turgor. Door turgor zijn de weefsels van planten stevig.\n\nAls door verdamping de osmotische waarde van het vocht in de celwanden stijgt, gaat water door osmose de cel uit. De turgor daalt, waardoor de omvang van de celwand afneemt. Op het moment dat de osmotische waarde binnen en buiten de cel gelijk is, verdwijnt de turgor (grensplasmolyse), en verliezen de cellen hun stevigheid. Als de osmotische waarde van het vocht in de celwanden door verdamping verder toeneemt, gaat nog meer water de cel uit. Het celmembraan laat dan los van de celwand. Dit verschijnsel heet plasmolyse. De interactie met andere cellen neemt hierdoor af en uiteindelijk gaat de cel dood. Hierbij verdwijnt het bladgroen en krijgt het afgestorven weefsel een bruine kleur."
+    },
+    {
+      "id": "1-5-turgor-visual",
+      "title": "Osmotische druk veroorzaakt turgor bij plantaardige cel",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual35-turgor"
+    },
+    {
+      "id": "1-5-plasmolyse-visual",
+      "title": "Plasmolyse in cellen van een rode ui",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual36-plasmolyse"
+    },
+    {
+      "id": "1-5-plasmolyse-effecten-visual",
+      "title": "Effecten van toenemende osmotische waarde bij plantaardige cel",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual37-plasmolyse-effecten"
+    },
+    {
+      "id": "1-5-passief-transport",
+      "title": "Passief transport",
+      "contentType": "markdown",
+      "content": "Een cel kan op een aantal manieren stoffen door het membraan transporteren. Stoffen kunnen verplaatsen van een hoge naar een lage concentratie van die stof. Het transport vindt dan plaats met het concentratieverval mee. Voor deze vorm van transport is geen energie nodig. Dit noem je daarom passief transport. Diffusie en osmose zijn voorbeelden van passief transport.\n\nHet transport van stoffen via de fosfolipiden in een membraan gaat altijd van een hoge naar een lage concentratie. Dat geldt ook voor het transport via transportkanaaltjes zoals aquaporines. Transportkanaaltjes zijn membraaneiwitten met een transportfunctie. Voor het ionentransport van bijvoorbeeld Na+, K+ en Ca+, bestaan ionkanaaltjes. Een cel kan de opname van een stof reguleren door een ionkanaaltje te sluiten of juist te openen. Dat kan bijvoorbeeld doordat een bepaalde stof aan het kanaaltje bindt. Hierdoor verandert de vorm van het kanaaltje en wordt het ionkanaal ondoorlaatbaar of juist doorlaatbaar voor een bepaalde soort moleculen."
+    },
+    {
+      "id": "1-5-ionkanaal-visual",
+      "title": "Een cel kan de doorlaatbaarheid van een transportkanaaltje regelen",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual38-ionkanaal"
+    },
+    {
+      "id": "1-5-transporteiwitten",
+      "title": "Transporteiwitten: passief en actief transport",
+      "contentType": "markdown",
+      "content": "In het celmembraan komen ook andere transporteiwitten voor. Zij hebben geen kanaaltje, maar binden specifieke moleculen en transporteren ze van buiten naar binnen of omgekeerd. Bepaalde transporteiwitten maken het transport van grote moleculen zoals glucose mogelijk. Wanneer een glucosemolecuul bindt aan het transporteiwit, verandert de vorm van het eiwit. Hierdoor kan het molecuul het membraan passeren. Dit transport is een vorm van passief transport.\n\nTransporteiwitten kunnen maar één soort molecuul transporteren en zijn dus specifiek voor een bepaalde stof.\n\nVoor veel stoffen is de snelheid van de diffusie afhankelijk van de dichtheid van transporteiwitten in het celmembraan. Die dichtheid kan voor een stof per celtype verschillend zijn. Hoe hoger de dichtheid, hoe sneller de diffusie van een stof kan verlopen.\n\nTransporteiwitten kunnen stoffen ook transporteren tegen het concentratieverval in. Stoffen gaan dan via het membraan van een lage naar een hoge concentratie. Voor deze vorm van transport is energie nodig. Dit heet actief transport. ATP-moleculen leveren meestal de energie."
+    },
+    {
+      "id": "1-5-transporteiwit-visual",
+      "title": "De werking van een transporteiwit",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual39-transporteiwit"
+    },
+    {
+      "id": "1-5-actief-transport-visual",
+      "title": "Actief transport",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual40-actief-transport"
+    },
+    {
+      "id": "1-6-leerdoelen",
+      "title": "1.6 - Natuurwetenschappelijk onderzoek",
+      "contentType": "markdown",
+      "content": "# Leerdoelen\n\n- 1.6.1 Je kunt verschillende typen en methoden van natuurwetenschappelijk onderzoek beschrijven.\n- 1.6.2 Je kunt een natuurwetenschappelijk onderzoek opzetten, uitvoeren en de resultaten ervan analyseren en daaruit conclusies trekken.\n- 1.6.3 Je kunt een technisch ontwerp voorbereiden, uitvoeren, testen en evalueren.\n\nDoor natuurwetenschappelijk onderzoek proberen biologen antwoord te krijgen op vragen als: Waarom zijn Nederlanders zo lang? Heeft ginseng een medicinale werking en verlengt ginseng de levensverwachting van mensen? Wat was de invloed van wolharige mammoeten op het Nederlandse landschap?"
+    },
+    {
+      "id": "1-6-onderzoeken",
+      "title": "Onderzoeken",
+      "contentType": "markdown",
+      "content": "Alle biologische kennis is afkomstig van onderzoek. Door nieuw wetenschappelijk onderzoek naar de levende natuur groeit de biologische kennis. Een bioloog die zich bezighoudt met wetenschappelijk onderzoek stelt zichzelf vragen over verschijnselen die hij waarneemt in de levende natuur. Het antwoord is niet altijd in de literatuur te vinden. Een bioloog kan dan een onderzoeksvraag formuleren en een natuurwetenschappelijk onderzoek uitvoeren om het antwoord op de vraag te vinden. Onderzoeksvragen kunnen heel verschillend zijn. Daarom zijn ook de typen onderzoek en de onderzoeksmethoden om op die vragen een antwoord te vinden heel verschillend."
+    },
+    {
+      "id": "1-6-literatuuronderzoek",
+      "title": "Literatuuronderzoek",
+      "contentType": "markdown",
+      "content": "Er bestaat een kans dat een natuurwetenschappelijke vraag al eerder is gesteld en mogelijk al is beantwoord. Daarom is het belangrijk om eerst een literatuuronderzoek uit te voeren. Literatuuronderzoek is een methode om bestaande kennis over een onderwerp te verzamelen. Deze kennis is te vinden in verschillende bronnen, zoals wetenschappelijke artikelen, boeken, scripties en archiefmateriaal. Goed literatuuronderzoek doe je door verschillende betrouwbare bronnen te gebruiken en de informatie die je leest kritisch te beoordelen."
+    },
+    {
+      "id": "1-6-literatuuronderzoek-visual",
+      "title": "Literatuuronderzoek",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual41-literatuuronderzoek"
+    },
+    {
+      "id": "1-6-beschrijvend",
+      "title": "Beschrijvend onderzoek",
+      "contentType": "markdown",
+      "content": "Als onderzoeker let je op bepaalde eigenschappen van het verschijnsel dat je bestudeert. Soms is het verzamelen van observaties (waarnemingen) de enige onderzoeksmethode om antwoord te krijgen op een vraag, bijvoorbeeld wanneer je het gedrag van organismen bestudeert. Observeren is een activiteit die je nauwkeurig moet uitvoeren met van tevoren vastgestelde regels. Om antwoord te krijgen op een vraag kun je ook metingen uitvoeren en gegevens verzamelen. De verzamelde gegevens noem je data. Vervolgens geef je de waarnemingen duidelijk weer met woorden, tekeningen, schema's of foto's.\n\nZo kun je bijvoorbeeld weefsels van verschillende organismen met een microscoop observeren en waarnemen dat alle organismen uit cellen bestaan. Je kunt ook gegevens over het DNA van een organisme verzamelen. Of je kunt in kaart brengen welke plantensoorten er in een weiland groeien. Deze onderzoeken zijn voorbeelden van een beschrijvend onderzoek. Bij een beschrijvend onderzoek probeer je een algemene regel af te leiden (een conclusie) uit veel specifieke gevallen (de data of observaties). Beschrijvend onderzoek kan ook leiden tot het opstellen van hypothesen."
+    },
+    {
+      "id": "1-6-hypothese",
+      "title": "Hypothesetoetsend onderzoek",
+      "contentType": "markdown",
+      "content": "Een hypothese is een mogelijke verklaring voor een waarneming van een verschijnsel, of een mogelijk verband tussen verschijnselen. Bij een hypothesetoetsend onderzoek bedenkt een onderzoeker een methode om een hypothese te toetsen. Dat kan bijvoorbeeld met een experiment. Hierbij stel je een experimenteergroep bloot aan een factor die je wilt onderzoeken. Daarnaast is er een zogenoemde controlegroep, die je niet blootstelt aan de te onderzoeken factor, dit noem je de blancoproef. Experimenten kun je uitvoeren in een laboratorium of in een veldsituatie.\n\nEtholoog (gedragsbioloog) Frans de Waal vroeg zich af of kapucijnaapjes onrechtvaardigheid afkeuren. Uit eigen observaties en die van anderen heeft De Waal geleerd dat niet alleen mensen maar ook dieren, zoals mensapen, olifanten en dolfijnen, een gevoel voor eerlijkheid kennen. Hij verwacht daarom dat kapucijnaapjes onrechtvaardigheid afkeuren. Hij voerde een experiment uit in het laboratorium om deze hypothese te toetsen. Daarvoor liet hij twee kapucijnaapjes in een kooi een taak uitvoeren. De aapjes gaven hem een steen en kregen daarvoor een beloning. Dat kon een stuk komkommer zijn, of een druif, waar kapucijnaapjes dol op zijn. Het eerste aapje at het stuk komkommer meteen op nadat hij het als beloning had gekregen. Hij was er blijkbaar tevreden mee. Hij zag daarna dat het tweede aapje een druif als beloning kreeg. Toen het eerste aapje vervolgens weer een stuk komkommer kreeg, smeet hij het weg. Uit het experiment blijkt dat een kapucijnaap negatief reageert op ongelijke beloning voor dezelfde inspanning."
+    },
+    {
+      "id": "1-6-kapucijnaap-visual",
+      "title": "Een kapucijnaapje",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual42-kapucijnaap"
+    },
+    {
+      "id": "1-6-ontwerpend",
+      "title": "Ontwerpend onderzoek",
+      "contentType": "markdown",
+      "content": "Een andere methode van onderzoek is het ontwerpen van een product als antwoord op een onderzoeksvraag. Bij dit ontwerpend onderzoek ontwikkelt een onderzoeker materialen, instrumenten, modellen of systemen. De onderzoeker bedenkt hoe het product eruit moet zien en aan welke eisen het moet voldoen. Eerst wordt een testversie van het product gebouwd, het prototype. Na de testfase worden de resultaten geëvalueerd en de eisen bijgesteld. Ten slotte wordt de definitieve versie van het product gebouwd. Deze manier van onderzoek heeft onder andere geleid tot de ontwikkeling van apparaten waarmee cellen en weefsels veel beter kunnen worden onderzocht, zoals de elektronenmicroscopen. En het onderzoek naar DNA is veel gemakkelijker geworden sinds een PCR-apparaat DNA heel snel kan vermenigvuldigen."
+    },
+    {
+      "id": "1-6-ontwerpend-visual",
+      "title": "De verschillende fasen van het ontwerpend onderzoek",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual43-ontwerpend"
+    },
+    {
+      "id": "1-6-validiteit",
+      "title": "Validiteit en betrouwbaarheid",
+      "contentType": "markdown",
+      "content": "De belangrijkste grondbeginselen van wetenschappelijk onderzoek zijn validiteit en betrouwbaarheid. Met validiteit wordt bedoeld dat de resultaten die tijdens het onderzoek worden verkregen ook echt antwoord geven op de onderzoeksvraag. Je moet hiervoor met je methode of onderzoeksmodel hebben gemeten wat je wilde meten. Betrouwbaarheid betekent dat de resultaten op een objectieve manier zijn verkregen en dat herhaling van het onderzoek mogelijk is. Andere onderzoekers moeten bij herhaling van het onderzoek dezelfde resultaten krijgen."
+    },
+    {
+      "id": "1-6-fasen",
+      "title": "Fasen van een natuurwetenschappelijk onderzoek",
+      "contentType": "markdown",
+      "content": "Het hypothesetoetsend onderzoek wordt gezien als hét model voor een natuurwetenschappelijk onderzoek. Bij onderzoek ga je steeds op dezelfde manier te werk. Bij het hypothesetoetsend onderzoek doorloop je de volgende fasen:\n\n### Waarneming\n\nEen onderzoek begint vaak bij iets wat je opvalt, of bij iets wat je waarneemt (observatie) en waarvan je je vervolgens afvraagt hoe dat zit. Het is de waarneming van een bepaald natuurverschijnsel dat in aanmerking komt voor verder onderzoek.\n\n### Onderzoeksvraag\n\nWanneer je een natuurverschijnsel ziet als een natuurwetenschappelijk probleem dat je wilt onderzoeken, formuleer je hierbij een onderzoeksvraag. Met deze vraag kun je op zoek naar het antwoord. Een onderzoeksvraag kan ook ontstaan naar aanleiding van eerder onderzoek of na literatuuronderzoek. De vraag maakt duidelijk wat je precies wilt weten en wat je gaat onderzoeken.\n\n### Hypothesevorming\n\nIn deze fase probeer je een mogelijke verklaring voor het probleem te geven. Je stelt hiervoor een hypothese op, meestal op basis van wat al bekend is. Op grond van de hypothese kun je een verwachting uitspreken over de uitkomst van het onderzoek. Je geeft aan welke metingen of observaties je waarschijnlijk doet als de hypothese juist is.\n\n### Experimentele fase\n\nIn deze fase vindt de echte uitvoering van het onderzoek plaats. Bij hypothesetoetsend onderzoek doe je dat meestal met een experiment waarmee je toetst of de opgestelde hypothese juist is of onjuist. In een of meerdere experimenteergroepen stel je organismen bloot aan een bepaalde factor. In de controlegroep voer je hetzelfde experiment uit, maar nu is deze factor afwezig (blancoproef). Per experiment kun je maar één factor tegelijk onderzoeken. Alle andere omstandigheden moeten bij de experimenteergroep en bij de controlegroep gelijk zijn. Om betrouwbare gegevens te krijgen, moeten de groepen uit grote aantallen bestaan. De experimentele fase kan ook bestaan uit het vergelijken van twee of meer groepen zonder dat er een experiment wordt uitgevoerd.\n\n### Resultaten\n\nIn deze fase verzamel je (meet)gegevens of observaties. De resultaten geef je zo overzichtelijk mogelijk weer. Dat kan in de vorm van tabellen, grafieken en diagrammen.\n\n### Conclusie\n\nMet de resultaten en alle informatie die je in de literatuur hebt opgezocht, geef je antwoord op de onderzoeksvraag. Dit antwoord noem je de conclusie. Komt de conclusie overeen met de geformuleerde hypothese, dan is de hypothese juist of bevestigd. Wanneer de hypothese onjuist blijkt te zijn, wordt de hypothese verworpen. Je kunt dan een nieuwe hypothese opstellen en deze met een nieuw experiment toetsen.\n\n### Discussie\n\nIn de discussie ga je in op de conclusie van je onderzoek en geef je aan of je resultaten valide en betrouwbaar zijn en of ze overeenkomen met je verwachtingen. Je probeert daarbij de eventuele verschillen tussen de resultaten en de hypothese te verklaren. Ook ga je in op de beperkingen van je onderzoek en bespreek je eventuele zwakke punten in de proefopzet en het verloop van het onderzoek. Verder kun je beschrijven welke bijdrage jouw onderzoek levert aan de beroepspraktijk en/of de wetenschap en kun je suggesties doen voor vervolgonderzoek."
+    },
+    {
+      "id": "1-6-fasen-visual",
+      "title": "Fasen van een natuurwetenschappelijk onderzoek",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual44-fasen"
+    },
+    {
+      "id": "samenhang-spitsbergen",
+      "title": "Samenhang: Expeditie Spitsbergen",
+      "contentType": "markdown",
+      "content": "# Leerdoelen\n\n- 1.S.1 Je kunt verschillende typen van natuurwetenschappelijk onderzoek toelichten voor verschillende organisatieniveaus van de biologie.\n- 1.S.2 Je kunt de biologische vakvaardigheden ecologisch en vorm-functiedenken toepassen op planten en dieren.\n\n## Expeditie Spitsbergen\n\nIn juli 2022 vertrok een grote groep wetenschappers in de richting van Spitsbergen om onderzoek te doen naar de gevolgen van klimaatverandering. Het idee voor deze Nederlandse poolexpeditie ontstond toen bioloog Maarten Loonen een kist met rendierschedels op een zolder van de Rijksuniversiteit Groningen vond. De rendierschedels waren afkomstig van eerder onderzoek op het eiland Edgeøya, dat ten oosten ligt van Spitsbergen. Van 1968 tot en met 1988 hebben Nederlandse wetenschappers daar veel data verzameld over planten en dieren, een gevaarlijke klus vanwege de vele ijsberen.\n\nIn 2015 en 2022 kreeg het onderzoeksproject een vervolg. Het klimaat is de afgelopen decennia milder geworden en het zee-ijs is veel eerder weg dan vroeger. Door nieuwe waarnemingen te vergelijken met oude waarnemingen is het mogelijk om de gevolgen van klimaatverandering op planten en dieren te bestuderen. Van bepaalde gebieden was precies bekend hoe de vegetatie er in 1977 uitzag. 'We hebben daar in 2015 weer gekeken en we zijn verbaasd', zegt Loonen. 'Er zijn stukken die vroeger helemaal kaal waren en nu zijn begroeid, en omgekeerd. De vraag is natuurlijk of dit komt door de opwarming van het poolgebied of dat andere factoren een rol spelen.' Voor conclusies was het in 2015 nog te vroeg. 'We gaan met kisten vol onderzoeksmateriaal naar huis en moeten dat nog bestuderen en interpreteren.'\n\nLineke Woelders, paleo-ecoloog, bestudeert met haar team de invloed van klimaatverandering op waterecosystemen. In haar onderzoeksrapport in Nature (2018) stelt zij vast dat de temperatuurstijging op aarde nergens zo sterk is als in het poolgebied. Uit satellietopnamen en onderzoek ter plaatse constateert zij een sterke groei van groene algen en een verandering in de bodemafzetting van kiezelwieren in een meertje op Spitsbergen. Deze verschijnselen gaan samen met de sterke temperatuurstijging en de toegenomen CO2-concentratie sinds begin jaren negentig. De onderzoekers schrijven de ecologische veranderingen toe aan de temperatuurstijging in het poolgebied."
+    },
+    {
+      "id": "samenhang-spitsbergen-kaart",
+      "title": "Ligging van het eiland Edgeøya in Spitsbergen",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual45-spitsbergen-kaart"
+    },
+    {
+      "id": "extra-wandzoekgedrag",
+      "title": "EXTRA - Wandzoekgedrag",
+      "contentType": "markdown",
+      "content": "Een medewerker van een bedrijf dat is gespecialiseerd in de bestrijding van ratten en muizen plaatst muizenvallen altijd langs de wand van een ruimte. De medewerker beweert dat hij op deze manier meer dieren vangt. In dit onderzoek ga je onderzoeken of muizen inderdaad bij voorkeur langs de wand van een ruimte lopen.\n\nEen onderzoeker bedenkt daarvoor het volgende onderzoek. Hij maakt een bak waarin hij een muis 320 seconden wil laten rondlopen. Met behulp van een videocamera neemt hij dit experiment op. Met behulp van software zijn 64 cellen geplaatst voor het videobeeld. De onderzoeker laat de video draaien en klikt elke vijf seconde op de pauzeknop. Daarna klikt hij op de cel waaronder het grootste deel van de muis zich bevindt. Het getal in de cel stijgt dan met 1. Daarna klikt hij weer op play. Zo kan hij nauwkeurig registreren of de muis zich vaker onder de wandcellen bevindt dan onder de overige cellen."
+    },
+    {
+      "id": "extra-wandzoekgedrag-visual",
+      "title": "Een 'still' uit de video van het onderzoek",
+      "contentType": "visual-placeholder",
+      "visualTag": "Visual46-wandzoekgedrag"
+    },
+    {
+      "id": "afsluiting",
+      "title": "Afsluiting - Samenvatting van begrippen",
+      "contentType": "markdown",
+      "content": "# Belangrijke begrippen en samenvatting\n\n## Basisstof 1: Wat is biologie? (1.1)\n\n- **Biologie** is een natuurwetenschap en bestudeert organismen (levende wezens)\n- Alle organismen vertonen **levensverschijnselen** zoals voortplanting, groei, ontwikkeling en stofwisseling\n- **Stofwisseling**: alle chemische reacties in een organisme\n- Een organisme dat geen levensverschijnselen meer vertoont, is dood. Dingen in de natuur die nooit hebben geleefd, zijn levenloos\n- Tussen biologie en andere natuurwetenschappen bestaan overgangsgebieden, zoals: biochemie, biomedische technologie en paleontologie\n- Biologische begrippen vormen met elkaar de biologische vaktaal\n- Een context voor het vak biologie is een situatie waarin biologie een rol speelt\n\n## Basisstof 2: Organen, weefsels en cellen (1.2)\n\n- **Orgaanstelsel**: een aantal organen dat samen een bepaalde functie uitoefent (bijv. verteringsstelsel en beenderstelsel)\n- Organen in de romp van een mens zijn bijv.: lever, maag, strottenhoofd, long, hart, middenrif, dikke darm, dunne darm, wervels, ribben, borstbeen, galblaas, nier en aorta\n- De vorm van cellen hangt samen met de functie\n- Organen zijn opgebouwd uit weefsels. Soorten weefsels, bijv.: dekweefsel, zenuwweefsel, spierweefsel en bindweefsel\n- Bij veel weefsels liggen de cellen niet direct tegen elkaar aan, maar komt **tussencelstof** voor. Het soort tussencelstof hangt samen met de functie van het weefsel\n- Bij organismen is er een verband tussen de vorm en de functie van de biologische eenheden waaruit ze zijn opgebouwd\n\n## Basisstof 3: Plantaardige en dierlijke cellen (1.3)\n\n- Bij een lichtmicroscoop valt licht van onder door een preparaat\n- De vergroting van een lichtmicroscoop is de vergroting van het oculair × de vergroting van het objectief\n- Bij een elektronenmicroscoop wordt gebruikgemaakt van een elektronenbundel en het beeld verschijnt op een computerscherm\n- Met een TEM (transmissie-elektronenmicroscoop) is geen diepte te zien\n- Met een SEM (rasterelektronenmicroscoop) is wel diepte te zien\n\n### Onderdelen van cellen:\n\n- **Celwand**: tussencelstof om de cel heen. Een celwand behoort niet tot de cel en zorgt voor stevigheid\n- **Celmembraan**: scheidt het inwendige van de cel, het cytoplasma (celplasma), van het milieu buiten de cel\n- **Cytoplasma** bestaat uit grondplasma (water en opgeloste stoffen) met daarin allerlei organellen\n- **Grondplasma** bestaat uit water met daarin opgeloste stoffen\n- De **celkern** is omgeven door het kernmembraan en bevat kernplasma\n- **Vacuole**: blaasje in het cytoplasma dat is omgeven door een vacuolemembraan en gevuld met vacuolevocht. Speelt een belangrijke rol bij de stevigheid van de cel en kan kleurstoffen bevatten\n- **Plastiden**:\n  - Chloroplasten (bevatten chlorofyl)\n  - Chromoplasten (bevatten kleurstoffen)\n  - Leukoplasten dienen om stoffen als zetmeel, vet en eiwitten op te slaan\n- Dierlijke cellen bevatten geen grote centrale vacuole en geen plastiden en om dierlijke cellen ligt geen celwand\n\n## Basisstof 4: Organellen (1.4)\n\n- In het kernplasma liggen **chromosomen**. Chromosomen bestaan uit moleculen DNA die rondom eiwitten zijn gewikkeld\n- DNA bevat genen met informatie over de erfelijke eigenschappen van een organisme\n- **Kernporiën**: openingen die het transport van stoffen in en uit het kernplasma regelen\n- **Ribosomen**: bolvormige organellen, op het endoplasmatisch reticulum of vrij in het cytoplasma. Functie: eiwitsynthese op basis van de informatie in het DNA\n- **Kernlichaampje**: plaats in het kernplasma waar delen van ribosomen worden gemaakt\n- **Endoplasmatisch reticulum (ER)**: netwerk van dubbele membranen dat is aangesloten op het kernmembraan\n  - Ruw endoplasmatisch reticulum (RER) heeft ribosomen. Functie: transport van eiwitten en het afsnoeren van blaasjes mogelijk maken\n  - Glad endoplasmatisch reticulum (GER) heeft geen ribosomen. Functie: verschilt per celtype, bijv. vetten of hormonen maken\n- **Golgisysteem**: opgestapelde platte membranen in het cytoplasma. Functie: eiwitten bewerken tot de uiteindelijke vorm en verpakken in blaasjes, en productie van lysosomen\n- Eiwitten kunnen buiten de cel worden afgegeven (**exocytose**) of binnen de cel worden gebruikt\n- **Lysosomen**: blaasjes in de cel die enzymen bevatten\n- **Mitochondriën**: ovaalvormige organellen met dubbele membranen, waarvan het binnenmembraan sterk is geplooid (oppervlaktevergroting). Functie: energie beschikbaar maken voor de cel met behulp van zuurstof (verbranding). De beschikbare energie wordt opgeslagen en vervoerd door **ATP-moleculen**\n- **Chloroplasten** (bladgroenkorrels): organellen met dubbel membraan. Functie: fotosynthese. Koolstofdioxide en water worden, met behulp van lichtenergie, omgezet in glucose en zuurstof\n- **Exocytose**: afsnoeren van blaasjes door het celmembraan om eiwitten of afvalstoffen naar buiten de cel te transporteren\n- **Secretie**: het afgeven van stoffen door cellen\n- **Endocytose**: afsnoeren van blaasjes door het celmembraan om stoffen in de cel op te nemen\n- **Cytoskelet**: een netwerk van eiwitvezels in cellen zorgt ervoor dat de cel zijn vorm behoudt, de organellen op hun plaats blijven, de vorm van een cel kan veranderen en sommige cellen zich kunnen verplaatsen (schijnvoetjes)\n- **Ciliën en flagellen** behoren tot het cytoskelet:\n  - Ciliën: receptoreiwitten met een signaalfunctie of functie bij de voortbeweging\n  - Flagellen: zweepharen die dienen voor de voortbeweging\n- **Motoreiwitten**: verplaatsen zich langs het cytoskelet en transporteren blaasjes, zoals lysosomen, met daarin eiwitten\n- **Celmembraan**: een dubbele laag fosfolipiden, met daarin eiwitmoleculen en cholesterol (voor stevigheid). Een fosfolipidemolecuul bestaat uit een hydrofiele kop (fosfaatgroep, polair) en een hydrofobe staart (vetzuurstaart, apolair)\n- Sommige fosfolipiden en eiwitten (receptoreiwitten) bezitten koolhydraatketens voor herkenning\n\n## Basisstof 5: Transport door membranen (1.5)\n\n- Concentratie geeft de hoeveelheid opgeloste stof in een bepaalde hoeveelheid oplosmiddel aan\n- **Diffusie**: verplaatsing van een stof van een plaats met een hoge concentratie naar een plaats met een lage concentratie van die stof. Diffusie wordt veroorzaakt door beweging van moleculen\n- **Osmose**: diffusie van water door een semipermeabel (selectief permeabel) membraan. Een semipermeabel membraan laat wel water door, maar niet de opgeloste stof\n- De **osmotische waarde** van een oplossing wordt bepaald door de totale concentratie opgeloste deeltjes\n- **Osmotische druk**: de druk die de oplossing met de laagste osmotische waarde uitoefent op de andere oplossing\n- **Aquaporines**: speciale eiwitten in sommige celmembranen voor een snel transport van watermoleculen\n- Een dierlijke cel in een oplossing:\n  - met een gelijke osmotische waarde (**isotoon**) als die van het cytoplasma behoudt zijn vorm\n  - met een lagere osmotische waarde (**hypotoon**) dan die van het cytoplasma, neemt water op en kan barsten\n  - met een hogere osmotische waarde (**hypertoon**) dan die van het cytoplasma geeft water af en krimpt\n- Celwanden van plantaardige cellen zijn permeabel voor water (met opgeloste stoffen)\n- **Turgor**: de druk van het grondplasma op de celwand. Een hogere osmotische waarde in het grondplasma dan in de celwand veroorzaakt een osmotische druk van de celwand in de richting van de cel, waardoor de cel stevig is\n- **Grensplasmolyse**: de situatie waarbij de turgor net nul is en het celmembraan nog tegen de celwand aan ligt\n- **Plasmolyse**: de cel krimpt door osmose zo ver dat het celmembraan loslaat van de celwand\n- Transport van apolaire stoffen zoals zuurstof, koolstofdioxide en vetoplosbare stoffen vindt plaats door diffusie dwars door de fosfolipidenlagen heen\n- Celmembranen en membranen van organellen zijn semipermeabel (selectief permeabel)\n- **Transportkanaaltjes**: membraaneiwitten die de opname en afgifte van veel stoffen reguleren\n- **Ionkanaaltjes**: transportkanaaltjes voor het transport van ionen, bijv. Na+, K+ en Ca+\n- **Passief transport**: transport van stoffen door membraaneiwitten waarbij geen energie nodig is. Verloopt met het concentratieverval mee\n- **Actief transport**: transport van stoffen door bepaalde transporteiwitten. Er is energie (ATP) voor nodig. Actief transport verloopt tegen het concentratieverval in\n\n## Basisstof 6: Natuurwetenschappelijk onderzoek (1.6)\n\n- **Literatuuronderzoek** is een methode om bestaande kennis over een onderwerp te verzamelen\n- **Beschrijvend onderzoek**: de onderzoeker verzamelt observaties en/of metingen (data) die tot een conclusie kunnen leiden\n- **Hypothesetoetsend onderzoek**: een onderzoeker bedenkt een onderzoeksmethode om een hypothese te toetsen. Voorbeelden van onderzoeksmethoden: experiment, interview, enquête\n- Een hypothese is het meest waarschijnlijke antwoord op een onderzoeksvraag die wordt getoetst met een onderzoeksmethode\n- **Steekproef**: onderzoekers selecteren een representatief deel van de te onderzoeken groep\n- **Ontwerpend onderzoek**: een onderzoeker ontwikkelt materialen, instrumenten, modellen of systemen naar aanleiding van een ontwerpvraagstuk\n\n### Fasen van een natuurwetenschappelijk onderzoek:\n\n- Literatuuronderzoek is een oriëntatie op het vraagstuk\n- **Onderzoeksvraag**: beschrijft een natuurwetenschappelijk vraagstuk waarop een antwoord wordt gezocht\n- **Hypothese**: geeft het meest waarschijnlijke antwoord op de onderzoeksvraag\n- In een werkplan beschrijf je hoe je je onderzoek gaat uitvoeren en maak je een lijst van de materialen die je nodig hebt\n- **Experiment**: de fase van de uitvoering van het onderzoek waarin je toetst of de opgestelde hypothese juist is of onjuist. Bij een experiment wordt vaak gewerkt met een of meerdere experimenteergroepen en een controlegroep (de blancoproef). Per experiment wordt één factor tegelijk onderzocht, alle andere omstandigheden zijn gelijk. Om betrouwbare gegevens te krijgen, bestaan alle groepen uit grote aantallen\n- **Resultaten**: verzamelde observaties of (meet)gegevens geef je overzichtelijk weer\n- **Conclusie**: je geeft antwoord op de onderzoeksvraag en je verwerpt of bevestigt de hypothese\n- **Discussie**: je probeert de resultaten van je onderzoek te verklaren en je gaat in op de beperkingen van je onderzoek\n- Bij ontwerpend onderzoek ontwikkelt een onderzoeker materialen, instrumenten, modellen of systemen. Fasen: de onderzoeker bedenkt hoe het product eruit moet zien en aan welke eisen het moet voldoen, een testversie (prototype) van het product wordt gebouwd, de testversie wordt geëvalueerd en de eisen bijgesteld, de definitieve versie van het product wordt gebouwd"
+    }
+  ]
+}

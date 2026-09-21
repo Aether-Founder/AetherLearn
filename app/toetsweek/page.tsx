@@ -143,7 +143,6 @@ export default function ToetsweekPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={t('testweek_eyebrow')}
         title={t('testweek_title')}
         description={t('testweek_description')}
         action={

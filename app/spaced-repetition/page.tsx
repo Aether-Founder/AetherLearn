@@ -223,7 +223,6 @@ export default function SpacedRepetitionPage() {
     return (
       <AppShell>
         <PageHeader
-          eyebrow="Spaced Repetition"
           title="Review Sessie"
           description={`${dueToday.filter((i) => i.next_review === today).length} items te herhalen`}
         />
@@ -304,7 +303,6 @@ export default function SpacedRepetitionPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Spaced Repetition"
         title="Herhaal Engine"
         description="Automatische planning van herhalingen voor langdurig leren"
         action={

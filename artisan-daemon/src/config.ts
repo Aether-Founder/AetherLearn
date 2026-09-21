@@ -21,6 +21,8 @@ export const config = {
   storage: {
     bucketName: 'artisan-inbox',
   },
+  maxRetries: parseInt(process.env.MAX_RETRIES || '3', 10),
+  initialRetryDelay: parseInt(process.env.INITIAL_RETRY_DELAY || '1000', 10),
 };
 
 // Validate required config

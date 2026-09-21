@@ -1,0 +1,3186 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AetherLearn — Interactive Learning Sets</title>
+
+  <!-- Google Fonts: Cormorant Garamond (Serif Titles/Headings), Inter (UI & Body Text), JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- KaTeX CSS & JS for LaTeX Math Expressions -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & CALIBRATED THEME TOKENS
+       ========================================================================== */
+    :root {
+      /* Light Mode: Calibrated Ice / Light Blue background (Never pure white) */
+      --background: #E8EEFD;               /* rgb(232, 238, 253) */
+      --foreground: #020817;               /* rgb(2, 8, 23) */
+      --card: #E8EEFD;                     /* rgb(232, 238, 253) */
+      --border: rgba(2, 8, 23, 0.18);      /* #020817 at 18% */
+      --border-solid: #E2E8F0;             /* rgb(226, 232, 240) */
+      --muted: #F1F5F9;                    /* rgb(241, 245, 249) */
+      --muted-foreground: #64748B;        /* rgb(100, 116, 139) */
+      --secondary: #F1F5F9;                /* rgb(241, 245, 249) */
+      --secondary-foreground: #020817;     /* rgb(2, 8, 23) */
+      --primary: #3B82F6;                  /* rgb(59, 130, 246) blue-500 accent (old-tw-page) */
+      --primary-foreground: #FFFFFF;       /* white text on blue accent */
+      --primary-hover: #2563EB;            /* rgb(37, 99, 235) blue-600 hover */
+      --code-bg: #E2E8F0;                  /* rgb(226, 232, 240) */
+      --focus-ring: rgba(59, 130, 246, 0.25);
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-serif: 'Cormorant Garamond', Georgia, Cambria, serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+    }
+
+    html.dark {
+      /* Dark Mode: Deep Midnight Navy (Never pitch black) */
+      --background: #020817;               /* rgb(2, 8, 23) */
+      --foreground: #F8FAFC;               /* rgb(248, 250, 252) */
+      --card: #020817;                     /* rgb(2, 8, 23) */
+      --border: #1E293B;                   /* rgb(30, 41, 59) */
+      --border-solid: #1E293B;             /* rgb(30, 41, 59) */
+      --muted: #1E293B;                    /* rgb(30, 41, 59) */
+      --muted-foreground: #94A3B8;        /* rgb(148, 163, 184) */
+      --secondary: #1E293B;                /* rgb(30, 41, 59) */
+      --secondary-foreground: #F8FAFC;     /* rgb(248, 250, 252) */
+      --primary: #F8FAFC;                  /* rgb(248, 250, 252) */
+      --primary-foreground: #020817;       /* rgb(2, 8, 23) */
+      --primary-hover: #E2E8F0;            /* rgb(226, 232, 240) */
+      --code-bg: #1E293B;                  /* rgb(30, 41, 59) */
+      --focus-ring: rgba(248, 250, 252, 0.2);
+    }
+
+    /* ==========================================================================
+       2. RESET & CORE STYLING
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    *::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      font-family: var(--font-sans);
+      color-scheme: light dark;
+      scroll-behavior: smooth;
+      background-color: var(--background);
+      color: var(--foreground);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--foreground);
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, h4, h5, h6, .font-serif {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .font-sans { font-family: var(--font-sans); }
+    .font-mono { font-family: var(--font-mono); }
+
+    /* ==========================================================================
+       3. ATOMIC UI COMPONENTS & BUTTONS
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.85rem;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: var(--font-sans);
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .btn:active {
+      transform: scale(0.985);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      opacity: 0.95;
+    }
+    .btn-secondary {
+      background-color: var(--background);
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background-color: var(--secondary);
+    }
+    .btn-icon {
+      padding: 0.45rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background-color: transparent;
+      color: var(--muted-foreground);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .btn-icon:hover {
+      color: var(--foreground);
+      background-color: var(--secondary);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.22rem 0.6rem;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: var(--font-sans);
+      text-transform: none;
+      letter-spacing: 0.01em;
+      background-color: var(--secondary);
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+    .badge.badge-serif {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+/* Summary mode view: borderless and spacious */
+    .summary-view {
+      border: none;
+      background-color: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 1.5rem 0.5rem 3.5rem 0.5rem;
+      max-width: 780px;
+    }
+    .summary-view h1,
+    .summary-view h2,
+    .summary-view h3 {
+      margin: 1.75rem 0 0.6rem 0;
+    }
+    .summary-view ul,
+    .summary-view ol {
+      margin: 0.75rem 0 1.25rem 1.75rem;
+    }
+    .summary-view li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* --------------------------------------------------------------------------
+       EMBEDDED HTML / SVG CONTENT (rendered directly from leerset JSON)
+       -------------------------------------------------------------------------- */
+    .bio-panel {
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem 1.5rem 1rem 1.5rem;
+      margin: 1.25rem 0 1.75rem 0;
+      overflow: visible;
+    }
+    html.dark .bio-panel {
+      background: rgba(30, 41, 59, 0.55);
+    }
+    .bio-panel h4 {
+      font-family: var(--font-serif);
+      font-size: 21px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
+    }
+    .bio-panel .bio-sub {
+      color: var(--muted-foreground);
+      font-size: 13px;
+      margin-bottom: 1.25rem;
+    }
+    .bio-fig {
+      text-align: center;
+    }
+    .bio-diagram {
+      width: 100%;
+      max-width: 640px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .bio-fig figcaption {
+      font-size: 12.5px;
+      color: var(--muted-foreground);
+      margin-top: 0.5rem;
+      line-height: 1.5;
+    }
+    .bio-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 0.45rem 1.25rem;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--border);
+    }
+    .bio-legend-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .bio-swatch {
+      width: 13px;
+      height: 13px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      border: 1px solid var(--border);
+    }
+    .bio-legend-en {
+      font-weight: 600;
+      color: var(--foreground);
+    }
+    .bio-legend-nl {
+      color: var(--muted-foreground);
+    }
+    .bio-note {
+      margin-top: 1rem;
+      font-size: 13.5px;
+      color: var(--muted-foreground);
+      line-height: 1.6;
+    }
+
+    /* Sandboxed HTML content (iframe host + frame). The iframe is sized by a
+       postMessage bridge inside the sandbox so it never shows scrollbars. */
+    .html-sandbox-host {
+      position: relative;
+      width: 100%;
+      overflow: visible;
+    }
+    .html-sandbox-frame {
+      display: block;
+      width: 100%;
+      border: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    /* --------------------------------------------------------------------------
+       JSON TOOLS & DOCUMENTATION PAGE
+       -------------------------------------------------------------------------- */
+    .tools-container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 1rem 4rem 1rem;
+    }
+    .tools-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+    .tools-card h2 {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+    }
+    .tools-card h3 {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 600;
+      margin: 1.4rem 0 0.5rem 0;
+    }
+    .tools-card p,
+    .tools-card li {
+      font-size: 14.5px;
+      line-height: 1.7;
+    }
+    .tools-card ul,
+    .tools-card ol {
+      padding-left: 1.4rem;
+      margin: 0.5rem 0 1rem 0;
+    }
+    .tools-card li {
+      margin-bottom: 0.3rem;
+    }
+    .tools-doc-code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--code-bg);
+      border-radius: 4px;
+      padding: 0.1rem 0.35rem;
+      color: var(--foreground);
+    }
+    .tools-kbd {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      border: 1px solid var(--border);
+      border-bottom-width: 2px;
+      border-radius: 4px;
+      padding: 0.05rem 0.4rem;
+      background: var(--muted);
+      color: var(--foreground);
+    }
+    .prompt-box {
+      position: relative;
+      margin: 0.75rem 0 1rem 0;
+    }
+    .prompt-box textarea {
+      width: 100%;
+      min-height: 260px;
+      resize: vertical;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.9rem 1rem;
+      white-space: pre-wrap;
+    }
+    .prompt-box textarea:focus {
+      outline: 2px solid var(--focus-ring);
+    }
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .copy-btn.copied svg {
+      color: #22c55e;
+    }
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.75rem 0 1.25rem 0;
+      font-size: 13px;
+    }
+    .doc-table th {
+      text-align: left;
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      background: var(--muted);
+      font-family: var(--font-sans);
+    }
+    .doc-table td {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .doc-table td code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: var(--code-bg);
+      border-radius: 4px;
+      padding: 0.05rem 0.3rem;
+    }
+    .tools-tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .tools-tile {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      background: var(--muted);
+      font-size: 13px;
+    }
+    .tools-tile strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-family: var(--font-sans);
+      font-weight: 600;
+    }
+
+    .card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+    html.dark .card {
+      box-shadow: none;
+    }
+    .card.card-plain {
+      border: none;
+      box-shadow: none;
+      background-color: transparent;
+    }
+
+    /* Top Right Mode Switcher */
+    .mode-switcher-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem;
+      background-color: rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    html.dark .mode-switcher-bar {
+      background-color: rgba(255, 255, 255, 0.04);
+    }
+    .mode-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.65rem;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted-foreground);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .mode-tab-btn:hover {
+      color: var(--foreground);
+      background-color: var(--secondary);
+    }
+    .mode-tab-btn.active {
+      background-color: var(--background);
+      color: var(--foreground);
+      border-color: var(--border);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Target badge callout */
+    .goal-callout {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      font-size: 13px;
+      background-color: rgba(59, 130, 246, 0.06);
+      border: 1px solid var(--border);
+      color: var(--foreground);
+      margin-bottom: 1.25rem;
+    }
+    html.dark .goal-callout {
+      background-color: rgba(248, 250, 252, 0.06);
+    }
+
+    /* Formula box */
+    .formula-box {
+      margin: 1.5rem 0;
+      padding: 1.25rem 1.5rem;
+      background-color: var(--secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-align: center;
+    }
+    .formula-box .katex-display {
+      margin: 0.4rem 0;
+    }
+    .formula-box ul {
+      list-style: none;
+      margin-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      font-size: 13.5px;
+      color: var(--muted-foreground);
+      text-align: left;
+      padding-left: 0.5rem;
+    }
+
+    /* Exercise Accordions */
+    .exercise-card {
+      border: none;
+      border-radius: 6px;
+      overflow: visible;
+      margin-top: 2rem;
+      margin-bottom: 3.5rem;
+      background-color: transparent;
+    }
+    .exercise-card-header {
+      padding: 1rem 1.25rem;
+      background-color: transparent;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: none;
+    }
+    .q-row {
+      border-bottom: none;
+    }
+    .q-row:last-child {
+      border-bottom: none;
+    }
+    .q-btn {
+      width: 100%;
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: transparent;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      color: var(--foreground);
+      font-size: 14px;
+      font-family: var(--font-sans);
+      transition: background-color 0.12s ease;
+    }
+    .q-btn:hover {
+      background-color: var(--secondary);
+    }
+    .q-chevron {
+      color: var(--muted-foreground);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .q-row.open .q-chevron {
+      transform: rotate(90deg);
+    }
+    .q-num {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--muted-foreground);
+      width: 24px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .q-text {
+      flex: 1;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--foreground);
+    }
+    .q-answer-container {
+      display: none;
+      padding: 0.65rem 1.25rem 1.25rem 3.5rem;
+      font-size: 13.5px;
+      color: var(--muted-foreground);
+      line-height: 1.6;
+      border-top: 1px dashed var(--border);
+      background-color: rgba(0, 0, 0, 0.015);
+    }
+    html.dark .q-answer-container {
+      background-color: rgba(255, 255, 255, 0.015);
+    }
+    .q-row.open .q-answer-container {
+      display: block;
+    }
+
+    /* Grid Home Cards */
+    .set-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .set-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.25rem;
+    }
+    .set-card:hover {
+      background-color: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      margin-top: 0.35rem;
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      z-index: 50;
+      min-width: 150px;
+      overflow: hidden;
+      display: none;
+    }
+    .dropdown-menu.show {
+      display: block;
+    }
+    .dropdown-item {
+      width: 100%;
+      padding: 0.5rem 0.85rem;
+      font-size: 13px;
+      text-align: left;
+      background: transparent;
+      border: none;
+      color: var(--foreground);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.12s ease;
+    }
+    .dropdown-item:hover {
+      background-color: var(--secondary);
+    }
+
+    /* Inputs */
+    .text-input {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      font-size: 14px;
+      font-family: var(--font-sans);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background-color: var(--background);
+      color: var(--foreground);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .text-input:focus {
+      border-color: var(--foreground);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    /* Floating Scroll to top */
+    .scroll-top-fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 40;
+      padding: 0.65rem;
+      border-radius: 50%;
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      color: var(--foreground);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      display: none;
+      transition: all 0.2s ease;
+    }
+    .scroll-top-fab:hover {
+      background-color: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       10. LEERSET LAYOUT & LEFT SECTIONS SIDEBAR (EXACT ORIGINAL old-tw-page STYLE)
+       ========================================================================== */
+
+    /* Outer leerset container: column on mobile, row on desktop (aside on left) */
+    .leerset-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1rem 5rem 1rem;
+      align-items: stretch;
+    }
+    @media (min-width: 768px) {
+      .leerset-layout {
+        flex-direction: row;
+        gap: 2rem;
+      }
+    }
+
+    /* Sidebar (aside): hidden-collapsible by mode, fixed widths matching Tailwind.
+       It stretches to match the main column so the sticky inner has room to stick. */
+    .tw-sidebar {
+      display: none;
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+    @media (min-width: 768px) {
+      .tw-sidebar { display: block; width: 220px; max-width: none; }
+    }
+    @media (min-width: 1024px) {
+      .tw-sidebar { width: 250px; }
+    }
+    @media (min-width: 1280px) {
+      .tw-sidebar { width: 280px; }
+    }
+
+    /* Sidebar inner sticky column */
+    .tw-sidebar-inner {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      align-self: flex-start;
+    }
+
+    .tw-sidebar-title {
+      padding: 1.25rem 1.25rem 0.75rem 1.25rem;
+      flex-shrink: 0;
+    }
+    .tw-sidebar-title h2 {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--foreground);
+      margin-bottom: 0.75rem;
+    }
+
+    .tw-sidebar-nav {
+      flex: 0 1 auto;
+      overflow: visible;
+    }
+
+    .tw-sidebar-nav-inner {
+      padding: 0 0.5rem 1rem 0.5rem;
+    }
+
+    .tw-sidebar-set-title {
+      width: 100%;
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--foreground);
+      font-family: var(--font-sans);
+      line-height: 1.3;
+    }
+
+    .tw-sidebar-subs {
+      margin-left: 0.5rem;
+      padding-left: 0.75rem;
+    }
+
+    .tw-sidebar-section-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.375rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: var(--font-sans);
+      color: var(--muted-foreground);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+    .tw-sidebar-section-btn:hover {
+      background-color: var(--secondary);
+    }
+    .tw-sidebar-section-btn.active {
+      background-color: var(--secondary);
+      color: var(--foreground);
+    }
+    .tw-sidebar-section-btn svg {
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .tw-sidebar-section-btn.open svg {
+      transform: rotate(90deg);
+    }
+
+    .tw-sidebar-block-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.25rem 1rem;
+      margin-left: 1.5rem;
+      border-radius: 0.25rem;
+      font-size: 11px;
+      font-family: var(--font-sans);
+      color: var(--muted-foreground);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+    .tw-sidebar-block-btn:hover {
+      background-color: var(--secondary);
+    }
+    .tw-sidebar-block-btn.active {
+      background-color: var(--secondary);
+      color: var(--foreground);
+    }
+
+    /* --------------------------------------------------------------------------
+       SKELETON LOADING ANIMATION
+       -------------------------------------------------------------------------- */
+    .skel-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .skel-side {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .skel-line {
+      height: 14px;
+      border-radius: 6px;
+      margin-bottom: 0.9rem;
+      background: linear-gradient(90deg, var(--secondary) 25%, var(--border) 50%, var(--secondary) 75%);
+      background-size: 200% 100%;
+      animation: skel-shimmer 1.4s ease-in-out infinite;
+    }
+    @keyframes skel-shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* --------------------------------------------------------------------------
+       QUIZ MODE STYLING
+       -------------------------------------------------------------------------- */
+    .quiz-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .quiz-progress {
+      font-size: 13px;
+      font-family: var(--font-sans);
+      color: var(--muted-foreground);
+    }
+    .quiz-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .quiz-card h4 {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+    .quiz-question {
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .quiz-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.7rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 0.5rem;
+      font-size: 14px;
+      font-family: var(--font-sans);
+      color: var(--foreground);
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+    .quiz-option:hover { border-color: var(--ring); }
+    .quiz-option.selected { background: var(--primary); color: var(--primary-foreground); }
+    .quiz-option.correct { background: #22c55e; color: #fff; border-color: #22c55e; }
+    .quiz-option.incorrect { background: #ef4444; color: #fff; border-color: #ef4444; }
+    .quiz-rationale {
+      margin-top: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-left: 3px solid var(--ring);
+      background: var(--secondary);
+      border-radius: 0.25rem;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--muted-foreground);
+      display: none;
+    }
+    .quiz-nav {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+    .quiz-empty {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: var(--muted-foreground);
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP BAR (POSITIONED AT RIGHT TOP EXACTLY AS ORIGINAL JSON LEERSET PAGINA)
+       Taaltoggle + modetoggle (thema) + alle modus-knoppen (Uitleg / Leren /
+       Samenvatting / Quiz) zitten nu SAMEN op één en dezelfde balk.
+       ========================================================================== -->
+  <div class="w-full relative" style="width: 100%; position: relative;">
+    
+    <!-- Controles-container: bovenaan rechts in de normale flow.
+         Taaltoggle + thematoggle + modus-knoppen = één gezamenlijke balk. -->
+    <div style="position: absolute; top: 0.5rem; right: 0.75rem; z-index: 30; flex-wrap: wrap; justify-content: flex-end;">
+      
+      <!-- Unified toolbar: language toggle + theme toggle + mode tabs on the SAME bar -->
+      <div class="mode-switcher-bar" style="display: inline-flex;">
+
+        <!-- Language Toggle (immediate switch, no dropdown) -->
+        <div style="display: inline-flex; align-items: center;">
+          <button id="langSwitcherBtn" class="mode-tab-btn" style="gap: 0.4rem;" onclick="toggleLanguage()"
+                  data-i18n-lang="EN" data-i18n-lang-nl="NL" data-i18n-lang-en="EN" title="Switch language">
+            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span id="currentLangLabel">EN</span>
+          </button>
+        </div>
+
+        <!-- Theme / Mode Toggle (Sun / Moon icon) -->
+        <button id="themeToggleBtn" class="mode-tab-btn" title="Toggle Theme" onclick="toggleTheme()" aria-label="Toggle theme">
+          <svg id="sunIcon" style="width: 14px; height: 14px; display: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg id="moonIcon" style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- JSON Tools / Docs button -->
+        <button id="toolsToggleBtn" class="mode-tab-btn" onclick="openTools()" title="JSON Tools & AI Prompt Library" aria-label="JSON Tools and documentation">
+          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+          <span style="font-size: 13px; font-weight: 500;">{"{}"}</span>
+        </button>
+
+        <!-- Vertical divider to visually separate app toggles from content modes -->
+        <span class="mode-tab-btn" style="padding: 0; margin: 0 0.15rem; border-left: 1px solid var(--border); height: 1.25rem;"></span>
+
+        <!-- Mode Switch tabs (Uitleg / Leren / Samenvatting / Quiz) — SAME bar -->
+        <div id="topModeSwitcher" class="mode-switcher-bar" style="display: none; border: none; background: transparent; padding: 0; gap: 0.25rem;">
+          
+          <!-- Explanation (Uitleg / FileText icon) -->
+          <button class="mode-tab-btn active" id="btnModeSimple" onclick="setMode('simple')">
+            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+            <span data-i18n="explanation">Explanation</span>
+          </button>
+
+          <!-- Learn (Leren / GraduationCap icon) -->
+          <button class="mode-tab-btn" id="btnModeStudy" onclick="setMode('study')">
+            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            <span data-i18n="learn">Learn</span>
+          </button>
+
+          <!-- Summary (Samenvatting / BookOpen icon) -->
+          <button class="mode-tab-btn" id="btnModeSummary" onclick="setMode('summary')">
+            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            <span data-i18n="summary">Summary</span>
+          </button>
+
+          <!-- Quiz (Brain icon) -->
+          <button class="mode-tab-btn" id="btnModeQuiz" onclick="setMode('quiz')">
+            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <span data-i18n="quiz">Quiz</span>
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Header area (pushed down below controls with right padding) -->
+    <div id="pageHeaderContainer" style="width: 100%; padding: 3.5rem 1rem 0.5rem 1rem; max-width: 1400px; margin: 0 auto;">
+      
+      <!-- Home Header -->
+      <div id="homeHeader">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+          <span class="badge badge-serif">AetherLearn Platform</span>
+          <span class="badge badge-serif" id="totalSetsBadge">5 Learning Sets</span>
+        </div>
+        <h1 style="font-size: 38px; md:font-size: 46px; line-height: 1.15; margin-bottom: 0.35rem;">
+          Interactive Study Sets &amp; Textbook Viewer
+        </h1>
+        <p style="font-size: 15px; color: var(--muted-foreground); max-width: 800px;">
+          Select any verified curriculum learning set below, or load your own JSON leerset via input or local file.
+        </p>
+      </div>
+
+      <!-- Leerset Viewer Header (Dynamic) -->
+      <div id="leersetHeader" style="display: none; padding-right: max(1rem, 260px);">
+        <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem;">
+          <!-- Back arrow button -->
+          <button class="btn-icon" title="Back to study sets" onclick="goToHome()" style="margin-top: 0.25rem; flex-shrink: 0;">
+            <svg style="width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </button>
+
+          <div style="min-width: 0; flex: 1;">
+            <h1 id="viewerTitle" style="font-size: 36px; md:font-size: 44px; line-height: 1.15; margin-bottom: 0.35rem;">
+              Physics - Chapter 4: Electricity
+            </h1>
+            <p id="viewerDesc" style="font-size: 15px; color: var(--muted-foreground); line-height: 1.5; max-width: 900px;">
+              Physics Chapter 4 on electricity, featuring theory blocks, formulas, inline assignments, and step-by-step solutions.
+            </p>
+          </div>
+        </div>
+
+        <!-- Custom Action Buttons Row (populated from leerset JSON) -->
+        <div id="viewerButtonsRow" style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Full-width Divider Line -->
+    <div style="width: 100%; border-top: 1px solid var(--border); margin-top: 0.5rem;"></div>
+  </div>
+
+  <!-- ==========================================================================
+       VIEW 1: SETS GRID OVERVIEW & JSON LOADERS (HOME VIEW)
+       ========================================================================== -->
+  <main id="viewHome" style="max-width: 1400px; margin: 0 auto; padding: 2rem 1rem 5rem 1rem; width: 100%;">
+    
+    <!-- Action Toolbar (Search + JSON Input Drawer + File Upload) -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem; flex: 1; max-width: 400px;">
+        <input type="text" id="setSearchInput" class="text-input" placeholder="Search study sets..." oninput="filterSetsGrid(this.value)" />
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <!-- File upload button -->
+        <label class="btn btn-secondary" style="cursor: pointer;">
+          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span data-i18n="upload_file">Upload JSON File</span>
+          <input type="file" id="jsonFileInput" accept=".json" style="display: none;" onchange="handleFileUpload(event)" />
+        </label>
+
+        <!-- Paste JSON Drawer Toggle -->
+        <button class="btn btn-primary" onclick="toggleJsonPasteModal()">
+          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          <span data-i18n="load_json">Paste JSON</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Paste JSON Modal / Expandable Panel -->
+    <div id="jsonPasteDrawer" class="card" style="display: none; padding: 1.5rem; margin-bottom: 2rem; border-color: var(--foreground);">
+      <h3 style="font-size: 20px; font-family: var(--font-serif); margin-bottom: 0.5rem;">Load Custom JSON Leerset</h3>
+      <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 1rem;">
+        Paste any valid leerset JSON code matching the schema (`siteMetadata`, `sections`, `blocks`, `answers`).
+      </p>
+      <textarea id="jsonPasteArea" class="text-input" style="height: 180px; font-family: var(--font-mono); font-size: 12.5px; resize: vertical; margin-bottom: 1rem;" placeholder="Paste JSON here..."></textarea>
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+        <button class="btn btn-secondary" onclick="toggleJsonPasteModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="loadPastedJson()">Load &amp; Open Leerset</button>
+      </div>
+    </div>
+
+    <!-- Study Sets Cards Grid -->
+    <div id="setsGridContainer" class="set-grid">
+      <!-- Dynamically populated from JS dataset -->
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       VIEW 1.5: JSON TOOLS & DOCUMENTATION (AI PROMPTS + FORMAT REFERENCE)
+       Rendered entirely by renderToolsPage() so prompts/docs can use JS
+       template literals safely (escaping, i18n, copy-to-clipboard).
+       ========================================================================== -->
+  <main id="viewTools" style="display: none; width: 100%; min-height: 100vh;">
+    <div id="toolsPageContent" class="tools-container"></div>
+  </main>
+
+  <!-- ==========================================================================
+       VIEW 2: REAL LEERSET DETAIL PAGINA (FREELY RENDERED, SECTIONS ON LEFT)
+       ========================================================================== -->
+  <main id="viewLeerset" style="display: none; width: 100%; min-height: 100vh;">
+    
+    <div class="leerset-layout">
+      
+      <!-- ====================================================================
+           LEFT SIDEBAR: SECTIONS ELEMENT (exact original old-tw-page Inhoudsopgave)
+           ==================================================================== -->
+      <aside class="tw-sidebar">
+        <div class="tw-sidebar-inner">
+          <div class="tw-sidebar-title">
+            <h2 id="sidebarTitle" data-i18n="sections">Sections</h2>
+          </div>
+
+          <!-- Scrollable nav -->
+          <nav class="tw-sidebar-nav">
+            <div class="tw-sidebar-nav-inner">
+              <div id="sidebarSetTitle" class="tw-sidebar-set-title"></div>
+              <div id="sidebarNavLinks" class="tw-sidebar-subs">
+                <!-- Dynamically populated per loaded leerset -->
+              </div>
+            </div>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- ====================================================================
+           MAIN CONTENT AREA: FREELY RENDERED WITHOUT BOUNDING BOXES
+           ==================================================================== -->
+      <div style="flex: 1; min-width: 0; max-width: 900px; width: 100%;">
+
+        <!-- Skeleton Loading Animation (shown while a leerset is opening) -->
+        <div id="contentSkeleton" style="display: none;">
+          <div class="skel-card">
+            <div class="skel-line" style="width: 40%; height: 26px;"></div>
+            <div class="skel-line" style="width: 90%;"></div>
+            <div class="skel-line" style="width: 75%;"></div>
+            <div class="skel-line" style="width: 85%;"></div>
+          </div>
+          <div class="skel-card">
+            <div class="skel-line" style="width: 30%; height: 24px;"></div>
+            <div class="skel-line" style="width: 95%;"></div>
+            <div class="skel-line" style="width: 88%;"></div>
+          </div>
+          <div class="skel-side">
+            <div class="skel-line" style="width: 60%; height: 18px;"></div>
+            <div class="skel-line" style="width: 85%;"></div>
+            <div class="skel-line" style="width: 70%;"></div>
+            <div class="skel-line" style="width: 90%;"></div>
+          </div>
+        </div>
+
+        <!-- Summary Mode Container (when Summary tab is clicked) -->
+        <div id="summaryModeView" style="display: none;" class="summary-view">
+          <div class="goal-callout">
+            <strong>Overview</strong> &rarr; <span data-i18n="summary">Chapter Summary</span>
+          </div>
+          <div id="summaryContent" style="font-size: 16px; line-height: 1.8;"></div>
+        </div>
+
+        <!-- Quiz Mode Container (when Quiz tab is clicked) -->
+        <div id="quizModeView" style="display: none;">
+          <div id="quizContent"></div>
+        </div>
+
+        <!-- Learn / Study Mode Container (when Learn tab is clicked) -->
+        <div id="learnModeView" style="display: none;">
+          <div id="learnContent"></div>
+        </div>
+
+        <!-- Textbook / Explanation Content Area -->
+        <div id="textbookSectionsContainer">
+          <!-- Dynamically populated sections -->
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       FLOATING SCROLL TO TOP BUTTON
+       ========================================================================== -->
+  <button id="scrollTopBtn" class="scroll-top-fab" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Scroll to top">
+    <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- ==========================================================================
+       JAVASCRIPT APP LOGIC & LEERSET DATA
+       ========================================================================== -->
+  <script>
+    /* --------------------------------------------------------------------------
+       1. I18N DICTIONARY (Full English & Dutch Support)
+       -------------------------------------------------------------------------- */
+    let currentLang = 'en'; // Default to English mode
+
+    const I18N = {
+      en: {
+        sections: "Sections",
+        explanation: "Explanation",
+        learn: "Learn",
+        summary: "Summary",
+        quiz: "Quiz",
+        watch_youtube: "Watch on YouTube",
+        read_substack: "Read on Substack",
+        transcript: "Transcript (.md)",
+        anki: "Export Anki (.txt)",
+        upload_file: "Upload JSON File",
+        load_json: "Paste JSON",
+        expand_all: "Expand all",
+        collapse_all: "Collapse all",
+        search_placeholder: "Search study sets...",
+        open_set: "Open Leerset →",
+        terms_count: "terms",
+        sections_count: "sections"
+      },
+      nl: {
+        sections: "Secties",
+        explanation: "Uitleg",
+        learn: "Leren",
+        summary: "Samenvatting",
+        quiz: "Quiz",
+        watch_youtube: "Bekijk op YouTube",
+        read_substack: "Lees op Substack",
+        transcript: "Transcript (.md)",
+        anki: "Exporteer Anki (.txt)",
+        upload_file: "Upload JSON Bestand",
+        load_json: "Plak JSON",
+        expand_all: "Alles uitklappen",
+        collapse_all: "Alles inklappen",
+        search_placeholder: "Zoek leersets...",
+        open_set: "Open Leerset →",
+        terms_count: "begrippen",
+        sections_count: "secties"
+      }
+    };
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.getElementById('currentLangLabel').textContent = (lang === 'en' ? 'EN' : 'NL');
+
+      // Update all data-i18n elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (I18N[currentLang][key]) {
+          el.textContent = I18N[currentLang][key];
+        }
+      });
+
+      document.getElementById('setSearchInput').placeholder = I18N[currentLang].search_placeholder;
+
+      // Re-render the open leerset so language-sensitive labels refresh immediately
+      if (currentLeerset) {
+        document.getElementById('viewerTitle').textContent = (currentLeerset.siteMetadata.titleI18n && lang && currentLeerset.siteMetadata.titleI18n[lang]) ? currentLeerset.siteMetadata.titleI18n[lang] : currentLeerset.siteMetadata.title;
+        document.getElementById('viewerDesc').textContent = (currentLeerset.siteMetadata.descriptionI18n && lang && currentLeerset.siteMetadata.descriptionI18n[lang]) ? currentLeerset.siteMetadata.descriptionI18n[lang] : currentLeerset.siteMetadata.description;
+        renderViewerButtons(currentLeerset);
+        renderSidebarNav(currentLeerset.sections, currentLeerset.siteMetadata.title);
+        renderTextbookSections(currentLeerset.sections);
+        renderSummaryInto(document.getElementById('summaryContent'), currentLeerset);
+        renderQuiz(currentLeerset);
+        renderLearn(currentLeerset);
+        if (window.renderMathInElement) {
+          renderMathInElement(document.getElementById('viewLeerset'), {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false }
+            ],
+            throwOnError: false
+          });
+        }
+      }
+      // Re-render Tools page text (bilingual documentation) if it is open
+      if (document.getElementById('viewTools').style.display !== 'none') {
+        renderToolsPage();
+      }
+    }
+
+    function toggleLanguage() {
+      setLanguage(currentLang === 'en' ? 'nl' : 'en');
+    }
+
+    /* --------------------------------------------------------------------------
+       2. THEME ENGINE (Dark / Light Mode Toggle)
+       -------------------------------------------------------------------------- */
+    function applyThemeMode(isDark) {
+      const html = document.documentElement;
+      const sun = document.getElementById('sunIcon');
+      const moon = document.getElementById('moonIcon');
+      if (isDark) {
+        html.classList.add('dark');
+        html.classList.remove('light');
+        sun.style.display = 'inline-block';
+        moon.style.display = 'none';
+      } else {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        sun.style.display = 'none';
+        moon.style.display = 'inline-block';
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      applyThemeMode(!isDark);
+      refreshSandboxes();
+    }
+
+    /* --------------------------------------------------------------------------
+       3. PRE-LOADED REAL JSON LEERSET DATASETS
+       -------------------------------------------------------------------------- */
+    const PRELOADED_SETS = [
+      {
+        id: "physics-electricity",
+        subject: "Physics",
+        siteMetadata: {
+          title: "Physics - Chapter 4: Electricity",
+          description: "Physics Chapter 4 on electricity, featuring power, Ohm's law, circuit analysis, domestic safety, and LaTeX formulas."
+        },
+        defaultViewMode: "simple",
+        availableModes: ["simple", "study", "summary", "quiz"],
+        showExportButtons: false,
+        showTranscriptExport: true,
+        showAnkiExport: true,
+        buttons: [
+          { "url": "https://youtube.com", "text": "Watch on YouTube", "icon": "youtube", "iconType": "name", "variant": "primary", "enabled": true },
+          { "url": "https://substack.com", "text": "Read on Substack", "icon": "substack", "iconType": "name", "variant": "secondary", "enabled": true },
+          { "url": "", "text": "Hidden Button (disabled in JSON)", "icon": "external-link", "iconType": "name", "variant": "secondary", "enabled": false }
+        ],
+        summary: "### Key Concepts of Chapter 4\n- **Electric Power**: $P = U \\times I$\n- **Ohm's Law**: $U = I \\times R$\n- **Series Circuits**: $R_v = R_1 + R_2$\n- **Parallel Circuits**: $\\frac{1}{R_v} = \\frac{1}{R_1} + \\frac{1}{R_2}$\n- **Energy Consumption**: $E = P \\times t$ (measured in kilowatt-hours, $\\text{kWh}$).",
+        sections: [
+          {
+            id: "sec-4-1",
+            title: "§4.1 Voltage, Current and Electrical Power",
+            goal: "Learn how to calculate electric power, current, and battery capacities.",
+            content: "### Voltage and Current\nElectrical appliances require energy to operate, supplied by a voltage source (mains, batteries, or photovoltaic cells). In a closed electric circuit, electrons flow through conductive metal pathways.\n\nVoltage ($U$ in Volts, $\\text{V}$) indicates the potential energy carried per coulomb of charge. Electric current ($I$ in Amperes, $\\text{A}$) measures the rate of charge flow per second.\n\n### Electric Power\nThe rate at which an appliance converts electrical energy into heat, light, or mechanical kinetic work is its electrical power ($P$ in Watts, $\\text{W}$):\n\n$$\nP = U \\times I\n$$\n\n### Battery Capacity\nA rechargeable battery stores chemical energy. Its total available charge capacity ($C$) is given in Ampere-hours ($\\text{Ah}$) or milliampere-hours ($\\text{mAh}$):\n\n$$\nC = I \\times t\n$$",
+            questions: [
+              { number: "01", text: "Which physical quantity describes the electrical energy converted per second? Name its symbol and standard SI unit.", answer: "Electric power. Symbol: $P$, standard SI unit: Watt ($\\text{W}$) or Joule per second ($\\text{J/s}$)." },
+              { number: "2a", text: "An electric kettle operates at $2200\\text{ W}$ on $230\\text{ V}$ mains voltage. Calculate the current flow through the heating element.", answer: "$I = \\frac{P}{U} = \\frac{2200}{230} \\approx 9.57\\text{ A}$." },
+              { number: "2b", text: "A smartphone battery has a capacity of $4000\\text{ mAh}$. The phone consumes an average of $250\\text{ mA}$. How many hours will it run on a full charge?", answer: "$t = \\frac{C}{I} = \\frac{4000\\text{ mAh}}{250\\text{ mA}} = 16\\text{ hours}$." }
+            ]
+          },
+          {
+            id: "sec-4-2",
+            title: "§4.2 Resistance and Ohm's Law",
+            goal: "Understand electrical resistance, wire properties, and Ohm's law.",
+            content: "### Electrical Resistance\nAs free electrons travel through a conductor, they constantly collide with ions in the metallic crystal lattice. This opposition to current flow is called **resistance** ($R$), measured in Ohms ($\\Omega$).\n\n### Ohm's Law\nFor ohmic conductors at constant temperature, current is directly proportional to voltage:\n\n$$\nU = I \\times R \\quad \\Longleftrightarrow \\quad R = \\frac{U}{I}\n$$\n\n### Wire Resistance Formula\nThe resistance of a cylindrical wire depends on length ($l$), cross-sectional area ($A$), and material resistivity ($\\rho$):\n\n$$\nR = \\frac{\\rho \\times l}{A}\n$$",
+            questions: [
+              { number: "03", text: "A component with resistance $150\\ \\Omega$ has a potential difference of $12\\text{ V}$. Find the current in milliamperes.", answer: "$I = \\frac{U}{R} = \\frac{12}{150} = 0.08\\text{ A} = 80\\text{ mA}$." },
+              { number: "04", text: "A tungsten filament draws $0.25\\text{ A}$ when connected to $230\\text{ V}$. Calculate its operating resistance.", answer: "$R = \\frac{U}{I} = \\frac{230}{0.25} = 920\\ \\Omega$." }
+            ]
+          },
+          {
+            id: "sec-4-3",
+            title: "§4.3 Series and Parallel Circuit Networks",
+            goal: "Compute equivalent resistance, currents, and potential drops across complex circuits.",
+            content: "### Series Circuits\nComponents are connected end-to-end in a single pathway. Current is identical everywhere, while total voltage divides across each load:\n\n$$\nR_v = R_1 + R_2 + \\dots + R_n\n$$\n\n### Parallel Circuits\nComponents share the same two common nodes across the voltage supply. Total current equals the sum of branch currents:\n\n$$\n\\frac{1}{R_v} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\dots + \\frac{1}{R_n}\n$$",
+            questions: [
+              { number: "05", text: "Two resistors $R_1 = 40\\ \\Omega$ and $R_2 = 60\\ \\Omega$ are connected in series to $20\\text{ V}$. Find $R_v$ and current $I$.", answer: "1) $R_v = 40 + 60 = 100\\ \\Omega$. 2) $I = \\frac{20}{100} = 0.20\\text{ A}$." },
+              { number: "06", text: "The same resistors ($40\\ \\Omega$ and $60\\ \\Omega$) are now connected in parallel. Calculate the equivalent resistance.", answer: "$\\frac{1}{R_v} = \\frac{1}{40} + \\frac{1}{60} = \\frac{5}{120} \\implies R_v = \\frac{120}{5} = 24\\ \\Omega$." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "biology-cells-genetics",
+        subject: "Biology",
+        siteMetadata: {
+          title: "Biology - Chapters 4 & 5: Cell Biology, Reproduction & Genetics",
+          description: "Cellular organelles, mitosis, meiosis, chromosome theory, genotypes, phenotypes, and DNA replication."
+        },
+        summary: "### Biology Summary\n- **Organelles**: Mitochondria (ATP production), Ribosomes (Protein synthesis), Golgi (Modifying & sorting).\n- **Genetics**: Genotype (DNA code), Phenotype (Observed traits = Genotype + Environment).",
+        sections: [
+          {
+            id: "sec-bio-1",
+            title: "§1.1 Cellular Architecture and Organelles",
+            goal: "Master the structure and metabolic functions of core cellular organelles.",
+            content: "### The Living Cell\nAll living organisms are composed of microscopic structural units called cells. Eukaryotic cells possess specialized membrane-bound internal structures called organelles.\n\n- **Mitochondria**: The metabolic powerhouse synthesizing ATP via aerobic respiration.\n- **Endoplasmic Reticulum (ER)**: Rough ER synthesizes proteins; Smooth ER synthesizes lipids.\n- **Golgi Apparatus**: Modifies, packages, and tags macromolecular cargo for cellular export.",
+            questions: [
+              { number: "01", text: "Which organelle is responsible for synthesizing ATP through cellular respiration?", answer: "The mitochondrion (plural: mitochondria)." },
+              { number: "02", text: "Differentiate between the rough and smooth endoplasmic reticulum.", answer: "Rough ER is studded with ribosomes and synthesizes proteins; smooth ER lacks ribosomes and synthesizes lipids and phospholipids." }
+            ]
+          },
+          {
+            id: "sec-bio-2",
+            title: "§1.2 Chromosomes, Genotype and Phenotype",
+            goal: "Understand chromosomal pairs, allelic variation, and gene expression.",
+            content: "### Genetic Code\nEvery diploid human somatic cell contains 46 chromosomes (23 homologous pairs) in its nucleus. DNA carries the hereditary genetic blueprint encoded in nucleotide bases (Adenine, Thymine, Cytosine, Guanine).\n\n- **Genotype**: The complete collection of genes inherited at fertilization.\n- **Phenotype**: The observable physical and biochemical traits resulting from genotype interaction with the environment.",
+            questions: [
+              { number: "03", text: "Can environmental factors alter an individual's genotype?", answer: "No, environmental factors can alter phenotypic expression (e.g. skin tanning), but not the inherited genomic code." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "geography-earth-climate",
+        subject: "Geography",
+        siteMetadata: {
+          title: "Geography - Chapter 5: Earth, Climate & Dynamic Landscapes",
+          description: "Tectonic plates, volcanism, atmospheric circulation, Coriolis effect, and global climate zones."
+        },
+        summary: "### Geography Summary\n- **Tectonics**: Convergent, divergent, and transform boundaries.\n- **Atmosphere**: Hadley cells, Ferrel cells, and atmospheric pressure gradients.",
+        sections: [
+          {
+            id: "sec-geo-1",
+            title: "§5.1 Plate Tectonics and Volcanic Activity",
+            goal: "Explore Earth's lithospheric plates, subduction zones, and seismic hazards.",
+            content: "### Plate Boundaries\nEarth's crust is divided into several rigid lithospheric plates floating on the asthenosphere.\n\n- **Divergent Boundaries**: Plates move apart, forming mid-ocean ridges.\n- **Convergent Boundaries**: Plates collide, forming mountain ranges or deep oceanic trenches through subduction.",
+            questions: [
+              { number: "01", text: "What geological feature forms when two oceanic plates diverge?", answer: "A mid-ocean ridge with underwater volcanic rift systems." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "history-modern-revolutions",
+        subject: "History",
+        siteMetadata: {
+          title: "History - Chapter 4: Modern Era & Democratic Revolutions",
+          description: "Enlightenment philosophies, the French Revolution, constitutionalism, and industrial transformation."
+        },
+        summary: "### History Summary\n- **Enlightenment**: Montesquieu (Separation of powers / Trias Politica), Rousseau (Social contract).\n- **French Revolution**: 1789 Declaration of the Rights of Man and of the Citizen.",
+        sections: [
+          {
+            id: "sec-hist-1",
+            title: "§4.1 The Enlightenment and the Trias Politica",
+            goal: "Analyze key Enlightenment political philosophies and constitutional foundations.",
+            content: "### Age of Reason\nDuring the 18th century, Enlightenment philosophers challenged absolute monarchies by advocating rationalism, scientific inquiry, and fundamental human rights.\n\nMontesquieu formulated the **Trias Politica**, dividing governmental power into three independent branches: Legislative, Executive, and Judicial.",
+            questions: [
+              { number: "01", text: "What is the primary goal of the Trias Politica doctrine?", answer: "To prevent tyranny and abuse of authority by distributing power among three separate and co-equal branches of government." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "math-algebra",
+        subject: "Mathematics",
+        siteMetadata: {
+          title: "Mathematics - Equations, Inequalities & Functions",
+          description: "Quadratic equations, discriminant analysis, systems of linear equations, and functional transformations."
+        },
+        summary: "### Mathematics Summary\n- **Quadratic Formula**: $x = \\frac{-b \\pm \\sqrt{D}}{2a}$\n- **Discriminant**: $D = b^2 - 4ac$",
+        sections: [
+          {
+            id: "sec-math-1",
+            title: "§2.1 Quadratic Equations and Discriminant Analysis",
+            goal: "Solve quadratic equations using the standard quadratic formula.",
+            content: "### General Form\nA quadratic equation in standard form is written as:\n\n$$\nax^2 + bx + c = 0 \\quad (a \\neq 0)\n$$\n\n### The Discriminant\nThe discriminant determines the nature and number of real roots:\n\n$$\nD = b^2 - 4ac\n$$\n\n- If $D > 0$: Two distinct real solutions: $x = \\frac{-b \\pm \\sqrt{D}}{2a}$\n- If $D = 0$: Exactly one real solution: $x = \\frac{-b}{2a}$\n- If $D < 0$: No real solutions.",
+            questions: [
+              { number: "01", text: "Find the discriminant of $2x^2 - 4x - 6 = 0$ and calculate its roots.", answer: "$D = (-4)^2 - 4(2)(-6) = 16 + 48 = 64$. Roots: $x = \\frac{4 \\pm 8}{4} \\implies x_1 = 3, x_2 = -1$." }
+            ]
+          }
+        ]
+      },
+{
+        id: "biology-cells-html-demo",
+        subject: "Biology Demo",
+siteMetadata: {
+          title: "Cell Biology — Interactive HTML & SVG Diagrams",
+          titleI18n: { en: "Cell Biology — Interactive HTML & SVG Diagrams", nl: "Celdifferentiatie — interactieve HTML- en SVG-diagrammen" },
+          description: "A demo leerset that renders raw HTML and schematic SVG diagrams straight from the JSON: a plant cell, an animal cell, a mitochondrium, chloroplasts and plastids. Theme-aware with single-language i18n labels.",
+          descriptionI18n: { en: "A demo leerset that renders raw HTML and schematic SVG diagrams straight from the JSON: a plant cell, an animal cell, a mitochondrium, chloroplasts and plastids. Theme-aware with single-language i18n labels.", nl: "Een demo-leerset die raw HTML en schematische SVG-diagrammen rechtstreeks uit de JSON rendert: een plantencel, een diercel, een mitochondrium, bladgroenkorrels en plastiden. Themagevoelig met labels in één taal via i18n." }
+        },
+        defaultViewMode: "simple",
+        availableModes: ["simple", "study", "summary", "quiz"],
+        buttons: [],
+        showExportButtons: false,
+        showTranscriptExport: false,
+        showAnkiExport: false,
+        summary: "### Overview\nThis leerset demonstrates that a JSON section marked with `contentType: \"html\"` is rendered as real HTML instead of markdown. Every diagram below is drawn as embedded SVG that automatically adapts to light/dark mode and labels every part in the selected language.",
+        summaryI18n: {
+          en: "### Overview\nThis leerset demonstrates that a JSON section marked with `contentType: \"html\"` is rendered as real HTML instead of markdown. Every diagram below is drawn as embedded SVG that automatically adapts to light/dark mode and labels every part in the selected language.",
+          nl: "### Overzicht\nDeze leerset laat zien dat een JSON-sectie met `contentType: \"html\"` als echte HTML wordt weergegeven in plaats van markdown. Elk diagram hieronder is een embedded SVG die automatisch meeschakelt tussen licht en donker en elk onderdeel in de gekozen taal benoemt."
+        },
+        quiz: {
+          questions: [
+            {
+              question: "Which three structures are present in a plant cell but absent in an animal cell?",
+              options: [],
+              answer: "The cell wall, the large central vacuole and chloroplasts.",
+              questionI18n: { en: "Which three structures are present in a plant cell but absent in an animal cell?", nl: "Welke drie structuren komen voor in een plantencel maar niet in een diercel?" },
+              answerI18n: { en: "The cell wall, the large central vacuole and chloroplasts.", nl: "De celwand, de grote centrale vacuole en bladgroenkorrels." }
+            },
+            {
+              question: "What is the difference between a cell wall and a cell membrane?",
+              options: [],
+              answer: "A cell wall is a rigid outer layer in plants; the cell membrane is a flexible lipid bilayer present in all cells.",
+              questionI18n: { en: "What is the difference between a cell wall and a cell membrane?", nl: "Wat is het verschil tussen een celwand en een celmembraan?" },
+              answerI18n: { en: "A cell wall is a rigid outer layer in plants; the cell membrane is a flexible lipid bilayer present in all cells.", nl: "Een celwand is een stevige buitenlaag bij planten; het celmembraan is een flexibele dubbele lipidenlaag die elke cel heeft." }
+            }
+          ]
+        },
+        sections: [
+          {
+            id: "demo-intro",
+            title: "What you are seeing",
+            titleI18n: {
+              en: "What you are seeing",
+              nl: "Wat je hier ziet"
+            },
+            goal: "Understand that the visuals on this page are HTML + SVG embedded directly in the leerset JSON.",
+            goalI18n: {
+              en: "Understand that the visuals on this page are HTML + SVG embedded directly in the leerset JSON.",
+              nl: "Begrijpen dat de visualisaties op deze pagina HTML + SVG zijn die direct in de leerset-JSON staan."
+            },
+            contentType: "html",
+            i18n: {
+              en: {
+                p_heading: "HTML content inside a leerset",
+                p_sub: "HTML content inside a leerset",
+                note: "Every block on this page is written as raw HTML inside the section's content field and flagged with contentType: html. The diagrams are inline SVG that uses the app's CSS variables, so they pick up the correct background color and flip automatically between light and dark mode."
+              },
+              nl: {
+                p_heading: "HTML-inhoud binnen een leerset",
+                p_sub: "HTML-inhoud binnen een leerset",
+                note: "Elk blok op deze pagina is raw HTML in het content-veld van de sectie met contentType: html. De diagrammen zijn inline SVG die de CSS-variabelen van de app gebruiken, zodat ze automatisch meeschakelen tussen licht en donker."
+              }
+            },
+            content: `
+              <div class="bio-panel">
+                <h4 data-i18n-key="p_heading">HTML content inside a leerset</h4>
+                <div class="bio-sub" data-i18n-key="p_sub">HTML content inside a leerset</div>
+                <p class="bio-note" data-i18n-key="note">Every block on this page is written as raw HTML inside the section's content field and flagged with contentType: html. The diagrams are inline SVG that uses the app's CSS variables, so they pick up the correct background color and flip automatically between light and dark mode.</p>
+              </div>
+            `
+          },
+          {
+            id: "demo-plant-cell",
+            title: "Plant Cell",
+            titleI18n: {
+              en: "Plant Cell",
+              nl: "Plantencel"
+            },
+            goal: "Recognise the organelles of a plant cell and their names.",
+            goalI18n: {
+              en: "Recognise the organelles of a plant cell and their names.",
+              nl: "Herken de organellen van een plantencel en hun namen."
+            },
+            contentType: "html",
+            i18n: {
+              en: {
+                p_heading: "Plant cell — schematic overview",
+                p_sub: "Plant cell — schematic overview",
+                fig_cap: "Plant cell",
+                lbl_cellwall: "Cell wall",
+                lbl_membrane: "Cell membrane",
+                lbl_cyto: "Cytoplasm",
+                lbl_vacuole: "Central vacuole",
+                lbl_nucleus: "Nucleus",
+                lbl_nucleolus: "Nucleolus",
+                lbl_chloroplast: "Chloroplast",
+                lbl_mito: "Mitochondrium",
+                lbl_golgi: "Golgi",
+                lbl_rougher: "Rough ER",
+                lbl_ribo: "Ribosomes",
+                note: "Plant cells have a stiff cell wall, a large central vacuole and chloroplasts — none of which are found in animal cells."
+              },
+              nl: {
+                p_heading: "Plantencel — schematisch overzicht",
+                p_sub: "Plantencel — schematisch overzicht",
+                fig_cap: "Plantencel",
+                lbl_cellwall: "Celwand",
+                lbl_membrane: "Celmembraan",
+                lbl_cyto: "Cytoplasma",
+                lbl_vacuole: "Centrale vacuole",
+                lbl_nucleus: "Celkern",
+                lbl_nucleolus: "Kernlichaampje",
+                lbl_chloroplast: "Bladgroenkorrel",
+                lbl_mito: "Mitochondrium",
+                lbl_golgi: "Golgicomplex",
+                lbl_rougher: "Ruw ER",
+                lbl_ribo: "Ribosomen",
+                note: "Plantencellen hebben een stevige celwand, een grote centrale vacuole en bladgroenkorrels — die ontbreken alle drie in dierlijke cellen."
+              }
+            },
+            content: `
+              <div class="bio-panel">
+                <h4 data-i18n-key="p_heading">Plant cell — schematic overview</h4>
+                <div class="bio-sub" data-i18n-key="p_sub">Plant cell — schematic overview</div>
+                <figure class="bio-fig">
+                  <svg class="bio-diagram" viewBox="0 0 560 430" role="img" aria-label="Plant cell diagram" font-family="var(--font-sans)">
+                    <rect x="22" y="22" width="516" height="386" rx="20" fill="var(--foreground)" fill-opacity="0.045"/>
+                    <rect x="10" y="10" width="540" height="410" rx="28" fill="none" stroke="#8d6e63" stroke-opacity="0.55" stroke-width="7"/>
+                    <rect x="25" y="25" width="510" height="380" rx="18" fill="none" stroke="var(--foreground)" stroke-opacity="0.45" stroke-width="1.5" stroke-dasharray="5 4"/>
+                    <ellipse cx="300" cy="248" rx="150" ry="100" fill="rgba(66,165,245,0.18)" stroke="rgba(66,165,245,0.85)" stroke-width="2"/>
+                    <text x="300" y="248" text-anchor="middle" font-size="12" fill="var(--muted-foreground)" data-i18n-key="lbl_vacuole">Central vacuole</text>
+                    <circle cx="152" cy="132" r="50" fill="rgba(171,71,188,0.22)" stroke="#ab47bc" stroke-width="2.5"/>
+                    <circle cx="152" cy="132" r="16" fill="rgba(123,31,162,0.85)"/>
+                    <text x="152" y="198" text-anchor="middle" font-size="12" fill="var(--foreground)" data-i18n-key="lbl_nucleus">Nucleus</text>
+                    <ellipse cx="112" cy="326" rx="44" ry="19" fill="rgba(102,187,106,0.34)" stroke="#43a047" stroke-width="2"/>
+                    <path d="M82 318 h60 M82 326 h60 M82 334 h60" stroke="rgba(27,94,32,0.6)" stroke-width="1.6" fill="none"/>
+                    <ellipse cx="332" cy="352" rx="40" ry="17" fill="rgba(102,187,106,0.34)" stroke="#43a047" stroke-width="2"/>
+                    <ellipse cx="455" cy="300" rx="42" ry="18" fill="rgba(102,187,106,0.34)" stroke="#43a047" stroke-width="2"/>
+                    <text x="112" y="367" text-anchor="middle" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_chloroplast">Chloroplast</text>
+                    <ellipse cx="428" cy="122" rx="34" ry="16" fill="rgba(239,83,80,0.3)" stroke="#e53935" stroke-width="2"/>
+                    <path d="M402 116 h52 M402 122 h46 M402 128 h52" stroke="rgba(183,28,28,0.7)" stroke-width="1.3" fill="none"/>
+                    <ellipse cx="466" cy="205" rx="30" ry="14" fill="rgba(239,83,80,0.3)" stroke="#e53935" stroke-width="2"/>
+                    <text x="428" y="152" text-anchor="middle" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_mito">Mitochondrium</text>
+                    <g stroke="#fb8c00" stroke-width="3.5" fill="rgba(255,167,38,0.45)" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M66 232 h46 M72 244 h40 M66 256 h46 M70 220 h38"/>
+                    </g>
+                    <text x="240" y="269" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_golgi">Golgi</text>
+                    <path d="M122 76 C 150 58, 176 62, 186 76 M120 88 C 152 70, 178 74, 188 88 M124 100 C 152 84, 176 88, 186 100" fill="none" stroke="#8e24aa" stroke-opacity="0.6" stroke-width="2" stroke-linecap="round"/>
+                    <text x="112" y="62" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_rougher">Rough ER</text>
+                    <circle cx="210" cy="96" r="3" fill="var(--foreground)" fill-opacity="0.8"/>
+                    <circle cx="222" cy="102" r="3" fill="var(--foreground)" fill-opacity="0.8"/>
+                    <circle cx="214" cy="112" r="3" fill="var(--foreground)" fill-opacity="0.8"/>
+                    <circle cx="228" cy="112" r="3" fill="var(--foreground)" fill-opacity="0.8"/>
+                    <text x="206" y="96" font-size="10" fill="var(--muted-foreground)" data-i18n-key="lbl_ribo">Ribosomes</text>
+                  </svg>
+                  <figcaption data-i18n-key="fig_cap">Plant cell</figcaption>
+                </figure>
+                <div class="bio-legend">
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:#8d6e63;"></span><span class="bio-legend-key" data-i18n-key="lbl_cellwall">Cell wall</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:var(--foreground); opacity:0.45;"></span><span class="bio-legend-key" data-i18n-key="lbl_membrane">Cell membrane</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:var(--foreground); opacity:0.05;"></span><span class="bio-legend-key" data-i18n-key="lbl_cyto">Cytoplasm</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(66,165,245,0.35);"></span><span class="bio-legend-key" data-i18n-key="lbl_vacuole">Central vacuole</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(171,71,188,0.4);"></span><span class="bio-legend-key" data-i18n-key="lbl_nucleus">Nucleus</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:#ab47bc;"></span><span class="bio-legend-key" data-i18n-key="lbl_nucleolus">Nucleolus</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(102,187,106,0.5);"></span><span class="bio-legend-key" data-i18n-key="lbl_chloroplast">Chloroplast</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(239,83,80,0.5);"></span><span class="bio-legend-key" data-i18n-key="lbl_mito">Mitochondrium</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(255,167,38,0.6);"></span><span class="bio-legend-key" data-i18n-key="lbl_golgi">Golgi</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:#8e24aa; opacity:0.6;"></span><span class="bio-legend-key" data-i18n-key="lbl_rougher">Rough ER</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:var(--foreground);"></span><span class="bio-legend-key" data-i18n-key="lbl_ribo">Ribosomes</span></div>
+                </div>
+                <p class="bio-note" data-i18n-key="note">Plant cells have a stiff cell wall, a large central vacuole and chloroplasts — none of which are found in animal cells.</p>
+              </div>
+            `
+          },
+          {
+            id: "demo-animal-cell",
+            title: "Animal Cell",
+            titleI18n: {
+              en: "Animal Cell",
+              nl: "Diercel"
+            },
+            goal: "Spot the differences between an animal cell and a plant cell.",
+            goalI18n: {
+              en: "Spot the differences between an animal cell and a plant cell.",
+              nl: "Ontdek de verschillen tussen een dierlijke en een plantaardige cel."
+            },
+            contentType: "html",
+            i18n: {
+              en: {
+                p_heading: "Animal cell — schematic overview",
+                p_sub: "Animal cell — schematic overview",
+                fig_cap: "Animal cell",
+                lbl_membrane: "Cell membrane",
+                lbl_cyto: "Cytoplasm",
+                lbl_nucleus: "Nucleus",
+                lbl_nucleolus: "Nucleolus",
+                lbl_mito: "Mitochondrium",
+                lbl_lyso: "Lysosome",
+                lbl_golgi: "Golgi",
+                lbl_smooth_er: "Smooth ER",
+                lbl_ribo: "Ribosomes"
+              },
+              nl: {
+                p_heading: "Diercel — schematisch overzicht",
+                p_sub: "Diercel — schematisch overzicht",
+                fig_cap: "Diercel",
+                lbl_membrane: "Celmembraan",
+                lbl_cyto: "Cytoplasma",
+                lbl_nucleus: "Celkern",
+                lbl_nucleolus: "Kernlichaampje",
+                lbl_mito: "Mitochondrium",
+                lbl_lyso: "Lysosoom",
+                lbl_golgi: "Golgicomplex",
+                lbl_smooth_er: "Glad ER",
+                lbl_ribo: "Ribosomen"
+              }
+            },
+            content: `
+              <div class="bio-panel">
+                <h4 data-i18n-key="p_heading">Animal cell — schematic overview</h4>
+                <div class="bio-sub" data-i18n-key="p_sub">Animal cell — schematic overview</div>
+                <figure class="bio-fig">
+                  <svg class="bio-diagram" viewBox="0 0 560 430" role="img" aria-label="Animal cell diagram" font-family="var(--font-sans)">
+                    <ellipse cx="280" cy="215" rx="252" ry="185" fill="var(--foreground)" fill-opacity="0.045"/>
+                    <ellipse cx="280" cy="215" rx="252" ry="185" fill="none" stroke="var(--foreground)" stroke-opacity="0.5" stroke-width="2"/>
+                    <text x="280" y="60" text-anchor="middle" font-size="12" fill="var(--muted-foreground)" data-i18n-key="lbl_membrane">Cell membrane</text>
+                    <circle cx="280" cy="212" r="60" fill="rgba(171,71,188,0.22)" stroke="#ab47bc" stroke-width="2.5"/>
+                    <circle cx="280" cy="212" r="18" fill="rgba(123,31,162,0.85)"/>
+                    <text x="280" y="292" text-anchor="middle" font-size="12" fill="var(--foreground)" data-i18n-key="lbl_nucleus">Nucleus</text>
+                    <ellipse cx="140" cy="100" rx="34" ry="16" fill="rgba(239,83,80,0.3)" stroke="#e53935" stroke-width="2"/>
+                    <ellipse cx="418" cy="122" rx="34" ry="16" fill="rgba(239,83,80,0.3)" stroke="#e53935" stroke-width="2"/>
+                    <ellipse cx="150" cy="335" rx="32" ry="15" fill="rgba(239,83,80,0.3)" stroke="#e53935" stroke-width="2"/>
+                    <text x="140" y="132" text-anchor="middle" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_mito">Mitochondrium</text>
+                    <circle cx="470" cy="200" r="11" fill="rgba(255,112,67,0.45)" stroke="#ff5722" stroke-width="2"/>
+                    <circle cx="168" cy="176" r="9" fill="rgba(255,112,67,0.45)" stroke="#ff5722" stroke-width="2"/>
+                    <circle cx="392" cy="300" r="10" fill="rgba(255,112,67,0.45)" stroke="#ff5722" stroke-width="2"/>
+                    <text x="470" y="233" text-anchor="middle" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_lyso">Lysosome</text>
+                    <g stroke="#fb8c00" stroke-width="3.5" fill="rgba(255,167,38,0.45)" stroke-linecap="round">
+                      <path d="M368 158 h42 M374 170 h36 M368 182 h42 M372 146 h34"/>
+                    </g>
+                    <text x="368" y="211" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_golgi">Golgi</text>
+                    <path d="M196 152 C 170 140, 148 146, 140 160 M200 164 C 176 152, 154 158, 146 172" fill="none" stroke="#8e24aa" stroke-opacity="0.6" stroke-width="2" stroke-linecap="round"/>
+                    <text x="196" y="153" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_smooth_er">Smooth ER</text>
+                    <circle cx="104" cy="240" r="3" fill="var(--foreground)" fill-opacity="0.8"/>
+                    <circle cx="116" cy="246" r="3" fill="var(--foreground)" fill-opacity="0.8"/>
+                    <circle cx="108" cy="256" r="3" fill="var(--foreground)" fill-opacity="0.8"/>
+                    <text x="100" y="227" font-size="10" fill="var(--muted-foreground)" data-i18n-key="lbl_ribo">Ribosomes</text>
+                    <text x="280" y="380" text-anchor="middle" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_cyto">Cytoplasm</text>
+                  </svg>
+                  <figcaption data-i18n-key="fig_cap">Animal cell</figcaption>
+                </figure>
+                <div class="bio-legend">
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:var(--foreground); opacity:0.5;"></span><span class="bio-legend-key" data-i18n-key="lbl_membrane">Cell membrane</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:var(--foreground); opacity:0.05;"></span><span class="bio-legend-key" data-i18n-key="lbl_cyto">Cytoplasm</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(171,71,188,0.4);"></span><span class="bio-legend-key" data-i18n-key="lbl_nucleus">Nucleus</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:#ab47bc;"></span><span class="bio-legend-key" data-i18n-key="lbl_nucleolus">Nucleolus</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(239,83,80,0.5);"></span><span class="bio-legend-key" data-i18n-key="lbl_mito">Mitochondrium</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(255,112,67,0.6);"></span><span class="bio-legend-key" data-i18n-key="lbl_lyso">Lysosome</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(255,167,38,0.6);"></span><span class="bio-legend-key" data-i18n-key="lbl_golgi">Golgi</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:#8e24aa; opacity:0.6;"></span><span class="bio-legend-key" data-i18n-key="lbl_smooth_er">Smooth ER</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:var(--foreground);"></span><span class="bio-legend-key" data-i18n-key="lbl_ribo">Ribosomes</span></div>
+                </div>
+              </div>
+            `
+          },
+          {
+            id: "demo-mitochondrium",
+            title: "Mitochondrium",
+            titleI18n: {
+              en: "Mitochondrium",
+              nl: "Mitochondrium"
+            },
+            goal: "Learn the structure of a mitochondrium and where its membranes are.",
+            goalI18n: {
+              en: "Learn the structure of a mitochondrium and where its membranes are.",
+              nl: "Leer de structuur van een mitochondrium en waar de membranen zich bevinden."
+            },
+            contentType: "html",
+            i18n: {
+              en: {
+                p_heading: "Mitochondrium — the powerhouse of the cell",
+                p_sub: "Mitochondrium — the powerhouse of the cell",
+                fig_cap: "Mitochondrium",
+                lbl_outer_mem: "Outer membrane",
+                lbl_inner_mem: "Inner membrane",
+                lbl_cristae: "Cristae",
+                lbl_matrix: "Matrix",
+                lbl_intermembrane: "Intermembrane space",
+                note: "The folded inner membrane (cristae) increases the surface area where ATP is produced during cellular respiration."
+              },
+              nl: {
+                p_heading: "Mitochondrium — de energiecentrale van de cel",
+                p_sub: "Mitochondrium — de energiecentrale van de cel",
+                fig_cap: "Mitochondrium",
+                lbl_outer_mem: "Buitenmembraan",
+                lbl_inner_mem: "Binnenmembraan",
+                lbl_cristae: "Cristae",
+                lbl_matrix: "Matrix",
+                lbl_intermembrane: "Tussenmembraanruimte",
+                note: "De geplooide binnenmembraan (cristae) vergroot het oppervlak waar ATP wordt gevormd tijdens de celademhaling."
+              }
+            },
+            content: `
+              <div class="bio-panel">
+                <h4 data-i18n-key="p_heading">Mitochondrium — the powerhouse of the cell</h4>
+                <div class="bio-sub" data-i18n-key="p_sub">Mitochondrium — the powerhouse of the cell</div>
+                <figure class="bio-fig">
+                  <svg class="bio-diagram" viewBox="0 0 460 320" role="img" aria-label="Mitochondrium diagram" font-family="var(--font-sans)">
+                    <ellipse cx="230" cy="160" rx="185" ry="108" fill="rgba(239,83,80,0.12)" stroke="#e53935" stroke-width="4"/>
+                    <ellipse cx="230" cy="160" rx="170" ry="88" fill="var(--foreground)" fill-opacity="0.04" stroke="rgba(183,28,28,0.5)" stroke-width="1.5"/>
+                    <path d="M70 118 C 110 142, 150 106, 200 124 C 250 142, 300 108, 352 124" fill="none" stroke="rgba(183,28,28,0.8)" stroke-width="2.5"/>
+                    <path d="M66 140 C 108 162, 150 128, 202 146 C 254 164, 302 130, 356 146" fill="none" stroke="rgba(183,28,28,0.8)" stroke-width="2.5"/>
+                    <path d="M68 186 C 110 206, 152 174, 204 190 C 252 206, 304 172, 354 190" fill="none" stroke="rgba(183,28,28,0.8)" stroke-width="2.5"/>
+                    <path d="M72 208 C 112 228, 152 196, 204 212 C 250 226, 302 196, 350 212" fill="none" stroke="rgba(183,28,28,0.8)" stroke-width="2.5"/>
+                    <text x="150" y="158" text-anchor="middle" font-size="12" fill="var(--foreground)" data-i18n-key="lbl_matrix">Matrix</text>
+                    <text x="96" y="252" text-anchor="middle" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_outer_mem">Outer membrane</text>
+                    <text x="352" y="266" text-anchor="middle" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_inner_mem">Inner membrane</text>
+                    <text x="230" y="58" text-anchor="middle" font-size="12" fill="var(--foreground)" data-i18n-key="lbl_cristae">Cristae</text>
+                    <text x="230" y="296" text-anchor="middle" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_intermembrane">Intermembrane space</text>
+                  </svg>
+                  <figcaption data-i18n-key="fig_cap">Mitochondrium</figcaption>
+                </figure>
+                <div class="bio-legend">
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(239,83,80,0.5);"></span><span class="bio-legend-key" data-i18n-key="lbl_outer_mem">Outer membrane</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:var(--foreground); opacity:0.7;"></span><span class="bio-legend-key" data-i18n-key="lbl_inner_mem">Inner membrane</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:#e53935;"></span><span class="bio-legend-key" data-i18n-key="lbl_cristae">Cristae</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:var(--foreground); opacity:0.08;"></span><span class="bio-legend-key" data-i18n-key="lbl_matrix">Matrix</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(100,116,139,0.4);"></span><span class="bio-legend-key" data-i18n-key="lbl_intermembrane">Intermembrane space</span></div>
+                </div>
+                <p class="bio-note" data-i18n-key="note">The folded inner membrane (cristae) increases the surface area where ATP is produced during cellular respiration.</p>
+              </div>
+            `
+          },
+          {
+            id: "demo-chloroplast",
+            title: "Chloroplast",
+            titleI18n: {
+              en: "Chloroplast",
+              nl: "Bladgroenkorrel"
+            },
+            goal: "Understand the layered structure of a chloroplast and the grana that trap light.",
+            goalI18n: {
+              en: "Understand the layered structure of a chloroplast and the grana that trap light.",
+              nl: "Begrijp de gelaagde structuur van een bladgroenkorrel en de grana die het licht opvangen."
+            },
+            contentType: "html",
+            i18n: {
+              en: {
+                p_heading: "Chloroplast — photosynthetic organelle",
+                p_sub: "Chloroplast — photosynthetic organelle",
+                fig_cap: "Chloroplast",
+                lbl_outer_mem: "Outer membrane",
+                lbl_inner_mem: "Inner membrane",
+                lbl_grana: "Grana",
+                lbl_stroma: "Stroma",
+                lbl_starch: "Starch"
+              },
+              nl: {
+                p_heading: "Bladgroenkorrel — fotosynthetisch organel",
+                p_sub: "Bladgroenkorrel — fotosynthetisch organel",
+                fig_cap: "Bladgroenkorrel",
+                lbl_outer_mem: "Buitenmembraan",
+                lbl_inner_mem: "Binnenmembraan",
+                lbl_grana: "Grana (thylakoïden)",
+                lbl_stroma: "Stroma",
+                lbl_starch: "Zetmeel"
+              }
+            },
+            content: `
+              <div class="bio-panel">
+                <h4 data-i18n-key="p_heading">Chloroplast — photosynthetic organelle</h4>
+                <div class="bio-sub" data-i18n-key="p_sub">Chloroplast — photosynthetic organelle</div>
+                <figure class="bio-fig">
+                  <svg class="bio-diagram" viewBox="0 0 460 280" role="img" aria-label="Chloroplast diagram" font-family="var(--font-sans)">
+                    <ellipse cx="230" cy="140" rx="205" ry="100" fill="rgba(102,187,106,0.14)" stroke="#43a047" stroke-width="3.5"/>
+                    <ellipse cx="230" cy="140" rx="192" ry="86" fill="var(--foreground)" fill-opacity="0.04" stroke="rgba(27,94,32,0.4)" stroke-width="1.5"/>
+                    <g fill="#43a047" stroke="#2e7d32" stroke-width="1" opacity="0.9">
+                      <rect x="112" y="110" width="34" height="8" rx="3"/>
+                      <rect x="112" y="122" width="34" height="8" rx="3"/>
+                      <rect x="112" y="134" width="34" height="8" rx="3"/>
+                      <rect x="112" y="146" width="34" height="8" rx="3"/>
+                    </g>
+                    <g fill="#43a047" stroke="#2e7d32" stroke-width="1" opacity="0.9">
+                      <rect x="212" y="104" width="36" height="8" rx="3"/>
+                      <rect x="212" y="116" width="36" height="8" rx="3"/>
+                      <rect x="212" y="128" width="36" height="8" rx="3"/>
+                      <rect x="212" y="140" width="36" height="8" rx="3"/>
+                      <rect x="212" y="152" width="36" height="8" rx="3"/>
+                    </g>
+                    <g fill="#43a047" stroke="#2e7d32" stroke-width="1" opacity="0.9">
+                      <rect x="318" y="108" width="34" height="8" rx="3"/>
+                      <rect x="318" y="120" width="34" height="8" rx="3"/>
+                      <rect x="318" y="132" width="34" height="8" rx="3"/>
+                    </g>
+                    <path d="M146 130 h66 M248 130 h70" stroke="rgba(46,125,50,0.7)" stroke-width="2" fill="none"/>
+                    <text x="129" y="177" text-anchor="middle" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_grana">Grana</text>
+                    <text x="230" y="84" text-anchor="middle" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_outer_mem">Outer membrane</text>
+                    <text x="230" y="236" text-anchor="middle" font-size="11" fill="var(--muted-foreground)" data-i18n-key="lbl_stroma">Stroma</text>
+                    <circle cx="300" cy="176" r="4" fill="rgba(255,193,7,0.9)" stroke="#f9a825"/>
+                    <circle cx="314" cy="182" r="4" fill="rgba(255,193,7,0.9)" stroke="#f9a825"/>
+                    <circle cx="306" cy="190" r="4" fill="rgba(255,193,7,0.9)" stroke="#f9a825"/>
+                    <text x="300" y="206" text-anchor="middle" font-size="10" fill="var(--muted-foreground)" data-i18n-key="lbl_starch">Starch</text>
+                  </svg>
+                  <figcaption data-i18n-key="fig_cap">Chloroplast</figcaption>
+                </figure>
+                <div class="bio-legend">
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(102,187,106,0.5);"></span><span class="bio-legend-key" data-i18n-key="lbl_outer_mem">Outer membrane</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:var(--foreground); opacity:0.7;"></span><span class="bio-legend-key" data-i18n-key="lbl_inner_mem">Inner membrane</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:#43a047;"></span><span class="bio-legend-key" data-i18n-key="lbl_grana">Grana</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:rgba(255,193,7,0.9);"></span><span class="bio-legend-key" data-i18n-key="lbl_stroma">Stroma</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:var(--foreground); opacity:0.08;"></span><span class="bio-legend-key" data-i18n-key="lbl_starch">Starch</span></div>
+                </div>
+              </div>
+            `
+          },
+          {
+            id: "demo-plastids",
+            title: "Plastids",
+            titleI18n: {
+              en: "Plastids",
+              nl: "Plastiden"
+            },
+            goal: "Know the three main plastid types and what colour each one gives the plant.",
+            goalI18n: {
+              en: "Know the three main plastid types and what colour each one gives the plant.",
+              nl: "Ken de drie belangrijkste plastidentypen en welke kleur elk aan de plant geeft."
+            },
+            contentType: "html",
+            i18n: {
+              en: {
+                p_heading: "Plastids — the colour organelles",
+                p_sub: "Plastids — the colour organelles",
+                fig_cap: "Three plastid types",
+                lbl_chloroplast: "Chloroplast",
+                lbl_chromoplast: "Chromoplast",
+                lbl_leucoplast: "Leucoplast",
+                note: "Plastids are a family of plant organelles that all originate from the same precursor. Depending on their job they become green (chloroplast), coloured (chromoplast) or colourless (leucoplast)."
+              },
+              nl: {
+                p_heading: "Plastiden — de kleurorganellen",
+                p_sub: "Plastiden — de kleurorganellen",
+                fig_cap: "Drie typen plastiden",
+                lbl_chloroplast: "Bladgroenkorrel",
+                lbl_chromoplast: "Chromoplast",
+                lbl_leucoplast: "Leukoplast",
+                note: "Plastiden zijn een familie van plantenorganellen met dezelfde voorloper. Afhankelijk van hun taak worden ze groen (chloroplast), gekleurd (chromoplast) of kleurloos (leukoplast)."
+              }
+            },
+            content: `
+              <div class="bio-panel">
+                <h4 data-i18n-key="p_heading">Plastids — the colour organelles</h4>
+                <div class="bio-sub" data-i18n-key="p_sub">Plastids — the colour organelles</div>
+                <figure class="bio-fig">
+                  <svg class="bio-diagram" viewBox="0 0 460 260" role="img" aria-label="Plastids diagram" font-family="var(--font-sans)">
+                    <ellipse cx="86" cy="120" rx="62" ry="34" fill="rgba(102,187,106,0.22)" stroke="#43a047" stroke-width="2.5"/>
+                    <g fill="#43a047" stroke="#2e7d32" stroke-width="0.8" opacity="0.95">
+                      <rect x="58" y="112" width="20" height="6" rx="2"/>
+                      <rect x="58" y="121" width="20" height="6" rx="2"/>
+                      <rect x="58" y="130" width="20" height="6" rx="2"/>
+                    </g>
+                    <text x="86" y="179" text-anchor="middle" font-size="11.5" fill="var(--foreground)" data-i18n-key="lbl_chloroplast">Chloroplast</text>
+
+                    <ellipse cx="230" cy="120" rx="62" ry="34" fill="rgba(255,167,38,0.25)" stroke="#fb8c00" stroke-width="2.5"/>
+                    <circle cx="215" cy="115" r="6" fill="rgba(255,87,34,0.8)" stroke="#ef6c00"/>
+                    <circle cx="240" cy="124" r="8" fill="rgba(255,152,0,0.85)" stroke="#ef6c00"/>
+                    <circle cx="228" cy="134" r="5" fill="rgba(255,87,34,0.8)" stroke="#ef6c00"/>
+                    <circle cx="252" cy="110" r="4.5" fill="rgba(255,152,0,0.85)" stroke="#ef6c00"/>
+                    <text x="230" y="179" text-anchor="middle" font-size="11.5" fill="var(--foreground)" data-i18n-key="lbl_chromoplast">Chromoplast</text>
+
+                    <ellipse cx="374" cy="120" rx="62" ry="34" fill="var(--foreground)" fill-opacity="0.06" stroke="var(--muted-foreground)" stroke-opacity="0.6" stroke-width="2"/>
+                    <circle cx="360" cy="118" r="6" fill="var(--muted-foreground)" fill-opacity="0.5"/>
+                    <circle cx="376" cy="126" r="8" fill="var(--muted-foreground)" fill-opacity="0.5"/>
+                    <circle cx="388" cy="114" r="5.5" fill="var(--muted-foreground)" fill-opacity="0.5"/>
+                    <text x="374" y="179" text-anchor="middle" font-size="11.5" fill="var(--foreground)" data-i18n-key="lbl_leucoplast">Leucoplast</text>
+                  </svg>
+                  <figcaption data-i18n-key="fig_cap">Three plastid types</figcaption>
+                </figure>
+                <div class="bio-legend">
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:#43a047;"></span><span class="bio-legend-key" data-i18n-key="lbl_chloroplast">Chloroplast</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:#fb8c00;"></span><span class="bio-legend-key" data-i18n-key="lbl_chromoplast">Chromoplast</span></div>
+                  <div class="bio-legend-item"><span class="bio-swatch" style="background:var(--muted-foreground); opacity:0.5;"></span><span class="bio-legend-key" data-i18n-key="lbl_leucoplast">Leucoplast</span></div>
+                </div>
+                <p class="bio-note" data-i18n-key="note">Plastids are a family of plant organelles that all originate from the same precursor. Depending on their job they become green (chloroplast), coloured (chromoplast) or colourless (leucoplast).</p>
+              </div>
+            `
+          }
+        ]
+      }
+    ];
+
+    let allLoadedSets = [...PRELOADED_SETS];
+    let currentLeerset = null;
+
+    /* --------------------------------------------------------------------------
+       4. GRID HOME PAGE RENDERING
+       -------------------------------------------------------------------------- */
+    function renderSetsGrid(filterText = '') {
+      const container = document.getElementById('setsGridContainer');
+      container.innerHTML = '';
+
+      const filtered = allLoadedSets.filter(s => {
+        const query = filterText.toLowerCase();
+        return s.siteMetadata.title.toLowerCase().includes(query) ||
+               s.subject.toLowerCase().includes(query) ||
+               s.siteMetadata.description.toLowerCase().includes(query);
+      });
+
+      filtered.forEach(s => {
+        const card = document.createElement('div');
+        card.className = 'set-card';
+        card.onclick = () => openLeerset(s);
+
+        const secCount = s.sections ? s.sections.length : 0;
+        card.innerHTML = `
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span class="badge">${s.subject}</span>
+              <span style="font-size: 12px; font-family: var(--font-mono); color: var(--muted-foreground);">${secCount} ${I18N[currentLang].sections_count}</span>
+            </div>
+            <h3 style="font-size: 22px; font-family: var(--font-serif); font-weight: 600; line-height: 1.25; margin-bottom: 0.5rem;">
+              ${s.siteMetadata.title}
+            </h3>
+            <p style="font-size: 13.5px; color: var(--muted-foreground); line-height: 1.5;">
+              ${s.siteMetadata.description}
+            </p>
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <span class="btn btn-secondary" style="font-size: 12.5px; font-weight: 500;">
+              ${I18N[currentLang].open_set}
+            </span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      document.getElementById('totalSetsBadge').textContent = `${allLoadedSets.length} Learning Sets`;
+    }
+
+    function filterSetsGrid(val) {
+      renderSetsGrid(val);
+    }
+
+    /* --------------------------------------------------------------------------
+       5. LEERSET VIEWER RENDERING (FREELY RENDERED, SECTIONS ON LEFT)
+       -------------------------------------------------------------------------- */
+    function openLeerset(setData) {
+      currentLeerset = setData;
+
+      // Hide other views
+      document.getElementById('viewHome').style.display = 'none';
+      document.getElementById('viewTools').style.display = 'none';
+
+      // Show skeleton while content is being prepared
+      const skel = document.getElementById('contentSkeleton');
+      skel.style.display = 'block';
+      document.getElementById('textbookSectionsContainer').style.display = 'none';
+      document.getElementById('summaryModeView').style.display = 'none';
+      document.getElementById('quizModeView').style.display = 'none';
+      document.getElementById('learnModeView').style.display = 'none';
+
+      // Update Header
+      document.getElementById('homeHeader').style.display = 'none';
+      document.getElementById('leersetHeader').style.display = 'block';
+      document.getElementById('topModeSwitcher').style.display = 'inline-flex';
+      document.getElementById('viewerTitle').textContent = (setData.siteMetadata.titleI18n && currentLang && setData.siteMetadata.titleI18n[currentLang]) ? setData.siteMetadata.titleI18n[currentLang] : setData.siteMetadata.title;
+      document.getElementById('viewerDesc').textContent = (setData.siteMetadata.descriptionI18n && currentLang && setData.siteMetadata.descriptionI18n[currentLang]) ? setData.siteMetadata.descriptionI18n[currentLang] : setData.siteMetadata.description;
+
+      // Render JSON-driven action buttons (Watch on YouTube, Substack, exports)
+      renderViewerButtons(setData);
+
+      // Configure available mode tabs from JSON
+      applyAvailableModes(setData);
+
+      // Toggle views
+      document.getElementById('viewHome').style.display = 'none';
+      document.getElementById('viewLeerset').style.display = 'block';
+
+      // Render the work (synchronously fast, then reveal and remove skeleton)
+      renderSidebarNav(setData.sections, setData.siteMetadata.title);
+      renderTextbookSections(setData.sections);
+      renderSummaryInto(document.getElementById('summaryContent'), setData);
+      renderQuiz(setData);
+      renderLearn(setData);
+
+      setTimeout(() => {
+        skel.style.display = 'none';
+        document.getElementById('textbookSectionsContainer').style.display = 'block';
+        setMode(setData.defaultViewMode || 'simple');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (window.renderMathInElement) {
+          renderMathInElement(document.getElementById('viewLeerset'), {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false }
+            ],
+            throwOnError: false
+          });
+        }
+      }, 450);
+    }
+
+    function goToHome() {
+      document.getElementById('viewLeerset').style.display = 'none';
+      document.getElementById('viewTools').style.display = 'none';
+      document.getElementById('viewHome').style.display = 'block';
+      document.getElementById('homeHeader').style.display = 'block';
+      document.getElementById('leersetHeader').style.display = 'none';
+      document.getElementById('topModeSwitcher').style.display = 'none';
+      document.getElementById('contentSkeleton').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openTools() {
+      document.getElementById('viewHome').style.display = 'none';
+      document.getElementById('viewLeerset').style.display = 'none';
+      document.getElementById('homeHeader').style.display = 'none';
+      document.getElementById('leersetHeader').style.display = 'none';
+      document.getElementById('topModeSwitcher').style.display = 'none';
+      document.getElementById('contentSkeleton').style.display = 'none';
+      document.getElementById('viewTools').style.display = 'block';
+      renderToolsPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderSidebarNav(sections = [], setTitle = '') {
+      const nav = document.getElementById('sidebarNavLinks');
+      nav.innerHTML = '';
+
+      // Set title (like original old-tw-page Inhoudsopgave header)
+      const titleEl = document.getElementById('sidebarSetTitle');
+      if (titleEl) titleEl.textContent = setTitle;
+
+      // Expand/collapse state
+      const expanded = {};
+      const firstSecId = sections.length > 0 ? sections[0].id : null;
+
+      function activate(btn) {
+        document.querySelectorAll('.tw-sidebar-section-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+      }
+
+      sections.forEach((sec) => {
+        const wrapper = document.createElement('div');
+
+        const sectionBtn = document.createElement('button');
+        sectionBtn.className = 'tw-sidebar-section-btn' + (sec.id === firstSecId ? ' active' : '');
+        sectionBtn.setAttribute('data-section', sec.id);
+        sectionBtn.onclick = (e) => {
+          e.preventDefault();
+          const secEl = document.getElementById(sec.id);
+          if (secEl) secEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          activate(sectionBtn);
+        };
+        sectionBtn.innerHTML = `
+          <svg style="width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${esc(secTitle(sec))}</span>
+        `;
+        wrapper.appendChild(sectionBtn);
+        nav.appendChild(wrapper);
+      });
+    }
+
+    function esc(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function renderTextbookSections(sections = []) {
+      const container = document.getElementById('textbookSectionsContainer');
+      container.innerHTML = '';
+
+      sections.forEach(sec => {
+        const secEl = document.createElement('section');
+        secEl.id = sec.id;
+        secEl.style.scrollMarginTop = '3.5rem';
+        secEl.style.marginBottom = '3.5rem';
+
+        // Title
+        const headingBox = document.createElement('div');
+        headingBox.style.paddingBottom = '0.75rem';
+        headingBox.style.borderBottom = '1px solid var(--border)';
+        headingBox.style.marginBottom = '1.5rem';
+        headingBox.innerHTML = `
+          <h2 style="font-size: 30px; font-family: var(--font-serif); font-weight: 500;">
+            ${esc(secTitle(sec))}
+          </h2>
+        `;
+        secEl.appendChild(headingBox);
+
+        // Card Article
+        const card = document.createElement('article');
+        card.className = 'card card-plain';
+        card.style.padding = '1.75rem 0.5rem';
+        card.style.marginBottom = '1.5rem';
+
+        if (secGoal(sec)) {
+          card.innerHTML += `
+            <div class="goal-callout">
+              <strong>Goal</strong> &rarr; ${secGoal(sec)}
+            </div>
+          `;
+        }
+
+        const hasHtml = (sec.contentType === 'html' || sec.html);
+        const hasText = !!sec.content;
+        if (hasHtml) {
+          const holder = document.createElement('div');
+          holder.className = 'html-sandbox-host';
+          card.appendChild(holder);
+          mountHtmlSandbox(holder, sec.html || sec.content || '', sec.i18n || {});
+          const spacer = document.createElement('div');
+          spacer.style.height = '1.25rem';
+          card.appendChild(spacer);
+        } else if (hasText) {
+          card.innerHTML += `<div style="font-size: 16px; line-height: 1.75;">${renderContentBlock(sec)}</div>`;
+        }
+        secEl.appendChild(card);
+
+        // Exercises Accordion
+        if (sec.questions && sec.questions.length > 0) {
+          const exCard = document.createElement('div');
+          exCard.className = 'exercise-card';
+
+          const exHeader = document.createElement('div');
+          exHeader.className = 'exercise-card-header';
+          exHeader.innerHTML = `
+            <div>
+              <h3 style="font-size: 19px; font-family: var(--font-serif); margin: 0;">${sec.title} — Questions</h3>
+              <p style="font-size: 12.5px; color: var(--muted-foreground); margin-top: 2px;">Click any question to view its step-by-step solution.</p>
+            </div>
+            <button class="btn btn-secondary" style="font-size: 11.5px; padding: 0.35rem 0.65rem;" onclick="toggleAllInSection('${sec.id}')">
+              Toggle All
+            </button>
+          `;
+          exCard.appendChild(exHeader);
+
+          sec.questions.forEach((q, qIdx) => {
+            const qRow = document.createElement('div');
+            qRow.className = `q-row`;
+            qRow.innerHTML = `
+              <button class="q-btn" onclick="this.closest('.q-row').classList.toggle('open')">
+                <svg class="q-chevron" style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                <span class="q-num">${q.number}</span>
+                <span class="q-text">${q.text}</span>
+              </button>
+              <div class="q-answer-container">
+                <div style="color: var(--foreground); font-size: 14px; line-height: 1.6;">
+                  <strong>Solution:</strong> ${q.answer}
+                </div>
+              </div>
+            `;
+            exCard.appendChild(qRow);
+          });
+
+          secEl.appendChild(exCard);
+        }
+
+        container.appendChild(secEl);
+      });
+    }
+
+    function toggleAllInSection(sectionId) {
+      const sec = document.getElementById(sectionId);
+      if (!sec) return;
+      const rows = sec.querySelectorAll('.q-row');
+      const anyClosed = Array.from(rows).some(r => !r.classList.contains('open'));
+      rows.forEach(r => {
+        if (anyClosed) r.classList.add('open');
+        else r.classList.remove('open');
+      });
+    }
+
+    function renderSimpleMarkdown(text = '') {
+      return text
+        .replace(/^### (.*$)/gim, '<h3 style="font-size:22px; font-family:var(--font-serif); margin:1.5rem 0 0.5rem 0;">$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2 style="font-size:26px; font-family:var(--font-serif); margin:1.75rem 0 0.6rem 0;">$1</h2>')
+        .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+        .replace(/\n\n/gim, '</p><p style="margin-bottom:1rem;">')
+        .replace(/^- (.*$)/gim, '<li style="margin-left:1.5rem; margin-bottom:0.25rem;">$1</li>');
+    }
+
+    /* Renders a section's content block. If the JSON marks the content as HTML
+       (contentType === "html" or an explicit "html" field), the raw HTML is
+       injected as-is so full custom visuals (SVG etc.) can be embedded.
+       Otherwise the content goes through the simple markdown renderer. */
+    function renderContentBlock(sec) {
+      const src = (sec.contentType === 'html' || sec.html) ? (sec.html || sec.content) : null;
+      if (src) return src;
+      return renderSimpleMarkdown(sec.content);
+    }
+
+    /* Renders free text that may be markdown OR raw HTML (used for summaries). */
+    function renderTextBlob(text, isHtml) {
+      if (isHtml) return text || '';
+      return renderSimpleMarkdown(text || "No summary provided.");
+    }
+
+    /* --------------------------------------------------------------------------
+       5b. HTML SANDBOX (iframe-based, isolated visual preview)
+       --------------------------------------------------------------------------
+       Any section whose contentType is "html" (or that provides an explicit
+       "html" field) is rendered inside an isolated <iframe sandbox="allow-scripts">.
+       The sandbox gets:
+         - the app's current theme variables + Google fonts (pixel-identical look)
+         - a safe base stylesheet (reset + the .bio-* and .goal-callout classes)
+         - the section's own <style> blocks and scripts, fully isolated from the
+           rest of the page (no CSS/JS leakage in either direction)
+         - a small bridge that applies the <body data-i18n-key> dictionary for the
+           currently selected language (only ONE language is shown at a time) and
+           reports its rendered height to the host via postMessage so the parent
+           page never shows scrollbars inside the preview.
+       Scripts inside the sandbox have no access to the parent page (opaque
+       origin) except for the two postMessage messages defined in the bridge.
+    --------------------------------------------------------------------------- */
+
+    /* Base styles injected into every sandbox so embedded content looks native.
+       NOTE: never use min-height:100vh here — the iframe height is content-based. */
+    const SANDBOX_BASE_CSS = [
+      'html,body{margin:0;padding:0;background:transparent;color:var(--foreground);font-family:var(--font-sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow:hidden;}',
+      '*,*::before,*::after{box-sizing:border-box;}',
+      'h1,h2,h3,h4,h5,h6{font-family:var(--font-serif);font-weight:500;letter-spacing:-0.01em;color:var(--foreground);margin:0 0 0.6em 0;}',
+      'p{margin:0 0 1rem 0;}',
+      'a{color:var(--primary);}',
+      'ul,ol{padding-left:1.5rem;margin:0 0 1rem 0;}',
+      'li{margin-bottom:0.25rem;}',
+      'table{border-collapse:collapse;width:100%;margin:0 0 1rem 0;}',
+      'th,td{border:1px solid var(--border);padding:0.5rem 0.75rem;text-align:left;}',
+      'th{background:var(--muted);font-weight:600;}',
+      'code{font-family:var(--font-mono);background:var(--code-bg);border-radius:4px;padding:0.1rem 0.35rem;font-size:0.9em;}',
+      'pre{background:var(--code-bg);border:1px solid var(--border);border-radius:8px;padding:0.9rem 1rem;overflow-x:hidden;margin:0 0 1rem 0;}',
+      'pre code{background:transparent;padding:0;}',
+      'blockquote{border-left:3px solid var(--primary);margin:0 0 1rem 0;padding:0.3rem 1rem;color:var(--muted-foreground);}',
+      'img{max-width:100%;height:auto;}',
+      'hr{border:none;border-top:1px solid var(--border);margin:1.25rem 0;}',
+      'figure{margin:0 0 1rem 0;}',
+      'figcaption{font-size:12px;color:var(--muted-foreground);text-align:center;margin-top:0.25rem;font-style:italic;}',
+      '.bio-panel{background:var(--secondary);border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.5rem 1rem 1.5rem;margin:0 0 1.25rem 0;overflow:hidden;}',
+      '.bio-sub{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted-foreground);font-weight:500;margin:0 0 0.25rem 0;}',
+      '.bio-fig{text-align:center;}',
+      '.bio-diagram{width:100%;max-width:700px;height:auto;display:block;margin:0 auto;}',
+      '.bio-legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0.45rem 1.25rem;margin-top:1.25rem;padding-top:1rem;border-top:1px dashed var(--border);}',
+      '.bio-legend-item{display:flex;align-items:flex-start;gap:0.55rem;font-size:13px;line-height:1.4;color:var(--foreground);}',
+      '.bio-legend-key{font-weight:600;color:var(--foreground);}',
+      '.bio-swatch{width:13px;height:13px;border-radius:3px;flex-shrink:0;margin-top:2px;border:1px solid var(--border);}',
+      '.bio-note{border-left:3px solid var(--primary);background:var(--muted);border-radius:0 10px 10px 0;padding:0.75rem 1rem;margin:1rem 0;font-size:14px;color:var(--foreground);}',
+      '.goal-callout{display:flex;align-items:flex-start;gap:0.6rem;padding:0.9rem 1.1rem;border:1px solid var(--border);background:var(--muted);border-radius:10px;font-size:14px;margin:0 0 1.25rem 0;}'
+    ].join('');
+
+    /* Bridge script placed inside every sandbox: applies data-i18n-key texts,
+       reports height to the host, and listens for language updates. */
+    const SANDBOX_CONTROLLER = [
+      '(function(){',
+      'var dict = __I18N_DICT__;',
+      'var lang = __LANG__;',
+      'function applyLang(){',
+      '  if(!dict) return;',
+      '  var els = document.querySelectorAll("[data-i18n-key]");',
+      '  for(var i=0;i<els.length;i++){',
+      '    var el = els[i];',
+      '    var k = el.getAttribute("data-i18n-key");',
+      '    if(dict.hasOwnProperty(k) && dict[k] !== null && dict[k] !== undefined){ el.textContent = dict[k]; }',
+      '  }',
+      '}',
+      'applyLang();',
+      'function report(){',
+      '  var h = Math.max(document.documentElement ? document.documentElement.scrollHeight : 0, document.body ? document.body.scrollHeight : 0);',
+      '  if(window.parent) parent.postMessage({__lsSandbox:true, h:h}, "*");',
+      '}',
+      'if(window.MutationObserver){ new MutationObserver(report).observe(document.documentElement, {subtree:true, childList:true, characterData:true, attributes:true}); }',
+      'window.addEventListener("resize", report);',
+      'window.addEventListener("message", function(ev){',
+      '  var d = ev.data;',
+      '  if(!d || !d.__lsSandbox) return;',
+      '  if(d.type === "setLang"){ dict = d.dict || dict; lang = d.lang || lang; document.documentElement.setAttribute("lang", lang); applyLang(); }',
+      '});',
+      'requestAnimationFrame(function(){ setTimeout(report, 0); });',
+      'if(document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ setTimeout(report, 60); }); }',
+      '})();'
+    ].join('\n');
+
+    function safeJsonForScript(obj) {
+      return JSON.stringify(obj).replace(/</g, '\\u003c');
+    }
+
+    /* Reads the app's active theme variables from the <html> element so the
+       sandbox can render with the exact same colors/fonts as the page. */
+    function getAppThemeVars() {
+      const cs = getComputedStyle(document.documentElement);
+      const names = ['--background', '--foreground', '--card', '--border', '--border-solid', '--muted', '--muted-foreground', '--secondary', '--secondary-foreground', '--primary', '--primary-foreground', '--primary-hover', '--code-bg', '--focus-ring', '--font-sans', '--font-serif', '--font-mono'];
+      const vars = {};
+      names.forEach(n => {
+        const val = cs.getPropertyValue(n).trim();
+        if (val) vars[n] = val;
+      });
+      return vars;
+    }
+
+    /* Builds the complete srcdoc for one sandboxed preview. */
+    function buildSandboxDoc(contentHtml, lang, dict) {
+      const vars = getAppThemeVars();
+      const cssVars = Object.keys(vars).map(k => k + ':' + vars[k]).join(';');
+      const controller = SANDBOX_CONTROLLER
+        .replace('__I18N_DICT__', safeJsonForScript(dict || {}))
+        .replace('__LANG__', JSON.stringify(lang || 'en'));
+      return [
+        '<!DOCTYPE html>',
+        '<html lang="' + lang + '">',
+        '<head>',
+        '<meta charset="UTF-8" />',
+        '<meta name="viewport" content="width=device-width, initial-scale=1" />',
+        '<link rel="preconnect" href="https://fonts.googleapis.com" />',
+        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />',
+        '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />',
+        '<style>:root{' + cssVars + '}' + SANDBOX_BASE_CSS + '</style>',
+        '</head>',
+        '<body>' + contentHtml + '</body>',
+        '<scri' + 'pt>' + controller + '</scri' + 'pt>',
+        '</html>'
+      ].join('\n');
+    }
+
+    /* Mounts (or remounts) a sandboxed preview inside the given host element.
+       All state needed for a refresh (html + i18n dict) is kept in data-* attrs
+       so a theme or language change can rebuild the iframe cleanly. */
+    function mountHtmlSandbox(host, contentHtml, dict) {
+      host.dataset.html = contentHtml;
+      host.dataset.dict = JSON.stringify(dict || {});
+      renderHtmlSandboxHost(host);
+    }
+
+    function renderHtmlSandboxHost(host) {
+      const contentHtml = host.dataset.html || '';
+      let dict = {};
+      try { dict = JSON.parse(host.dataset.dict || '{}'); } catch (e) { dict = {}; }
+
+      if (!host._sb || !host._sb.iframe) {
+        const iframe = document.createElement('iframe');
+        iframe.className = 'html-sandbox-frame';
+        iframe.setAttribute('sandbox', 'allow-scripts');
+        iframe.setAttribute('scrolling', 'no');
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('tabindex', '0');
+        iframe.setAttribute('title', 'Embedded visual — isolated sandbox');
+        host.textContent = '';
+        host.appendChild(iframe);
+        host._sb = { iframe: iframe };
+        host._sb.onMsg = (ev) => {
+          const d = ev.data;
+          if (!d || !d.__lsSandbox) return;
+          if (ev.source !== host._sb.iframe.contentWindow) return;
+          if (typeof d.h === 'number' && isFinite(d.h)) {
+            host._sb.iframe.style.height = Math.max(0, Math.round(d.h)) + 'px';
+          }
+        };
+        window.addEventListener('message', host._sb.onMsg);
+      }
+      host._sb.iframe.srcdoc = buildSandboxDoc(contentHtml, currentLang, dict);
+    }
+
+    /* Rebuild every mounted sandbox (called on theme switch and page init). */
+    function refreshSandboxes() {
+      document.querySelectorAll('.html-sandbox-host').forEach(host => {
+        if (host._sb) renderHtmlSandboxHost(host);
+      });
+    }
+
+    /* --------------------------------------------------------------------------
+       5c. I18N HELPERS FOR LEERSET CONTENT (only ONE language rendered at a time)
+       -------------------------------------------------------------------------- */
+    function secTitle(sec) {
+      return (sec && sec.titleI18n && currentLang && sec.titleI18n[currentLang]) ? sec.titleI18n[currentLang] : (sec.title || '');
+    }
+    function secGoal(sec) {
+      return (sec && sec.goalI18n && currentLang && sec.goalI18n[currentLang]) ? sec.goalI18n[currentLang] : (sec.goal || '');
+    }
+    function setSummaryText(setData) {
+      const s = (setData && setData.summaryI18n && currentLang && setData.summaryI18n[currentLang]) ? setData.summaryI18n[currentLang] : (setData ? setData.summary : '');
+      return renderTextBlob(s, !!(setData && setData.summaryContentType === 'html'));
+    }
+    /* Renders the summary into its container. Falls back to markdown text, but
+       when the summary is flagged "html" it renders as an isolated sandboxed
+       visual (same engine as the section visuals). */
+    function renderSummaryInto(container, setData) {
+      container.textContent = '';
+      if (setData && setData.summaryContentType === 'html') {
+        const src = (setData.summaryI18n && currentLang && setData.summaryI18n[currentLang]) ? setData.summaryI18n[currentLang] : (setData.summary || '');
+        const holder = document.createElement('div');
+        holder.className = 'html-sandbox-host';
+        container.appendChild(holder);
+        mountHtmlSandbox(holder, src, {});
+        return;
+      }
+      container.innerHTML = setSummaryText(setData);
+    }
+    function qText(q) {
+      return (q && q.textI18n && currentLang && q.textI18n[currentLang]) ? q.textI18n[currentLang] : (q ? q.text : '');
+    }
+    function qAnswer(q) {
+      return (q && q.answerI18n && currentLang && q.answerI18n[currentLang]) ? q.answerI18n[currentLang] : (q ? q.answer : '');
+    }
+
+    /* --------------------------------------------------------------------------
+       6. MODE SWITCHING CONTROLLER (Explanation / Summary / Learn)
+       -------------------------------------------------------------------------- */
+    function setMode(mode) {
+      document.querySelectorAll('#topModeSwitcher .mode-tab-btn').forEach(b => b.classList.remove('active'));
+
+      const tbContainer = document.getElementById('textbookSectionsContainer');
+      const sumContainer = document.getElementById('summaryModeView');
+      const quizContainer = document.getElementById('quizModeView');
+      const learnContainer = document.getElementById('learnModeView');
+      const skel = document.getElementById('contentSkeleton');
+
+      const hideAll = () => {
+        skel.style.display = 'none';
+        tbContainer.style.display = 'none';
+        sumContainer.style.display = 'none';
+        quizContainer.style.display = 'none';
+        learnContainer.style.display = 'none';
+      };
+
+      if (mode === 'summary') {
+        hideAll();
+        document.getElementById('btnModeSummary').classList.add('active');
+        sumContainer.style.display = 'block';
+      } else if (mode === 'quiz') {
+        hideAll();
+        document.getElementById('btnModeQuiz').classList.add('active');
+        quizContainer.style.display = 'block';
+      } else if (mode === 'study' || mode === 'learn') {
+        hideAll();
+        document.getElementById('btnModeStudy').classList.add('active');
+        learnContainer.style.display = 'block';
+      } else {
+        hideAll();
+        document.getElementById('btnModeSimple').classList.add('active');
+        tbContainer.style.display = 'block';
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       6b. JSON-DRIVEN ACTION BUTTONS, MODES, QUIZ & LEARN RENDERING
+       -------------------------------------------------------------------------- */
+    function jsonBtnIcon(icon) {
+      const s = 'style="width:14px;height:14px;flex-shrink:0;"';
+      switch ((icon || '').toLowerCase()) {
+        case 'youtube':
+          return '<svg ' + s + ' viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>';
+        case 'substack':
+          return '<svg ' + s + ' viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="4" rx="0.5"/><rect x="3" y="9" width="18" height="4" rx="0.5"/><path d="M3 15h18v6L12 17l-9 4v-6z"/></svg>';
+        case 'external-link':
+          return '<svg ' + s + ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+        case 'download':
+          return '<svg ' + s + ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+        case 'file':
+        case 'transcript':
+          return '<svg ' + s + ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>';
+        case 'card':
+        case 'anki':
+          return '<svg ' + s + ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>';
+        default:
+          return '<svg ' + s + ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+      }
+    }
+
+    function renderViewerButtons(data) {
+      const row = document.getElementById('viewerButtonsRow');
+      row.innerHTML = '';
+
+      const btns = Array.isArray(data.buttons) ? data.buttons : [];
+
+      let hasAny = false;
+      btns.forEach(b => {
+        if (b.enabled === false) return;
+        hasAny = true;
+        const variant = b.variant === 'primary' ? 'btn-primary' : 'btn-secondary';
+        const a = document.createElement('a');
+        a.className = 'btn ' + variant;
+        a.href = b.url || '#';
+        a.target = b.url ? '_blank' : '_self';
+        a.rel = 'noopener';
+        a.innerHTML = jsonBtnIcon(b.icon) + '<span>' + esc(b.text || 'Link') + '</span>';
+        row.appendChild(a);
+      });
+
+      // Export buttons gated by showExportButtons + individual flags
+      const showExports = data.showExportButtons === true;
+      if (data.showTranscriptExport === true || showExports) {
+        hasAny = true;
+        const t = document.createElement('button');
+        t.className = 'btn btn-secondary';
+        t.innerHTML = jsonBtnIcon('transcript') + '<span>' + (currentLang === 'nl' ? 'Transcript (.md)' : 'Transcript (.md)') + '</span>';
+        t.onclick = () => exportTranscript(data);
+        row.appendChild(t);
+      }
+      if (data.showAnkiExport === true || showExports) {
+        hasAny = true;
+        const a = document.createElement('button');
+        a.className = 'btn btn-secondary';
+        a.innerHTML = jsonBtnIcon('anki') + '<span>Export Anki (.txt)</span>';
+        a.onclick = () => exportAnki(data);
+        row.appendChild(a);
+      }
+
+      row.style.display = hasAny ? 'flex' : 'none';
+    }
+
+    function applyAvailableModes(data) {
+      const available = Array.isArray(data.availableModes)
+        ? data.availableModes
+        : ['simple', 'study', 'summary', 'quiz'];
+      const order = ['simple', 'study', 'summary', 'quiz'];
+      order.forEach(m => {
+        const id = { simple: 'btnModeSimple', study: 'btnModeStudy', summary: 'btnModeSummary', quiz: 'btnModeQuiz' }[m];
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.style.display = (available.indexOf(m) >= 0) ? 'inline-flex' : 'none';
+      });
+    }
+
+    function collectQuizQuestions(data) {
+      // 1) explicit data.quiz.questions
+      if (data.quiz && Array.isArray(data.quiz.questions) && data.quiz.questions.length) {
+        return data.quiz.questions.map(q => ({
+          question: (q.questionI18n && currentLang && q.questionI18n[currentLang]) || q.question || q.text || '',
+          options: Array.isArray(q.options) ? q.options : [],
+          answer: (q.answerI18n && currentLang && q.answerI18n[currentLang]) || (q.answer != null ? q.answer : q.correct) || '',
+          rationale: (q.rationaleI18n && currentLang && q.rationaleI18n[currentLang]) || q.rationale || q.explanation || ''
+        }));
+      }
+      // 2) fallback: build simple quiz from section questions
+      const out = [];
+      (data.sections || []).forEach(sec => {
+        (sec.questions || []).forEach(q => {
+          if (q && q.text) {
+            out.push({ question: qText(q), options: [], answer: qAnswer(q), rationale: '' });
+          }
+        });
+      });
+      return out;
+    }
+
+    function renderQuiz(data) {
+      const container = document.getElementById('quizContent');
+      const questions = collectQuizQuestions(data);
+
+      if (!questions.length) {
+        container.innerHTML = '<div class="quiz-empty"><strong>' +
+          (currentLang === 'nl' ? 'Geen quizvragen beschikbaar.' : 'No quiz questions available.') +
+          '</strong><p style="margin-top:0.5rem;font-size:13.5px;color:var(--muted-foreground);">' +
+          (currentLang === 'nl' ? 'Voeg een "quiz" blok toe aan de JSON.' : 'Add a "quiz" block to the JSON.') +
+          '</p></div>';
+        return;
+      }
+
+      let idx = 0;
+      const quizState = { q: questions, answers: {}, revealed: {} };
+
+      function render() {
+        if (questions.length === 0) return;
+        const q = questions[idx];
+        const chosenIdx = quizState.answers[idx];
+
+        const optionsHtml = q.options.length
+          ? q.options.map((opt, oi) => {
+              let cls = 'quiz-option';
+              if (quizState.revealed[idx]) {
+                const isCorrect = String(opt) === String(q.answer);
+                if (isCorrect) cls += ' correct';
+                if (chosenIdx === oi && !isCorrect) cls += ' incorrect';
+              } else if (chosenIdx === oi) {
+                cls += ' selected';
+              }
+              return '<button class="' + cls + '" data-idx="' + idx + '" data-oi="' + oi + '">' + esc(String(opt)) + '</button>';
+            }).join('')
+          : '<button class="quiz-option" data-reveal="1">' + (currentLang === 'nl' ? 'Bekijk antwoord' : 'Reveal answer') + '</button>';
+
+        const rationaleHtml = quizState.revealed[idx] && q.rationale
+          ? '<div class="quiz-rationale" style="display:block;">' + renderSimpleMarkdown(q.rationale) + '</div>'
+          : (quizState.revealed[idx] && !q.options.length
+              ? '<div class="quiz-rationale" style="display:block;"><strong>' + (currentLang === 'nl' ? 'Antwoord:' : 'Answer:') + '</strong> ' + renderSimpleMarkdown(q.answer) + '</div>'
+              : '');
+
+        container.innerHTML = `
+          <div class="quiz-header">
+            <h3 style="font-family:var(--font-serif);font-size:24px;font-weight:600;margin:0;">${currentLang === 'nl' ? 'Quiz' : 'Quiz'}</h3>
+            <div class="quiz-progress">${idx + 1} / ${questions.length}</div>
+          </div>
+          <div class="quiz-card">
+            <div class="quiz-question">${renderSimpleMarkdown(q.question)}</div>
+            ${optionsHtml}
+            ${rationaleHtml}
+          </div>
+          <div class="quiz-nav">
+            <button class="btn btn-secondary" id="quizPrev" ${idx === 0 ? 'disabled style="opacity:0.4;"' : ''}>← ${currentLang === 'nl' ? 'Vorige' : 'Previous'}</button>
+            <button class="btn btn-primary" id="quizNext">${idx === questions.length - 1 ? (currentLang === 'nl' ? 'Klaar' : 'Done') : (currentLang === 'nl' ? 'Volgende' : 'Next')} →</button>
+          </div>
+        `;
+
+        const prev = document.getElementById('quizPrev');
+        const next = document.getElementById('quizNext');
+        if (prev) prev.onclick = () => { idx = Math.max(0, idx - 1); render(); };
+        next.onclick = () => {
+          if (idx >= questions.length - 1) { container.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+          idx = Math.min(questions.length - 1, idx + 1); render();
+        };
+
+        container.querySelectorAll('.quiz-option').forEach(optBtn => {
+          optBtn.onclick = () => {
+            const ii = parseInt(optBtn.dataset.idx, 10);
+            const reveal = optBtn.dataset.reveal;
+            const oiAttr = optBtn.dataset.oi;
+            if (reveal === '1') {
+              quizState.revealed[ii] = true;
+              render();
+              return;
+            }
+            quizState.answers[ii] = parseInt(oiAttr, 10);
+            quizState.revealed[ii] = true;
+            render();
+          };
+        });
+      }
+
+      render();
+    }
+
+    function renderLearn(data) {
+      const container = document.getElementById('learnContent');
+      const sections = data.sections || [];
+      if (!sections.length) {
+        container.innerHTML = '<div class="quiz-empty"><strong>' +
+          (currentLang === 'nl' ? 'Geen leermateriaal beschikbaar.' : 'No study material available.') +
+          '</strong></div>';
+        return;
+      }
+      container.innerHTML = sections.map(sec => {
+        const qs = (sec.questions || []).map(q =>
+          '<div class="quiz-card" style="margin-bottom:0.75rem;">' +
+            '<div class="quiz-question" style="margin-bottom:0.5rem;"><strong>' + esc(q.number || '') + '.</strong> ' + renderSimpleMarkdown(qText(q)) + '</div>' +
+            '<div class="quiz-rationale" style="display:block;"><strong>' + (currentLang === 'nl' ? 'Oplossing:' : 'Solution:') + '</strong> ' + renderSimpleMarkdown(qAnswer(q)) + '</div>' +
+          '</div>'
+        ).join('');
+        return '<div style="margin-bottom:1.5rem;">' +
+          '<h3 style="font-family:var(--font-serif);font-size:20px;font-weight:600;margin-bottom:0.5rem;">' + esc(secTitle(sec)) + '</h3>' +
+          (qs || '<p style="color:var(--muted-foreground);font-size:14px;">' + (currentLang === 'nl' ? 'Geen vragen.' : 'No questions.') + '</p>') +
+        '</div>';
+      }).join('');
+    }
+
+    function exportTranscript(data) {
+      let md = '# ' + data.siteMetadata.title + '\n\n' + (data.summary || '') + '\n\n';
+      (data.sections || []).forEach(sec => {
+        md += '## ' + sec.title + '\n\n' + (sec.content || '') + '\n\n';
+      });
+      downloadText(md, (data.siteMetadata.title || 'set').replace(/[\\/:*?"<>|]/g, '_') + '-transcript.md');
+    }
+
+    function exportAnki(data) {
+      let txt = '';
+      (data.sections || []).forEach(sec => {
+        (sec.questions || []).forEach(q => {
+          txt += q.text + '\t' + (q.answer || '') + '\n';
+        });
+      });
+      downloadText(txt, (data.siteMetadata.title || 'set').replace(/[\\/:*?"<>|]/g, '_') + '-anki.txt');
+    }
+
+    function downloadText(text, filename) {
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    /* --------------------------------------------------------------------------
+       7. CUSTOM JSON LOADERS (PASTE & LOCAL FILE UPLOAD)
+       -------------------------------------------------------------------------- */
+    function toggleJsonPasteModal() {
+      const drawer = document.getElementById('jsonPasteDrawer');
+      drawer.style.display = (drawer.style.display === 'none' ? 'block' : 'none');
+    }
+
+    function loadPastedJson() {
+      const val = document.getElementById('jsonPasteArea').value;
+      if (!val.trim()) {
+        alert("Please paste valid JSON text.");
+        return;
+      }
+      try {
+        const parsed = JSON.parse(val);
+        processAndOpenCustomJson(parsed, "Pasted JSON Set");
+        toggleJsonPasteModal();
+      } catch (err) {
+        alert("Invalid JSON format: " + err.message);
+      }
+    }
+
+    function handleFileUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const parsed = JSON.parse(event.target.result);
+          processAndOpenCustomJson(parsed, file.name.replace(/\.json$/i, ''));
+        } catch (err) {
+          alert("Error parsing uploaded JSON: " + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function processAndOpenCustomJson(data, fallbackTitle = "Custom Set") {
+      const setObj = {
+        id: `custom-${Date.now()}`,
+        subject: data.subject || (data.siteMetadata?.title ? data.siteMetadata.title : "Custom Leerset"),
+        siteMetadata: {
+          title: data.siteMetadata?.title || fallbackTitle,
+          description: data.siteMetadata?.description || "Loaded from custom JSON file."
+        },
+        summary: data.summary || "",
+        summaryContentType: data.summaryContentType || '',
+        summaryI18n: data.summaryI18n || null,
+        sections: data.sections || [],
+        buttons: data.buttons || [],
+        quiz: data.quiz || null,
+        availableModes: data.availableModes || null,
+        defaultViewMode: data.defaultViewMode || 'simple',
+        showExportButtons: data.showExportButtons === true,
+        showTranscriptExport: data.showTranscriptExport === true,
+        showAnkiExport: data.showAnkiExport === true
+      };
+
+      allLoadedSets.unshift(setObj);
+      renderSetsGrid();
+      openLeerset(setObj);
+    }
+
+    /* --------------------------------------------------------------------------
+       8. SCROLLSPY & SCROLL-TO-TOP OBSERVER
+       -------------------------------------------------------------------------- */
+    window.addEventListener('scroll', () => {
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+      if (window.scrollY > 350) {
+        scrollTopBtn.style.display = 'inline-flex';
+      } else {
+        scrollTopBtn.style.display = 'none';
+      }
+
+      if (document.getElementById('viewLeerset').style.display !== 'none') {
+        const sections = document.querySelectorAll('#textbookSectionsContainer section[id]');
+        const links = document.querySelectorAll('#sidebarNavLinks .tw-sidebar-section-btn');
+        let currentId = '';
+
+        sections.forEach(s => {
+          const top = s.offsetTop;
+          const height = s.offsetHeight;
+          if (window.scrollY + 120 >= top && window.scrollY + 120 < top + height) {
+            currentId = s.getAttribute('id');
+          }
+        });
+
+        if (currentId) {
+          links.forEach(l => {
+            if (l.getAttribute('data-section') === currentId) {
+              l.classList.add('active');
+            } else {
+              l.classList.remove('active');
+            }
+          });
+        }
+      }
+    });
+
+    /* --------------------------------------------------------------------------
+       8b. JSON TOOLS & DOCUMENTATION PAGE (AI Prompt Library + Format Reference)
+       Provides two copy-ready AI prompts (one for a single HTML visualization,
+       one for a complete leerset JSON script) plus fully detailed API docs,
+       all bilingual using the current language. Images via URL & local files.
+       -------------------------------------------------------------------------- */
+    function escHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+    function copyTextToClipboard(text, btn) {
+      const done = () => {
+        btn.classList.add('copied');
+        btn.querySelector('span').textContent = (currentLang === 'nl' ? 'Gekopieerd' : 'Copied');
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          const label = currentLang === 'nl' ? 'Kopieer' : 'Copy';
+          btn.querySelector('span').textContent = label + ' ✓';
+        }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+      } else {
+        fallbackCopy(text, done);
+      }
+    }
+    function fallbackCopy(text, done) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      done();
+    }
+
+    function promptBox(id, label, text, minH = 260) {
+      const escText = escHtml(text);
+      const placeholderNote = currentLang === 'nl'
+        ? 'Vergeet niet de plaatshouders tussen de &#91;vierkante haakjes&#93; te vervangen.'
+        : 'Remember to replace the placeholders between [square brackets].';
+      return `
+        <div class="prompt-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+            <strong style="font-size:13.5px; font-family:var(--font-sans);">${escHtml(label)}</strong>
+            <button class="btn btn-secondary copy-btn" onclick="copyTextToClipboard(document.getElementById('${id}').value, this)">
+              <svg style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>${currentLang === 'nl' ? 'Kopieer ✓' : 'Copy ✓'}</span>
+            </button>
+          </div>
+          <textarea id="${id}" spellcheck="false" readonly style="min-height:${minH}px;">${escText}</textarea>
+          <div style="font-size:12px; color:var(--muted-foreground); margin-top:0.35rem;">${placeholderNote}</div>
+        </div>
+      `;
+    }
+
+    function docTable(headers, rows) {
+      return `<table class="doc-table"><thead><tr>${headers.map(h => '<th>' + escHtml(h) + '</th>').join('')}</tr></thead><tbody>${rows.map(r => '<tr>' + r.map(c => '<td>' + c + '</td>').join('') + '</tr>').join('')}</tbody></table>`;
+    }
+
+    function renderToolsPage() {
+      const en = currentLang !== 'nl';
+      const L = {
+        t_page: en ? 'JSON Tools & Documentation' : 'JSON-tools en documentatie',
+        t_sub: en ? 'Copy-ready AI prompts and the full leerset JSON format reference. Everything falls back to English/Dutch automatically.' : 'Kopieerklare AI-prompts en de volledige naslaggids voor het leerset-JSON-formaat. Alles schakelt automatisch naar Engels/Nederlands.',
+        t_promptvis: en ? 'AI Prompt — Build one HTML Visualization' : 'AI-prompt — bouw één HTML-visualisatie',
+        t_promptset: en ? 'AI Prompt — Build a complete Leerset JSON script' : 'AI-prompt — bouw een complete Leerset JSON-script',
+        t_docs: en ? 'Leerset JSON Format' : 'Leerset JSON-formaat',
+        t_rate: en ? 'Cheat Sheet' : 'Spiekbriefje',
+        t_howto: en ? 'How visuals work (images & HTML)' : 'Hoe visuals werken (afbeeldingen & HTML)',
+        t_back: en ? '← Back to sets' : '← Terug naar sets'
+      };
+
+      const el = [];
+      el.push(`<header style="display:flex; justify-content:space-between; align-items:center; gap:1rem; margin:1rem 0 1.5rem 0; flex-wrap:wrap;">
+        <div>
+          <h1 style="font-family:var(--font-serif); font-size:32px; font-weight:600; letter-spacing:-0.01em;">${L.t_page}</h1>
+          <p style="color:var(--muted-foreground); font-size:14px; max-width:760px; margin-top:0.25rem;">${L.t_sub}</p>
+        </div>
+        <button class="btn btn-secondary" onclick="goToHome()" style="white-space:nowrap;">${L.t_back}</button>
+      </header>`);
+
+      // ---------- Prompt 1: single visualization ----------
+      const styleBlock = [
+        '// Accent color (buttons, links, highlights): #3B82F6 (blue-500) in LIGHT mode',
+        '//   In dark mode use near-white #F8FAFC for the accent.',
+        '// Light-mode theme (use EXACTLY these):',
+        '//   --background: #E8EEFD   --foreground: #020817   --card: #E8EEFD',
+        '//   --border: rgba(2,8,23,0.18)   --muted: #F1F5F9   --muted-foreground: #64748B',
+        '//   --secondary: #F1F5F9   --primary: #3B82F6   --code-bg: #E2E8F0',
+        '// Dark-mode theme (use EXACTLY these):',
+        '//   --background: #020817   --foreground: #F8FAFC   --card: #020817',
+        '//   --border: #1E293B   --muted: #1E293B   --muted-foreground: #94A3B8',
+        '//   --secondary: #1E293B   --primary: #F8FAFC   --code-bg: #1E293B',
+        '// Fonts: UI/body = Inter; titles = Cormorant Garamond (serif); code = JetBrains Mono',
+        '// Never use pure white or pure black. No scrollbars inside the visual.'
+      ].join('\n');
+
+      const vizPrompt = [
+        'TASK: Build ONE self-contained HTML visualization snippet (a <div class="bio-panel">).',
+        '',
+        'The visuals must be drawn with inline SVG using these exact styling rules so they match the rest of the app:',
+        styleBlock,
+        '',
+        'Use the CSS variables (var(--background), var(--foreground), var(--border), var(--muted-foreground), var(--primary), var(--secondary), var(--code-bg)) instead of hardcoding theme colors, so the same visual works in both light and dark mode automatically.',
+        '',
+        'You MUST produce TWO versions of THIS SAME visual — one English and one Dutch. The visuals (SVG geometry, colors, layout, fonts) must look EXACTLY identical; only the text labels must differ.',
+        '',
+        'Every piece of text that can change language must be in an element with attribute data-i18n-key="someKey". Provide the translations in an i18n dictionary at the top of your answer:',
+        '',
+        'i18n = {',
+        '  en: { someKey: "English label" },',
+        '  nl: { someKey: "Nederlandse label" }',
+        '}',
+        '',
+        'Rendering rules:',
+        '- Wrap everything in <div class="bio-panel"> with optional <figure class="bio-fig"> around the <svg class="bio-diagram">.',
+        '- An optional <figcaption data-i18n-key="fig_cap"> provides the caption.',
+        '- A legend with <div class="bio-legend"> containing <div class="bio-legend-item"><span class="bio-swatch" style="background:..."></span><span class="bio-legend-key" data-i18n-key="...">Label</span></div> is encouraged.',
+        '- You may add <scripts> and <style> blocks; they are isolated in an iframe sandbox and will not affect the page.',
+        '- Animations are allowed (CSS transitions/keyframes) but must not create scrollbars.',
+        '- Images may be referenced by online URL (<img src="https://...">) or local file (<img src="image.png"> placed next to the HTML file).',
+        '',
+        '[THE VISUAL MUST CONTAIN OR BE ABOUT: <describe exactly what to visualize here>]',
+        '',
+        'Return ONLY the valid HTML snippet plus the i18n dictionary as shown. Do not wrap in markdown code fences.'
+      ].join('\n');
+
+      // ---------- Prompt 2: full leerset JSON ----------
+      const setPrompt = [
+        'TASK: Create a COMPLETE leerset JSON script for one study page using the exact schema below. The page must be fully bilingual (English + Dutch): every piece of text must have an English version AND a Dutch version. When the user switches language the ENTIRE page (title, subtitle, summary, every section title, every goal, every question, every HTML-visual label) must switch immediately.',
+        '',
+        'SCHEMA (keys):',
+        '{',
+        '  "id": "unique-slug",',
+        '  "subject": "Subject name",',
+        '  "siteMetadata": {',
+        '    "title": "English page title",',
+        '    "titleI18n": {"en":"...","nl":"...", } // optional EN + NL titles',
+        '    "description": "English subtitle",',
+        '    "descriptionI18n": {"en":"...","nl":"..."} // optional',
+        '  },',
+        '  "defaultViewMode": "simple" | "study" | "summary" | "quiz",',
+        '  "availableModes": ["simple","study","summary","quiz"],',
+        '  "summary": "English markdown summary",',
+        '  "summaryI18n": {"en":"...","nl":"..."},',
+        '  "summaryContentType": "" | "html", // set to "html" for HTML summary',
+        '  "buttons": [{"url":"https://...","text":"Watch","iconType":"youTube","variant":"primary|secondary","enabled":true}],',
+        '  "showExportButtons": true,',
+        '  "showTranscriptExport": true,',
+        '  "showAnkiExport": true,',
+        '  "quiz": { "questions": [',
+        '     { "question":"...", "questionI18n":{"en":"...","nl":"..."}, "options":["a","b","c"], "answer":"a", "rationale":"..." }',
+        '  ]},',
+        '  "sections": [',
+        '     {',
+        '       "id": "sec-1",',
+        '       "title": "English section title",',
+        '       "titleI18n": {"en":"...","nl":"..."},',
+        '       "goal": "English goal",',
+        '       "goalI18n": {"en":"...","nl":"..."},',
+        '       "contentType": "" | "markdown" | "html",',
+        '       // For markdown/text, put your markdown here:',
+        '       "content": "## Heading\\n\\nText with **bold** and $$LaTeX$$ math.",',
+        '       // OR for HTML visuals (images, SVG, etc.), use BOTH:',
+        '       "html": "<div class=\\"bio-panel\\">...<img src=\\"https://...\\" /> or <img src=\\"image.png\\" /> ...</div>",',
+        '       "i18n": { "en": {"someKey":"English"}, "nl": {"someKey":"Nederlands"} }, // for data-i18n-key',
+        '       "questions": [',
+        '          { "number":"01", "text":"English question", "textI18n":{"en":"...","nl":"..."}, "answer":"...", "answerI18n":{"en":"...","nl":"..."} }',
+        '       ]',
+        '     }',
+        '  ]',
+        '}',
+        '',
+        'IMPORTANT RULES:',
+        '- titleI18n, title, summaryI18n, goalI18n, section titles, questions, and every HTML visual MUST all come in both EN and NL.',
+        '- If you build HTML visuals inside sections, flag them with "contentType": "html" and put the raw HTML in the "html" field.',
+        '- In HTML visuals use data-i18n-key="..." for labels and provide the translations in the section "i18n" object.',
+        '- Images: allow both online URLs (<img src="https://...">) and local images (<img src="myphoto.png"> placed next to the HTML file).',
+        '- Use the theme details for any visuals:',
+        styleBlock,
+        '[THE PAGE SHOULD BE ABOUT: <describe the subject/topic/curriculum here>]',
+        '[OPTIONAL: I ALSO WANT THESE VISUALS BUILT INSIDE THE JSON: <describe diagrams/images/animations you want>]',
+        '',
+        'Return ONLY the valid JSON. No explanation, no markdown code fences.'
+      ].join('\n');
+
+      el.push(`<div class="tools-card">
+        <h2>${L.t_promptvis}</h2>
+        <p>${en ? 'Paste this into your AI agent to generate a single, theme-matched, bilingual visual (SVG diagram, chart or schematic).' : 'Plak dit in je AI-agent om één thema-afgestemde, tweetalige visual (SVG-diagram, grafiek of schema) te genereren.'}</p>
+        ${promptBox('vizPromptArea', en ? 'Visualization builder prompt' : 'Prompt visualisatie-bouwer', vizPrompt, 340)}
+      </div>`);
+
+      el.push(`<div class="tools-card">
+        <h2>${L.t_promptset}</h2>
+        <p>${en ? 'Paste this into your AI agent to generate a complete bilingual leerset JSON page — text, questions and optional HTML visuals together.' : 'Plak dit in je AI-agent om een complete tweetalige leerset-JSON-pagina te genereren — tekst, vragen en optioneel HTML-visuals.'}</p>
+        ${promptBox('setPromptArea', en ? 'Full leerset JSON prompt' : 'Prompt volledige leerset-JSON', setPrompt, 360)}
+      </div>`);
+
+      // ---------- Cheat sheet ----------
+      const cheat = [
+        ['accent', en ? 'Light-mode accent (buttons/links) = <code>#3B82F6</code>. Titles use Cormorant Garamond, body Inter, code JetBrains Mono.' : 'Accent in lichtmodus (knoppen/links) = <code>#3B82F6</code>. Titels gebruiken Cormorant Garamond, body Inter, code JetBrains Mono.'],
+        ['+ online image', en ? '<code>"html": "&lt;img src=\\"https://...\\" /&gt;"</code> with <code>contentType:"html"</code>.' : '<code>"html": "&lt;img src=\\"https://...\\" /&gt;"</code> met <code>contentType:"html"</code>.'],
+        ['+ local image', en ? 'Use <code>&lt;img src="mypic.png" /&gt;</code> — place the file next to the HTML (relative to leerset-pagina.html).' : 'Gebruik <code>&lt;img src="mypic.png" /&gt;</code> — zet het bestand naast de HTML (relatief ten opzichte van leerset-pagina.html).'],
+        ['live language', en ? 'Give EVERY label a <code>data-i18n-key</code> + provide the section <code>i18n</code> dict; the whole page swaps EN/NL live.' : 'Geef elk label een <code>data-i18n-key</code> en lever het sectie-<code>i18n</code>-woordenboek; de hele pagina wisselt live tussen EN/NL.'],
+        ['isolation', en ? 'HTML sections render inside a private sandbox (iframe) — your CSS/JS stays in the visual and never breaks the page.' : 'HTML-secties renderen in een private sandbox (iframe) — jouw CSS/JS blijft in de visual en breekt de pagina nooit.']
+      ];
+      el.push(`<div class="tools-card">
+        <h2>${L.t_rate}</h2>
+        <div class="tools-tiles">${cheat.map(c => `<div class="tools-tile"><strong>${escHtml(c[0])}</strong><div>${c[1]}</div></div>`).join('')}</div>
+      </div>`);
+
+      // ---------- Docs ----------
+      const h = escHtml;
+      el.push(`<div class="tools-card">
+        <h2>${L.t_docs}</h2>
+        <p style="margin-bottom:0.25rem;">${en ? 'One JSON file describes everything about a learning page. Below is every field.' : 'Één JSON-bestand beschrijft alles over een leerpagina. Hieronder staat elk veld.'}</p>
+        <h3 style="margin-top:1rem;">siteMetadata</h3>
+        ${docTable(
+          [en ? 'Field' : 'Veld', 'Type', en ? 'Purpose' : 'Doel'],
+          [
+            ['title / siteMetadata.title', 'string', en ? 'English page title. Falls back for the subtitle too.' : 'Engelse paginatitel. Dient tevens als ondertitel-bron.'],
+            ['titleI18n', 'object', en ? 'Optional: <code>{"en":"...","nl":"..."}</code> for a Dutch title.' : 'Optioneel: <code>{"en":"...","nl":"..."}</code> voor een Nederlandse titel.'],
+            ['description', 'string', en ? 'English subtitle shown under the title.' : 'Engelse ondertitel onder de titel.'],
+            ['descriptionI18n', 'object', en ? 'Optional Dutch subtitle, updates live.' : 'Optionele Nederlandse ondertitel, werkt live.']
+          ]
+        )}
+        <h3>Top-level</h3>
+        ${docTable(
+          [en ? 'Field' : 'Veld', 'Type', en ? 'Purpose' : 'Doel'],
+          [
+            ['id', 'string', en ? 'Unique slug used for navigation.' : 'Unieke slug voor navigatie.'],
+            ['subject', 'string', en ? 'Subject grouping label.' : 'Vaklabel/indeling.'],
+            ['defaultViewMode', 'string', en ? 'Which tab opens first: <code>simple</code>, <code>study</code>, <code>summary</code> or <code>quiz</code>.' : 'Welke tab eerst opent: <code>simple</code>, <code>study</code>, <code>summary</code> of <code>quiz</code>.'],
+            ['availableModes', 'array', en ? 'Which mode tabs to show.' : 'Welke modus-tabs getoond worden.'],
+            ['summary', 'string', en ? 'English markdown summary (or HTML when <code>summaryContentType:"html"</code>).' : 'Engelse markdown-samenvatting (of HTML bij <code>summaryContentType:"html"</code>).'],
+            ['summaryI18n', 'object', en ? 'Dutch summary, shown when NL selected.' : 'Nederlandse samenvatting, getoond bij NL.'],
+            ['buttons', 'array', en ? '<code>{url,text,icon,iconType,variant,enabled}</code> — action buttons (YouTube, Substack, links).' : '<code>{url,text,icon,iconType,variant,enabled}</code> — actieknoppen (YouTube, Substack, links).'],
+            ['showExportButtons / showTranscriptExport / showAnkiExport', 'boolean', en ? 'Toggle the export / transcript / Anki buttons.' : 'Toont/verbergt de export-, transcript- en Anki-knoppen.'],
+            ['quiz', 'object', en ? 'MC quiz: <code>{"questions":[{question,questionI18n,options,answer,rationale}]}</code>.' : 'MC-quiz: <code>{"questions":[{question,questionI18n,options,answer,rationale}]}</code>.'],
+            ['sections', 'array', en ? 'The list of page sections (see below).' : 'De lijst van paginasecties (zie hieronder).']
+          ]
+        )}
+        <h3>sections[]</h3>
+        ${docTable(
+          [en ? 'Field' : 'Veld', 'Type', en ? 'Purpose' : 'Doel'],
+          [
+            ['id', 'string', en ? 'Unique anchor id for the sidebar / scroll spy.' : 'Unieke anker-id voor de zijbalk / scrollspy.'],
+            ['title', 'string', en ? 'English section heading.' : 'Engelse sectiekop.'],
+            ['titleI18n', 'object', en ? 'Optional Dutch heading.' : 'Optioneel Nederlandse sectiekop.'],
+            ['goal', 'string', en ? 'Short English learning goal.' : 'Kort Engelse leerdoel.'],
+            ['goalI18n', 'object', en ? 'Optional Dutch goal.' : 'Optioneel Nederlands leerdoel.'],
+            ['content', 'string', en ? 'Markdown OR raw HTML content for the section.' : 'Markdown OF raw HTML-inhoud voor de sectie.'],
+            ['contentType', 'string', en ? '<code>""</code>/<code>"markdown"</code> = markdown; <code>"html"</code> = render content as sandboxed HTML visual.' : '<code>""</code>/<code>"markdown"</code> = markdown; <code>"html"</code> = content als gesandboxte HTML-visual.'],
+            ['html', 'string', en ? 'Optional raw HTML for the section (alternative to content). Use for visuals.' : 'Optionele raw HTML voor de sectie (alternatief voor content). Gebruik voor visuals.'],
+            ['i18n', 'object', en ? 'The dictionary for <code>data-i18n-key</code> labels: <code>{"en":{...},"nl":{...}}</code>.' : 'Het woordenboek voor <code>data-i18n-key</code>-labels: <code>{"en":{...},"nl":{...}}</code>.'],
+            ['questions', 'array', en ? 'Questions: <code>{number,text,textI18n,answer,answerI18n}</code>.' : 'Vragen: <code>{number,text,textI18n,answer,answerI18n}</code>.']
+          ]
+        )}
+        <h3>${L.t_howto}</h3>
+        <p>${en ? '1) Mark the section with <span class="tools-doc-code">"contentType":"html"</span> and put your markup in the <span class="tools-doc-code">html</span> field (or <span class="tools-doc-code">content</span>). 2) The HTML (SVG, styles, scripts, animations, images) renders inside an isolated iframe sandbox — it will not collide with the page and the page will not break it. 3) For images: online via <span class="tools-doc-code">&lt;img src="https://..." /&gt;</span>; local via <span class="tools-doc-code">&lt;img src="image.png" /&gt;</span> placed next to the HTML file. 4) To make labels bilingual, add <span class="tools-doc-code">data-i18n-key="name"</span> and provide both translations in the section <span class="tools-doc-code">i18n</span> object; the page swaps them live with the EN/NL toggle.' : '1) Markeer de sectie met <span class="tools-doc-code">"contentType":"html"</span> en zet je markup in het veld <span class="tools-doc-code">html</span> (of <span class="tools-doc-code">content</span>). 2) De HTML (SVG, stijlen, scripts, animaties, afbeeldingen) rendert in een geïsoleerde iframe-sandbox — hij botst niet met de pagina en de pagina breekt hem niet. 3) Voor afbeeldingen: online via <span class="tools-doc-code">&lt;img src="https://..." /&gt;</span>; lokaal via <span class="tools-doc-code">&lt;img src="image.png" /&gt;</span> naast het HTML-bestand. 4) Om labels tweetalig te maken, voeg <span class="tools-doc-code">data-i18n-key="naam"</span> toe en lever beide vertalingen in het sectie-<span class="tools-doc-code">i18n</span>-object; de pagina wisselt ze live via de EN/NL-knop.'}</p>
+      </div>`);
+
+      document.getElementById('toolsPageContent').innerHTML = el.join('<div style="height:0.5rem;"></div>');
+    }
+
+    /* --------------------------------------------------------------------------
+       9. INITIALIZATION
+       -------------------------------------------------------------------------- */
+    document.addEventListener('DOMContentLoaded', () => {
+      // Default to System or prefers-color-scheme
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyThemeMode(prefersDark);
+
+      // Default language: English
+      setLanguage('en');
+
+      // Populate sets grid
+      renderSetsGrid();
+    });
+  </script>
+</body>
+</html>

@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     const description = String(body.description || '').trim();
     const locationPath = String(body.locationPath || '').trim();
     const cards = Array.isArray(body.cards) ? body.cards : [];
-    const cleanCards = cards.map((card) => ({ question: String(card.front || '').trim(), answer: String(card.back || '').trim() })).filter((card) => card.question && card.answer);
+    const cleanCards = cards.map((card: any) => ({ question: String(card.front || '').trim(), answer: String(card.back || '').trim() })).filter((card: any) => card.question && card.answer);
 
     if (!title || !subjectId || !cleanCards.length) {
       return NextResponse.json({ error: 'Titel, vak en minstens één kaart zijn verplicht.' }, { status: 400 });
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     }).select('id').single();
     if (setError || !studySet) throw setError || new Error('Leerset kon niet worden aangemaakt.');
 
-    const { error: cardsError } = await client.from('flashcards').insert(cleanCards.map((card, index) => ({
+    const { error: cardsError } = await client.from('flashcards').insert(cleanCards.map((card: any, index: number) => ({
       study_set_id: studySet.id, question: card.question, answer: card.answer, number: String(index + 1), order_index: index, metadata: {},
     })));
     if (cardsError) {

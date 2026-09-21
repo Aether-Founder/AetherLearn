@@ -21,6 +21,7 @@ import { useTheme } from 'next-themes';
 import { useNavbarPreferences, type NavPage } from '@/hooks/useNavbarPreferences';
 import { MobileNavigation } from './MobileNavigation';
 import { MobileBottomNav } from './MobileBottomNav';
+import { useColorTheme } from './ColorThemeProvider';
 
 export function SearchField({
   value,
@@ -218,6 +219,7 @@ function QuickCreateMenu() {
                   parent_id: null,
                   content: '',
                   order_index: 0,
+                  workspace_id: workspace.currentWorkspaceId,
                 });
                 workspace.setSelectedId(newId);
               }
@@ -241,6 +243,7 @@ function UserMenu() {
   const ref = useOutside<HTMLDivElement>(() => setOpen(false));
   const { t } = useTranslation();
   const { theme, setTheme } = useTheme();
+  const { supportsModeSwitching } = useColorTheme();
   const pathname = usePathname();
   const { user } = useUser();
   const { profile } = useUserProfile();
@@ -285,7 +288,7 @@ function UserMenu() {
             className="flex items-center gap-2 rounded-md px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground"
           >
             <Settings className="h-3.5 w-3.5" />
-            {t('nav_settings')}
+            Instellingen
           </Link>
           <Link
             href="/instellingen"
@@ -295,17 +298,19 @@ function UserMenu() {
             <User className="h-3.5 w-3.5" />
             Profiel bewerken
           </Link>
-          <button
-            type="button"
-            onClick={() => {
-              setTheme(theme === 'dark' ? 'light' : 'dark');
-              setOpen(false);
-            }}
-            className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground"
-          >
-            {theme === 'dark' ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
-            {theme === 'dark' ? t('light_mode') : t('dark_mode')}
-          </button>
+          {supportsModeSwitching && (
+            <button
+              type="button"
+              onClick={() => {
+                setTheme(theme === 'dark' ? 'light' : 'dark');
+                setOpen(false);
+              }}
+              className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground"
+            >
+              {theme === 'dark' ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+              {theme === 'dark' ? t('light_mode') : t('dark_mode')}
+            </button>
+          )}
         </div>
       )}
     </div>
@@ -363,7 +368,7 @@ export function AppShell({
   // Disable overflow calculation to show all visible items as buttons
   useEffect(() => {
     setOverflowItems([]);
-  }, [mounted, allNav]);
+  }, [mounted]);
 
   const displayName =
     profile?.full_name ||
@@ -398,7 +403,7 @@ export function AppShell({
   const visibleNav = allNav.filter((item) => !overflowItems.some((oi) => oi.href === item.href) && item.href !== '/');
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-background">
       <style jsx global>{`
         .mask-linear-fade {
           mask-image: linear-gradient(to right, black 90%, transparent 100%);
@@ -413,65 +418,72 @@ export function AppShell({
         }
       `}</style>
       <header className="sticky top-0 z-30 border-b border-border bg-background/90 backdrop-blur">
-        <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-6">
-          <div className="flex items-center justify-self-center gap-2.5">
-            <MobileNavigation />
-            <Link href="/" className="flex items-center gap-2.5">
-              <Image
-                src="/aether-logo.png"
-                alt={t('logo_alt')}
-                width={28}
-                height={28}
-                className="h-7 w-7 rounded-md object-contain"
-              />
-              <span className="font-display text-2xl font-semibold tracking-tight hidden sm:block">
-                {t('brand')}
-              </span>
-            </Link>
-          </div>
-
-          <nav ref={navRef} className="hidden items-center justify-center gap-0.5 lg:flex">
-            <div className="flex items-center gap-0.5">
-              {visibleNav.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-foreground ${
-                    isActive(item.href) ? 'text-foreground' : 'text-muted-foreground'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <div className="group">
-                <BijhoudenMenu
-                  items={[
-                    { href: PAGE_HREFS.inbox, label: PAGE_LABELS.inbox },
-                    { href: PAGE_HREFS.foutenlogboek, label: PAGE_LABELS.foutenlogboek },
-                    { href: PAGE_HREFS.planner, label: PAGE_LABELS.planner },
-                  ]}
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-center px-6">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
+              <MobileNavigation />
+              <Link href="/" className="flex items-center gap-1">
+                <Image
+                  src="/assets/favicon.png"
+                  alt={t('logo_alt')}
+                  width={28}
+                  height={28}
+                  className="h-7 w-7 rounded-md object-contain"
                 />
-              </div>
-              {overflowItems.length > 0 && <MoreMenu items={overflowItems} />}
+                <div className="flex flex-col items-start hidden sm:block">
+                  <span className="font-display text-2xl font-semibold tracking-tight leading-none">
+                    {t('brand')}
+                  </span>
+                  <span className="font-display text-sm font-medium tracking-tight leading-none">
+                    Learn
+                  </span>
+                </div>
+              </Link>
             </div>
-            <QuickCreateMenu />
-          </nav>
 
-          <div className="flex items-center justify-self-center gap-3">
-            <SearchField
-              {...(search !== undefined ? { value: search } : {})}
-              {...(onSearch ? { onChange: onSearch } : {})}
-              className="hidden w-52 xl:block"
-              showMoreResults={true}
-            />
-            <UserMenu />
+            <nav ref={navRef} className="hidden items-center gap-0.5 lg:flex">
+              <div className="flex items-center gap-0.5">
+                {visibleNav.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-foreground ${
+                      isActive(item.href) ? 'text-foreground' : 'text-muted-foreground'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+                <div className="group">
+                  <BijhoudenMenu
+                    items={[
+                      { href: PAGE_HREFS.inbox, label: PAGE_LABELS.inbox },
+                      { href: PAGE_HREFS.foutenlogboek, label: PAGE_LABELS.foutenlogboek },
+                      { href: PAGE_HREFS.planner, label: PAGE_LABELS.planner },
+                    ]}
+                  />
+                </div>
+                {overflowItems.length > 0 && <MoreMenu items={overflowItems} />}
+              </div>
+              <QuickCreateMenu />
+            </nav>
+
+            <div className="flex items-center gap-3">
+              <SearchField
+                {...(search !== undefined ? { value: search } : {})}
+                {...(onSearch ? { onChange: onSearch } : {})}
+                className="hidden w-52 xl:block"
+                showMoreResults={true}
+              />
+              <UserMenu />
+            </div>
           </div>
         </div>
       </header>
 
       <main
         className={
-          fullWidth ? 'w-full px-6 pb-20 md:pb-24' : 'mx-auto max-w-6xl px-6 pb-20 md:pb-24'
+          fullWidth ? 'flex-1 w-full px-6 pb-20 md:pb-24' : 'flex-1 mx-auto max-w-6xl px-6 pb-20 md:pb-24'
         }
       >
         {children}

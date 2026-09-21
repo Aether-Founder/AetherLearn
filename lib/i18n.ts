@@ -14,7 +14,7 @@ class ServerI18n {
 
   t(id: string, fallback?: string, params?: TParams): string {
     if (!params) return fallback ?? id;
-    let text = fallback ?? id;
+    const text = fallback ?? id;
     return text.replace(/\{(\w+)\}/g, (match, key) =>
       params[key] !== undefined && params[key] !== null ? String(params[key]) : match
     );

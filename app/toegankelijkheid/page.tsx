@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Accessibility, Check, Loader2, Save } from 'lucide-react';
-import { AppShell, PageHeader } from '@/components/AppShell';
+import { Check, Loader2, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -30,7 +29,7 @@ const COMPLEXITY_LABEL_KEYS: Record<Complexity, string> = {
   advanced: 'a11y_complexity_advanced_label',
 };
 
-export default function AccessibilitySettingsPage() {
+export default function AccessibilityPage() {
   const { t } = useTranslation();
   const [preferences, setPreferences] = useState<Preferences>(DEFAULTS);
   const [loading, setLoading] = useState(true);
@@ -111,18 +110,15 @@ export default function AccessibilitySettingsPage() {
   const complexityIndex = COMPLEXITY.indexOf(preferences.complexity);
 
   return (
-    <AppShell>
-      <PageHeader
-        eyebrow={t('a11y_eyebrow')}
-        title={t('a11y_title')}
-        description={t('a11y_description')}
-        action={
-          <div className="grid h-10 w-10 place-items-center rounded-full bg-secondary">
-            <Accessibility className="h-5 w-5" />
-          </div>
-        }
-      />
-      <div className="mx-auto mt-10 max-w-2xl space-y-6">
+    <div className="min-h-screen bg-background">
+      <div className="mx-auto mt-10 max-w-2xl px-4">
+        <div className="mb-8">
+          <h1 className="text-3xl font-display font-semibold text-foreground">Toegankelijkheid</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Pas de toegankelijkheidsinstellingen aan aan jouw behoeften
+          </p>
+        </div>
+
         <Card>
           <CardHeader>
             <CardTitle>{t('a11y_comfort')}</CardTitle>
@@ -240,6 +236,6 @@ export default function AccessibilitySettingsPage() {
           </Button>
         </div>
       </div>
-    </AppShell>
+    </div>
   );
 }

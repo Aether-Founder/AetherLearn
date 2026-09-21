@@ -1,145 +1,273 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
-import { Bot, BookOpen, Send, Sparkles, User } from 'lucide-react';
-import { AppShell, PageHeader } from '@/components/AppShell';
-import { useTranslation } from '@/lib/useTranslation';
+import { useState, useRef, useEffect } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Send, Bot, User, Sparkles, BookOpen, AlertCircle, Loader2 } from 'lucide-react';
 
-type Message = { role: 'tutor' | 'student'; text: string };
-
-const STARTER_KEYS = ['tutor_suggestion_1', 'tutor_suggestion_2', 'tutor_suggestion_3'];
-
-function localAnswer(prompt: string) {
-  if (prompt.toLowerCase().includes('formule'))
-    return 'Begin met het systeem: welke grootheden ken je en wat wordt gevraagd? Bij arbeid gebruik je W = F · s · cos(α). Bij kinetische energie is Eₖ = ½ · m · v². Ik kan daarna samen een voorbeeld uitwerken.';
-  if (prompt.toLowerCase().includes('oefenvragen'))
-    return '1. Een kracht van 20 N verplaatst een voorwerp 3 m. Hoeveel arbeid verricht de kracht?\n2. Wanneer is arbeid nul?\n3. Waar komt de kinetische energie vandaan bij een vallend voorwerp?';
-  return 'Energiebehoud betekent dat energie niet verdwijnt: ze verandert alleen van vorm. Denk aan een achtbaan: bovenaan heeft het karretje vooral zwaarte-energie, onderaan vooral bewegingsenergie. Zal ik dit met een oefening toepassen?';
+interface Message {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  sources?: Array<{
+    id: string;
+    deckTitle: string;
+    cardFront: string;
+    similarity: number;
+  }>;
+  model?: string;
+  timestamp: Date;
 }
 
 export default function TutorPage() {
-  const { t } = useTranslation();
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'tutor', text: t('tutor_greeting', undefined, { name: 'Mohammed' }) },
-  ]);
-  const [prompt, setPrompt] = useState('');
-  const [busy, setBusy] = useState(false);
+  const { user } = useAuth();
+  const supabase = createClient();
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [modelInfo, setModelInfo] = useState<string>('');
+  const [usageInfo, setUsageInfo] = useState<any>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const ask = async (event?: FormEvent) => {
-    event?.preventDefault();
-    const question = prompt.trim();
-    if (!question || busy) return;
-    setMessages((current) => [...current, { role: 'student', text: question }]);
-    setPrompt('');
-    setBusy(true);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  // Add welcome message on mount
+  useEffect(() => {
+    if (messages.length === 0) {
+      setMessages([
+        {
+          id: 'welcome',
+          role: 'assistant',
+          content: 'Hallo! Ik ben Aether Tutor, je persoonlijke studiebegeleider. Stel me een vraag over je studiemateriaal en ik zal je helpen het te begrijpen.',
+          timestamp: new Date(),
+        },
+      ]);
+    }
+  }, []);
+
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: input.trim(),
+      timestamp: new Date(),
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
     try {
-      const response = await fetch('/api/tutor', {
+      const response = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ message: input.trim() }),
       });
-      if (response.ok) {
-        const data = (await response.json()) as { answer?: string };
-        setMessages((current) => [
-          ...current,
-          { role: 'tutor', text: data.answer || localAnswer(question) },
-        ]);
-      } else {
-        setMessages((current) => [...current, { role: 'tutor', text: localAnswer(question) }]);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Er is een fout opgetreden');
       }
-    } catch {
-      setMessages((current) => [...current, { role: 'tutor', text: localAnswer(question) }]);
+
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: data.response,
+        sources: data.sources,
+        model: data.model,
+        timestamp: new Date(),
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
+      setModelInfo(`${data.model} via ${data.provider}`);
+      setUsageInfo(data.usage);
+
+    } catch (error: any) {
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: `❌ ${error.message}`,
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, errorMessage]);
     } finally {
-      setBusy(false);
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
     }
   };
 
   return (
-    <AppShell>
-      <PageHeader
-        eyebrow={t('tutor_eyebrow')}
-        title={t('tutor_title')}
-        description={t('tutor_description')}
-        action={
-          <div className="flex items-center gap-2 rounded-full bg-secondary px-3 py-1.5 text-xs text-muted-foreground">
-            <span className="h-2 w-2 rounded-full bg-emerald-500" /> {t('tutor_context_active')}
+    <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Header */}
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+        <div className="flex items-center justify-between max-w-4xl mx-auto">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+              <Bot className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+                Aether Tutor
+              </h1>
+              {modelInfo && (
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {modelInfo}
+                </p>
+              )}
+            </div>
           </div>
-        }
-      />
-      <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_280px]">
-        <section className="flex min-h-[560px] flex-col rounded-xl border border-border bg-card">
-          <div className="flex-1 space-y-5 p-6">
-            {messages.map((message, index) => (
-              <div
-                key={`${message.role}-${index}`}
-                className={`flex gap-3 ${message.role === 'student' ? 'flex-row-reverse' : ''}`}
+          
+          {usageInfo && !usageInfo.isBYOK && (
+            <div className="text-sm text-gray-600 dark:text-gray-400">
+              Vandaag: {usageInfo.limit - usageInfo.remaining}/{usageInfo.limit} berichten
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto px-6 py-4">
+        <div className="max-w-4xl mx-auto space-y-6">
+          <AnimatePresence>
+            {messages.map((message) => (
+              <motion.div
+                key={message.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                <div className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-secondary">
-                  {message.role === 'tutor' ? (
-                    <Bot className="h-4 w-4" />
-                  ) : (
-                    <User className="h-4 w-4" />
-                  )}
-                </div>
                 <div
-                  className={`max-w-[78%] whitespace-pre-line rounded-xl px-4 py-3 text-sm leading-relaxed ${message.role === 'student' ? 'bg-primary text-primary-foreground' : 'bg-secondary'}`}
+                  className={`flex space-x-3 max-w-3xl ${
+                    message.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''
+                  }`}
                 >
-                  {message.text}
+                  {/* Avatar */}
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                      message.role === 'user'
+                        ? 'bg-blue-600'
+                        : 'bg-gradient-to-br from-blue-500 to-purple-600'
+                    }`}
+                  >
+                    {message.role === 'user' ? (
+                      <User className="w-5 h-5 text-white" />
+                    ) : (
+                      <Sparkles className="w-5 h-5 text-white" />
+                    )}
+                  </div>
+
+                  {/* Message bubble */}
+                  <div
+                    className={`rounded-2xl px-4 py-3 ${
+                      message.role === 'user'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700'
+                    }`}
+                  >
+                    <div className="whitespace-pre-wrap">{message.content}</div>
+                    
+                    {/* Source citations */}
+                    {message.sources && message.sources.length > 0 && (
+                      <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                        <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2">
+                          Bronnen:
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {message.sources.map((source, idx) => (
+                            <a
+                              key={idx}
+                              href={`/leersets/${source.id}`}
+                              className="inline-flex items-center space-x-1 px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs rounded-md hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                            >
+                              <BookOpen className="w-3 h-3" />
+                              <span>{source.deckTitle}</span>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+
+          {/* Loading indicator */}
+          {isLoading && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex justify-start"
+            >
+              <div className="flex space-x-3">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </div>
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl px-4 py-3">
+                  <div className="flex items-center space-x-2">
+                    <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      AI is aan het denken...
+                    </span>
+                  </div>
                 </div>
               </div>
-            ))}
-            {busy && <p className="text-xs text-muted-foreground">{t('tutor_busy')}</p>}
-          </div>
-          <form onSubmit={ask} className="border-t border-border p-4">
-            <div className="flex gap-2">
-              <input
-                value={prompt}
-                onChange={(event) => setPrompt(event.target.value)}
-                placeholder={t('tutor_placeholder')}
-                className="h-11 min-w-0 flex-1 rounded-md border border-border bg-background px-3 text-sm outline-none focus:border-foreground/40"
-                aria-label={t('tutor_aria')}
-              />
-              <button
-                type="submit"
-                disabled={busy || !prompt.trim()}
-                className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-primary text-primary-foreground disabled:opacity-40"
-              >
-                <Send className="h-4 w-4" aria-hidden="true" />
-              </button>
-            </div>
-          </form>
-        </section>
-        <aside className="space-y-6">
-          <div className="rounded-xl border border-border bg-card p-5">
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-warning" />
-              <h2 className="font-semibold">{t('tutor_try')}</h2>
-            </div>
-            <div className="mt-4 space-y-2">
-              {STARTER_KEYS.map((key) => (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => setPrompt(t(key))}
-                  className="w-full rounded-md border border-border px-3 py-2 text-left text-xs leading-relaxed transition-colors hover:bg-secondary"
-                >
-                  {t(key)}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-xl border border-border bg-card p-5">
-            <div className="flex items-center gap-2">
-              <BookOpen className="h-4 w-4 text-muted-foreground" />
-              <h2 className="font-semibold">{t('tutor_sources')}</h2>
-            </div>
-            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-              Natuurkunde · Kracht, arbeid en energie
-              <br />3 lessen · 12 begrippen gekoppeld
-            </p>
-          </div>
-        </aside>
+            </motion.div>
+          )}
+
+          <div ref={messagesEndRef} />
+        </div>
       </div>
-    </AppShell>
+
+      {/* Input */}
+      <div className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 px-6 py-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex space-x-3">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Stel een vraag over je studiemateriaal..."
+              disabled={isLoading}
+              className="flex-1 px-4 py-3 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 text-gray-900 dark:text-white"
+            />
+            <button
+              onClick={handleSend}
+              disabled={isLoading || !input.trim()}
+              className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center space-x-2"
+            >
+              <Send className="w-5 h-5" />
+            </button>
+          </div>
+          
+          {usageInfo && !usageInfo.isBYOK && usageInfo.remaining <= 5 && (
+            <div className="mt-2 flex items-center space-x-2 text-xs text-yellow-600 dark:text-yellow-500">
+              <AlertCircle className="w-4 h-4" />
+              <span>
+                Nog {usageInfo.remaining} berichten over vandaag. Voeg je eigen API-key toe voor onbeperkt gebruik.
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

@@ -56,6 +56,12 @@ export function useUser() {
 }
 
 /**
+ * Alias for useUser — provided for convenience and backwards compatibility.
+ * Multiple pages import `useAuth` expecting `{ user, loading }`.
+ */
+export const useAuth = useUser;
+
+/**
  * Hook to get the current user's profile from the users table
  *
  * @returns User profile or null

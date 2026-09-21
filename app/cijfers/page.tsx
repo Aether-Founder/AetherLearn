@@ -242,7 +242,6 @@ export default function CijfersPage() {
     return (
       <AppShell>
         <PageHeader
-          eyebrow={t('grades_eyebrow')}
           title={t('grades_title')}
           description={t('grades_description')}
         />
@@ -254,7 +253,6 @@ export default function CijfersPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={t('grades_eyebrow')}
         title={t('grades_title')}
         description={t('grades_description')}
         action={

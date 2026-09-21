@@ -1,0 +1,1972 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Aether tekent atoommodellen en structuurformules stap voor stap, met uitleg.">
+<title>Aether - Atomen &amp; Moleculen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background:#E8EEFD;--foreground:#020817;--card:#E8EEFD;--card-alt:#FFFFFF;
+  --border:rgba(2,8,23,0.18);--border-solid:#E2E8F0;--muted:#F1F5F9;--muted-foreground:#64748B;
+  --secondary:#F1F5F9;--secondary-foreground:#020817;--primary:#0F172A;--primary-hover:#1E293B;
+  --primary-foreground:#F8FAFC;--code-bg:#E2E8F0;--focus-ring:rgba(15,23,42,0.2);
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-serif:'Cormorant Garamond',Georgia,Cambria,serif;
+  --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+}
+html.dark{
+  --background:#020817;--foreground:#F8FAFC;--card:#020817;--card-alt:#0B1120;
+  --border:#1E293B;--border-solid:#1E293B;--muted:#1E293B;--muted-foreground:#94A3B8;
+  --secondary:#1E293B;--secondary-foreground:#F8FAFC;--primary:#F8FAFC;--primary-hover:#E2E8F0;
+  --primary-foreground:#020817;--code-bg:#1E293B;--focus-ring:rgba(248,250,252,0.25);
+}
+*{box-sizing:border-box}
+html{color-scheme:light;scroll-behavior:smooth;background:var(--background)}
+html.dark{color-scheme:dark}
+body{
+  margin:0;min-width:320px;min-height:100vh;color:var(--foreground);
+  background:radial-gradient(circle at 10% 0%,rgba(255,255,255,.32),transparent 28rem),var(--background);
+  font-family:var(--font-sans);font-size:15px;line-height:1.6;
+}
+html.dark body{background:radial-gradient(circle at 10% 0%,rgba(148,163,184,.08),transparent 28rem),var(--background)}
+body,button,input,.card-base,.card-alt,.site-nav,.step-card,.tab-btn,.key-button{
+  transition:background-color .25s ease,color .25s ease,border-color .25s ease;
+}
+button,input{font:inherit}button{color:inherit}
+.container-custom{width:100%;max-width:1100px;margin:0 auto;padding:0 1.25rem}
+
+/* ---------- nav ---------- */
+.site-nav{position:sticky;top:0;z-index:50;background-color:color-mix(in srgb,var(--background) 88%,transparent);
+  border-bottom:1px solid var(--border);backdrop-filter:blur(10px);padding:.75rem 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-brand{display:flex;align-items:center;min-width:0}
+.wordmark{font-family:var(--font-serif);font-size:25px;font-weight:600;letter-spacing:-.01em;line-height:1}
+.nav-context{margin-left:.8rem;padding-left:.8rem;border-left:1px solid var(--border);color:var(--muted-foreground);font-size:12px}
+
+/* ---------- buttons ---------- */
+.btn-primary,.btn-secondary,.btn-icon{border-radius:4px;font-size:13px;font-weight:500;font-family:var(--font-sans);
+  transition:all .15s ease;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.5rem}
+.btn-primary{background-color:var(--primary);color:var(--primary-foreground);border:1px solid transparent;padding:.65rem 1rem}
+.btn-primary:hover{background-color:var(--primary-hover)}
+.btn-secondary{background-color:transparent;color:var(--foreground);border:1px solid var(--border);padding:.6rem .95rem}
+.btn-secondary:hover{background-color:var(--secondary)}
+.btn-icon{width:38px;height:38px;padding:.5rem;border:1px solid var(--border);background:transparent;color:var(--muted-foreground)}
+.btn-icon:hover{color:var(--foreground);background-color:var(--secondary)}
+button:active{transform:scale(.98);opacity:.95}
+button:disabled{opacity:.42;cursor:not-allowed;transform:none}
+button:focus-visible,input:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+
+/* ---------- head ---------- */
+.page-head{padding:3rem 0 1.75rem;max-width:780px}
+.eyebrow{margin:0 0 .5rem;color:var(--muted-foreground);font-family:var(--font-mono);font-size:11px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase}
+h1,h2,h3,h4{font-family:var(--font-serif);font-weight:500;letter-spacing:-.01em}
+h1{margin:0;font-size:clamp(40px,7vw,60px);line-height:.98}
+.page-head h1 span{display:block;margin-top:.45rem;font-size:clamp(25px,4vw,37px);color:var(--muted-foreground)}
+.page-intro{max-width:660px;margin:1.1rem 0 0;color:var(--muted-foreground);font-size:16px;line-height:1.75}
+main{padding-bottom:4rem}
+
+/* ---------- cards & sections ---------- */
+.card-base{background-color:var(--card);border:1px solid var(--border);border-radius:6px}
+.card-alt{background-color:var(--card-alt);border:1px solid var(--border);border-radius:6px}
+.composer{overflow:hidden}
+.composer-section{padding:clamp(1.1rem,3vw,1.75rem);border-top:1px solid var(--border)}
+.composer-section:first-child{border-top:0}
+.section-heading{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.step-number{flex:0 0 auto;display:grid;place-items:center;width:29px;height:29px;margin-top:1px;
+  border:1px solid var(--border);border-radius:50%;font-family:var(--font-mono);font-size:11px;font-weight:500}
+.section-heading h2{margin:0;font-size:clamp(23px,3vw,28px);line-height:1.15}
+.section-heading p{margin:.25rem 0 0;color:var(--muted-foreground);font-size:13px}
+.micro-label{color:var(--muted-foreground);font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+
+/* ---------- tabs (mode switcher) ---------- */
+.tab-bar{display:flex;gap:.25rem;padding:.25rem;background-color:var(--secondary);border:1px solid var(--border);
+  border-radius:8px;overflow-x:auto}
+.tab-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem .85rem;font-size:13px;font-weight:500;
+  border-radius:6px;border:1px solid transparent;background:transparent;color:var(--muted-foreground);cursor:pointer;
+  white-space:nowrap;transition:all .15s ease}
+.tab-btn:hover{color:var(--foreground)}
+.tab-btn.active{background-color:var(--background);color:var(--foreground);border-color:var(--border);
+  box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.mode-desc{margin:.85rem 0 0;color:var(--muted-foreground);font-size:13px}
+
+/* ---------- input ---------- */
+.input-row{display:flex;gap:.5rem;align-items:stretch}
+.text-input{flex:1;min-width:0;padding:.75rem 1rem;font-size:16px;font-family:var(--font-sans);color:var(--foreground);
+  background-color:var(--card-alt);border:1px solid var(--border);border-radius:6px;outline:none;transition:border-color .15s ease}
+.text-input::placeholder{color:var(--muted-foreground);opacity:.7}
+.text-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--focus-ring)}
+.suggestions{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.6rem;min-height:0}
+.sugg{padding:.25rem .55rem;border:1px solid var(--border);border-radius:4px;background:transparent;cursor:pointer;
+  font-size:12px;color:var(--muted-foreground);transition:all .15s ease}
+.sugg:hover{color:var(--foreground);background:var(--secondary)}
+.sugg b{color:var(--foreground);font-family:Cambria,'Times New Roman',serif;font-size:13px}
+
+/* ---------- keyboard ---------- */
+.keyboard{display:grid;grid-template-columns:1.35fr 1fr;gap:.85rem 1.1rem;margin-top:1rem}
+.key-group h3{margin:0 0 .45rem;color:var(--muted-foreground);font-family:var(--font-sans);font-size:11px;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.key-grid{display:flex;flex-wrap:wrap;gap:.38rem}
+.key-button{min-width:42px;min-height:38px;padding:.42rem .6rem;color:var(--foreground);background:transparent;
+  border:1px solid var(--border);border-radius:4px;font-family:Cambria,'Times New Roman',var(--font-serif);
+  font-size:17px;line-height:1;cursor:pointer;transition:all .15s ease}
+.key-button:hover{background:var(--secondary);border-color:var(--foreground)}
+.key-button.structure{min-width:58px;font-family:var(--font-sans);font-size:12px;font-weight:500}
+.more-toggle{margin-top:1rem;display:inline-flex;align-items:center;gap:.5rem;padding:.6rem .9rem;color:var(--foreground);
+  background:var(--secondary);border:1px solid var(--border);border-radius:4px;font-size:13px;font-weight:500;cursor:pointer}
+.more-toggle:hover{background:var(--card-alt)}
+.more-toggle .chev{transition:transform .2s ease;color:var(--muted-foreground)}
+.more-toggle.open .chev{transform:rotate(90deg)}
+.more-panel{display:none;margin-top:.75rem;padding:1rem;background:var(--secondary);border:1px solid var(--border);border-radius:6px}
+.more-panel.open{display:block;animation:slideDown .25s ease}
+.pt-scroll{overflow-x:auto;padding-bottom:.4rem}
+.periodic{display:grid;grid-template-columns:repeat(18,minmax(30px,1fr));grid-auto-rows:minmax(34px,auto);
+  gap:3px;min-width:730px}
+.pt-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:2px 0;
+  border:1px solid var(--border);border-radius:3px;background:var(--card-alt);cursor:pointer;line-height:1;transition:all .12s ease}
+.pt-cell:hover,.pt-cell:focus-visible{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}
+.pt-cell .z{font-family:var(--font-mono);font-size:8px;opacity:.65}
+.pt-cell .s{font-family:Cambria,'Times New Roman',serif;font-size:13px;font-weight:600}
+.pt-gap{border:1px dashed var(--border);border-radius:3px;display:grid;place-items:center;font-size:9px;color:var(--muted-foreground)}
+.pt-info{margin-top:.6rem;min-height:20px;color:var(--muted-foreground);font-size:12px}
+.pt-info b{color:var(--foreground)}
+
+/* ---------- info panel ---------- */
+.info-grid{display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));gap:.6rem}
+.info-card{padding:.85rem .9rem;background:var(--card-alt);border:1px solid var(--border);border-radius:6px}
+.info-card .k{display:block;color:var(--muted-foreground);font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.info-card .v{display:block;margin-top:.2rem;font-family:var(--font-serif);font-size:30px;line-height:1.1}
+.info-card .v small{font-family:var(--font-sans);font-size:12px;color:var(--muted-foreground)}
+.calc-list{margin:1rem 0 0;padding:0;list-style:none;border-top:1px solid var(--border)}
+.calc-list li{padding:.7rem .25rem;border-bottom:1px solid var(--border);font-size:13.5px;display:flex;gap:.75rem;align-items:flex-start}
+.calc-list .tag{flex:0 0 auto;font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted-foreground);border:1px solid var(--border);border-radius:3px;padding:.15rem .4rem;margin-top:.1rem}
+.calc-list b{font-weight:600}
+.facts{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.badge{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .55rem;border-radius:4px;font-size:11px;font-weight:600;
+  font-family:var(--font-mono);letter-spacing:.05em;text-transform:uppercase;background:var(--secondary);
+  color:var(--foreground);border:1px solid var(--border)}
+.chem-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:.25rem}
+.chem-table th,.chem-table td{padding:.5rem .6rem;border-bottom:1px solid var(--border);text-align:left}
+.chem-table th{color:var(--muted-foreground);font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.chem-table td.num,.chem-table th.num{text-align:right;font-family:var(--font-mono);font-size:12px}
+.chem-table .sym{font-family:Cambria,'Times New Roman',serif;font-size:17px}
+.empty-note{color:var(--muted-foreground);font-size:13px}
+
+/* ---------- solve row ---------- */
+.solve-row{display:flex;align-items:center;gap:1rem}
+.solve-button{min-height:52px;padding:.75rem 1.35rem;font-size:14px}
+.solve-hint{margin:0;color:var(--muted-foreground);font-size:12px}
+.message{display:none;margin-top:.9rem;padding:.75rem .9rem;color:var(--foreground);background:var(--secondary);
+  border:1px solid var(--border);border-left:3px solid var(--foreground);border-radius:4px;font-size:13px}
+.message.visible{display:block;animation:slideDown .2s ease both}
+
+/* ---------- results ---------- */
+.results-shell{display:none;margin-top:2.5rem;background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.results-shell.visible{display:block;animation:solutionReveal .45s cubic-bezier(.4,0,.2,1) both}
+.results-head{position:sticky;top:57px;z-index:20;display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;
+  padding:1.1rem 1.5rem .85rem;background-color:color-mix(in srgb,var(--card) 94%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+.results-head h2{margin:0;font-size:27px;line-height:1.1}
+.results-head p{margin:.2rem 0 0;color:var(--muted-foreground);font-size:12px}
+.step-counter{flex:0 0 auto;color:var(--muted-foreground);font-family:var(--font-mono);font-size:12px;white-space:nowrap}
+.progress-track{width:100%;height:6px;overflow:hidden;background-color:var(--secondary)}
+.progress-fill{width:0;height:100%;background-color:var(--primary);transition:width .3s ease}
+.steps-wrap{padding:0 clamp(1rem,3vw,1.75rem) 1.5rem}
+
+.step-card{opacity:0;transform:translateY(28px);transition:opacity .55s ease,transform .55s cubic-bezier(.4,0,.2,1);
+  padding:clamp(1.1rem,3vw,1.6rem) 0;border-bottom:1px solid var(--border)}
+.step-card.revealed{opacity:1;transform:none}
+.step-card:last-child{border-bottom:0}
+.step-head{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.step-kicker{margin:0;color:var(--muted-foreground);font-family:var(--font-mono);font-size:11px;font-weight:500;
+  letter-spacing:.06em;text-transform:uppercase}
+.step-title{margin:.2rem 0 0;font-size:clamp(21px,2.6vw,26px);line-height:1.2}
+.step-visual{margin:.25rem 0 1rem;padding:1rem;background:var(--card-alt);border:1px solid var(--border);border-radius:6px;
+  display:flex;flex-direction:column;align-items:center;gap:.75rem}
+.step-visual.plain{align-items:stretch}
+.model-svg{width:100%;max-width:440px;height:auto;display:block}
+.model-svg.wide{max-width:100%}
+.step-visual figcaption{color:var(--muted-foreground);font-size:12px;text-align:center;max-width:56ch}
+.explanation-grid{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.exp-block{padding:.95rem 1.1rem;background:var(--secondary)}
+.exp-block+.exp-block{border-left:1px solid var(--border)}
+.exp-block h4{margin:0 0 .3rem;color:var(--muted-foreground);font-family:var(--font-sans);font-size:11px;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase}
+.exp-block p{margin:0;font-size:13.5px;line-height:1.65}
+.inline-math{padding:.06rem .25rem;background:var(--card-alt);border:1px solid var(--border);border-radius:3px;
+  font-family:Cambria,'Times New Roman',var(--font-serif);font-size:1.06em}
+.legend{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center;font-size:11.5px;color:var(--muted-foreground)}
+.legend-item{display:inline-flex;align-items:center;gap:.35rem}
+.legend-dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+.legend-dot.p{background:var(--primary)}
+.legend-dot.n{background:var(--card-alt);border:1.5px solid var(--muted-foreground)}
+.legend-dot.e{background:var(--muted-foreground)}
+
+/* model switch + compare */
+.model-switch{width:100%;display:flex;flex-direction:column;gap:.9rem;align-items:center}
+.model-switch .tab-bar{width:100%;max-width:440px}
+.model-stage{width:100%;display:flex;justify-content:center}
+.model-stage.swap{animation:stepIn .4s cubic-bezier(.4,0,.2,1) both}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;width:100%}
+.compare figure{margin:0;padding:.9rem;background:var(--secondary);border:1px solid var(--border);border-radius:6px;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.compare figcaption{font-size:12.5px;font-weight:600;text-align:center}
+.diff-list{margin:.9rem 0 0;padding:0;list-style:none;font-size:13px}
+.diff-list li{padding:.55rem 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.diff-list li:last-child{border-bottom:0}
+.diff-list .lbl{grid-column:1/-1;color:var(--muted-foreground);font-family:var(--font-mono);font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em}
+
+/* ---------- svg classes ---------- */
+.shell{fill:none;stroke:var(--border);stroke-width:1.5}
+.shell-hl{stroke:var(--primary);stroke-width:2.5;animation:pulseRing 1.6s ease both}
+.shell-label{fill:var(--muted-foreground);font-family:var(--font-mono);font-size:13px}
+.electron{fill:var(--foreground)}
+.orbit{transform-box:view-box;transform-origin:50% 50%;animation:spin var(--dur,20s) linear infinite}
+.nucleus-core{fill:var(--primary)}
+.nucleus-text{fill:var(--primary-foreground);font-family:Cambria,'Times New Roman',serif;font-size:22px;font-weight:600}
+.nucl{stroke:none}
+.nucl.p{fill:var(--primary)}
+.nucl.n{fill:var(--card-alt);stroke:var(--muted-foreground);stroke-width:1.2}
+.cap{fill:var(--muted-foreground);font-family:var(--font-sans);font-size:13px}
+.cap-strong{fill:var(--foreground);font-family:var(--font-sans);font-size:14px;font-weight:600}
+.bond{stroke:var(--foreground);stroke-width:2.4;stroke-linecap:round}
+.bond-hl{stroke:var(--primary);stroke-width:3.4;animation:pulseRing 1.6s ease both}
+.atom-label{fill:var(--foreground);font-family:Cambria,'Times New Roman',var(--font-serif);font-size:26px;font-weight:600;
+  paint-order:stroke fill;stroke:var(--card-alt);stroke-width:8px;stroke-linejoin:round}
+.atom-label.hl{fill:var(--primary)}
+.lp-dot{fill:var(--muted-foreground)}
+.angle-arc{fill:none;stroke:var(--muted-foreground);stroke-width:1.4;stroke-dasharray:3 3}
+.angle-text{fill:var(--muted-foreground);font-family:var(--font-mono);font-size:13px}
+.foil{stroke:var(--muted-foreground);stroke-width:1.5}
+.beam{stroke:var(--primary);stroke-width:2;fill:none;marker-end:url(#arrow)}
+.beam-back{stroke:var(--primary);stroke-width:2;fill:none;stroke-dasharray:5 4;marker-end:url(#arrow)}
+.bracket{fill:none;stroke:var(--foreground);stroke-width:2}
+.charge{fill:var(--foreground);font-family:var(--font-sans);font-size:18px;font-weight:600}
+.spiral-e{fill:var(--foreground)}
+
+/* ---------- footer ---------- */
+.footer-note{margin:2.5rem 0 0;color:var(--muted-foreground);font-size:11px;text-align:center}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@keyframes solutionReveal{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes stepIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes pulseRing{0%{opacity:.35}40%{opacity:1}100%{opacity:1}}
+
+@media (max-width:900px){
+  .info-grid{grid-template-columns:repeat(3,minmax(110px,1fr))}
+  .keyboard{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .container-custom{padding:0 .85rem}
+  .nav-context{display:none}
+  .page-head{padding:2.1rem 0 1.3rem}
+  .info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .explanation-grid{grid-template-columns:1fr}
+  .exp-block+.exp-block{border-left:0;border-top:1px solid var(--border)}
+  .compare{grid-template-columns:1fr}
+  .diff-list li{grid-template-columns:1fr}
+  .solve-row{flex-direction:column;align-items:stretch}
+  .solve-button{width:100%}
+  .results-head{top:53px;padding:1rem}
+  .key-button{min-width:38px;min-height:37px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;
+    animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .step-card{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<nav class="site-nav" aria-label="Hoofdnavigatie">
+  <div class="container-custom nav-inner">
+    <div class="nav-brand">
+      <span class="wordmark">Aether</span>
+      <span class="nav-context">Atomen &amp; Moleculen</span>
+    </div>
+    <button id="themeToggle" class="btn-icon" type="button" aria-label="Donkere modus inschakelen" title="Wissel kleurmodus">
+      <svg id="themeIcon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 1 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+    </button>
+  </div>
+</nav>
+
+<main class="container-custom">
+  <header class="page-head">
+    <p class="eyebrow">Interactieve scheikunde</p>
+    <h1>Aether <span>Atomen &amp; Moleculen</span></h1>
+    <p class="page-intro">Vul een element of molecuulformule in en zie stap voor stap hoe het atoommodel of de structuurformule ontstaat. Elke stap tekent zichzelf en legt uit wat er gebeurt en waarom.</p>
+  </header>
+
+  <section class="card-base composer" aria-label="Invoer">
+    <!-- 01 MODE -->
+    <div class="composer-section">
+      <div class="section-heading">
+        <span class="step-number" aria-hidden="true">01</span>
+        <div><h2>Kies wat je wilt tekenen</h2><p>De uitleg past zich aan het gekozen model aan.</p></div>
+      </div>
+      <div class="tab-bar" role="tablist" aria-label="Kies een model">
+        <button class="tab-btn active" role="tab" aria-selected="true" data-mode="lewis" type="button">Structuurformule</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-mode="bohr" type="button">Het atoommodel van Bohr</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-mode="rutherford" type="button">Het atoommodel van Rutherford</button>
+      </div>
+      <p class="mode-desc" id="modeDesc"></p>
+    </div>
+
+    <!-- 02 INPUT -->
+    <div class="composer-section">
+      <div class="section-heading">
+        <span class="step-number" aria-hidden="true">02</span>
+        <div><h2 id="inputTitle">Voer het element of de formule in</h2><p id="inputHint">Eén elementsymbool of één molecuulformule.</p></div>
+      </div>
+
+      <label class="micro-label" for="elInput" id="elLabel">Invoer</label>
+      <div class="input-row" style="margin-top:.5rem">
+        <input id="elInput" class="text-input" type="text" autocomplete="off" spellcheck="false" aria-describedby="elHelp">
+        <button id="backspaceBtn" class="btn-secondary" type="button" title="Laatste teken wissen" aria-label="Laatste teken wissen">⌫</button>
+        <button id="clearBtn" class="btn-secondary" type="button">Wissen</button>
+      </div>
+      <p id="elHelp" class="sr-only">Typ een elementsymbool zoals Fe, of een molecuulformule zoals H2O. Druk op Enter om te tekenen.</p>
+      <div class="suggestions" id="suggestions" role="group" aria-label="Suggesties"></div>
+
+      <div class="keyboard" aria-label="Invoerknoppen">
+        <div class="key-group">
+          <h3>Veelgebruikte elementen</h3>
+          <div class="key-grid" id="commonKeys"></div>
+        </div>
+        <div class="key-group">
+          <h3>Aantallen atomen</h3>
+          <div class="key-grid" id="digitKeys"></div>
+        </div>
+      </div>
+
+      <button id="moreToggle" class="more-toggle" type="button" aria-expanded="false" aria-controls="morePanel">
+        <span>Meer elementen</span>
+        <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg>
+      </button>
+      <div id="morePanel" class="more-panel" role="region" aria-label="Periodiek systeem">
+        <div class="pt-scroll"><div class="periodic" id="periodic"></div></div>
+        <p class="pt-info" id="ptInfo" aria-live="polite">Beweeg over een vakje voor de naam, of klik om in te voeren.</p>
+      </div>
+    </div>
+
+    <!-- 03 INSTANT INFO -->
+    <div class="composer-section">
+      <div class="section-heading">
+        <span class="step-number" aria-hidden="true">03</span>
+        <div><h2>Het atoom in cijfers</h2><p>Verschijnt direct zodra je iets geldigs invoert.</p></div>
+      </div>
+      <div id="infoPanel"><p class="empty-note">Nog niets ingevuld.</p></div>
+    </div>
+
+    <div class="composer-section">
+      <div class="solve-row">
+        <button id="drawBtn" class="btn-primary solve-button" type="button">Teken en leg uit</button>
+        <p class="solve-hint">Sneltoets: Enter</p>
+      </div>
+      <div id="errorMessage" class="message" role="alert" aria-live="assertive"></div>
+    </div>
+  </section>
+
+  <section id="results" class="results-shell" aria-labelledby="resultsTitle">
+    <div class="results-head">
+      <div>
+        <h2 id="resultsTitle">De uitwerking</h2>
+        <p>Scroll naar beneden — elke stap verschijnt vanzelf.</p>
+      </div>
+      <span class="step-counter" id="stepCounter">Stap 1 van 1</span>
+    </div>
+    <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="steps-wrap" id="stepsWrap"></div>
+  </section>
+
+  <p class="footer-note">Aether tekent modellen voor hoofdgroepelementen en eenvoudige covalente en ionaire verbindingen. Bij dubbelzinnige of onveilige situaties geeft de app uitleg in plaats van te gokken.</p>
+</main>
+
+<script>
+(() => {
+'use strict';
+
+/* ============================================================
+   FOUTAFHANDELING
+   ============================================================ */
+class ChemError extends Error { constructor(m){ super(m); this.name='ChemError'; } }
+
+/* ============================================================
+   DATA: alle 118 elementen
+   velden: symbool | naam | Z | massagetal A | groep | periode | EN | categorie
+   categorie: n=niet-metaal e=edelgas m=metaal o=overgangsmetaal h=halogeen x=metalloïde l=lanthanide a=actinide
+   ============================================================ */
+const DATA = `H|waterstof|1|1|1|1|2.20|n
+He|helium|2|4|18|1|0|e
+Li|lithium|3|7|1|2|0.98|m
+Be|berillium|4|9|2|2|1.57|m
+B|boor|5|11|13|2|2.04|x
+C|koolstof|6|12|14|2|2.55|n
+N|stikstof|7|14|15|2|3.04|n
+O|zuurstof|8|16|16|2|3.44|n
+F|fluor|9|19|17|2|3.98|h
+Ne|neon|10|20|18|2|0|e
+Na|natrium|11|23|1|3|0.93|m
+Mg|magnesium|12|24|2|3|1.31|m
+Al|aluminium|13|27|13|3|1.61|m
+Si|silicium|14|28|14|3|1.90|x
+P|fosfor|15|31|15|3|2.19|n
+S|zwavel|16|32|16|3|2.58|n
+Cl|chloor|17|35|17|3|3.16|h
+Ar|argon|18|40|18|3|0|e
+K|kalium|19|39|1|4|0.82|m
+Ca|calcium|20|40|2|4|1.00|m
+Sc|scandium|21|45|3|4|1.36|o
+Ti|titaan|22|48|4|4|1.54|o
+V|vanadium|23|51|5|4|1.63|o
+Cr|chroom|24|52|6|4|1.66|o
+Mn|mangaan|25|55|7|4|1.55|o
+Fe|ijzer|26|56|8|4|1.83|o
+Co|kobalt|27|59|9|4|1.88|o
+Ni|nikkel|28|59|10|4|1.91|o
+Cu|koper|29|64|11|4|1.90|o
+Zn|zink|30|65|12|4|1.65|o
+Ga|gallium|31|70|13|4|1.81|m
+Ge|germanium|32|73|14|4|2.01|x
+As|arseen|33|75|15|4|2.18|x
+Se|seleen|34|79|16|4|2.55|n
+Br|broom|35|80|17|4|2.96|h
+Kr|krypton|36|84|18|4|3.00|e
+Rb|rubidium|37|85|1|5|0.82|m
+Sr|strontium|38|88|2|5|0.95|m
+Y|yttrium|39|89|3|5|1.22|o
+Zr|zirkonium|40|91|4|5|1.33|o
+Nb|niobium|41|93|5|5|1.60|o
+Mo|molybdeen|42|96|6|5|2.16|o
+Tc|technetium|43|98|7|5|1.90|o
+Ru|ruthenium|44|101|8|5|2.20|o
+Rh|rodium|45|103|9|5|2.28|o
+Pd|palladium|46|106|10|5|2.20|o
+Ag|zilver|47|108|11|5|1.93|o
+Cd|cadmium|48|112|12|5|1.69|o
+In|indium|49|115|13|5|1.78|m
+Sn|tin|50|119|14|5|1.96|m
+Sb|antimoon|51|122|15|5|2.05|x
+Te|telluur|52|128|16|5|2.10|x
+I|jodium|53|127|17|5|2.66|h
+Xe|xenon|54|131|18|5|2.60|e
+Cs|cesium|55|133|1|6|0.79|m
+Ba|barium|56|137|2|6|0.89|m
+La|lanthaan|57|139|3|6|1.10|l
+Ce|cerium|58|140|0|6|1.12|l
+Pr|praseodymium|59|141|0|6|1.13|l
+Nd|neodymium|60|144|0|6|1.14|l
+Pm|promethium|61|145|0|6|1.13|l
+Sm|samarium|62|150|0|6|1.17|l
+Eu|europium|63|152|0|6|1.20|l
+Gd|gadolinium|64|157|0|6|1.20|l
+Tb|terbium|65|159|0|6|1.20|l
+Dy|dysprosium|66|163|0|6|1.22|l
+Ho|holmium|67|165|0|6|1.23|l
+Er|erbium|68|167|0|6|1.24|l
+Tm|thulium|69|169|0|6|1.25|l
+Yb|ytterbium|70|173|0|6|1.10|l
+Lu|lutetium|71|175|3|6|1.27|l
+Hf|hafnium|72|178|4|6|1.30|o
+Ta|tantaal|73|181|5|6|1.50|o
+W|wolfram|74|184|6|6|2.36|o
+Re|renium|75|186|7|6|1.90|o
+Os|osmium|76|190|8|6|2.20|o
+Ir|iridium|77|192|9|6|2.20|o
+Pt|platina|78|195|10|6|2.28|o
+Au|goud|79|197|11|6|2.54|o
+Hg|kwik|80|201|12|6|2.00|o
+Tl|thallium|81|204|13|6|1.62|m
+Pb|lood|82|207|14|6|2.33|m
+Bi|bismut|83|209|15|6|2.02|m
+Po|polonium|84|209|16|6|2.00|m
+At|astaat|85|210|17|6|2.20|h
+Rn|radon|86|222|18|6|2.20|e
+Fr|francium|87|223|1|7|0.70|m
+Ra|radium|88|226|2|7|0.90|m
+Ac|actinium|89|227|3|7|1.10|a
+Th|thorium|90|232|0|7|1.30|a
+Pa|protactinium|91|231|0|7|1.50|a
+U|uranium|92|238|0|7|1.38|a
+Np|neptunium|93|237|0|7|1.36|a
+Pu|plutonium|94|244|0|7|1.28|a
+Am|americium|95|243|0|7|1.30|a
+Cm|curium|96|247|0|7|1.30|a
+Bk|berkelium|97|247|0|7|1.30|a
+Cf|californium|98|251|0|7|1.30|a
+Es|einsteinium|99|252|0|7|1.30|a
+Fm|fermium|100|257|0|7|1.30|a
+Md|mendelevium|101|258|0|7|1.30|a
+No|nobelium|102|259|0|7|1.30|a
+Lr|lawrencium|103|262|3|7|1.30|a
+Rf|rutherfordium|104|267|4|7|0|o
+Db|dubnium|105|270|5|7|0|o
+Sg|seaborgium|106|271|6|7|0|o
+Bh|bohrium|107|270|7|7|0|o
+Hs|hassium|108|277|8|7|0|o
+Mt|meitnerium|109|278|9|7|0|o
+Ds|darmstadtium|110|281|10|7|0|o
+Rg|roentgenium|111|282|11|7|0|o
+Cn|copernicium|112|285|12|7|0|o
+Nh|nihonium|113|286|13|7|0|m
+Fl|flerovium|114|289|14|7|0|m
+Mc|moscovium|115|290|15|7|0|m
+Lv|livermorium|116|293|16|7|0|m
+Ts|tennessine|117|294|17|7|0|h
+Og|oganesson|118|294|18|7|0|e`;
+
+const EL = {};      // symbool -> element
+const ALL = [];     // alle elementen
+DATA.split('\n').forEach(line => {
+  const p = line.split('|');
+  const el = { sym:p[0], name:p[1], Z:+p[2], A:+p[3], group:+p[4], period:+p[5], en:+p[6], cat:p[7] };
+  EL[el.sym] = el; ALL.push(el);
+});
+
+const CAT_LABEL = { n:'niet-metaal', e:'edelgas', m:'metaal', o:'overgangsmetaal', h:'halogeen', x:'metalloïde', l:'lanthanide', a:'actinide' };
+const SHELL_NAMES = ['K','L','M','N','O','P','Q'];
+const DIATOMIC = new Set(['H','N','O','F','Cl','Br','I']);
+
+/* ---------- afgeleide grootheden (nooit dubbel vastgelegd) ---------- */
+const isMetalEl = el => ['m','o','l','a'].includes(el.cat);
+const neutronsOf = el => el.A - el.Z;
+
+function valenceElectrons(el){
+  if (el.group === 0) return null;                 // f-blok
+  if (el.cat === 'o') return null;                 // overgangsmetaal: wisselend
+  return el.group <= 2 ? el.group : (el.group >= 13 ? el.group - 10 : 0);
+}
+function covalency(el){                            // standaardcovalentie (aantal bindingen)
+  if (el.sym === 'H') return 1;
+  if (el.cat === 'e') return 0;
+  if (isMetalEl(el)) return null;                  // metalen: ionbinding / metaalrooster
+  if (el.group <= 2) return el.group;
+  if (el.group === 13) return 3;
+  if (el.group >= 14 && el.group <= 17) return 8 - el.group;
+  return 0;
+}
+function ionCharge(el){
+  if (!isMetalEl(el)) return null;
+  if (el.sym === 'Zn' || el.sym === 'Cd') return 2;
+  if (el.sym === 'Ag') return 1;
+  if (el.group === 1) return 1;
+  if (el.group === 2) return 2;
+  if (el.group === 13) return 3;
+  return null;                                     // variabel
+}
+function anionCharge(el){
+  if (el.sym === 'H') return -1;
+  if (el.group >= 15 && el.group <= 17) return -(8 - el.group);
+  return null;
+}
+
+/* ---------- elektronenconfiguratie: aufbau -> schillen ---------- */
+const AUFBAU = [[1,'s',2],[2,'s',2],[2,'p',6],[3,'s',2],[3,'p',6],[4,'s',2],[3,'d',10],[4,'p',6],
+  [5,'s',2],[4,'d',10],[5,'p',6],[6,'s',2],[4,'f',14],[5,'d',10],[6,'p',6],[7,'s',2],[5,'f',14],[6,'d',10],[7,'p',6]];
+
+function configParts(Z){
+  const out = []; let left = Z;
+  for (const [n,sub,cap] of AUFBAU){
+    if (left <= 0) break;
+    const take = Math.min(cap,left);
+    out.push({ n, sub, count: take });
+    left -= take;
+  }
+  return out;
+}
+function shellsOf(Z){
+  const per = {};
+  configParts(Z).forEach(p => { per[p.n] = (per[p.n]||0) + p.count; });
+  return Object.keys(per).map(Number).sort((a,b)=>a-b)
+    .map(n => ({ n, name: SHELL_NAMES[n-1], count: per[n], max: 2*n*n }));
+}
+const SUP = { 0:'⁰',1:'¹',2:'²',3:'³',4:'⁴',5:'⁵',6:'⁶',7:'⁷',8:'⁸',9:'⁹' };
+const sup = n => String(n).split('').map(d=>SUP[d]).join('');
+function configString(Z){ return configParts(Z).map(p => `${p.n}${p.sub}${sup(p.count)}`).join(' '); }
+function shellString(Z){ return shellsOf(Z).map(s => `${s.name}${sup(s.count)}`).join(' '); }
+const CONFIG_EXCEPTION = new Set([24,29]);         // Cr en Cu wijken af van het opbouwprincipe
+
+/* ============================================================
+   FORMULE PARSER (met normalisatie via dynamic programming)
+   ============================================================ */
+const SUBS = { '₀':'0','₁':'1','₂':'2','₃':'3','₄':'4','₅':'5','₆':'6','₇':'7','₈':'8','₉':'9' };
+
+function tryParse(text){
+  const atoms = []; let rest = text; let m;
+  const re = /^([A-Z][a-z]?)(\d*)/;
+  while (rest.length){
+    m = re.exec(rest);
+    if (!m) return null;
+    const sym = m[1];
+    if (!EL[sym]) return null;
+    atoms.push({ el: EL[sym], count: m[2] ? parseInt(m[2],10) : 1 });
+    rest = rest.slice(m[0].length);
+  }
+  return atoms.length ? atoms : null;
+}
+
+/* DP-normalisatie: zoekt de meest aannemelijke opdeling in bekende symbolen (voorkeur: laagste Z) */
+function smartNormalize(s){
+  const n = s.length, best = new Array(n+1).fill(null);
+  best[0] = { score:0, text:'' };
+  for (let i=0;i<n;i++){
+    if (!best[i]) continue;
+    const dm = /^\d+/.exec(s.slice(i));
+    if (dm){
+      const j = i + dm[0].length;
+      const c = { score: best[i].score, text: best[i].text + dm[0] };
+      if (!best[j] || c.score < best[j].score) best[j] = c;
+    }
+    for (const len of [1,2]){
+      const part = s.slice(i, i+len);
+      if (part.length < len) continue;
+      const sym = part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+      if (EL[sym]){
+        const j = i + len;
+        const c = { score: best[i].score + EL[sym].Z, text: best[i].text + sym };
+        if (!best[j] || c.score < best[j].score) best[j] = c;
+      }
+    }
+  }
+  return best[n];
+}
+
+function parseInput(raw){
+  let s = (raw || '').trim().replace(/\s+/g,'');
+  if (!s) throw new ChemError('Vul een elementsymbool of molecuulformule in.');
+  s = s.replace(/[₀-₉]/g, ch => SUBS[ch]);
+  if (/[+\-]/.test(s)) throw new ChemError('Geladen deeltjes (ionen zoals NH₄⁺) ondersteun ik hier niet. Vul de neutrale stof in.');
+  if (/[()]/.test(s)) throw new ChemError('Haakjes in formules (zoals Ca(OH)₂) ondersteun ik nog niet. Vul de losse atomen in, bijvoorbeeld CaO2H2.');
+  if (/[·*]/.test(s)) throw new ChemError('Hydraten (zoals CuSO₄·5H₂O) ondersteun ik nog niet.');
+  if (!/^[A-Za-z0-9]+$/.test(s)) throw new ChemError('Gebruik alleen letters en cijfers, zoals H2O of Fe.');
+
+  let atoms = tryParse(s);
+  let normalizedFrom = null;
+  if (!atoms){
+    const guess = smartNormalize(s);
+    if (!guess) throw new ChemError(`"${s}" kan ik niet lezen. Een symbool begint met een hoofdletter: H2O, CO2, Fe.`);
+    atoms = tryParse(guess.text);
+    if (!atoms) throw new ChemError(`"${s}" kan ik niet lezen. Controleer de schrijfwijze van de symbolen.`);
+    normalizedFrom = s; s = guess.text;
+  }
+  const total = atoms.reduce((a,b)=>a+b.count,0);
+  if (total > 40) throw new ChemError('Deze formule heeft te veel atomen om betrouwbaar te tekenen.');
+  return { text: s, atoms, total, normalizedFrom };
+}
+const isSingleElement = p => p.atoms.length === 1 && p.atoms[0].count === 1;
+
+/* ============================================================
+   HULPFUNCTIES VOOR WEERGAVE
+   ============================================================ */
+const esc = v => String(v).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function fmtFormula(text){
+  return esc(text).replace(/(\d+)/g, '<sub>$1</sub>');
+}
+function hillKey(atoms){
+  const parts = atoms.map(a => ({ s:a.el.sym, c:a.count }));
+  const C = parts.filter(p=>p.s==='C'), H = parts.filter(p=>p.s==='H');
+  const rest = parts.filter(p=>p.s!=='C'&&p.s!=='H').sort((a,b)=>a.s.localeCompare(b.s));
+  return [...C,...H,...rest].map(p => p.s + (p.c>1?p.c:'')).join('');
+}
+const MOL_NAMES = {
+  H2O:'water', CO2:'koolstofdioxide', CO:'koolstofmonoxide', O2:'zuurstof', H2:'waterstof', N2:'stikstof',
+  F2:'fluor', Cl2:'chloor', Br2:'broom', I2:'jodium', CH4:'methaan', NH3:'ammoniak', HCl:'waterstofchloride',
+  H2S:'waterstofsulfide', SO2:'zwaveldioxide', SO3:'zwaveltrioxide', NO:'stikstofmonoxide', NO2:'stikstofdioxide',
+  N2O:'lachgas (distikstofmonoxide)', O3:'ozon', CH4O:'methanol', C2H6:'ethaan', C2H4:'etheen', C2H2:'ethyn',
+  C2H6O:'ethanol of dimethylether (isomeren)', PCl3:'fosfortrichloride', PCl5:'fosforpentachloride',
+  SF6:'zwavelhexafluoride', BF3:'boortrifluoride', CCl4:'tetrachloormethaan', SiH4:'silaan', PH3:'fosfine',
+  HCN:'waterstofcyanide', CH2O:'methanal (formaldehyde)', ClO2:'chloordioxide', CS2:'koolstofdisulfide',
+  N2H4:'hydrazine', CH3Cl:'chloormethaan', CH4S:'methaanthiol', Cl2O:'dichloormonoxide', HBr:'waterstofbromide',
+  HF:'waterstoffluoride', HI:'waterstofjodide', NH2Cl:'chlooramine', CH2Cl2:'dichloormethaan',
+  CHCl3:'trichloormethaan (chloroform)', C2H5Cl:'chloorethaan', SiO2:'siliciumdioxide (netwerkstructuur)',
+  NCl3:'stikstoftrichloride', PCl3O:'fosforylchloride', S2Cl2:'dizwaveldichloride', C3H8:'propaan',
+  C4H10:'butaan', CH4N2O:'ureum', H2O2:'waterstofperoxide', C2H6S:'dimethylsulfide', B2H6:'diboraan',
+  NaCl:'natriumchloride (keukenzout)', KCl:'kaliumchloride', MgO:'magnesiumoxide', CaO:'calciumoxide',
+  MgCl2:'magnesiumchloride', CaCl2:'calciumchloride', NaBr:'natriumbromide', KI:'kaliumjodide',
+  LiF:'lithiumfluoride', AlCl3:'aluminiumchloride', Al2O3:'aluminiumoxide', MgS:'magnesiumsulfide',
+  NaI:'natriumjodide', BaCl2:'bariumchloride', FeCl2:'ijzer(II)chloride', FeCl3:'ijzer(III)chloride',
+  CuO:'koper(II)oxide', Cu2O:'koper(I)oxide', ZnS:'zinksulfide', CaS:'calciumsulfide', KBr:'kaliumbromide',
+  KF:'kaliumfluoride', LiCl:'lithiumchloride', MgBr2:'magnesiumbromide', AlF3:'aluminiumfluoride',
+  AgCl:'zilverchloride', PbS:'lood(II)sulfide', SnO2:'tin(IV)oxide', FeS:'ijzer(II)sulfide', Fe2O3:'ijzer(III)oxide'
+};
+const molName = parsed => MOL_NAMES[hillKey(parsed.atoms)] || MOL_NAMES[parsed.text] || null;
+
+/* ============================================================
+   SVG-HULPFUNCTIES
+   ============================================================ */
+function svgWrap(inner, w, h, label, cls=''){
+  return `<svg class="model-svg ${cls}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}">${inner}</svg>`;
+}
+const f = n => Number(n.toFixed(1));
+
+/* kern: gevulde cirkel of losse nucleonen */
+function nucleusSVG(el, cx, cy, opts={}){
+  const r = opts.r || 30;
+  let s = `<circle class="nucleus-core" cx="${cx}" cy="${cy}" r="${r}"/>`;
+  s += `<text class="nucleus-text" x="${cx}" y="${f(cy+r*0.28)}" text-anchor="middle">${el.sym}</text>`;
+  return s;
+}
+function packDots(cx, cy, count, dotR){
+  const pts = [[cx,cy]]; let ring = 1;
+  while (pts.length < count && ring < 8){
+    const n = ring*6, rr = ring*dotR*2.15;
+    for (let i=0;i<n && pts.length<count;i++){
+      const a = i/n*Math.PI*2 + ring*0.35;
+      pts.push([cx + rr*Math.cos(a), cy + rr*Math.sin(a)]);
+    }
+    ring++;
+  }
+  return pts.slice(0,count);
+}
+/* kern met losse protonen/neutronen (alleen voor lichte elementen) */
+function nucleusDotsSVG(el, cx, cy, opts={}){
+  const showAll = el.A <= 24;
+  const p = showAll ? el.Z : Math.min(el.Z, 12);
+  const n = showAll ? el.A - el.Z : Math.min(el.A - el.Z, 12);
+  const total = p + n;
+  const dotR = showAll ? Math.max(4.5, 15/Math.sqrt(Math.max(total,1))) : 5.5;
+  const R = (opts.R || 34);
+  let s = `<circle class="nucleus-core" cx="${cx}" cy="${cy}" r="${R}" opacity=".12"/>`;
+  const pts = packDots(cx, cy, total, dotR);
+  // protonen eerst, daarna neutronen (volgorde is willekeurig in een echte kern)
+  pts.forEach((pt,i) => {
+    s += `<circle class="nucl ${i < p ? 'p' : 'n'}" cx="${f(pt[0])}" cy="${f(pt[1])}" r="${f(dotR)}"/>`;
+  });
+  s += `<text class="cap-strong" x="${cx}" y="${f(cy+R+22)}" text-anchor="middle">${el.Z} p⁺ · ${el.A-el.Z} n⁰</text>`;
+  if (!showAll) s += `<text class="cap" x="${cx}" y="${f(cy+R+40)}" text-anchor="middle">vereenvoudigd getekend</text>`;
+  return s;
+}
+const nucleonLegend = () => `<div class="legend">
+  <span class="legend-item"><span class="legend-dot p"></span>proton (p⁺, lading +1)</span>
+  <span class="legend-item"><span class="legend-dot n"></span>neutron (n⁰, lading 0)</span>
+  <span class="legend-item"><span class="legend-dot e"></span>elektron (e⁻, lading −1)</span></div>`;
+
+/* ============================================================
+   MODEL 1: HET ATOOMMODEL VAN BOHR
+   ============================================================ */
+function bohrSVG(el, state={}){
+  const size = 480, c = size/2;
+  const shells = shellsOf(el.Z);
+  const visible = state.visibleShells ?? shells.length;
+  const counts = state.counts ?? shells.map(s => s.count);
+  const rMin = 74, rMax = c - 42;
+  let inner = '';
+  for (let i=0;i<visible;i++){
+    const r = visible === 1 ? rMin+16 : rMin + (rMax-rMin)*(i/(visible-1));
+    const hl = state.highlight === i;
+    inner += `<circle class="shell${hl?' shell-hl':''}" cx="${c}" cy="${c}" r="${f(r)}"/>`;
+    inner += `<text class="shell-label" x="${f(c + r*0.712)}" y="${f(c - r*0.712)}">${shells[i].name} · ${counts[i]}</text>`;
+    const cnt = counts[i];
+    let dots = '';
+    for (let k=0;k<cnt;k++){
+      const a = (k/cnt)*Math.PI*2 - Math.PI/2 + (i%2 ? 0.22 : 0);
+      dots += `<circle class="electron" cx="${f(c + r*Math.cos(a))}" cy="${f(c + r*Math.sin(a))}" r="5.5"/>`;
+    }
+    const dur = 20 + i*8;
+    inner += `<g class="orbit" style="--dur:${dur}s;${i%2?'animation-direction:reverse;':''}">${dots}</g>`;
+  }
+  inner += nucleusSVG(el, c, c, { r: state.bigNucleus ? 34 : 30 });
+  if (state.caption) inner += `<text class="cap" x="${c}" y="${size-12}" text-anchor="middle">${esc(state.caption)}</text>`;
+  return svgWrap(inner, size, size, `Atoommodel van Bohr van ${el.name}: kern met ${el.Z} protonen en ${el.A-el.Z} neutronen, ${shells.map(s=>`${s.count} elektronen in de ${s.name}-schil`).join(', ')}.`);
+}
+
+function bohrSteps(el){
+  const shells = shellsOf(el.Z);
+  const N = el.A - el.Z;
+  const steps = [];
+
+  steps.push({
+    kicker:'Gegevens uit het periodiek systeem',
+    title:`Wat weten we over ${el.name}?`,
+    visual: bohrSVG(el, { visibleShells:0, caption:'' }) ,
+    caption:'Nog alleen de kern: de elektronen komen er stap voor stap bij.',
+    what:`We lezen het atoomnummer en het massagetal af: Z = ${el.Z} en A = ${el.A}.`,
+    why:'Het atoomnummer is het aantal protonen. Het massagetal is protonen + neutronen. Uit die twee getallen volgt de hele bouw van het atoom.',
+    change:`We weten nu: ${el.Z} protonen, ${N} neutronen en ${el.Z} elektronen (een atoom is elektrisch neutraal).`
+  });
+
+  steps.push({
+    kicker:'Stap in de bouw',
+    title:'Eerst de kern',
+    visual: nucleusWrap(el),
+    what:`We tekenen de kern met ${el.Z} protonen en ${N} neutronen.`,
+    why:`De protonen maken de kern positief. Vrijwel de hele massa van het atoom zit in de kern: een elektron is ongeveer 1836 keer lichter dan een proton.`,
+    change:`Het atoom heeft nu een centrum: een heel kleine, zware, positieve kern.`
+  });
+
+  steps.push({
+    kicker:'Schillenregel',
+    title:'Hoeveel elektronen passen er in elke schil?',
+    visual:'',
+    table: shellsTable(shells),
+    what:`Elke schil hoort bij een energieniveau n en mag maximaal 2n² elektronen bevatten: ${shells.map((s,i)=>`${s.name} max ${2*(i+1)*(i+1)}`).join(', ')}.`,
+    why:'Een elektron kan niet op een willekeurige afstand van de kern zitten: alleen in deze vaste schillen. Daarom vullen we van binnen naar buiten.',
+    change:'Er ligt nu een vaste volgorde klaar. We gaan de elektronen verdelen.'
+  });
+
+  let placed = 0;
+  shells.forEach((sh, i) => {
+    placed += sh.count;
+    const counts = shells.map((s,k) => k < i ? s.count : (k === i ? sh.count : 0));
+    const rest = el.Z - placed;
+    steps.push({
+      kicker:`Schil ${sh.name} (n = ${sh.n})`,
+      title:`We vullen de ${sh.name}-schil met ${sh.count} elektronen`,
+      visual: bohrSVG(el, { visibleShells:i+1, counts, highlight:i }),
+      what:`Er gaan ${sh.count} elektronen in de ${sh.name}-schil${rest>0?`, er blijven er ${rest} over`:''}.`,
+      why: sh.count === sh.max
+        ? `De ${sh.name}-schil is nu vol: maximaal ${sh.max} elektronen (2n² met n = ${sh.n}).`
+        : `In de ${sh.name}-schil mogen ${sh.max} elektronen, maar er waren er nog maar ${sh.count} te verdelen.`,
+      change:`Totaal geplaatst: ${placed} van ${el.Z} elektronen.`
+    });
+  });
+
+  const outer = shells[shells.length-1];
+  const ve = valenceElectrons(el);
+  steps.push({
+    kicker:'Buitenste schil',
+    title:`De valentie-elektronen: ${outer.count} in de ${outer.name}-schil`,
+    visual: bohrSVG(el, { highlight: shells.length-1 }),
+    what:`De buitenste schil (${outer.name}) bevat ${outer.count} elektronen. Dat zijn de valentie-elektronen.`,
+    why: ve === null
+      ? `${el.name} is een ${CAT_LABEL[el.cat]}. Bij overgangsmetalen doen niet alleen de buitenste elektronen mee, daarom is het aantal valentie-elektronen wisselend.`
+      : `Voor hoofdgroepelementen geldt: groep ${el.group} → ${ve} valentie-elektronen. Deze elektronen bepalen hoe de stof reageert en welke bindingen het atoom aangaat.` +
+        (el.cat === 'e' ? ` De schil is vol (${outer.count}): een edelgasconfiguratie, dus ${el.name} reageert vrijwel niet.` : ''),
+    change:`Het model is compleet: ${el.Z} p⁺ en ${N} n⁰ in de kern, schillen ${shellString(el.Z)}.`
+  });
+
+  steps.push({
+    kicker:'Eindresultaat',
+    title:`Het atoommodel van Bohr van ${el.name}`,
+    final:true,
+    model:'bohr',
+    visual:'',
+    what:`Dit is het volledige atoommodel van Bohr voor ${el.name} (${el.sym}).`,
+    why:`Bohr zegt: elektronen zitten alleen in vaste schillen met een vaste energie. Springt een elektron naar een lagere schil, dan komt er licht vrij — zo verklaart het model lijnspectra.`,
+    change:`Je kunt hieronder direct overschakelen naar het atoommodel van Rutherford om het verschil te zien.`
+  });
+
+  return steps;
+}
+function nucleusWrap(el){
+  const size = 300, c = size/2;
+  let inner = nucleusDotsSVG(el, c, c-14, { R: el.A <= 24 ? 40 : 34 });
+  return svgWrap(inner, size, size, `Kern van ${el.name} met ${el.Z} protonen en ${el.A-el.Z} neutronen.`) + nucleonLegend();
+}
+function shellsTable(shells){
+  return `<table class="chem-table"><thead><tr><th>Schil</th><th class="num">n</th><th class="num">Max (2n²)</th><th class="num">Elektronen hier</th></tr></thead><tbody>${
+    shells.map(s => `<tr><td><b>${s.name}</b></td><td class="num">${s.n}</td><td class="num">${s.max}</td><td class="num">${s.count}</td></tr>`).join('')
+  }</tbody></table>`;
+}
+
+/* ============================================================
+   MODEL 2: HET ATOOMMODEL VAN RUTHERFORD
+   ============================================================ */
+function seeded(seed){ let s = seed*9301+49297; return () => { s = (s*9301+49297)%233280; return s/233280; }; }
+
+function rutherfordSVG(el, state={}){
+  const size = 480, c = size/2;
+  const rnd = seeded(el.Z + 7);
+  const total = el.Z;
+  const shown = Math.min(total, state.maxElectrons ?? 20);
+  let inner = `<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)"/></marker></defs>`;
+
+  // willekeurige elliptische banen: geen vaste schillen
+  for (let i=0;i<shown;i++){
+    const rx = 70 + rnd()*150, ry = rx*(0.35 + rnd()*0.55), tilt = rnd()*180;
+    const dur = 6 + rnd()*10;
+    inner += `<g transform="rotate(${f(tilt)} ${c} ${c})">
+      <ellipse class="shell" cx="${c}" cy="${c}" rx="${f(rx)}" ry="${f(ry)}" opacity=".35"/>
+      <circle class="electron" r="5">
+        <animateMotion dur="${f(dur)}s" repeatCount="indefinite"
+          path="M${f(c+rx)},${c} a${f(rx)},${f(ry)} 0 1,1 ${f(-2*rx)},0 a${f(rx)},${f(ry)} 0 1,1 ${f(2*rx)},0"/>
+      </circle></g>`;
+  }
+  inner += nucleusDotsSVG(el, c, c, { R: el.A <= 24 ? 26 : 24 });
+  let cap = state.caption || '';
+  if (shown < total) cap += (cap ? ' · ' : '') + `vereenvoudigd: ${shown} van ${total} elektronen getekend`;
+  if (cap) inner += `<text class="cap" x="${c}" y="${size-10}" text-anchor="middle">${esc(cap)}</text>`;
+  return svgWrap(inner, size, size, `Atoommodel van Rutherford van ${el.name}: ${total} elektronen in willekeurige banen rond een kleine positieve kern.`);
+}
+
+function foilSVG(){
+  const w = 520, h = 300;
+  let s = `<defs><marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--primary)"/></marker></defs>`;
+  // bron
+  s += `<rect x="14" y="120" width="52" height="34" rx="4" fill="var(--primary)"/>
+        <text x="40" y="142" text-anchor="middle" fill="var(--primary-foreground)" font-family="var(--font-mono)" font-size="12">α-bron</text>`;
+  // goudfolie
+  s += `<line class="foil" x1="300" y1="26" x2="300" y2="268" stroke-dasharray="4 4"/>
+        <text x="300" y="18" text-anchor="middle" class="cap">goudfolie</text>`;
+  for (let i=0;i<7;i++){
+    const y = 42 + i*32;
+    s += `<circle class="nucl p" cx="300" cy="${y}" r="5"/>`;
+  }
+  // rechtdoor
+  [80,137,194].forEach(y => {
+    s += `<path class="beam" d="M70,${y} L470,${y}" marker-end="url(#arrow2)"/>`;
+  });
+  // licht afgebogen
+  s += `<path class="beam" d="M70,110 L292,110 L400,72" marker-end="url(#arrow2)"/>`;
+  // teruggekaatst
+  s += `<path class="beam-back" d="M70,164 L296,164 L150,244 L96,268" marker-end="url(#arrow2)"/>`;
+  s += `<text x="238" y="286" class="cap">soms kaatst een α-deeltje terug</text>`;
+  s += `<text x="452" y="72" text-anchor="end" class="cap">gaan er dwars doorheen</text>`;
+  return svgWrap(s, w, h, 'Schematische tekening van het goudfolie-experiment van Rutherford: alfadeeltjes gaan meestal rechtdoor, een enkele kaatst terug.', 'wide');
+}
+
+function spiralSVG(el){
+  const size = 420, c = size/2;
+  const turns = 4, r0 = 170, r1 = 26;
+  let pts = [];
+  for (let i=0;i<=160;i++){
+    const t = i/160, r = r0 + (r1-r0)*t, a = t*turns*Math.PI*2;
+    pts.push(`${f(c + r*Math.cos(a))},${f(c + r*Math.sin(a))}`);
+  }
+  let s = `<path id="spiralPath" d="M${pts.join(' L')}" fill="none" class="shell" opacity=".5" stroke-dasharray="3 5"/>`;
+  s += nucleusSVG(el, c, c, { r: 26 });
+  s += `<circle class="spiral-e" r="6"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#spiralPath"/></animateMotion></circle>`;
+  s += `<text class="cap" x="${c}" y="${size-10}" text-anchor="middle">volgens de klassieke natuurkunde zou het elektron energie uitstralen en in de kern storten</text>`;
+  return svgWrap(s, size, size, 'Animatie: een elektron dat energie uitstraalt spiralt in het model van Rutherford naar de kern.');
+}
+
+function rutherfordSteps(el){
+  const shells = shellsOf(el.Z);
+  const N = el.A - el.Z;
+  const steps = [];
+
+  steps.push({
+    kicker:'Gegevens',
+    title:`Wat weten we over ${el.name}?`,
+    visual: nucleusWrap(el),
+    what:`We lezen af: atoomnummer Z = ${el.Z}, massagetal A = ${el.A}. Dus ${el.Z} protonen, ${N} neutronen en ${el.Z} elektronen.`,
+    why:'Rutherford had nog geen schillen nodig: hij wilde alleen weten waar de massa en de lading in het atoom zitten.',
+    change:'We kennen nu de drie bouwstenen: protonen, neutronen en elektronen.'
+  });
+
+  steps.push({
+    kicker:'Het experiment (1909–1911)',
+    title:'Waarom is er überhaupt een nieuw model?',
+    visual: foilSVG(),
+    what:'Rutherford schoot positieve α-deeltjes op een heel dun velletje goud.',
+    why:'Verwachting (krentenbolmodel van Thomson): de positieve lading is uitgesmeerd, dus alle deeltjes gaan er bijna rechtdoor doorheen. Wat bleek: bijna alles ging erdoor, maar een enkel deeltje vloog terug.',
+    change:'Conclusie: het atoom is bijna helemaal leeg, en alle positieve lading én bijna alle massa zit in een piepkleine kern.'
+  });
+
+  steps.push({
+    kicker:'De kern',
+    title:'Een kleine, zware, positieve kern',
+    visual: nucleusWrap(el),
+    what:`De kern van ${el.name} bevat ${el.Z} protonen en ${N} neutronen.`,
+    why:'De protonen verklaren de positieve lading en het atoomnummer; de neutronen verklaren het extra gewicht zonder lading.',
+    change:`De kern is ongeveer 100.000 keer kleiner dan het atoom zelf. De rest is lege ruimte.`
+  });
+
+  steps.push({
+    kicker:'Het planetenmodel',
+    title:`De ${el.Z} elektronen draaien om de kern`,
+    visual: rutherfordSVG(el, { caption:'banen op willekeurige afstand — geen vaste schillen' }),
+    what:'De elektronen draaien in banen om de kern, zoals planeten om de zon.',
+    why:'De aantrekkingskracht tussen de negatieve elektronen en de positieve kern houdt ze in een baan. Er is in dit model geen enkele voorwaarde aan de afstand.',
+    change:`Er zijn geen schillen: een elektron mag op élke afstand van de kern draaien.`
+  });
+
+  steps.push({
+    kicker:'Het probleem',
+    title:'Dit model kan eigenlijk niet bestaan',
+    visual: spiralSVG(el),
+    what:'Een geladen deeltje dat rond draait, zendt voortdurend energie uit.',
+    why:'Wie energie verliest, gaat langzamer en krult naar binnen. Volgens de klassieke natuurkunde zou elk elektron binnen een fractie van een seconde in de kern storten — en elk atoom dus instorten.',
+    change:'Het model van Rutherford verklaart de kern wél, maar de stabiliteit van het atoom niet.'
+  });
+
+  steps.push({
+    kicker:'Eindresultaat',
+    title:`Het atoommodel van Rutherford van ${el.name}`,
+    final:true,
+    model:'rutherford',
+    visual:'',
+    what:`Dit is het planetenmodel van Rutherford voor ${el.name} (${el.sym}).`,
+    why:'Rutherford leverde de kern; Bohr voegde daar twee jaar later vaste schillen aan toe om de stabiliteit en de lijnspectra te verklaren.',
+    change:'Schakel hieronder naar Bohr om te zien wat er precies verandert.'
+  });
+
+  return steps;
+}
+
+/* ============================================================
+   MODEL 3: STRUCTUURFORMULE (LEWIS + VSEPR)
+   ============================================================ */
+function buildStructure(parsed){
+  const atoms = parsed.atoms;
+  const metals = atoms.filter(a => isMetalEl(a.el));
+  const nonmetals = atoms.filter(a => !isMetalEl(a.el));
+
+  if (metals.length && nonmetals.length) return { kind:'ionic', parsed, atoms, metals, nonmetals };
+  if (metals.length) return { kind:'metal', parsed, atoms };
+  if (atoms.length === 1){
+    const a = atoms[0];
+    if (a.el.cat === 'e') return { kind:'noble', parsed, atoms, el:a.el };
+    if (a.count === 1){
+      if (DIATOMIC.has(a.el.sym)) return moleculeModel([{ el:a.el, count:2 }], parsed, true);
+      return { kind:'atom', parsed, atoms, el:a.el };
+    }
+  }
+  return moleculeModel(atoms, parsed, false);
+}
+
+function moleculeModel(atoms, parsed, autoDiatomic){
+  const list = [];
+  atoms.forEach(a => { for (let i=0;i<a.count;i++) list.push({ el:a.el, x:0, y:0, lp:0, slots:[] }); });
+  if (list.length < 2) throw new ChemError('Een structuurformule heeft minstens twee atomen nodig.');
+  if (list.length > 30) throw new ChemError('Dit molecuul is te groot om betrouwbaar te tekenen.');
+
+  const veOf = el => {
+    const v = valenceElectrons(el);
+    if (v === null) throw new ChemError(`${el.name} (${el.sym}) is een ${CAT_LABEL[el.cat]}. Van deze elementen tekenen we geen structuurformule: de valentie-elektronen zijn niet vastgelegd.`);
+    return v;
+  };
+  let totalVE = 0;
+  list.forEach(a => totalVE += veOf(a.el));
+  if (totalVE % 2 !== 0) throw new ChemError(`Dit molecuul heeft een oneven aantal valentie-elektronen (${totalVE}). Dat is een radicaal (zoals NO) en is niet met nette elektronenparen te tekenen.`);
+
+  const isTerm = el => el.sym === 'H' || el.cat === 'h';
+  const heavyIdx = [], lightIdx = [];
+  list.forEach((a,i) => (isTerm(a.el) ? lightIdx : heavyIdx).push(i));
+
+  const bonds = [];
+  const findBond = (i,j) => bonds.find(b => (b.a===i&&b.b===j)||(b.a===j&&b.b===i));
+  const addBond = (i,j,o=1) => { const e = findBond(i,j); if (e) e.order = o; else bonds.push({a:i,b:j,order:o}); };
+  const orderSum = i => bonds.filter(b => b.a===i||b.b===i).reduce((s,b)=>s+b.order,0);
+  const baseCov = el => { const c = covalency(el); return c === null ? 1 : c; };
+  const needBase = i => Math.max(0, baseCov(list[i].el) - orderSum(i));
+  const maxBonds = i => {
+    const el = list[i].el, base = baseCov(el);
+    if (el.period >= 3 && !isTerm(el)){
+      if (el.group === 15) return Math.max(base,5);
+      if (el.group === 16) return Math.max(base,6);
+      if (el.group === 17) return Math.max(base,7);
+    }
+    return base;
+  };
+  const needMax = i => Math.max(0, maxBonds(i) - orderSum(i));
+
+  let centerIdx;
+  if (!heavyIdx.length){
+    if (list.length !== 2) throw new ChemError('Deze atomen kan ik niet tot één molecuul verbinden. Controleer de formule.');
+    centerIdx = list[0].el.en <= list[1].el.en ? 0 : 1;
+    addBond(0,1,1);
+  } else {
+    if (heavyIdx.length === 1) centerIdx = heavyIdx[0];
+    else {
+      const sorted = [...heavyIdx].sort((i,j) => list[i].el.en - list[j].el.en);
+      centerIdx = sorted[0];
+      const others = sorted.slice(1);
+      if (heavyIdx.length <= 3) others.forEach(o => addBond(centerIdx,o,1));
+      else { addBond(centerIdx,others[0],1); for (let k=0;k<others.length-1;k++) addBond(others[k],others[k+1],1); }
+    }
+    const distribute = needFn => {
+      let progress = true;
+      while (pool.length && progress){
+        progress = false;
+        const cands = heavyIdx.filter(h => needFn(h) > 0).sort((i,j) => needFn(j)-needFn(i));
+        for (const h of cands){
+          if (!pool.length) break;
+          addBond(h, pool.shift(), 1); progress = true;
+        }
+      }
+    };
+    let pool = [...lightIdx];
+    distribute(needBase);
+    if (pool.length) distribute(needMax);
+    if (pool.length) throw new ChemError('Er blijven atomen over die ik niet kan plaatsen. Controleer de formule (bijvoorbeeld het aantal H-atomen).');
+  }
+
+  // meervoudige bindingen tussen zware atomen
+  let guard = 0, changed = true;
+  while (changed && guard++ < 40){
+    changed = false;
+    for (const b of bonds){
+      if (isTerm(list[b.a].el) || isTerm(list[b.b].el)) continue;
+      if (needBase(b.a) > 0 && needBase(b.b) > 0){ b.order++; changed = true; }
+    }
+  }
+
+  // vrije elektronenparen
+  let remaining = totalVE - 2*bonds.reduce((s,b)=>s+b.order,0);
+  if (remaining < 0) throw new ChemError('Deze formule vraagt meer bindingselektronen dan er beschikbaar zijn.');
+  const rank = i => list[i].el.sym === 'H' ? 0 : (isTerm(list[i].el) ? 1 : 2);
+  [...list.keys()].sort((i,j)=>rank(i)-rank(j)).forEach(i => {
+    const target = list[i].el.sym === 'H' ? 2 : 8;
+    const want = Math.max(0, Math.round((target - 2*orderSum(i))/2));
+    const give = Math.min(want, Math.floor(remaining/2));
+    list[i].lp = give; remaining -= give*2;
+  });
+  if (remaining >= 2 && list[centerIdx].el.period >= 3){
+    list[centerIdx].lp += Math.floor(remaining/2); remaining %= 2;
+  }
+  if (remaining > 0) throw new ChemError('Ik kan de valentie-elektronen niet netjes over deze formule verdelen.');
+
+  // octetcontrole: zet zo nodig een vrij paar om in een binding
+  let g2 = 0;
+  while (g2++ < 12){
+    const def = list.findIndex((a,i) => a.el.sym !== 'H' && !isTerm(a.el) && 2*orderSum(i) + 2*a.lp < 8);
+    if (def < 0) break;
+    const neigh = bonds.filter(b=>b.a===def||b.b===def).map(b=>b.a===def?b.b:b.a).find(j => list[j].lp > 0);
+    if (neigh === undefined) throw new ChemError('Deze formule krijgt geen octet. Controleer de invoer (bijvoorbeeld het aantal atomen).');
+    findBond(def,neigh).order++; list[neigh].lp--;
+  }
+
+  // VSEPR + 2D-layout
+  layoutMolecule(list, bonds, centerIdx);
+
+  return { kind:'molecule', parsed, atoms, list, bonds, centerIdx, totalVE, autoDiatomic };
+}
+
+function layoutMolecule(list, bonds, centerIdx){
+  const L = 78;
+  const placed = new Set([centerIdx]);
+  list[centerIdx].x = 0; list[centerIdx].y = 0;
+  const angleFor = T => ({1:0,2:180,3:120,4:109.5,5:90,6:90}[Math.min(Math.max(T,1),6)]);
+
+  const place = (idx, parentIdx) => {
+    const a = list[idx];
+    const children = bonds.filter(b=>b.a===idx||b.b===idx).map(b=>b.a===idx?b.b:b.a).filter(j=>!placed.has(j));
+    const T = children.length + a.lp + (parentIdx !== null ? 1 : 0);
+    const A = angleFor(T);
+    const slots = [];
+    if (parentIdx === null){
+      const base = children.length === 1 ? 0 : 90;
+      children.forEach((c,k) => slots.push({ type:'child', idx:c, ang: base + (k-(children.length-1)/2)*A }));
+      for (let k=0;k<a.lp;k++) slots.push({ type:'lp', ang: base+180 + (k-(a.lp-1)/2)*A });
+    } else {
+      const p = list[parentIdx];
+      const base = Math.atan2(a.y-p.y, a.x-p.x)*180/Math.PI;
+      const all = [...children.map(c=>({type:'child',idx:c})), ...Array.from({length:a.lp},()=>({type:'lp'}))];
+      all.forEach((s,k) => { s.ang = base + (k-(all.length-1)/2)*A; slots.push(s); });
+    }
+    a.slots = slots;
+    a.domainAngle = A;
+    slots.forEach(s => {
+      const rad = s.ang*Math.PI/180;
+      const d = s.type === 'child' ? L : 30;
+      s.x = a.x + d*Math.cos(rad); s.y = a.y + d*Math.sin(rad);
+      if (s.type === 'child'){ placed.add(s.idx); list[s.idx].x = s.x; list[s.idx].y = s.y; }
+    });
+    children.forEach(c => place(c, idx));
+  };
+  place(centerIdx, null);
+
+  // viewBox bepalen
+  let minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9;
+  list.forEach(a => { minX=Math.min(minX,a.x-34);maxX=Math.max(maxX,a.x+34);minY=Math.min(minY,a.y-34);maxY=Math.max(maxY,a.y+34); });
+  a_loneDots(list).forEach(p => { minX=Math.min(minX,p[0]-8);maxX=Math.max(maxX,p[0]+8);minY=Math.min(minY,p[1]-8);maxY=Math.max(maxY,p[1]+8); });
+  const pad = 24;
+  list.bbox = { x:minX-pad, y:minY-pad, w:(maxX-minX)+pad*2, h:(maxY-minY)+pad*2 };
+}
+function a_loneDots(list){
+  const out = [];
+  list.forEach(a => a.slots.forEach(s => { if (s.type === 'lp') out.push([s.x, s.y]); }));
+  return out;
+}
+
+function lewisSVG(model, state={}){
+  const { list, bonds, centerIdx } = model;
+  const bb = list.bbox;
+  let s = '';
+  const shorten = 17;
+  // bindingen
+  bonds.forEach((b,bi) => {
+    const A = list[b.a], B = list[b.b];
+    const order = state.singleBonds ? 1 : b.order;
+    const hl = state.highlightBonds && state.highlightBonds.includes(bi);
+    const dx = B.x-A.x, dy = B.y-A.y, len = Math.hypot(dx,dy) || 1;
+    const ux = dx/len, uy = dy/len, px = -uy, py = ux;
+    const sx = A.x+ux*shorten, sy = A.y+uy*shorten, ex = B.x-ux*shorten, ey = B.y-uy*shorten;
+    const offs = order === 1 ? [0] : order === 2 ? [-4.5,4.5] : [-8,0,8];
+    offs.forEach(o => {
+      s += `<line class="bond${hl?' bond-hl':''}" x1="${f(sx+px*o)}" y1="${f(sy+py*o)}" x2="${f(ex+px*o)}" y2="${f(ey+py*o)}"/>`;
+    });
+  });
+  // hoeken (VSEPR-stap)
+  if (state.showAngles){
+    const a = list[centerIdx];
+    const ch = a.slots.filter(x=>x.type==='child');
+    if (ch.length >= 2){
+      const r = 34;
+      const p1 = [a.x + r*Math.cos(ch[0].ang*Math.PI/180), a.y + r*Math.sin(ch[0].ang*Math.PI/180)];
+      const p2 = [a.x + r*Math.cos(ch[1].ang*Math.PI/180), a.y + r*Math.sin(ch[1].ang*Math.PI/180)];
+      s += `<path class="angle-arc" d="M${f(p1[0])},${f(p1[1])} A${r},${r} 0 0,1 ${f(p2[0])},${f(p2[1])}"/>`;
+      const mid = (ch[0].ang+ch[1].ang)/2*Math.PI/180;
+      s += `<text class="angle-text" x="${f(a.x+(r+18)*Math.cos(mid))}" y="${f(a.y+(r+18)*Math.sin(mid))}" text-anchor="middle">${String(Math.round(a.domainAngle)).replace('.',',')}°</text>`;
+    }
+  }
+  // vrije elektronenparen
+  if (state.showLonePairs !== false){
+    list.forEach(a => a.slots.forEach(sl => {
+      if (sl.type !== 'lp') return;
+      const perp = (sl.ang+90)*Math.PI/180;
+      const dx = 5.5*Math.cos(perp), dy = 5.5*Math.sin(perp);
+      s += `<circle class="lp-dot" cx="${f(sl.x+dx)}" cy="${f(sl.y+dy)}" r="3.2"/>`;
+      s += `<circle class="lp-dot" cx="${f(sl.x-dx)}" cy="${f(sl.y-dy)}" r="3.2"/>`;
+    }));
+  }
+  // atoomsymbolen
+  list.forEach((a,i) => {
+    const hl = state.highlightAtoms && state.highlightAtoms.includes(i);
+    s += `<text class="atom-label${hl?' hl':''}" x="${f(a.x)}" y="${f(a.y+9)}" text-anchor="middle">${a.el.sym}</text>`;
+  });
+  const label = `Structuurformule van ${model.parsed.text}: ${bonds.length} bindingen, ${list.reduce((s2,a)=>s2+a.lp,0)} vrije elektronenparen.`;
+  return svgWrap(s, f(bb.w), f(bb.h), label, 'wide').replace('viewBox="0 0', `viewBox="${f(bb.x)} ${f(bb.y)}`);
+}
+
+/* Lewis-symbool (los atoom) met stippen */
+function lewisSymbolSVG(el, opts={}){
+  const w = 200, h = 170, cx = w/2, cy = h/2 + 4;
+  const n = opts.electrons ?? valenceElectrons(el) ?? 0;
+  const R = 46;
+  const dirs = [[0,-1],[1,0],[0,1],[-1,0]];
+  let s = '';
+  let left = n, placed = [];
+  // eerst één elektron per zijde, daarna paren
+  for (let pass=0; pass<2 && left>0; pass++){
+    for (let d=0; d<4 && left>0; d++){
+      placed.push({ d, pair: pass===1 });
+      left--;
+    }
+  }
+  placed.forEach(p => {
+    const [ux,uy] = dirs[p.d];
+    const bx = cx + ux*R, by = cy + uy*R;
+    const perp = [ -uy, ux ];
+    const off = p.pair ? 6 : 0;
+    s += `<circle class="lp-dot" cx="${f(bx - perp[0]*off)}" cy="${f(by - perp[1]*off)}" r="4"/>`;
+    if (p.pair) s += `<circle class="lp-dot" cx="${f(bx + perp[0]*off)}" cy="${f(by + perp[1]*off)}" r="4"/>`;
+  });
+  s += `<text class="atom-label" x="${cx}" y="${f(cy+11)}" text-anchor="middle">${el.sym}</text>`;
+  if (opts.charge) s += `<text class="charge" x="${f(cx+R+8)}" y="${f(cy-R+6)}">${esc(opts.charge)}</text>`;
+  if (opts.brackets) s += `<path class="bracket" d="M${cx-R-18},${cy-R-14} h-10 v${2*R+28} h10 M${cx+R+18},${cy-R-14} h10 v${2*R+28} h-10"/>`;
+  return svgWrap(s, w, h, `Lewis-symbool van ${el.name} met ${n} valentie-elektronen.`);
+}
+
+/* ---------- stappen voor een covalent molecuul ---------- */
+function lewisSteps(model){
+  const { list, bonds, centerIdx, totalVE, parsed } = model;
+  const steps = [];
+  const central = list[centerIdx];
+  const name = molName(parsed);
+
+  steps.push({
+    kicker:'De formule lezen',
+    title:`Wat staat er in ${fmtFormula(parsed.text)}?`,
+    visual:'',
+    table: `<table class="chem-table"><thead><tr><th>Element</th><th>Naam</th><th class="num">Aantal atomen</th><th class="num">Groep</th></tr></thead><tbody>${
+      parsed.atoms.map(a => `<tr><td class="sym">${a.el.sym}</td><td>${a.el.name}</td><td class="num">${a.count}</td><td class="num">${a.el.group||'—'}</td></tr>`).join('')
+    }</tbody></table>`,
+    what:`De formule bevat ${parsed.total} atoom/atomen: ${parsed.atoms.map(a => `${a.count} × ${a.el.sym}`).join(', ')}.`,
+    why:'Voordat je tekent, moet je weten welke atomen er zijn en hoeveel. Een structuurformule laat zien hoe die atomen met elkaar verbonden zijn.',
+    change:`We weten met welke bouwstenen we werken${name ? ` — dit is ${name}` : ''}.`
+  });
+
+  // valentie-elektronen
+  const symRow = list.filter((a,i) => list.findIndex(b=>b.el.sym===a.el.sym)===i);
+  steps.push({
+    kicker:'Valentie-elektronen',
+    title:'Hoeveel elektronen kunnen er delen?',
+    visual:`<div style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;width:100%">${
+      symRow.map(a => `<figure style="margin:0;text-align:center">${lewisSymbolSVG(a.el)}<figcaption style="color:var(--muted-foreground);font-size:12px">${a.el.sym} · groep ${a.el.group} · ${valenceElectrons(a.el)} e⁻</figcaption></figure>`).join('')
+    }</div>`,
+    table:`<table class="chem-table"><thead><tr><th>Element</th><th class="num">Groep</th><th class="num">Valentie-e⁻ per atoom</th><th class="num">Aantal atomen</th><th class="num">Totaal</th></tr></thead><tbody>${
+      parsed.atoms.map(a => { const v = valenceElectrons(a.el); return `<tr><td class="sym">${a.el.sym}</td><td class="num">${a.el.group}</td><td class="num">${v}</td><td class="num">${a.count}</td><td class="num">${v*a.count}</td></tr>`; }).join('')
+    }<tr><td colspan="4"><b>Totaal aantal valentie-elektronen</b></td><td class="num"><b>${totalVE}</b></td></tr></tbody></table>`,
+    what:`We tellen alle valentie-elektronen: ${totalVE} in totaal.`,
+    why:`Het groepsnummer vertelt hoeveel elektronen er in de buitenste schil staan. Alleen díe elektronen doen mee aan bindingen.`,
+    change:`We hebben een "elektronenbudget" van ${totalVE} elektronen = ${totalVE/2} paren.`
+  });
+
+  // covalenties
+  steps.push({
+    kicker:'Covalentie',
+    title:'Hoeveel bindingen wil elk atoom?',
+    visual:'',
+    table:`<table class="chem-table"><thead><tr><th>Element</th><th class="num">Valentie-e⁻</th><th class="num">Covalentie</th><th>Reden</th></tr></thead><tbody>${
+      symRow.map(a => {
+        const v = valenceElectrons(a.el), c = covalency(a.el);
+        const whyC = a.el.sym === 'H'
+          ? 'H wil 2 elektronen (duplet) → 1 binding'
+          : `Octet: 8 − ${v} = ${c} bindingen`;
+        return `<tr><td class="sym">${a.el.sym}</td><td class="num">${v}</td><td class="num"><b>${c}</b></td><td>${whyC}</td></tr>`;
+      }).join('')
+    }</tbody></table>`,
+    what:`We zetten de covalentie op: ${symRow.map(a => `${a.el.sym} = ${covalency(a.el)}`).join(', ')}.`,
+    why:'Elk atoom streeft naar een volle buitenste schil: 2 elektronen voor waterstof (duplet), 8 voor de rest (octetregel). Het aantal bindingen dat daarvoor nodig is, heet de covalentie.',
+    change:'Nu weten we hoeveel "haakjes" elk atoom heeft om te verbinden.'
+  });
+
+  // skelet
+  steps.push({
+    kicker:'Skelet',
+    title:'Het centrale atoom en de enkelvoudige bindingen',
+    visual: lewisSVG(model, { singleBonds:true, showLonePairs:false }),
+    what:`${central.el.sym} komt in het midden, daaromheen de andere atomen. We tekenen eerst alleen enkelvoudige bindingen (${bonds.length} stuks = ${bonds.length*2} elektronen).`,
+    why:`Het minst elektronegatieve atoom komt centraal (${central.el.sym}, EN = ${String(central.el.en).replace('.',',')}). Waterstof en halogenen staan altijd aan de buitenkant: die hebben maar één binding nodig.`,
+    change:`De atomen zitten aan elkaar vast. Er zijn nog ${totalVE - bonds.reduce((s,b)=>s+2*b.order,0)} elektronen over om te verdelen.`
+  });
+
+  // vrije paren
+  const lpTotal = list.reduce((s,a)=>s+a.lp,0);
+  steps.push({
+    kicker:'Octetregel',
+    title:'De overgebleven elektronen verdelen',
+    visual: lewisSVG(model, { singleBonds:true, showLonePairs:true }),
+    what:`We plaatsen ${lpTotal} vrije elektronenparen (${lpTotal*2} elektronen) om de atomen heen.`,
+    why:'Eerst krijgen de buitenste atomen een vol octet (waterstof een duplet), daarna het centrale atoom. Een vrij paar telt mee voor het octet maar verbindt niets.',
+    change:`Alle ${totalVE} valentie-elektronen zijn nu geplaatst: ${bonds.length*2} in bindingen en ${lpTotal*2} als vrije paren.`
+  });
+
+  // meervoudige bindingen (alleen indien nodig)
+  const multi = bonds.filter(b => b.order > 1);
+  if (multi.length){
+    steps.push({
+      kicker:'Octetcontrole',
+      title:'Het octet klopt nog niet → meervoudige binding',
+      visual: lewisSVG(model, { showLonePairs:true, highlightBonds: bonds.map((b,i)=>b.order>1?i:-1).filter(i=>i>=0) }),
+      what:`${multi.map(b => `tussen ${list[b.a].el.sym} en ${list[b.b].el.sym} wordt de binding een ${b.order===2?'dubbelbinding':'drievoudige binding'}`).join(', ')}.`,
+      why:`Met alleen enkelvoudige bindingen komt ${central.el.sym} niet aan 8 elektronen. We geven een vrij elektronenpaar van de buur "extra" uit als binding: zo halen beide atomen hun octet zonder dat er elektronen bijkomen.`,
+      change:`Het totaal aantal elektronen blijft ${totalVE}, maar de verdeling verandert: minder vrije paren, sterkere bindingen.`
+    });
+  }
+
+  // VSEPR
+  const doms = bonds.filter(b=>b.a===centerIdx||b.b===centerIdx).length + central.lp;
+  const shapeName = ({2:'lineair',3:'trigonaal planair',4:'tetraëdrisch',5:'trigonaal bipiramidaal',6:'octaëdrisch'})[doms] || 'tetraëdrisch';
+  steps.push({
+    kicker:'VSEPR',
+    title:`De ruimtelijke bouw: ${shapeName}`,
+    visual: lewisSVG(model, { showLonePairs:true, showAngles:true }),
+    what:`Rond ${central.el.sym} zitten ${doms} elektronendomeinen (${bonds.filter(b=>b.a===centerIdx||b.b===centerIdx).length} bindingen + ${central.lp} vrije paren). De hoek tussen de domeinen is ${String(Math.round(central.domainAngle)).replace('.',',')}°.`,
+    why:'Elektronenparen zijn allemaal negatief en stoten elkaar af. Ze gaan zo ver mogelijk uit elkaar staan: 2 domeinen → 180°, 3 → 120°, 4 → 109,5°.',
+    change:`De vlakke tekening wordt een ruimtelijk model. Vrije paren nemen iets meer ruimte in, waardoor bijvoorbeeld H₂O gebogen is.`
+  });
+
+  steps.push({
+    kicker:'Eindresultaat',
+    title:`De structuurformule van ${fmtFormula(parsed.text)}${name?` (${name})`:''}`,
+    final:true,
+    model:'lewis',
+    visual:'',
+    what:`Dit is de structuurformule. Elke streep is een binding (2 gedeelde elektronen), elke punt een vrij elektron.`,
+    why:`Controle: ${bonds.length} bindingen × 2 + ${lpTotal} vrije paren × 2 = ${bonds.length*2 + lpTotal*2} elektronen. Dat moet gelijk zijn aan het totaal van ${totalVE} valentie-elektronen.`,
+    change:`Het molecuul is compleet getekend en elk atoom heeft zijn octet (of duplet).`
+  });
+
+  return steps;
+}
+
+/* ---------- los atoom / edelgas / metaal / ionair ---------- */
+function atomSteps(model){
+  const el = model.el;
+  const ve = valenceElectrons(el);
+  const steps = [{
+    kicker:'Los atoom',
+    title:`Het Lewis-symbool van ${el.name}`,
+    visual: lewisSymbolSVG(el),
+    what:`We tekenen het symbool met ${ve === null ? 'de' : ve} valentie-elektronen${ve === null ? ' (wisselend bij overgangsmetalen)' : ''} als stippen eromheen.`,
+    why:'Een structuurformule is er alleen voor moleculen of ionroosters. Van een los atoom teken je het Lewis-symbool: symbool + valentie-elektronen.',
+    change:`Je ziet in één oogopslag hoeveel bindingen ${el.sym} kan aangaan.`
+  }];
+  if (el.cat === 'o' || isMetalEl(el)){
+    steps.push({
+      kicker:'Soort stof',
+      title:`${el.name} is een ${CAT_LABEL[el.cat]}`,
+      visual:'',
+      what:`Metalen teken je niet met een structuurformule. ${el.name} vormt een ${el.cat==='o'?'metaalrooster':'metaalrooster'} met een "zee" van losse elektronen, of het vormt ionen.`,
+      why:`Bij metalen zitten de valentie-elektronen niet vast tussen twee atomen, zoals bij een covalente binding. Daarom bestaat er geen molecuul ${el.sym}₂ met een vaste structuurformule.`,
+      change:`In plaats van een structuurformule gebruik je: ${el.sym} als metaalrooster, of het ion ${el.sym}${ionCharge(el) ? `<sup>${ionCharge(el)}+</sup>` : 'met variabele lading'}.`
+    });
+    if (ionCharge(el)){
+      steps.push({
+        kicker:'Ionvorming',
+        title:`${el.sym} → ${el.sym}<sup>${ionCharge(el)}+</sup> + ${ionCharge(el)} e⁻`,
+        visual: lewisSymbolSVG(el, { charge:`${ionCharge(el)}+`, brackets:true, electrons:0 }),
+        what:`Het atoom staat ${ionCharge(el)} elektron(en) af en wordt een positief ion (kation).`,
+        why:`Door elektronen af te staan krijgt het ion dezelfde elektronenconfiguratie als het edelgas ervoor — dat is energetisch veel gunstiger.`,
+        change:`De buitenste schil verdwijnt: het ion heeft nu een volle schil eronder.`
+      });
+    }
+  }
+  steps.push({
+    kicker:'Eindresultaat',
+    title:`Het Lewis-symbool van ${el.name}`,
+    final:true,
+    model:'lewis-atom',
+    el,
+    visual:'',
+    what:`Dit is de "structuurformule" van één los ${el.sym}-atoom.`,
+    why:`${el.cat === 'e' ? 'Edelgassen hebben al een volle buitenste schil en vormen dus vrijwel geen bindingen.' : `Wil je een echte structuurformule, vul dan een molecuul in (bijvoorbeeld ${el.sym === 'O' ? 'H2O of O2' : el.sym === 'C' ? 'CH4 of CO2' : el.sym === 'H' ? 'H2O of H2' : 'een formule met dit element'}).`}`,
+    change:'Je kunt nu zien hoeveel bindingen dit atoom maximaal aangaat.'
+  });
+  return steps;
+}
+
+function nobleSteps(model){
+  const el = model.el;
+  return [{
+    kicker:'Edelgas',
+    title:`${el.name} heeft al een volle schil`,
+    visual: lewisSymbolSVG(el),
+    what:`${el.sym} heeft ${valenceElectrons(el)} valentie-elektronen: de buitenste schil is vol (${el.sym === 'He' ? '2, duplet' : '8, octet'}).`,
+    why:'Een volle buitenste schil is de meest stabiele situatie. Daarom hoeft dit atoom niets te delen, af te staan of op te nemen.',
+    change:'Er is geen binding nodig: edelgassen bestaan als losse atomen.'
+  },{
+    kicker:'Eindresultaat',
+    title:`Het atoom ${el.sym} tekent zichzelf`,
+    final:true,
+    model:'lewis-atom',
+    el,
+    visual:'',
+    what:'Een edelgas teken je als los atoom met acht (bij helium twee) stippen.',
+    why:'Juist dóór die volle schil zijn edelgassen onreactief en bestaan ze niet als moleculen.',
+    change:'Geen bindingen, geen vrije paren die nog verplaatst kunnen worden.'
+  }];
+}
+
+function ionicSteps(model){
+  const { parsed, metals, nonmetals } = model;
+  const distinctNonmetals = nonmetals.filter((a,i) => nonmetals.findIndex(b=>b.el.sym===a.el.sym)===i);
+  if (distinctNonmetals.length > 1){
+    throw new ChemError(`Deze stof bevat waarschijnlijk een samengesteld ion (zoals CO₃²⁻, SO₄²⁻, NO₃⁻ of OH⁻). Die teken ik nog niet; vul eerst het losse ion of een eenvoudigere stof in.`);
+  }
+  const metal = metals[0].el, nonmetal = nonmetals[0].el;
+  const mCount = metals.reduce((s,a)=>s+a.count,0);
+  const nCount = nonmetals.reduce((s,a)=>s+a.count,0);
+  const an = anionCharge(nonmetal);
+  if (an === null) throw new ChemError(`Van ${nonmetal.name} kan ik de ionlading niet betrouwbaar afleiden.`);
+  let mCharge = ionCharge(metal);
+  let inferred = false;
+  if (mCharge === null){
+    const total = -an*nCount;
+    if (total % mCount !== 0) throw new ChemError('De ladingen van deze ionaire stof komen niet uit. Controleer de formule.');
+    mCharge = total / mCount; inferred = true;
+  }
+  if (mCharge*mCount + an*nCount !== 0){
+    throw new ChemError(`De ladingen komen niet uit: ${mCount} × ${mCharge}+ en ${nCount} × ${an} geeft geen neutrale stof. Controleer de formule.`);
+  }
+  const dEN = Math.abs(nonmetal.en - metal.en);
+  const steps = [];
+
+  steps.push({
+    kicker:'Soort binding bepalen',
+    title:`${metal.name} + ${nonmetal.name} → ionbinding`,
+    visual:'',
+    what:`Dit is een verbinding van een ${CAT_LABEL[metal.cat]} met een ${CAT_LABEL[nonmetal.cat]}. Het elektronegativiteitsverschil is ${String(dEN).replace('.',',')}.`,
+    why:`Bij een verschil groter dan ongeveer 1,7 trekken de atomen niet samen aan één elektronenpaar, maar draagt het metaal elektronen over. Dan ontstaat een ionrooster, geen molecuul — en dus geen structuurformule.`,
+    change:`We tekenen hierna de ionen met hun lading in plaats van gedeelde elektronenparen.`
+  });
+
+  steps.push({
+    kicker:'Elektronenoverdracht',
+    title:`${metal.sym} staat ${mCharge} elektronen af, ${nonmetal.sym} neemt ze op`,
+    visual:`<div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center;width:100%">
+      ${lewisSymbolSVG(metal, { charge:`${mCharge}+`, brackets:true, electrons:0 })}
+      <span style="font-size:26px;color:var(--muted-foreground)">→</span>
+      ${lewisSymbolSVG(nonmetal, { charge:`${an}−`, brackets:true, electrons: valenceElectrons(nonmetal) + (-an) })}
+    </div>`,
+    what:`Elk ${metal.sym}-atoom staat ${mCharge} elektron(en) af en wordt ${metal.sym}<sup>${mCharge}+</sup>. Elk ${nonmetal.sym}-atoom neemt ${-an} elektron(en) op en wordt ${nonmetal.sym}<sup>${an}−</sup>.`,
+    why:`Beide ionen krijgen zo de elektronenconfiguratie van een edelgas: een volle buitenste schil. ${inferred ? `Omdat ${metal.name} meerdere ladingen kan hebben, leid ik uit de formule af dat het hier om ${mCharge}+ gaat.` : ''}`,
+    change:'Er zijn geen gedeelde elektronenparen meer: de binding is nu puur elektrostatische aantrekking.'
+  });
+
+  steps.push({
+    kicker:'Verhouding',
+    title:`Waarom ${fmtFormula(parsed.text)} en niet iets anders?`,
+    visual:'',
+    table:`<table class="chem-table"><thead><tr><th>Ion</th><th class="num">Lading</th><th class="num">Aantal</th><th class="num">Totale lading</th></tr></thead><tbody>
+      <tr><td class="sym">${metal.sym}<sup>${mCharge}+</sup></td><td class="num">${mCharge}+</td><td class="num">${mCount}</td><td class="num">${mCount*mCharge}+</td></tr>
+      <tr><td class="sym">${nonmetal.sym}<sup>${an}−</sup></td><td class="num">${an}−</td><td class="num">${nCount}</td><td class="num">${nCount*an}−</td></tr>
+      <tr><td colspan="3"><b>Netto</b></td><td class="num"><b>0</b></td></tr></tbody></table>`,
+    what:`${mCount} × ${mCharge}+ = ${mCount*mCharge}+ en ${nCount} × ${an} = ${nCount*an}. Samen precies 0.`,
+    why:'Een ionrooster is elektrisch neutraal. De verhouding in de formule is dus niet willekeurig: die volgt uit de ladingen van de ionen.',
+    change:`De formule ${fmtFormula(parsed.text)} is een verhoudingsformule, geen molecuulformule.`
+  });
+
+  steps.push({
+    kicker:'Eindresultaat',
+    title:`Geen structuurformule, maar een ionrooster`,
+    final:true,
+    model:'ionic',
+    metal, nonmetal, mCharge, an,
+    visual:'',
+    what:`Deze stof bestaat uit ${metal.sym}<sup>${mCharge}+</sup> en ${nonmetal.sym}<sup>${an}−</sup> in de verhouding ${mCount} : ${nCount}.`,
+    why:'In een ionrooster wisselen positieve en negatieve ionen elkaar in drie dimensies af. Er is geen "los molecuul" met een vaste structuurformule.',
+    change:`Je schrijft daarom: ${fmtFormula(parsed.text)}${molName(parsed) ? ` — ${molName(parsed)}` : ''} als verhoudingsformule, en de ionen apart met hun lading.`
+  });
+  return steps;
+}
+
+function metalSteps(model){
+  const el = model.atoms[0].el;
+  return [{
+    kicker:'Soort stof',
+    title:`${el.name} is een ${CAT_LABEL[el.cat]}`,
+    visual:'',
+    what:`${el.sym} vormt een metaalrooster: positieve ionen in een zee van losse valentie-elektronen.`,
+    why:'Bij metalen horen de valentie-elektronen niet bij één atoom of één binding. Daarom bestaat er geen structuurformule van een metaal.',
+    change:'Je tekent in plaats daarvan het rooster, of je geeft het ion aan: ' + (ionCharge(el) ? `${el.sym}<sup>${ionCharge(el)}+</sup>` : `${el.sym} met variabele lading`) + '.'
+  },{
+    kicker:'Eindresultaat',
+    title:`${el.sym}: metaalrooster`,
+    final:true,
+    model:'metal',
+    el,
+    visual:'',
+    what:`Voor ${el.name} is er geen structuurformule te tekenen.`,
+    why:`Die vrije elektronen verklaren wel de eigenschappen: elektrische geleiding, warmtegeleiding en vervormbaarheid.`,
+    change:'Vul een niet-metaal of een molecuul in (zoals H2O of CO2) om een echte structuurformule te zien.'
+  }];
+}
+
+/* ============================================================
+   INFO-PANEEL (direct bij invoer)
+   ============================================================ */
+function renderInfo(parsed){
+  const panel = document.getElementById('infoPanel');
+  if (!parsed){ panel.innerHTML = '<p class="empty-note">Nog niets ingevuld.</p>'; return; }
+
+  if (isSingleElement(parsed)){
+    const el = parsed.atoms[0].el;
+    const N = el.A - el.Z;
+    const ve = valenceElectrons(el);
+    const cov = covalency(el);
+    panel.innerHTML = `
+      <div class="info-grid">
+        <div class="info-card"><span class="k">Atoomnummer Z</span><span class="v">${el.Z}</span></div>
+        <div class="info-card"><span class="k">Massagetal A</span><span class="v">${el.A}</span></div>
+        <div class="info-card"><span class="k">Protonen</span><span class="v">${el.Z}<small> p⁺</small></span></div>
+        <div class="info-card"><span class="k">Neutronen</span><span class="v">${N}<small> n⁰</small></span></div>
+        <div class="info-card"><span class="k">Elektronen</span><span class="v">${el.Z}<small> e⁻</small></span></div>
+      </div>
+      <ul class="calc-list">
+        <li><span class="tag">protonen</span><span>Het atoomnummer <b>is</b> het aantal protonen: Z = ${el.Z} → <b>${el.Z} protonen</b>. Dit getal bepaalt welk element het is.</span></li>
+        <li><span class="tag">neutronen</span><span>Neutronen = massagetal − atoomnummer = A − Z = ${el.A} − ${el.Z} = <b>${N} neutronen</b>. Het massagetal is het afgeronde gemiddelde van alle isotopen.</span></li>
+        <li><span class="tag">elektronen</span><span>Een atoom is elektrisch neutraal, dus aantal elektronen = aantal protonen = <b>${el.Z} elektronen</b>.</span></li>
+        <li><span class="tag">schillen</span><span>Verdeeld over de schillen: <b>${shellString(el.Z)}</b>${CONFIG_EXCEPTION.has(el.Z) ? ' (let op: dit element wijkt af van het opbouwprincipe)' : ''}.</span></li>
+      </ul>
+      <div class="facts">
+        <span class="badge">${el.name}</span>
+        <span class="badge">${CAT_LABEL[el.cat]}</span>
+        <span class="badge">groep ${el.group || '—'}</span>
+        <span class="badge">periode ${el.period}</span>
+        <span class="badge">valentie-e⁻ ${ve === null ? 'wisselend' : ve}</span>
+        <span class="badge">covalentie ${cov === null ? 'n.v.t.' : cov}</span>
+        <span class="badge">EN ${el.en ? String(el.en).replace('.',',') : '—'}</span>
+        <span class="badge">config ${configString(el.Z)}</span>
+      </div>`;
+    return;
+  }
+
+  // molecuul / verbinding
+  let totP = 0, totN = 0, totE = 0, totVE = 0, veOk = true;
+  parsed.atoms.forEach(a => {
+    totP += a.el.Z * a.count; totN += (a.el.A - a.el.Z) * a.count; totE += a.el.Z * a.count;
+    const v = valenceElectrons(a.el);
+    if (v === null) veOk = false; else totVE += v * a.count;
+  });
+  panel.innerHTML = `
+    <table class="chem-table">
+      <thead><tr><th>Element</th><th>Naam</th><th class="num">Aantal</th><th class="num">Z</th><th class="num">A</th><th class="num">p⁺</th><th class="num">n⁰</th><th class="num">e⁻</th><th class="num">valentie-e⁻</th></tr></thead>
+      <tbody>
+        ${parsed.atoms.map(a => { const v = valenceElectrons(a.el); return `<tr>
+          <td class="sym">${a.el.sym}</td><td>${a.el.name}</td><td class="num">${a.count}</td>
+          <td class="num">${a.el.Z}</td><td class="num">${a.el.A}</td>
+          <td class="num">${a.el.Z*a.count}</td><td class="num">${(a.el.A-a.el.Z)*a.count}</td><td class="num">${a.el.Z*a.count}</td>
+          <td class="num">${v === null ? '—' : v*a.count}</td></tr>`; }).join('')}
+        <tr><td colspan="5"><b>Totaal (${parsed.total} atomen)</b></td><td class="num"><b>${totP}</b></td><td class="num"><b>${totN}</b></td><td class="num"><b>${totE}</b></td><td class="num"><b>${veOk?totVE:'—'}</b></td></tr>
+      </tbody>
+    </table>
+    <ul class="calc-list">
+      <li><span class="tag">protonen</span><span>Per atoom is het aantal protonen gelijk aan Z. Alles opgeteld: <b>${totP} protonen</b>.</span></li>
+      <li><span class="tag">neutronen</span><span>Per atoom A − Z, vermenigvuldigd met het aantal: <b>${totN} neutronen</b>.</span></li>
+      <li><span class="tag">elektronen</span><span>De stof is neutraal, dus evenveel elektronen als protonen: <b>${totE} elektronen</b>.</span></li>
+      ${veOk ? `<li><span class="tag">binding</span><span>Voor een structuurformule tellen alleen de buitenste elektronen mee: <b>${totVE} valentie-elektronen</b> = ${totVE/2} paren.</span></li>` : ''}
+      ${parsed.normalizedFrom ? `<li><span class="tag">invoer</span><span>Ik heb je invoer <b>${esc(parsed.normalizedFrom)}</b> gelezen als <b>${fmtFormula(parsed.text)}</b>. Klopt dat niet? Pas de hoofdletters aan (CO₂ = koolstof en zuurstof, Co = kobalt).</span></li>` : ''}
+    </ul>
+    <div class="facts">
+      ${molName(parsed) ? `<span class="badge">${molName(parsed)}</span>` : ''}
+      <span class="badge">${parsed.atoms.length} element${parsed.atoms.length>1?'en':''}</span>
+      <span class="badge">${parsed.total} atomen</span>
+    </div>`;
+}
+
+/* ============================================================
+   STAPPEN RENDEREN (scroll-reveal, geen carousel)
+   ============================================================ */
+const resultsEl = document.getElementById('results');
+const stepsWrap = document.getElementById('stepsWrap');
+const stepCounter = document.getElementById('stepCounter');
+const progressFill = document.getElementById('progressFill');
+let stepCards = [];
+let revealedCount = 0;
+let currentEl = null;
+
+function cardHTML(step, i, total){
+  const num = String(i+1).padStart(2,'0');
+  const visual = step.visual ? `<figure class="step-visual">${step.visual}${step.caption?`<figcaption>${step.caption}</figcaption>`:''}</figure>` : '';
+  const table = step.table ? `<div class="step-visual plain">${step.table}</div>` : '';
+  const switcher = step.final && (step.model === 'bohr' || step.model === 'rutherford')
+    ? `<div class="model-switch">
+         <div class="tab-bar" role="tablist" aria-label="Wissel tussen atoommodellen">
+           <button class="tab-btn${step.model==='bohr'?' active':''}" type="button" role="tab" data-model="bohr">Het atoommodel van Bohr</button>
+           <button class="tab-btn${step.model==='rutherford'?' active':''}" type="button" role="tab" data-model="rutherford">Het atoommodel van Rutherford</button>
+         </div>
+         <div class="model-stage" id="modelStage">${step.model==='bohr' ? bohrSVG(currentEl) : rutherfordSVG(currentEl)}</div>
+       </div>` : '';
+  const finalVisual = step.final && step.model === 'lewis'
+    ? `<figure class="step-visual">${lewisSVG(lastModel, { showLonePairs:true })}<figcaption>Elke stip is een vrij elektron; elke streep een gedeeld elektronenpaar.</figcaption></figure>` : '';
+  const finalAtom = step.final && step.model === 'lewis-atom'
+    ? `<figure class="step-visual">${lewisSymbolSVG(step.el)}</figure>` : '';
+  const finalIonic = step.final && step.model === 'ionic'
+    ? `<figure class="step-visual"><div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center;width:100%">
+        ${lewisSymbolSVG(step.metal,{charge:`${step.mCharge}+`,brackets:true,electrons:0})}
+        <span style="font-size:22px;color:var(--muted-foreground)">+</span>
+        ${lewisSymbolSVG(step.nonmetal,{charge:`${step.an}−`,brackets:true,electrons:valenceElectrons(step.nonmetal)+(-step.an)})}
+       </div><figcaption>Ionrooster: ${step.metal.sym}<sup>${step.mCharge}+</sup> en ${step.nonmetal.sym}<sup>${step.an}−</sup> wisselen elkaar in drie dimensies af.</figcaption></figure>` : '';
+  return `<article class="step-card" id="step-${i}" data-step="${i+1}" aria-labelledby="st-${i}">
+    <header class="step-head">
+      <span class="step-number" aria-hidden="true">${num}</span>
+      <div><p class="step-kicker">${step.kicker}</p><h3 class="step-title" id="st-${i}">${step.title}</h3></div>
+    </header>
+    ${visual}${table}${switcher}${finalVisual}${finalAtom}${finalIonic}
+    <div class="explanation-grid">
+      <div class="exp-block"><h4>Wat doen we?</h4><p>${step.what}</p></div>
+      <div class="exp-block"><h4>Waarom doen we dit?</h4><p>${step.why}</p></div>
+      <div class="exp-block"><h4>Wat verandert er?</h4><p>${step.change}</p></div>
+    </div>
+  </article>`;
+}
+
+let lastModel = null;
+
+function compareCardHTML(mode){
+  const el = currentEl;
+  const shells = shellsOf(el.Z);
+  return `<article class="step-card" id="step-cmp" data-step="0">
+    <header class="step-head">
+      <span class="step-number" aria-hidden="true">⇄</span>
+      <div><p class="step-kicker">Vergelijken</p><h3 class="step-title">Rutherford en Bohr naast elkaar</h3></div>
+    </header>
+    <div class="step-visual plain">
+      <div class="compare">
+        <figure>${rutherfordSVG(el,{maxElectrons:10})}<figcaption>Het atoommodel van Rutherford (1911)</figcaption></figure>
+        <figure>${bohrSVG(el)}<figcaption>Het atoommodel van Bohr (1913)</figcaption></figure>
+      </div>
+      <ul class="diff-list">
+        <li><span class="lbl">Kern</span><span>Klein, positief, vrijwel alle massa.</span><span>Identiek: klein, positief, vrijwel alle massa.</span></li>
+        <li><span class="lbl">Elektronenbanen</span><span>Elke afstand is toegestaan.</span><span>Alleen vaste schillen (${shells.map(s=>`${s.name}: ${s.count}`).join(', ')}).</span></li>
+        <li><span class="lbl">Energie</span><span>Zou continu stralen en instorten.</span><span>In een schil geen straling; alleen bij een sprong tussen schillen.</span></li>
+        <li><span class="lbl">Verklaart</span><span>Dat het atoom bijna leeg is (goudfolie).</span><span>Ook lijnspectra en het periodiek systeem.</span></li>
+      </ul>
+    </div>
+    <div class="explanation-grid">
+      <div class="exp-block"><h4>Wat doen we?</h4><p>We leggen beide modellen naast elkaar voor ${el.name}.</p></div>
+      <div class="exp-block"><h4>Waarom?</h4><p>Bohr is geen vervanging van Rutherford, maar een aanvulling: de kern blijft hetzelfde, alleen de elektronen krijgen regels.</p></div>
+      <div class="exp-block"><h4>Wat verandert er?</h4><p>Van "willekeurige banen" naar "vaste schillen met vaste energie".</p></div>
+    </div>
+  </article>`;
+}
+
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting && !en.target.classList.contains('revealed')){
+      en.target.classList.add('revealed');
+      revealedCount++;
+      progressFill.style.width = `${Math.min(100, revealedCount/totalSteps*100)}%`;
+      revealObserver.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting && en.target.dataset.step !== '0'){
+      const n = +en.target.dataset.step;
+      stepCounter.textContent = `Stap ${n} van ${totalSteps}`;
+    }
+  });
+}, { threshold: 0.4 });
+
+let totalSteps = 0;
+
+function renderSteps(steps, mode){
+  totalSteps = steps.filter(s => !s.isCompare).length;
+  revealedCount = 0;
+  progressFill.style.width = '0%';
+  let html = steps.map((s,i) => cardHTML(s, i, steps.length)).join('');
+  if (mode === 'bohr' || mode === 'rutherford') html += compareCardHTML(mode);
+  stepsWrap.innerHTML = html;
+  stepCards = Array.from(stepsWrap.querySelectorAll('.step-card'));
+  stepCards.forEach(c => { revealObserver.observe(c); counterObserver.observe(c); });
+  resultsEl.classList.add('visible');
+}
+
+/* snelle wissel Bohr ⇄ Rutherford in de eindkaart */
+stepsWrap.addEventListener('click', e => {
+  const btn = e.target.closest('[data-model]');
+  if (!btn) return;
+  const bar = btn.parentElement;
+  bar.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+  btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+  const stage = document.getElementById('modelStage');
+  if (!stage || !currentEl) return;
+  stage.classList.remove('swap');
+  void stage.offsetWidth;
+  stage.innerHTML = btn.dataset.model === 'bohr' ? bohrSVG(currentEl) : rutherfordSVG(currentEl);
+  stage.classList.add('swap');
+});
+
+/* ============================================================
+   UI
+   ============================================================ */
+const input = document.getElementById('elInput');
+const infoPanel = document.getElementById('infoPanel');
+const errorMessage = document.getElementById('errorMessage');
+const suggestionsEl = document.getElementById('suggestions');
+const modeDesc = document.getElementById('modeDesc');
+const inputTitle = document.getElementById('inputTitle');
+const inputHint = document.getElementById('inputHint');
+const elLabel = document.getElementById('elLabel');
+
+let mode = 'lewis';
+let parsedCache = null;
+
+const MODE_TEXT = {
+  lewis: {
+    desc:'Teken de structuurformule: valentie-elektronen, covalentie, bindingen, vrije elektronenparen en de ruimtelijke bouw (VSEPR). Je mag ook een ionaire stof invullen — dan legt Aether de ionbinding uit.',
+    title:'Voer het element of de formule in',
+    hint:'Eén elementsymbool (zoals O) of één molecuulformule (zoals H2O).',
+    label:'Element of molecuulformule'
+  },
+  bohr: {
+    desc:'Bouw het atoommodel van Bohr op: kern met protonen en neutronen, daarna schil voor schil de elektronen volgens de schillenregel 2n².',
+    title:'Voer één element in',
+    hint:'Alleen een elementsymbool, zoals Fe of O. Eén atoom tegelijk.',
+    label:'Elementsymbool'
+  },
+  rutherford: {
+    desc:'Bouw het atoommodel van Rutherford op: het goudfolie-experiment, de kern en elektronen in banen op willekeurige afstand — inclusief waarom dit model niet stabiel is.',
+    title:'Voer één element in',
+    hint:'Alleen een elementsymbool, zoals Fe of O. Eén atoom tegelijk.',
+    label:'Elementsymbool'
+  }
+};
+
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.tab-btn[data-mode]').forEach(b => {
+    const on = b.dataset.mode === m;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+  const t = MODE_TEXT[m];
+  modeDesc.textContent = t.desc;
+  inputTitle.textContent = t.title;
+  inputHint.textContent = t.hint;
+  elLabel.textContent = t.label;
+  input.placeholder = m === 'lewis' ? 'Bijvoorbeeld O of H2O' : 'Bijvoorbeeld Fe';
+  onInput();
+}
+document.querySelectorAll('.tab-btn[data-mode]').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+
+function showError(msg){ errorMessage.textContent = msg; errorMessage.classList.add('visible'); }
+function hideError(){ errorMessage.textContent = ''; errorMessage.classList.remove('visible'); }
+
+function onInput(){
+  hideError();
+  const raw = input.value;
+  if (!raw.trim()){ parsedCache = null; renderInfo(null); suggestionsEl.innerHTML = ''; return; }
+  let parsed = null;
+  try {
+    parsed = parseInput(raw);
+    if (mode !== 'lewis' && !isSingleElement(parsed)){
+      parsedCache = null;
+      renderInfo(null);
+      infoPanel.innerHTML = '<p class="empty-note">Voor een atoommodel vul je één element in, bijvoorbeeld O of Fe.</p>';
+      suggestionsEl.innerHTML = '';
+      return;
+    }
+    parsedCache = parsed;
+    renderInfo(parsed);
+  } catch (err){
+    parsedCache = null;
+    infoPanel.innerHTML = '<p class="empty-note">Deze invoer kan ik nog niet lezen.</p>';
+  }
+  buildSuggestions(raw);
+}
+
+function buildSuggestions(raw){
+  const q = raw.trim().toLowerCase();
+  if (!q || q.length > 4){ suggestionsEl.innerHTML = ''; return; }
+  const matches = ALL.filter(e => e.sym.toLowerCase().startsWith(q) || e.name.toLowerCase().startsWith(q)).slice(0,8);
+  suggestionsEl.innerHTML = matches.map(e =>
+    `<button class="sugg" type="button" data-sym="${e.sym}"><b>${e.sym}</b> ${e.name}</button>`).join('');
+  suggestionsEl.querySelectorAll('.sugg').forEach(b => b.addEventListener('click', () => {
+    input.value = b.dataset.sym; onInput(); input.focus();
+  }));
+}
+
+/* invoerknoppen: altijd op de cursorpositie invoegen */
+function insertIntoInput(text){
+  const s = input.selectionStart ?? input.value.length;
+  const e = input.selectionEnd ?? input.value.length;
+  input.value = input.value.slice(0,s) + text + input.value.slice(e);
+  input.focus();
+  const pos = s + text.length;
+  input.setSelectionRange(pos,pos);
+  onInput();
+}
+
+const COMMON = ['H','He','Li','Be','B','C','N','O','F','Ne','Na','Mg','Al','Si','P','S','Cl','Ar','K','Ca','Fe','Cu','Zn','Br','Ag','I','Ba','Pb'];
+document.getElementById('commonKeys').innerHTML = COMMON.map(s =>
+  `<button class="key-button" type="button" data-el="${s}" title="${EL[s].name}">${s}</button>`).join('');
+document.getElementById('digitKeys').innerHTML =
+  [2,3,4,5,6,7,8,9].map(d => `<button class="key-button" type="button" data-digit="${d}">${d}</button>`).join('') +
+  `<button class="key-button structure" type="button" data-sub="2">₂</button>
+   <button class="key-button structure" type="button" data-sub="3">₃</button>
+   <button class="key-button structure" type="button" data-sub="4">₄</button>`;
+
+document.querySelectorAll('[data-el],[data-digit],[data-sub]').forEach(b => b.addEventListener('click', () => {
+  if (b.dataset.el) insertIntoInput(b.dataset.el);
+  else if (b.dataset.digit) insertIntoInput(b.dataset.digit);
+  else insertIntoInput(b.dataset.sub);
+}));
+
+/* periodiek systeem */
+function ptPos(el){
+  if (el.Z >= 57 && el.Z <= 71) return { row:9, col: el.Z - 57 + 3 };
+  if (el.Z >= 89 && el.Z <= 103) return { row:10, col: el.Z - 89 + 3 };
+  return { row: el.period, col: el.group || 3 };
+}
+const ptEl = document.getElementById('periodic');
+ptEl.style.gridTemplateRows = 'repeat(7,minmax(34px,auto)) 10px repeat(2,minmax(34px,auto))';
+ALL.forEach(el => {
+  const p = ptPos(el);
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'pt-cell';
+  b.dataset.el = el.sym;
+  b.style.gridRow = p.row; b.style.gridColumn = p.col;
+  b.title = `${el.name} — ${CAT_LABEL[el.cat]}, groep ${el.group||'—'}, periode ${el.period}`;
+  b.setAttribute('aria-label', `${el.name}, atoomnummer ${el.Z}`);
+  b.innerHTML = `<span class="z">${el.Z}</span><span class="s">${el.sym}</span>`;
+  ptEl.appendChild(b);
+});
+[[6,3,'57–71'],[7,3,'89–103']].forEach(([r,c,t]) => {
+  const d = document.createElement('div');
+  d.className = 'pt-gap'; d.style.gridRow = r; d.style.gridColumn = c; d.textContent = t;
+  ptEl.appendChild(d);
+});
+const ptInfo = document.getElementById('ptInfo');
+ptEl.addEventListener('mouseover', e => {
+  const b = e.target.closest('.pt-cell'); if (!b) return;
+  const el = EL[b.dataset.el];
+  ptInfo.innerHTML = `<b>${el.name} (${el.sym})</b> — Z ${el.Z}, massagetal ${el.A}, ${CAT_LABEL[el.cat]}, groep ${el.group||'—'}, periode ${el.period}`;
+});
+ptEl.addEventListener('focusin', e => {
+  const b = e.target.closest('.pt-cell'); if (!b) return;
+  const el = EL[b.dataset.el];
+  ptInfo.innerHTML = `<b>${el.name} (${el.sym})</b> — Z ${el.Z}, massagetal ${el.A}, ${CAT_LABEL[el.cat]}`;
+});
+ptEl.addEventListener('click', e => {
+  const b = e.target.closest('.pt-cell'); if (!b) return;
+  insertIntoInput(b.dataset.el);
+});
+
+document.getElementById('moreToggle').addEventListener('click', () => {
+  const p = document.getElementById('morePanel');
+  const t = document.getElementById('moreToggle');
+  const open = p.classList.toggle('open');
+  t.classList.toggle('open', open);
+  t.setAttribute('aria-expanded', open);
+});
+
+document.getElementById('backspaceBtn').addEventListener('click', () => {
+  const s = input.selectionStart, e = input.selectionEnd;
+  if (s === e && s > 0) input.value = input.value.slice(0,s-1) + input.value.slice(e);
+  else input.value = input.value.slice(0,s) + input.value.slice(e);
+  input.focus(); input.setSelectionRange(Math.max(0,s-1), Math.max(0,s-1));
+  onInput();
+});
+document.getElementById('clearBtn').addEventListener('click', () => {
+  input.value = ''; parsedCache = null; resultsEl.classList.remove('visible');
+  renderInfo(null); suggestionsEl.innerHTML = ''; hideError(); input.focus();
+});
+
+input.addEventListener('input', onInput);
+input.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); draw(); } });
+document.getElementById('drawBtn').addEventListener('click', draw);
+
+/* ---------- hoofdactie ---------- */
+function draw(){
+  hideError();
+  try {
+    const raw = input.value;
+    if (!raw.trim()) throw new ChemError('Vul eerst een element of formule in.');
+    const parsed = parseInput(raw);
+    if (mode === 'bohr' || mode === 'rutherford'){
+      if (!isSingleElement(parsed)) throw new ChemError('Voor een atoommodel vul je één element in, bijvoorbeeld O of Fe.');
+      currentEl = parsed.atoms[0].el;
+      renderSteps(mode === 'bohr' ? bohrSteps(currentEl) : rutherfordSteps(currentEl), mode);
+    } else {
+      lastModel = buildStructure(parsed);
+      currentEl = null;
+      let steps;
+      if (lastModel.kind === 'molecule') steps = lewisSteps(lastModel);
+      else if (lastModel.kind === 'atom') steps = atomSteps(lastModel);
+      else if (lastModel.kind === 'noble') steps = nobleSteps(lastModel);
+      else if (lastModel.kind === 'ionic') steps = ionicSteps(lastModel);
+      else steps = metalSteps(lastModel);
+      renderSteps(steps, 'lewis');
+    }
+    resultsEl.scrollIntoView({ behavior:'smooth', block:'start' });
+  } catch (err){
+    const msg = err instanceof ChemError ? err.message : 'Er ging iets mis bij het tekenen. Controleer de invoer en probeer opnieuw.';
+    showError(msg);
+    resultsEl.classList.remove('visible');
+  }
+}
+
+/* ---------- thema ---------- */
+function updateThemeIcon(){
+  const dark = document.documentElement.classList.contains('dark');
+  document.getElementById('themeToggle').setAttribute('aria-label', dark ? 'Lichte modus inschakelen' : 'Donkere modus inschakelen');
+  document.getElementById('themeIcon').innerHTML = dark
+    ? '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path>'
+    : '<path d="M12 3a6 6 0 1 0 9 9 9 9 0 1 1-9-9Z"></path>';
+}
+function initTheme(){
+  let stored = '';
+  try { stored = localStorage.getItem('aether-theme') || ''; } catch { stored = ''; }
+  const dark = stored ? stored === 'dark' : window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+  document.documentElement.classList.toggle('dark', dark);
+  updateThemeIcon();
+}
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const dark = document.documentElement.classList.toggle('dark');
+  try { localStorage.setItem('aether-theme', dark ? 'dark' : 'light'); } catch {}
+  updateThemeIcon();
+});
+
+initTheme();
+setMode('lewis');
+input.focus({ preventScroll:true });
+})();
+</script>
+</body>
+</html>

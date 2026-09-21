@@ -33,7 +33,6 @@ export default function LeersetsPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Leersets"
         title="Leersets"
         description="Kies een leerset om te starten met leren."
         action={

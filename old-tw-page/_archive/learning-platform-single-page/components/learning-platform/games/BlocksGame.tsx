@@ -5,7 +5,7 @@ import type { GameShellProps } from "@/lib/learning-platform/game-registry";
 import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
 import { buildMcqQuestion, buildWrittenQuestion, createId } from "@/lib/learning-platform/question-generator";
 import type { BlockShape, Question } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 import { McqQuestion } from "../questions/McqQuestion";
 import { WrittenQuestion } from "../questions/WrittenQuestion";
 import { GameShell } from "../GameShell";
@@ -91,7 +91,7 @@ function freshBlocks(): BlockShape[] {
 }
 
 export function BlocksGame({ onQuit }: GameShellProps) {
-  const { t } = useTranslation();
+  const t = i18n.t.bind(i18n);
   const { playableTerms, studySet, settings, recordAnswer, beginSession } =
     useLearningPlatformStore();
   const [grid, setGrid] = useState(emptyGrid);

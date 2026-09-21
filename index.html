@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AetherLearn — Interactive Learning Sets</title>
+
+  <!-- Google Fonts: Cormorant Garamond (Serif Titles/Headings), Inter (UI & Body Text), JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- KaTeX CSS & JS for LaTeX Math Expressions -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & CALIBRATED THEME TOKENS
+       ========================================================================== */
+    :root {
+      /* Light Mode: Calibrated Ice / Light Blue background (Never pure white) */
+      --background: #E8EEFD;               /* rgb(232, 238, 253) */
+      --foreground: #020817;               /* rgb(2, 8, 23) */
+      --card: #E8EEFD;                     /* rgb(232, 238, 253) */
+      --border: rgba(2, 8, 23, 0.18);      /* #020817 at 18% */
+      --border-solid: #E2E8F0;             /* rgb(226, 232, 240) */
+      --muted: #F1F5F9;                    /* rgb(241, 245, 249) */
+      --muted-foreground: #64748B;        /* rgb(100, 116, 139) */
+      --secondary: #F1F5F9;                /* rgb(241, 245, 249) */
+      --secondary-foreground: #020817;     /* rgb(2, 8, 23) */
+      --primary: #0F172A;                  /* rgb(15, 23, 42) */
+      --primary-foreground: #F8FAFC;       /* rgb(248, 250, 252) */
+      --primary-hover: #1E293B;            /* rgb(30, 41, 59) */
+      --code-bg: #E2E8F0;                  /* rgb(226, 232, 240) */
+      --focus-ring: rgba(15, 23, 42, 0.15);
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-serif: 'Cormorant Garamond', Georgia, Cambria, serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+    }
+
+    html.dark {
+      /* Dark Mode: Deep Midnight Navy (Never pitch black) */
+      --background: #020817;               /* rgb(2, 8, 23) */
+      --foreground: #F8FAFC;               /* rgb(248, 250, 252) */
+      --card: #020817;                     /* rgb(2, 8, 23) */
+      --border: #1E293B;                   /* rgb(30, 41, 59) */
+      --border-solid: #1E293B;             /* rgb(30, 41, 59) */
+      --muted: #1E293B;                    /* rgb(30, 41, 59) */
+      --muted-foreground: #94A3B8;        /* rgb(148, 163, 184) */
+      --secondary: #1E293B;                /* rgb(30, 41, 59) */
+      --secondary-foreground: #F8FAFC;     /* rgb(248, 250, 252) */
+      --primary: #F8FAFC;                  /* rgb(248, 250, 252) */
+      --primary-foreground: #020817;       /* rgb(2, 8, 23) */
+      --primary-hover: #E2E8F0;            /* rgb(226, 232, 240) */
+      --code-bg: #1E293B;                  /* rgb(30, 41, 59) */
+      --focus-ring: rgba(248, 250, 252, 0.2);
+    }
+
+    /* ==========================================================================
+       2. RESET & CORE STYLING
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    *::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      font-family: var(--font-sans);
+      color-scheme: light dark;
+      scroll-behavior: smooth;
+      background-color: var(--background);
+      color: var(--foreground);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--foreground);
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, h4, h5, h6, .font-serif {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .font-sans { font-family: var(--font-sans); }
+    .font-mono { font-family: var(--font-mono); }
+
+    /* ==========================================================================
+       3. ATOMIC UI COMPONENTS & BUTTONS
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.85rem;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: var(--font-sans);
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .btn:active {
+      transform: scale(0.985);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      opacity: 0.95;
+    }
+    .btn-secondary {
+      background-color: var(--background);
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background-color: var(--secondary);
+    }
+    .btn-icon {
+      padding: 0.45rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background-color: transparent;
+      color: var(--muted-foreground);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .btn-icon:hover {
+      color: var(--foreground);
+      background-color: var(--secondary);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background-color: var(--secondary);
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+
+    .card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+    html.dark .card {
+      box-shadow: none;
+    }
+
+    /* Top Right Mode Switcher */
+    .mode-switcher-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem;
+      background-color: rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    html.dark .mode-switcher-bar {
+      background-color: rgba(255, 255, 255, 0.04);
+    }
+    .mode-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.65rem;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted-foreground);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .mode-tab-btn:hover {
+      color: var(--foreground);
+      background-color: var(--secondary);
+    }
+    .mode-tab-btn.active {
+      background-color: var(--background);
+      color: var(--foreground);
+      border-color: var(--border);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Target badge callout */
+    .goal-callout {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      font-size: 13px;
+      background-color: rgba(15, 23, 42, 0.05);
+      border: 1px solid var(--border);
+      color: var(--foreground);
+      margin-bottom: 1.25rem;
+    }
+    html.dark .goal-callout {
+      background-color: rgba(248, 250, 252, 0.06);
+    }
+
+    /* Formula box */
+    .formula-box {
+      margin: 1.5rem 0;
+      padding: 1.25rem 1.5rem;
+      background-color: var(--secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-align: center;
+    }
+    .formula-box .katex-display {
+      margin: 0.4rem 0;
+    }
+    .formula-box ul {
+      list-style: none;
+      margin-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      font-size: 13.5px;
+      color: var(--muted-foreground);
+      text-align: left;
+      padding-left: 0.5rem;
+    }
+
+    /* Exercise Accordions */
+    .exercise-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 2rem;
+      margin-bottom: 3.5rem;
+      background-color: var(--card);
+    }
+    .exercise-card-header {
+      padding: 1rem 1.25rem;
+      background-color: var(--secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .q-row {
+      border-bottom: 1px solid var(--border);
+    }
+    .q-row:last-child {
+      border-bottom: none;
+    }
+    .q-btn {
+      width: 100%;
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: transparent;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      color: var(--foreground);
+      font-size: 14px;
+      font-family: var(--font-sans);
+      transition: background-color 0.12s ease;
+    }
+    .q-btn:hover {
+      background-color: var(--secondary);
+    }
+    .q-chevron {
+      color: var(--muted-foreground);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .q-row.open .q-chevron {
+      transform: rotate(90deg);
+    }
+    .q-num {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--muted-foreground);
+      width: 24px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .q-text {
+      flex: 1;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--foreground);
+    }
+    .q-answer-container {
+      display: none;
+      padding: 0.65rem 1.25rem 1.25rem 3.5rem;
+      font-size: 13.5px;
+      color: var(--muted-foreground);
+      line-height: 1.6;
+      border-top: 1px dashed var(--border);
+      background-color: rgba(0, 0, 0, 0.015);
+    }
+    html.dark .q-answer-container {
+      background-color: rgba(255, 255, 255, 0.015);
+    }
+    .q-row.open .q-answer-container {
+      display: block;
+    }
+
+    /* Grid Home Cards */
+    .set-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .set-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.25rem;
+    }
+    .set-card:hover {
+      background-color: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      margin-top: 0.35rem;
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      z-index: 50;
+      min-width: 150px;
+      overflow: hidden;
+      display: none;
+    }
+    .dropdown-menu.show {
+      display: block;
+    }
+    .dropdown-item {
+      width: 100%;
+      padding: 0.5rem 0.85rem;
+      font-size: 13px;
+      text-align: left;
+      background: transparent;
+      border: none;
+      color: var(--foreground);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.12s ease;
+    }
+    .dropdown-item:hover {
+      background-color: var(--secondary);
+    }
+
+    /* Inputs */
+    .text-input {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      font-size: 14px;
+      font-family: var(--font-sans);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background-color: var(--background);
+      color: var(--foreground);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .text-input:focus {
+      border-color: var(--foreground);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    /* Floating Scroll to top */
+    .scroll-top-fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 40;
+      padding: 0.65rem;
+      border-radius: 50%;
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      color: var(--foreground);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      display: none;
+      transition: all 0.2s ease;
+    }
+    .scroll-top-fab:hover {
+      background-color: var(--secondary);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP BAR (POSITIONED AT RIGHT TOP EXACTLY AS ORIGINAL JSON LEERSET PAGINA)
+       ========================================================================== -->
+  <div class="w-full relative" style="width: 100%; position: relative;">
+    
+    <!-- Controls container: sitting at absolute top-2 right-2 in normal flow -->
+    <div style="position: absolute; top: 0.5rem; right: 0.75rem; display: flex; align-items: center; gap: 0.5rem; z-index: 30; flex-wrap: wrap; justify-content: flex-end;">
+      
+      <!-- Language Switcher -->
+      <div style="position: relative;">
+        <button id="langSwitcherBtn" class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 12.5px;" onclick="toggleLangDropdown(event)">
+          <!-- Globe icon -->
+          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span id="currentLangLabel">English</span>
+        </button>
+
+        <div id="langDropdown" class="dropdown-menu">
+          <button class="dropdown-item" onclick="setLanguage('en')">English</button>
+          <button class="dropdown-item" onclick="setLanguage('nl')">Nederlands</button>
+        </div>
+      </div>
+
+      <!-- Theme Toggle (Moon / Sun) -->
+      <button id="themeToggleBtn" class="btn-icon" title="Toggle Theme" onclick="toggleTheme()" style="padding: 0.4rem 0.55rem;">
+        <svg id="sunIcon" style="width: 14px; height: 14px; display: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg id="moonIcon" style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+
+      <!-- Mode Switcher (Matching real leerset pagina with authentic Lucide icons) -->
+      <div id="topModeSwitcher" class="mode-switcher-bar" style="display: none;">
+        
+        <!-- Explanation (FileText icon) -->
+        <button class="mode-tab-btn active" id="btnModeSimple" onclick="setMode('simple')">
+          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          <span data-i18n="explanation">Explanation</span>
+        </button>
+
+        <!-- Learn (GraduationCap icon) -->
+        <button class="mode-tab-btn" id="btnModeStudy" onclick="setMode('study')">
+          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+          <span data-i18n="learn">Learn</span>
+        </button>
+
+        <!-- Summary (BookOpen icon) -->
+        <button class="mode-tab-btn" id="btnModeSummary" onclick="setMode('summary')">
+          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <span data-i18n="summary">Summary</span>
+        </button>
+
+        <!-- Quiz (Brain icon) -->
+        <button class="mode-tab-btn" id="btnModeQuiz" onclick="setMode('quiz')">
+          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span data-i18n="quiz">Quiz</span>
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Header area (pushed down below controls with right padding) -->
+    <div id="pageHeaderContainer" style="width: 100%; padding: 3.5rem 1rem 0.5rem 1rem; max-width: 1400px; margin: 0 auto;">
+      
+      <!-- Home Header -->
+      <div id="homeHeader">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+          <span class="badge">AetherLearn Platform</span>
+          <span class="badge" id="totalSetsBadge">5 Learning Sets</span>
+        </div>
+        <h1 style="font-size: 38px; md:font-size: 46px; line-height: 1.15; margin-bottom: 0.35rem;">
+          Interactive Study Sets &amp; Textbook Viewer
+        </h1>
+        <p style="font-size: 15px; color: var(--muted-foreground); max-width: 800px;">
+          Select any verified curriculum learning set below, or load your own JSON leerset via input or local file.
+        </p>
+      </div>
+
+      <!-- Leerset Viewer Header (Dynamic) -->
+      <div id="leersetHeader" style="display: none; padding-right: max(1rem, 260px);">
+        <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem;">
+          <!-- Back arrow button -->
+          <button class="btn-icon" title="Back to study sets" onclick="goToHome()" style="margin-top: 0.25rem; flex-shrink: 0;">
+            <svg style="width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </button>
+
+          <div style="min-width: 0; flex: 1;">
+            <h1 id="viewerTitle" style="font-size: 36px; md:font-size: 44px; line-height: 1.15; margin-bottom: 0.35rem;">
+              Physics - Chapter 4: Electricity
+            </h1>
+            <p id="viewerDesc" style="font-size: 15px; color: var(--muted-foreground); line-height: 1.5; max-width: 900px;">
+              Physics Chapter 4 on electricity, featuring theory blocks, formulas, inline assignments, and step-by-step solutions.
+            </p>
+          </div>
+        </div>
+
+        <!-- Custom Action Buttons Row -->
+        <div id="viewerButtonsRow" style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
+          <a href="https://youtube.com" target="_blank" class="btn btn-primary" id="btnYoutube">
+            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <span data-i18n="watch_youtube">Watch on YouTube</span>
+          </a>
+          <a href="https://substack.com" target="_blank" class="btn btn-secondary" id="btnSubstack">
+            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="4" rx="0.5"/><rect x="3" y="9" width="18" height="4" rx="0.5"/><path d="M3 15h18v6L12 17l-9 4v-6z"/></svg>
+            <span data-i18n="read_substack">Read on Substack</span>
+          </a>
+          <button class="btn btn-secondary" onclick="alert('Transcript exported (.md)')">
+            <svg style="width: 13.5px; height: 13.5px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span data-i18n="transcript">Transcript (.md)</span>
+          </button>
+          <button class="btn btn-secondary" onclick="alert('Anki deck exported (.txt)')">
+            <svg style="width: 13.5px; height: 13.5px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            <span data-i18n="anki">Export Anki (.txt)</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Full-width Divider Line -->
+    <div style="width: 100%; border-top: 1px solid var(--border); margin-top: 0.5rem;"></div>
+  </div>
+
+  <!-- ==========================================================================
+       VIEW 1: SETS GRID OVERVIEW & JSON LOADERS (HOME VIEW)
+       ========================================================================== -->
+  <main id="viewHome" style="max-width: 1400px; margin: 0 auto; padding: 2rem 1rem 5rem 1rem; width: 100%;">
+    
+    <!-- Action Toolbar (Search + JSON Input Drawer + File Upload) -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem; flex: 1; max-width: 400px;">
+        <input type="text" id="setSearchInput" class="text-input" placeholder="Search study sets..." oninput="filterSetsGrid(this.value)" />
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <!-- File upload button -->
+        <label class="btn btn-secondary" style="cursor: pointer;">
+          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span data-i18n="upload_file">Upload JSON File</span>
+          <input type="file" id="jsonFileInput" accept=".json" style="display: none;" onchange="handleFileUpload(event)" />
+        </label>
+
+        <!-- Paste JSON Drawer Toggle -->
+        <button class="btn btn-primary" onclick="toggleJsonPasteModal()">
+          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          <span data-i18n="load_json">Paste JSON</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Paste JSON Modal / Expandable Panel -->
+    <div id="jsonPasteDrawer" class="card" style="display: none; padding: 1.5rem; margin-bottom: 2rem; border-color: var(--foreground);">
+      <h3 style="font-size: 20px; font-family: var(--font-serif); margin-bottom: 0.5rem;">Load Custom JSON Leerset</h3>
+      <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 1rem;">
+        Paste any valid leerset JSON code matching the schema (`siteMetadata`, `sections`, `blocks`, `answers`).
+      </p>
+      <textarea id="jsonPasteArea" class="text-input" style="height: 180px; font-family: var(--font-mono); font-size: 12.5px; resize: vertical; margin-bottom: 1rem;" placeholder="Paste JSON here..."></textarea>
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+        <button class="btn btn-secondary" onclick="toggleJsonPasteModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="loadPastedJson()">Load &amp; Open Leerset</button>
+      </div>
+    </div>
+
+    <!-- Study Sets Cards Grid -->
+    <div id="setsGridContainer" class="set-grid">
+      <!-- Dynamically populated from JS dataset -->
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       VIEW 2: REAL LEERSET DETAIL PAGINA (FREELY RENDERED, SECTIONS ON LEFT)
+       ========================================================================== -->
+  <main id="viewLeerset" style="display: none; width: 100%; min-height: 100vh;">
+    
+    <div style="display: flex; flex-direction: column; md:flex-direction: row; gap: 2rem; max-width: 1400px; margin: 0 auto; padding: 2rem 1rem 5rem 1rem; align-items: flex-start;">
+      
+      <!-- ====================================================================
+           LEFT SIDEBAR: SECTIONS ELEMENT (NOT INHOUDSOPGAVE)
+           ==================================================================== -->
+      <aside style="width: 100%; max-width: 100%; md:max-width: 270px; flex-shrink: 0; position: sticky; top: 1.5rem;">
+        <div class="card" style="padding: 1.25rem 1rem; max-height: calc(100vh - 3rem); overflow-y: auto;">
+          
+          <!-- Sections Title (Says 'Sections' in English, 'Secties' in Dutch) -->
+          <div style="padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); margin-bottom: 0.75rem;">
+            <h2 id="sidebarTitle" style="font-size: 14px; font-weight: 600; font-family: var(--font-sans); color: var(--foreground); letter-spacing: 0.02em;" data-i18n="sections">
+              Sections
+            </h2>
+          </div>
+
+          <!-- Section Items Navigation -->
+          <nav id="sidebarNavLinks" style="display: flex; flex-direction: column; gap: 0.25rem; font-size: 13px;">
+            <!-- Dynamically populated per loaded leerset -->
+          </nav>
+        </div>
+      </aside>
+
+      <!-- ====================================================================
+           MAIN CONTENT AREA: FREELY RENDERED WITHOUT BOUNDING BOXES
+           ==================================================================== -->
+      <div style="flex: 1; min-width: 0; max-width: 900px; width: 100%;">
+        
+        <!-- Summary Mode Container (when Summary tab is clicked) -->
+        <div id="summaryModeView" style="display: none;" class="card p-6 sm:p-8 mb-12">
+          <div class="goal-callout">
+            <strong>OVERVIEW</strong> &rarr; <span data-i18n="summary">Chapter Summary</span>
+          </div>
+          <div id="summaryContent" style="font-size: 15.5px; line-height: 1.75;"></div>
+        </div>
+
+        <!-- Textbook / Explanation Content Area -->
+        <div id="textbookSectionsContainer">
+          <!-- Dynamically populated sections -->
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       FLOATING SCROLL TO TOP BUTTON
+       ========================================================================== -->
+  <button id="scrollTopBtn" class="scroll-top-fab" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Scroll to top">
+    <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- ==========================================================================
+       JAVASCRIPT APP LOGIC & LEERSET DATA
+       ========================================================================== -->
+  <script>
+    /* --------------------------------------------------------------------------
+       1. I18N DICTIONARY (Full English & Dutch Support)
+       -------------------------------------------------------------------------- */
+    let currentLang = 'en'; // Default to English mode
+
+    const I18N = {
+      en: {
+        sections: "Sections",
+        explanation: "Explanation",
+        learn: "Learn",
+        summary: "Summary",
+        quiz: "Quiz",
+        watch_youtube: "Watch on YouTube",
+        read_substack: "Read on Substack",
+        transcript: "Transcript (.md)",
+        anki: "Export Anki (.txt)",
+        upload_file: "Upload JSON File",
+        load_json: "Paste JSON",
+        expand_all: "Expand all",
+        collapse_all: "Collapse all",
+        search_placeholder: "Search study sets...",
+        open_set: "Open Leerset →",
+        terms_count: "terms",
+        sections_count: "sections"
+      },
+      nl: {
+        sections: "Secties",
+        explanation: "Uitleg",
+        learn: "Leren",
+        summary: "Samenvatting",
+        quiz: "Quiz",
+        watch_youtube: "Bekijk op YouTube",
+        read_substack: "Lees op Substack",
+        transcript: "Transcript (.md)",
+        anki: "Exporteer Anki (.txt)",
+        upload_file: "Upload JSON Bestand",
+        load_json: "Plak JSON",
+        expand_all: "Alles uitklappen",
+        collapse_all: "Alles inklappen",
+        search_placeholder: "Zoek leersets...",
+        open_set: "Open Leerset →",
+        terms_count: "begrippen",
+        sections_count: "secties"
+      }
+    };
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.getElementById('currentLangLabel').textContent = (lang === 'en' ? 'English' : 'Nederlands');
+      document.getElementById('langDropdown').classList.remove('show');
+
+      // Update all data-i18n elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (I18N[currentLang][key]) {
+          el.textContent = I18N[currentLang][key];
+        }
+      });
+
+      document.getElementById('setSearchInput').placeholder = I18N[currentLang].search_placeholder;
+    }
+
+    function toggleLangDropdown(e) {
+      e.stopPropagation();
+      document.getElementById('langDropdown').classList.toggle('show');
+    }
+
+    window.addEventListener('click', () => {
+      const dd = document.getElementById('langDropdown');
+      if (dd) dd.classList.remove('show');
+    });
+
+    /* --------------------------------------------------------------------------
+       2. THEME ENGINE (Dark / Light Mode Toggle)
+       -------------------------------------------------------------------------- */
+    function applyThemeMode(isDark) {
+      const html = document.documentElement;
+      const sun = document.getElementById('sunIcon');
+      const moon = document.getElementById('moonIcon');
+      if (isDark) {
+        html.classList.add('dark');
+        html.classList.remove('light');
+        sun.style.display = 'inline-block';
+        moon.style.display = 'none';
+      } else {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        sun.style.display = 'none';
+        moon.style.display = 'inline-block';
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      applyThemeMode(!isDark);
+    }
+
+    /* --------------------------------------------------------------------------
+       3. PRE-LOADED REAL JSON LEERSET DATASETS
+       -------------------------------------------------------------------------- */
+    const PRELOADED_SETS = [
+      {
+        id: "physics-electricity",
+        subject: "Physics",
+        siteMetadata: {
+          title: "Physics - Chapter 4: Electricity",
+          description: "Physics Chapter 4 on electricity, featuring power, Ohm's law, circuit analysis, domestic safety, and LaTeX formulas."
+        },
+        summary: "### Key Concepts of Chapter 4\n- **Electric Power**: $P = U \\times I$\n- **Ohm's Law**: $U = I \\times R$\n- **Series Circuits**: $R_v = R_1 + R_2$\n- **Parallel Circuits**: $\\frac{1}{R_v} = \\frac{1}{R_1} + \\frac{1}{R_2}$\n- **Energy Consumption**: $E = P \\times t$ (measured in kilowatt-hours, $\\text{kWh}$).",
+        sections: [
+          {
+            id: "sec-4-1",
+            title: "§4.1 Voltage, Current and Electrical Power",
+            goal: "Learn how to calculate electric power, current, and battery capacities.",
+            content: "### Voltage and Current\nElectrical appliances require energy to operate, supplied by a voltage source (mains, batteries, or photovoltaic cells). In a closed electric circuit, electrons flow through conductive metal pathways.\n\nVoltage ($U$ in Volts, $\\text{V}$) indicates the potential energy carried per coulomb of charge. Electric current ($I$ in Amperes, $\\text{A}$) measures the rate of charge flow per second.\n\n### Electric Power\nThe rate at which an appliance converts electrical energy into heat, light, or mechanical kinetic work is its electrical power ($P$ in Watts, $\\text{W}$):\n\n$$\nP = U \\times I\n$$\n\n### Battery Capacity\nA rechargeable battery stores chemical energy. Its total available charge capacity ($C$) is given in Ampere-hours ($\\text{Ah}$) or milliampere-hours ($\\text{mAh}$):\n\n$$\nC = I \\times t\n$$",
+            questions: [
+              { number: "01", text: "Which physical quantity describes the electrical energy converted per second? Name its symbol and standard SI unit.", answer: "Electric power. Symbol: $P$, standard SI unit: Watt ($\\text{W}$) or Joule per second ($\\text{J/s}$)." },
+              { number: "2a", text: "An electric kettle operates at $2200\\text{ W}$ on $230\\text{ V}$ mains voltage. Calculate the current flow through the heating element.", answer: "$I = \\frac{P}{U} = \\frac{2200}{230} \\approx 9.57\\text{ A}$." },
+              { number: "2b", text: "A smartphone battery has a capacity of $4000\\text{ mAh}$. The phone consumes an average of $250\\text{ mA}$. How many hours will it run on a full charge?", answer: "$t = \\frac{C}{I} = \\frac{4000\\text{ mAh}}{250\\text{ mA}} = 16\\text{ hours}$." }
+            ]
+          },
+          {
+            id: "sec-4-2",
+            title: "§4.2 Resistance and Ohm's Law",
+            goal: "Understand electrical resistance, wire properties, and Ohm's law.",
+            content: "### Electrical Resistance\nAs free electrons travel through a conductor, they constantly collide with ions in the metallic crystal lattice. This opposition to current flow is called **resistance** ($R$), measured in Ohms ($\\Omega$).\n\n### Ohm's Law\nFor ohmic conductors at constant temperature, current is directly proportional to voltage:\n\n$$\nU = I \\times R \\quad \\Longleftrightarrow \\quad R = \\frac{U}{I}\n$$\n\n### Wire Resistance Formula\nThe resistance of a cylindrical wire depends on length ($l$), cross-sectional area ($A$), and material resistivity ($\\rho$):\n\n$$\nR = \\frac{\\rho \\times l}{A}\n$$",
+            questions: [
+              { number: "03", text: "A component with resistance $150\\ \\Omega$ has a potential difference of $12\\text{ V}$. Find the current in milliamperes.", answer: "$I = \\frac{U}{R} = \\frac{12}{150} = 0.08\\text{ A} = 80\\text{ mA}$." },
+              { number: "04", text: "A tungsten filament draws $0.25\\text{ A}$ when connected to $230\\text{ V}$. Calculate its operating resistance.", answer: "$R = \\frac{U}{I} = \\frac{230}{0.25} = 920\\ \\Omega$." }
+            ]
+          },
+          {
+            id: "sec-4-3",
+            title: "§4.3 Series and Parallel Circuit Networks",
+            goal: "Compute equivalent resistance, currents, and potential drops across complex circuits.",
+            content: "### Series Circuits\nComponents are connected end-to-end in a single pathway. Current is identical everywhere, while total voltage divides across each load:\n\n$$\nR_v = R_1 + R_2 + \\dots + R_n\n$$\n\n### Parallel Circuits\nComponents share the same two common nodes across the voltage supply. Total current equals the sum of branch currents:\n\n$$\n\\frac{1}{R_v} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\dots + \\frac{1}{R_n}\n$$",
+            questions: [
+              { number: "05", text: "Two resistors $R_1 = 40\\ \\Omega$ and $R_2 = 60\\ \\Omega$ are connected in series to $20\\text{ V}$. Find $R_v$ and current $I$.", answer: "1) $R_v = 40 + 60 = 100\\ \\Omega$. 2) $I = \\frac{20}{100} = 0.20\\text{ A}$." },
+              { number: "06", text: "The same resistors ($40\\ \\Omega$ and $60\\ \\Omega$) are now connected in parallel. Calculate the equivalent resistance.", answer: "$\\frac{1}{R_v} = \\frac{1}{40} + \\frac{1}{60} = \\frac{5}{120} \\implies R_v = \\frac{120}{5} = 24\\ \\Omega$." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "biology-cells-genetics",
+        subject: "Biology",
+        siteMetadata: {
+          title: "Biology - Chapters 4 & 5: Cell Biology, Reproduction & Genetics",
+          description: "Cellular organelles, mitosis, meiosis, chromosome theory, genotypes, phenotypes, and DNA replication."
+        },
+        summary: "### Biology Summary\n- **Organelles**: Mitochondria (ATP production), Ribosomes (Protein synthesis), Golgi (Modifying & sorting).\n- **Genetics**: Genotype (DNA code), Phenotype (Observed traits = Genotype + Environment).",
+        sections: [
+          {
+            id: "sec-bio-1",
+            title: "§1.1 Cellular Architecture and Organelles",
+            goal: "Master the structure and metabolic functions of core cellular organelles.",
+            content: "### The Living Cell\nAll living organisms are composed of microscopic structural units called cells. Eukaryotic cells possess specialized membrane-bound internal structures called organelles.\n\n- **Mitochondria**: The metabolic powerhouse synthesizing ATP via aerobic respiration.\n- **Endoplasmic Reticulum (ER)**: Rough ER synthesizes proteins; Smooth ER synthesizes lipids.\n- **Golgi Apparatus**: Modifies, packages, and tags macromolecular cargo for cellular export.",
+            questions: [
+              { number: "01", text: "Which organelle is responsible for synthesizing ATP through cellular respiration?", answer: "The mitochondrion (plural: mitochondria)." },
+              { number: "02", text: "Differentiate between the rough and smooth endoplasmic reticulum.", answer: "Rough ER is studded with ribosomes and synthesizes proteins; smooth ER lacks ribosomes and synthesizes lipids and phospholipids." }
+            ]
+          },
+          {
+            id: "sec-bio-2",
+            title: "§1.2 Chromosomes, Genotype and Phenotype",
+            goal: "Understand chromosomal pairs, allelic variation, and gene expression.",
+            content: "### Genetic Code\nEvery diploid human somatic cell contains 46 chromosomes (23 homologous pairs) in its nucleus. DNA carries the hereditary genetic blueprint encoded in nucleotide bases (Adenine, Thymine, Cytosine, Guanine).\n\n- **Genotype**: The complete collection of genes inherited at fertilization.\n- **Phenotype**: The observable physical and biochemical traits resulting from genotype interaction with the environment.",
+            questions: [
+              { number: "03", text: "Can environmental factors alter an individual's genotype?", answer: "No, environmental factors can alter phenotypic expression (e.g. skin tanning), but not the inherited genomic code." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "geography-earth-climate",
+        subject: "Geography",
+        siteMetadata: {
+          title: "Geography - Chapter 5: Earth, Climate & Dynamic Landscapes",
+          description: "Tectonic plates, volcanism, atmospheric circulation, Coriolis effect, and global climate zones."
+        },
+        summary: "### Geography Summary\n- **Tectonics**: Convergent, divergent, and transform boundaries.\n- **Atmosphere**: Hadley cells, Ferrel cells, and atmospheric pressure gradients.",
+        sections: [
+          {
+            id: "sec-geo-1",
+            title: "§5.1 Plate Tectonics and Volcanic Activity",
+            goal: "Explore Earth's lithospheric plates, subduction zones, and seismic hazards.",
+            content: "### Plate Boundaries\nEarth's crust is divided into several rigid lithospheric plates floating on the asthenosphere.\n\n- **Divergent Boundaries**: Plates move apart, forming mid-ocean ridges.\n- **Convergent Boundaries**: Plates collide, forming mountain ranges or deep oceanic trenches through subduction.",
+            questions: [
+              { number: "01", text: "What geological feature forms when two oceanic plates diverge?", answer: "A mid-ocean ridge with underwater volcanic rift systems." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "history-modern-revolutions",
+        subject: "History",
+        siteMetadata: {
+          title: "History - Chapter 4: Modern Era & Democratic Revolutions",
+          description: "Enlightenment philosophies, the French Revolution, constitutionalism, and industrial transformation."
+        },
+        summary: "### History Summary\n- **Enlightenment**: Montesquieu (Separation of powers / Trias Politica), Rousseau (Social contract).\n- **French Revolution**: 1789 Declaration of the Rights of Man and of the Citizen.",
+        sections: [
+          {
+            id: "sec-hist-1",
+            title: "§4.1 The Enlightenment and the Trias Politica",
+            goal: "Analyze key Enlightenment political philosophies and constitutional foundations.",
+            content: "### Age of Reason\nDuring the 18th century, Enlightenment philosophers challenged absolute monarchies by advocating rationalism, scientific inquiry, and fundamental human rights.\n\nMontesquieu formulated the **Trias Politica**, dividing governmental power into three independent branches: Legislative, Executive, and Judicial.",
+            questions: [
+              { number: "01", text: "What is the primary goal of the Trias Politica doctrine?", answer: "To prevent tyranny and abuse of authority by distributing power among three separate and co-equal branches of government." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "math-algebra",
+        subject: "Mathematics",
+        siteMetadata: {
+          title: "Mathematics - Equations, Inequalities & Functions",
+          description: "Quadratic equations, discriminant analysis, systems of linear equations, and functional transformations."
+        },
+        summary: "### Mathematics Summary\n- **Quadratic Formula**: $x = \\frac{-b \\pm \\sqrt{D}}{2a}$\n- **Discriminant**: $D = b^2 - 4ac$",
+        sections: [
+          {
+            id: "sec-math-1",
+            title: "§2.1 Quadratic Equations and Discriminant Analysis",
+            goal: "Solve quadratic equations using the standard quadratic formula.",
+            content: "### General Form\nA quadratic equation in standard form is written as:\n\n$$\nax^2 + bx + c = 0 \\quad (a \\neq 0)\n$$\n\n### The Discriminant\nThe discriminant determines the nature and number of real roots:\n\n$$\nD = b^2 - 4ac\n$$\n\n- If $D > 0$: Two distinct real solutions: $x = \\frac{-b \\pm \\sqrt{D}}{2a}$\n- If $D = 0$: Exactly one real solution: $x = \\frac{-b}{2a}$\n- If $D < 0$: No real solutions.",
+            questions: [
+              { number: "01", text: "Find the discriminant of $2x^2 - 4x - 6 = 0$ and calculate its roots.", answer: "$D = (-4)^2 - 4(2)(-6) = 16 + 48 = 64$. Roots: $x = \\frac{4 \\pm 8}{4} \\implies x_1 = 3, x_2 = -1$." }
+            ]
+          }
+        ]
+      }
+    ];
+
+    let allLoadedSets = [...PRELOADED_SETS];
+    let currentLeerset = null;
+
+    /* --------------------------------------------------------------------------
+       4. GRID HOME PAGE RENDERING
+       -------------------------------------------------------------------------- */
+    function renderSetsGrid(filterText = '') {
+      const container = document.getElementById('setsGridContainer');
+      container.innerHTML = '';
+
+      const filtered = allLoadedSets.filter(s => {
+        const query = filterText.toLowerCase();
+        return s.siteMetadata.title.toLowerCase().includes(query) ||
+               s.subject.toLowerCase().includes(query) ||
+               s.siteMetadata.description.toLowerCase().includes(query);
+      });
+
+      filtered.forEach(s => {
+        const card = document.createElement('div');
+        card.className = 'set-card';
+        card.onclick = () => openLeerset(s);
+
+        const secCount = s.sections ? s.sections.length : 0;
+        card.innerHTML = `
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span class="badge">${s.subject}</span>
+              <span style="font-size: 12px; font-family: var(--font-mono); color: var(--muted-foreground);">${secCount} ${I18N[currentLang].sections_count}</span>
+            </div>
+            <h3 style="font-size: 22px; font-family: var(--font-serif); font-weight: 600; line-height: 1.25; margin-bottom: 0.5rem;">
+              ${s.siteMetadata.title}
+            </h3>
+            <p style="font-size: 13.5px; color: var(--muted-foreground); line-height: 1.5;">
+              ${s.siteMetadata.description}
+            </p>
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <span class="btn btn-secondary" style="font-size: 12.5px; font-weight: 500;">
+              ${I18N[currentLang].open_set}
+            </span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      document.getElementById('totalSetsBadge').textContent = `${allLoadedSets.length} Learning Sets`;
+    }
+
+    function filterSetsGrid(val) {
+      renderSetsGrid(val);
+    }
+
+    /* --------------------------------------------------------------------------
+       5. LEERSET VIEWER RENDERING (FREELY RENDERED, SECTIONS ON LEFT)
+       -------------------------------------------------------------------------- */
+    function openLeerset(setData) {
+      currentLeerset = setData;
+
+      // Update Header
+      document.getElementById('homeHeader').style.display = 'none';
+      document.getElementById('leersetHeader').style.display = 'block';
+      document.getElementById('topModeSwitcher').style.display = 'inline-flex';
+      document.getElementById('viewerTitle').textContent = setData.siteMetadata.title;
+      document.getElementById('viewerDesc').textContent = setData.siteMetadata.description;
+
+      // Toggle views
+      document.getElementById('viewHome').style.display = 'none';
+      document.getElementById('viewLeerset').style.display = 'block';
+
+      // Render Left Sidebar Sections
+      renderSidebarNav(setData.sections);
+
+      // Render Main Content
+      renderTextbookSections(setData.sections);
+
+      // Summary text
+      document.getElementById('summaryContent').innerHTML = renderSimpleMarkdown(setData.summary || "No summary provided.");
+
+      // Reset to top and Explanation mode
+      setMode('simple');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Run KaTeX Math
+      setTimeout(() => {
+        if (window.renderMathInElement) {
+          renderMathInElement(document.getElementById('viewLeerset'), {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false }
+            ],
+            throwOnError: false
+          });
+        }
+      }, 50);
+    }
+
+    function goToHome() {
+      document.getElementById('viewLeerset').style.display = 'none';
+      document.getElementById('viewHome').style.display = 'block';
+      document.getElementById('homeHeader').style.display = 'block';
+      document.getElementById('leersetHeader').style.display = 'none';
+      document.getElementById('topModeSwitcher').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderSidebarNav(sections = []) {
+      const nav = document.getElementById('sidebarNavLinks');
+      nav.innerHTML = '';
+
+      sections.forEach((sec, idx) => {
+        const link = document.createElement('a');
+        link.href = `#${sec.id}`;
+        link.className = `sidebar-link ${idx === 0 ? 'active' : ''}`;
+        link.style.display = 'flex';
+        link.style.alignItems = 'center';
+        link.style.gap = '0.5rem';
+        link.style.padding = '0.45rem 0.6rem';
+        link.style.borderRadius = '4px';
+        link.style.textDecoration = 'none';
+        link.style.color = (idx === 0 ? 'var(--foreground)' : 'var(--muted-foreground)');
+        link.style.fontWeight = (idx === 0 ? '600' : '400');
+        link.style.backgroundColor = (idx === 0 ? 'var(--secondary)' : 'transparent');
+        link.style.transition = 'all 0.15s ease';
+
+        link.innerHTML = `
+          <svg style="width: 14px; height: 14px; flex-shrink: 0; color: var(--muted-foreground);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${sec.title}</span>
+        `;
+        nav.appendChild(link);
+      });
+    }
+
+    function renderTextbookSections(sections = []) {
+      const container = document.getElementById('textbookSectionsContainer');
+      container.innerHTML = '';
+
+      sections.forEach(sec => {
+        const secEl = document.createElement('section');
+        secEl.id = sec.id;
+        secEl.style.scrollMarginTop = '3.5rem';
+        secEl.style.marginBottom = '3.5rem';
+
+        // Title
+        const headingBox = document.createElement('div');
+        headingBox.style.paddingBottom = '0.75rem';
+        headingBox.style.borderBottom = '1px solid var(--border)';
+        headingBox.style.marginBottom = '1.5rem';
+        headingBox.innerHTML = `
+          <h2 style="font-size: 30px; font-family: var(--font-serif); font-weight: 500;">
+            ${sec.title}
+          </h2>
+        `;
+        secEl.appendChild(headingBox);
+
+        // Card Article
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.style.padding = '1.75rem';
+        card.style.marginBottom = '1.5rem';
+
+        if (sec.goal) {
+          card.innerHTML += `
+            <div class="goal-callout">
+              <strong>GOAL</strong> &rarr; ${sec.goal}
+            </div>
+          `;
+        }
+
+        if (sec.content) {
+          card.innerHTML += `<div style="font-size: 16px; line-height: 1.75;">${renderSimpleMarkdown(sec.content)}</div>`;
+        }
+        secEl.appendChild(card);
+
+        // Exercises Accordion
+        if (sec.questions && sec.questions.length > 0) {
+          const exCard = document.createElement('div');
+          exCard.className = 'exercise-card';
+
+          const exHeader = document.createElement('div');
+          exHeader.className = 'exercise-card-header';
+          exHeader.innerHTML = `
+            <div>
+              <h3 style="font-size: 19px; font-family: var(--font-serif); margin: 0;">${sec.title} — Questions</h3>
+              <p style="font-size: 12.5px; color: var(--muted-foreground); margin-top: 2px;">Click any question to view its step-by-step solution.</p>
+            </div>
+            <button class="btn btn-secondary" style="font-size: 11.5px; padding: 0.35rem 0.65rem;" onclick="toggleAllInSection('${sec.id}')">
+              Toggle All
+            </button>
+          `;
+          exCard.appendChild(exHeader);
+
+          sec.questions.forEach((q, qIdx) => {
+            const qRow = document.createElement('div');
+            qRow.className = `q-row ${qIdx === 0 ? 'open' : ''}`;
+            qRow.innerHTML = `
+              <button class="q-btn" onclick="this.closest('.q-row').classList.toggle('open')">
+                <svg class="q-chevron" style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                <span class="q-num">${q.number}</span>
+                <span class="q-text">${q.text}</span>
+              </button>
+              <div class="q-answer-container">
+                <div style="color: var(--foreground); font-size: 14px; line-height: 1.6;">
+                  <strong>Solution:</strong> ${q.answer}
+                </div>
+              </div>
+            `;
+            exCard.appendChild(qRow);
+          });
+
+          secEl.appendChild(exCard);
+        }
+
+        container.appendChild(secEl);
+      });
+    }
+
+    function toggleAllInSection(sectionId) {
+      const sec = document.getElementById(sectionId);
+      if (!sec) return;
+      const rows = sec.querySelectorAll('.q-row');
+      const anyClosed = Array.from(rows).some(r => !r.classList.contains('open'));
+      rows.forEach(r => {
+        if (anyClosed) r.classList.add('open');
+        else r.classList.remove('open');
+      });
+    }
+
+    function renderSimpleMarkdown(text = '') {
+      return text
+        .replace(/^### (.*$)/gim, '<h3 style="font-size:22px; font-family:var(--font-serif); margin:1.5rem 0 0.5rem 0;">$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2 style="font-size:26px; font-family:var(--font-serif); margin:1.75rem 0 0.6rem 0;">$1</h2>')
+        .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+        .replace(/\n\n/gim, '</p><p style="margin-bottom:1rem;">')
+        .replace(/^- (.*$)/gim, '<li style="margin-left:1.5rem; margin-bottom:0.25rem;">$1</li>');
+    }
+
+    /* --------------------------------------------------------------------------
+       6. MODE SWITCHING CONTROLLER (Explanation / Summary / Learn)
+       -------------------------------------------------------------------------- */
+    function setMode(mode) {
+      document.querySelectorAll('#topModeSwitcher .mode-tab-btn').forEach(b => b.classList.remove('active'));
+
+      const tbContainer = document.getElementById('textbookSectionsContainer');
+      const sumContainer = document.getElementById('summaryModeView');
+
+      if (mode === 'summary') {
+        document.getElementById('btnModeSummary').classList.add('active');
+        tbContainer.style.display = 'none';
+        sumContainer.style.display = 'block';
+      } else {
+        document.getElementById('btnModeSimple').classList.add('active');
+        tbContainer.style.display = 'block';
+        sumContainer.style.display = 'none';
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       7. CUSTOM JSON LOADERS (PASTE & LOCAL FILE UPLOAD)
+       -------------------------------------------------------------------------- */
+    function toggleJsonPasteModal() {
+      const drawer = document.getElementById('jsonPasteDrawer');
+      drawer.style.display = (drawer.style.display === 'none' ? 'block' : 'none');
+    }
+
+    function loadPastedJson() {
+      const val = document.getElementById('jsonPasteArea').value;
+      if (!val.trim()) {
+        alert("Please paste valid JSON text.");
+        return;
+      }
+      try {
+        const parsed = JSON.parse(val);
+        processAndOpenCustomJson(parsed, "Pasted JSON Set");
+        toggleJsonPasteModal();
+      } catch (err) {
+        alert("Invalid JSON format: " + err.message);
+      }
+    }
+
+    function handleFileUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const parsed = JSON.parse(event.target.result);
+          processAndOpenCustomJson(parsed, file.name.replace(/\.json$/i, ''));
+        } catch (err) {
+          alert("Error parsing uploaded JSON: " + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function processAndOpenCustomJson(data, fallbackTitle = "Custom Set") {
+      const setObj = {
+        id: `custom-${Date.now()}`,
+        subject: "Custom Leerset",
+        siteMetadata: {
+          title: data.siteMetadata?.title || fallbackTitle,
+          description: data.siteMetadata?.description || "Loaded from custom JSON file."
+        },
+        summary: data.summary || "",
+        sections: data.sections || []
+      };
+
+      allLoadedSets.unshift(setObj);
+      renderSetsGrid();
+      openLeerset(setObj);
+    }
+
+    /* --------------------------------------------------------------------------
+       8. SCROLLSPY & SCROLL-TO-TOP OBSERVER
+       -------------------------------------------------------------------------- */
+    window.addEventListener('scroll', () => {
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+      if (window.scrollY > 350) {
+        scrollTopBtn.style.display = 'inline-flex';
+      } else {
+        scrollTopBtn.style.display = 'none';
+      }
+
+      if (document.getElementById('viewLeerset').style.display !== 'none') {
+        const sections = document.querySelectorAll('#textbookSectionsContainer section[id]');
+        const links = document.querySelectorAll('#sidebarNavLinks .sidebar-link');
+        let currentId = '';
+
+        sections.forEach(s => {
+          const top = s.offsetTop;
+          const height = s.offsetHeight;
+          if (window.scrollY + 120 >= top && window.scrollY + 120 < top + height) {
+            currentId = s.getAttribute('id');
+          }
+        });
+
+        if (currentId) {
+          links.forEach(l => {
+            if (l.getAttribute('href') === `#${currentId}`) {
+              l.style.color = 'var(--foreground)';
+              l.style.backgroundColor = 'var(--secondary)';
+              l.style.fontWeight = '600';
+            } else {
+              l.style.color = 'var(--muted-foreground)';
+              l.style.backgroundColor = 'transparent';
+              l.style.fontWeight = '400';
+            }
+          });
+        }
+      }
+    });
+
+    /* --------------------------------------------------------------------------
+       9. INITIALIZATION
+       -------------------------------------------------------------------------- */
+    document.addEventListener('DOMContentLoaded', () => {
+      // Default to System or prefers-color-scheme
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyThemeMode(prefersDark);
+
+      // Default language: English
+      setLanguage('en');
+
+      // Populate sets grid
+      renderSetsGrid();
+    });
+  </script>
+</body>
+</html>

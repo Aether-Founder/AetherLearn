@@ -193,7 +193,6 @@ export default function ZoekenPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={t('search_eyebrow')}
         title={t('search_title')}
         description={t('search_description')}
       />

@@ -195,7 +195,7 @@ export function Header({
             <ArrowLeft className="w-4 h-4" />
           </button>
           <div className="min-w-0 flex-1">
-            <h1 className="text-[36px] md:text-[48px] font-serif text-foreground leading-tight font-medium break-words">
+            <h1 className="text-[36px] md:text-[48px] font-display text-foreground leading-tight font-medium break-words">
               {siteMetadata.title}
             </h1>
             <p className="w-full text-[15px] text-muted-foreground mb-2 leading-relaxed">

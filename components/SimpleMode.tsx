@@ -2,6 +2,7 @@
 
 import { useMemo, memo } from 'react';
 import { MarkdownRenderer } from './MarkdownRenderer';
+import { HtmlSandbox } from './HtmlSandbox';
 import { Hash } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
 import { getSectionTitle, getSectionTitles } from '@/lib/section-title';
@@ -22,6 +23,13 @@ interface Paragraph {
   id: string;
   title?: string;
   content: string;
+  contentType?: 'markdown' | 'html';
+  html?: string;
+  i18n?: {
+    [lang: string]: {
+      [key: string]: string;
+    };
+  };
   questions: ParagraphQuestion[];
 }
 
@@ -66,8 +74,27 @@ const ParagraphContent = memo(function ParagraphContent({
   sectionIndex: number;
   paraIndex: number;
 }) {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const anchorId = `${paragraph.id}`;
+  const isHtmlContent = paragraph.contentType === 'html';
+
+  // Process HTML content with i18n translations
+  const processedHtml = useMemo(() => {
+    if (!isHtmlContent || !paragraph.html) return null;
+    
+    let html = paragraph.html;
+    
+    // Apply i18n translations if available
+    if (paragraph.i18n && paragraph.i18n[currentLanguage]) {
+      const translations = paragraph.i18n[currentLanguage];
+      Object.entries(translations).forEach(([key, value]) => {
+        const regex = new RegExp(`data-i18n-key="${key}"[^>]*>([^<]*)`, 'g');
+        html = html.replace(regex, `data-i18n-key="${key}">${value}`);
+      });
+    }
+    
+    return html;
+  }, [isHtmlContent, paragraph.html, paragraph.i18n, currentLanguage]);
 
   return (
     <div id={anchorId} className="mb-10 scroll-mt-20">
@@ -88,11 +115,15 @@ const ParagraphContent = memo(function ParagraphContent({
       )}
 
       {/* Main Content */}
-      <div className="prose prose-lg max-w-none">
-        <MarkdownRenderer className="text-[17px] leading-[1.7] text-foreground">
-          {processNewlines(paragraph.content)}
-        </MarkdownRenderer>
-      </div>
+      {isHtmlContent && processedHtml ? (
+        <HtmlSandbox html={processedHtml} />
+      ) : (
+        <div className="prose prose-lg max-w-none">
+          <MarkdownRenderer className="text-[17px] leading-[1.7] text-foreground">
+            {processNewlines(paragraph.content)}
+          </MarkdownRenderer>
+        </div>
+      )}
 
       {/* Questions & Answers (inline) */}
       {paragraph.questions.length > 0 && (
@@ -127,6 +158,7 @@ export const SimpleMode = memo(function SimpleMode({ section }: SimpleModeProps)
   const { t } = useTranslation();
   const paragraphs = useMemo(() => section.paragraphs || [], [section.paragraphs]);
   const sectionTitles = getSectionTitles(section);
+  const mainSectionTitle = sectionTitles.length ? sectionTitles[0] : getSectionTitle(section);
 
   if (paragraphs.length === 0) {
     return <div className="text-center py-12 text-muted-foreground">{t('empty_state_empty')}</div>;
@@ -140,14 +172,18 @@ export const SimpleMode = memo(function SimpleMode({ section }: SimpleModeProps)
       />
 
       <div className="space-y-8">
-        {paragraphs.map((paragraph, idx) => (
-          <ParagraphContent
-            key={paragraph.id}
-            paragraph={paragraph}
-            sectionIndex={0}
-            paraIndex={idx}
-          />
-        ))}
+        {paragraphs.map((paragraph, idx) => {
+          // Skip rendering paragraph title if it matches the main section title
+          const shouldSkipTitle = idx === 0 && paragraph.title === mainSectionTitle;
+          return (
+            <ParagraphContent
+              key={paragraph.id}
+              paragraph={{ ...paragraph, title: shouldSkipTitle ? undefined : paragraph.title }}
+              sectionIndex={0}
+              paraIndex={idx}
+            />
+          );
+        })}
       </div>
     </article>
   );

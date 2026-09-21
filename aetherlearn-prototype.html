@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AetherLearn — Cell Biology &amp; Genetics</title>
+
+  <!-- Google Fonts: Cormorant Garamond (Serif Headings) & Inter (UI/Body) & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      /* Light Mode: Calibrated Ice / Light Blue background (Never pure white) */
+      --bg-color: #E8EEFD;               /* rgb(232, 238, 253) */
+      --fg-color: #020817;               /* rgb(2, 8, 23) */
+      --card-bg: #E8EEFD;                /* rgb(232, 238, 253) */
+      --card-alt: #FFFFFF;               /* rgb(255, 255, 255) */
+      --border-color: rgba(2, 8, 23, 0.18); /* #020817 at 18% */
+      --border-solid: #E2E8F0;           /* rgb(226, 232, 240) */
+      --muted-bg: #F1F5F9;               /* rgb(241, 245, 249) */
+      --muted-text: #64748B;             /* rgb(100, 116, 139) */
+      --secondary-bg: #F1F5F9;           /* rgb(241, 245, 249) */
+      --secondary-text: #020817;         /* rgb(2, 8, 23) */
+      --primary-btn-bg: #0F172A;         /* rgb(15, 23, 42) */
+      --primary-btn-hover: #1E293B;      /* rgb(30, 41, 59) */
+      --primary-btn-text: #F8FAFC;       /* rgb(248, 250, 252) */
+      --code-bg: #E2E8F0;                /* rgb(226, 232, 240) */
+      --focus-ring: rgba(15, 23, 42, 0.2);
+
+      /* State Feedback Colors (Subtle & Academic) */
+      --success-bg: #E6F4EA;
+      --success-border: #A8DAB5;
+      --success-text: #137333;
+      --error-bg: #FCE8E6;
+      --error-border: #F5A9A4;
+      --error-text: #C5221F;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-serif: 'Cormorant Garamond', Georgia, Cambria, serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    html.dark {
+      /* Dark Mode: Deep Midnight Navy (Never pitch black) */
+      --bg-color: #020817;               /* rgb(2, 8, 23) */
+      --fg-color: #F8FAFC;               /* rgb(248, 250, 252) */
+      --card-bg: #020817;                /* rgb(2, 8, 23) */
+      --card-alt: #0B1120;               /* rgb(11, 17, 32) */
+      --border-color: #1E293B;           /* rgb(30, 41, 59) */
+      --border-solid: #1E293B;           /* rgb(30, 41, 59) */
+      --muted-bg: #1E293B;               /* rgb(30, 41, 59) */
+      --muted-text: #94A3B8;             /* rgb(148, 163, 184) */
+      --secondary-bg: #1E293B;           /* rgb(30, 41, 59) */
+      --secondary-text: #F8FAFC;         /* rgb(248, 250, 252) */
+      --primary-btn-bg: #F8FAFC;         /* rgb(248, 250, 252) */
+      --primary-btn-hover: #E2E8F0;      /* rgb(226, 232, 240) */
+      --primary-btn-text: #020817;       /* rgb(2, 8, 23) */
+      --code-bg: #1E293B;                /* rgb(30, 41, 59) */
+      --focus-ring: rgba(248, 250, 252, 0.25);
+
+      /* State Feedback Colors in Dark Mode */
+      --success-bg: rgba(19, 115, 51, 0.22);
+      --success-border: #1e6b37;
+      --success-text: #81c995;
+      --error-bg: rgba(197, 34, 31, 0.22);
+      --error-border: #8c2624;
+      --error-text: #f28b82;
+    }
+
+    /* ==========================================================================
+       2. BASE RESET & GLOBAL STYLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    *::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      font-family: var(--font-sans);
+      color-scheme: light dark;
+      scroll-behavior: smooth;
+      background-color: var(--bg-color);
+      color: var(--fg-color);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--fg-color);
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, h4, .font-serif {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .font-sans { font-family: var(--font-sans); }
+    .font-mono { font-family: var(--font-mono); }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      width: 100%;
+    }
+
+    /* ==========================================================================
+       3. REUSABLE ATOMIC COMPONENTS & BUTTONS
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      font-size: 13.5px;
+      font-weight: 500;
+      font-family: var(--font-sans);
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .btn:active {
+      transform: scale(0.985);
+    }
+    .btn-primary {
+      background-color: var(--primary-btn-bg);
+      color: var(--primary-btn-text);
+      border-color: var(--primary-btn-bg);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-btn-hover);
+      opacity: 0.95;
+    }
+    .btn-secondary {
+      background-color: var(--bg-color);
+      color: var(--fg-color);
+      border-color: var(--border-color);
+    }
+    .btn-secondary:hover {
+      background-color: var(--secondary-bg);
+    }
+    .btn-icon {
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      background-color: transparent;
+      color: var(--muted-text);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .btn-icon:hover {
+      color: var(--fg-color);
+      background-color: var(--secondary-bg);
+    }
+    .btn-lg {
+      padding: 0.75rem 1.5rem;
+      font-size: 15px;
+      border-radius: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background-color: var(--secondary-bg);
+      color: var(--fg-color);
+      border: 1px solid var(--border-color);
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    /* Progress bar */
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background-color: var(--secondary-bg);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background-color: var(--fg-color);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Top Nav Header */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: var(--bg-color);
+      border-bottom: 1px solid var(--border-color);
+      backdrop-filter: blur(10px);
+      padding: 0.75rem 0;
+    }
+    .app-header .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: var(--fg-color);
+      cursor: pointer;
+    }
+    .logo-text {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    /* ==========================================================================
+       4. 3D FLASHCARD STYLES
+       ========================================================================== */
+    .perspective-container {
+      perspective: 1200px;
+    }
+    .flashcard-card {
+      position: relative;
+      width: 100%;
+      min-height: 280px;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    .flashcard-card.is-flipped {
+      transform: rotateY(180deg);
+    }
+    .flashcard-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+    .flashcard-front-face {
+      background-color: var(--card-bg);
+    }
+    .flashcard-back-face {
+      background-color: var(--secondary-bg);
+      transform: rotateY(180deg);
+    }
+
+    /* ==========================================================================
+       5. STUDY MODE SELECTION GRID
+       ========================================================================== */
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .mode-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.25rem;
+      text-decoration: none;
+      color: var(--fg-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .mode-card:hover {
+      background-color: var(--secondary-bg);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+    .mode-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .mode-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 6px;
+      background-color: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg-color);
+    }
+    .mode-card:hover .mode-icon-box {
+      background-color: var(--bg-color);
+    }
+
+    /* ==========================================================================
+       6. MCQ & TRUE/FALSE OPTION BUTTONS
+       ========================================================================== */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 1rem 1.25rem;
+      font-size: 15px;
+      font-family: var(--font-sans);
+      background-color: var(--card-bg);
+      color: var(--fg-color);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      transition: all 0.15s ease;
+    }
+    .option-btn:hover:not(:disabled) {
+      background-color: var(--secondary-bg);
+      border-color: var(--fg-color);
+    }
+    .option-btn.selected {
+      border-color: var(--fg-color);
+      background-color: var(--secondary-bg);
+    }
+    .option-btn.correct {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success-border) !important;
+      color: var(--success-text) !important;
+    }
+    .option-btn.incorrect {
+      background-color: var(--error-bg) !important;
+      border-color: var(--error-border) !important;
+      color: var(--error-text) !important;
+    }
+    .option-indicator {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid var(--muted-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .option-btn.correct .option-indicator {
+      border-color: var(--success-text);
+      background-color: var(--success-text);
+      color: #FFF;
+    }
+    .option-btn.incorrect .option-indicator {
+      border-color: var(--error-text);
+      background-color: var(--error-text);
+      color: #FFF;
+    }
+
+    /* Match Game Grid */
+    .match-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    @media (max-width: 640px) {
+      .match-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .match-card {
+      padding: 1rem 1.15rem;
+      background-color: var(--card-bg);
+      border: 1.5px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 14px;
+      line-height: 1.45;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .match-card:hover:not(.matched) {
+      background-color: var(--secondary-bg);
+      transform: translateY(-1px);
+    }
+    .match-card.selected {
+      border-color: var(--fg-color);
+      background-color: var(--secondary-bg);
+      box-shadow: 0 0 0 2px var(--focus-ring);
+    }
+    .match-card.matched {
+      opacity: 0.35;
+      cursor: not-allowed;
+      border-style: dashed;
+      text-decoration: line-through;
+    }
+    .match-card.error-shake {
+      animation: shake 0.4s ease;
+      background-color: var(--error-bg);
+      border-color: var(--error-border);
+      color: var(--error-text);
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    /* Text Inputs */
+    .text-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-size: 15px;
+      font-family: var(--font-sans);
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      color: var(--fg-color);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .text-input:focus {
+      border-color: var(--fg-color);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    /* Term List Table */
+    .terms-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 14px;
+    }
+    .terms-table th, .terms-table td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .terms-table th {
+      background-color: var(--secondary-bg);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted-text);
+    }
+    .terms-table tr:hover td {
+      background-color: var(--secondary-bg);
+    }
+
+    /* Footer */
+    .app-footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-color);
+      padding: 1.5rem 0;
+      font-size: 13px;
+      color: var(--muted-text);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       GLOBAL TOP NAV
+       ========================================================================== -->
+  <header class="app-header">
+    <div class="container header-content">
+      <div class="logo-brand" onclick="navigateTo('home')">
+        <svg style="width: 22px; height: 22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span class="logo-text">AetherLearn</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <!-- Back button (hidden on Home) -->
+        <button id="navBackBtn" class="btn btn-secondary" onclick="navigateTo('home')" style="display: none; padding: 0.4rem 0.75rem;">
+          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Study Set
+        </button>
+
+        <!-- Dark / Light / System Mode Switcher -->
+        <div style="display: flex; align-items: center; gap: 0.2rem; background: var(--secondary-bg); padding: 2px; border-radius: 6px; border: 1px solid var(--border-color);">
+          <button id="themeAutoBtn" class="btn-icon" style="border: none; padding: 4px 7px; font-size: 11px; font-family: var(--font-mono);" title="System Theme" onclick="setThemePreference('system')">
+            SYS
+          </button>
+          <button id="themeLightBtn" class="btn-icon" style="border: none; padding: 4px 6px;" title="Light Mode" onclick="setThemePreference('light')">
+            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+          <button id="themeDarkBtn" class="btn-icon" style="border: none; padding: 4px 6px;" title="Dark Mode" onclick="setThemePreference('dark')">
+            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       MAIN CONTENT ROUTER AREA
+       ========================================================================== -->
+  <main class="container" style="padding-top: 2rem; padding-bottom: 3.5rem;">
+    
+    <!-- VIEW: HOME / STUDY SET OVERVIEW -->
+    <section id="view-home" class="app-view">
+      <div style="margin-bottom: 2rem;">
+        <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem;">
+          <span class="badge">Biology &bull; Cytology</span>
+          <span class="badge" id="termCountBadge">12 Terms</span>
+        </div>
+        <h1 style="font-size: 40px; line-height: 1.15; margin-bottom: 0.5rem;">
+          Cell Biology &amp; Organelle Functions
+        </h1>
+        <p style="font-size: 16px; color: var(--muted-text); max-width: 720px; line-height: 1.6;">
+          Master fundamental cellular structures, metabolic pathways, organelle specializations, and transport mechanisms.
+        </p>
+      </div>
+
+      <!-- Quick Study Mode Cards -->
+      <h2 style="font-size: 22px; margin-bottom: 0.25rem;">Choose a Study Mode</h2>
+      <p style="font-size: 13.5px; color: var(--muted-text); margin-bottom: 1rem;">
+        Select an interactive mode below to practice and test your knowledge.
+      </p>
+
+      <div class="modes-grid">
+        
+        <!-- Mode 1: Flashcards -->
+        <div class="mode-card" onclick="startMode('flashcards')">
+          <div class="mode-card-header">
+            <div class="mode-icon-box">
+              <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            </div>
+            <div>
+              <h3 style="font-size: 18px; font-weight: 600;">Flashcards</h3>
+              <p style="font-size: 13px; color: var(--muted-text);">3D flip cards &amp; spaced review</p>
+            </div>
+          </div>
+          <span class="btn btn-secondary" style="font-size: 12px; align-self: flex-start;">Start Flashcards &rarr;</span>
+        </div>
+
+        <!-- Mode 2: Multiple Choice -->
+        <div class="mode-card" onclick="startMode('mcq')">
+          <div class="mode-card-header">
+            <div class="mode-icon-box">
+              <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div>
+              <h3 style="font-size: 18px; font-weight: 600;">Multiple Choice</h3>
+              <p style="font-size: 13px; color: var(--muted-text);">Standard 4-option practice</p>
+            </div>
+          </div>
+          <span class="btn btn-secondary" style="font-size: 12px; align-self: flex-start;">Start MCQ &rarr;</span>
+        </div>
+
+        <!-- Mode 3: Write -->
+        <div class="mode-card" onclick="startMode('write')">
+          <div class="mode-card-header">
+            <div class="mode-icon-box">
+              <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <div>
+              <h3 style="font-size: 18px; font-weight: 600;">Write Mode</h3>
+              <p style="font-size: 13px; color: var(--muted-text);">Type answers with instant check</p>
+            </div>
+          </div>
+          <span class="btn btn-secondary" style="font-size: 12px; align-self: flex-start;">Start Writing &rarr;</span>
+        </div>
+
+        <!-- Mode 4: Test -->
+        <div class="mode-card" onclick="startMode('test')">
+          <div class="mode-card-header">
+            <div class="mode-icon-box">
+              <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <div>
+              <h3 style="font-size: 18px; font-weight: 600;">Test Mode</h3>
+              <p style="font-size: 13px; color: var(--muted-text);">Full test with final score only</p>
+            </div>
+          </div>
+          <span class="btn btn-secondary" style="font-size: 12px; align-self: flex-start;">Take Test &rarr;</span>
+        </div>
+
+        <!-- Mode 5: True or False -->
+        <div class="mode-card" onclick="startMode('truefalse')">
+          <div class="mode-card-header">
+            <div class="mode-icon-box">
+              <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div>
+              <h3 style="font-size: 18px; font-weight: 600;">True / False</h3>
+              <p style="font-size: 13px; color: var(--muted-text);">Rapid statement validation</p>
+            </div>
+          </div>
+          <span class="btn btn-secondary" style="font-size: 12px; align-self: flex-start;">Start True/False &rarr;</span>
+        </div>
+
+        <!-- Mode 6: Match -->
+        <div class="mode-card" onclick="startMode('match')">
+          <div class="mode-card-header">
+            <div class="mode-icon-box">
+              <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="8" height="8" rx="2"/><rect x="14" y="2" width="8" height="8" rx="2"/><rect x="2" y="14" width="8" height="8" rx="2"/><rect x="14" y="14" width="8" height="8" rx="2"/></svg>
+            </div>
+            <div>
+              <h3 style="font-size: 18px; font-weight: 600;">Match Game</h3>
+              <p style="font-size: 13px; color: var(--muted-text);">Pair terms with definitions</p>
+            </div>
+          </div>
+          <span class="btn btn-secondary" style="font-size: 12px; align-self: flex-start;">Play Match &rarr;</span>
+        </div>
+
+      </div>
+
+      <!-- Terms in this set overview -->
+      <div style="margin-top: 3.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.5rem;">
+          <h2 style="font-size: 24px;">Terms in this set</h2>
+          <span style="font-size: 13px; color: var(--muted-text);" id="termTableCount">12 terms</span>
+        </div>
+        <div class="card" style="overflow-x: auto;">
+          <table class="terms-table">
+            <thead>
+              <tr>
+                <th style="width: 30%;">Term</th>
+                <th style="width: 70%;">Definition</th>
+              </tr>
+            </thead>
+            <tbody id="termsTableBody">
+              <!-- Dynamically populated from JS dataset -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW: 1. FLASHCARDS -->
+    <section id="view-flashcards" class="app-view" style="display: none;">
+      <div style="max-width: 680px; margin: 0 auto;">
+        
+        <!-- Header & Progress -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+          <span class="badge">Flashcards</span>
+          <span id="fcProgressCounter" style="font-size: 13px; font-family: var(--font-mono); color: var(--muted-text);">1 / 12</span>
+        </div>
+        <div class="progress-track" style="margin-bottom: 1.5rem;">
+          <div id="fcProgressBar" class="progress-fill" style="width: 8.33%;"></div>
+        </div>
+
+        <!-- 3D Card -->
+        <div class="perspective-container">
+          <div id="flashcardElement" class="flashcard-card" onclick="flipCurrentCard()">
+            
+            <!-- Front Face (Term) -->
+            <div class="flashcard-face flashcard-front-face">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="badge" id="fcFrontBadge">Term</span>
+                <span style="font-size: 12px; color: var(--muted-text);">Click to flip</span>
+              </div>
+              <div style="text-align: center; margin: 2.5rem 0;">
+                <h3 id="fcFrontTerm" style="font-size: 32px; font-family: var(--font-serif); font-weight: 600; line-height: 1.3;">
+                  Mitochondria
+                </h3>
+              </div>
+              <div style="text-align: center; font-size: 12px; color: var(--muted-text);">
+                Tip: Press <kbd style="font-family: var(--font-mono); background: var(--code-bg); padding: 1px 5px; border-radius: 3px;">Space</kbd> to flip &bull; <kbd style="font-family: var(--font-mono); background: var(--code-bg); padding: 1px 5px; border-radius: 3px;">&larr;</kbd> <kbd style="font-family: var(--font-mono); background: var(--code-bg); padding: 1px 5px; border-radius: 3px;">&rarr;</kbd> to navigate
+              </div>
+            </div>
+
+            <!-- Back Face (Definition) -->
+            <div class="flashcard-face flashcard-back-face">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="badge" style="background: var(--bg-color);" id="fcBackBadge">Definition</span>
+                <span style="font-size: 12px; color: var(--muted-text);">Click to return</span>
+              </div>
+              <div style="text-align: center; margin: 2rem 0; overflow-y: auto;">
+                <p id="fcBackDefinition" style="font-size: 19px; line-height: 1.6; font-weight: 400; color: var(--fg-color);">
+                  The powerhouse of the cell responsible for generating ATP through cellular respiration.
+                </p>
+              </div>
+              <div style="text-align: center; font-size: 12px; color: var(--muted-text);">
+                Click anywhere to flip back
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-top: 1.5rem;">
+          <button class="btn btn-secondary" onclick="prevCard()" title="Previous Card (Left Arrow)">
+            &larr; Previous
+          </button>
+          <button class="btn btn-primary" onclick="flipCurrentCard()" style="min-width: 130px;">
+            Flip Card
+          </button>
+          <button class="btn btn-secondary" onclick="nextCard()" title="Next Card (Right Arrow)">
+            Next &rarr;
+          </button>
+          <button class="btn btn-icon" onclick="shuffleCards()" title="Shuffle Cards">
+            <svg style="width: 15px; height: 15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW: 2. MULTIPLE CHOICE MODE -->
+    <section id="view-mcq" class="app-view" style="display: none;">
+      <div style="max-width: 680px; margin: 0 auto;">
+        
+        <!-- Header & Progress -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+          <span class="badge">Multiple Choice</span>
+          <span id="mcqProgressCounter" style="font-size: 13px; font-family: var(--font-mono); color: var(--muted-text);">Question 1 of 12</span>
+        </div>
+        <div class="progress-track" style="margin-bottom: 1.5rem;">
+          <div id="mcqProgressBar" class="progress-fill" style="width: 8.33%;"></div>
+        </div>
+
+        <!-- Question Box -->
+        <div class="card" style="padding: 1.75rem; margin-bottom: 1.25rem;">
+          <span style="font-size: 12px; font-family: var(--font-mono); text-transform: uppercase; color: var(--muted-text); display: block; margin-bottom: 0.5rem;">Select the matching definition:</span>
+          <h2 id="mcqQuestionTerm" style="font-size: 28px; line-height: 1.25;">
+            Ribosome
+          </h2>
+        </div>
+
+        <!-- MCQ Options -->
+        <div id="mcqOptionsContainer" class="options-grid">
+          <!-- 4 dynamically rendered option buttons -->
+        </div>
+
+        <!-- Instant Feedback Banner -->
+        <div id="mcqFeedbackBanner" style="display: none; padding: 1rem 1.25rem; border-radius: 6px; margin-bottom: 1.25rem; border: 1px solid var(--border-color);">
+          <div id="mcqFeedbackText" style="font-weight: 600; margin-bottom: 0.25rem;"></div>
+          <div id="mcqFeedbackSub" style="font-size: 13.5px; color: var(--muted-text);"></div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end;">
+          <button id="mcqNextBtn" class="btn btn-primary btn-lg" onclick="nextMcqQuestion()" style="display: none;">
+            Continue &rarr;
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW: 3. WRITE MODE -->
+    <section id="view-write" class="app-view" style="display: none;">
+      <div style="max-width: 680px; margin: 0 auto;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+          <span class="badge">Write Mode</span>
+          <span id="writeProgressCounter" style="font-size: 13px; font-family: var(--font-mono); color: var(--muted-text);">1 / 12</span>
+        </div>
+        <div class="progress-track" style="margin-bottom: 1.5rem;">
+          <div id="writeProgressBar" class="progress-fill" style="width: 8.33%;"></div>
+        </div>
+
+        <div class="card" style="padding: 1.75rem; margin-bottom: 1.5rem;">
+          <span style="font-size: 12px; font-family: var(--font-mono); text-transform: uppercase; color: var(--muted-text); display: block; margin-bottom: 0.5rem;">Definition / Prompt:</span>
+          <p id="writePromptDefinition" style="font-size: 18px; line-height: 1.6; color: var(--fg-color);">
+            The organelle that modifies, sorts, and packages proteins for secretion.
+          </p>
+        </div>
+
+        <form id="writeForm" onsubmit="handleWriteSubmit(event)">
+          <div style="margin-bottom: 1.25rem;">
+            <label for="writeInput" style="display: block; font-size: 13px; font-weight: 500; margin-bottom: 0.4rem;">Type the correct term:</label>
+            <input type="text" id="writeInput" class="text-input" placeholder="e.g. Golgi Apparatus" autocomplete="off" autofocus />
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <button type="button" class="btn btn-secondary" onclick="giveUpWrite()">Don't know? Reveal</button>
+            <button type="submit" id="writeSubmitBtn" class="btn btn-primary btn-lg">Check Answer</button>
+          </div>
+        </form>
+
+        <!-- Feedback for write mode -->
+        <div id="writeFeedbackBanner" style="display: none; padding: 1.25rem; border-radius: 6px; margin-top: 1.5rem; border: 1px solid var(--border-color);">
+          <div id="writeFeedbackTitle" style="font-weight: 600; font-size: 16px; margin-bottom: 0.35rem;"></div>
+          <div id="writeFeedbackDetails" style="font-size: 14px; margin-bottom: 1rem;"></div>
+          <button class="btn btn-primary" onclick="nextWriteQuestion()">Next Term &rarr;</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW: 4. TEST MODE -->
+    <section id="view-test" class="app-view" style="display: none;">
+      <div style="max-width: 680px; margin: 0 auto;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="badge">Official Test</span>
+            <span style="font-size: 12px; color: var(--muted-text);">(No instant feedback)</span>
+          </div>
+          <span id="testProgressCounter" style="font-size: 13px; font-family: var(--font-mono); color: var(--muted-text);">Question 1 of 8</span>
+        </div>
+        <div class="progress-track" style="margin-bottom: 1.5rem;">
+          <div id="testProgressBar" class="progress-fill" style="width: 12.5%;"></div>
+        </div>
+
+        <div class="card" style="padding: 1.75rem; margin-bottom: 1.25rem;">
+          <span id="testQuestionTypeLabel" style="font-size: 12px; font-family: var(--font-mono); text-transform: uppercase; color: var(--muted-text); display: block; margin-bottom: 0.5rem;">Multiple Choice</span>
+          <h2 id="testQuestionPrompt" style="font-size: 24px; line-height: 1.35;">
+            What is the definition of Lysosome?
+          </h2>
+        </div>
+
+        <div id="testInteractionContainer" style="margin-bottom: 1.5rem;">
+          <!-- Dynamically holds either MCQ options or a Text input -->
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <button class="btn btn-secondary" onclick="navigateTo('home')">Exit Test</button>
+          <button id="testNextBtn" class="btn btn-primary btn-lg" onclick="handleTestNext()" disabled>Next Question &rarr;</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW: 5. TRUE OR FALSE MODE -->
+    <section id="view-truefalse" class="app-view" style="display: none;">
+      <div style="max-width: 680px; margin: 0 auto;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+          <span class="badge">True / False</span>
+          <span id="tfProgressCounter" style="font-size: 13px; font-family: var(--font-mono); color: var(--muted-text);">Statement 1 of 12</span>
+        </div>
+        <div class="progress-track" style="margin-bottom: 1.5rem;">
+          <div id="tfProgressBar" class="progress-fill" style="width: 8.33%;"></div>
+        </div>
+
+        <div class="card" style="padding: 2rem; margin-bottom: 1.5rem;">
+          <span style="font-size: 12px; font-family: var(--font-mono); text-transform: uppercase; color: var(--muted-text); display: block; margin-bottom: 0.75rem;">Evaluate this statement:</span>
+          
+          <div style="margin-bottom: 1rem;">
+            <span style="font-size: 13px; color: var(--muted-text);">Term:</span>
+            <h3 id="tfTermTitle" style="font-size: 26px; font-family: var(--font-serif); font-weight: 600;">Chloroplast</h3>
+          </div>
+
+          <div>
+            <span style="font-size: 13px; color: var(--muted-text);">Paired Definition:</span>
+            <p id="tfDefinitionText" style="font-size: 17px; line-height: 1.6; color: var(--fg-color); margin-top: 0.25rem;">
+              The plant cell organelle that carries out photosynthesis to convert light energy into sugars.
+            </p>
+          </div>
+        </div>
+
+        <!-- True / False Action Buttons -->
+        <div id="tfActionButtons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+          <button class="btn btn-secondary btn-lg" onclick="handleTrueFalseChoice(true)" style="padding: 1.25rem; font-size: 18px; font-weight: 600; gap: 0.6rem;">
+            <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            True
+          </button>
+          <button class="btn btn-secondary btn-lg" onclick="handleTrueFalseChoice(false)" style="padding: 1.25rem; font-size: 18px; font-weight: 600; gap: 0.6rem;">
+            <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            False
+          </button>
+        </div>
+
+        <!-- Feedback Banner -->
+        <div id="tfFeedbackBanner" style="display: none; padding: 1.25rem; border-radius: 6px; margin-bottom: 1.25rem; border: 1px solid var(--border-color);">
+          <div id="tfFeedbackTitle" style="font-weight: 600; margin-bottom: 0.25rem;"></div>
+          <div id="tfFeedbackDetails" style="font-size: 13.5px; color: var(--muted-text); margin-bottom: 1rem;"></div>
+          <button class="btn btn-primary" onclick="nextTrueFalseQuestion()">Continue &rarr;</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW: 6. MATCH GAME -->
+    <section id="view-match" class="app-view" style="display: none;">
+      <div style="max-width: 800px; margin: 0 auto;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div>
+            <span class="badge">Match Game</span>
+            <span id="matchPairStats" style="font-size: 13px; font-family: var(--font-mono); color: var(--muted-text); margin-left: 0.5rem;">6 Pairs Remaining</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span id="matchTimer" style="font-family: var(--font-mono); font-size: 14px; font-weight: 600;">0.0s</span>
+            <button class="btn btn-secondary" onclick="startMode('match')" style="padding: 0.35rem 0.65rem; font-size: 12px;">Restart</button>
+          </div>
+        </div>
+
+        <p style="font-size: 13.5px; color: var(--muted-text); margin-bottom: 1.25rem;">
+          Click a term on the left or definition on the right, then click its corresponding match.
+        </p>
+
+        <!-- Match Cards Grid -->
+        <div id="matchGridContainer" class="match-grid">
+          <!-- 12 cards (6 terms & 6 definitions shuffled) -->
+        </div>
+
+        <!-- Completion Modal / Card -->
+        <div id="matchCompleteCard" class="card" style="display: none; padding: 2.5rem; text-align: center; margin-top: 1.5rem;">
+          <div class="badge" style="margin-bottom: 0.75rem;">All Matched!</div>
+          <h2 style="font-size: 32px; font-family: var(--font-serif); margin-bottom: 0.5rem;">Splendid Effort!</h2>
+          <p id="matchFinalTimeMsg" style="font-size: 16px; color: var(--muted-text); margin-bottom: 1.5rem;">
+            You completed the matching set in 14.8 seconds.
+          </p>
+          <div style="display: flex; justify-content: center; gap: 0.75rem;">
+            <button class="btn btn-secondary" onclick="navigateTo('home')">Return to Set</button>
+            <button class="btn btn-primary" onclick="startMode('match')">Play Again</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW: GENERIC RESULTS / COMPLETION SCREEN -->
+    <section id="view-results" class="app-view" style="display: none;">
+      <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+        
+        <div class="card" style="padding: 2.5rem; margin-bottom: 1.5rem;">
+          <span class="badge" id="resultsBadge" style="margin-bottom: 0.75rem;">Session Complete</span>
+          <h1 id="resultsTitle" style="font-size: 38px; line-height: 1.15; margin-bottom: 0.5rem;">
+            Excellent Job!
+          </h1>
+          <p id="resultsSub" style="font-size: 15px; color: var(--muted-text); margin-bottom: 1.75rem;">
+            You have finished this study session.
+          </p>
+
+          <!-- Score Metrics Grid -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 2rem;">
+            <div class="card" style="padding: 1rem; background: var(--secondary-bg);">
+              <div id="resAccuracy" style="font-size: 28px; font-family: var(--font-serif); font-weight: 700;">100%</div>
+              <div style="font-size: 11.5px; color: var(--muted-text); font-family: var(--font-mono); text-transform: uppercase;">Accuracy</div>
+            </div>
+            <div class="card" style="padding: 1rem; background: var(--secondary-bg);">
+              <div id="resCorrect" style="font-size: 28px; font-family: var(--font-serif); font-weight: 700; color: var(--success-text);">12</div>
+              <div style="font-size: 11.5px; color: var(--muted-text); font-family: var(--font-mono); text-transform: uppercase;">Correct</div>
+            </div>
+            <div class="card" style="padding: 1rem; background: var(--secondary-bg);">
+              <div id="resIncorrect" style="font-size: 28px; font-family: var(--font-serif); font-weight: 700; color: var(--error-text);">0</div>
+              <div style="font-size: 11.5px; color: var(--muted-text); font-family: var(--font-mono); text-transform: uppercase;">Incorrect</div>
+            </div>
+          </div>
+
+          <!-- Breakdown List (For Test Mode) -->
+          <div id="testBreakdownContainer" style="display: none; text-align: left; margin-bottom: 2rem;">
+            <h3 style="font-size: 18px; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border-color);">
+              Question Breakdown
+            </h3>
+            <div id="testBreakdownList" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+          </div>
+
+          <!-- Action buttons -->
+          <div style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+            <button class="btn btn-secondary" onclick="navigateTo('home')">Back to Set Overview</button>
+            <button id="resRetryBtn" class="btn btn-primary" onclick="retryCurrentMode()">Restart Mode</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       GLOBAL FOOTER
+       ========================================================================== -->
+  <footer class="app-footer">
+    <div class="container">
+      <p>AetherLearn &bull; Client-Side Learning Platform Prototype</p>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       JAVASCRIPT APP LOGIC & STATE ENGINE
+       ========================================================================== -->
+  <script>
+    /* --------------------------------------------------------------------------
+       1. HARDCODED STUDY SET (Realistic Cell Biology & Cytology Content)
+       -------------------------------------------------------------------------- */
+    const LEARNING_SET = {
+      id: "set-bio-101",
+      title: "Cell Biology & Organelle Functions",
+      subject: "Biology / Cytology",
+      description: "Master fundamental cellular structures, metabolic pathways, organelle specializations, and transport mechanisms.",
+      terms: [
+        {
+          id: "t1",
+          term: "Mitochondria",
+          definition: "The powerhouse of the cell responsible for generating ATP through cellular respiration."
+        },
+        {
+          id: "t2",
+          term: "Ribosome",
+          definition: "A cellular particle made of RNA and protein that serves as the site for protein synthesis."
+        },
+        {
+          id: "t3",
+          term: "Endoplasmic Reticulum",
+          definition: "A network of membranous tubules and sacs involved in protein and lipid synthesis."
+        },
+        {
+          id: "t4",
+          term: "Golgi Apparatus",
+          definition: "An organelle that modifies, sorts, and packages proteins for secretion or delivery to other organelles."
+        },
+        {
+          id: "t5",
+          term: "Lysosome",
+          definition: "A membrane-bound organelle containing digestive enzymes to break down waste and debris."
+        },
+        {
+          id: "t6",
+          term: "Chloroplast",
+          definition: "The plant cell organelle that carries out photosynthesis to convert light energy into sugars."
+        },
+        {
+          id: "t7",
+          term: "Cell Membrane",
+          definition: "A phospholipid bilayer with embedded proteins that regulates substance transport in and out of the cell."
+        },
+        {
+          id: "t8",
+          term: "Nucleolus",
+          definition: "A dense region within the nucleus where ribosomal RNA is synthesized and ribosomes are assembled."
+        },
+        {
+          id: "t9",
+          term: "Cytoskeleton",
+          definition: "A network of protein filaments and microtubules that maintains cell shape and enables transport."
+        },
+        {
+          id: "t10",
+          term: "Diffusion",
+          definition: "The passive movement of solute particles from a region of higher to lower concentration."
+        },
+        {
+          id: "t11",
+          term: "Osmosis",
+          definition: "The passive diffusion of water across a selectively permeable membrane toward higher solute concentration."
+        },
+        {
+          id: "t12",
+          term: "Mitosis",
+          definition: "A type of cell division that results in two genetically identical diploid daughter cells."
+        }
+      ]
+    };
+
+    /* --------------------------------------------------------------------------
+       2. SYSTEM THEME CONTROLLER (Default: System Mode)
+       -------------------------------------------------------------------------- */
+    let currentThemeSetting = 'system'; // 'system' | 'light' | 'dark'
+
+    function applyTheme() {
+      const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const htmlEl = document.documentElement;
+
+      if (currentThemeSetting === 'dark' || (currentThemeSetting === 'system' && isSystemDark)) {
+        htmlEl.classList.add('dark');
+      } else {
+        htmlEl.classList.remove('dark');
+      }
+
+      // Update switcher active states
+      document.getElementById('themeAutoBtn').style.fontWeight = currentThemeSetting === 'system' ? '700' : '400';
+      document.getElementById('themeAutoBtn').style.color = currentThemeSetting === 'system' ? 'var(--fg-color)' : 'var(--muted-text)';
+      document.getElementById('themeLightBtn').style.color = currentThemeSetting === 'light' ? 'var(--fg-color)' : 'var(--muted-text)';
+      document.getElementById('themeDarkBtn').style.color = currentThemeSetting === 'dark' ? 'var(--fg-color)' : 'var(--muted-text)';
+    }
+
+    function setThemePreference(pref) {
+      currentThemeSetting = pref;
+      applyTheme();
+    }
+
+    // Listen for OS system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (currentThemeSetting === 'system') applyTheme();
+    });
+
+    /* --------------------------------------------------------------------------
+       3. NAVIGATION & ROUTING STATE
+       -------------------------------------------------------------------------- */
+    let currentModeName = 'home';
+
+    function navigateTo(viewId) {
+      document.querySelectorAll('.app-view').forEach(el => el.style.display = 'none');
+      const target = document.getElementById(`view-${viewId}`);
+      if (target) target.style.display = 'block';
+
+      const navBackBtn = document.getElementById('navBackBtn');
+      if (viewId === 'home') {
+        navBackBtn.style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        navBackBtn.style.display = 'inline-flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      currentModeName = viewId;
+    }
+
+    function startMode(mode) {
+      if (mode === 'flashcards') initFlashcards();
+      else if (mode === 'mcq') initMcq();
+      else if (mode === 'write') initWrite();
+      else if (mode === 'test') initTest();
+      else if (mode === 'truefalse') initTrueFalse();
+      else if (mode === 'match') initMatch();
+    }
+
+    function retryCurrentMode() {
+      if (lastSessionMode) startMode(lastSessionMode);
+      else navigateTo('home');
+    }
+
+    let lastSessionMode = null;
+
+    /* --------------------------------------------------------------------------
+       4. MODE 1: FLASHCARDS LOGIC
+       -------------------------------------------------------------------------- */
+    let fcIndex = 0;
+    let fcList = [];
+
+    function initFlashcards() {
+      fcList = [...LEARNING_SET.terms];
+      fcIndex = 0;
+      updateFlashcardUI();
+      navigateTo('flashcards');
+    }
+
+    function updateFlashcardUI() {
+      const card = fcList[fcIndex];
+      const cardEl = document.getElementById('flashcardElement');
+      cardEl.classList.remove('is-flipped');
+
+      document.getElementById('fcFrontTerm').textContent = card.term;
+      document.getElementById('fcBackDefinition').textContent = card.definition;
+      
+      const total = fcList.length;
+      document.getElementById('fcProgressCounter').textContent = `${fcIndex + 1} / ${total}`;
+      document.getElementById('fcProgressBar').style.width = `${((fcIndex + 1) / total) * 100}%`;
+    }
+
+    function flipCurrentCard() {
+      document.getElementById('flashcardElement').classList.toggle('is-flipped');
+    }
+
+    function nextCard() {
+      fcIndex = (fcIndex + 1) % fcList.length;
+      updateFlashcardUI();
+    }
+
+    function prevCard() {
+      fcIndex = (fcIndex - 1 + fcList.length) % fcList.length;
+      updateFlashcardUI();
+    }
+
+    function shuffleCards() {
+      fcList = [...fcList].sort(() => Math.random() - 0.5);
+      fcIndex = 0;
+      updateFlashcardUI();
+    }
+
+    // Keyboard support for flashcards
+    window.addEventListener('keydown', (e) => {
+      if (currentModeName === 'flashcards') {
+        if (e.code === 'Space') {
+          e.preventDefault();
+          flipCurrentCard();
+        } else if (e.code === 'ArrowRight') {
+          e.preventDefault();
+          nextCard();
+        } else if (e.code === 'ArrowLeft') {
+          e.preventDefault();
+          prevCard();
+        }
+      }
+    });
+
+    /* --------------------------------------------------------------------------
+       5. MODE 2: MULTIPLE CHOICE LOGIC
+       -------------------------------------------------------------------------- */
+    let mcqIndex = 0;
+    let mcqScore = 0;
+    let mcqQuestions = [];
+    let mcqAnswered = false;
+
+    function initMcq() {
+      mcqQuestions = [...LEARNING_SET.terms].sort(() => Math.random() - 0.5);
+      mcqIndex = 0;
+      mcqScore = 0;
+      lastSessionMode = 'mcq';
+      renderMcqQuestion();
+      navigateTo('mcq');
+    }
+
+    function renderMcqQuestion() {
+      mcqAnswered = false;
+      const current = mcqQuestions[mcqIndex];
+      const total = mcqQuestions.length;
+
+      document.getElementById('mcqQuestionTerm').textContent = current.term;
+      document.getElementById('mcqProgressCounter').textContent = `Question ${mcqIndex + 1} of ${total}`;
+      document.getElementById('mcqProgressBar').style.width = `${((mcqIndex + 1) / total) * 100}%`;
+
+      document.getElementById('mcqFeedbackBanner').style.display = 'none';
+      document.getElementById('mcqNextBtn').style.display = 'none';
+
+      // Pick 3 distractor definitions
+      const distractors = LEARNING_SET.terms
+        .filter(t => t.id !== current.id)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3)
+        .map(t => t.definition);
+
+      const options = [current.definition, ...distractors].sort(() => Math.random() - 0.5);
+
+      const container = document.getElementById('mcqOptionsContainer');
+      container.innerHTML = '';
+
+      const letters = ['A', 'B', 'C', 'D'];
+      options.forEach((optText, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `
+          <span class="option-indicator">${letters[i]}</span>
+          <span style="flex: 1;">${optText}</span>
+        `;
+        btn.onclick = () => handleMcqSelect(optText, current.definition, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    function handleMcqSelect(selectedDef, correctDef, btnElement) {
+      if (mcqAnswered) return;
+      mcqAnswered = true;
+
+      const isCorrect = (selectedDef === correctDef);
+      if (isCorrect) mcqScore++;
+
+      // Highlight options
+      const allBtns = document.querySelectorAll('#mcqOptionsContainer .option-btn');
+      allBtns.forEach(btn => {
+        btn.disabled = true;
+        const text = btn.querySelector('span:nth-child(2)').textContent.trim();
+        if (text === correctDef) {
+          btn.classList.add('correct');
+        } else if (btn === btnElement && !isCorrect) {
+          btn.classList.add('incorrect');
+        }
+      });
+
+      // Feedback banner
+      const banner = document.getElementById('mcqFeedbackBanner');
+      const feedTitle = document.getElementById('mcqFeedbackText');
+      const feedSub = document.getElementById('mcqFeedbackSub');
+
+      banner.style.display = 'block';
+      if (isCorrect) {
+        banner.style.backgroundColor = 'var(--success-bg)';
+        banner.style.borderColor = 'var(--success-border)';
+        feedTitle.style.color = 'var(--success-text)';
+        feedTitle.textContent = 'Correct! Outstanding.';
+        feedSub.textContent = `Matched correctly with "${selectedDef}".`;
+      } else {
+        banner.style.backgroundColor = 'var(--error-bg)';
+        banner.style.borderColor = 'var(--error-border)';
+        feedTitle.style.color = 'var(--error-text)';
+        feedTitle.textContent = 'Incorrect';
+        feedSub.textContent = `The correct definition is: "${correctDef}".`;
+      }
+
+      document.getElementById('mcqNextBtn').style.display = 'inline-flex';
+    }
+
+    function nextMcqQuestion() {
+      mcqIndex++;
+      if (mcqIndex < mcqQuestions.length) {
+        renderMcqQuestion();
+      } else {
+        showResultsScreen('Multiple Choice Complete', mcqScore, mcqQuestions.length);
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       6. MODE 3: WRITE MODE LOGIC
+       -------------------------------------------------------------------------- */
+    let writeIndex = 0;
+    let writeScore = 0;
+    let writeList = [];
+
+    function initWrite() {
+      writeList = [...LEARNING_SET.terms].sort(() => Math.random() - 0.5);
+      writeIndex = 0;
+      writeScore = 0;
+      lastSessionMode = 'write';
+      renderWriteQuestion();
+      navigateTo('write');
+    }
+
+    function renderWriteQuestion() {
+      const current = writeList[writeIndex];
+      const total = writeList.length;
+
+      document.getElementById('writePromptDefinition').textContent = current.definition;
+      document.getElementById('writeProgressCounter').textContent = `${writeIndex + 1} / ${total}`;
+      document.getElementById('writeProgressBar').style.width = `${((writeIndex + 1) / total) * 100}%`;
+
+      const input = document.getElementById('writeInput');
+      input.value = '';
+      input.disabled = false;
+      input.focus();
+
+      document.getElementById('writeSubmitBtn').disabled = false;
+      document.getElementById('writeFeedbackBanner').style.display = 'none';
+    }
+
+    function normalizeText(str) {
+      return (str || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    function handleWriteSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('writeInput');
+      const userVal = input.value;
+      if (!userVal.trim()) return;
+
+      const current = writeList[writeIndex];
+      const isCorrect = normalizeText(userVal) === normalizeText(current.term);
+
+      if (isCorrect) writeScore++;
+      showWriteFeedback(isCorrect, userVal, current.term);
+    }
+
+    function giveUpWrite() {
+      const current = writeList[writeIndex];
+      showWriteFeedback(false, "(Skipped)", current.term);
+    }
+
+    function showWriteFeedback(isCorrect, userVal, correctTerm) {
+      document.getElementById('writeInput').disabled = true;
+      document.getElementById('writeSubmitBtn').disabled = true;
+
+      const banner = document.getElementById('writeFeedbackBanner');
+      const title = document.getElementById('writeFeedbackTitle');
+      const details = document.getElementById('writeFeedbackDetails');
+
+      banner.style.display = 'block';
+      if (isCorrect) {
+        banner.style.backgroundColor = 'var(--success-bg)';
+        banner.style.borderColor = 'var(--success-border)';
+        title.style.color = 'var(--success-text)';
+        title.textContent = 'Correct!';
+        details.innerHTML = `You typed: <strong>${userVal}</strong>`;
+      } else {
+        banner.style.backgroundColor = 'var(--error-bg)';
+        banner.style.borderColor = 'var(--error-border)';
+        title.style.color = 'var(--error-text)';
+        title.textContent = 'Incorrect';
+        details.innerHTML = `Your answer: <span style="text-decoration: line-through;">${userVal || 'Blank'}</span><br>Correct answer: <strong>${correctTerm}</strong>`;
+      }
+    }
+
+    function nextWriteQuestion() {
+      writeIndex++;
+      if (writeIndex < writeList.length) {
+        renderWriteQuestion();
+      } else {
+        showResultsScreen('Write Practice Complete', writeScore, writeList.length);
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       7. MODE 4: TEST MODE (NO INSTANT FEEDBACK, COMPREHENSIVE FINAL BREAKDOWN)
+       -------------------------------------------------------------------------- */
+    let testIndex = 0;
+    let testQuestions = [];
+    let testUserAnswers = [];
+
+    function initTest() {
+      // 8 questions generated from dataset (50% MCQ, 50% Written)
+      const shuffled = [...LEARNING_SET.terms].sort(() => Math.random() - 0.5).slice(0, 8);
+      testQuestions = shuffled.map((item, idx) => {
+        const isMcq = idx % 2 === 0;
+        let options = [];
+        if (isMcq) {
+          const distractors = LEARNING_SET.terms
+            .filter(t => t.id !== item.id)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3)
+            .map(t => t.definition);
+          options = [item.definition, ...distractors].sort(() => Math.random() - 0.5);
+        }
+        return {
+          item,
+          type: isMcq ? 'mcq' : 'written',
+          options
+        };
+      });
+
+      testIndex = 0;
+      testUserAnswers = [];
+      lastSessionMode = 'test';
+      renderTestQuestion();
+      navigateTo('test');
+    }
+
+    function renderTestQuestion() {
+      const q = testQuestions[testIndex];
+      const total = testQuestions.length;
+
+      document.getElementById('testProgressCounter').textContent = `Question ${testIndex + 1} of ${total}`;
+      document.getElementById('testProgressBar').style.width = `${((testIndex + 1) / total) * 100}%`;
+
+      const typeLabel = document.getElementById('testQuestionTypeLabel');
+      const prompt = document.getElementById('testQuestionPrompt');
+      const container = document.getElementById('testInteractionContainer');
+      const nextBtn = document.getElementById('testNextBtn');
+
+      container.innerHTML = '';
+      nextBtn.disabled = true;
+      nextBtn.textContent = (testIndex === total - 1) ? 'Finish Test &rarr;' : 'Next Question &rarr;';
+
+      if (q.type === 'mcq') {
+        typeLabel.textContent = 'Multiple Choice Question';
+        prompt.textContent = `What is the definition of "${q.item.term}"?`;
+
+        const optionsBox = document.createElement('div');
+        optionsBox.className = 'options-grid';
+
+        const letters = ['A', 'B', 'C', 'D'];
+        q.options.forEach((optText, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'option-btn';
+          btn.innerHTML = `
+            <span class="option-indicator">${letters[i]}</span>
+            <span style="flex: 1;">${optText}</span>
+          `;
+          btn.onclick = () => {
+            optionsBox.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            testUserAnswers[testIndex] = optText;
+            nextBtn.disabled = false;
+          };
+          optionsBox.appendChild(btn);
+        });
+        container.appendChild(optionsBox);
+
+      } else {
+        typeLabel.textContent = 'Written Answer Question';
+        prompt.textContent = `Which cellular term matches: "${q.item.definition}"?`;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'text-input';
+        input.placeholder = 'Type term name here...';
+        input.oninput = () => {
+          testUserAnswers[testIndex] = input.value.trim();
+          nextBtn.disabled = !input.value.trim();
+        };
+        input.onkeydown = (e) => {
+          if (e.key === 'Enter' && input.value.trim()) {
+            e.preventDefault();
+            handleTestNext();
+          }
+        };
+        container.appendChild(input);
+        setTimeout(() => input.focus(), 50);
+      }
+    }
+
+    function handleTestNext() {
+      testIndex++;
+      if (testIndex < testQuestions.length) {
+        renderTestQuestion();
+      } else {
+        finishTestAndShowResults();
+      }
+    }
+
+    function finishTestAndShowResults() {
+      let correctCount = 0;
+      const breakdown = [];
+
+      testQuestions.forEach((q, i) => {
+        const userAns = testUserAnswers[i] || '';
+        let isCorrect = false;
+        let expected = '';
+
+        if (q.type === 'mcq') {
+          expected = q.item.definition;
+          isCorrect = (userAns === expected);
+        } else {
+          expected = q.item.term;
+          isCorrect = normalizeText(userAns) === normalizeText(expected);
+        }
+
+        if (isCorrect) correctCount++;
+        breakdown.push({
+          qNum: i + 1,
+          term: q.item.term,
+          prompt: q.type === 'mcq' ? `Definition of ${q.item.term}` : q.item.definition,
+          userAns,
+          expected,
+          isCorrect
+        });
+      });
+
+      showResultsScreen('Official Test Results', correctCount, testQuestions.length, breakdown);
+    }
+
+    /* --------------------------------------------------------------------------
+       8. MODE 5: TRUE OR FALSE LOGIC
+       -------------------------------------------------------------------------- */
+    let tfIndex = 0;
+    let tfScore = 0;
+    let tfQuestions = [];
+    let tfAnswered = false;
+
+    function initTrueFalse() {
+      tfQuestions = [...LEARNING_SET.terms].sort(() => Math.random() - 0.5).map((item, idx) => {
+        const isTrue = idx % 2 === 0; // Alternating true / false pairings
+        let displayedDefinition = item.definition;
+        if (!isTrue) {
+          const falseMatch = LEARNING_SET.terms.find(t => t.id !== item.id);
+          displayedDefinition = falseMatch ? falseMatch.definition : "Unrelated definition";
+        }
+        return {
+          item,
+          isTrue,
+          displayedDefinition
+        };
+      });
+
+      tfIndex = 0;
+      tfScore = 0;
+      lastSessionMode = 'truefalse';
+      renderTrueFalseQuestion();
+      navigateTo('truefalse');
+    }
+
+    function renderTrueFalseQuestion() {
+      tfAnswered = false;
+      const current = tfQuestions[tfIndex];
+      const total = tfQuestions.length;
+
+      document.getElementById('tfProgressCounter').textContent = `Statement ${tfIndex + 1} of ${total}`;
+      document.getElementById('tfProgressBar').style.width = `${((tfIndex + 1) / total) * 100}%`;
+
+      document.getElementById('tfTermTitle').textContent = current.item.term;
+      document.getElementById('tfDefinitionText').textContent = current.displayedDefinition;
+
+      document.getElementById('tfFeedbackBanner').style.display = 'none';
+      document.getElementById('tfActionButtons').style.display = 'grid';
+    }
+
+    function handleTrueFalseChoice(userChoice) {
+      if (tfAnswered) return;
+      tfAnswered = true;
+
+      const current = tfQuestions[tfIndex];
+      const isCorrect = (userChoice === current.isTrue);
+      if (isCorrect) tfScore++;
+
+      document.getElementById('tfActionButtons').style.display = 'none';
+      const banner = document.getElementById('tfFeedbackBanner');
+      const title = document.getElementById('tfFeedbackTitle');
+      const details = document.getElementById('tfFeedbackDetails');
+
+      banner.style.display = 'block';
+      if (isCorrect) {
+        banner.style.backgroundColor = 'var(--success-bg)';
+        banner.style.borderColor = 'var(--success-border)';
+        title.style.color = 'var(--success-text)';
+        title.textContent = 'Correct!';
+        details.textContent = current.isTrue 
+          ? `True: That is the exact correct definition for ${current.item.term}.`
+          : `False: That definition belongs to another organelle. Real definition: "${current.item.definition}".`;
+      } else {
+        banner.style.backgroundColor = 'var(--error-bg)';
+        banner.style.borderColor = 'var(--error-border)';
+        title.style.color = 'var(--error-text)';
+        title.textContent = 'Incorrect';
+        details.textContent = current.isTrue
+          ? `Statement was actually True for ${current.item.term}.`
+          : `Statement was False. Correct definition for ${current.item.term}: "${current.item.definition}".`;
+      }
+    }
+
+    function nextTrueFalseQuestion() {
+      tfIndex++;
+      if (tfIndex < tfQuestions.length) {
+        renderTrueFalseQuestion();
+      } else {
+        showResultsScreen('True / False Review Complete', tfScore, tfQuestions.length);
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       9. MODE 6: MATCH GAME LOGIC
+       -------------------------------------------------------------------------- */
+    let matchCards = [];
+    let selectedFirstCard = null;
+    let matchesRemaining = 0;
+    let matchTimerInterval = null;
+    let matchStartTime = null;
+
+    function initMatch() {
+      lastSessionMode = 'match';
+      if (matchTimerInterval) clearInterval(matchTimerInterval);
+
+      // Select 6 terms for a quick, focused round
+      const selectedTerms = [...LEARNING_SET.terms].sort(() => Math.random() - 0.5).slice(0, 6);
+      matchesRemaining = selectedTerms.length;
+
+      const cards = [];
+      selectedTerms.forEach(t => {
+        cards.push({ id: `term-${t.id}`, pairId: t.id, text: t.term, type: 'term' });
+        cards.push({ id: `def-${t.id}`, pairId: t.id, text: t.definition, type: 'def' });
+      });
+
+      matchCards = cards.sort(() => Math.random() - 0.5);
+      selectedFirstCard = null;
+
+      document.getElementById('matchCompleteCard').style.display = 'none';
+      document.getElementById('matchGridContainer').style.display = 'grid';
+      document.getElementById('matchPairStats').textContent = `${matchesRemaining} Pairs Remaining`;
+
+      renderMatchGrid();
+      navigateTo('match');
+
+      // Start timer
+      matchStartTime = Date.now();
+      matchTimerInterval = setInterval(() => {
+        const elapsed = ((Date.now() - matchStartTime) / 1000).toFixed(1);
+        document.getElementById('matchTimer').textContent = `${elapsed}s`;
+      }, 100);
+    }
+
+    function renderMatchGrid() {
+      const container = document.getElementById('matchGridContainer');
+      container.innerHTML = '';
+
+      matchCards.forEach(card => {
+        const el = document.createElement('div');
+        el.className = 'match-card';
+        el.id = `card-${card.id}`;
+        el.textContent = card.text;
+        el.onclick = () => handleMatchCardClick(card, el);
+        container.appendChild(el);
+      });
+    }
+
+    function handleMatchCardClick(card, element) {
+      if (element.classList.contains('matched') || element.classList.contains('selected')) return;
+
+      if (!selectedFirstCard) {
+        selectedFirstCard = { card, element };
+        element.classList.add('selected');
+      } else {
+        const first = selectedFirstCard;
+        // Don't allow clicking the same card twice
+        if (first.card.id === card.id) return;
+
+        element.classList.add('selected');
+
+        // Check match
+        if (first.card.pairId === card.pairId && first.card.type !== card.type) {
+          // Success match
+          setTimeout(() => {
+            first.element.classList.remove('selected');
+            element.classList.remove('selected');
+            first.element.classList.add('matched');
+            element.classList.add('matched');
+            selectedFirstCard = null;
+            matchesRemaining--;
+            document.getElementById('matchPairStats').textContent = `${matchesRemaining} Pairs Remaining`;
+
+            if (matchesRemaining === 0) {
+              clearInterval(matchTimerInterval);
+              const totalElapsed = ((Date.now() - matchStartTime) / 1000).toFixed(1);
+              document.getElementById('matchGridContainer').style.display = 'none';
+              document.getElementById('matchCompleteCard').style.display = 'block';
+              document.getElementById('matchFinalTimeMsg').textContent = `You cleared all 6 pairs in ${totalElapsed} seconds!`;
+            }
+          }, 200);
+        } else {
+          // Failure match
+          setTimeout(() => {
+            first.element.classList.add('error-shake');
+            element.classList.add('error-shake');
+            setTimeout(() => {
+              first.element.classList.remove('selected', 'error-shake');
+              element.classList.remove('selected', 'error-shake');
+              selectedFirstCard = null;
+            }, 400);
+          }, 200);
+        }
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       10. RESULTS PRESENTATION
+       -------------------------------------------------------------------------- */
+    function showResultsScreen(title, score, total, breakdownList = null) {
+      document.getElementById('resultsTitle').textContent = title;
+      const pct = Math.round((score / total) * 100);
+      document.getElementById('resAccuracy').textContent = `${pct}%`;
+      document.getElementById('resCorrect').textContent = score;
+      document.getElementById('resIncorrect').textContent = (total - score);
+
+      const breakdownBox = document.getElementById('testBreakdownContainer');
+      const listEl = document.getElementById('testBreakdownList');
+
+      if (breakdownList && breakdownList.length > 0) {
+        breakdownBox.style.display = 'block';
+        listEl.innerHTML = '';
+
+        breakdownList.forEach(item => {
+          const row = document.createElement('div');
+          row.className = 'card';
+          row.style.padding = '0.85rem 1rem';
+          row.style.backgroundColor = item.isCorrect ? 'var(--success-bg)' : 'var(--error-bg)';
+          row.style.borderColor = item.isCorrect ? 'var(--success-border)' : 'var(--error-border)';
+
+          row.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
+              <strong style="color: ${item.isCorrect ? 'var(--success-text)' : 'var(--error-text)'};">
+                ${item.isCorrect ? '✓ Correct' : '✗ Incorrect'} &bull; Question ${item.qNum} (${item.term})
+              </strong>
+            </div>
+            <div style="font-size: 13px; color: var(--fg-color); margin-bottom: 0.25rem;">${item.prompt}</div>
+            <div style="font-size: 12.5px; color: var(--muted-text);">
+              Your Answer: <strong>${item.userAns || 'Blank'}</strong> &bull; Correct: <strong>${item.expected}</strong>
+            </div>
+          `;
+          listEl.appendChild(row);
+        });
+      } else {
+        breakdownBox.style.display = 'none';
+      }
+
+      navigateTo('results');
+    }
+
+    /* --------------------------------------------------------------------------
+       11. INITIALIZATION ON PAGE LOAD
+       -------------------------------------------------------------------------- */
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Populate Set Terms Table
+      const tableBody = document.getElementById('termsTableBody');
+      tableBody.innerHTML = '';
+      LEARNING_SET.terms.forEach(t => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-weight: 600; font-family: var(--font-serif); font-size: 16px;">${t.term}</td>
+          <td style="color: var(--muted-text); line-height: 1.5;">${t.definition}</td>
+        `;
+        tableBody.appendChild(tr);
+      });
+
+      document.getElementById('termCountBadge').textContent = `${LEARNING_SET.terms.length} Terms`;
+      document.getElementById('termTableCount').textContent = `${LEARNING_SET.terms.length} terms`;
+
+      // 2. Apply System Theme by Default
+      applyTheme();
+
+      // 3. Start at Home Screen
+      navigateTo('home');
+    });
+  </script>
+</body>
+</html>

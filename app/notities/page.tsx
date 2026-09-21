@@ -5,10 +5,46 @@ import { useEffect, useRef, useState } from 'react';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { useWorkspaceStore, type WorkspaceItem } from '@/store/useWorkspaceStore';
 import { OfflineStorage, LocalNote } from '@/lib/offline/storage';
-import { ChevronDown, ChevronRight, Edit, Eye, FolderPlus, Plus } from 'lucide-react';
+import { ChevronDown, ChevronRight, Edit, Eye, FolderPlus, Plus, Type, SpellCheck } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
+import { marked } from 'marked';
+import VisualToolsToolbar from '@/components/notes/VisualToolsToolbar';
+import { Diagram, MindMap, Drawing } from '@/types/filesystem';
+import DiagramEditor from '@/components/notes/DiagramEditor';
+import MindMapEditor from '@/components/notes/MindMapEditor';
+import DrawingEditor from '@/components/notes/DrawingEditor';
+import { exportNoteAsText } from '@/utils/noteExportUtils';
+import { useFilesystem } from '@/hooks/useFilesystem';
+import { filesystemService } from '@/lib/filesystem/filesystemService';
+import FileOperationsMenu from '@/components/filesystem/FileOperationsMenu';
+import { useContentCache } from '@/hooks/useContentCache';
 
 const supabase = browserClient as any;
+
+const DEFAULT_SUBJECTS = [
+  'Aardrijkskunde',
+  'Bewegen, Sport en Maatschappij',
+  'Biologie',
+  'Culturele en Kunstzinnige Vorming',
+  'Decanaat',
+  'Duits',
+  'Economie',
+  'Engels',
+  'Frans',
+  'Geschiedenis',
+  'Informatica',
+  'Kunst Muziek',
+  'Kunst Beeldende Vorming',
+  'Lichamelijke Opvoeding',
+  'Levensbeschouwing',
+  'Mentoraat',
+  'Natuurkunde',
+  'Nederlands',
+  'Scheikunde',
+  'Wiskunde A',
+  'Wiskunde B',
+  'Wiskunde D',
+];
 
 type DragState = {
   draggedId: string | null;
@@ -31,12 +67,65 @@ function TreeItem({
   const { t } = useTranslation();
   const { getChildren, toggleMapExpanded, expandedMaps, setSelectedId, selectedId } =
     useWorkspaceStore();
+  const { moveNode, renameNode, deleteNode, duplicateNode, addButtonLink, nodes } = useFilesystem();
   const [menuOpen, setMenuOpen] = useState(false);
   const [renameOpen, setRenameOpen] = useState(false);
   const [name, setName] = useState(item.name);
   const children = getChildren(item.id);
   const isExpanded = expandedMaps.has(item.id);
   const isSelected = selectedId === item.id;
+
+  const handleFileSystemMove = async (nodeId: string, newParentId: string) => {
+    try {
+      await moveNode(nodeId, newParentId);
+    } catch (error) {
+      console.error('Failed to move item:', error);
+      alert('Failed to move item');
+    }
+  };
+
+  const handleFileSystemRename = async (nodeId: string, newName: string) => {
+    try {
+      await renameNode(nodeId, newName);
+      // Also update the workspace item
+      await updateItem({ name: newName });
+    } catch (error) {
+      console.error('Failed to rename item:', error);
+      alert('Failed to rename item');
+    }
+  };
+
+  const handleFileSystemDelete = async (nodeId: string) => {
+    try {
+      await deleteNode(nodeId);
+      // Also remove from workspace
+      await remove();
+    } catch (error) {
+      console.error('Failed to delete item:', error);
+      alert('Failed to delete item');
+    }
+  };
+
+  const handleFileSystemDuplicate = async (nodeId: string) => {
+    try {
+      await duplicateNode(nodeId);
+      // Also duplicate in workspace
+      await duplicate();
+    } catch (error) {
+      console.error('Failed to duplicate item:', error);
+      alert('Failed to duplicate item');
+    }
+  };
+
+  const handleCreateShortcut = async (nodeId: string, targetPath: string, buttonText: string) => {
+    try {
+      await addButtonLink(targetPath, buttonText, 'root');
+      alert('Shortcut created successfully');
+    } catch (error) {
+      console.error('Failed to create shortcut:', error);
+      alert('Failed to create shortcut');
+    }
+  };
 
   const updateItem = async (updates: Partial<WorkspaceItem>) => {
     useWorkspaceStore.getState().updateItemOptimistic(item.id, updates);
@@ -212,6 +301,34 @@ function TreeItem({
             >
               Verwijderen
             </button>
+            <div className="border-t border-border my-1" />
+            <FileOperationsMenu
+              node={{
+                id: item.id,
+                type: item.type === 'map' ? 'note_folder' : 'note',
+                name: item.name,
+                parentId: item.parent_id || null,
+                path: `/${item.name}`,
+                metadata: {
+                  order: 0,
+                  permissions: {
+                    canRead: ['user'],
+                    canWrite: ['user'],
+                    canDelete: ['user'],
+                  },
+                },
+                createdAt: item.created_at || new Date().toISOString(),
+                updatedAt: item.updated_at || new Date().toISOString(),
+                createdBy: 'user',
+                isLocal: true,
+              }}
+              onMove={handleFileSystemMove}
+              onRename={handleFileSystemRename}
+              onDelete={handleFileSystemDelete}
+              onDuplicate={handleFileSystemDuplicate}
+              onCreateShortcut={handleCreateShortcut}
+              availableParents={nodes.filter(n => n.type === 'note_folder' || n.type === 'root')}
+            />
           </div>
         )}
         {renameOpen && (
@@ -268,13 +385,15 @@ function TreeItem({
 
 function WorkspaceSidebar() {
   const { t } = useTranslation();
-  const { getChildren, setItems, setLoading, setSelectedId, createItemOptimistic } =
+  const { getChildren, setItems, setLoading, setSelectedId, createItemOptimistic, items, workspaces, currentWorkspaceId, setCurrentWorkspaceId, createWorkspace } =
     useWorkspaceStore();
   const rootItems = getChildren(null);
   const [draggedId, setDraggedId] = useState<string | null>(null);
   const [dropTargetId, setDropTargetId] = useState<string | null>(null);
   const [droppedId, setDroppedId] = useState<string | null>(null);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [showCreateWorkspace, setShowCreateWorkspace] = useState(false);
+  const [newWorkspaceName, setNewWorkspaceName] = useState('');
   const dragState = {
     draggedId,
     dropTargetId,
@@ -283,6 +402,15 @@ function WorkspaceSidebar() {
     setDropTargetId,
     setDroppedId,
   };
+
+  // Initialize default workspace if none exists
+  useEffect(() => {
+    if (workspaces.length === 0) {
+      const defaultId = createWorkspace('Standaard');
+      setCurrentWorkspaceId(defaultId);
+    }
+  }, [workspaces.length, createWorkspace, setCurrentWorkspaceId]);
+
   useEffect(() => {
     async function syncWorkspace() {
       try {
@@ -295,14 +423,64 @@ function WorkspaceSidebar() {
           .select('*')
           .eq('user_id', user.id)
           .order('order_index');
-        if (!error && data) setItems(data);
+        if (!error && data) {
+          setItems(data);
+
+          // Create default subject folders only for the first workspace if they don't exist
+          if (workspaces.length === 1) {
+            const existingFolders = data.filter((item: WorkspaceItem) => item.type === 'map' && !item.parent_id && item.workspace_id === currentWorkspaceId);
+            const existingFolderNames = new Set(existingFolders.map((item: WorkspaceItem) => item.name));
+
+            for (const subject of DEFAULT_SUBJECTS) {
+              if (!existingFolderNames.has(subject)) {
+                const folderId = createItemOptimistic({
+                  user_id: user.id,
+                  name: subject,
+                  type: 'map',
+                  parent_id: null,
+                  order_index: data.length + DEFAULT_SUBJECTS.indexOf(subject),
+                  content: {},
+                  workspace_id: currentWorkspaceId,
+                });
+                try {
+                  await supabase
+                    .from('workspace_items')
+                    .insert({
+                      id: folderId,
+                      user_id: user.id,
+                      name: subject,
+                      type: 'map',
+                      parent_id: null,
+                      order_index: data.length + DEFAULT_SUBJECTS.indexOf(subject),
+                      content: {},
+                      workspace_id: currentWorkspaceId,
+                    });
+                } catch (err) {
+                  console.error('Error creating default folder:', err);
+                }
+              }
+            }
+          }
+        }
       } finally {
         setLoading(false);
         setIsInitialLoading(false);
       }
     }
     syncWorkspace();
-  }, [setItems, setLoading]);
+  }, [setItems, setLoading, createItemOptimistic, workspaces, currentWorkspaceId]);
+
+  const handleCreateWorkspace = () => {
+    if (!newWorkspaceName.trim()) return;
+    if (workspaces.some(w => w.name.toLowerCase() === newWorkspaceName.toLowerCase())) {
+      alert('Er bestaat al een werkruimte met deze naam.');
+      return;
+    }
+    const newId = createWorkspace(newWorkspaceName);
+    setCurrentWorkspaceId(newId);
+    setNewWorkspaceName('');
+    setShowCreateWorkspace(false);
+  };
   const createItem = async (type: 'map' | 'page') => {
     const {
       data: { user },
@@ -314,6 +492,7 @@ function WorkspaceSidebar() {
       parent_id: null,
       order_index: rootItems.length,
       content: type === 'page' ? '' : {},
+      workspace_id: currentWorkspaceId,
     };
     const id = createItemOptimistic(item);
     if (type === 'page') setSelectedId(id);
@@ -352,7 +531,31 @@ function WorkspaceSidebar() {
   return (
     <aside className="flex w-72 shrink-0 flex-col border-r border-border bg-background">
       <div className="flex items-center justify-between px-5 py-4">
-        <h1 className="text-sm font-semibold tracking-wide text-foreground">Werkruimte</h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-sm font-semibold tracking-wide text-foreground">Werkruimte</h1>
+          {/* Workspace dots navigation */}
+          <div className="flex items-center gap-2">
+            {workspaces.map((workspace) => (
+              <button
+                key={workspace.id}
+                type="button"
+                onClick={() => setCurrentWorkspaceId(workspace.id)}
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  workspace.id === currentWorkspaceId ? 'bg-foreground' : 'bg-muted-foreground hover:bg-foreground/60'
+                }`}
+                title={workspace.name}
+              />
+            ))}
+            <button
+              type="button"
+              onClick={() => setShowCreateWorkspace(true)}
+              className="rounded p-1 text-muted-foreground hover:bg-secondary hover:text-foreground"
+              title="Nieuwe werkruimte"
+            >
+              <Plus className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
         <div className="flex items-center gap-1">
           <button
             type="button"
@@ -372,13 +575,58 @@ function WorkspaceSidebar() {
           </button>
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto px-2 pb-4">
+
+      <div className="flex-1 overflow-y-auto px-2 pb-4 pt-6">
         {rootItems.length ? (
           rootItems.map((item) => <TreeItem key={item.id} item={item} dragState={dragState} />)
         ) : (
           <p className="px-3 py-5 text-sm text-muted-foreground">{t('notes_empty_state')}</p>
         )}
       </div>
+
+      {showCreateWorkspace && (
+        <div
+          className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4"
+          onMouseDown={() => setShowCreateWorkspace(false)}
+        >
+          <form
+            className="w-full max-w-sm rounded-xl border border-border bg-background p-5 shadow-2xl"
+            onMouseDown={(event) => event.stopPropagation()}
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleCreateWorkspace();
+            }}
+          >
+            <h2 className="font-display text-xl font-semibold">Nieuwe werkruimte</h2>
+            <label className="mt-4 block text-sm text-muted-foreground">
+              Naam
+              <input
+                value={newWorkspaceName}
+                onChange={(event) => setNewWorkspaceName(event.target.value)}
+                className="mt-1.5 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-foreground/50"
+                autoFocus
+                placeholder="Bijv. School"
+              />
+            </label>
+            <div className="mt-5 flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setShowCreateWorkspace(false)}
+                className="rounded-md border border-border px-3 py-2 text-sm hover:bg-secondary"
+              >
+                Annuleren
+              </button>
+              <button
+                type="submit"
+                disabled={!newWorkspaceName.trim()}
+                className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground disabled:opacity-50"
+              >
+                Maken
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </aside>
   );
 }
@@ -421,6 +669,127 @@ function EditorPanel() {
     Array<{ question: string; answer: string }>
   >([]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [diagrams, setDiagrams] = useState<Diagram[]>([]);
+  const [mindMaps, setMindMaps] = useState<MindMap[]>([]);
+  const [drawings, setDrawings] = useState<Drawing[]>([]);
+  const { createNode, updateNode, getUserNotes } = useFilesystem();
+
+  // Cache note content for offline access
+  useContentCache(
+    item ? `/notes/${item.id}` : '',
+    item ? {
+      content: item.content,
+      diagrams,
+      mindMaps,
+      drawings,
+    } : null,
+    'note',
+    item ? {
+      title: item.name,
+      description: `Note created at ${item.created_at}`,
+      lastModified: item.updated_at,
+    } : undefined
+  );
+
+  const handlePaste = async (event: React.ClipboardEvent) => {
+    event.preventDefault();
+    const text = event.clipboardData.getData('text/plain');
+    const html = await marked.parse(text);
+    document.execCommand('insertHTML', false, html);
+  };
+
+  const handleAddDiagram = (diagram: Diagram) => {
+    setDiagrams([...diagrams, diagram]);
+  };
+
+  const handleUpdateDiagram = (updatedDiagram: Diagram) => {
+    setDiagrams(diagrams.map(d => d.id === updatedDiagram.id ? updatedDiagram : d));
+  };
+
+  const handleDeleteDiagram = (diagramId: string) => {
+    setDiagrams(diagrams.filter(d => d.id !== diagramId));
+  };
+
+  const handleAddMindMap = (mindMap: MindMap) => {
+    setMindMaps([...mindMaps, mindMap]);
+  };
+
+  const handleUpdateMindMap = (updatedMindMap: MindMap) => {
+    setMindMaps(mindMaps.map(m => m.id === updatedMindMap.id ? updatedMindMap : m));
+  };
+
+  const handleDeleteMindMap = (mindMapId: string) => {
+    setMindMaps(mindMaps.filter(m => m.id !== mindMapId));
+  };
+
+  const handleAddDrawing = (drawing: Drawing) => {
+    setDrawings([...drawings, drawing]);
+  };
+
+  const handleUpdateDrawing = (updatedDrawing: Drawing) => {
+    setDrawings(drawings.map(d => d.id === updatedDrawing.id ? updatedDrawing : d));
+  };
+
+  const handleDeleteDrawing = (drawingId: string) => {
+    setDrawings(drawings.filter(d => d.id !== drawingId));
+  };
+
+  const handleExportText = () => {
+    if (!item) return;
+    exportNoteAsText(
+      item.content,
+      diagrams,
+      mindMaps,
+      drawings,
+      item.name || 'note'
+    );
+  };
+
+  // Save note to filesystem
+  const saveNoteToFilesystem = async () => {
+    if (!item) return;
+
+    try {
+      // Initialize filesystem if not already done
+      await filesystemService.initialize();
+
+      // Check if note already exists in filesystem by name
+      const existingNotes = getUserNotes();
+      const existingNote = existingNotes.find(n => n.name === item.name);
+
+      const noteContent = {
+        note: {
+          id: item.id,
+          content: item.content,
+          diagrams,
+          mindMaps,
+          drawings,
+        },
+      };
+
+      if (existingNote) {
+        // Update existing note
+        await updateNode(existingNote.id, {
+          content: noteContent,
+          name: item.name,
+        });
+      } else {
+        // Create new note in filesystem
+        await createNode('note', item.name, 'notes_root', noteContent, true);
+      }
+    } catch (error) {
+      console.error('Failed to save note to filesystem:', error);
+    }
+  };
+
+  // Auto-save to filesystem when content changes
+  useEffect(() => {
+    if (item && (diagrams.length > 0 || mindMaps.length > 0 || drawings.length > 0)) {
+      saveNoteToFilesystem();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [diagrams, mindMaps, drawings, item?.content]);
+
   useEffect(() => {
     setHeaderFont(
       localStorage.getItem('aether-workspace-header-font') === 'display' ? 'display' : 'inter'
@@ -435,17 +804,26 @@ function EditorPanel() {
         }
       }, 50);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item?.id, isEditing]);
   useEffect(() => {
     if (editorRef.current && item) {
       editorRef.current.contentEditable = isEditing ? 'true' : 'false';
+      // In read mode, hide cursor
+      if (!isEditing) {
+        editorRef.current.style.caretColor = 'transparent';
+      } else {
+        editorRef.current.style.caretColor = 'auto';
+      }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEditing]);
   useEffect(
     () => () => {
       clearTimeout(saveTimer.current);
       clearTimeout(fontSizeTimer.current);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
   const save = (content: string) => {
@@ -608,11 +986,10 @@ function EditorPanel() {
           <button
             type="button"
             onClick={() => setIsEditing(!isEditing)}
-            className="flex items-center gap-1.5 rounded px-2 py-1 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground"
+            className="rounded p-1.5 text-muted-foreground hover:bg-secondary hover:text-foreground"
             title={isEditing ? 'Leesmodus' : 'Bewerkmodus'}
           >
-            {isEditing ? <Eye className="h-3.5 w-3.5" /> : <Edit className="h-3.5 w-3.5" />}
-            {isEditing ? 'Lezen' : 'Bewerken'}
+            {isEditing ? <Eye className="h-4 w-4" /> : <Edit className="h-4 w-4" />}
           </button>
           <button
             type="button"
@@ -630,12 +1007,13 @@ function EditorPanel() {
               setShowSpelling(enabled);
               localStorage.setItem('aether-workspace-spellcheck', String(enabled));
             }}
-            className="text-xs text-muted-foreground hover:text-foreground"
+            className="rounded p-1.5 text-muted-foreground hover:bg-secondary hover:text-foreground"
+            title={showSpelling ? 'Rode onderstreping verbergen' : 'Rode onderstreping tonen'}
           >
-            {showSpelling ? 'Rode onderstreping verbergen' : 'Rode onderstreping tonen'}
+            <SpellCheck className="h-4 w-4" />
           </button>
-          <label className="flex items-center gap-2 text-xs text-muted-foreground">
-            Koppen
+          <div className="flex items-center gap-2">
+            <Type className="h-4 w-4 text-muted-foreground" />
             <select
               value={headerFont}
               onChange={(event) => {
@@ -643,15 +1021,25 @@ function EditorPanel() {
                 setHeaderFont(value);
                 localStorage.setItem('aether-workspace-header-font', value);
               }}
-              className="bg-transparent text-foreground outline-none"
+              className="bg-secondary text-foreground rounded px-2 py-1 text-xs outline-none border border-border"
             >
               <option value="inter">Inter</option>
               <option value="display">Cormorant Garamond</option>
             </select>
-          </label>
+          </div>
         </div>
       </div>
-      <div className="relative min-h-0 flex-1 overflow-y-auto px-8 py-10 sm:px-14 lg:px-24">
+
+      <VisualToolsToolbar
+        onAddDiagram={handleAddDiagram}
+        onAddMindMap={handleAddMindMap}
+        onAddDrawing={handleAddDrawing}
+        onExportText={handleExportText}
+      />
+
+      <div 
+        className="relative min-h-0 flex-1 overflow-y-auto px-8 py-10 sm:px-14 lg:px-24"
+      >
         {showFontSize && <div className="workspace-font-size-indicator">{fontSize}px</div>}
         <div
           ref={editorRef}
@@ -659,10 +1047,44 @@ function EditorPanel() {
           spellCheck={showSpelling}
           suppressContentEditableWarning
           onKeyDown={handleKeyDown}
+          onPaste={handlePaste}
           onInput={(event) => save(event.currentTarget.innerHTML)}
           data-placeholder={t('notes_start_typing')}
           className="workspace-editor mx-auto min-h-[calc(100vh-10rem)] w-full max-w-4xl font-sans text-base leading-8 text-foreground outline-none"
         />
+
+        {/* Render Diagrams */}
+        {diagrams.map((diagram) => (
+          <div key={diagram.id} className="mt-8">
+            <DiagramEditor
+              diagram={diagram}
+              onUpdate={handleUpdateDiagram}
+              onDelete={() => handleDeleteDiagram(diagram.id)}
+            />
+          </div>
+        ))}
+
+        {/* Render Mind Maps */}
+        {mindMaps.map((mindMap) => (
+          <div key={mindMap.id} className="mt-8">
+            <MindMapEditor
+              mindMap={mindMap}
+              onUpdate={handleUpdateMindMap}
+              onDelete={() => handleDeleteMindMap(mindMap.id)}
+            />
+          </div>
+        ))}
+
+        {/* Render Drawings */}
+        {drawings.map((drawing) => (
+          <div key={drawing.id} className="mt-8">
+            <DrawingEditor
+              drawing={drawing}
+              onUpdate={handleUpdateDrawing}
+              onDelete={() => handleDeleteDrawing(drawing.id)}
+            />
+          </div>
+        ))}
       </div>
 
       {showQuestionDialog && (

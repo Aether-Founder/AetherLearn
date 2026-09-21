@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Osmose door een semipermeabel membraan</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      text-align: center;
+      color: white;
+      margin-bottom: 30px;
+      font-size: 28px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .osmosis-container {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
+    }
+    
+    .chamber-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .chamber {
+      width: 200px;
+      height: 300px;
+      border-radius: 15px;
+      position: relative;
+      overflow: hidden;
+      border: 3px solid #2d3436;
+    }
+    
+    .chamber-left {
+      background: linear-gradient(to bottom, #dfe6e9, #b2bec3);
+    }
+    
+    .chamber-right {
+      background: linear-gradient(to bottom, #74b9ff, #0984e3);
+    }
+    
+    .membrane {
+      width: 10px;
+      height: 280px;
+      background: repeating-linear-gradient(
+        0deg,
+        #2d3436,
+        #2d3436 2px,
+        transparent 2px,
+        transparent 8px
+      );
+      border-radius: 5px;
+      position: relative;
+    }
+    
+    .membrane-label {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      font-weight: bold;
+      color: #2d3436;
+      white-space: nowrap;
+    }
+    
+    .water-molecule {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #74b9ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: white;
+      font-weight: bold;
+      transition: all 0.5s ease;
+    }
+    
+    .solute-molecule {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #e17055;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: white;
+      font-weight: bold;
+    }
+    
+    .chamber-label {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      font-weight: bold;
+      color: #2d3436;
+      background: rgba(255,255,255,0.9);
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    
+    .controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .btn-start {
+      background: linear-gradient(135deg, #00b894, #00cec9);
+      color: white;
+    }
+    
+    .btn-reset {
+      background: #636e72;
+      color: white;
+    }
+    
+    .info-panel {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 20px;
+      border-left: 4px solid #6c5ce7;
+    }
+    
+    .info-panel h3 {
+      color: #2d3436;
+      margin-bottom: 10px;
+    }
+    
+    .info-panel p {
+      color: #636e72;
+      line-height: 1.6;
+    }
+    
+    .arrow {
+      font-size: 30px;
+      color: #6c5ce7;
+      animation: pulse 1s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .level-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    
+    .level-bar {
+      width: 100%;
+      height: 10px;
+      background: #dfe6e9;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    
+    .level-fill {
+      height: 100%;
+      background: #74b9ff;
+      transition: height 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💧 Osmose door een semipermeabel membraan</h1>
+    
+    <div class="osmosis-container">
+      <div class="chamber-container">
+        <div class="chamber chamber-left" id="leftChamber">
+          <div class="chamber-label">Links: Oplossing</div>
+        </div>
+        
+        <div class="membrane">
+          <div class="membrane-label">Semipermeabel membraan</div>
+        </div>
+        
+        <div class="arrow">→</div>
+        
+        <div class="chamber chamber-right" id="rightChamber">
+          <div class="chamber-label">Rechts: Zuiver water</div>
+        </div>
+      </div>
+      
+      <div class="controls">
+        <button class="btn btn-start" onclick="startOsmosis()">▶ Start Osmose</button>
+        <button class="btn btn-reset" onclick="resetOsmosis()">↺ Reset</button>
+      </div>
+      
+      <div class="info-panel" id="infoPanel">
+        <h3>Wat is osmose?</h3>
+        <p>Osmose is de diffusie van watermoleculen door een semipermeabel membraan. Een semipermeabel membraan laat wel kleine watermoleculen door, maar niet de grotere opgeloste stoffen. Water beweegt van de plaats met de hoogste concentratie watermoleculen naar de plaats met de laagste concentratie watermoleculen.</p>
+        
+        <div style="margin-top: 15px;">
+          <strong>Klik op "Start Osmose" om het proces te zien!</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    let isAnimating = false;
+    let animationInterval;
+    
+    function createWaterMolecule(x, y, chamber) {
+      const molecule = document.createElement('div');
+      molecule.className = 'water-molecule';
+      molecule.textContent = 'H₂O';
+      molecule.style.left = x + 'px';
+      molecule.style.top = y + 'px';
+      chamber.appendChild(molecule);
+      return molecule;
+    }
+    
+    function createSoluteMolecule(x, y, chamber) {
+      const molecule = document.createElement('div');
+      molecule.className = 'solute-molecule';
+      molecule.textContent = 'S';
+      molecule.style.left = x + 'px';
+      molecule.style.top = y + 'px';
+      chamber.appendChild(molecule);
+      return molecule;
+    }
+    
+    function initChambers() {
+      const leftChamber = document.getElementById('leftChamber');
+      const rightChamber = document.getElementById('rightChamber');
+      
+      leftChamber.innerHTML = '<div class="chamber-label">Links: Oplossing</div>';
+      rightChamber.innerHTML = '<div class="chamber-label">Rechts: Zuiver water</div>';
+      
+      // Add solute molecules to left chamber (cannot pass membrane)
+      for (let i = 0; i < 8; i++) {
+        const x = 20 + (i % 4) * 40;
+        const y = 30 + Math.floor(i / 4) * 60;
+        createSoluteMolecule(x, y, leftChamber);
+      }
+      
+      // Add water molecules to left chamber
+      for (let i = 0; i < 12; i++) {
+        const x = 30 + (i % 4) * 35;
+        const y = 50 + Math.floor(i / 4) * 50;
+        createWaterMolecule(x, y, leftChamber);
+      }
+      
+      // Add water molecules to right chamber (more water concentration)
+      for (let i = 0; i < 20; i++) {
+        const x = 30 + (i % 4) * 35;
+        const y = 30 + Math.floor(i / 4) * 45;
+        createWaterMolecule(x, y, rightChamber);
+      }
+    }
+    
+    function startOsmosis() {
+      if (isAnimating) return;
+      isAnimating = true;
+      
+      const leftChamber = document.getElementById('leftChamber');
+      const rightChamber = document.getElementById('rightChamber');
+      const waterMoleculesRight = rightChamber.querySelectorAll('.water-molecule');
+      
+      let movedCount = 0;
+      const maxMoves = 8;
+      
+      animationInterval = setInterval(() => {
+        if (movedCount >= maxMoves) {
+          clearInterval(animationInterval);
+          isAnimating = false;
+          updateInfoPanel(true);
+          return;
+        }
+        
+        // Move a water molecule from right to left
+        const availableMolecules = Array.from(waterMoleculesRight).filter(m => 
+          !molecule.classList.contains('moved')
+        );
+        
+        if (availableMolecules.length > 0) {
+          const molecule = availableMolecules[Math.floor(Math.random() * availableMolecules.length)];
+          molecule.classList.add('moved');
+          
+          // Animate movement
+          molecule.style.transition = 'all 1s ease';
+          molecule.style.left = '170px';
+          molecule.style.opacity = '0';
+          
+          setTimeout(() => {
+            molecule.remove();
+            const newX = 30 + Math.random() * 100;
+            const newY = 100 + Math.random() * 100;
+            const newMolecule = createWaterMolecule(newX, newY, leftChamber);
+            newMolecule.style.opacity = '0';
+            setTimeout(() => newMolecule.style.opacity = '1', 100);
+          }, 1000);
+          
+          movedCount++;
+        }
+      }, 1500);
+    }
+    
+    function resetOsmosis() {
+      if (animationInterval) {
+        clearInterval(animationInterval);
+      }
+      isAnimating = false;
+      initChambers();
+      updateInfoPanel(false);
+    }
+    
+    function updateInfoPanel(completed) {
+      const panel = document.getElementById('infoPanel');
+      if (completed) {
+        panel.innerHTML = `
+          <h3>✅ Osmose voltooid!</h3>
+          <p>Watermoleculen zijn van rechts (zuiver water, hoge waterconcentratie) naar links (oplossing, lagere waterconcentratie) bewogen door het semipermeabele membraan.</p>
+          <p><strong>Resultaat:</strong> De oplossing links is verdund en het waterniveau rechts is gedaald. Dit proces gaat door totdat de osmotische druk in evenwicht is.</p>
+        `;
+      } else {
+        panel.innerHTML = `
+          <h3>Wat is osmose?</h3>
+          <p>Osmose is de diffusie van watermoleculen door een semipermeabel membraan. Een semipermeabel membraan laat wel kleine watermoleculen door, maar niet de grotere opgeloste stoffen. Water beweegt van de plaats met de hoogste concentratie watermoleculen naar de plaats met de laagste concentratie watermoleculen.</p>
+ <div style="margin-top: 15px;">
+            <strong>Klik op "Start Osmose" om het proces te zien!</strong>
+          </div>
+        `;
+      }
+    }
+    
+    initChambers();
+  </script>
+</body>
+</html>

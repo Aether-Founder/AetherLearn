@@ -1,0 +1,2614 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aether - Formules Omschrijven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <style>
+    :root {
+      --background: #E8EEFD;
+      --foreground: #020817;
+      --card: #E8EEFD;
+      --card-alt: #FFFFFF;
+      --border: rgba(2, 8, 23, 0.18);
+      --border-solid: #E2E8F0;
+      --muted: #F1F5F9;
+      --muted-foreground: #64748B;
+      --secondary: #F1F5F9;
+      --secondary-foreground: #020817;
+      --primary: #0F172A;
+      --primary-hover: #1E293B;
+      --primary-foreground: #F8FAFC;
+      --code-bg: #E2E8F0;
+      --focus-ring: rgba(15, 23, 42, 0.2);
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-serif: 'Cormorant Garamond', Georgia, Cambria, serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --accent: #0F172A;
+      --accent-soft: rgba(15, 23, 42, 0.08);
+    }
+
+    html.dark {
+      --background: #020817;
+      --foreground: #F8FAFC;
+      --card: #020817;
+      --card-alt: #0B1120;
+      --border: #1E293B;
+      --border-solid: #1E293B;
+      --muted: #1E293B;
+      --muted-foreground: #94A3B8;
+      --secondary: #1E293B;
+      --secondary-foreground: #F8FAFC;
+      --primary: #F8FAFC;
+      --primary-hover: #E2E8F0;
+      --primary-foreground: #020817;
+      --code-bg: #1E293B;
+      --focus-ring: rgba(248, 250, 252, 0.25);
+      --accent: #F8FAFC;
+      --accent-soft: rgba(248, 250, 252, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { color-scheme: light; scroll-behavior: smooth; background: var(--background); }
+    html.dark { color-scheme: dark; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      color: var(--foreground);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,255,255,0.32), transparent 28rem),
+        var(--background);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.6;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    html.dark body {
+      background:
+        radial-gradient(circle at 10% 0%, rgba(148,163,184,0.08), transparent 28rem),
+        var(--background);
+    }
+
+    button, input { font: inherit; color: inherit; }
+    button { cursor: pointer; border: none; background: none; }
+
+    .container-custom {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: color-mix(in srgb, var(--background) 88%, transparent);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      padding: 0.75rem 0;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .wordmark {
+      font-family: var(--font-serif);
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    .nav-context {
+      margin-left: 0.8rem;
+      padding-left: 0.8rem;
+      border-left: 1px solid var(--border);
+      color: var(--muted-foreground);
+      font-size: 12px;
+    }
+
+    .nav-brand { display: flex; align-items: center; min-width: 0; }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background-color: transparent;
+      color: var(--muted-foreground);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .btn-icon:hover { color: var(--foreground); background-color: var(--secondary); }
+    .btn-icon:active { transform: scale(0.98); opacity: 0.95; }
+
+    .page-head {
+      padding: 2.5rem 0 1.5rem;
+      max-width: 760px;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.5rem;
+      color: var(--muted-foreground);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; letter-spacing: -0.01em; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 6vw, 52px);
+      line-height: 1.05;
+    }
+
+    .page-head h1 span {
+      display: block;
+      margin-top: 0.4rem;
+      font-size: clamp(22px, 3.5vw, 32px);
+      color: var(--muted-foreground);
+    }
+
+    .page-intro {
+      max-width: 650px;
+      margin: 1rem 0 0;
+      color: var(--muted-foreground);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .composer {
+      margin-top: 1.5rem;
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .composer-section {
+      padding: clamp(1.25rem, 3vw, 1.75rem);
+      border-top: 1px solid var(--border);
+    }
+
+    .composer-section:first-child { border-top: 0; }
+
+    .section-heading {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .step-number {
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      width: 29px;
+      height: 29px;
+      margin-top: 2px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      transition: border-color 0.25s ease;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(20px, 2.8vw, 26px);
+      line-height: 1.2;
+    }
+
+    .section-heading p {
+      margin: 0.35rem 0 0;
+      color: var(--muted-foreground);
+      font-size: 13px;
+    }
+
+    /* OCR Section */
+    .ocr-section {
+      background-color: var(--secondary);
+    }
+
+    .ocr-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.1rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--foreground);
+      transition: all 0.15s ease;
+    }
+
+    .ocr-toggle:hover { background: var(--accent-soft); }
+
+    .ocr-toggle-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .ocr-toggle svg {
+      width: 18px;
+      height: 18px;
+      color: var(--muted-foreground);
+    }
+
+    .ocr-toggle .chevron {
+      transition: transform 0.2s ease;
+      color: var(--muted-foreground);
+    }
+
+    .ocr-toggle.open .chevron { transform: rotate(180deg); }
+
+    .ocr-panel {
+      display: none;
+      margin-top: 0.75rem;
+      padding: 1.1rem;
+      background: var(--card-alt);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      animation: slideDown 0.25s ease;
+    }
+
+    .ocr-panel.open { display: block; }
+
+    .ocr-tabs {
+      display: flex;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+      padding: 0.25rem;
+      background: var(--secondary);
+      border-radius: 6px;
+    }
+
+    .ocr-tab {
+      flex: 1;
+      padding: 0.5rem 0.75rem;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .ocr-tab:hover { color: var(--foreground); }
+
+    .ocr-tab.active {
+      background: var(--card-alt);
+      color: var(--foreground);
+      border-color: var(--border);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+
+    .ocr-tab-content { display: none; }
+    .ocr-tab-content.active { display: block; }
+
+    .ocr-drop {
+      border: 2px dashed var(--border);
+      border-radius: 6px;
+      padding: 2rem 1rem;
+      text-align: center;
+      color: var(--muted-foreground);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .ocr-drop:hover, .ocr-drop.dragover {
+      border-color: var(--primary);
+      background: var(--accent-soft);
+      color: var(--foreground);
+    }
+
+    .ocr-drop svg {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 0.5rem;
+      opacity: 0.6;
+    }
+
+    .ocr-drop p { font-size: 13px; margin: 0.25rem 0; }
+    .ocr-drop .browse { color: var(--primary); text-decoration: underline; font-weight: 500; }
+
+    .ocr-url-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .ocr-url-input {
+      flex: 1;
+      padding: 0.6rem 0.8rem;
+      background: var(--card-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--foreground);
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .ocr-url-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    .ocr-url-input::placeholder { color: var(--muted-foreground); }
+
+    .ocr-btn-sm {
+      padding: 0.6rem 1rem;
+      background: var(--primary);
+      color: var(--primary-foreground);
+      border-radius: 4px;
+      font-size: 12.5px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+
+    .ocr-btn-sm:hover { background: var(--primary-hover); }
+    .ocr-btn-sm:active { transform: scale(0.98); opacity: 0.95; }
+
+    .ocr-preview {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .ocr-preview.visible { display: block; }
+
+    .ocr-preview-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .ocr-preview-head h4 {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted-foreground);
+    }
+
+    .ocr-remove {
+      padding: 0.25rem 0.5rem;
+      font-size: 11px;
+      color: var(--muted-foreground);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      transition: all 0.15s ease;
+    }
+
+    .ocr-remove:hover { color: var(--foreground); background: var(--card-alt); }
+
+    .ocr-preview-img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: contain;
+      background: var(--card-alt);
+      border-radius: 4px;
+      display: block;
+    }
+
+    .ocr-run-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+
+    .ocr-run-btn {
+      padding: 0.65rem 1.25rem;
+      background: var(--primary);
+      color: var(--primary-foreground);
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .ocr-run-btn:hover:not(:disabled) { background: var(--primary-hover); }
+    .ocr-run-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .ocr-progress {
+      display: none;
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .ocr-progress.visible { display: block; }
+
+    .ocr-progress-fill {
+      height: 100%;
+      background: var(--primary);
+      width: 0;
+      transition: width 0.3s ease;
+    }
+
+    .ocr-result {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .ocr-result.visible { display: block; }
+
+    .ocr-result-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .ocr-result-head h4 {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted-foreground);
+    }
+
+    .ocr-raw-text {
+      padding: 0.75rem;
+      background: var(--card-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--muted-foreground);
+      line-height: 1.5;
+      max-height: 120px;
+      overflow-y: auto;
+      margin-bottom: 0.75rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .ocr-formula-input {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--card-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: 'Cambria', 'Times New Roman', var(--font-serif);
+      font-size: 18px;
+      color: var(--foreground);
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .ocr-formula-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    .ocr-result-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .ocr-use-btn {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      background: var(--primary);
+      color: var(--primary-foreground);
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+
+    .ocr-use-btn:hover { background: var(--primary-hover); }
+    .ocr-use-btn:active { transform: scale(0.98); }
+
+    .ocr-hint {
+      margin-top: 0.75rem;
+      font-size: 11px;
+      color: var(--muted-foreground);
+      line-height: 1.5;
+    }
+
+    .ocr-status {
+      font-size: 12px;
+      color: var(--muted-foreground);
+      font-style: italic;
+    }
+
+    /* Editor */
+    .editor-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .micro-label {
+      color: var(--muted-foreground);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .editor-actions { display: flex; gap: 0.35rem; }
+
+    .small-action {
+      padding: 0.2rem 0.4rem;
+      border: 0;
+      background: transparent;
+      color: var(--muted-foreground);
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: color 0.15s ease;
+    }
+
+    .small-action:hover { color: var(--foreground); text-decoration: underline; }
+
+    .formula-editor {
+      position: relative;
+      width: 100%;
+      min-height: 100px;
+      padding: 1.1rem 1.25rem;
+      overflow-x: auto;
+      color: var(--foreground);
+      background-color: var(--card-alt);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+      font-family: 'Cambria', 'Times New Roman', var(--font-serif);
+      font-size: clamp(24px, 5vw, 34px);
+      line-height: 1.8;
+      white-space: nowrap;
+      caret-color: var(--foreground);
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .formula-editor:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    .formula-editor:empty::before {
+      content: attr(data-placeholder);
+      color: var(--muted-foreground);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .math-frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      min-width: 1.1em;
+      margin: 0 0.15em;
+      vertical-align: middle;
+      text-align: center;
+      line-height: 1.15;
+    }
+
+    .math-frac > .frac-num {
+      padding: 0.05em 0.2em 0.12em;
+      border-bottom: 1.5px solid currentColor;
+    }
+
+    .math-frac > .frac-den { padding: 0.12em 0.2em 0.03em; }
+
+    .math-pow {
+      display: inline-flex;
+      align-items: flex-start;
+      vertical-align: middle;
+    }
+
+    .math-pow > sup {
+      margin-top: -0.15em;
+      font-size: 0.6em;
+      line-height: 1;
+    }
+
+    .math-root {
+      display: inline-flex;
+      align-items: flex-start;
+      vertical-align: middle;
+    }
+
+    .math-root .root-sym { font-size: 1.1em; line-height: 1.1; }
+    .math-root .root-content {
+      min-width: 0.8em;
+      padding: 0 0.12em 0.02em;
+      border-top: 1.5px solid currentColor;
+      line-height: 1.15;
+    }
+
+    .math-slot {
+      display: inline-block;
+      min-width: 1em;
+      min-height: 0.9em;
+      padding: 0 0.1em;
+      border-radius: 2px;
+      outline: none;
+      vertical-align: middle;
+      cursor: text;
+    }
+
+    .math-slot:hover { background: var(--accent-soft); }
+    .math-slot:focus { background: var(--accent-soft); box-shadow: inset 0 -2px 0 var(--primary); }
+
+    .math-slot:empty::before {
+      content: attr(data-ph);
+      color: var(--muted-foreground);
+      opacity: 0.5;
+      font-family: var(--font-sans);
+      font-size: 0.4em;
+      vertical-align: middle;
+    }
+
+    .keyboard {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 1rem 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    .key-group h3 {
+      margin: 0 0 0.5rem;
+      color: var(--muted-foreground);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .key-grid { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+    .key-btn {
+      min-width: 40px;
+      min-height: 38px;
+      padding: 0.4rem 0.6rem;
+      color: var(--foreground);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: 'Cambria', 'Times New Roman', var(--font-serif);
+      font-size: 17px;
+      line-height: 1;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .key-btn:hover { background: var(--secondary); border-color: var(--foreground); }
+    .key-btn:active { transform: scale(0.97); opacity: 0.95; }
+
+    .key-btn.struct {
+      min-width: 62px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .key-btn.struct .key-math {
+      font-family: 'Cambria', 'Times New Roman', serif;
+      font-size: 17px;
+      margin-right: 0.25em;
+    }
+
+    .key-btn.delta {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .meer-toggle {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 0.9rem;
+      color: var(--foreground);
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      width: fit-content;
+    }
+
+    .meer-toggle:hover { background: var(--accent-soft); }
+
+    .meer-toggle .chevron {
+      transition: transform 0.2s ease;
+      color: var(--muted-foreground);
+    }
+
+    .meer-toggle.open .chevron { transform: rotate(90deg); }
+
+    .meer-panel {
+      display: none;
+      margin-top: 0.75rem;
+      padding: 1rem;
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .meer-panel.open { display: block; animation: slideDown 0.25s ease; }
+
+    .meer-panel h4 {
+      margin: 0 0 0.5rem;
+      color: var(--muted-foreground);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .meer-panel .key-grid { margin-bottom: 1rem; }
+    .meer-panel .key-grid:last-child { margin-bottom: 0; }
+
+    .target-vars {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      min-height: 42px;
+    }
+
+    .target-option {
+      min-width: 44px;
+      height: 42px;
+      padding: 0 0.75rem;
+      color: var(--foreground);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: 'Cambria', 'Times New Roman', var(--font-serif);
+      font-size: 20px;
+      font-style: italic;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .target-option:hover { background: var(--secondary); }
+    .target-option:active { transform: scale(0.97); }
+
+    .target-option.selected {
+      color: var(--primary-foreground);
+      background: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    .target-empty { color: var(--muted-foreground); font-size: 13px; line-height: 42px; }
+
+    .solve-section { padding: 1.5rem clamp(1.25rem, 3vw, 1.75rem); }
+
+    .solve-btn {
+      width: 100%;
+      min-height: 56px;
+      padding: 0.85rem 1.5rem;
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .solve-btn:hover { background-color: var(--primary-hover); }
+    .solve-btn:active { transform: scale(0.99); opacity: 0.95; }
+    .solve-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    .error-msg {
+      display: none;
+      margin-top: 0.75rem;
+      padding: 0.7rem 0.9rem;
+      color: var(--foreground);
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      border-left: 3px solid #DC2626;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .error-msg.visible { display: block; animation: slideDown 0.2s ease; }
+
+    html.dark .error-msg { border-left-color: #F87171; }
+
+    .solution-shell {
+      display: none;
+      margin-top: 2rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .solution-shell.visible { display: block; animation: solutionReveal 0.4s ease both; }
+
+    .solution-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .solution-header h2 { margin: 0; font-size: clamp(22px, 3.5vw, 28px); line-height: 1.15; }
+    .solution-header p { margin: 0.3rem 0 0; color: var(--muted-foreground); font-size: 12px; }
+
+    .step-counter {
+      flex: 0 0 auto;
+      color: var(--muted-foreground);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      overflow: hidden;
+      background-color: var(--secondary);
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background-color: var(--primary);
+      transition: width 0.35s ease;
+    }
+
+    .step-stage { padding: clamp(1.25rem, 4vw, 2rem); }
+
+    .step-content.animate-in { animation: stepIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both; }
+
+    .step-kicker {
+      margin: 0 0 1rem;
+      color: var(--muted-foreground);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .equation-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+      padding: 1rem 0.5rem;
+      overflow-x: auto;
+      font-family: 'Cambria', 'Times New Roman', var(--font-serif);
+      font-size: clamp(28px, 6vw, 44px);
+      line-height: 1.6;
+      white-space: nowrap;
+    }
+
+    .eq-side {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.05em 0.1em;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .eq-side.highlight {
+      animation: highlightPulse 1.2s ease both;
+    }
+
+    .equals-sign { margin: 0 0.35em; }
+
+    .target-mark {
+      padding: 0 0.06em;
+      border-bottom: 2px solid currentColor;
+      font-weight: 600;
+    }
+
+    .explanation-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-top: 1px solid var(--border);
+      margin-top: 1.25rem;
+    }
+
+    .exp-block { padding: 1rem 1.1rem; }
+    .exp-block + .exp-block { border-left: 1px solid var(--border); }
+
+    .exp-block h3 {
+      margin: 0 0 0.4rem;
+      color: var(--muted-foreground);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .exp-block p { margin: 0; font-size: 13.5px; line-height: 1.65; }
+
+    .inline-math {
+      padding: 0.05rem 0.2rem;
+      background: var(--secondary);
+      border-radius: 3px;
+      font-family: 'Cambria', 'Times New Roman', var(--font-serif);
+      font-size: 1.05em;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .control-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .ctrl-btn {
+      padding: 0.55rem 0.9rem;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .ctrl-btn.primary {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+    }
+
+    .ctrl-btn.primary:hover { background-color: var(--primary-hover); }
+
+    .ctrl-btn.secondary {
+      background-color: transparent;
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+
+    .ctrl-btn.secondary:hover { background-color: var(--secondary); }
+    .ctrl-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .ctrl-btn:active:not(:disabled) { transform: scale(0.98); opacity: 0.95; }
+
+    @keyframes solutionReveal {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes stepIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes highlightPulse {
+      0% { background: transparent; }
+      35% { background: var(--accent-soft); }
+      100% { background: transparent; }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .footer-note {
+      margin: 2rem 0 3rem;
+      color: var(--muted-foreground);
+      font-size: 11px;
+      text-align: center;
+    }
+
+    button:focus-visible, .formula-editor:focus-visible, .ocr-url-input:focus-visible, .ocr-formula-input:focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 820px) {
+      .keyboard { grid-template-columns: 1fr; }
+      .explanation-grid { grid-template-columns: 1fr; }
+      .exp-block + .exp-block { border-left: 0; border-top: 1px solid var(--border); }
+    }
+
+    @media (max-width: 620px) {
+      .container-custom { padding: 0 0.85rem; }
+      .site-nav { padding: 0.6rem 0; }
+      .nav-context { display: none; }
+      .page-head { padding: 1.75rem 0 1.25rem; }
+      .formula-editor { min-height: 85px; padding: 0.9rem; }
+      .key-btn { min-width: 38px; min-height: 36px; padding: 0.4rem 0.5rem; font-size: 16px; }
+      .controls { flex-direction: column; padding: 1rem; }
+      .control-group { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+      .control-group .ctrl-btn { width: 100%; justify-content: center; }
+      .solution-header { flex-direction: column; align-items: flex-start; }
+      .ocr-url-row { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Hoofdnavigatie">
+    <div class="container-custom nav-inner">
+      <div class="nav-brand">
+        <span class="wordmark">Aether</span>
+        <span class="nav-context">Formules Omschrijven</span>
+      </div>
+      <button id="themeToggle" class="btn-icon" type="button" aria-label="Donkere modus" title="Wissel kleurmodus">
+        <svg id="themeIcon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3a6 6 0 1 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container-custom">
+    <header class="page-head">
+      <p class="eyebrow">Algebra in stappen</p>
+      <h1>Aether <span>Formules Omschrijven</span></h1>
+      <p class="page-intro">Voer een wiskundige of natuurkundige formule in, kies welke variabele je vrij wilt maken en volg elke algebraïsche bewerking alsof deze op het bord wordt uitgewerkt.</p>
+    </header>
+
+    <section class="composer" aria-label="Formule invoeren">
+      <!-- OCR Section -->
+      <div class="composer-section ocr-section">
+        <div class="section-heading">
+          <span class="step-number" aria-hidden="true">0</span>
+          <div>
+            <h2>Beeldherkenning (optioneel)</h2>
+            <p>Upload of plak een afbeelding van een formule om deze automatisch te herkennen.</p>
+          </div>
+        </div>
+
+        <button id="ocrToggle" class="ocr-toggle" type="button" aria-expanded="false" aria-controls="ocrPanel">
+          <div class="ocr-toggle-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Formule uit afbeelding halen</span>
+          </div>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+
+        <div id="ocrPanel" class="ocr-panel" role="region" aria-label="Beeldherkenning">
+          <div class="ocr-tabs" role="tablist">
+            <button class="ocr-tab active" type="button" role="tab" aria-selected="true" aria-controls="ocrPaste" data-tab="paste">Plakken</button>
+            <button class="ocr-tab" type="button" role="tab" aria-selected="false" aria-controls="ocrFile" data-tab="file">Bestand</button>
+            <button class="ocr-tab" type="button" role="tab" aria-selected="false" aria-controls="ocrUrl" data-tab="url">URL</button>
+          </div>
+
+          <div id="ocrPaste" class="ocr-tab-content active" role="tabpanel">
+            <div id="ocrDropPaste" class="ocr-drop" tabindex="0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 16l-4-4-4 4"/><path d="M12 12v9"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+              <p><strong>Klik hier</strong> en druk <strong>Ctrl+V</strong> (of ⌘+V)</p>
+              <p>om een afbeelding van je klembord te plakken</p>
+            </div>
+          </div>
+
+          <div id="ocrFile" class="ocr-tab-content" role="tabpanel">
+            <div id="ocrDropFile" class="ocr-drop">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p>Sleep een afbeelding hierheen of</p>
+              <p><span class="browse">klik om een bestand te kiezen</span></p>
+              <input id="fileInput" type="file" accept="image/*" style="display:none">
+            </div>
+          </div>
+
+          <div id="ocrUrl" class="ocr-tab-content" role="tabpanel">
+            <div class="ocr-url-row">
+              <input id="ocrUrlInput" class="ocr-url-input" type="url" placeholder="https://voorbeeld.nl/formule.png" autocomplete="off">
+              <button id="ocrUrlLoad" class="ocr-btn-sm" type="button">Laden</button>
+            </div>
+          </div>
+
+          <div id="ocrPreview" class="ocr-preview">
+            <div class="ocr-preview-head">
+              <h4>Voorbeeld</h4>
+              <button id="ocrRemove" class="ocr-remove" type="button">Verwijderen</button>
+            </div>
+            <img id="ocrPreviewImg" class="ocr-preview-img" alt="Formule afbeelding">
+            <div class="ocr-run-row">
+              <button id="ocrRunBtn" class="ocr-run-btn" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Herken formule
+              </button>
+              <div id="ocrProgress" class="ocr-progress">
+                <div id="ocrProgressFill" class="ocr-progress-fill"></div>
+              </div>
+            </div>
+            <p id="ocrStatus" class="ocr-status"></p>
+          </div>
+
+          <div id="ocrResult" class="ocr-result">
+            <div class="ocr-result-head">
+              <h4>Herkende tekst</h4>
+            </div>
+            <div id="ocrRawText" class="ocr-raw-text"></div>
+            <h4 style="margin-top: 0.75rem;">Gevonden formule (aanpasbaar)</h4>
+            <input id="ocrFormulaInput" class="ocr-formula-input" type="text" placeholder="Pas de formule aan indien nodig">
+            <div class="ocr-result-actions">
+              <button id="ocrUseBtn" class="ocr-use-btn" type="button">Gebruik deze formule</button>
+            </div>
+            <p class="ocr-hint">Controleer de formule altijd. OCR is niet perfect bij complexe wiskundige notatie.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Editor Section -->
+      <div class="composer-section">
+        <div class="section-heading">
+          <span class="step-number" aria-hidden="true">1</span>
+          <div>
+            <h2>Voer de formule in</h2>
+            <p>Gebruik de knoppen hieronder of klik in het veld om de formule te bewerken.</p>
+          </div>
+        </div>
+
+        <div class="editor-label-row">
+          <label id="editorLabel" class="micro-label">Formule-editor</label>
+          <div class="editor-actions">
+            <button id="undoBtn" class="small-action" type="button">Ongedaan maken</button>
+            <button id="clearBtn" class="small-action" type="button">Wissen</button>
+          </div>
+        </div>
+
+        <div id="editor" class="formula-editor" contenteditable="true" role="textbox" aria-labelledby="editorLabel" data-placeholder="Bijvoorbeeld: V = l × b × h" spellcheck="false"></div>
+
+        <div class="keyboard" aria-label="Wiskundig toetsenbord">
+          <div class="key-group">
+            <h3>Getallen</h3>
+            <div class="key-grid">
+              <button class="key-btn" type="button" data-insert="0">0</button>
+              <button class="key-btn" type="button" data-insert="1">1</button>
+              <button class="key-btn" type="button" data-insert="2">2</button>
+              <button class="key-btn" type="button" data-insert="3">3</button>
+              <button class="key-btn" type="button" data-insert="4">4</button>
+              <button class="key-btn" type="button" data-insert="5">5</button>
+              <button class="key-btn" type="button" data-insert="6">6</button>
+              <button class="key-btn" type="button" data-insert="7">7</button>
+              <button class="key-btn" type="button" data-insert="8">8</button>
+              <button class="key-btn" type="button" data-insert="9">9</button>
+              <button class="key-btn" type="button" data-insert=".">.</button>
+            </div>
+          </div>
+
+          <div class="key-group">
+            <h3>Variabelen</h3>
+            <div class="key-grid">
+              <button class="key-btn" type="button" data-insert="a" title="versnelling">a</button>
+              <button class="key-btn" type="button" data-insert="v" title="snelheid">v</button>
+              <button class="key-btn" type="button" data-insert="t" title="tijd">t</button>
+              <button class="key-btn" type="button" data-insert="s" title="afstand">s</button>
+              <button class="key-btn" type="button" data-insert="x">x</button>
+              <button class="key-btn" type="button" data-insert="y">y</button>
+              <button class="key-btn" type="button" data-insert="z">z</button>
+              <button class="key-btn" type="button" data-insert="m" title="massa">m</button>
+              <button class="key-btn" type="button" data-insert="F" title="kracht">F</button>
+              <button class="key-btn" type="button" data-insert="E" title="energie">E</button>
+              <button class="key-btn" type="button" data-insert="P" title="vermogen">P</button>
+              <button class="key-btn" type="button" data-insert="W" title="arbeid">W</button>
+              <button class="key-btn" type="button" data-insert="V" title="volume / spanning">V</button>
+              <button class="key-btn" type="button" data-insert="A" title="oppervlakte">A</button>
+              <button class="key-btn" type="button" data-insert="r" title="straal">r</button>
+              <button class="key-btn" type="button" data-insert="d" title="diameter / afstand">d</button>
+              <button class="key-btn" type="button" data-insert="g" title="zwaarteveldsterkte">g</button>
+              <button class="key-btn" type="button" data-insert="T">T</button>
+              <button class="key-btn" type="button" data-insert="I" title="stroomsterkte">I</button>
+              <button class="key-btn" type="button" data-insert="R" title="weerstand">R</button>
+              <button class="key-btn" type="button" data-insert="p">p</button>
+              <button class="key-btn" type="button" data-insert="q">q</button>
+              <button class="key-btn" type="button" data-insert="h" title="hoogte">h</button>
+              <button class="key-btn" type="button" data-insert="l" title="lengte">l</button>
+              <button class="key-btn" type="button" data-insert="b" title="breedte">b</button>
+              <button class="key-btn" type="button" data-insert="c" title="lichtsnelheid">c</button>
+            </div>
+          </div>
+
+          <div class="key-group">
+            <h3>Bewerkingen</h3>
+            <div class="key-grid">
+              <button class="key-btn" type="button" data-insert=" + " aria-label="Plus">+</button>
+              <button class="key-btn" type="button" data-insert=" − " aria-label="Min">−</button>
+              <button class="key-btn" type="button" data-insert=" × " aria-label="Keer">×</button>
+              <button class="key-btn" type="button" data-insert=" ÷ " aria-label="Gedeeld door">÷</button>
+              <button class="key-btn" type="button" data-insert=" = " aria-label="Is">=</button>
+              <button class="key-btn" type="button" data-insert="(" aria-label="Haakje openen">(</button>
+              <button class="key-btn" type="button" data-insert=")" aria-label="Haakje sluiten">)</button>
+              <button class="key-btn delta" type="button" data-insert="Δ" aria-label="Delta" title="Verandering in">Δ</button>
+              <button class="key-btn" type="button" data-insert="π" aria-label="Pi">π</button>
+            </div>
+          </div>
+
+          <div class="key-group">
+            <h3>Structuren</h3>
+            <div class="key-grid">
+              <button class="key-btn struct" type="button" data-struct="frac"><span class="key-math">a⁄b</span>Breuk</button>
+              <button class="key-btn struct" type="button" data-struct="root"><span class="key-math">√</span>Wortel</button>
+              <button class="key-btn struct" type="button" data-struct="pow2"><span class="key-math">x²</span>Kwadraat</button>
+              <button class="key-btn struct" type="button" data-struct="pow3"><span class="key-math">x³</span>Kubus</button>
+              <button class="key-btn struct" type="button" data-struct="pown"><span class="key-math">xⁿ</span>Macht</button>
+              <button class="key-btn struct" id="backspaceBtn" type="button" aria-label="Wis"><span class="key-math">⌫</span>Wis</button>
+            </div>
+          </div>
+        </div>
+
+        <button id="meerToggle" class="meer-toggle" type="button" aria-expanded="false" aria-controls="meerPanel">
+          <span>Meer symbolen</span>
+          <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg>
+        </button>
+
+        <div id="meerPanel" class="meer-panel" role="region" aria-label="Extra symbolen">
+          <h4>Griekse letters</h4>
+          <div class="key-grid">
+            <button class="key-btn" type="button" data-insert="π">π</button>
+            <button class="key-btn" type="button" data-insert="ρ">ρ</button>
+            <button class="key-btn" type="button" data-insert="α">α</button>
+            <button class="key-btn" type="button" data-insert="β">β</button>
+            <button class="key-btn" type="button" data-insert="γ">γ</button>
+            <button class="key-btn" type="button" data-insert="δ">δ</button>
+            <button class="key-btn" type="button" data-insert="ε">ε</button>
+            <button class="key-btn" type="button" data-insert="θ">θ</button>
+            <button class="key-btn" type="button" data-insert="λ">λ</button>
+            <button class="key-btn" type="button" data-insert="μ">μ</button>
+            <button class="key-btn" type="button" data-insert="σ">σ</button>
+            <button class="key-btn" type="button" data-insert="φ">φ</button>
+            <button class="key-btn" type="button" data-insert="ω">ω</button>
+            <button class="key-btn" type="button" data-insert="Ω">Ω</button>
+          </div>
+          <h4>Overige symbolen</h4>
+          <div class="key-grid">
+            <button class="key-btn" type="button" data-insert="∞">∞</button>
+            <button class="key-btn" type="button" data-insert="°">°</button>
+            <button class="key-btn" type="button" data-insert="±">±</button>
+            <button class="key-btn" type="button" data-insert="≠">≠</button>
+            <button class="key-btn" type="button" data-insert="≈">≈</button>
+            <button class="key-btn" type="button" data-insert="≤">≤</button>
+            <button class="key-btn" type="button" data-insert="≥">≥</button>
+            <button class="key-btn" type="button" data-insert="∝">∝</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Target Variable -->
+      <div class="composer-section">
+        <div class="section-heading">
+          <span class="step-number" aria-hidden="true">2</span>
+          <div>
+            <h2>Waarnaar wil je de formule omschrijven?</h2>
+            <p>Kies een variabele die in de formule voorkomt.</p>
+          </div>
+        </div>
+        <div id="targetVars" class="target-vars" role="group" aria-label="Doelvariabele">
+          <span class="target-empty">Vul eerst een formule in om variabelen te kiezen.</span>
+        </div>
+      </div>
+
+      <div class="solve-section">
+        <button id="solveBtn" class="solve-btn" type="button">
+          <span>Formule Omschrijven</span>
+        </button>
+        <div id="errorMsg" class="error-msg" role="alert" aria-live="assertive"></div>
+      </div>
+    </section>
+
+    <section id="solution" class="solution-shell" aria-labelledby="solutionTitle" aria-live="polite">
+      <div class="solution-header">
+        <div>
+          <h2 id="solutionTitle">De uitwerking</h2>
+          <p>Bekijk rustig wat er aan beide kanten verandert.</p>
+        </div>
+        <span id="stepCounter" class="step-counter">Stap 1 van 1</span>
+      </div>
+      <div class="progress-track" aria-hidden="true"><div id="progressFill" class="progress-fill"></div></div>
+
+      <div class="step-stage">
+        <div id="stepContent" class="step-content">
+          <p id="stepKicker" class="step-kicker">Beginformule</p>
+          <div id="equationStage" class="equation-stage"></div>
+          <div class="explanation-grid">
+            <div class="exp-block">
+              <h3>Wat doen we?</h3>
+              <p id="whatText"></p>
+            </div>
+            <div class="exp-block">
+              <h3>Waarom doen we dit?</h3>
+              <p id="whyText"></p>
+            </div>
+            <div class="exp-block">
+              <h3>Wat verandert er?</h3>
+              <p id="changeText"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls" aria-label="Stapbediening">
+        <div class="control-group">
+          <button id="prevBtn" class="ctrl-btn secondary" type="button">Vorige</button>
+          <button id="nextBtn" class="ctrl-btn primary" type="button">Volgende</button>
+        </div>
+        <div class="control-group">
+          <button id="playBtn" class="ctrl-btn secondary" type="button">Afspelen</button>
+          <button id="restartBtn" class="ctrl-btn secondary" type="button">Opnieuw</button>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-note">Aether herschrijft formules waarin de doelvariabele één keer voorkomt. Bij complexe of dubbelzinnige formules geeft de app uitleg.</p>
+  </main>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const editor = document.getElementById('editor');
+      const targetVars = document.getElementById('targetVars');
+      const errorMsg = document.getElementById('errorMsg');
+      const solution = document.getElementById('solution');
+      const stepContent = document.getElementById('stepContent');
+      const equationStage = document.getElementById('equationStage');
+      const whatText = document.getElementById('whatText');
+      const whyText = document.getElementById('whyText');
+      const changeText = document.getElementById('changeText');
+      const stepKicker = document.getElementById('stepKicker');
+      const stepCounter = document.getElementById('stepCounter');
+      const progressFill = document.getElementById('progressFill');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const playBtn = document.getElementById('playBtn');
+      const restartBtn = document.getElementById('restartBtn');
+
+      let savedRange = null;
+      let selectedTarget = '';
+      let steps = [];
+      let currentStep = 0;
+      let playTimer = null;
+
+      class FormulaError extends Error {
+        constructor(message) {
+          super(message);
+          this.name = 'FormulaError';
+        }
+      }
+
+      // ===== ROBUST CURSOR/SELECTION MANAGEMENT =====
+      // Save the current selection whenever it changes inside the editor
+      function captureSelection() {
+        const sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return;
+        const range = sel.getRangeAt(0);
+        if (editor.contains(range.commonAncestorContainer)) {
+          savedRange = range.cloneRange();
+        }
+      }
+
+      function setCaretAtEnd(el = editor) {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        range.collapse(false);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        savedRange = range.cloneRange();
+      }
+
+      function restoreSelection() {
+        const sel = window.getSelection();
+        // If we have a valid saved range inside the editor, restore it
+        if (savedRange && editor.contains(savedRange.commonAncestorContainer)) {
+          sel.removeAllRanges();
+          sel.addRange(savedRange);
+          return savedRange;
+        }
+        // Otherwise, if editor is empty, place caret at start
+        if (editor.childNodes.length === 0) {
+          const range = document.createRange();
+          range.setStart(editor, 0);
+          range.collapse(true);
+          sel.removeAllRanges();
+          sel.addRange(range);
+          savedRange = range.cloneRange();
+          return range;
+        }
+        // Fallback: place caret at the end
+        setCaretAtEnd(editor);
+        return savedRange;
+      }
+
+      // Insert text at the current cursor position
+      function insertText(text) {
+        editor.focus({ preventScroll: true });
+        const range = restoreSelection();
+        range.deleteContents();
+        const node = document.createTextNode(text);
+        range.insertNode(node);
+        range.setStartAfter(node);
+        range.collapse(true);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        savedRange = range.cloneRange();
+        afterChange();
+      }
+
+      function makeSlot(placeholder, content = '') {
+        const slot = document.createElement('span');
+        slot.className = 'math-slot';
+        slot.contentEditable = 'true';
+        slot.dataset.ph = placeholder;
+        if (content) slot.textContent = content;
+        return slot;
+      }
+
+      function insertStructure(type) {
+        editor.focus({ preventScroll: true });
+        const range = restoreSelection();
+        const selected = range.collapsed ? '' : range.toString().trim();
+        if (!range.collapsed) range.deleteContents();
+
+        let node;
+        let focusSlot;
+
+        if (type === 'frac') {
+          node = document.createElement('span');
+          node.className = 'math-frac';
+          node.contentEditable = 'false';
+          const num = makeSlot('teller', selected);
+          const den = makeSlot('noemer');
+          node.append(num, den);
+          focusSlot = selected ? den : num;
+        } else if (type === 'root') {
+          node = document.createElement('span');
+          node.className = 'math-root';
+          node.contentEditable = 'false';
+          const sym = document.createElement('span');
+          sym.className = 'root-sym';
+          sym.textContent = '√';
+          const content = makeSlot('inhoud', selected);
+          node.append(sym, content);
+          focusSlot = content;
+        } else if (type.startsWith('pow')) {
+          let base = selected;
+          // Try to grab the character immediately before the cursor
+          if (!base && range.startContainer.nodeType === Node.TEXT_NODE && range.startOffset > 0) {
+            const textNode = range.startContainer;
+            const before = textNode.data.slice(0, range.startOffset);
+            const match = before.match(/([A-Za-zΑ-Ωα-ωΔπ0-9])$/);
+            if (match) {
+              base = match[1];
+              const idx = range.startOffset - 1;
+              textNode.deleteData(idx, 1);
+              range.setStart(textNode, idx);
+              range.collapse(true);
+            }
+          }
+
+          node = document.createElement('span');
+          node.className = 'math-pow';
+          node.contentEditable = 'false';
+          const baseSlot = makeSlot('grondtal', base);
+          const sup = document.createElement('sup');
+          const expText = type === 'pow2' ? '2' : type === 'pow3' ? '3' : '';
+          const expSlot = makeSlot('macht', expText);
+          sup.append(expSlot);
+          node.append(baseSlot, sup);
+          focusSlot = base ? (expText ? null : expSlot) : baseSlot;
+        }
+
+        range.insertNode(node);
+        const spacer = document.createTextNode('\u200B');
+        node.parentNode.insertBefore(spacer, node.nextSibling);
+
+        const sel = window.getSelection();
+        const nextRange = document.createRange();
+        if (focusSlot) {
+          nextRange.selectNodeContents(focusSlot);
+          nextRange.collapse(false);
+        } else {
+          nextRange.setStartAfter(spacer);
+          nextRange.collapse(true);
+        }
+        sel.removeAllRanges();
+        sel.addRange(nextRange);
+        savedRange = nextRange.cloneRange();
+        afterChange();
+      }
+
+      function serializeNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) return node.data.replace(/\u200B/g, '');
+        if (node.nodeType !== Node.ELEMENT_NODE) return '';
+        const el = node;
+
+        if (el.classList.contains('math-frac')) {
+          const num = el.querySelector('.frac-num');
+          const den = el.querySelector('.frac-den');
+          return `((${serializeChildren(num)})/(${serializeChildren(den)}))`;
+        }
+        if (el.classList.contains('math-root')) {
+          const content = el.querySelector('.root-content');
+          return `sqrt(${serializeChildren(content)})`;
+        }
+        if (el.classList.contains('math-pow')) {
+          const base = el.querySelector('.pow-base, .math-slot');
+          const exp = el.querySelector('.pow-exp, sup .math-slot');
+          return `((${serializeChildren(base)})^(${serializeChildren(exp)}))`;
+        }
+        if (el.tagName === 'BR') return ' ';
+        return serializeChildren(el);
+      }
+
+      function serializeChildren(el) {
+        if (!el) return '';
+        return Array.from(el.childNodes).map(serializeNode).join('');
+      }
+
+      function getEditorSource() {
+        return serializeChildren(editor).replace(/\s+/g, ' ').trim();
+      }
+
+      function afterChange() {
+        updateTargets();
+        hideError();
+        stopPlayback();
+      }
+
+      // ===== TOKENIZER & PARSER =====
+      function tokenize(input) {
+        const raw = input.replace(/²/g, '^2').replace(/³/g, '^3').replace(/ⁿ/g, '^n');
+        const tokens = [];
+        let i = 0;
+
+        while (i < raw.length) {
+          const ch = raw[i];
+          if (/\s/.test(ch) || ch === '\u200B') { i++; continue; }
+
+          if (raw.slice(i, i + 4).toLowerCase() === 'sqrt') {
+            tokens.push({ type: 'sqrt' }); i += 4; continue;
+          }
+          if (raw.slice(i, i + 2).toLowerCase() === 'pi') {
+            tokens.push({ type: 'sym', name: 'π' }); i += 2; continue;
+          }
+          if (ch === '√') { tokens.push({ type: 'sqrt' }); i++; continue; }
+          if (ch === 'π') { tokens.push({ type: 'sym', name: 'π' }); i++; continue; }
+          if (ch === 'Δ') {
+            const next = raw[i + 1];
+            if (next && /[A-Za-zΑ-Ωα-ω]/.test(next)) {
+              tokens.push({ type: 'sym', name: 'Δ' + next });
+              i += 2;
+            } else {
+              tokens.push({ type: 'sym', name: 'Δ' });
+              i++;
+            }
+            continue;
+          }
+          if (/[0-9.]/.test(ch)) {
+            let val = '';
+            while (i < raw.length && /[0-9.]/.test(raw[i])) {
+              val += raw[i]; i++;
+            }
+            if ((val.match(/\./g) || []).length > 1) throw new FormulaError('Controleer het getal in je formule.');
+            tokens.push({ type: 'num', value: parseFloat(val) });
+            continue;
+          }
+          if (/[A-Za-zΑ-Ωα-ω]/.test(ch)) {
+            tokens.push({ type: 'sym', name: ch }); i++; continue;
+          }
+          if (ch === '+' || ch === '=') { tokens.push({ type: ch }); i++; continue; }
+          if (ch === '-' || ch === '−' || ch === '–') { tokens.push({ type: '-' }); i++; continue; }
+          if (ch === '*' || ch === '×' || ch === '·') { tokens.push({ type: '*' }); i++; continue; }
+          if (ch === '/' || ch === '÷' || ch === '⁄') { tokens.push({ type: '/' }); i++; continue; }
+          if (ch === '^') { tokens.push({ type: '^' }); i++; continue; }
+          if (ch === '(') { tokens.push({ type: 'lparen' }); i++; continue; }
+          if (ch === ')') { tokens.push({ type: 'rparen' }); i++; continue; }
+          throw new FormulaError(`Het teken "${ch}" wordt niet ondersteund.`);
+        }
+
+        const result = [];
+        for (const tok of tokens) {
+          const prev = result[result.length - 1];
+          if (prev && canEndValue(prev) && canStartValue(tok)) {
+            result.push({ type: '*' });
+          }
+          result.push(tok);
+        }
+        return result;
+      }
+
+      function canEndValue(t) {
+        return t && ['num', 'sym', 'rparen'].includes(t.type);
+      }
+
+      function canStartValue(t) {
+        return t && ['num', 'sym', 'lparen', 'sqrt'].includes(t.type);
+      }
+
+      class Parser {
+        constructor(tokens) {
+          this.tokens = tokens;
+          this.pos = 0;
+        }
+
+        peek(type) { return this.tokens[this.pos]?.type === type; }
+        take(type) { if (this.peek(type)) return this.tokens[this.pos++]; return null; }
+
+        parseExpr() {
+          let node = this.parseTerm();
+          while (this.peek('+') || this.peek('-')) {
+            if (this.take('+')) node = { type: 'add', left: node, right: this.parseTerm() };
+            else { this.take('-'); node = { type: 'sub', left: node, right: this.parseTerm() }; }
+          }
+          return node;
+        }
+
+        parseTerm() {
+          let node = this.parseUnary();
+          while (this.peek('*') || this.peek('/')) {
+            if (this.take('*')) node = { type: 'mul', left: node, right: this.parseUnary() };
+            else { this.take('/'); node = { type: 'div', left: node, right: this.parseUnary() }; }
+          }
+          return node;
+        }
+
+        parseUnary() {
+          if (this.take('-')) return { type: 'neg', arg: this.parseUnary() };
+          return this.parsePower();
+        }
+
+        parsePower() {
+          let node = this.parsePrimary();
+          if (this.take('^')) node = { type: 'pow', base: node, exp: this.parseUnary() };
+          return node;
+        }
+
+        parsePrimary() {
+          const num = this.take('num');
+          if (num) return { type: 'num', value: num.value };
+          const sym = this.take('sym');
+          if (sym) return { type: 'sym', name: sym.name };
+          if (this.take('sqrt')) {
+            if (!this.take('lparen')) throw new FormulaError('Zet de inhoud van de wortel tussen haakjes.');
+            const arg = this.parseExpr();
+            if (!this.take('rparen')) throw new FormulaError('De wortel is niet gesloten.');
+            return { type: 'sqrt', arg };
+          }
+          if (this.take('lparen')) {
+            const node = this.parseExpr();
+            if (!this.take('rparen')) throw new FormulaError('Er ontbreekt een sluitend haakje.');
+            return node;
+          }
+          throw new FormulaError('De formule is nog niet compleet.');
+        }
+      }
+
+      function parseEquation(source) {
+        const tokens = tokenize(source);
+        const eqPositions = tokens.map((t, i) => t.type === '=' ? i : -1).filter(i => i >= 0);
+        if (eqPositions.length === 0) throw new FormulaError('Gebruik een gelijkteken in de formule.');
+        if (eqPositions.length > 1) throw new FormulaError('Gebruik precies één gelijkteken.');
+        const eqIdx = eqPositions[0];
+        if (eqIdx === 0 || eqIdx === tokens.length - 1) {
+          throw new FormulaError('Vul aan beide kanten van het gelijkteken iets in.');
+        }
+
+        const leftParser = new Parser(tokens.slice(0, eqIdx));
+        const rightParser = new Parser(tokens.slice(eqIdx + 1));
+        const left = leftParser.parseExpr();
+        const right = rightParser.parseExpr();
+        if (leftParser.pos !== leftParser.tokens.length || rightParser.pos !== rightParser.tokens.length) {
+          throw new FormulaError('Controleer de volgorde van de tekens.');
+        }
+        return { left, right };
+      }
+
+      function countTarget(node, target) {
+        if (!node) return 0;
+        if (node.type === 'sym') return node.name === target ? 1 : 0;
+        if (['num'].includes(node.type)) return 0;
+        if (['neg', 'sqrt'].includes(node.type)) return countTarget(node.arg, target);
+        if (node.type === 'pow') return countTarget(node.base, target) + countTarget(node.exp, target);
+        return countTarget(node.left, target) + countTarget(node.right, target);
+      }
+
+      function collectVariables(node, result = new Set()) {
+        if (!node) return result;
+        if (node.type === 'sym') result.add(node.name);
+        else if (['neg', 'sqrt'].includes(node.type)) collectVariables(node.arg, result);
+        else if (node.type === 'pow') { collectVariables(node.base, result); collectVariables(node.exp, result); }
+        else if (node.type !== 'num') { collectVariables(node.left, result); collectVariables(node.right, result); }
+        return result;
+      }
+
+      function extractVariables(source) {
+        try {
+          const eq = parseEquation(source);
+          return Array.from(collectVariables(eq.left, collectVariables(eq.right))).sort();
+        } catch {
+          const cleaned = source.replace(/sqrt|pi/gi, '');
+          return Array.from(new Set(cleaned.match(/[A-Za-zΑ-Ωα-ωΔ]/g) || [])).sort();
+        }
+      }
+
+      function formatNum(v) {
+        return Number.isInteger(v) ? String(v) : String(Number(v.toFixed(6))).replace('.', ',');
+      }
+
+      function renderNode(node, parentPrec = 0) {
+        const prec = { add: 1, sub: 1, mul: 2, div: 2, neg: 3, pow: 4, sqrt: 4, num: 5, sym: 5 };
+        const ownPrec = prec[node.type] || 5;
+        let html = '';
+
+        switch (node.type) {
+          case 'num': html = formatNum(node.value); break;
+          case 'sym': html = node.name; break;
+          case 'neg': html = `−${renderNode(node.arg, ownPrec)}`; break;
+          case 'add': html = `${renderNode(node.left, ownPrec)} + ${renderNode(node.right, ownPrec)}`; break;
+          case 'sub': html = `${renderNode(node.left, ownPrec)} − ${renderNode(node.right, ownPrec + 0.1)}`; break;
+          case 'mul': html = `${renderNode(node.left, ownPrec)} × ${renderNode(node.right, ownPrec)}`; break;
+          case 'div':
+            html = `<span class="math-frac"><span class="frac-num">${renderNode(node.left, 0)}</span><span class="frac-den">${renderNode(node.right, 0)}</span></span>`;
+            break;
+          case 'pow': html = `${renderNode(node.base, ownPrec)}<sup>${renderNode(node.exp, 0)}</sup>`; break;
+          case 'sqrt':
+            html = `<span class="math-root"><span class="root-sym">√</span><span class="root-content">${renderNode(node.arg, 0)}</span></span>`;
+            break;
+        }
+
+        if (ownPrec < parentPrec && !['div', 'pow'].includes(node.type)) return `(${html})`;
+        return html;
+      }
+
+      function renderEquation(left, right, highlightSide = '', targetName = '') {
+        const leftClass = highlightSide === 'left' ? 'eq-side highlight' : 'eq-side';
+        const rightClass = highlightSide === 'right' ? 'eq-side highlight' : 'eq-side';
+        const leftHtml = renderNode(left).replace(new RegExp(`\\b${escapeRegex(targetName)}\\b`, 'g'), `<span class="target-mark">${targetName}</span>`);
+        const rightHtml = renderNode(right).replace(new RegExp(`\\b${escapeRegex(targetName)}\\b`, 'g'), `<span class="target-mark">${targetName}</span>`);
+        return `<span class="${leftClass}">${leftHtml}</span><span class="equals-sign">=</span><span class="${rightClass}">${rightHtml}</span>`;
+      }
+
+      function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+      function inlineMath(node) {
+        return `<span class="inline-math">${renderNode(node)}</span>`;
+      }
+
+      function findTargetSide(left, right, target) {
+        const lc = countTarget(left, target);
+        const rc = countTarget(right, target);
+        if (lc === 0 && rc === 0) throw new FormulaError('De gekozen variabele komt niet voor in de formule.');
+        if (lc > 0 && rc > 0) throw new FormulaError('De variabele staat aan beide kanten. Dat kan Aether niet veilig oplossen.');
+        if (lc > 1 || rc > 1) throw new FormulaError('De variabele komt meerdere keren voor. Aether lost alleen formules op met één voorkomen.');
+        return lc > 0 ? 'left' : 'right';
+      }
+
+      function isolateStep(left, right, target) {
+        const side = findTargetSide(left, right, target);
+        const expr = side === 'left' ? left : right;
+        const other = side === 'left' ? right : left;
+        const has = (node) => countTarget(node, target) > 0;
+
+        let result, what, why, change;
+
+        if (expr.type === 'sym' && expr.name === target) {
+          return null;
+        }
+
+        if (expr.type === 'neg') {
+          result = side === 'left'
+            ? { left: expr.arg, right: { type: 'neg', arg: other } }
+            : { left: { type: 'neg', arg: other }, right: expr.arg };
+          what = `We vermenigvuldigen beide kanten met <span class="inline-math">−1</span>.`;
+          why = `Zo verdwijnt het minteken vóór ${target}.`;
+          change = `Het minteken valt weg, ${target} staat nu positief.`;
+        } else if (expr.type === 'add') {
+          const varPart = has(expr.left) ? expr.left : expr.right;
+          const constPart = has(expr.left) ? expr.right : expr.left;
+          result = side === 'left'
+            ? { left: varPart, right: { type: 'sub', left: other, right: constPart } }
+            : { left: { type: 'sub', left: other, right: constPart }, right: varPart };
+          what = `We trekken ${inlineMath(constPart)} van beide kanten af.`;
+          why = `Om ${target} vrij te maken, verwijderen we ${inlineMath(constPart)} aan dezelfde kant.`;
+          change = `${inlineMath(constPart)} valt weg aan de kant van ${target}.`;
+        } else if (expr.type === 'sub') {
+          if (has(expr.left)) {
+            result = side === 'left'
+              ? { left: expr.left, right: { type: 'add', left: other, right: expr.right } }
+              : { left: { type: 'add', left: other, right: expr.right }, right: expr.left };
+            what = `We tellen ${inlineMath(expr.right)} bij beide kanten op.`;
+            why = `Optellen is de tegengestelde bewerking van aftrekken.`;
+            change = `De aftrekking valt weg, ${target} staat nu alleen met een optelling aan de andere kant.`;
+          } else {
+            result = side === 'left'
+              ? { left: { type: 'sub', left: expr.left, right: other }, right: expr.right }
+              : { left: expr.right, right: { type: 'sub', left: expr.left, right: other } };
+            what = `We trekken ${inlineMath(expr.left)} van beide kanten af.`;
+            why = `Hierdoor staat aan de kant van ${target} alleen ${inlineMath({ type: 'neg', arg: { type: 'sym', name: target } })} over.`;
+            change = `${inlineMath(expr.left)} valt weg. In de volgende stap werken we het minteken weg.`;
+          }
+        } else if (expr.type === 'mul') {
+          const varPart = has(expr.left) ? expr.left : expr.right;
+          const constPart = has(expr.left) ? expr.right : expr.left;
+          result = side === 'left'
+            ? { left: varPart, right: { type: 'div', left: other, right: constPart } }
+            : { left: { type: 'div', left: other, right: constPart }, right: varPart };
+          what = `We delen beide kanten door ${inlineMath(constPart)}.`;
+          why = `Delen maakt de vermenigvuldiging ongedaan, zodat ${target} vrijkomt.`;
+          change = `${inlineMath(constPart)} valt weg aan de kant van ${target}.`;
+        } else if (expr.type === 'div') {
+          if (has(expr.left)) {
+            result = side === 'left'
+              ? { left: expr.left, right: { type: 'mul', left: other, right: expr.right } }
+              : { left: { type: 'mul', left: other, right: expr.right }, right: expr.left };
+            what = `We vermenigvuldigen beide kanten met ${inlineMath(expr.right)}.`;
+            why = `Vermenigvuldigen maakt de deling ongedaan.`;
+            change = `De deling door ${inlineMath(expr.right)} valt weg.`;
+          } else {
+            result = side === 'left'
+              ? { left: expr.left, right: { type: 'mul', left: other, right: expr.right } }
+              : { left: { type: 'mul', left: other, right: expr.right }, right: expr.left };
+            what = `We vermenigvuldigen beide kanten met ${target}.`;
+            why = `${target} staat in de noemer. Door te vermenigvuldigen verdwijnt de breuk.`;
+            change = `De breuk valt weg, ${target} verschijnt in de teller.`;
+          }
+        } else if (expr.type === 'pow') {
+          if (has(expr.exp)) {
+            throw new FormulaError('De variabele staat in een exponent. Dit vereist logaritmen die Aether niet ondersteunt.');
+          }
+          if (!has(expr.base)) {
+            throw new FormulaError('Aether kan de variabele in deze macht niet vinden.');
+          }
+          const exp = expr.exp;
+          let inverse;
+          if (exp.type === 'num' && Number.isInteger(exp.value) && exp.value > 1) {
+            const deg = exp.value;
+            inverse = { type: 'sqrt', arg: other, degree: deg };
+            what = deg === 2
+              ? 'We nemen aan beide kanten de vierkantswortel.'
+              : `We nemen aan beide kanten de ${deg}e-machtswortel.`;
+            why = `De wortel is de tegengestelde bewerking van verheffen tot de macht ${deg}.`;
+            change = `De macht ${deg} valt weg, de wortel verschijnt aan de andere kant.`;
+          } else {
+            inverse = { type: 'pow', base: other, exp: { type: 'div', left: { type: 'num', value: 1 }, right: exp } };
+            what = `We verheffen beide kanten tot de macht ${inlineMath({ type: 'div', left: { type: 'num', value: 1 }, right: exp })}.`;
+            why = 'De omgekeerde macht maakt de exponent ongedaan.';
+            change = `De macht valt weg.`;
+          }
+          result = side === 'left'
+            ? { left: expr.base, right: inverse }
+            : { left: inverse, right: expr.base };
+        } else if (expr.type === 'sqrt') {
+          const deg = expr.degree || 2;
+          const power = { type: 'pow', base: other, exp: { type: 'num', value: deg } };
+          result = side === 'left'
+            ? { left: expr.arg, right: power }
+            : { left: power, right: expr.arg };
+          what = deg === 2
+            ? 'We kwadrateren beide kanten.'
+            : `We verheffen beide kanten tot de macht ${deg}.`;
+          why = `Machtsverheffen is de tegengestelde bewerking van worteltrekken.`;
+          change = `De wortel valt weg, de macht ${deg} verschijnt aan de andere kant.`;
+        } else {
+          throw new FormulaError('Deze formule kan Aether niet omschrijven. Probeer een eenvoudigere formule.');
+        }
+
+        return {
+          left: result.left,
+          right: result.right,
+          highlight: side,
+          what, why, change
+        };
+      }
+
+      function buildSolution(equation, target) {
+        let { left, right } = equation;
+        findTargetSide(left, right, target);
+
+        const generated = [{
+          left, right,
+          kicker: 'Beginformule',
+          what: `We beginnen met de formule zoals je die hebt ingevoerd.`,
+          why: `We willen ${target} isoleren, dus we zoeken waar ${target} in de formule staat.`,
+          change: `${target} staat aan één kant van het gelijkteken.`,
+          highlight: '',
+          target
+        }];
+
+        let guard = 0;
+        while (guard < 20) {
+          guard++;
+          let side;
+          try {
+            side = findTargetSide(left, right, target);
+          } catch (e) {
+            throw e;
+          }
+          const expr = side === 'left' ? left : right;
+
+          if (expr.type === 'sym' && expr.name === target) break;
+
+          const step = isolateStep(left, right, target);
+          if (!step) break;
+
+          left = step.left;
+          right = step.right;
+          generated.push({
+            left, right,
+            kicker: 'Algebraïsche bewerking',
+            what: step.what,
+            why: step.why,
+            change: step.change,
+            highlight: step.highlight,
+            target
+          });
+        }
+
+        if (guard >= 20) throw new FormulaError('De formule vereist te veel bewerkingen.');
+
+        const finalSide = findTargetSide(left, right, target);
+        if (finalSide === 'right') {
+          generated.push({
+            left: right, right: left,
+            kicker: 'Laatste stap',
+            what: 'We draaien de formule om.',
+            why: 'Een gelijkheid mag je van beide kanten lezen. Conventioneel staat de doelvariabele links.',
+            change: `${target} staat nu links, de uitdrukking rechts.`,
+            highlight: 'left',
+            target,
+            isFinal: true
+          });
+        } else {
+          const last = generated[generated.length - 1];
+          last.kicker = 'Eindresultaat';
+          last.isFinal = true;
+        }
+
+        return generated;
+      }
+
+      function updateTargets() {
+        const source = getEditorSource();
+        const vars = source ? extractVariables(source) : [];
+        if (selectedTarget && !vars.includes(selectedTarget)) selectedTarget = '';
+
+        targetVars.innerHTML = '';
+        if (!vars.length) {
+          const empty = document.createElement('span');
+          empty.className = 'target-empty';
+          empty.textContent = source ? 'Nog geen variabelen gevonden.' : 'Vul eerst een formule in om variabelen te kiezen.';
+          targetVars.append(empty);
+        } else {
+          vars.forEach(v => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `target-option${selectedTarget === v ? ' selected' : ''}`;
+            btn.textContent = v;
+            btn.setAttribute('aria-pressed', selectedTarget === v ? 'true' : 'false');
+            btn.setAttribute('aria-label', `Omschrijven naar ${v}`);
+            btn.addEventListener('click', () => {
+              selectedTarget = v;
+              updateTargets();
+              hideError();
+            });
+            targetVars.append(btn);
+          });
+        }
+      }
+
+      function showError(msg) {
+        errorMsg.textContent = msg;
+        errorMsg.classList.add('visible');
+      }
+
+      function hideError() {
+        errorMsg.textContent = '';
+        errorMsg.classList.remove('visible');
+      }
+
+      function solve() {
+        stopPlayback();
+        hideError();
+        try {
+          const source = getEditorSource();
+          if (!source) throw new FormulaError('Vul eerst een formule in.');
+          if (source.length > 300) throw new FormulaError('De formule is te lang.');
+          if (!selectedTarget) throw new FormulaError('Kies eerst een doelvariabele.');
+
+          const eq = parseEquation(source);
+          const vars = collectVariables(eq.left, collectVariables(eq.right));
+          if (!vars.has(selectedTarget)) throw new FormulaError('De gekozen variabele komt niet voor in de formule.');
+
+          steps = buildSolution(eq, selectedTarget);
+          currentStep = 0;
+          solution.classList.add('visible');
+          renderStep();
+          setTimeout(() => solution.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+        } catch (e) {
+          const msg = e instanceof FormulaError ? e.message : 'Er ging iets mis. Controleer de invoer.';
+          showError(msg);
+          solution.classList.remove('visible');
+        }
+      }
+
+      function renderStep() {
+        if (!steps.length) return;
+        const step = steps[currentStep];
+        const pct = ((currentStep + 1) / steps.length) * 100;
+        stepCounter.textContent = `Stap ${currentStep + 1} van ${steps.length}`;
+        progressFill.style.width = `${pct}%`;
+        stepKicker.textContent = step.kicker;
+        equationStage.innerHTML = renderEquation(step.left, step.right, step.highlight, step.target || '');
+        whatText.innerHTML = step.what;
+        whyText.innerHTML = step.why;
+        changeText.innerHTML = step.change;
+        prevBtn.disabled = currentStep === 0;
+        nextBtn.disabled = currentStep === steps.length - 1;
+        nextBtn.textContent = currentStep === steps.length - 1 ? 'Klaar' : 'Volgende';
+
+        stepContent.classList.remove('animate-in');
+        void stepContent.offsetWidth;
+        stepContent.classList.add('animate-in');
+      }
+
+      function stopPlayback() {
+        if (playTimer) clearInterval(playTimer);
+        playTimer = null;
+        playBtn.textContent = 'Afspelen';
+      }
+
+      function startPlayback() {
+        if (!steps.length) return;
+        if (playTimer) { stopPlayback(); return; }
+        if (currentStep === steps.length - 1) currentStep = 0;
+        renderStep();
+        playBtn.textContent = 'Pauzeren';
+        playTimer = setInterval(() => {
+          if (currentStep >= steps.length - 1) { stopPlayback(); return; }
+          currentStep++;
+          renderStep();
+        }, 2600);
+      }
+
+      // ===== GLOBAL PASTE HANDLER FOR EDITOR =====
+      editor.addEventListener('paste', e => {
+        e.preventDefault();
+        const text = e.clipboardData.getData('text/plain').replace(/[\r\n]+/g, ' ');
+        insertText(text);
+      });
+
+      // ===== CURSOR PRESERVATION =====
+      // Aggressively save selection whenever it changes anywhere
+      document.addEventListener('selectionchange', captureSelection);
+
+      // Save selection when editor gains focus or user interacts with it
+      editor.addEventListener('focus', captureSelection);
+      editor.addEventListener('mouseup', captureSelection);
+      editor.addEventListener('keyup', captureSelection);
+      editor.addEventListener('click', captureSelection);
+      editor.addEventListener('input', () => {
+        captureSelection();
+        afterChange();
+      });
+
+      // Prevent buttons from stealing focus when clicked (pointerdown prevents it)
+      const interactiveButtons = document.querySelectorAll('.key-btn, .meer-toggle, .ocr-toggle, .ocr-tab, .small-action, #backspaceBtn, #undoBtn, #clearBtn, #meerToggle, #ocrToggle, #ocrRemove, #ocrRunBtn, #ocrUseBtn, #ocrUrlLoad');
+      interactiveButtons.forEach(btn => {
+        btn.addEventListener('pointerdown', e => e.preventDefault());
+      });
+
+      // Key insert buttons
+      document.querySelectorAll('[data-insert]').forEach(btn => {
+        btn.addEventListener('click', () => insertText(btn.dataset.insert));
+      });
+
+      // Structure buttons
+      document.querySelectorAll('[data-struct]').forEach(btn => {
+        btn.addEventListener('click', () => insertStructure(btn.dataset.struct));
+      });
+
+      // Backspace
+      document.getElementById('backspaceBtn').addEventListener('click', () => {
+        editor.focus({ preventScroll: true });
+        restoreSelection();
+        document.execCommand('delete', false);
+        captureSelection();
+        afterChange();
+      });
+
+      // Undo / Clear
+      document.getElementById('undoBtn').addEventListener('click', () => {
+        editor.focus({ preventScroll: true });
+        document.execCommand('undo', false);
+        captureSelection();
+        afterChange();
+      });
+
+      document.getElementById('clearBtn').addEventListener('click', () => {
+        editor.innerHTML = '';
+        selectedTarget = '';
+        savedRange = null;
+        steps = [];
+        solution.classList.remove('visible');
+        stopPlayback();
+        afterChange();
+        editor.focus({ preventScroll: true });
+      });
+
+      // Enter to solve
+      editor.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          if (e.ctrlKey || e.metaKey) solve();
+        }
+      });
+
+      // Meer symbolen toggle
+      document.getElementById('meerToggle').addEventListener('click', () => {
+        const panel = document.getElementById('meerPanel');
+        const toggle = document.getElementById('meerToggle');
+        const isOpen = panel.classList.toggle('open');
+        toggle.classList.toggle('open', isOpen);
+        toggle.setAttribute('aria-expanded', isOpen);
+      });
+
+      // Solve button
+      document.getElementById('solveBtn').addEventListener('click', solve);
+
+      // Playback controls
+      prevBtn.addEventListener('click', () => { stopPlayback(); if (currentStep > 0) { currentStep--; renderStep(); } });
+      nextBtn.addEventListener('click', () => { stopPlayback(); if (currentStep < steps.length - 1) { currentStep++; renderStep(); } });
+      playBtn.addEventListener('click', startPlayback);
+      restartBtn.addEventListener('click', () => { stopPlayback(); currentStep = 0; renderStep(); });
+
+      // ===== OCR FUNCTIONALITY =====
+      const ocrToggle = document.getElementById('ocrToggle');
+      const ocrPanel = document.getElementById('ocrPanel');
+      const ocrTabs = document.querySelectorAll('.ocr-tab');
+      const ocrTabContents = document.querySelectorAll('.ocr-tab-content');
+      const ocrDropPaste = document.getElementById('ocrDropPaste');
+      const ocrDropFile = document.getElementById('ocrDropFile');
+      const fileInput = document.getElementById('fileInput');
+      const ocrUrlInput = document.getElementById('ocrUrlInput');
+      const ocrUrlLoad = document.getElementById('ocrUrlLoad');
+      const ocrPreview = document.getElementById('ocrPreview');
+      const ocrPreviewImg = document.getElementById('ocrPreviewImg');
+      const ocrRemove = document.getElementById('ocrRemove');
+      const ocrRunBtn = document.getElementById('ocrRunBtn');
+      const ocrProgress = document.getElementById('ocrProgress');
+      const ocrProgressFill = document.getElementById('ocrProgressFill');
+      const ocrStatus = document.getElementById('ocrStatus');
+      const ocrResult = document.getElementById('ocrResult');
+      const ocrRawText = document.getElementById('ocrRawText');
+      const ocrFormulaInput = document.getElementById('ocrFormulaInput');
+      const ocrUseBtn = document.getElementById('ocrUseBtn');
+
+      let ocrImageDataUrl = null;
+
+      // Toggle OCR panel
+      ocrToggle.addEventListener('click', () => {
+        const isOpen = ocrPanel.classList.toggle('open');
+        ocrToggle.classList.toggle('open', isOpen);
+        ocrToggle.setAttribute('aria-expanded', isOpen);
+      });
+
+      // Tab switching
+      ocrTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          ocrTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+          ocrTabContents.forEach(c => c.classList.remove('active'));
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          document.getElementById('ocr' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1)).classList.add('active');
+        });
+      });
+
+      // Show image preview
+      function showOcrImage(dataUrl) {
+        ocrImageDataUrl = dataUrl;
+        ocrPreviewImg.src = dataUrl;
+        ocrPreview.classList.add('visible');
+        ocrResult.classList.remove('visible');
+        ocrProgress.classList.remove('visible');
+        ocrStatus.textContent = '';
+      }
+
+      // Load image from file
+      function loadFile(file) {
+        if (!file || !file.type.startsWith('image/')) {
+          ocrStatus.textContent = 'Kies een geldige afbeelding.';
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => showOcrImage(e.target.result);
+        reader.readAsDataURL(file);
+      }
+
+      // File drop zone
+      ocrDropFile.addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files[0]) loadFile(e.target.files[0]);
+      });
+
+      ocrDropFile.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        ocrDropFile.classList.add('dragover');
+      });
+      ocrDropFile.addEventListener('dragleave', () => ocrDropFile.classList.remove('dragover'));
+      ocrDropFile.addEventListener('drop', (e) => {
+        e.preventDefault();
+        ocrDropFile.classList.remove('dragover');
+        if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+      });
+
+      // Paste image (works in both paste drop zone and globally on the page)
+      function handleImagePaste(e) {
+        const items = e.clipboardData?.items;
+        if (!items) return;
+        for (const item of items) {
+          if (item.type.startsWith('image/')) {
+            const file = item.getAsFile();
+            if (file) {
+              loadFile(file);
+              // Open the OCR panel and show preview
+              ocrPanel.classList.add('open');
+              ocrToggle.classList.add('open');
+              ocrToggle.setAttribute('aria-expanded', 'true');
+              e.preventDefault();
+              e.stopPropagation();
+              return;
+            }
+          }
+        }
+      }
+
+      // Click the paste drop zone to focus it for pasting
+      ocrDropPaste.addEventListener('click', () => {
+        ocrDropPaste.focus();
+        ocrStatus.textContent = 'Druk nu op Ctrl+V (of ⌘+V) om te plakken.';
+      });
+
+      ocrDropPaste.addEventListener('paste', handleImagePaste);
+
+      // Also allow pasting images anywhere on the page (if not in editor)
+      document.addEventListener('paste', (e) => {
+        // Only handle image paste if the editor is not focused (let editor handle text paste)
+        if (document.activeElement !== editor && document.activeElement !== ocrUrlInput && document.activeElement !== ocrFormulaInput) {
+          const items = e.clipboardData?.items;
+          if (items) {
+            for (const item of items) {
+              if (item.type.startsWith('image/')) {
+                const file = item.getAsFile();
+                if (file) {
+                  loadFile(file);
+                  ocrPanel.classList.add('open');
+                  ocrToggle.classList.add('open');
+                  ocrToggle.setAttribute('aria-expanded', 'true');
+                  e.preventDefault();
+                  return;
+                }
+              }
+            }
+          }
+        }
+      });
+
+      // URL loading
+      ocrUrlLoad.addEventListener('click', async () => {
+        const url = ocrUrlInput.value.trim();
+        if (!url) return;
+        ocrStatus.textContent = 'Afbeelding laden...';
+        try {
+          // Fetch the image and convert to data URL for CORS safety
+          const response = await fetch(url);
+          const blob = await response.blob();
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            showOcrImage(e.target.result);
+            ocrStatus.textContent = 'Afbeelding geladen.';
+          };
+          reader.readAsDataURL(blob);
+        } catch (err) {
+          // Fallback: try direct assignment (may work for same-origin or CORS-enabled URLs)
+          ocrPreviewImg.crossOrigin = 'anonymous';
+          ocrPreviewImg.onload = () => {
+            // Convert loaded image to data URL
+            const canvas = document.createElement('canvas');
+            canvas.width = ocrPreviewImg.naturalWidth;
+            canvas.height = ocrPreviewImg.naturalHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(ocrPreviewImg, 0, 0);
+            try {
+              const dataUrl = canvas.toDataURL('image/png');
+              showOcrImage(dataUrl);
+              ocrStatus.textContent = 'Afbeelding geladen.';
+            } catch (canvasErr) {
+              // CORS issue - just show the image directly
+              ocrImageDataUrl = url;
+              ocrPreviewImg.src = url;
+              ocrPreview.classList.add('visible');
+              ocrStatus.textContent = 'Let op: mogelijk werkt OCR niet door CORS-beperkingen.';
+            }
+          };
+          ocrPreviewImg.onerror = () => {
+            ocrStatus.textContent = 'Kon de afbeelding niet laden. Controleer de URL.';
+          };
+          ocrPreviewImg.src = url;
+        }
+      });
+
+      ocrUrlInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); ocrUrlLoad.click(); }
+      });
+
+      // Remove image
+      ocrRemove.addEventListener('click', () => {
+        ocrImageDataUrl = null;
+        ocrPreviewImg.src = '';
+        ocrPreview.classList.remove('visible');
+        ocrResult.classList.remove('visible');
+        ocrStatus.textContent = '';
+        fileInput.value = '';
+      });
+
+      // Math OCR post-processing: convert raw OCR text to formula notation
+      function processOcrText(raw) {
+        let text = raw;
+
+        // Normalize whitespace
+        text = text.replace(/\s+/g, ' ').trim();
+
+        // Common OCR symbol conversions
+        const replacements = [
+          // Greek letters (case-insensitive where appropriate)
+          [/\bpi\b/gi, 'π'],
+          [/\bPi\b/g, 'π'],
+          [/\brho\b/gi, 'ρ'],
+          [/\balpha\b/gi, 'α'],
+          [/\bbeta\b/gi, 'β'],
+          [/\bgamma\b/gi, 'γ'],
+          [/\bdelta\b/gi, 'Δ'],
+          [/\bDelta\b/g, 'Δ'],
+          [/\bepsilon\b/gi, 'ε'],
+          [/\btheta\b/gi, 'θ'],
+          [/\blambda\b/gi, 'λ'],
+          [/\bmu\b/gi, 'μ'],
+          [/\bsigma\b/gi, 'σ'],
+          [/\bphi\b/gi, 'φ'],
+          [/\bomega\b/gi, 'ω'],
+          [/\bOmega\b/g, 'Ω'],
+
+          // Operators
+          [/\btimes\b/gi, ' × '],
+          [/\bdivided by\b/gi, ' ÷ '],
+          [/\bdiv\b/gi, ' ÷ '],
+          [/\bplus\b/gi, ' + '],
+          [/\bminus\b/gi, ' − '],
+          [/\bequals\b/gi, ' = '],
+          [/\bis equal to\b/gi, ' = '],
+          [/\bis\b/g, ' = '],
+          [/\s:\s/g, ' = '],
+          [/\s->\s/g, ' = '],
+
+          // Multiplication symbols
+          [/\s\*\s/g, ' × '],
+          [/\s\.\s/g, ' × '],
+          [/\s·\s/g, ' × '],
+          [/\s•\s/g, ' × '],
+
+          // Division
+          [/\s\/\s/g, ' ÷ '],
+
+          // Power notation (e.g., x2, x^2, x squared)
+          [/\^(\d+)/g, '^$1'],
+          [/\bsquared\b/gi, '^2'],
+          [/\bcubed\b/gi, '^3'],
+
+          // Square root
+          [/\bsqrt\s*\(([^)]+)\)/gi, 'sqrt($1)'],
+          [/\bsquare root of\s+/gi, 'sqrt('],
+          [/\broot\s+(\d+)\s+of\s+/gi, 'root$1('],
+
+          // Delta prefix (e.g., "delta v" → "Δv")
+          [/\bΔ\s+([a-zA-Z])/g, 'Δ$1'],
+          [/\bD\s*([a-zA-Z])\b/g, 'Δ$1'],
+
+          // Remove common OCR artifacts
+          [/[_~`]/g, ''],
+          [/\|/g, 'l'],
+          [/\bO\b(?=\s*[=×÷])/g, '0'],
+          [/\bl\b(?=\s*[=×÷])/g, '1'],
+        ];
+
+        for (const [pattern, replacement] of replacements) {
+          text = text.replace(pattern, replacement);
+        }
+
+        // Fix: insert × between adjacent variables/numbers (implicit multiplication)
+        // e.g., "abc" → "a × b × c" is too aggressive, but "2x" → "2 × x"
+        text = text.replace(/(\d)([a-zA-ZΑ-Ωα-ωΔπ])/g, '$1 × $2');
+
+        // Clean up multiple spaces
+        text = text.replace(/\s+/g, ' ').trim();
+
+        // Convert fractions: "a/b" → "a ÷ b" or keep as fraction marker
+        // The tokenizer will handle "a/b" correctly
+
+        return text;
+      }
+
+      // Run Tesseract.js OCR
+      ocrRunBtn.addEventListener('click', async () => {
+        if (!ocrImageDataUrl) return;
+
+        ocrRunBtn.disabled = true;
+        ocrProgress.classList.add('visible');
+        ocrProgressFill.style.width = '0%';
+        ocrStatus.textContent = 'OCR-engine initialiseren...';
+        ocrResult.classList.remove('visible');
+
+        try {
+          if (typeof Tesseract === 'undefined') {
+            throw new Error('De OCR-engine wordt nog geladen. Probeer het over een paar seconden opnieuw.');
+          }
+
+          const worker = await Tesseract.createWorker('eng', 1, {
+            logger: (m) => {
+              if (m.status === 'recognizing text') {
+                const pct = Math.round(m.progress * 100);
+                ocrProgressFill.style.width = pct + '%';
+                ocrStatus.textContent = `Tekst herkennen... ${pct}%`;
+              } else if (m.status) {
+                ocrStatus.textContent = m.status + '...';
+              }
+            }
+          });
+
+          const { data } = await worker.recognize(ocrImageDataUrl);
+          await worker.terminate();
+
+          const raw = data.text.trim();
+          if (!raw) {
+            ocrStatus.textContent = 'Geen tekst gevonden. Probeer een duidelijkere afbeelding.';
+            ocrProgress.classList.remove('visible');
+            ocrRunBtn.disabled = false;
+            return;
+          }
+
+          const processed = processOcrText(raw);
+          ocrRawText.textContent = raw;
+          ocrFormulaInput.value = processed;
+          ocrResult.classList.add('visible');
+          ocrProgressFill.style.width = '100%';
+          ocrStatus.textContent = 'Klaar! Controleer en pas de formule aan indien nodig.';
+        } catch (err) {
+          console.error('OCR error:', err);
+          ocrStatus.textContent = 'Fout bij herkenning: ' + (err.message || 'onbekende fout');
+          ocrProgress.classList.remove('visible');
+        } finally {
+          ocrRunBtn.disabled = false;
+        }
+      });
+
+      // Use the OCR result in the editor
+      ocrUseBtn.addEventListener('click', () => {
+        const formula = ocrFormulaInput.value.trim();
+        if (!formula) return;
+
+        // Clear editor and insert the formula as plain text (user can refine)
+        editor.innerHTML = '';
+        editor.focus({ preventScroll: true });
+        setCaretAtEnd(editor);
+        insertText(formula);
+
+        // Close the OCR panel to reveal the editor
+        ocrPanel.classList.remove('open');
+        ocrToggle.classList.remove('open');
+        ocrToggle.setAttribute('aria-expanded', 'false');
+
+        // Scroll to editor
+        editor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+
+      // ===== THEME =====
+      function initTheme() {
+        let stored = '';
+        try { stored = localStorage.getItem('aether-theme') || ''; } catch {}
+        const dark = stored ? stored === 'dark' : window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+        document.documentElement.classList.toggle('dark', dark);
+        updateThemeIcon();
+      }
+
+      function updateThemeIcon() {
+        const dark = document.documentElement.classList.contains('dark');
+        const btn = document.getElementById('themeToggle');
+        btn.setAttribute('aria-label', dark ? 'Lichte modus' : 'Donkere modus');
+        document.getElementById('themeIcon').innerHTML = dark
+          ? '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path>'
+          : '<path d="M12 3a6 6 0 1 0 9 9 9 9 0 1 1-9-9Z"></path>';
+      }
+
+      document.getElementById('themeToggle').addEventListener('click', () => {
+        const dark = document.documentElement.classList.toggle('dark');
+        try { localStorage.setItem('aether-theme', dark ? 'dark' : 'light'); } catch {}
+        updateThemeIcon();
+      });
+
+      initTheme();
+      updateTargets();
+    })();
+  </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, X } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 
 interface GradingFeedbackProps {
   isCorrect: boolean;
@@ -22,7 +22,7 @@ export function GradingFeedback({
   onContinue,
   continueLabel,
 }: GradingFeedbackProps) {
-  const { t } = useTranslation();
+  const t = i18n.t.bind(i18n);
 
   return (
     <div

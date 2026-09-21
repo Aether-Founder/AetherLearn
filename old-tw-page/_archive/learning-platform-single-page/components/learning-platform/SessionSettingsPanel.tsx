@@ -4,7 +4,7 @@ import { ArrowLeft, Check, Circle } from "lucide-react";
 import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
 import { daysUntilExam } from "@/lib/learning-platform/term-filters";
 import type { LerenActivity, QuestionType, ReviewMode, StudySettings, SrsAlgorithm } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 import { Toggle } from "./ui/Toggle";
 
 export type SessionPreset = "leren" | "test";
@@ -31,7 +31,7 @@ const REVIEW_MODES: { id: ReviewMode; label: string }[] = [
 ];
 
 export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSettingsPanelProps) {
-  const { t } = useTranslation();
+  const t = i18n.t.bind(i18n);
   const { studySet, settings, updateSettings, refreshPlayableTerms } = useLearningPlatformStore();
 
   const isTest = preset === "test";

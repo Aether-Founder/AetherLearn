@@ -257,7 +257,6 @@ export default function FoutenlogboekPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Foutenanalyse"
         title="Foutenlogboek"
         description="Registreer fouten en markeer ze als leren, herhalen of beheerst."
         action={

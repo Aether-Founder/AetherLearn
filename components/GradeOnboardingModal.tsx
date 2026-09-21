@@ -232,7 +232,7 @@ export function GradeOnboardingModal({
           {step > 1 ? (
             <button
               type="button"
-              onClick={() => setStep(step - 1)}
+              onClick={() => setStep(Math.max(1, step - 1) as 1 | 2 | 3)}
               className="rounded-md border border-border px-4 py-2 text-xs font-medium transition-colors hover:bg-secondary"
             >
               Terug

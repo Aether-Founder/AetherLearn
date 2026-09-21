@@ -192,12 +192,13 @@ export async function getStatus(): Promise<void> {
   };
 
   Object.entries(grouped).forEach(([status, items]) => {
-    const fileNames = items.slice(0, 3).map(i => i.file_name).join(', ');
-    const more = items.length > 3 ? ` +${items.length - 3} more` : '';
+    const typedItems = items as any[];
+    const fileNames = typedItems.slice(0, 3).map(i => i.file_name).join(', ');
+    const more = typedItems.length > 3 ? ` +${typedItems.length - 3} more` : '';
     
     table.push([
       statusLabels[status] || status,
-      items.length.toString(),
+      typedItems.length.toString(),
       fileNames + more,
     ]);
   });

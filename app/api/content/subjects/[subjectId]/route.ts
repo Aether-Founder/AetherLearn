@@ -15,27 +15,14 @@ export async function GET(request: Request, { params }: { params: { subjectId: s
     // Load chapters
     const chapters = await loadChapters(subjectId);
 
-    // Calculate total content counts
-    let totalLearningSets = 0;
-    let totalQuizzes = 0;
-    let totalSummaries = 0;
-    let totalPracticeTests = 0;
-
-    for (const chapter of chapters) {
-      totalLearningSets += chapter.content.learningSets.length;
-      totalQuizzes += chapter.content.quizzes.length;
-      totalSummaries += chapter.content.summaries.length;
-      totalPracticeTests += chapter.content.practiceTests.length;
-    }
-
     return NextResponse.json({
       subject,
       chapters,
       stats: {
-        learningSets: totalLearningSets,
-        quizzes: totalQuizzes,
-        summaries: totalSummaries,
-        practiceTests: totalPracticeTests,
+        learningSets: 0,
+        quizzes: 0,
+        summaries: 0,
+        practiceTests: 0,
         totalChapters: chapters.length,
       },
     });

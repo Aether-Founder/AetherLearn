@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Home, Calendar, BookOpen, BarChart3, User, Settings } from 'lucide-react';
+import { Home, Calendar, BookOpen, BarChart3, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function MobileBottomNav() {

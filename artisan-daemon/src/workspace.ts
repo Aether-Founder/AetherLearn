@@ -5,11 +5,9 @@ import { config } from './config.js';
 
 export async function ensureWorkspace(): Promise<void> {
   const directories = [
-    config.workspacePath,
-    config.inboxPath,
-    config.outboxPath,
-    config.archivePath,
-    config.logsPath,
+    config.workspace.inbox,
+    config.workspace.outbox,
+    config.workspace.archive,
   ];
 
   for (const dir of directories) {
@@ -61,14 +59,14 @@ export async function deleteFromStorage(storagePath: string): Promise<void> {
 
 export async function moveToArchive(localPath: string): Promise<void> {
   const fileName = path.basename(localPath);
-  const archivePath = path.join(config.archivePath, fileName);
+  const archivePath = path.join(config.workspace.archive, fileName);
   await fs.rename(localPath, archivePath);
 }
 
 export async function writeLog(message: string): Promise<void> {
   const timestamp = new Date().toISOString();
   const logFile = path.join(
-    config.logsPath,
+    config.workspace.archive,
     `artisan-${new Date().toISOString().split('T')[0]}.log`
   );
   const logMessage = `[${timestamp}] ${message}\n`;

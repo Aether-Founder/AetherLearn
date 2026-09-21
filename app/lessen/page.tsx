@@ -215,7 +215,6 @@ export default function LessenPage() {
     return (
       <AppShell>
         <PageHeader
-          eyebrow={t('lessons_eyebrow')}
           title={t('lessons_title')}
           description={t('lessons_description')}
         />
@@ -321,7 +320,6 @@ export default function LessenPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={t('lessons_eyebrow')}
         title={t('lessons_title')}
         description={t('lessons_description')}
       />

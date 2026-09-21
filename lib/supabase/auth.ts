@@ -11,31 +11,28 @@ type User = Database['public']['Tables']['users']['Row'];
 
 /**
  * Sign up a new user with email and password
- * 
+ *
  * @param email - User's email address
  * @param password - User's password (min 6 characters)
- * @param username - Unique username
- * @param fullName - User's full name (optional)
+ * @param name - User's name
  * @returns User data or error
  */
 export async function signUp({
   email,
   password,
-  username,
-  fullName,
+  name,
 }: {
   email: string;
   password: string;
-  username: string;
-  fullName?: string;
+  name: string;
 }) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: {
-        username,
-        full_name: fullName || email.split('@')[0],
+        full_name: name,
+        username: name.toLowerCase().replace(/\s+/g, '.'),
       },
     },
   });

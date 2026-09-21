@@ -23,7 +23,6 @@ export default function FsrsAnalyticsPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={t('fsrs_eyebrow')}
         title={t('fsrs_title')}
         description={t('fsrs_description')}
         action={

@@ -5,8 +5,6 @@
  * using localStorage with Tauri integration for enhanced security
  */
 
-import { invoke } from '@tauri-apps/api/core';
-
 export interface StudySet {
   id: string;
   title: string;

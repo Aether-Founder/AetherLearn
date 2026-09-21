@@ -42,7 +42,6 @@ export default function AnalyticsPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow={t('analytics_eyebrow')}
         title={t('analytics_title')}
         description={t('analytics_description')}
         action={

@@ -4,12 +4,12 @@ import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
 import { getPromptAndAnswer } from "@/lib/learning-platform/term-filters";
-import { useTranslation } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 import type { ReviewGrade } from "@/types/learning-platform";
 import { MarkdownContent } from "../shared/MarkdownContent";
 
 export function EnhancedFlashcardMode() {
-  const { t } = useTranslation();
+  const t = i18n.t.bind(i18n);
   const { playableTerms, settings, recordAnswer, beginSession, endSession } =
     useLearningPlatformStore();
   const [index, setIndex] = useState(0);

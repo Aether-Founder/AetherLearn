@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organisatieniveaus van de biologie</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+    
+    .levels-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .level {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .level:hover {
+      transform: translateX(10px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .level-1 { background: linear-gradient(135deg, #ff6b6b, #ee5a5a); }
+    .level-2 { background: linear-gradient(135deg, #feca57, #ff9f43); }
+    .level-3 { background: linear-gradient(135deg, #48dbfb, #0abde3); }
+    .level-4 { background: linear-gradient(135deg, #1dd1a1, #10ac84); }
+    .level-5 { background: linear-gradient(135deg, #5f27cd, #341f97); }
+    .level-6 { background: linear-gradient(135deg, #ff9ff3, #f368e0); }
+    .level-7 { background: linear-gradient(135deg, #54a0ff, #2e86de); }
+    .level-8 { background: linear-gradient(135deg, #00d2d3, #01a3a4); }
+    
+    .level-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-right: 20px;
+      flex-shrink: 0;
+    }
+    
+    .level-content {
+      flex: 1;
+    }
+    
+    .level-title {
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .level-description {
+      color: rgba(255,255,255,0.9);
+      font-size: 14px;
+    }
+    
+    .arrow {
+      color: white;
+      font-size: 24px;
+      margin-left: 15px;
+    }
+    
+    .info-panel {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      border-left: 4px solid #667eea;
+    }
+    
+    .info-panel h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .info-panel p {
+      color: #666;
+      line-height: 1.6;
+    }
+    
+    .emergent-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+      border-radius: 10px;
+      border: 2px solid #e17055;
+    }
+    
+    .emergent-box h4 {
+      color: #d35400;
+      margin-bottom: 8px;
+    }
+    
+    .emergent-box p {
+      color: #636e72;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Organisatieniveaus van de biologie</h1>
+    
+    <div class="levels-container">
+      <div class="level level-1" onclick="showInfo('molecuul')">
+        <div class="level-icon">🔬</div>
+        <div class="level-content">
+          <div class="level-title">Molecuul</div>
+          <div class="level-description">Bouwstenen van stoffen (bijv. DNA)</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+      
+      <div class="level level-2" onclick="showInfo('cel')">
+        <div class="level-icon">🔵</div>
+        <div class="level-content">
+          <div class="level-title">Cel</div>
+          <div class="level-description">Kleinste biologische eenheid die kan leven</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+      
+      <div class="level level-3" onclick="showInfo('weefsel')">
+        <div class="level-icon">🧬</div>
+        <div class="level-content">
+          <div class="level-title">Weefsel</div>
+          <div class="level-description">Groep cellen met gemeenschappelijke functie</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+      
+      <div class="level level-4" onclick="showInfo('orgaan')">
+        <div class="level-icon">❤️</div>
+        <div class="level-content">
+          <div class="level-title">Orgaan</div>
+          <div class="level-description">Deel met specifieke bouw en functie (hart, hersenen)</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+      
+      <div class="level level-5" onclick="showInfo('orgaanstelsel')">
+        <div class="level-icon">🫀</div>
+        <div class="level-content">
+          <div class="level-title">Orgaanstelsel</div>
+          <div class="level-description">Organen die samen een functie uitoefenen (verteringsstelsel)</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+      
+      <div class="level level-6" onclick="showInfo('organisme')">
+        <div class="level-icon">🦁</div>
+        <div class="level-content">
+          <div class="level-title">Organisme</div>
+          <div class="level-description">Individueel levend wezen (meercellig of eencellig)</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+      
+      <div class="level level-7" onclick="showInfo('populatie')">
+        <div class="level-icon">🐺</div>
+        <div class="level-content">
+          <div class="level-title">Populatie</div>
+          <div class="level-description">Groep individuen van dezelfde soort in een gebied</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+      
+      <div class="level level-8" onclick="showInfo('ecosysteem')">
+        <div class="level-icon">🌍</div>
+        <div class="level-content">
+          <div class="level-title">Ecosysteem</div>
+          <div class="level-description">Levende en niet-levende natuur in een begrensd gebied</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+    </div>
+    
+    <div class="info-panel" id="infoPanel">
+      <h3>Klik op een niveau voor meer informatie</h3>
+      <p>De organisatieniveaus van de biologie laten zien hoe biologische systemen zijn opgebouwd, van het kleinste niveau (molecuul) tot het grootste (ecosysteem).</p>
+    </div>
+    
+    <div class="emergent-box">
+      <h4>🌟 Emergente Eigenschap</h4>
+      <p>Op elk hoger niveau kunnen nieuwe eigenschappen ontstaan die er op lagere niveaus niet zijn. Bijvoorbeeld: één molecuul leeft niet, maar interactie tussen alle moleculen in een cel levert wel een levende cel op!</p>
+    </div>
+  </div>
+  
+  <script>
+    const infoData = {
+      molecuul: {
+        title: "Molecuul",
+        description: "Moleculen zijn de kleinste bouwstenen van stoffen. DNA is een belangrijk molecuul dat de erfelijke informatie van een organisme bevat. Moleculen zelf zijn niet levend, maar vormen de basis voor alle leven."
+      },
+      cel: {
+        title: "Cel",
+        description: "De cel is de kleinste biologische eenheid die zelfstandig kan leven. Alle organismen bestaan uit één of meer cellen. In cellen vinden alle levensprocessen plaats zoals stofwisseling en voortplanting."
+      },
+      weefsel: {
+        title: "Weefsel",
+        description: "Weefsel bestaat uit een groep cellen met dezelfde functie. Voorbeelden zijn spierweefsel, zenuwweefsel en dekweefsel. Cellen in een weefsel werken samen om een specifieke taak uit te voeren."
+      },
+      orgaan: {
+        title: "Orgaan",
+        description: "Een orgaan is een deel van een organisme met een specifieke bouw en functie. Organen bestaan uit verschillende weefsels die samenwerken. Voorbeelden zijn het hart, de longen, de lever en de hersenen."
+      },
+      orgaanstelsel: {
+        title: "Orgaanstelsel",
+        description: "Een orgaanstelsel bestaat uit meerdere organen die samen een complexe functie uitvoeren. Het verteringsstelsel omvat bijvoorbeeld de maag, darmen, lever en alvleesklier die samen zorgen voor spijsvertering."
+      },
+      organisme: {
+        title: "Organisme",
+        description: "Een organisme is een zelfstandig levend wezen. Dit kan eencellig zijn (bacteriën) of meercellig (planten, dieren, mensen). Een organisme kan zelfstandig overleven en zich voortplanten."
+      },
+      populatie: {
+        title: "Populatie",
+        description: "Een populatie bestaat uit alle individuen van dezelfde soort die in een bepaald gebied leven en zich onderling kunnen voortplanten. Bijvoorbeeld: alle wolven in een bepaald bosgebied."
+      },
+      ecosysteem: {
+        title: "Ecosysteem",
+        description: "Een ecosysteem omvat alle levende organismen (levensgemeenschap) en de niet-levende omgeving (temperatuur, water, bodem) in een begrensd gebied. Voorbeelden zijn een bos, een sloot of een koraalrif."
+      }
+    };
+    
+    function showInfo(level) {
+      const panel = document.getElementById('infoPanel');
+      const data = infoData[level];
+      panel.innerHTML = `
+        <h3>${data.title}</h3>
+        <p>${data.description}</p>
+      `;
+    }
+  </script>
+</body>
+</html>

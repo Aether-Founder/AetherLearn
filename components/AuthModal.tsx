@@ -68,7 +68,7 @@ export function AuthModal({
         .replace(/[^a-z0-9_-]/g, '-');
       const result =
         mode === 'register'
-          ? await signUp({ email, password, username, fullName: name.trim() || username })
+          ? await signUp({ email, password, name: name.trim() || username })
           : await signIn({ email, password });
 
       if (result.error) throw result.error;
