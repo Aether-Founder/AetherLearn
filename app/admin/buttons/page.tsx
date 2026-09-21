@@ -5,7 +5,6 @@ import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import {
   Dialog,
   DialogContent,
@@ -15,7 +14,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Edit2, Trash2, Eye, ArrowRight, ExternalLink } from 'lucide-react';
+import { Plus, Edit2, Trash2, Eye } from 'lucide-react';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import ConfirmDialog from '@/components/ConfirmDialog';
 
