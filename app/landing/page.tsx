@@ -30,6 +30,11 @@ export default function LandingPage() {
 
   // Scroll reveal animations
   useEffect(() => {
+    // Reset all animations on mount
+    document.querySelectorAll('.reveal').forEach((el) => {
+      el.classList.remove('visible');
+    });
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -41,12 +46,16 @@ export default function LandingPage() {
       { threshold: 0.1 }
     );
 
-    document.querySelectorAll('.reveal').forEach((el) => {
-      el.classList.add('animate');
-      observer.observe(el);
-    });
+    // Small delay to ensure DOM is ready
+    const timeout = setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach((el) => {
+        el.classList.add('animate');
+        observer.observe(el);
+      });
+    }, 50);
 
     return () => {
+      clearTimeout(timeout);
       observer.disconnect();
       // Clean up animations on unmount
       document.querySelectorAll('.reveal').forEach((el) => {
