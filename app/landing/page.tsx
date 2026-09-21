@@ -147,6 +147,21 @@ export default function LandingPage() {
             animation: ctaPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
           }
 
+          .glass-nav {
+            background: linear-gradient(
+              135deg,
+              rgba(255, 255, 255, 0.1) 0%,
+              rgba(255, 255, 255, 0.05) 50%,
+              rgba(255, 255, 255, 0.1) 100%
+            );
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+              0 4px 30px rgba(0, 0, 0, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          }
+
           @media (prefers-reduced-motion: reduce) {
             .reveal,
             .reveal.visible,
@@ -162,7 +177,7 @@ export default function LandingPage() {
 
       {/* Navbar */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/30 backdrop-blur-3xl border-b border-white/10' : 'bg-transparent'
+        isScrolled ? 'glass-nav' : 'bg-transparent'
       }`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
