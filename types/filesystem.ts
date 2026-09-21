@@ -3,10 +3,11 @@
  * This defines the structure for the entire application's content filesystem
  */
 
-export type FilesystemNodeType = 
+export type FilesystemNodeType =
   | 'root'
   | 'subject'
   | 'chapter'
+  | 'topic'
   | 'paragraph'
   | 'leerset_page'
   | 'study_set'
@@ -80,8 +81,8 @@ export interface ButtonConfig {
   text: string;
   icon?: string;
   targetPath: string;
-  placement: 'subject' | 'chapter' | 'paragraph' | 'root';
-  placementId?: string; // ID of subject/chapter/paragraph
+  placement: 'subject' | 'chapter' | 'topic' | 'root';
+  placementId?: string; // ID of subject/chapter/topic
   style?: 'primary' | 'secondary' | 'outline';
 }
 
