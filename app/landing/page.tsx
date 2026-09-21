@@ -10,13 +10,15 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Menu, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDemo, setActiveDemo] = useState('flashcards');
   const [demoAnimating, setDemoAnimating] = useState(false);
+  const [indicatorPosition, setIndicatorPosition] = useState({ top: 0, height: 0 });
+  const demoContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,6 +54,30 @@ export default function LandingPage() {
       });
     };
   }, []);
+
+  // Update sliding indicator position
+  useEffect(() => {
+    const updateIndicator = () => {
+      const activeButton = document.querySelector(`[data-demo="${activeDemo}"]`) as HTMLButtonElement;
+      const container = demoContainerRef.current;
+      
+      if (activeButton && container) {
+        const containerRect = container.getBoundingClientRect();
+        const buttonRect = activeButton.getBoundingClientRect();
+        
+        setIndicatorPosition({
+          top: buttonRect.top - containerRect.top,
+          height: buttonRect.height,
+        });
+      }
+    };
+
+    updateIndicator();
+    
+    // Update on window resize
+    window.addEventListener('resize', updateIndicator);
+    return () => window.removeEventListener('resize', updateIndicator);
+  }, [activeDemo]);
 
   const demoOptions = [
     { id: 'flashcards', label: 'Flashcards' },
@@ -110,8 +136,15 @@ export default function LandingPage() {
           transform: scale(0.95);
         }
 
-        .demo-button.active {
-          transform: scale(1.02);
+        .demo-indicator {
+          position: absolute;
+          left: 0;
+          right: 0;
+          background: white;
+          border-radius: 0.5rem;
+          transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 0;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .glass-nav {
@@ -132,7 +165,8 @@ export default function LandingPage() {
         @media (prefers-reduced-motion: reduce) {
           .reveal,
           .reveal.visible,
-          .demo-button {
+          .demo-button,
+          .demo-indicator {
             animation: none;
             transition: none;
             opacity: 1;
@@ -252,15 +286,28 @@ export default function LandingPage() {
 
           <div className="flex gap-8 items-start">
             {/* Vertical Navigation */}
-            <div className="relative flex flex-col gap-2 w-48 flex-shrink-0">
+            <div 
+              ref={demoContainerRef}
+              className="relative flex flex-col gap-2 w-48 flex-shrink-0"
+            >
+              {/* Sliding Indicator */}
+              <div 
+                className="demo-indicator"
+                style={{
+                  top: indicatorPosition.top,
+                  height: indicatorPosition.height,
+                }}
+              />
+              
               {demoOptions.map((option, index) => (
                 <button
                   key={option.id}
+                  data-demo={option.id}
                   onClick={() => handleDemoChange(option.id)}
                   className={`demo-button relative z-10 text-left px-4 py-3 rounded-lg transition-all ${
                     activeDemo === option.id
-                      ? 'bg-white text-black font-medium shadow-sm active'
-                      : 'bg-transparent border border-border text-muted-foreground hover:text-foreground hover:bg-white/5'
+                      ? 'text-black font-medium'
+                      : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
                   {option.label}
