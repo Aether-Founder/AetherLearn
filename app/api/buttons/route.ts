@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    let query = supabase
+    let query = (supabase as any)
       .from('content_buttons')
       .select('*')
       .eq('placement', placement)
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await (supabase as any)
       .from('content_buttons')
       .insert({
         created_by: user.id,

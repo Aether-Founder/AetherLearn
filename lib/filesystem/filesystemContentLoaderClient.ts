@@ -14,7 +14,7 @@ import { createNode } from '@/lib/filesystem/filesystemService';
 export async function populateFilesystemFromDatabaseClient() {
   try {
     // Fetch all subjects
-    const { data: subjects, error: subjectsError } = await browserClient
+    const { data: subjects, error: subjectsError } = await (browserClient as any)
       .from('subjects')
       .select('id, name, slug, color, icon, description');
 
@@ -40,7 +40,7 @@ export async function populateFilesystemFromDatabaseClient() {
       });
 
       // Fetch chapters for this subject
-      const { data: chapters, error: chaptersError } = await browserClient
+      const { data: chapters, error: chaptersError } = await (browserClient as any)
         .from('subject_chapters')
         .select('id, name, number, description')
         .eq('subject_id', subject.id)
@@ -67,7 +67,7 @@ export async function populateFilesystemFromDatabaseClient() {
         });
 
         // Fetch topics for this chapter
-        const { data: topics, error: topicsError } = await browserClient
+        const { data: topics, error: topicsError } = await (browserClient as any)
           .from('subject_topics')
           .select('id, name, description, learning_goals')
           .eq('chapter_id', chapter.id)

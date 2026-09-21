@@ -354,7 +354,7 @@ export default function AdminLeersetPages() {
                   <Label htmlFor="buttonPlacement">Button Placement</Label>
                   <Select
                     value={formData.buttonPlacement}
-                    onValueChange={(value: 'root' | 'subject' | 'chapter' | 'paragraph') =>
+                    onValueChange={(value: 'root' | 'subject' | 'chapter' | 'topic') =>
                       setFormData({ ...formData, buttonPlacement: value })
                     }
                   >

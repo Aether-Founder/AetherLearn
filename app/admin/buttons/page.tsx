@@ -84,8 +84,8 @@ export default function AdminButtonManagement() {
     if (create === 'true' && targetPath && targetId && targetType) {
       setFormData({
         target_type: targetType as any,
-        target_id,
-        target_path,
+        target_id: targetId,
+        target_path: targetPath,
         button_text: buttonText || targetPath,
         button_icon: '',
         placement: 'root',
@@ -103,7 +103,7 @@ export default function AdminButtonManagement() {
 
   const loadButtons = async () => {
     try {
-      const { data, error } = await browserClient
+      const { data, error } = await (browserClient as any)
         .from('content_buttons')
         .select('*')
         .order('created_at', { ascending: false });
@@ -119,7 +119,7 @@ export default function AdminButtonManagement() {
 
   const loadSubjects = async () => {
     try {
-      const { data, error } = await browserClient
+      const { data, error } = await (browserClient as any)
         .from('subjects')
         .select('id, name')
         .order('name');
@@ -133,7 +133,7 @@ export default function AdminButtonManagement() {
 
   const loadChapters = async (subjectId: string) => {
     try {
-      const { data, error } = await browserClient
+      const { data, error } = await (browserClient as any)
         .from('subject_chapters')
         .select('id, name, subject_id')
         .eq('subject_id', subjectId)
@@ -148,7 +148,7 @@ export default function AdminButtonManagement() {
 
   const loadTopics = async (chapterId: string) => {
     try {
-      const { data, error } = await browserClient
+      const { data, error } = await (browserClient as any)
         .from('subject_topics')
         .select('id, name, chapter_id')
         .eq('chapter_id', chapterId)
@@ -195,7 +195,7 @@ export default function AdminButtonManagement() {
     if (!buttonToDelete) return;
 
     try {
-      const { error } = await browserClient
+      const { error } = await (browserClient as any)
         .from('content_buttons')
         .delete()
         .eq('id', buttonToDelete.id);
@@ -221,7 +221,7 @@ export default function AdminButtonManagement() {
       if (!user) throw new Error('Not authenticated');
 
       if (editingButton) {
-        const { error } = await browserClient
+        const { error } = await (browserClient as any)
           .from('content_buttons')
           .update({
             target_type: formData.target_type,
@@ -237,7 +237,7 @@ export default function AdminButtonManagement() {
 
         if (error) throw error;
       } else {
-        const { error } = await browserClient
+        const { error } = await (browserClient as any)
           .from('content_buttons')
           .insert({
             created_by: user.id,
@@ -264,7 +264,7 @@ export default function AdminButtonManagement() {
   };
 
   const handlePlacementChange = async (placement: string) => {
-    setFormData({ ...formData, placement, placement_id: '' });
+    setFormData({ ...formData, placement: placement as 'root' | 'subject' | 'chapter' | 'topic', placement_id: '' });
     
     if (placement === 'subject') {
       setChapters([]);

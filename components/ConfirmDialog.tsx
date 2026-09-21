@@ -18,6 +18,7 @@ interface ConfirmDialogProps {
   onConfirm: () => void;
   confirmText?: string;
   cancelText?: string;
+  variant?: 'default' | 'destructive';
 }
 
 export default function ConfirmDialog({
@@ -28,6 +29,7 @@ export default function ConfirmDialog({
   onConfirm,
   confirmText = 'Confirm',
   cancelText = 'Cancel',
+  variant = 'default',
 }: ConfirmDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -41,7 +43,7 @@ export default function ConfirmDialog({
             {cancelText}
           </Button>
           <Button
-            variant="destructive"
+            variant={variant}
             onClick={() => {
               onConfirm();
               onOpenChange(false);

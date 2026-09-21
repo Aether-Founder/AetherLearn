@@ -10,7 +10,7 @@ export async function populateFilesystemFromDatabase() {
   try {
     const supabase = createServerClient();
     // Fetch all subjects
-    const { data: subjects, error: subjectsError } = await supabase
+    const { data: subjects, error: subjectsError } = await (supabase as any)
       .from('subjects')
       .select('id, name, slug, color, icon, description');
 
@@ -36,7 +36,7 @@ export async function populateFilesystemFromDatabase() {
       });
 
       // Fetch chapters for this subject
-      const { data: chapters, error: chaptersError } = await supabase
+      const { data: chapters, error: chaptersError } = await (supabase as any)
         .from('subject_chapters')
         .select('id, name, number, description')
         .eq('subject_id', subject.id)
@@ -63,7 +63,7 @@ export async function populateFilesystemFromDatabase() {
         });
 
         // Fetch topics for this chapter
-        const { data: topics, error: topicsError } = await supabase
+        const { data: topics, error: topicsError } = await (supabase as any)
           .from('subject_topics')
           .select('id, name, description, learning_goals')
           .eq('chapter_id', chapter.id)

@@ -281,7 +281,7 @@ export default function FileOperationsMenu({
         onConfirm={confirmMove}
         confirmText="Verplaatsen"
         cancelText="Annuleren"
-        variant="warning"
+        variant="default"
       />
     </>
   );

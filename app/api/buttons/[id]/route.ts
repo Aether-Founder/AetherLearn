@@ -23,7 +23,7 @@ export async function DELETE(
     }
 
     // Verify user owns this button
-    const { data: button, error: fetchError } = await supabase
+    const { data: button, error: fetchError } = await (supabase as any)
       .from('content_buttons')
       .select('created_by')
       .eq('id', id)
@@ -44,7 +44,7 @@ export async function DELETE(
     }
 
     // Delete the button
-    const { error } = await supabase
+    const { error } = await (supabase as any)
       .from('content_buttons')
       .delete()
       .eq('id', id);
