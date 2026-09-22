@@ -77,11 +77,6 @@ export default function LandingPage() {
 
   // Scroll reveal animations
   useEffect(() => {
-    // Reset all animations on mount
-    document.querySelectorAll('.reveal').forEach((el) => {
-      el.classList.remove('visible');
-    });
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
