@@ -302,6 +302,17 @@ export default function Home() {
 
   const greeting = useMemo(() => getGreeting(), []);
   const showName = useMemo(() => Math.random() < 0.5, []); // 50% chance to show name
+  const showInteractive = useMemo(() => {
+    // Show interactive emoji only for certain greetings
+    const interactiveGreetings = [
+      'Hoe gaat het met je?',
+      'Hoe voel je je vandaag?',
+      'Hoe was je dag?',
+      'Hoe is het met je?',
+      'Alles goed met jou?'
+    ];
+    return interactiveGreetings.includes(greeting);
+  }, [greeting]);
 
   // Determine if onboarding is needed
   const needsOnboarding =
@@ -513,8 +524,36 @@ export default function Home() {
           <section className="grid gap-8 border-b border-border py-12 md:grid-cols-[1.4fr_1fr] md:items-end">
             <div>
               <h1 className="font-display text-5xl font-semibold leading-[1.05]">
-                {showName ? `${greeting}, ${profile?.full_name}` : greeting}
+                {showName && !greeting.includes('?') ? `${greeting}, ${profile?.full_name?.split(' ')[0]}` : greeting}
               </h1>
+              {showInteractive && !showName && (
+                <div className="mt-4 flex gap-4">
+                  <button className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10 text-green-500 transition-colors hover:bg-green-500/20 dark:bg-green-500/20 dark:text-green-400">
+                    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                      <circle cx="9" cy="9" r="1" fill="currentColor"/>
+                      <circle cx="15" cy="9" r="1" fill="currentColor"/>
+                    </svg>
+                  </button>
+                  <button className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-500/10 text-yellow-500 transition-colors hover:bg-yellow-500/20 dark:bg-yellow-500/20 dark:text-yellow-400">
+                    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <line x1="9" y1="15" x2="15" y2="15"/>
+                      <circle cx="9" cy="9" r="1" fill="currentColor"/>
+                      <circle cx="15" cy="9" r="1" fill="currentColor"/>
+                    </svg>
+                  </button>
+                  <button className="flex h-12 w-12 items-center justify-center rounded-full bg-red-500/10 text-red-500 transition-colors hover:bg-red-500/20 dark:bg-red-500/20 dark:text-red-400">
+                    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <path d="M8 15s1.5-2 4-2 4 2 4 2"/>
+                      <circle cx="9" cy="9" r="1" fill="currentColor"/>
+                      <circle cx="15" cy="9" r="1" fill="currentColor"/>
+                    </svg>
+                  </button>
+                </div>
+              )}
               <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
                 {totalDue > 0 
                   ? `Je hebt ${totalDue} kaarten klaarstaan om te herhalen.`
