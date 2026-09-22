@@ -458,7 +458,7 @@ export default function VakkenIndex() {
   };
 
   return (
-    <AppShell>
+    <AppShell fullWidth>
       <PageHeader
         title="Vakken"
         description="Elk vak is een map. Open een vak om de hoofdstukken te zien en klik door naar een studieset."

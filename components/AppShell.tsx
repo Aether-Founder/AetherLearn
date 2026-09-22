@@ -426,9 +426,9 @@ export function AppShell({
                 <Image
                   src="/assets/favicon.png"
                   alt={t('logo_alt')}
-                  width={20}
-                  height={20}
-                  className="h-5 w-5 rounded-md object-contain"
+                  width={16}
+                  height={16}
+                  className="h-4 w-4 rounded-md object-contain"
                 />
                 <div className="flex flex-col items-start hidden sm:block">
                   <span className="font-display text-2xl font-semibold tracking-tight leading-none">
@@ -500,7 +500,7 @@ export function AppShell({
                 alt=""
                 width={20}
                 height={20}
-                className="h-5 w-5 rounded object-contain"
+                className="h-5 w-5 rounded-md object-contain"
                 aria-hidden="true"
               />
               {t('brand')}

@@ -1164,8 +1164,9 @@ function FolderExplorer({
         <button
           type="button"
           onClick={onCreateSet}
-          className="inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          className="inline-flex h-10 items-center gap-2 rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
         >
+          <Plus className="h-4 w-4" />
           {t('lp_new_study_set')}
         </button>
       </section>
