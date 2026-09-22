@@ -426,9 +426,9 @@ export function AppShell({
                 <Image
                   src="/assets/favicon.png"
                   alt={t('logo_alt')}
-                  width={28}
-                  height={28}
-                  className="h-7 w-7 rounded-md object-contain"
+                  width={20}
+                  height={20}
+                  className="h-5 w-5 rounded-md object-contain"
                 />
                 <div className="flex flex-col items-start hidden sm:block">
                   <span className="font-display text-2xl font-semibold tracking-tight leading-none">
@@ -496,7 +496,7 @@ export function AppShell({
           <div className="mx-auto flex flex-wrap items-center justify-between gap-3 max-w-6xl px-6 py-8 text-xs text-muted-foreground">
             <span className="flex items-center gap-2 font-display text-base font-semibold text-foreground">
               <Image
-                src="/aether-logo.png"
+                src="/assets/favicon.png"
                 alt=""
                 width={20}
                 height={20}

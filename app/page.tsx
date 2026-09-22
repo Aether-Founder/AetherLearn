@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Plus } from "lucide-react";
 import { AppShell, Meter, SectionTitle } from "@/components/AppShell";
 import { useUserProfile, useUser } from "@/hooks/useAuth";
 import { updateUserProfile } from "@/lib/supabase/auth";
@@ -390,9 +391,9 @@ export default function Home() {
   const filtered = useMemo(
     () => {
       const visibleSubjects = sortedSubjects.filter((s) => !hidden.includes(s.name));
-      return subject === "Alle vakken" ? visibleSubjects : visibleSubjects.filter((s) => s.name === subject);
+      return visibleSubjects; // Always show all subjects by default
     },
-    [subject, sortedSubjects, hidden],
+    [sortedSubjects, hidden],
   );
 
   const matches = (subjectName: string, text: string) =>
@@ -757,9 +758,10 @@ export default function Home() {
                 </p>
                 <Link
                   href="/create/leerlijst"
-                  className="mt-4 h-9 w-full rounded-md bg-primary text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 inline-flex items-center justify-center"
+                  className="mt-4 h-9 w-full rounded-md bg-primary text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 inline-flex items-center justify-center gap-2"
                 >
-                  Nieuwe studieset
+                  <Plus className="h-4 w-4" />
+                  Nieuwe leerset
                 </Link>
               </div>
             </aside>

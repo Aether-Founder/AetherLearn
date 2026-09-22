@@ -497,7 +497,7 @@ export default function VakkenIndex() {
               </Button>
             </div>
           ) : (
-            <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-3" style={{ gridAutoRows: '1fr' }}>
+            <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5" style={{ gridAutoRows: '1fr' }}>
               {display.map((subject) => (
                 <SubjectTile
                   key={subject.id}

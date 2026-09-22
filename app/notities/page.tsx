@@ -385,7 +385,7 @@ function TreeItem({
 
 function WorkspaceSidebar() {
   const { t } = useTranslation();
-  const { getChildren, setItems, setLoading, setSelectedId, createItemOptimistic, items, workspaces, currentWorkspaceId, setCurrentWorkspaceId, createWorkspace } =
+  const { getChildren, setItems, setLoading, setSelectedId, createItemOptimistic, items, workspaces, currentWorkspaceId, setCurrentWorkspaceId, createWorkspace, updateWorkspace } =
     useWorkspaceStore();
   const rootItems = getChildren(null);
   const [draggedId, setDraggedId] = useState<string | null>(null);
@@ -394,6 +394,8 @@ function WorkspaceSidebar() {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [showCreateWorkspace, setShowCreateWorkspace] = useState(false);
   const [newWorkspaceName, setNewWorkspaceName] = useState('');
+  const [showRenameWorkspace, setShowRenameWorkspace] = useState(false);
+  const [renameWorkspaceName, setRenameWorkspaceName] = useState('');
   const dragState = {
     draggedId,
     dropTargetId,
@@ -481,6 +483,21 @@ function WorkspaceSidebar() {
     setNewWorkspaceName('');
     setShowCreateWorkspace(false);
   };
+
+  const handleRenameWorkspace = () => {
+    if (!renameWorkspaceName.trim()) return;
+    updateWorkspace(currentWorkspaceId, renameWorkspaceName);
+    setRenameWorkspaceName('');
+    setShowRenameWorkspace(false);
+  };
+
+  const handleWorkspaceDoubleClick = () => {
+    const currentWorkspace = workspaces.find(w => w.id === currentWorkspaceId);
+    if (currentWorkspace) {
+      setRenameWorkspaceName(currentWorkspace.name);
+      setShowRenameWorkspace(true);
+    }
+  };
   const createItem = async (type: 'map' | 'page') => {
     const {
       data: { user },
@@ -532,7 +549,13 @@ function WorkspaceSidebar() {
     <aside className="flex w-72 shrink-0 flex-col border-r border-border bg-background">
       <div className="flex items-center justify-between px-5 py-4">
         <div className="flex items-center gap-3">
-          <h1 className="text-sm font-semibold tracking-wide text-foreground">Werkruimte</h1>
+          <h1 
+            className="text-sm font-semibold tracking-wide text-foreground cursor-pointer hover:text-foreground/80"
+            onDoubleClick={handleWorkspaceDoubleClick}
+            title="Dubbelklik om te hernoemen"
+          >
+            {workspaces.find(w => w.id === currentWorkspaceId)?.name || 'Werkruimte'}
+          </h1>
           {/* Workspace dots navigation */}
           <div className="flex items-center gap-2">
             {workspaces.map((workspace) => (
@@ -622,6 +645,49 @@ function WorkspaceSidebar() {
                 className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground disabled:opacity-50"
               >
                 Maken
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {showRenameWorkspace && (
+        <div
+          className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4"
+          onMouseDown={() => setShowRenameWorkspace(false)}
+        >
+          <form
+            className="w-full max-w-sm rounded-xl border border-border bg-background p-5 shadow-2xl"
+            onMouseDown={(event) => event.stopPropagation()}
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleRenameWorkspace();
+            }}
+          >
+            <h2 className="font-display text-xl font-semibold">Werkruimte hernoemen</h2>
+            <label className="mt-4 block text-sm text-muted-foreground">
+              Naam
+              <input
+                value={renameWorkspaceName}
+                onChange={(event) => setRenameWorkspaceName(event.target.value)}
+                className="mt-1.5 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-foreground/50"
+                autoFocus
+              />
+            </label>
+            <div className="mt-5 flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setShowRenameWorkspace(false)}
+                className="rounded-md border border-border px-3 py-2 text-sm hover:bg-secondary"
+              >
+                Annuleren
+              </button>
+              <button
+                type="submit"
+                disabled={!renameWorkspaceName.trim()}
+                className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground disabled:opacity-50"
+              >
+                Opslaan
               </button>
             </div>
           </form>

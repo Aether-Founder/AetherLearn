@@ -52,6 +52,7 @@ interface WorkspaceState {
   // Workspace management
   createWorkspace: (name: string) => string;
   deleteWorkspace: (id: string) => void;
+  updateWorkspace: (id: string, name: string) => void;
 
   // Selectors
   getChildren: (parentId: string | null) => WorkspaceItem[];
@@ -263,6 +264,13 @@ export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
     if (get().currentWorkspaceId === id && updatedWorkspaces.length > 0) {
       get().setCurrentWorkspaceId(updatedWorkspaces[0].id);
     }
+  },
+
+  updateWorkspace: (id, name) => {
+    const updatedWorkspaces = get().workspaces.map((w) =>
+      w.id === id ? { ...w, name, updated_at: new Date().toISOString() } : w
+    );
+    get().setWorkspaces(updatedWorkspaces);
   },
 
   getChildren: (parentId) => {
