@@ -1,0 +1,81 @@
+{
+  "id": "nederlands-literaire-termen",
+  "subject": "Nederlands",
+  "siteMetadata": {
+    "title": "Nederlands - Literaire Termen",
+    "description": "Leer over literaire termen, ruimte, tijd, perspectief en betoog schrijven"
+  },
+  "summary": "Complete overzicht van literaire termen inclusief beoordelingsformulier literair betoog, de ruimte (beeldvormend, sferisch, symbolisch), de tijd (chronologie, flashback, continuïteit), perspectief (ik-verteller, hij/zij-verteller), en betoog schrijven met AUB-structuur.",
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": [
+    "simple",
+    "study",
+    "samenvatting",
+    "quiz"
+  ],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showTranscriptExport": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "1. Beoordelingsformulier Literair Betoog",
+      "blocks": [
+        {
+          "id": "blk-1-content",
+          "type": "text",
+          "content": "## Beoordelingsformulier Schrijfvaardigheid: Literair Betoog\n\n### A. Inhoud (35 punten)\n\n**Inleiding:**\n- Aandacht trekken, pakkende beginzin, onderwerp introduceren\n- Stelling formuleren\n\n**Middenstuk:**\n- Keuze en onderbouwing van argumenten\n- Argumenten sluiten aan bij stelling\n- Argumenten zijn relevant\n- Onderbouwing sluit aan bij argument\n- Inhoudelijke diepgang en overtuigingskracht\n- Passende verwerking van citaten\n\n**Slot:**\n- Herhalen van stelling\n- Uitsmijter, aansluiting bij de inleiding\n\n**Creativiteit / originaliteit**\n\n### B. Opbouw (12 punten)\n\n- Grote lijn duidelijk: signaalwoorden en structurerende zinnen\n- Structuur: correcte indeling in alinea's, logische volgorde\n- Titel: aantrekkelijk/nieuwsgierig makend, heldere relatie met de tekst\n\n### C. Taalgebruik (18 punten)\n\n- Passende woordkeuze/toon bij publiek en onderwerp\n- Levendig en gevarieerd taalgebruik\n- Formuleren: 0 fouten = 6 punten, 1 fout = 5 punten, 2 fouten = 4 punten, etc.\n- Spelling en interpunctie: 0 fouten = 6 punten, 1 fout = 5 punten, etc.\n- Meer dan 3 fouten in werkwoordspelling = 0 punten\n\n**Eindcijfer:** aantal punten / 6,5"
+        }
+      ]
+    },
+    {
+      "id": "sec-2",
+      "title": "2.1 De Ruimte",
+      "blocks": [
+        {
+          "id": "blk-2-content",
+          "type": "text",
+          "content": "## 2.1 De Ruimte\n\nElk verhaal speelt zich ergens af. Schrijvers gebruiken de ruimte om hun verhaal beter uit de verf te laten komen. De ruimte kan drie functies hebben:\n\n### Beeldvormende functie\n\nDe schrijver wil je een indruk geven van de plaatsen waar het verhaal zich afspeelt. Dit tref je in elk verhaal aan zodat de lezer zich kan voorstellen waar de personages zich bevinden.\n\n### Sferische functie\n\nDe ruimte wordt gebruikt om een bepaalde sfeer op te roepen. Bijvoorbeeld in griezelverhalen spelen vaak in donkere bossen of spookachtige kastelen om een enge sfeer te creëren.\n\n**Voorbeeld:** In *Julia* van Rhijnvis Feith beschrijft hij een bos op een romantische manier om een liefdes sfeer op te roepen.\n\n### Symbolische functie\n\nDe ruimte geeft een diepere betekenis weer. De ruimte is een beeld voor de gemoedstoestand van de hoofdpersoon. Dit werkt vaak krachtiger dan een beschrijving van gevoelens.\n\n**Voorbeeld:** In *De Avonden* van Gerard Reve symboliseert de mistige regen de somberheid en eenzaamheid van hoofdpersoon Frits van Egters.\n\n**Voorbeeld:** In *Het behouden huis* van Willem Frederik Hermans symboliseert het huis de illusie van veiligheid in een chaotische wereld."
+        }
+      ]
+    },
+    {
+      "id": "sec-3",
+      "title": "2.2 De Tijd",
+      "blocks": [
+        {
+          "id": "blk-3-content",
+          "type": "text",
+          "content": "## 2.2 De Tijd\n\n### Vertelde tijd vs Verteltijd\n\n- **Vertelde tijd**: de totale hoeveelheid tijd die alle beschreven gebeurtenissen in beslag nemen\n- **Verteltijd**: de tijd die het zou duren als je het hele verhaal hardop voorleest\n\n### Chronologie\n\n**Chronologisch verhaal:** Gebeurtenissen worden in een normale tijdsvolgorde verteld. Voorbeeld: *De Avonden* van Gerard Reve.\n\n**Niet-chronologisch verhaal:** Eerdere en latere gebeurtenissen worden door elkaar verteld. Voorbeeld: *Terug naar Oegstgeest* van Jan Wolkers.\n\n### Flashback en Flash-forward\n\n- **Flashback**: Schrijver gaat plotseling terug in de tijd zonder dit aan te kondigen\n- **Flash-forward**: Schrijver maakt een sprong vooruit in de tijd\n\n**Let op:** Een herinnering van een personage (aangekondigd met woorden als \"Ze herinnerde zich hoe ze vroeger...\") is géén flashback. De chronologie wordt niet doorbroken.\n\n### Continuïteit\n\n**Continu verhaal:** Er worden nauwelijks periodes overgeslagen. Voorbeeld: *De Avonden* beschrijft elke minuut van tien dagen.\n\n**Discontinu verhaal:** Er zitten grote gaten in de tijd. Vaak worden weken, dagen of uren overgeslagen. Voorbeeld: *De Aanslag* van Harry Mulisch slaat na elk deel tien tot vijftien jaar over.\n\n### Begin en Einde\n\n**In medias res:** Wanneer je midden in het verhaal begint, zonder uitleg over het verleden.\n\n**Gesloten einde:** Duidelijke afloop, er zijn (bijna) geen vragen meer. Voorbeeld: *De Uitvreter* van Nescio.\n\n**Open einde:** Na afloop blijven veel vragen over hoe het verder gaat. Voorbeeld: *Isabelle* van Tessa de Loo."
+        }
+      ]
+    },
+    {
+      "id": "sec-4",
+      "title": "2.3 Wijze van Vertellen / Perspectief",
+      "blocks": [
+        {
+          "id": "blk-4-content",
+          "type": "text",
+          "content": "## 2.3 Wijze van Vertellen / Perspectief\n\nVerhalen worden vanuit een bepaald perspectief verteld. Schrijvers kiezen een perspectief om een effect te bereiken.\n\n### De ik-verteller\n\nHet belangrijkste personage wordt 'ik' genoemd.\n\n**Kenmerken:**\n- Komt voor in dagboeken en autobiografische romans\n- Lezer leest intieme ervaringen, gedachten en gevoelens\n- Het verhaal is gekleurd door de visie van de 'ik'\n- De ik-figuur is een personage, niet noodzakelijk de schrijver zelf\n\n**Voorbeelden:**\n- *Ik Jan Cremer* van Jan Cremer\n- *Het dagboek van Anne Frank*\n- *Hersenschimmen* van J. Bernlef (lezer ervaart de dementie mee)\n\nDe ik-verteller kan de lezer rechtstreeks aanspreken, zoals in *The Catcher in the Rye* van J.D. Salinger.\n\n### De hij/zij-verteller (alwetend of beperkt)\n\nDe verteller gebruikt hij/zij en kan alwetend of beperkt zijn.\n\n**Alwetend:** De verteller weet alles, ook de gedachten van alle personages.\n\n**Beperkt:** De verteller volgt één personage en weet alleen wat dit personage meemaakt en denkt."
+        }
+      ]
+    },
+    {
+      "id": "sec-5",
+      "title": "Betoog Schrijven - AUB-structuur",
+      "blocks": [
+        {
+          "id": "blk-5-content",
+          "type": "text",
+          "content": "## Structuur van een Betoog\n\n### AUB-structuur\n\n**A - Aanspreken**\n- Begin met een pakkende zin die de aandacht trekt\n- Stel het onderwerp voor\n- Formuleer je stelling\n\n**U - Uitleg/onderbouwing**\n- Geef argumenten voor je stelling\n- Onderbouw elk argument met voorbeelden of citaten\n- Gebruik signaalwoorden voor structuur\n\n**B - Beëindigen**\n- Herhaal je stelling op een andere manier\n- Geef een uitsmijter die aansluit bij je inleiding\n\n### Signaalwoorden\n\nGebruik signaalwoorden om de structuur duidelijk te maken:\n- Opsomming: ten eerste, ten tweede, daarnaast, bovendien\n- Tegenstelling: echter, maar, daarentegen, toch\n- Oorzaak/gevolg: daarom, hierdoor, hierdoor\n- Voorbeeld: bijvoorbeeld, zoals\n\n### Citaten verwerken\n\n- Zorg dat citaten passen bij je argumenten\n- Verklaar waarom je een citaat gebruikt\n- Zet het citaat tussen aanhalingstekens\n- Geef de bron aan (auteur, titel)"
+        }
+      ]
+    }
+  ]
+}

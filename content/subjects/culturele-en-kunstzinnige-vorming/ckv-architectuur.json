@@ -1,0 +1,191 @@
+{
+  "id": "ckv-architectuur",
+  "subject": "Culturele en Kunstzinnige Vorming",
+  "siteMetadata": {
+    "title": "CKV - Architectuur",
+    "description": "Leer over architectuurgeschiedenis van klassieke oudheid tot hedendaags supermodernisme"
+  },
+  "summary": "Complete overzicht van architectuurgeschiedenis van klassieke oudheid tot hedendaags supermodernisme, inclusief architectuurstromingen, bouwkunstkenmerken, de zes kenmerken van gebouwen en het beroep van architect.",
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": [
+    "simple",
+    "study",
+    "samenvatting",
+    "quiz"
+  ],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showTranscriptExport": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "1. Architectuurstromingen",
+      "blocks": [
+        {
+          "id": "blk-1-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe kent de volgorde, periodes en namen van de architectuurstromingen.\n\nDe presentatie behandelt de westerse architectuurgeschiedenis in een strikt chronologische volgorde, beginnend in de antieke oudheid en doorlopend tot hedendaagse digitale architectuur (tevens terug te zien op de Europese eurobiljetten):\n\n- **1. Klassieke Oudheid (+/- 700 v.Chr. – 400 na Chr.)**: Griekse en Romeinse tempelbouw, architraafbouw, de drie klassieke zuilenorden en Romeinse boog- en gewelfconstructies (te zien op het €5-biljet).\n- **2. Middeleeuwen: Romaans (+/- 11e en 12e eeuw)**: Zware, massieve muren, kleine vensters, rondbogen, tongewelven en sobere, donkere kerkgebouwen die een pelgrimstocht symboliseren (te zien op het €10-biljet).\n- **3. Middeleeuwen: Gotiek (+/- 13e en 14e eeuw)**: Kathedralenbouw gericht op hemelhoge verticaliteit en licht, skeletbouw met kruisribgewelven, luchtbogen, steunberen, spitsbogen en gebrandschilderde roosvensters (te zien op het €20-biljet).\n- **4. Renaissance (+/- 15e en 16e eeuw)**: \"Wedergeboorte\" van de Klassieke Oudheid, herstel van evenwicht, symmetrie, mathematische verhoudingen, rustige horizontale geledingen, koepels en klassieke zuilen/timpanen (te zien op het €50-biljet).\n- **5. Barok (+/- 17e – halverwege 18e eeuw)**: Emotionele theatraliteit, Gesamtkunstwerk (versmelting van bouw, beeldhouwkunst en schilderkunst), golvende holle en bolle muren, dramatisch clair-obscur en gedraaide dynamische zuilen (te zien op het €100-biljet).\n- **6. Classicisme (+/- 17e eeuw tot halverwege 18e eeuw en neoclassicisme daarna)**: Reactie tegen de barokke overdaad, hernieuwde terugkeer naar strenge, pure, sobere geometrische vormen, tempelfronten met monumentale trappen en symmetrie.\n- **7. Modernisme (vanaf ca. 1920)**: Breken met alle historische ornamenten en tradities (\"anti-traditioneel\"), strakke blokkendozen van gewapend beton, staal en glas, functioneel en zakelijk onder het motto \"Form follows function\".\n- **8. Postmodernisme (vanaf ca. 1970/1980)**: Reactie op het kille modernisme; het mengen van historische stijlen met ironie, felle uitbundige kleuren, speelse details, vrije vormen en het vervagen van de grens tussen hoge en lage cultuur.\n- **9. Supermodernisme (hedendaags, eind 20e/begin 21e eeuw)**: Mogelijk gemaakt door geavanceerde computerberekeningen (CAD/BIM); extreme, spectaculaire en organische vormen met een strakke industriële uitstraling onder het motto \"Look at me!\" (iconische landmark architectuur).\n\n**Voorbeelden**: Eurobiljetten reeks (€5 t/m €500), Tijdlijn van Parthenon via Reims naar Van Nellefabriek en Bilbao."
+        }
+      ]
+    },
+    {
+      "id": "sec-2",
+      "title": "2. Kenmerken bouwkunst - Klassieke Oudheid",
+      "blocks": [
+        {
+          "id": "blk-2-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe kent de kenmerken van bouwkunst tijdens de Klassieke Oudheid (+/- 700 v.Chr. – 400 na Chr.).\n\nDe Klassieke Oudheid omvat de Griekse en Romeinse bouwkunst, waarin harmonie, wiskundige proporties, rust en constructieve helderheid centraal stonden.\n\n- **Tempelbouw**: Gericht op rust, monumentale harmonie en strenge proporties, rustend op een getrapt stenen fundament (de stereobaat en stylobaat).\n- **Architraafbouw**: Een constructief systeem waarbij zware horizontale stenen balken (de architraaf) rechtstreeks rusten op verticale draagzuilen.\n- **Timpaan (fronton)**: Het driehoekige gevelveld boven het hoofdgestel; functioneert niet alleen als versieringsvlak (vaak gevuld met beeldhouwwerk) maar ook als constructief element dat de drukkracht gelijkmatig verdeelt naar de buitenste zuilen.\n- **Hoofdgestel (entablement)**: Het horizontale stelsel boven de zuilen bestaande uit (van onder naar boven) de architraaf, het fries en de uitkragende kroonlijst (corniche).\n- **Drie klassieke zuilenorden**:\n  - **Dorische orde** (vanaf 6e eeuw v.Chr.): Zwaar en krachtig van proportie, geen basement (zuilschacht staat direct op de stylobaat), eenvoudig schotelvormig kussenkapiteel (echinus en abacus), en een fries met afwisselend trigliefen (driegleufstenen) en metopen (beeldvlakken).\n  - **Ionische orde** (ca. 5e eeuw v.Chr.): Slankere, elegantere zuilen op een geprofileerd basement, kapiteel gekenmerkt door twee spiraalvormige gekrulde voluten, en een doorlopend fries met ononderbroken reliëfsculptuur.\n  - **Korinthische orde** (na 5e eeuw v.Chr.): Zelfde slanke verhoudingen en basement als de Ionische orde, maar met een weelderig klok- of kelkvormig kapiteel versierd met twee rijen gestileerde acanthusbladeren en kleine hoekvoluten.\n- **Romeinse constructieve innovaties**: Toepassing van boogconstructies en gewelven gemetseld op houten hulpbekistingen, inclusief tongewelf (langgerekte halfronde kokerboog), kruisgewelf (doorsnijding van twee tongewelven) en koepelgewelf (halve bol zoals bij het Pantheon).\n\n**Voorbeelden**: Leeuwenpoort in Mycene, Griekse tempelopbouw schema, Tempel van Concordia te Agrigento, Romeinse gewelventeekeningen."
+        }
+      ]
+    },
+    {
+      "id": "sec-3",
+      "title": "3. Kenmerken bouwkunst - Romaans",
+      "blocks": [
+        {
+          "id": "blk-3-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe kent de kenmerken van Romaanse bouwkunst (+/- 11e en 12e eeuw).\n\nDe Romaanse stijl ontstond in de vroege en hoge middeleeuwen in een Europa dat gedomineerd werd door kloosterorden en pelgrimstochten.\n\n- **Massieve, dikke muren**: Stevige stenen muren met een vestingachtig karakter om de enorme zijwaartse druk van de zware stenen daken op te vangen.\n- **Rondbogen en tongewelven**: Uitsluitend halfronde bogen (rondbogen) voor doorgangen, arcades en vensters; overspanningen door zware halfronde stenen tongewelven.\n- **Kleine vensters & donker interieur**: Om de muren constructief niet te verzwakken konden vensters slechts zeer klein worden gemaakt, resulterend in een gedempte, sombere en gewijde lichtsfeer.\n- **Horizontaal en geaard karakter**: Gebouwen ogen relatief laag, zwaar, aards en horizontaal geritmeerd in vergelijking met latere gotische kathedralen.\n- **Sobere uitstraling**: Eenvoudige, robuuste stenen vlakken zonder overdadig uiterlijk vertoon.\n- **Expressieve kapitelen**: Gebeeldhouwde taferelen op kapitelen van zuilen en halfpijlers met religieuze voorstellingen, fabeldieren, monsters en symbolische plantmotieven.\n- **Symboliek van de pelgrimstocht**: Het kerkgebouw is ontworpen als een fysieke en spirituele tocht. De gelovige betreedt de kerk onder het waarschuwende timpaan met het Laatste Oordeel aan de westgevel, loopt door het donkere middenschip (de beproeving van het aardse leven), en bereikt tenslotte de apsis en het koor waar het oplichtende altaar symbool staat voor het eeuwige Licht van God.\n\n**Voorbeelden**: Basiliek van Saint-Sernin in Toulouse, Abbaye aux Dames in Caen, Sainte-Foy timpaan in Conques."
+        }
+      ]
+    },
+    {
+      "id": "sec-4",
+      "title": "4. Kenmerken bouwkunst - Gotiek",
+      "blocks": [
+        {
+          "id": "blk-4-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe kent de kenmerken van Gotische bouwkunst (+/- 13e en 14e eeuw).\n\nDe Gotiek ontstond in Noord-Frankrijk (vanaf ca. 1140 bij Saint-Denis) en revolutioneerde de architectuur door een overgang van dragende massieve wanden naar een uitgekiend skelet van steen en glas.\n\n- **Hoogbouw en verticalisme**: De ruimtes reiken tientallen meters omhoog naar de hemel; alle visuele lijnen (bundelpijlers, gewelfribben) benadrukken de opwaartse beweging.\n- **Spitsbogen**: Bogen die puntig toelopen; deze kunnen de neerwaartse en zijwaartse spatkrachten veel effectiever naar de dragers afvoeren dan een romaanse rondboog.\n- **Kruisribgewelf**: Een gewelfsysteem waarbij stenen diagonale ribben het gewicht dragen, zodat de tussenliggende gewelfkappen dunner en lichter kunnen zijn.\n- **Skeletbouw met externe luchtbogen en steunberen**: Een ingenieus exoskelet aan de buitenzijde van de kerk vangt de enorme zijwaartse druk van de hoge gewelven op en leidt deze weg van de muren, zodat de muren niet naar buiten worden geduwd.\n- **Pinakels**: Spitse torentjes op de steunberen die niet alleen decoratief zijn, maar door hun extra gewicht de steunbeer verticaal verzwaren, waardoor deze stabieler tegen de zijwaartse kracht van de luchtboog bestand is.\n- **Dunne muren en gigantische glas-in-loodramen**: Omdat de muren geen dragende functie meer hebben, konden ze bijna volledig worden vervangen door torenhoge vensters en gebrandschilderd glas, waardoor een mystiek goddelijk licht (Lux Nova) binnenvalt.\n- **Roosvensters**: Grote cirkelvormige gebrandschilderde vensters met geometrisch maaswerk, geplaatst boven de portalen en transeptgevels.\n\n**Voorbeelden**: Kathedraal van Reims, Kathedraal van Burgos, Sainte-Chapelle in Parijs, Skeletbouw diagram met luchtbogen."
+        }
+      ]
+    },
+    {
+      "id": "sec-5",
+      "title": "5. Kenmerken bouwkunst - Renaissance",
+      "blocks": [
+        {
+          "id": "blk-5-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe kent de kenmerken van bouwkunst in de Renaissance (+/- 15e en 16e eeuw).\n\nDe Renaissance (\"wedergeboorte\") begon in Italië (Florence) en verwierp de gotische stijl ten gunste van een herleving van de verhoudingen, logica en vormentaal van de Klassieke Oudheid.\n\n- **Wedergeboorte Klassieke Oudheid**: Directe inspiratie ontleend aan de theorieën van Vitruvius en de bewaard gebleven Romeinse ruïnes.\n- **Harmonie, evenwicht en strikte symmetrie**: Zowel in plattegronden als in voorgevels worden linker- en rechterhelft volkomen in balans gebracht rond een centrale as.\n- **Wiskundige principes en maatverhoudingen**: Gebruik van modulaire rasters, meetkundige basisvormen (cirkel, vierkant) en de gulden snede voor een harmonische schoonheid.\n- **Herhaling van vormen**: Ritme in raampartijen, bogenreeksen (arcades) en gelijkmatige travee-indelingen.\n- **Nadruk op horizontale lijnen**: In tegenstelling tot de gotische verticaliteit ligt de nadruk op horizontale cordonlijsten, brede kroonlijsten en evenwichtige verdiepingshoogten.\n- **Klassieke sierelementen**: Terugkeer van pilasters, zuilen met Dorische, Ionische of Korinthische kapitelen, timpanen (driehoekige frontons) boven deuren en vensters, en balustrades met beelden.\n- **Ontwerp van grote koepels en toepassing van balkons**: Monumentale koepelconstructies (Brunelleschi, Michelangelo) en brede balkons/loggia's.\n\n**Voorbeelden**: Basilica Palladiana in Vicenza door Andrea Palladio, Palazzo Medici Riccardi in Florence."
+        }
+      ]
+    },
+    {
+      "id": "sec-6",
+      "title": "6. Kenmerken bouwkunst - Barok",
+      "blocks": [
+        {
+          "id": "blk-6-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe kent de kenmerken van Barok (+/- 17e – halverwege 18e eeuw).\n\nDe Barok vloeide voort uit de contrareformatie en het absolutisme; de kunst en architectuur dienden om toeschouwers diep te ontroeren, te overweldigen en in vervoering te brengen.\n\n- **Gesamtkunstwerk**: Een totale versmelting van architectuur, monumentaal beeldhouwwerk, plafondschilderingen en sierstucwerk tot één naadloze theatrale illusie.\n- **Theatrale effecten & dramatiek**: De architectuur is ontworpen als een theaterdecor om de bezoeker emotioneel te raken en vol ontzag achter te laten.\n- **Sterk licht-donker contrast (clair-obscur)**: Gevels en interieurs hebben diepe uitsnijdingen, vooruitspringende risalieten en diepe nissen waardoor dramatische schaduwen en felle lichtbundels ontstaan.\n- **Golvende holle en bolle vormen**: Gevels en muren buigen in dynamische convexe (bolle) en concave (holle) golvende curven in plaats van strakke rechte vlakken.\n- **Verbreken en vervormen van klassieke regels**: Gebroken en gekrulde frontons (timpanen die in het midden openbreken), cartouches, en ovale of complexe plattegronden.\n- **Nadruk op dynamiek en beweging**: Schijnbaar kolkende draperieën van steen, beelden gevangen in actie, en getordeerde (spiraalvormig gedraaide / Salomonische) zuilen.\n- **Betrekken van de omgeving**: Grote geometrische paleistuinen, fonteinen, waterpartijen en lange stedelijke zichtassen die naadloos aansluiten op het gebouw.\n\n**Voorbeelden**: Trevifontein in Rome, San Carlo alle Quattro Fontane door Borromini, Plafondfresco van Andrea Pozzo."
+        }
+      ]
+    },
+    {
+      "id": "sec-7",
+      "title": "7. Kenmerken bouwkunst - Classicisme",
+      "blocks": [
+        {
+          "id": "blk-7-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe kent de kenmerken van Classicisme (17e eeuw tot halverwege 18e eeuw).\n\nHet Classicisme (en later Neoclassicisme) was een bewuste rationele reactie tegen de dynamische overdaad en grilligheid van de Barok, met een hernieuwde voorkeur voor kalme, sobere en strenge orde.\n\n- **Terugkeer naar strenge, heldere en zuivere vormen**: Nog puristischer en soberder dan in de Renaissance, rechtstreeks geënt op Griekse en Romeinse tempels.\n- **Eenvoudig geometrisch grondplan**: Gebaseerd op elementaire wiskundige figuren zoals de kubus, balk, cirkel en het rechthoekige raster.\n- **Strikte symmetrie**: Volmaakte spiegeling rond een nadrukkelijke centrale hoofdas.\n- **Centrale monumentale entree**: Vaak gemarkeerd door een tempelfront met zuilen en een timpaan, benaderbaar via brede stenen trappen over de gehele breedte van het risaliet.\n- **Harmonische rasterindeling**: Duidelijke, rustige balans tussen strakke horizontale kroonlijsten en verticale kolommen of pilasters.\n- **Klassieke vormentaal**: Consequent gebruik van architraven, kapitelen, timpanen, rondbogen en strakke pilasters zonder barokke speelsheid of breuklijnen.\n\n**Voorbeelden**: Paleis op de Dam in Amsterdam (Jacob van Campen), Panthéon in Parijs (Jacques-Germain Soufflot)."
+        }
+      ]
+    },
+    {
+      "id": "sec-8",
+      "title": "8. Kenmerken bouwkunst - Modernisme",
+      "blocks": [
+        {
+          "id": "blk-8-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe kent de kenmerken van Modernisme (vanaf ca. 1920).\n\nHet Modernisme brak radicaal met het verleden en zette de westerse architectuur op een fundamenteel nieuw spoor, ingegeven door de industrialisatie en de machine-esthetiek.\n\n- **Anti-traditioneel en breken met het verleden**: Volledige afwijzing van historische stijlinvloeden, zuilen en klassieke canons; de blik is puur gericht op de toekomst en maatschappelijke vernieuwing.\n- **Form follows function**: De vorm van het gebouw moet uitsluitend voortvloeien uit de praktische functie, het gebruik en de constructie, niet uit esthetische willekeur.\n- **Sobere en strakke vormen**: Geometrische volumes, platte daken, gebouwen als strakke \"blokkendozen\".\n- **Weinig tot geen versieringen**: Ornamenten worden gezien als nutteloos (\"ornament is crime\"). Schoonheid zit in zuivere lijnen, ritme en verhoudingen.\n- **Nieuwe industriële bouwmaterialen**: Veelzijdig gebruik van gewapend beton, skeletten van constructiestaal en grote glaspartijen (vliesgevels).\n- **Functioneel en zakelijk**: Nadruk op hygiëne, overvloedig daglicht, frisse lucht en efficiënte ruimtelijke indeling voor wonen en werken.\n\n**Voorbeelden**: Van Nellefabriek in Rotterdam (Brinkman & Van der Vlugt), Unité d'Habitation in Marseille (Le Corbusier)."
+        }
+      ]
+    },
+    {
+      "id": "sec-9",
+      "title": "9. Kenmerken bouwkunst - Postmodernisme",
+      "blocks": [
+        {
+          "id": "blk-9-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe kent de kenmerken van Postmodernisme (vanaf ca. 1970/1980).\n\nHet Postmodernisme ontstond als een speelse, kritische reactie op de kille, monotone en humorloze \"glazen dozen\" van het functionalistische Modernisme.\n\n- **Reactie op het Modernisme**: Afwijzing van het idee dat er maar één universele functionele waarheid is; introductie van pluralisme en gelaagdheid.\n- **Vervagen van hoge en lage cultuur**: Volkskunst, kitsch, reclame en popcultuur worden zonder schroom gecombineerd met elitaire architectuurtheorieën.\n- **Ironie en humor**: Architecten maken bewuste grapjes, overdrijvingen en visuele knipogen in gevels en plattegronden.\n- **Mengen van stijlen uit het verleden (eclecticisme)**: Historische stijlelementen (zoals zuilen, frontons, boogpoorten en klokgevels) worden vrijelijk geciteerd, maar dan van felle kunststof, overdreven schaal of contrasterende kleuren.\n- **Uitbundig kleurgebruik en speelse details**: Vrolijke pastelkleuren of primaire tinten in plaats van saai grijs beton.\n- **Vrije vormen**: Onconventionele volumes, schuine lijnen en decoratieve toevoegingen zonder strikte functionele noodzaak.\n\n**Voorbeelden**: Groninger Museum (Alessandro Mendini), Castellum in Houten, Piazza d'Italia (Charles Moore)."
+        }
+      ]
+    },
+    {
+      "id": "sec-10",
+      "title": "10. Kenmerken bouwkunst - Supermodernisme",
+      "blocks": [
+        {
+          "id": "blk-10-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe kent de kenmerken van Supermodernisme (hedendaags / digitaal tijdperk).\n\nSupermodernisme markeert de hedendaagse architectuur waarin geavanceerde computertechnologie, globalisering en spectaculaire visuele statements samenkomen.\n\n- **Computer-aided design & engineering**: Dankzij krachtige 3D-modelleersoftware (BIM, parametrisch ontwerpen) kunnen voorheen onmogelijke, extreem complexe wiskundige en organische curven exact worden berekend en geprefabriceerd.\n- **Extreme en opvallende vormen**: Vloeiende krommingen, schuine hellingshoeken, reusachtige overstekken en monumentale schaalgrootte.\n- **Strakke, industriële en hightech uitstraling**: Gepolijst roestvrij staal, titanium, geperforeerd aluminium, structureel glas en composietmaterialen.\n- **Het \"Look at me!\"-principe**: Gebouwen zijn ontworpen als iconische sculpturen en wereldwijde landmarks (het Bilbao-effect) die onmiddellijk de aandacht opeisen in het landschap of de skyline.\n\n**Voorbeelden**: Guggenheim Museum Bilbao (Frank Gehry), London City Hall (Norman Foster), Vogelnest Stadion Peking (Herzog & de Meuron), Markthal Rotterdam (MVRDV), Rotterdam Centraal Station."
+        }
+      ]
+    },
+    {
+      "id": "sec-11",
+      "title": "11. De 6 Kenmerken van een gebouw",
+      "blocks": [
+        {
+          "id": "blk-11-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe kent de zes kenmerken die de uitstraling van een gebouw bepalen.\n\nDe presentatie doceert een analytisch model van zes centrale pijlers waarmee de verschijningsvorm en zeggingskracht van elk gebouw ontleed kan worden:\n\n- **1. Functie**: Waar dient het gebouw voor? Vroeger was de functie direct herkenbaar aan traditionele typologieën (kerk, kasteel, pakhuis). Tegenwoordig ontwerpen architecten gebouwen waarvan de functie aan de buitenkant niet direct afleesbaar is; toch moet de uitstraling (bijvoorbeeld openheid, veiligheid of plechtigheid) naadloos bij de functie passen.\n- **2. Vorm**: De geometrie en silhouet van het gebouw. Klassieke bouwwerken waren symmetrisch met een centrale entree; modernisten lieten de vorm uitsluitend bepalen door de functie (\"form follows function\"); hedendaagse digitale architecten ontwerpen complexe organische vormen waardoor de functie aan de buitenkant weer verborgen raakt.\n- **3. Omgeving**: De relatie tussen het gebouw en zijn context. Een gebouw kan kiezen om harmonieus \"op te gaan\" in zijn omgeving (via aansluitende hoogte, kleurstelling, gevelritme en lokale materialen) óf juist dramatisch te \"contrasteren\" met de omgeving (door afwijkende hoogte, futuristische vormgeving of afwijkende materialen).\n- **4. Materiaal**: De tastbare stoffelijkheid van het gebouw die een psychologische associatie oproept. Marmer en zwaar natuursteen stralen al sinds de oudheid luxe, soliditeit, macht en betrouwbaarheid uit (zoals bij klassieke bankgebouwen). Glas, staal en aluminium stralen daarentegen transparantie, openheid, democratie en technologische vooruitgang uit.\n- **5. Constructie**: De wijze waarop alle onderdelen zijn samengevoegd en hoe het gebouw overeind blijft. Dit gebeurt door funderingen, dragende muren en vloeren, of via skeletbouw (draagskelet van kolommen/pijlers, liggers en steunberen) of dubbelgekromde dragende schaalconstructies.\n- **6. Visie**: Het fundamentele filosofische idee van de architect. Hoe kijkt de architect naar de wereld, en hoe wil hij dat mensen in het gebouw wonen, werken, ontmoeten en samenleven? De visie verbindt vorm, functie en maatschappelijke betekenis.\n\n**Voorbeelden**: Dansend Huis in Praag & Sluishuis IJburg, De Blob Eindhoven (Vorm), Crystal Houses PC Hooftstraat (Omgeving), Station Arnhem Centraal (Constructie), Inntel Hotel Zaandam (Visie)."
+        }
+      ]
+    },
+    {
+      "id": "sec-12",
+      "title": "12. Het Beroep van de Architect",
+      "blocks": [
+        {
+          "id": "blk-12-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe weet hoe een architect werkt, wat er allemaal bij het ontwerpen van een gebouw komt kijken en wat een architect nodig heeft.\n\nEen architect opereert op het snijvlak van kunst, techniek, psychologie en maatschappij. Een gebouw ontstaat nooit zomaar in het luchtledige, maar volgt een intensief ontwerpproces:\n\n- **Wat een architect fundamenteel nodig heeft**:\n  - Een Opdracht (een reële maatschappelijke behoefte en een opdrachtgever met budget)\n  - Inspiratie (ideeën opgedaan uit kunst, natuur, geschiedenis, alledaagse voorwerpen of de omgeving)\n  - Fantasie (het creatieve vermogen om buiten gebaande paden te denken en nieuwe werelden te verbeelden)\n- **Programma van Eisen (PvE)**: De architect stelt samen met de opdrachtgever een bindend PvE op. Hierin staan alle richtlijnen waaraan het gebouw moet voldoen: het benodigde aantal kamers en vierkante meters (functie), budgettaire en financiële randvoorwaarden, en de esthetische wensen/uitstraling van de opdrachtgever.\n- **Plek & Situatie (Contextonderzoek)**: De specifieke fysieke eigenschappen en beperkingen van de locatie (de kavelvorm, grondwaterstand, windrichting, zoninval, omringende bebouwing, zichtlijnen en verkeersontsluiting). Zoals Renzo Piano benadrukt: een gebouw midden in het water vraagt om een wezenlijk ander ontwerp dan een gebouw in een historische binnenstad.\n- **Externe factoren & Wetgeving**: De architect moet rekening houden met gemeentelijke bestemmingsplannen, wetten van ruimtelijke ordening, bouwbesluitvoorschriften (veiligheid, brandwering, isolatie, toegankelijkheid) en welstandscommissies.\n\n**Voorbeelden**: ARCAM casus in Amsterdam (Anton Peters vs René van Zuuk), Renzo Piano schetsen voor NEMO en Centre Pompidou."
+        }
+      ]
+    },
+    {
+      "id": "sec-13",
+      "title": "13. Ontwerpmethoden",
+      "blocks": [
+        {
+          "id": "blk-13-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe weet wat voor manieren er zijn om een gebouw te ontwerpen.\n\nArchitecten hanteren uiteenlopende creatieve en technische methoden om abstracte ideeën om te zetten in ruimtelijke vormen:\n\n- **1. Potloodschetsen**: Snelle handgetekende conceptschetsen op papier om eerste invallen, ruimtelijke verhoudingen en composities te onderzoeken.\n- **2. Computerprogramma's**: Geavanceerde 3D-CAD, BIM (Building Information Modelling), parametrische rekensoftware en virtual reality simulaties.\n- **3. Fysieke blokken**: Modulaire schaalblokken stapelen en schuiven om volumestudies, stedenbouwkundige inpassing en bezonning te bestuderen.\n- **4. Vouwen (papierarchitectuur)**: Vellen papier vouwen, knikken en knippen om expressieve geometrische, strakke of sculpturale daklijnen en vouwwanden te ontdekken.\n- **5. Kleien en boetseren**: Met plastische klei organische, vloeiende en sculpturale vormen kneden die later worden opgemeten en gedigitaliseerd.\n- **6. Inspiratie uit alledaagse gebruiksvoorwerpen (kruisbestuiving)**: Vormen van bestek, koffiepotten of muziekinstrumenten abstraheren naar gebouwvolumes (zoals Aldo Rossi deed, of het Piano & Viool gebouw in China).\n- **7. Maquettes bouwen**: Schaalmodellen maken van karton, hout of 3D-print om lichtval, constructie en schaalgevoel tastbaar te testen.\n\n**Voorbeelden**: Aldo Rossi espresso-design en schetsen, Het Piano House in China, Papier vouwopdracht leidend tot Guggenheim Bilbao & Eye Filmmuseum."
+        }
+      ]
+    },
+    {
+      "id": "sec-14",
+      "title": "14. Thema: Lokaal & Globaal",
+      "blocks": [
+        {
+          "id": "blk-14-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe kent de kenmerken en definitie van iets dat lokaal is gemaakt, en iets dat globaal is gemaakt.\n\nDit thema onderzoekt de spanning tussen streekgebondenheid en wereldomvattende uniformiteit in de gebouwde omgeving:\n\n- **Definitie & kenmerken van LOKAAL gemaakt**:\n  - Komt voort uit een specifieke streek, stad, klimaat of cultuur.\n  - Gebruikt streekeigen bouwmaterialen (zoals lokaal hout, specifieke baksteensoorten of regionale natuursteen) en traditionele ambachtelijke bouwtechnieken.\n  - Aan de specifieke vormentaal, kleuren en detaillering kun je direct zien wáár ter wereld het ontstaan is (bijvoorbeeld houten Zaanse huizen met groen hout en witte windveren, of Provençaalse huizen met terracotta dakpannen).\n- **Definitie & kenmerken van GLOBAAL gemaakt**:\n  - Maakt gebruik van universele beeldkenmerken en bouwtypen die voor mensen over de gehele wereld verspreid herkenbaar zijn.\n  - Vaak gekenmerkt door uniforme materialen (staal, spiegelend vliesgevelglas, strak aluminium) en repetitieve wolkenkrabber-typologieën.\n  - Gebouwen kunnen in principe op elke willekeurige plek ter wereld staan zonder relatie met de lokale cultuur (uitwisselbare skylines zoals Dubai, New York en Guangzhou).\n- **Belangrijke valkuil — Lokaal/Globaal is NIET hetzelfde als bekendheid**:\n  - Een lokaal gebouw kan wereldwijd (globaal) beroemd zijn, maar blijft in zijn ontstaanswijze en materiaal puur lokaal (bijv. de 17e-eeuwse Amsterdamse grachtenpanden of Zaanse houten huisjes).\n  - Hybride vormen: Gebouwen kunnen lokale vormentaal en globale betekenis doelbewust versmelten (zoals de Westermoskee in Amsterdam: ontworpen door Franse architecten in de lokale Amsterdamse Schoolstijl, maar met een universele Ottomaanse moskeetypologie).\n\n**Voorbeelden**: Striptekening 1921 regionale verscheidenheid vs 2021 identieke witte kubuswoningen, Zaanse schans vs Skylines New York/Dubai/Guangzhou, De Westermoskee in Amsterdam."
+        }
+      ]
+    },
+    {
+      "id": "sec-15",
+      "title": "15. Thema: Traditie & Innovatie",
+      "blocks": [
+        {
+          "id": "blk-15-content",
+          "type": "text",
+          "content": "## Leerdoel\n\nJe weet wat verstaan wordt onder traditie en wat verstaan wordt onder innovatie.\n\nArchitectuur beweegt zich voortdurend in het spanningsveld tussen het behouden van beproefd cultureel erfgoed en het introduceren van baanbrekende vernieuwingen:\n\n- **Definitie van Traditie**:\n  - Onder traditie verstaan we de gebruiken, gewoontes, vormentaal, ambachtelijke technieken en waarden die van de ene generatie op de volgende worden overgedragen en bewaard gebleven.\n  - In de architectuur uit zich dit in het handhaven van historische bouwstijlen, traditionele materialen (hout, baksteen, leisteen), klassieke ornamentiek en vertrouwde typologieën (zoals Balinese tempels met gelaagde meru-daken of de oorspronkelijke eikenhouten kapconstructie van de middeleeuwse gotiek).\n- **Definitie van Innovatie**:\n  - Bij innovatie worden nieuwe ontwikkelingen, experimentele technologieën, hedendaagse materialen en vooruitstrevende denkbeelden ingezet om vernieuwing tot stand te brengen.\n  - In de architectuur uit zich dit in spectaculaire nieuwe draagconstructies, parametrische computerberekeningen, ecologische verduurzaming (zoals het verticale bos Bosco Verticale in Milaan) en futuristische transformaties.\n- **Synthese van Traditie en Innovatie in de praktijk**:\n  - De casus Notre-Dame na de brand van april 2019: De discussie tussen traditionele herbouw (exact terugbrengen in historische staat met eikenhout en lood) versus innovatieve herbouw (glazen dak, zonnecellen, permacultuur daktuin van Vincent Callebaut, lichtgevende kristallen torenspits).\n  - Geslaagde historische toevoegingen: Het Havenhuis in Antwerpen door Zaha Hadid (futuristisch glazen diamantschip bovenop een monumentale historische brandweerkazerne) en Museum De Fundatie in Zwolle door BiermanHenket (glazen/keramische ellipsvormige wolk \"De Wolk\" bovenop een neoclassicistisch paleis met zuilen).\n\n**Voorbeelden**: Balinese tempel vs Bosco Verticale Milaan, Notre-Dame brand & innovatieve voorstellen (Palingenesis), Havenhuis Antwerpen & Museum De Fundatie Zwolle."
+        }
+      ]
+    }
+  ]
+}

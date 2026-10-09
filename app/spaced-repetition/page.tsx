@@ -227,7 +227,7 @@ export default function SpacedRepetitionPage() {
           description={`${dueToday.filter((i) => i.next_review === today).length} items te herhalen`}
         />
 
-        <div className="mt-10 max-w-3xl mx-auto">
+        <div className="mt-10">
           <div className="rounded-xl border border-border bg-card p-8">
             <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
               <span className="font-medium">{currentItem.vak}</span>

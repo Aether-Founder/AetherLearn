@@ -1,43 +1,184 @@
 [
   {
-    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
-    "sessionId": "282f59e3-28f5-4c37-893f-a97927a0c517",
-    "eventType": "session_start",
-    "timestamp": 1789399544283,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
-      "language": "nl-NL",
-      "screenResolution": "1920x1080"
-    }
-  },
-  {
-    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
-    "sessionId": "282f59e3-28f5-4c37-893f-a97927a0c517",
-    "eventType": "session_start",
-    "timestamp": 1789399850352,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
-      "language": "nl-NL",
-      "screenResolution": "1920x1080"
-    }
-  },
-  {
-    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
-    "sessionId": "282f59e3-28f5-4c37-893f-a97927a0c517",
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
     "eventType": "page_view",
-    "timestamp": 1789399850323,
+    "timestamp": 1790719043252,
     "data": {
-      "path": "/vakken/Aardrijkskunde/aardrijkskunde-h5",
-      "referrer": "http://localhost:3000/instellingen"
+      "path": "/vakken/Biologie/inleiding-in-de-biologie",
+      "referrer": "http://localhost:4422/leer/Biologie/inleiding-in-de-biologie"
     }
   },
   {
-    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
-    "sessionId": "282f59e3-28f5-4c37-893f-a97927a0c517",
-    "eventType": "session_end",
-    "timestamp": 1789399853686,
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "session_start",
+    "timestamp": 1790719043267,
     "data": {
-      "duration": 3334
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "language": "nl-NL",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "session_end",
+    "timestamp": 1790719043948,
+    "data": {
+      "duration": 682
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "session_start",
+    "timestamp": 1790719050204,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "language": "nl-NL",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "page_view",
+    "timestamp": 1790719050204,
+    "data": {
+      "path": "/vakken/Biologie/inleiding-in-de-biologie",
+      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "page_view",
+    "timestamp": 1790719050219,
+    "data": {
+      "path": "/vakken/Biologie/inleiding-in-de-biologie",
+      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "session_end",
+    "timestamp": 1790719050954,
+    "data": {
+      "duration": 736
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "session_start",
+    "timestamp": 1790719061499,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "language": "nl-NL",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "page_view",
+    "timestamp": 1790719061499,
+    "data": {
+      "path": "/vakken/Biologie/inleiding-in-de-biologie",
+      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "page_view",
+    "timestamp": 1790719061513,
+    "data": {
+      "path": "/vakken/Biologie/inleiding-in-de-biologie",
+      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "session_end",
+    "timestamp": 1790719062600,
+    "data": {
+      "duration": 1087
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "session_start",
+    "timestamp": 1790719065281,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "language": "nl-NL",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "page_view",
+    "timestamp": 1790719065282,
+    "data": {
+      "path": "/vakken/Biologie/inleiding-in-de-biologie",
+      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "page_view",
+    "timestamp": 1790719065300,
+    "data": {
+      "path": "/vakken/Biologie/inleiding-in-de-biologie",
+      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "page_view",
+    "timestamp": 1790719197569,
+    "data": {
+      "path": "/vakken/Biologie/inleiding-in-de-biologie",
+      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "session_start",
+    "timestamp": 1790719197568,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "language": "nl-NL",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "session_start",
+    "timestamp": 1790719197590,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "language": "nl-NL",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "eventType": "session_end",
+    "timestamp": 1790719198653,
+    "data": {
+      "duration": 1063
     }
   }
 ]

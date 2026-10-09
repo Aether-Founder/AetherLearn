@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { supabase } from '@/lib/supabase/client';
 import { useTranslation } from '@/lib/useTranslation';
+import { AppShell, PageHeader } from '@/components/AppShell';
 
 type Complexity = 'simplified' | 'standard' | 'advanced';
 type Preferences = {
@@ -110,13 +111,13 @@ export default function AccessibilityPage() {
   const complexityIndex = COMPLEXITY.indexOf(preferences.complexity);
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto mt-10 max-w-2xl px-4">
-        <div className="mb-8">
-          <h1 className="text-3xl font-display font-semibold text-foreground">Toegankelijkheid</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Pas de toegankelijkheidsinstellingen aan aan jouw behoeften
-          </p>
+    <AppShell>
+      <PageHeader
+        title="Toegankelijkheid"
+        description="Pas de toegankelijkheidsinstellingen aan aan jouw behoeften"
+      />
+
+      <div className="mt-10">
         </div>
 
         <Card>
@@ -236,6 +237,6 @@ export default function AccessibilityPage() {
           </Button>
         </div>
       </div>
-    </div>
+    </AppShell>
   );
 }

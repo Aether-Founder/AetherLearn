@@ -227,7 +227,7 @@ export default function LessenPage() {
     return (
       <AppShell>
         <div className="border-b border-border">
-          <div className="mx-auto max-w-6xl px-6 py-4">
+          <div className="px-6 py-4">
             <button
               onClick={() => setSelectedLesson(null)}
               className="text-sm text-muted-foreground hover:text-foreground mb-2"
@@ -243,7 +243,7 @@ export default function LessenPage() {
           </div>
         </div>
 
-        <div className="mx-auto max-w-6xl px-6 py-8">
+        <div className="px-6 py-8">
           {/* View Mode Selector */}
           <div className="flex items-center gap-2 mb-6">
             <span className="text-sm text-muted-foreground">Weergave:</span>

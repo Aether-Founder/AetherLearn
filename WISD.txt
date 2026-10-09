@@ -1,0 +1,183 @@
+
+**Opgave 1 (1.1 – som- en productregel)**
+Een restaurant heeft 5 voorgerechten, 7 hoofdgerechten en 3 nagerechten.
+a. Hoeveel driegangenmenu’s zijn er mogelijk?
+b. Hoeveel menu’s zijn er als je geen nagerecht neemt?
+c. Hoeveel menu’s zijn er als je precies één vegetarisch gerecht wilt?  
+   (Er zijn 2 vegetarische voorgerechten, 3 vegetarische hoofdgerechten en 1 vegetarisch nagerecht.)
+
+---
+
+**Opgave 2 (1.1 – dobbelstenen)**
+Je gooit met twee dobbelstenen.
+a. Hoeveel uitkomsten zijn er in totaal?
+b. Hoeveel manieren om som 8 te gooien?
+c. Hoeveel manieren om minstens één 6 te gooien?
+d. Hoeveel manieren om een product te gooien dat deelbaar is door 3?
+
+---
+
+**Opgave 3 (1.2 – variaties en herhalingsvariaties)**
+Een code bestaat uit 4 letters uit \(\{a,b,c,d,e,f,g,h\}\).
+a. Hoeveel codes als herhaling is toegestaan?
+b. Hoeveel codes als herhaling niet is toegestaan?
+c. Hoeveel codes als de eerste letter een klinker moet zijn (a of e) en herhaling is toegestaan?
+d. Hoeveel codes als alle letters verschillend zijn en de code met een ‘a’ begint?
+
+---
+
+**Opgave 4 (1.2 – pincodes)**
+Een pincode bestaat uit 5 cijfers (0 t/m 9).
+a. Hoeveel pincodes als herhaling is toegestaan?
+b. Hoeveel pincodes als het eerste cijfer geen 0 mag zijn?
+c. Hoeveel pincodes als het eerste cijfer geen 0 is en het laatste cijfer oneven is?
+d. Hoeveel pincodes als alle cijfers verschillend zijn?
+
+---
+
+**Opgave 5 (1.3 – combinaties)**
+Uit een groep van 12 personen wordt een commissie van 4 gekozen.
+a. Hoeveel commissies zijn er mogelijk?
+b. Hoeveel commissies met precies 2 vrouwen? (Er zijn 5 vrouwen en 7 mannen.)
+c. Hoeveel commissies met minstens 3 mannen?
+
+---
+
+**Opgave 6 (1.3 – herhalingscombinaties)**
+Je verdeelt 8 identieke ballen over 3 verschillende vaten.
+a. Hoeveel manieren zijn er?
+b. Hoeveel manieren als elk vat minstens 1 bal krijgt?
+c. Hoeveel manieren als het eerste vat precies 3 ballen krijgt?
+
+---
+
+**Opgave 7 (1.4 – kortste routes)**
+Een rooster heeft 6 rijen en 8 kolommen. Punt A ligt linksonder, punt B rechtsboven. Punt P ligt 3 stappen rechts en 2 stappen boven A.
+a. Hoeveel kortste routes zijn er van A naar B?
+b. Hoeveel kortste routes van A naar B gaan via P?
+c. Hoeveel kortste routes van A naar B gaan **niet** via P?
+
+---
+
+**Opgave 8 (1.4 – best of 5)**
+Een tennistoernooi wordt gespeeld volgens “best of 5”: de eerste speler die 3 sets wint, wint de wedstrijd.
+a. Hoeveel verschillende series zijn er mogelijk waarbij de wedstrijd in 4 sets eindigt?
+b. Hoeveel series zijn er in totaal mogelijk?
+c. Hoeveel series waarbij de winnaar de eerste set verliest?
+
+---
+
+**Opgave 9 (1.4 – gemengd)**
+Een klas heeft 10 jongens en 8 meisjes. Er wordt een comité van 5 personen gekozen.
+a. Hoeveel comités met precies 3 meisjes?
+b. Hoeveel comités met minstens 3 jongens?
+c. Hoeveel comités als de voorzitter een jongen moet zijn en de secretaris een meisje? (De overige 3 leden mogen willekeurig gekozen worden uit de rest.)
+
+---
+
+**Opgave 10 (1.4 – codes)**
+Een bedrijf maakt codes van 6 tekens: 3 letters (a-z) gevolgd door 3 cijfers (0-9).
+a. Hoeveel codes als herhaling is toegestaan?
+b. Hoeveel codes als herhaling niet is toegestaan?
+c. Hoeveel codes als de letters allemaal verschillend moeten zijn en de cijfers even moeten zijn?
+d. Hoeveel codes als de code moet beginnen met een klinker (a, e, i, o, u) en eindigen met een oneven cijfer?
+
+------------------
+
+Dit is de complete uitleg van **paragraaf 2.1 (Het binomium van Newton)**.
+
+### 1. De basis: haakjes wegwerken en de driehoek van Pascal
+
+Je kent van de voorkennis al:
+\((a+b)^2 = a^2 + 2ab + b^2\)
+\((a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3\)
+
+Als je dit vaker doet, zie je een patroon in de **coëfficiënten** (de getallen voor de \(a\) en \(b\)): 1, 2, 1 en 1, 3, 3, 1. 
+Dit patroon staat in de **Driehoek van Pascal** (figuur 2.2). Elke rij begint en eindigt met 1, en elk getal is de som van de twee getallen erboven.
+- Rij \(n\) van de driehoek geeft de coëfficiënten voor \((a+b)^n\).
+- De getallen in rij \(n\) zijn precies de binomiaalcoëfficiënten: \(\binom{n}{0}, \binom{n}{1}, \dots, \binom{n}{n}\).
+- De som van alle getallen in rij \(n\) is \(2^n\).
+
+**Kortste routes (opgave 1, 2, 3 uit je boek):**
+Deze driehoek is ook te gebruiken voor het tellen van kortste routes in een rooster (bijvoorbeeld van punt \(A\) naar \(B\) met alleen stappen naar rechts en boven). Het aantal routes is het aantal combinaties van de stappen. Als je 3 stappen naar rechts en 4 stappen omhoog moet, is dat \(\binom{7}{3}\) (kies de posities voor de stappen naar rechts uit het totaal van 7 stappen).
+
+---
+
+### 2. Het Binomium van Newton
+
+In plaats van de driehoek van Pascal te gebruiken, kun je de formule van Newton gebruiken. Dit is de algemene formule voor het herleiden van \((a+b)^n\):
+
+\[
+(a+b)^n = \sum_{k=0}^{n} \binom{n}{k} a^{n-k} b^k
+\]
+
+Oftewel uitgeschreven:
+\[
+(a+b)^n = \binom{n}{0}a^n + \binom{n}{1}a^{n-1}b + \binom{n}{2}a^{n-2}b^2 + \dots + \binom{n}{n}b^n
+\]
+
+**De kunst van het toepassen:**
+Je moet heel goed opletten wat \(a\) en \(b\) precies zijn.
+- Als je \((x + 3)^4\) hebt, dan is \(a = x\) en \(b = 3\).
+- Als je \((2x - 1)^5\) hebt, dan is \(a = 2x\) en \(b = -1\). Let op het minteken!
+
+**Specifieke termen berekenen (zonder alles uit te schrijven):**
+Stel je moet de coëfficiënt van \(x^5\) berekenen in \((2x - 3)^8\).
+1. Je gebruikt de term \(\binom{8}{k} \cdot (2x)^{8-k} \cdot (-3)^k\).
+2. Je wilt \(x^5\) hebben, dus \((x)^{8-k} = x^5 \Rightarrow 8-k = 5 \Rightarrow k = 3\).
+3. Je vult \(k=3\) in: \(\binom{8}{3} \cdot (2x)^5 \cdot (-3)^3\).
+4. Reken de coëfficiënt uit: \(56 \cdot 32 \cdot (-27) = -48384\).
+Dus de coëfficiënt van \(x^5\) is \(-48384\).
+
+---
+
+### 3. De sigma-notatie (\(\Sigma\))
+Het teken \(\sum\) betekent "de som van". 
+\(\sum_{k=1}^{5} k^2\) betekent: tel alle waarden van \(k^2\) op voor \(k = 1, 2, 3, 4, 5\).
+Dat is \(1^2 + 2^2 + 3^2 + 4^2 + 5^2 = 1 + 4 + 9 + 16 + 25 = 55\).
+Je ziet dit vaak terug in de algemene formule van Newton.
+
+---
+
+### 4. Multinomiaalcoëfficiënten (Theorie D)
+
+Als je niet 2, maar 3 of meer termen in de haakjes hebt, zoals \((p + q + r)^7\), krijg je te maken met multinomiaalcoëfficiënten.
+De formule voor de coëfficiënt van \(p^a q^b r^c\) (waarbij \(a+b+c = n\)) is:
+\[
+\frac{n!}{a! \cdot b! \cdot c!}
+\]
+Dit noteer je ook wel als \(\binom{n}{a, b, c}\).
+
+**Voorbeeld:** \((2a - 3b + 4c)^6\). 
+Stel je wilt de term met \(a^4bc\) weten.
+- De exponenten zijn 4, 1 en 1 (samen 6).
+- Coëfficiënt: \(\binom{6}{4, 1, 1} = \frac{6!}{4! \cdot 1! \cdot 1!} = 30\).
+- De term is dan: \(30 \cdot (2a)^4 \cdot (-3b)^1 \cdot (4c)^1 = 30 \cdot 16a^4 \cdot (-3b) \cdot (4c) = -5760 a^4 b c\).
+
+**Aantal termen in een multinomiaal:**
+Het aantal termen in de herleiding van \((x_1 + x_2 + \dots + x_m)^n\) is \(\binom{n+m-1}{n}\). (Dit is een herhalingscombinatie, die je in 1.3 hebt geleerd!)
+
+---
+
+### Jouw takenpakket: v1, v2, v3, v4, 2, 5, 6, 9, 12, 14, 16, 18, 3, 7, 10, 11, 17
+
+Je moet deze opgaven maken en beheersen. Hier is een gestructureerd plan om ze aan te pakken. Ik raad je aan om ze in deze blokken te maken:
+
+**Blok 1: Basis en Driehoek van Pascal (v1, v2, v3, v4, 2, 3, 5, 6)**
+*   **v1 t/m v4:** Herleiden van haakjes zoals \((a+b)^4\) en \((a+b)^5\). Gebruik de driehoek van Pascal of de formule.
+*   **2:** Kortste routes in een rooster. Gebruik combinaties \(\binom{n}{k}\).
+*   **3:** Aantal manieren om "DRIEHOEK VAN PASCAL" te lezen. Dit is een klassieker: je moet een bepaald aantal stappen naar rechts en naar beneden zetten.
+*   **5:** Bewijs van de regel van Pascal. Herleid \(\binom{n}{k-1} + \binom{n}{k}\) tot \(\binom{n+1}{k}\).
+*   **6:** Oefenen met de sigma-notatie. Sommen uitschrijven en berekenen.
+
+**Blok 2: Binomium van Newton en specifieke termen (9, 12, 14, 10, 11)**
+*   **9:** Herleiden met het binomium. Let goed op de minnetjes (bijv. \((a-2)^4\)).
+*   **10:** Aantal termen en specifieke termen in \((p+q)^{15}\). Gebruik de formule voor de \(k\)-de term.
+*   **11 & 12:** Coëfficiënten van specifieke termen berekenen. Zoek de \(k\) waarbij de exponent klopt, en vul in.
+*   **14:** De magie van \(11^n\). Rij \(n\) van Pascal geeft de cijfers van \(11^n\). Dit komt door \((10+1)^n\).
+
+**Blok 3: Multinomiaalcoëfficiënten (16, 18, 17)**
+*   **16:** Herleiden van \((a-b+2c)^3\) en het aantal termen in \((a-b+2c)^{20}\).
+*   **18 & 17:** Coëfficiënten van specifieke termen vinden in multinomialen zoals \((a+b+c+d)^{14}\). Gebruik de formule \(\frac{n!}{k_1! k_2! \dots}\).
+
+---

@@ -1,0 +1,1154 @@
+Hoofdstuk 1: Microstructuren
+
+Paragraaf 1.1: Atoombouw
+
+Paragraaf 1.2: Periodiek systeem
+
+Paragraaf 1.3: Metalen
+
+Paragraaf 1.4: Moleculaire stoffen/Moleculen
+
+Paragraaf 1.5: Zouten
+
+
+
+
+1.1 Atoombouw
+
+atoomnummer
+protonen
+neutronen
+elektronen
+elektronenschillen
+atoommodellen
+massagetal
+isotopen (tabel 25)
+notatie van isotopen
+atoommassa (en gemiddelde/relatieve atoommassa)
+
+
+
+Naslag/gemist:
+Boek: par 1.1
+https://www.youtube.com/watch?v=wuWR60HNWyU
+
+Ga naar opgaven van paragraaf 1
+
+1.2 Periodiek systeem
+
+periodes
+groepen (waarvan 4 bij naam)
+metalen
+niet-metalen
+edelgasconfiguratie
+valentie-elektronen
+
+
+
+Naslag/gemist:
+Boek: par 1.2
+https://www.youtube.com/watch?v=kZduOIZu7bM
+
+Ga naar opgaven paragraaf 2
+
+1.3 Metalen
+
+geleiding
+metaalbinding
+alliage/legering
+edelmetalen / onedele metalen
+
+
+
+Naslag/gemist:
+Boek: par 1.3
+https://www.youtube.com/watch?v=TNPSvFLLf0E&list=PLA67FE4B0A481EFBF&index=1
+https://www.youtube.com/watch?v=TQ-_Co1j0WQ&list=PLA67FE4B0A481EFBF&index=3
+
+Ga naar opgaven van paragraaf 3
+
+
+
+1.4 Moleculaire stoffen/Moleculen
+
+atoombinding
+covalentie
+molecuulformule
+structuurformule
+vanderwaalsbinding
+waterstofbrug
+naamgeving van moleculen met twee atoomsoorten
+Indeling van stofgroepen met het PS: moleculaire stoffen 
+
+
+
+
+Naslag/gemist:
+Boek: par 1.4 en 1.6 
+
+https://www.youtube.com/watch?v=3Q8tx1p4kqI
+https://www.youtube.com/watch?v=JW9ZzgDcCvE
+https://www.youtube.com/watch?v=q_mKd1D_t-M
+
+Ga naar opgaven van paragraaf 4
+
+
+
+
+1.5 Zouten
+
+Indeling van stofgroepen met het PS: Zouten 
+Elektrovalentie van metalen en niet-metalen
+Het ontstaan van ionen 
+Enkelvoudige en samengestelde ionen
+Ionbinding
+Zoutformules (verhoudingsformules)
+Wel en niet gebruik van Romeinse cijfers in zoutnamen
+Naamgeving 
+Fysische eigenschappen
+
+
+De ionen die je uit je hoofd moet kennen (van formule naar naam en omgekeerd):
+
+
+Zilver-ion			Ag+
+Calcium-ion 			Ca2+
+Barium-ion			Ba2+
+Zink-ion			Zn2+
+Aluminium-ion		Al3+
+Natrium-ion			Na+
+Kalium-ion			K+
+Lithium-ion			Li+
+Magnesium-ion		Mg2+
+Ammonium-ion		NH4+
+Kwik(I)- en (II)-ion		Hg+ , Hg2+
+Koper(I)- en (II)-ion		Cu+, Cu2+
+IJzer(II)- en (III)-ion		Fe2+, Fe3+
+Lood(II)- en (IV)-ion		Pb2+, Pb4+
+Tin(II) en (IV)-ion		Sn2+, Sn4+
+Goud(I) en (III)-ion		Au+, Au3+
+Uranium(III) en (VI)-ion	U3+, U6+
+Fluoride-ion			F-
+Chloride-ion			Cl-
+Bromide-ion			Br-
+Jodide-ion 			I-
+Oxide-ion			O2-
+Sulfide-ion			S2-
+Waterstofsulfide-ion		HS-
+Hydroxide-ion		OH-
+Nitriet-ion			NO2-
+Nitraat-ion			NO3-
+Acetaat-ion			CH3COO-
+Sulfiet-ion			SO32-
+Waterstofsulfiet-ion		HSO3-
+Sulfaat-ion			SO42-
+Waterstofsulfaat-ion		HSO4-
+Carbonaat-ion		CO32-
+Waterstofcarbonaat-ion	HCO3-
+Fosfaat-ion			PO43-
+Thiosulfaat-ion		S2O32-
+Permanganaat-ion		MnO4-
+Monowaterstoffosfaat-ion	HPO42-
+Diwaterstoffosfaat-ion	H2PO4-
+Dichromaat-ion		Cr2O72-
+
+
+
+
+Docent: uitdelen ionenslang zie bijlage 1
+Voorbeeld SO zie bijlage 2
+
+
+Naslag/gemist:
+Boek: par 1.5 
+
+https://www.youtube.com/watch?v=DhWmWOL_ch8
+https://www.youtube.com/watch?v=HrAGkD9bHYU
+
+Ga naar opgaven van paragraaf 5
+
+
+
+
+Opgaven paragraaf 1
+
+Maak bij deze opgave gebruik van Binas tabel 25 en 99. Leg steeds uit hoe je aan je antwoord komt.
+Hoeveel protonen heeft een neonatoom?
+Hoeveel elektronen heeft een zilveratoom?
+Hoeveel neutronen heeft O-18?
+Van welk(e) element(en) bestaan atomen met 23 protonen?
+Van welk(e) element(en) bestaan atomen met massagetal 109?
+
+Leg aan de hand van het element chloor uit wat er bedoeld wordt met het massagetal, de atoommassa  en de relatieve atoommassa.
+
+Om aan te geven welk specifiek isotoop bedoeld wordt, zijn twee notaties in symbolen mogelijk.
+Hoeveel neutronen bevat Kr-82?
+Hoeveel neutronen bevat 3114Si?
+Geef beide notaties voor stikstof met massagetal 15.
+Waarom zou in de notatie van opgave b het atoomnummer op zich weggelaten kunnen worden?
+Beschrijf de bouw van het koolstofatoom C-14 (ofwel: teken het C-14 atoom volgens het model van Bohr, inclusief de “inhoud” van de atoomkern). 
+
+Bereken met behulp van de gegevens in Binas tabel 25 de relatieve atoommassa van magnesium in twee decimalen nauwkeurig. Vergelijk je antwoord met de opgegeven relatieve atoommassa in Binas tabel 99.
+
+Hoeveel elektronen en hoeveel protonen heeft een kaliumatoom met massagetal 40?
+
+Een deeltje heeft een massagetal van 42 en een atoomgetal van 18. Geef de twee iets verschillende wetenschappelijke schrijfwijzen van dit atoom. 
+
+Bereken de atoommassa van K-40 in u én in gram.
+
+Welk atoomsoort heeft een gemiddelde atoommassa van 5,15.10-23 gram?
+
+Van een onbekend atoom zijn drie isotopen bekend. 30% van die atomen heeft een massa van 34 u, 45% van 35 u en de rest heeft een massa van 37 u. Wat is de gemiddelde atoommassa in u van dit element?
+In het atoommodel van Bohr komen K, L en M schillen voor. Welke twee atoomsorten bezitten geen L-schil (en ook geen M-schil)?
+
+Waarom is de notatie Br-79,90 niet correct?
+
+Neem onderstaande tabel over en vul in:
+Symbool
+Atoomnummer
+Aantal protonen
+Aantal elektronen
+Aantal neutronen
+Massagetal
+F
+
+
+
+
+
+
+11
+
+
+
+
+28
+28
+
+
+
+
+60
+Cl
+
+
+
+
+17
+
+
+34
+
+
+20
+
+
+
+
+21
+
+
+Pb
+
+
+
+
+
+
+
+
+210
+
+
+Teken het lood-atoom volgens Rutherford.
+
+Teken het aluminium-atoom volgens Bohr.
+
+Geef de definitie van het begrip isotoop.
+
+Terug naar paragraaf 1
+Nakijken opgaven paragraaf 1
+
+Opgaven paragraaf 2
+
+
+In het periodiek systeem zijn de elementen in groepen en perioden gerangschikt. Gebruik bij deze vraag Binas tabel 99.
+Geef de symbolen van alle elementen in groep 10.
+Geef de symbolen van alle elementen in periode 3.
+Wat is de verzamelnaam van de elementen uit groep 2?
+In welke groep staan de edelgassen?
+Welke periode bevat geen metalen?
+
+In het periodiek systeem staan elementen met vergelijkbare eigenschappen onder elkaar. Bijvoorbeeld bij de aardalkalimetalen en de edelgassen. Voor welke groepen gaat dat niet helemaal op? Geef het nummer of de nummers van zo’n groep. Licht je antwoord toe.
+
+Uit Binas tabel 99 zou je de elektronenconfiguratie (=verdeling van de elektronen over de schillen) van alle elementen kunnen afleiden.
+Hoeveel valentie-elektronen hebben de elementen van groep 2?
+Bekijk de tabel nauwkeurig en leid af hoeveel elektronen er in de vierde schil passen.
+
+Onlangs is in Rusland een nieuw superzwaar element gesynthetiseerd door berkelium (atoomnummer 97) te beschieten met bundels calciumisotopen.
+Hierbij smolten beide kernen samen. Er werden echter maar zes atomen van een nieuw element gevonden. 
+Wat is het atoomnummer van dit nieuwe element?
+Voorspel de chemische eigenschappen van dit element. Licht je antwoord toe.
+
+Geef vier voorbeelden van niet-metalen die bovendien als duo’s voorkomen (X2)
+
+Metalen geleiden de elektrische stroom, de niet metalen (zoals zwavel en fosfor, maar ook bijvoorbeeld kaarsvet en keukenzout) geleiden geen elektrische stroom. Bedenk en teken schematisch een natuurkunde-opstelling waarmee je kunt uitzoeken of een stof een metaal of een niet-metaal is.
+
+Wat wordt er bedoeld met de edelgasconfiguratie?
+
+Hoeveel valentie-elektronen bezit een atoom van een alkalimetaal? 
+
+Zwavel en zuurstof staan in dezelfde groep; ze bezitten veel overeenkomstige chemische eigenschappen. Koolstof en tin staan ook in eenzelfde groep. Toch hebben ze geen gemeenschappelijke eigenschappen. Waarom niet?
+
+Van één halogeen bestaan er geen isotopen. Welke is dat? Gebruik je Binas.
+
+Wat is de naam van de groep in het Periodiek Systeem waaronder de atomen natrium, lithium en francium vallen? En, wat is de gezamenlijke eigenschap op macroniveau?
+
+In welke periode (nummer) en in welke groep (nummer) staat barium?
+
+
+
+Terug naar paragraaf 2
+Nakijken opgaven paragraaf 2
+
+
+Opgaven paragraaf 3
+
+IJzer is een bros, breekbaar metaal. Staal en roestvrijstaal daarentegen is harder en buigzamer. Zoek in Binas tabel 9 de samenstelling van roestvrij staal op.
+Wat is het hoofdbestanddeel van staal?
+Welk element zorgt er blijkbaar voor dat roestvrij staal minder gevoelig is voor corrosie (reacties met water en lucht = roesten)?
+Wat is de rol van het andere element?
+Gietijzer kun je niet bewerken door smeden, kloppen, buigen en trekken. Hoe krijg je het dan toch in de gewenste vorm? 
+
+Brons is een legering van koper en tin.
+Zoek op in tabel 9 in welke verhouding de twee metalen aanwezig zijn in het materiaal.
+De koperprijs bedraagt 5,86 euro per kg. Bereken hoeveel een bronzen beeld van 125 kg aan koper kan opbrengen.
+Om het koper uit een bronzen beeld apart te kunnen verkopen, moet eerst het tin van het koper gescheiden worden. Dat kan op meerdere manieren. Leg uit met behulp van gegevens uit Binas tabel 8 hoe dat in zijn werk zou kunnen gaan.  
+
+
+Terug naar paragraaf 3
+Nakijken opgaven paragraaf 3
+
+Opgaven paragraaf 4
+
+Gebruik bij deze opgave Binas tabel 99. Geef de covalentie van :
+Cl
+O
+As
+Si
+H
+Xe
+
+Teken de structuurformule van:
+HCN
+CO2
+H2CO
+C2H4
+
+Hoeveel elektronen delen:
+twee H-atomen in H2?
+twee C-atomen in C2H2?
+twee O-atomen in O2?
+twee N-atomen in N2?
+
+Welke moleculen staan in onderstaande afbeelding getekend?
+
+
+
+
+
+Geef de systematische naam van de volgende moleculen:
+P2O3
+H2S
+NO2
+
+Geef de molecuulformule van de volgende stoffen:
+koolstofdisulfide
+stikstofmono-oxide
+fosfortrichloride
+
+Welk bindingstype wordt verbroken bij de volgende processen?
+het verdampen van vloeibaar stikstof
+het ontleden van water
+het oplossen van de vaste stof jood in ethanol (C2H5OH)
+
+Leg van de volgende moleculen uit of ze oplossen in water. Licht je antwoord zorgvuldig toe.
+
+
+
+
+
+Ethanol, C2H6O, lost goed op in water. De structuurformule van ethanol staat hieronder.
+
+
+
+Teken een oplossing van ethanol in water op microniveau. Teken een ethanol molecuul en drie watermoleculen die met elkaar verbonden zijn met drie waterstofbruggen. Een waterstofbrug geef je aan met een stippellijntje van maximaal 0,5 cm!
+De molecuulmassa van ethanol is groter dan die van water. Daardoor verwacht je, vanwege de Vanderwaalsbindingen, dat ethanol een hoger kookpunt heeft dan die van water (100℃).  Toch kookt ethanol ‘al’ bij 78℃. Hoe kun je dat aan de hand van de structuurformules en waterstofbruggen verklaren dat water een hoger kookpunt heeft dan ethanol?
+
+ In dit figuur staat een molecuul getekend dat omringd is met moleculen water en ammoniak (NH3). Er staan waterstofbruggen aangegeven met stippellijntjes. Maar niet elk stippellijntje stelt ook echt een waterstofbrug voor. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Welke stippellijntjes stellen waterstofbruggen voor? Geef de letters er van.
+De interacties tussen de moleculen (die met stippellijntjes zijn aangegeven) die géén waterstofbruggen zijn, stellen wel een ander type binding voor. Welk bindingstype wordt hier bedoeld?
+
+Terug naar paragraaf 4
+Nakijken opgaven paragraaf 4
+
+Opgaven paragraaf 5
+
+
+Neem de tabel over en vul de ontbrekende getallen of woorden in.
+
+Symbool
+Naam
+Atoom-
+nummer
+Aantal protonen
+Aantal elektronen
+Aantal neutronen
+Massagetal
+F-
+Fluoride-ion
+
+
+
+
+
+
+
+
+20
+Ni4+
+
+
+
+
+
+
+
+
+32
+
+
+O2-
+
+
+8
+
+
+
+
+
+
+17
+
+
+
+
+
+
+20
+18
+
+
+41
+
+
+
+
+
+
+
+
+18
+15
+31
+
+
+goud(III)-
+ion
+
+
+
+
+
+
+118
+
+
+
+
+Barium(II)hydroxide en ijzerbromide zijn beide geen correcte zoutnamen, ondanks dat het er best goed uitziet. Het heeft met het wel of juist niet gebruik maken van Romeinse cijfers te maken. Wanneer gebruik je bij de naam van een metaal-ion de Romeinse cijfers? En wanneer juist niet? Welke tabel in Binas is daarvoor reuze handig?
+
+Geef de verhoudingsformule van de volgende zouten:
+kaliumbromide
+calciumchloride
+magnesiumsulfaat
+natriumfosfaat
+aluminiumcarbonaat
+natriumoxide
+
+Geef de naam van de volgende zouten:
+Zn(OH)2
+FeSO4
+NaCH3COO
+Hg2O
+
+Geef de reactievergelijking van de volgende reacties:
+Calcium reageert met fluorgas tot calciumfluoride.
+Blootgesteld aan lucht reageert aluminium met zuurstof tot aluminiumoxide.
+Vloeibaar natriumchloride ontleedt onder invloed van elektriciteit tot een vloeibaar metaal en een gasvormig halogeen.
+
+Je kunt stoffen indelen in zouten, moleculaire stoffen en metalen door gebruik te maken van de formule. Maar als je de formule van een onbekende stof niet weet, kun je toch eenvoudig nagaan of het om een zout, moleculaire stof of metaal gaat. Hoe doe je dat? 
+
+Oefenen met zoutformules en molecuulformules. Geef de systematische molecuulnaam of zoutnaam van de volgende verbindingen:
+
+
+a.    CaS                                              
+b.    PBr3	
+c.    SnS2        	
+d.    CaSO4                    
+e.    AlPO4                           
+f.     N2O5                                             
+g.    I2O                                                  
+h.    SiBr4                                            
+i.      C2F6                        
+j.    Pb(SO4)2                   
+k.    LiCH3COO                  
+l.      NO                               
+m.   P2O5                            
+n.    H2O                              
+o.    Cr2O3                                            
+p.    Hg3(PO4)2                                
+q.    Fe(HCO3)3                               
+r.     Na2SO3                                       
+s.     BF3                                                 
+t.      AgCH3COO                 
+u.    KNO3                                            
+v.    SO2                                                
+w.   SiO2                                               
+x.    Cu(OH)2                                     
+y.    W(CO3)2                                     
+z.     N2O        
+aa.  CO                              
+bb.  ICl                               
+cc.  Pb(SO4)2 
+
+Geef de zoutformule of molecuulformule van:
+
+
+a.	zilversulfaat
+b.	Difosfortrisulfide
+c.	Tin(IV)sulfiet
+d.	calciumwaterstofcarbonaat
+e.	Aluminiumoxide
+f. 	Koper(II)sulfaat
+g.	Joodchloride
+h.	Kaliumfosfaat
+i.  	Goud(III)chloride
+j.  	Dizwaveltrioxide
+k.	Trikoolstofoctafluoride
+l.  	Stikstoftrijodide
+m.   siliciumtetrachloride
+n.	Kobalt(III)oxide
+o.	koolstofmonooxide
+p.	Natriumcarbonaat
+q.	fosfortrichloride
+r. 	difluoroxide
+s.	Zinkhydroxide
+t.  	Ammoniumsulfiet
+u.	Diwaterstofsulfide
+v.	Calciumdiwaterstoffosfaat
+w.   Ammoniumsulfaat
+x.	stikstofmonooxide
+y.	Diwaterstofdioxide
+z.	Ammoniumsulfiet
+aa. Kaliumoxide
+bb. Distikstofpentasulfide
+cc.  Fosforpentachloride
+dd. Boortrichloride
+ee. Kwik(I)sulfide
+ff.	IJzer(II)acetaat
+gg. Koolstoftetrafluoride
+hh.Tin(II)oxide
+ii.	Kaliumsulfaat
+jj. 	Aluminiumhydroxide
+kk.  Waterstoffluoride
+ll.	Ammoniumnitraat
+
+ 
+Terug naar paragraaf 5
+Nakijken opgaven paragraaf 5
+
+
+
+Antwoorden paragraaf 1
+
+
+10 p
+47 e
+10 n
+V / vanadium
+Ag/zilver en Cd/cadmium
+
+Massagetal is het aantal protonen + aantal neutronen. Voor chloor is dat 35 of 37. De atoommassa is van een enkel atoom de massa in u en is een onafgerond getal. De relatieve atoommassa is het gemiddelde van de isotopen. Cl is 35,45 (binas tabel 99)
+
+
+82-36 = 46 
+31-14 = 17 
+N-15 of 157N
+protonen zijn gelijk aan het atoomnummer en deze geven de identiteit van het atoom, dit kun je dus zo opzoeken als je weet wat voor atoom het is
+Koolstof heeft 6 protonen, dus ook 6 elektronen, in zijn eerste schil zal koolstof 2 elektronen hebben en in de 2de schil heeft koolstof 4 elektronen
+
+78,99 % 24 u
+10,00 % 25 u
+11,01 % 26 u +
+------------------
+2432,02 u / 100 = 24,32 u. Binas tabel 99 is 24,31 u.
+
+Een kalium-atoom heeft 19 protonen en dus ook 19 elektronen; het massagetal heeft daar niets mee te maken. Naar het aantal neutronen wordt niet gevraagd.
+
+4218Ar, Ar-42
+
+De atoomassa van K-40 is 40u, 1u = 1,66 x 10-24 g. 40 x 1,66 x 10-24= 6,64x10-23gram
+
+Massa is 5,15 x 10-23 gram, delen door massa van 1u = 1,66 x 10-27kg = 1,66x10-24gram. (5,15x 10-23 )/1,66 x 10-24 gram = 31,0 u. Fosfor heeft een gemiddelde atoommassa van 31,0 u
+
+
+
+
+30% 34u
+45% 35u
+25% 37u   +
+-----------------
+= 100 %
+0,3 x 34 + 0,45 x 35 + 0,25 x 37 = 35,2 u
+Waterstof (H) en Helium (He)
+
+Omdat in die notatie alleen het massagetal wordt gebruikt en dat is een telwaarde. Bij telwaarden komen er geen getallen achter de komma.
+
+
+
+Symbool
+Atoomnummer
+Aantal protonen
+Aantal elektronen
+Aantal neutronen
+Massagetal
+F
+9
+9
+9
+11
+20
+Ni
+28
+28
+28
+32
+60
+Cl
+17
+17
+17
+17
+34
+Ca
+20
+20
+20
+21
+41
+Pb
+82
+82
+82
+128
+210
+
+ 
+ 
+
+
+ 
+ Een isotoop is een atoom waarbij een verschillend aantal neutronen in de kern zit.
+
+
+Terug naar paragraaf 1
+Terug naar opgaven paragraaf 1
+
+
+Antwoorden paragraaf 2
+
+
+
+Ni, Pd, Pt, Ds
+Na, Mg, Al, Si, P, S, Cl, Ar
+aardalkalimetalen
+18
+Periode 1
+Alle groepen waarvan een deel van de atomen onder de metalen en een ander deel onder de niet-metalen valt.
+
+
+2
+18
+
+
+97+20 = 117
+metaal, groep 17
+H2 , N2, O2, F2, Cl2,  Br2, I2
+Plaatje
+
+
+Toestand van een deeltje waarbij de buitenste elektronenschil vol zit.
+één valentie-elektron
+Tin is een metaal, Koolstof is een niet-metaal. 
+Fluor
+alkalimetalen; ze reageren snel en heftig met water en of zuurstof.
+Periode 6, groep 2
+
+
+
+Terug naar paragraaf 2
+Terug naar opgaven paragraaf 2
+
+
+Antwoorden paragraaf 3 
+
+
+
+ijzer
+chroom
+koolstof zorgt voor stevigheid
+verwarmen
+
+
+90% koper en 10% tin
+125 * 0,9 * 5,86 = 659,25 euro
+smeltpunt ligt ver uit elkaar en je zou het kunnen destilleren (bij erg hoge temperaturen welliswaar) of smelten en dan hopen dat de twee vloeibare metalen vanwege verschil in dichtheid op elkaar gaan drijven.
+
+
+
+Terug naar paragraaf 3
+Terug naar opgaven paragraaf 3
+
+
+
+Antwoorden paragraaf 4
+
+
+
+1
+2
+3
+4
+1
+0
+
+
+
+
+
+
+
+
+2 (= enkelvoudige atoombinding)
+6 (= drievoudige atoombinding)
+4 (= dubbele atoombinding)
+6 (= drievoudige atoombinding)
+
+a. H2O en b. HCl
+
+
+difosfortrioxide
+diwaterstofsulfide
+stikstofdioxide
+
+
+CS2
+NO
+PCl3
+
+
+
+Vanderwaalsbinding
+atoombinding tussen de O en H verbreekt, (maar omdat de watermoleculen kapot gaan, verdwijnen daardoor ook de vanderwaalsbindingen en de waterstofbrugen tussen die watermoleculen.)
+Vanderwaalsbinding tussen de jodiummoleculen (I2) raakt los. 
+
+
+ja, heeft NH groep
+nee
+ja, heeft OH groep
+ja, heeft OH groep, maar is ook een groot molecuul dat niet oplost dus het wordt wel lastiger
+
+
+
+Heeft ook een hydrofoob deel en maar 1 O-H groep, water heeft geen hydrofoob deel en 2 O-H groepen.
+
+           a. B, C, G, I en K
+	b. Vanderwaalsbindingen
+
+Terug naar paragraaf 4
+Terug naar opgaven paragraaf 4
+
+
+
+Antwoorden paragraaf 5
+
+
+
+Symbool
+Naam
+Atoom-
+nummer
+Aantal protonen
+Aantal elektronen
+Aantal neutronen
+Massagetal
+F-
+Fluoride-ion
+9
+9
+10
+11
+20
+Ni4+
+nikkel(IV)-
+ion
+28
+28
+24
+32
+60
+O2-
+oxide-ion
+8
+8
+10
+9
+17
+Ca2+
+calcium-ion
+20
+20
+18
+21
+41
+S2-
+sulfide-ion
+16
+16
+18
+15
+31
+Au3+
+goud(III)-
+ion
+79
+79
+76
+118
+197
+
+
+Het is bariumhydroxide en ijzer(II)bromide of ijzer(III)bromide. Je noteert ALLEEN de Romeinse cijfers als er meerdere elektrovalenties (=ionladingen) van het metaal-ion bestaan. Dat is bij barium-ionen niet het geval (alléén 2+ mogelijk). Voor bijvoorbeeld ijzer-ionen is er 2+ en 3+ mogelijk. En bij keuze moet je in de zoutnaam aangeven welk ionsoort er in dat zout zit. Dan gebruik je WEL de Romeinse cijfers. In zoutformules staan NOOIT Romeinse cijfers! Tabel 40A is erg handig om het wel of niet hebben van meerdere elektrovalenties te kunnen opzoeken.
+
+
+
+KBr
+CaCl2
+MgSO4
+Na3PO4
+Al2(CO3)3
+Na2O
+
+
+zinkhydroxide
+ijzer(II)sulfaat
+natriumacetaat
+kwik(I)oxide
+
+
+Ca (s) + F2 (g) → CaF2 (s)
+4 Al (s) + 3 O2 (g) → 2 Al2O3 (s)
+2NaCl (l) → 2Na(l) + Cl2 (g)
+
+Met behulp van een geleidbaarheidsexperiment; moleculaire stoffen geleiden nooit, metalen in de vaste en vloeibare fase en zouten alleen in de vloeibare/gesmolten fase.
+
+Antwoorden zoutformules en molecuulformules:
+      a.    CaS                                              	calciumsulfide        	        	- z
+b.    PBr3                                               fosfortribromide      	        	- m
+c.    SnS2              	            tin(IV)sulfide          	        	- z
+d.    CaSO4                         Calciumsulfaat        	        	- z
+e.    AlPO4                           aluminiumfosfaat   	        	- z
+f.     N2O5                                             	distikstofpentaoxide           	- m
+g.    I2O                                                  	dijoodoxide                	        	- m
+h.    SiBr4                                              silliciumtetrabromide         	- m
+i.      C2F6                             dikoolstofhexafluoride        	- m
+j.  	Pb(SO4)2                     Lood(IV)sulfaat       	        	- z
+k.    LiCH3COO                   lithiumacetaat         	        	- z
+l.      NO                               stikstofmonoxide    	        	– m  	
+m.   P2O5                            difosforpentaoxide 	        	- m
+n.    H2O                              diwaterstofoxide     	        	- m
+o.    Cr2O3                                            chroomoxide                	- z
+p.    Hg3(PO4)2                                 kwik(II)fosfaat        	        	- z
+q.    Fe(HCO3)3                               ijzer(III)waterstofcarbonaat	- z
+r.     Na2SO3                                       	Natriumsulfiet        	        	- z
+s.     BF3                                                 Boortrifluoride         	        	- m
+t.      AgCH3COO                 Zilveracetaat           	        	- z
+u.    KNO3                                            Kaliumnitraat         	        	- z
+v.    SO2                                                	Zwaveldioxide        	        	- m
+w.   SiO2                                               Siliciumdioxide       	        	- m
+x.    Cu(OH)2                                     Koper(II)hydroxide             	- z
+y.    W(CO3)2                                     wolfraam(IV)carbonaat	        	- z
+z.     N2O                             Distikstofoxide        	        	- m
+aa.  CO                              Koolstofmonoxide  	        	- m
+bb.  ICl                               Joodchloride           	        	- m
+cc.  Pb(SO4)2                                  Lood(IV)sulfaat       	        	- z
+
+a.    Zilversulfaat                                   	Ag2SO4       	- Z
+b.    Difosfortrisulfide                            	P2S3            	- M
+c.    Tin(IV)sulfiet                                   	Sn(SO3)2     	- Z
+d.    Calciumwaterstofcarbonaat          	Ca(HCO3)2  	- Z
+e.    Aluminiumoxide                             	Al2O3          	- Z
+f.     Koper(II)sulfaat                              	CuSO4            	- Z
+g.    Joodchloride                                  	ICl               	- M
+h.    Kaliumfosfaat                                	K3PO4             	- Z
+i.      Goud(III)chloride                           	AuCl3          	- Z
+j.      Dizwaveltrioxide                            	S2O3           	- M
+k.    Trikoolstofoctofluoride                   	C3F8            	- M
+l.      Stikstoftrijodide                              	NI3                    	- M
+m.   Siliciumtetrachloride                      	SiCl4           	- M
+n.    Kobalt(III)oxide                              	Co2O3         	- Z
+o.    Koolstofmonoxide                         	CO              	- M
+p.    Natriumcarbonaat                         	Na2CO3         	- Z
+q.    Fosfortrichloride                            	PCl3            	- M
+r.     Difluoroxide                                   	F2O             	- M
+s.     Zinkhydroxide                                      Zn(OH)2      	- Z
+t.      Ammoniumsulfiet                          	(NH4)2­­SO3   	- Z
+u.    Diwaterstofsulfide                          	H2S             	- M
+v.    Calciumdiwaterstoffosfaat            	Ca(H2PO4)2	- Z
+w.   Ammoniumsulfaat                          	(NH4)2SO4        - M
+x.    Stikstofmonoxide                          	NO              	- M
+y.    Diwaterstofdioxide                         	H2O2           	- M
+z.     Ammoniumsulfiet                          	(NH4)2­­SO3   	- Z
+aa.  Kaliumoxide                                   	K2O             	- Z
+bb.  Distikstofpentasulfide                    	N2S5           	- M
+cc.  Fosforpentachloride                      	PCl5            	- M
+dd.  Boortrichloride                               	BCl3            	- M
+ee.  Kwik(I)sulfide                                 	Hg2S           	- Z
+ff.    IJzer(II)acetaat                              	Fe(CH3COO)2           - Z
+gg.  Koolstoftetrafluoride                      	CF4                   	- M
+hh.  Tin(II)oxide                                    	SnO            	- Z
+ii.     Kaliumsulfaat                                 	K2SO4         	- Z
+jj.     Aluminiumhydroxide                     	Al(OH)3       	- Z   	
+kk.  Waterstoffluoride                           	HF               	- M
+ll.     Ammoniumnitraat                          	NH4NO3     	- Z
+
+SO in 2 delen: 
+Eerste deel zonder BINAS: ionnamen en –formules. (zie boven)
+Tweede deel met BINAS: molecuulnamen en –formules, zoutnamen en –formules. 
+Let op: een formule of naam is óf goed óf fout. Dus elk foutje wordt aangerekend.
+Voorbeeld eerste deel SO (zonder BINAS):
+Geef de formule van:
+Nitraat-ion
+Diwaterstoffosfaat-ion
+Waterstofsulfide-ion
+Hydroxide-ion
+Aluminium-ion
+IJzer(III)-ion
+Geef de naam van de volgende ionen:
+HSO4-
+Pb4+
+Na+
+Cr2O72-
+O2-	
+
+Voorbeeld tweede deel SO:
+Schrijf de formule achter de volgende stoffen:
+IJzer(III)sulfaat
+Diwaterstofdioxide
+Natriumsulfaat
+Kaliumwaterstofsulfaat
+Distikstofpentaoxide
+Kaliumpermanganaat
+Koolstofmono-oxide
+Diwaterstofsulfide
+Broom
+Schrijf de naam van de volgende stoffen achter de formules:
+NaHCO3
+HI
+CuSO4
+Na2S2O3
+SO3
+K2SO3
+
+Terug naar paragraaf 5
+Terug naar opgaven paragraaf 5
+Bijlage 1: Ionenslang 	Let op: ga deze pagina niet leren voor je ionen-kennis; 
+het zilver-ion is (natuurlijk) niet Au3+!
+
+
+Zilver-ion                         	Au3+       
+Goud(III)-ion                   	MnO4-
+Permanganaat-ion        	Ca2+
+Calcium-ion                     	Cu+
+Koper(I)- ion                   	SO42-
+Sulfaat-ion                       	Na+
+Natrium-ion        	        	Hg2+
+Kwik(II)-ion                     	HS-
+Waterstofsulfide-ion    	OH-
+Hydroxide-ion                	Ba2+
+Barium-ion                      	CO­32-
+Carbonaat-ion                	Pb­4+
+Lood(IV)-ion                    	HCO3-
+Waterstofcarbonaat     	Fe2+
+IJzer(II)-ion                      	HSO3-
+Waterstofsulfiet-ion     	Cu2+
+Koper(II)-ion                   	PO43-
+Fosfaat-ion                      	Fe3+
+IJzer(III)-ion                     	Cr2O72-
+Dichromaat-ion              	U6+
+Uraan(VI)-ion                 	K+
+Kalium-ion                       	Mg2+
+Magnesium-ion              	Pb2+
+Lood(II)- ion                    	F-
+Fluoride-ion                    	HSO4-
+Waterstofsulfaat-ion    	Hg+
+
+Kwik(I)-ion                       	Cl-
+Chloride-ion                    	Zn2+
+Zink-ion                            	S2O32-
+Thiosulfaat-ion               	Al3+
+Aluminium-ion               	Br-
+Bromide-ion                    	NH4+
+Ammonium-ion              	I-
+Jodide-ion                       	O2-
+Oxide-ion                         	NO2-
+Nitriet-ion                        	S2-
+Sulfide-ion                       	CH3COO-
+Acetaat-ion                     	SO32-
+Sulfiet-ion                        	NO3-
+Nitraat-ion                       	Ag+
+
+De ionen die je uit je hoofd moet kennen (van formule naar naam en omgekeerd):
+
+
+Zilver-ion			Ag+
+Calcium-ion 			Ca2+
+Barium-ion			Ba2+
+Zink-ion			Zn2+
+Aluminium-ion		Al3+
+Natrium-ion			Na+
+Kalium-ion			K+
+Lithium-ion			Li+
+Magnesium-ion		Mg2+
+Ammonium-ion		NH4+
+Kwik(I)- en (II)-ion		Hg+ , Hg2+
+Koper(I)- en (II)-ion		Cu+, Cu2+
+IJzer(II)- en (III)-ion		Fe2+, Fe3+
+Lood(II)- en (IV)-ion		Pb2+, Pb4+
+Tin(II) en (IV)-ion		Sn2+, Sn4+
+Goud(I) en (III)-ion		Au+, Au3+
+Uranium(III) en (VI)-ion	U3+, U6+
+Fluoride-ion			F-
+Chloride-ion			Cl-
+Bromide-ion			Br-
+Jodide-ion 			I-
+Oxide-ion			O2-
+Sulfide-ion			S2-
+Waterstofsulfide-ion		HS-
+Hydroxide-ion		OH-
+Nitriet-ion			NO2-
+Nitraat-ion			NO3-
+Acetaat-ion			CH3COO-
+Sulfiet-ion			SO32-
+Waterstofsulfiet-ion		HSO3-
+Sulfaat-ion			SO42-
+Waterstofsulfaat-ion		HSO4-
+Carbonaat-ion		CO32-
+Waterstofcarbonaat		HCO3-
+Fosfaat-ion			PO43-
+Thiosulfaat-ion		S2O32-
+Permanganaat-ion		MnO4-
+Monowaterstoffosfaat-ion	HPO42-
+Diwaterstoffosfaat-ion	H2PO4-
+Dichromaat-ion		Cr2O72-
+
+
+
+
+Let op: een formule of naam is óf goed óf fout. Dus elk foutje wordt aangerekend.
+
+
+
+Bijlage 2: Opzet SO ionen, moleculen en zouten
+SO in 2 delen: 
+Eerste deel zonder BINAS: ionnamen en –formules. (welke? zie bij 1.5)
+Tweede deel met BINAS: molecuulnamen en –formules, zoutnamen en –formules. 
+Let op: een formule of naam is óf goed óf fout. Dus elk foutje wordt aangerekend.
+
+Voorbeeld eerste deel SO (zonder BINAS):
+
+
+Geef de formule van:
+Nitraat-ion
+Diwaterstoffosfaat-ion
+Waterstofsulfide-ion
+Hydroxide-ion
+Aluminium-ion
+IJzer(III)-ion
+Geef de naam van de volgende ionen:
+HSO4-
+Pb4+
+Na+
+Cr2O72-
+O2-	
+
+
+
+Voorbeeld tweede deel SO 
+(met BINAS):
+
+Schrijf de formule achter de volgende stoffen:
+IJzer(III)sulfaat
+Diwaterstofdioxide
+Natriumsulfaat
+Kaliumwaterstofsulfaat
+Distikstofpentaoxide
+Kaliumpermanganaat
+Koolstofmono-oxide
+Diwaterstofsulfide
+Broom
+
+
+
+
+
+
+
+
+Schrijf de naam van de volgende stoffen achter de formules:
+NaHCO3
+HI
+CuSO4
+Na2S2O3
+SO3
+K2SO3
+
+

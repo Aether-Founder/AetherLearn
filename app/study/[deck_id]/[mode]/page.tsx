@@ -233,7 +233,7 @@ export default function StudyModePage() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-3xl py-10">
+      <div className="py-10">
         <div className="flex items-center justify-between gap-4">
           <button
             type="button"

@@ -4,9 +4,72 @@
     {
       "id": "aardrijkskunde-h5",
       "title": "Aardrijkskunde — hoofdstuk 5",
-      "description": "Interactief lesmateriaal met leer-, samenvattings- en quizmodi.",
+      "description": "Interactief lesmateriaal met leer-, samenvattingings- en quizmodi.",
       "subjectId": "aardrijkskunde",
       "jsonPath": "old/aardrijkskunde-h5.json"
+    },
+    {
+      "id": "ckv-architectuur",
+      "title": "CKV - Architectuur",
+      "description": "Leer over architectuurgeschiedenis van klassieke oudheid tot hedendaags supermodernisme",
+      "subjectId": "Culturele en Kunstzinnige Vorming",
+      "jsonPath": "subjects/culturele-en-kunstzinnige-vorming/ckv-architectuur.json"
+    },
+    {
+      "id": "engels-grammatica",
+      "title": "Engels - Grammatica",
+      "description": "Leer over Engelse grammatica: tijden, onregelmatige werkwoorden en verbindingswoorden",
+      "subjectId": "Engels",
+      "jsonPath": "subjects/engels/engels-grammatica.json"
+    },
+    {
+      "id": "frans-grammatica",
+      "title": "Frans - Grammatica",
+      "description": "Leer over Franse grammatica: ontkenningen, tijden, bijvoeglijke naamwoorden, getallen en vocabulaire",
+      "subjectId": "Frans",
+      "jsonPath": "subjects/frans/frans-grammatica.json"
+    },
+    {
+      "id": "natuurkunde-beweging-elektriciteit",
+      "title": "Natuurkunde - Beweging en Elektriciteit",
+      "description": "Leer over beweging, elektriciteit, krachten, trillingen, golven en radioactiviteit",
+      "subjectId": "Natuurkunde",
+      "jsonPath": "subjects/natuurkunde/natuurkunde-beweging-elektriciteit.json"
+    },
+    {
+      "id": "nederlands-literaire-termen",
+      "title": "Nederlands - Literaire Termen",
+      "description": "Leer over literaire termen, ruimte, tijd, perspectief en betoog schrijven",
+      "subjectId": "Nederlands",
+      "jsonPath": "subjects/nederlands/nederlands-literaire-termen.json"
+    },
+    {
+      "id": "scheikunde-microstructuren",
+      "title": "Scheikunde - Microstructuren",
+      "description": "Leer over atombouw, periodiek systeem, metalen, moleculaire stoffen en zouten",
+      "subjectId": "Scheikunde",
+      "jsonPath": "subjects/scheikunde/scheikunde-microstructuren.json"
+    },
+    {
+      "id": "wiskunde-b-kwadratische-formules",
+      "title": "Wiskunde B - Kwadratische Formules",
+      "description": "Leer over kwadratische formules, transformaties, discriminant, ongelijkheden en parabolen",
+      "subjectId": "Wiskunde B",
+      "jsonPath": "subjects/wiskunde-b/wiskunde-b-kwadratische-formules.json"
+    },
+    {
+      "id": "wiskunde-d-combinatoriek",
+      "title": "Wiskunde D - Combinatoriek",
+      "description": "Leer over combinatoriek, variaties, combinaties, driehoek van Pascal en binomium van Newton",
+      "subjectId": "Wiskunde D",
+      "jsonPath": "subjects/wiskunde-d/wiskunde-d-combinatoriek.json"
+    },
+    {
+      "id": "inleiding-in-de-biologie",
+      "title": "Biologie - Hoofdstuk 1: Inleiding in de biologie",
+      "description": "Leer over de basisprincipes van biologie, cellen, weefsels, organen en natuurwetenschappelijk onderzoek",
+      "subjectId": "Biologie",
+      "jsonPath": "subjects/biologie/inleiding-in-de-biologie.json"
     }
   ]
 }

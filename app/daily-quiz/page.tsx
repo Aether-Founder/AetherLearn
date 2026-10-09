@@ -3,77 +3,50 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { Check, Loader2, RotateCcw, Sparkles, X } from 'lucide-react';
+import { Clock, Loader2, Play } from 'lucide-react';
 import { loadAllLearningSets } from '@/lib/learning-sets';
 
-interface QuizItem {
+interface LearningSet {
   id: string;
-  setId: string;
-  setTitle: string;
-  question: string;
-  answer: string;
+  title: string;
+  cardCount: number;
+  lastStudied?: string;
+  cards: any[];
 }
 
-type QuizState = 'loading' | 'empty' | 'quiz' | 'finished';
-
-function getDaySeed(): number {
-  const now = new Date();
-  return now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
-}
-
-function seededShuffle<T>(items: T[], seed: number): T[] {
-  const result = [...items];
-  let state = seed;
-
-  const random = () => {
-    state = (state * 9301 + 49297) % 233280;
-    return state / 233280;
-  };
-
-  for (let index = result.length - 1; index > 0; index -= 1) {
-    const randomIndex = Math.floor(random() * (index + 1));
-    [result[index], result[randomIndex]] = [result[randomIndex], result[index]];
-  }
-
-  return result;
-}
+type PageState = 'loading' | 'empty' | 'list';
 
 export default function DailyQuizPage() {
-  const [state, setState] = useState<QuizState>('loading');
-  const [items, setItems] = useState<QuizItem[]>([]);
-  const [index, setIndex] = useState(0);
-  const [revealed, setRevealed] = useState(false);
-  const [score, setScore] = useState(0);
+  const [state, setState] = useState<PageState>('loading');
+  const [sets, setSets] = useState<LearningSet[]>([]);
 
   useEffect(() => {
     let active = true;
 
     loadAllLearningSets()
-      .then((sets) => {
+      .then((allSets) => {
         if (!active) return;
 
-        const flat: QuizItem[] = sets.flatMap((set) =>
-          set.cards.map((card) => ({
-            id: `${set.id}-${card.id}`,
-            setId: set.id,
-            setTitle: set.title,
-            question: card.question,
-            answer: card.answer,
-          }))
-        );
-
-        if (flat.length === 0) {
+        if (allSets.length === 0) {
           setState('empty');
           return;
         }
 
-        const dailyItems = seededShuffle(flat, getDaySeed()).slice(0, 10);
+        // Sort by lastStudied date (most recent first), then by id for consistency
+        const sorted = allSets.sort((a, b) => {
+          const aDate = a.lastStudied ? new Date(a.lastStudied).getTime() : 0;
+          const bDate = b.lastStudied ? new Date(b.lastStudied).getTime() : 0;
+          if (bDate !== aDate) {
+            return bDate - aDate;
+          }
+          return b.id.localeCompare(a.id);
+        });
 
-        setItems(dailyItems);
-        setState('quiz');
+        setSets(sorted);
+        setState('list');
       })
       .catch(() => {
-        if (!active) return;
+        if (active) return;
         setState('empty');
       });
 
@@ -82,37 +55,14 @@ export default function DailyQuizPage() {
     };
   }, []);
 
-  const currentItem = items[index];
-
-  const answer = (correct: boolean) => {
-    if (correct) {
-      setScore((previous) => previous + 1);
-    }
-
-    if (index + 1 >= items.length) {
-      setState('finished');
-      return;
-    }
-
-    setIndex((previous) => previous + 1);
-    setRevealed(false);
-  };
-
-  const restart = () => {
-    setIndex(0);
-    setScore(0);
-    setRevealed(false);
-    setState('quiz');
-  };
-
   return (
     <AppShell>
       <PageHeader
-        title="Dagelijkse quiz"
-        description="Een korte dagelijkse oefening op basis van je leersets."
+        title="Daily quiz"
+        description="Alle leersets, gesorteerd op laatst bestudeerd."
       />
 
-      <div className="mx-auto mt-8 max-w-2xl">
+      <div className="mt-8">
         {state === 'loading' && (
           <section className="flex min-h-[280px] items-center justify-center rounded-xl border border-border bg-card p-10 text-center shadow-sm">
             <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
@@ -121,10 +71,9 @@ export default function DailyQuizPage() {
 
         {state === 'empty' && (
           <section className="rounded-xl border border-dashed border-border bg-card/40 p-10 text-center">
-            <Sparkles className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
-            <h2 className="font-display text-2xl font-semibold">Geen quiz beschikbaar</h2>
+            <h2 className="font-display text-2xl font-semibold">Geen leersets beschikbaar</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Maak eerst een leerset met kaarten om een dagelijkse quiz te krijgen.
+              Maak eerst een leerset met kaarten om te beginnen.
             </p>
 
             <Link
@@ -136,98 +85,43 @@ export default function DailyQuizPage() {
           </section>
         )}
 
-        {state === 'quiz' && currentItem && (
-          <section className="space-y-6">
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <span>
-                Vraag {index + 1} van {items.length}
-              </span>
-
-              <span>Score: {score}</span>
-            </div>
-
-            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                {currentItem.setTitle}
-              </p>
-
-              <p className="mt-4 whitespace-pre-wrap font-display text-2xl font-semibold">
-                {currentItem.question}
-              </p>
-
-              {revealed && (
-                <div className="mt-6 rounded-lg border border-border bg-background/70 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                    Antwoord
-                  </p>
-                  <p className="mt-2 whitespace-pre-wrap text-base">
-                    {currentItem.answer}
-                  </p>
-                </div>
-              )}
-            </div>
-
-            {!revealed ? (
-              <div className="flex justify-center">
-                <button
-                  type="button"
-                  onClick={() => setRevealed(true)}
-                  className="inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
-                >
-                  Toon antwoord
-                </button>
-              </div>
-            ) : (
-              <div className="flex justify-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => answer(false)}
-                  className="inline-flex h-11 items-center justify-center rounded-md border border-rose-500/30 bg-rose-500/5 px-6 text-sm font-medium text-rose-600 shadow-sm transition-colors hover:bg-rose-500/10"
-                >
-                  <X className="mr-2 h-4 w-4" />
-                  Nog niet goed
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => answer(true)}
-                  className="inline-flex h-11 items-center justify-center rounded-md border border-emerald-500/30 bg-emerald-500/5 px-6 text-sm font-medium text-emerald-600 shadow-sm transition-colors hover:bg-emerald-500/10"
-                >
-                  <Check className="mr-2 h-4 w-4" />
-                  Goed
-                </button>
-              </div>
-            )}
-          </section>
-        )}
-
-        {state === 'finished' && (
-          <section className="rounded-xl border border-border bg-card p-10 text-center shadow-sm">
-            <Sparkles className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
-            <h2 className="font-display text-3xl font-semibold">Quiz afgerond</h2>
-
-            <p className="mt-3 text-lg font-medium">
-              Je hebt {score} van {items.length} vragen goed beantwoord.
-            </p>
-
-            <div className="mt-8 flex justify-center gap-3">
-              <button
-                type="button"
-                onClick={restart}
-                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
-              >
-                <RotateCcw className="mr-2 h-4 w-4" />
-                Opnieuw proberen
-              </button>
-
+        {state === 'list' && (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {sets.map((set) => (
               <Link
-                href="/leersets"
-                className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-5 text-sm font-medium shadow-sm transition-colors hover:bg-secondary"
+                key={set.id}
+                href={`/leersets/${set.id}`}
+                className="group relative rounded-xl border border-border bg-card p-5 shadow-sm transition-all hover:border-primary/50 hover:shadow-md"
               >
-                Naar leersets
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-display text-lg font-semibold line-clamp-2 group-hover:text-primary transition-colors">
+                      {set.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {set.cardCount} kaarten
+                    </p>
+                  </div>
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                    <Play className="h-4 w-4" />
+                  </div>
+                </div>
+
+                {set.lastStudied && (
+                  <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <Clock className="h-3.5 w-3.5" />
+                    <span>
+                      Laatst bestudeerd: {new Date(set.lastStudied).toLocaleDateString('nl-NL', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                      })}
+                    </span>
+                  </div>
+                )}
               </Link>
-            </div>
-          </section>
+            ))}
+          </div>
         )}
       </div>
     </AppShell>

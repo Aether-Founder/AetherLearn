@@ -1,0 +1,235 @@
+{
+  "id": "frans-grammatica",
+  "subject": "Frans",
+  "siteMetadata": {
+    "title": "Frans - Grammatica",
+    "description": "Leer over Franse grammatica: ontkeningen, tijden, bijvoeglijke naamwoorden, getallen en vocabulaire"
+  },
+  "summary": "Complete overzicht van Franse grammatica inclusief ontkenningen, tijdlijn, passé composé, imparfait, présent, futur, bijvoeglijke naamwoorden, landennaamwoorden, getallen, datums, breuken, kloktijden en vocabulaire.",
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": [
+    "simple",
+    "study",
+    "samenvatting",
+    "quiz"
+  ],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showTranscriptExport": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "1. Ontkenningen (La négation)",
+      "blocks": [
+        {
+          "id": "blk-1-content",
+          "type": "text",
+          "content": "## De basisregel voor ontkenningen\n\nIn het Frans zet je een ontkening meestal om de persoonsvorm (het vervoegde werkwoord) heen. De basisregel is: **ne ... pas**.\n\nLet op: als er een klinker of stomme h volgt, verandert `ne` in `n'`.\n\n| Ontkenning | Betekenis | Voorbeeld |\n|---|---|---|\n| **ne ... pas** | niet | Je **ne** parle **pas**. (Ik praat niet.) |\n| **ne ... ni ... ni** | niet ... en ook niet ... | Je **ne** parle **ni** anglais **ni** allemand. (Ik spreek geen Engels en ook geen Duits.) |\n| **ne ... personne** | niemand | Il **n'**y a **personne**. (Er is niemand.) |\n| **ne ... rien** | niets | Je **ne** fais **rien**. (Ik doe niets.) |\n| **ne ... plus** | niet meer | Je **ne** travaille **plus**. (Ik werk niet meer.) |\n| **ne ... jamais** | nooit | Je **ne** vais **jamais** à Paris. (Ik ga nooit naar Parijs.) |\n\n**Let op bij `pas de` / `plus de` etc.:** Als je een ontkenning gebruikt bij een zelfstandig naamwoord met een lidwoord (un, une, des, du, de la), verandert het lidwoord vaak in **de** of **d'**.\n\n*Voorbeeld:* J'ai un chat. ➔ Je n'ai **pas de** chat. (Ik heb geen kat.)"
+        }
+      ]
+    },
+    {
+      "id": "sec-2",
+      "title": "2. De Tijdlijn",
+      "blocks": [
+        {
+          "id": "blk-2-content",
+          "type": "text",
+          "content": "## Chronologische volgorde van de tijden\n\nDe tijden volgen een logische volgorde in de tijd:\n\n**Passé Composé & Imparfait** (Verleden tijd) ➔ **Présent** (Tegenwoordige tijd) ➔ **Futur** (Toekomende tijd)\n\nDeze volgorde helpt bij het kiezen van de juiste tijd op basis van de context en de timing van de beschreven gebeurtenis."
+        }
+      ]
+    },
+    {
+      "id": "sec-3",
+      "title": "3. Passé Composé (Voltooid Verleden Tijd)",
+      "blocks": [
+        {
+          "id": "blk-3-content",
+          "type": "text",
+          "content": "## Gebruik\n\n- Een eenmalige handeling of gebeurtenis in het verleden.\n- Een serie handelingen of gebeurtenissen in het verleden.\n- De handeling of gebeurtenis is afgerond.\n\n## Signaalwoorden\n\n`hier` (gisteren), `l'année dernière` (vorig jaar), `soudain` (plotseling), `tout à coup` (plotseling), `ce matin` (vanmorgen), `à 8 heures` (om 8 uur).\n\n## Hoe maak je de passé composé?\n\nDe passé composé bestaat uit twee delen:\n1. **Het hulpwerkwoord** (`avoir` of `être`) in de tegenwoordige tijd (présent).\n2. **Het voltooid deelwoord** (participe passé) van het hoofdwerkwoord.\n\n**Regels voor het voltooid deelwoord:**\n- Werkwoorden op **-er** ➔ **-é** (travailler ➔ travaillé)\n- Werkwoorden op **-ir** ➔ **-i** (finir ➔ fini)\n- Werkwoorden op **-re** ➔ **-u** (vendre ➔ vendu)\n\n**Let op:** De meeste werkwoorden gebruiken `avoir`. Een specifieke groep werkwoorden (vaak beweging of verandering van toestand) gebruikt `être`. Bij `être` moet het voltooid deelwoord zich aanpassen aan het onderwerp (extra -e, -s of -es)."
+        }
+      ]
+    },
+    {
+      "id": "sec-4",
+      "title": "4. Imparfait (Onvoltooid Verleden Tijd)",
+      "blocks": [
+        {
+          "id": "blk-4-content",
+          "type": "text",
+          "content": "## Gebruik\n\n- Beschrijving van een gewoonte of toestand in het verleden.\n\n## Signaalwoorden\n\n`avant` (vroeger), `souvent` (vaak), `toujours` (altijd), `chaque jour` (elke dag), `tous les week-ends` (elk weekend).\n\n## Hoe maak je een imparfait?\n\nVolg exact deze stappen:\n1. Neem de **nous-vorm** van het werkwoord in de présent.\n2. Haal **-ons** van het werkwoord af. Dit is je stam voor de imparfait.\n3. Voeg de juiste uitgang toe.\n\n**De uitgangen voor de imparfait (voor -er, -ir en -re werkwoorden):**\n\n| Persoon | Uitgang |\n|---|---|\n| je | + ais |\n| tu | + ais |\n| il/elle/on | + ait |\n| nous | + ions |\n| vous | + iez |\n| ils/elles | + aient |"
+        }
+      ]
+    },
+    {
+      "id": "sec-5",
+      "title": "5. Présent (Tegenwoordige Tijd)",
+      "blocks": [
+        {
+          "id": "blk-5-content",
+          "type": "text",
+          "content": "## Gebruik\n\n- Gebeurtenissen of handelingen die nu plaatsvinden.\n\n## Signaalwoorden\n\n`maintenant` (nu), `en ce moment` (op dit moment), `actuellement` (momenteel).\n\n## Vorming van de Présent (-er, -ir, -re)\n\n| Persoon | -er (bijv. parler) | -ir (bijv. finir) | -re (bijv. vendre) |\n|---|---|---|---|\n| je | + e | + is | + s |\n| tu | + es | + is | + s |\n| il/elle/on | + e | + it | + (geen uitgang) |\n| nous | + ons | + ons | + ons |\n| vous | + ez | + ez | + ez |\n| ils/elles | + ent | + ent | + ent |"
+        }
+      ]
+    },
+    {
+      "id": "sec-6",
+      "title": "6. Futur (Toekomende Tijd)",
+      "blocks": [
+        {
+          "id": "blk-6-content",
+          "type": "text",
+          "content": "## Gebruik\n\n- Een activiteit of handeling in de toekomst.\n\n## Signaalwoorden\n\n`demain` (morgen), `la semaine prochaine` (volgende week), `dans dix jours` (over tien dagen), `bientôt` (binnenkort), `un jour` (op een dag).\n\n## Hoe maak je de futur?\n\nHet infinitief (het hele werkwoord) is de basis.\n\n*Voor -er, -ir en -re:*\nhele werkwoord + uitgang\n\n| Persoon | Uitgang | Voorbeeld (parler) |\n|---|---|---|\n| je | + ai | je parlerai |\n| tu | + as | tu parleras |\n| il/elle/on | + a | il parlera |\n| nous | + ons | nous parlerons |\n| vous | + ez | vous parlerez |\n| ils/elles | + ont | ils parleront |\n\n**Let op:** Bij werkwoorden op **-re** haal je de **-e** weg voordat je de uitgang toevoegt.\n*Voorbeeld:* `vendre` ➔ vend- + uitgang ➔ je vendrai."
+        }
+      ]
+    },
+    {
+      "id": "sec-7",
+      "title": "7. Bijvoeglijk Naamwoord (L'adjectif)",
+      "blocks": [
+        {
+          "id": "blk-7-content",
+          "type": "text",
+          "content": "## Mannelijk Enkelvoud\n\nIn een woordenboek vind je de vorm van het bijvoeglijk naamwoord dat bij een mannelijk zelfstandig naamwoord hoort.\n\n> Ils habitent dans un **petit** village.\n> C'est un problème **intéressant**.\n\n## Vrouwelijk Enkelvoud\n\nEen bijvoeglijk naamwoord dat bij een vrouwelijk zelfstandig naamwoord hoort, krijgt meestal een -e.\n\n> Elle habite dans une petit**e** maison.\n> C'est une question intéressant**e**.\n\nBij een aantal bijvoegelijke naamwoorden is de vorming van het vrouwelijk enkelvoud afwijkend:\n\n| | mannelijk | vrouwelijk |\n|---|---|---|\n| -e blijft -e | un sac **rouge** | une jupe **rouge** |\n| -er wordt -ère | le dernier **concert** | la derni**ère** fois |\n| -f wordt -ve | un garçon **sportif** | une fille **sportive** |\n| -x wordt -se | un pays **dangereux** | une route **dangereuse** |"
+        }
+      ]
+    },
+    {
+      "id": "sec-8",
+      "title": "8. Mannelijk en Vrouwelijk Meervoud",
+      "blocks": [
+        {
+          "id": "blk-8-content",
+          "type": "text",
+          "content": "## Meervoudsvorming\n\nIn het meervoud krijgt het bijvoeglijk naamwoord meestal een -s.\n\n| enkelvoud | meervoud |\n|---|---|\n| mannelijk | Le sac est noir. | Les sacs sont noir**s**. |\n| vrouwelijk | La voiture est grande. | Les voitures sont grande**s**. |\n\nAfwijkende mannelijke meervoudsvormen:\n\n| mannelijk enkelvoud | mannelijk meervoud |\n|---|---|\n| -s blijft -s | le pull **gris** | les pulls **gris** |\n| -x blijft -x | le vieux **livre** | les vieux **livres** |\n| -al wordt -aux | le concours **national** | les concours **nationaux** |\n| -eau wordt -eaux | le **beau** garçon | les **beaux** garçons |"
+        }
+      ]
+    },
+    {
+      "id": "sec-9",
+      "title": "9. Bel, Nouvel, Vieux",
+      "blocks": [
+        {
+          "id": "blk-9-content",
+          "type": "text",
+          "content": "## Speciale vormen voor klinkers\n\nBeau, nouveau en vieux hebben een speciale vorm voor een mannelijk zelfstandig naamwoord dat met een klinker of een stomme h begint.\n\n| voor medeklinker | voor klinker / stomme h |\n|---|---|---|\n| beau | bel | un **bel** appartement |\n| nouveau | nouvel | un **nouvel** hôtel |\n| vieux | vieil | un **vieil** agenda |"
+        }
+      ]
+    },
+    {
+      "id": "sec-10",
+      "title": "10. Plaats van het Bijvoeglijk Naamwoord",
+      "blocks": [
+        {
+          "id": "blk-10-content",
+          "type": "text",
+          "content": "## Achter of voor\n\nEen bijvoeglijk naamwoord staat meestal **achter** het zelfstandig naamwoord.\n\n> un homme **sympathique** (een aardige man)\n> une voiture **rapide** (een snelle auto)\n\nSommige bijvoegelijke naamwoorden staan **voor** het zelfstandig naamwoord.\n\n> un **grand** homme (een grote man)\n> une **longue** nuit (een lange nacht)\n\nBijvoegelijke naamwoorden die vóór het zelfstandig naamwoord komen:\n\nbeau (mooi), bon (goed), vieux (oud), joli (knap), grand (groot), haut (hoog), gros (dik), long (lang), mauvais (slecht), petit (klein), méchant (gemeen), premier (eerste), deuxième (tweede), dernier (laatste), autre (ander)."
+        }
+      ]
+    },
+    {
+      "id": "sec-11",
+      "title": "11. Landennaamwoorden",
+      "blocks": [
+        {
+          "id": "blk-11-content",
+          "type": "text",
+          "content": "## Landennaamwoorden (métissages)\n\nHet bijvoeglijk naamwoord dat van een landennaam gemaakt wordt, schrijf je in het Frans **niet** met een hoofdletter.\n\n| landennaam | bijvoeglijk naamwoord* |\n|---|---|\n| la France | français | Frans |\n| la Belgique | belge | Belgisch |\n| la Suisse | suisse | Zwitsers |\n| la Turquie | turc, turque | Turks |\n| la Pologne | polonais | Pools |\n| la Chine | chinois | Chinees |\n| la Hollande | hollandais | Nederlands |\n| le Maroc | marocain | Marokkaans |\n| le Portugal | portugais | Portugees |\n| l'Angleterre | anglais | Engels |\n| l'Allemagne | allemand | Duits |\n| l'Italie | italien | Italiaans |\n| l'Espagne | espagnol | Spaans |\n| l'Europe | européen | Europees |\n| l'Amérique | américain | Amerikaans |\n| l'Afrique | africain | Afrikaans |\n| les Pays-Bas | néerlandais | Nederlands |\n| les Antilles | antillais | Antilliaans |\n\n* Ook de taal (le français, het Frans) schrijf je **niet** met een hoofdletter. De persoon (le Français, de Fransman) schrijf je **wel** met een hoofdletter."
+        }
+      ]
+    },
+    {
+      "id": "sec-12",
+      "title": "12. Hoofdtelwoorden en Getallen",
+      "blocks": [
+        {
+          "id": "blk-12-content",
+          "type": "text",
+          "content": "## Hoofdtelwoorden\n\n| 1 | un/une | 19 | dix-neuf | 72 | soixante-douze |\n|---|---|---|---|---|---|\n| 2 | deux | 20 | vingt | 80 | quatre-vingts |\n| 3 | trois | 21 | vingt et un | 81 | quatre-vingt-un |\n| 4 | quatre | 22 | vingt-deux | 82 | quatre-vingt-deux |\n| 5 | cinq | 30 | trente | 90 | quatre-vingt-dix |\n| 6 | six | 31 | trente et un | 91 | quatre-vingt-onze |\n| 7 | sept | 32 | trente-deux | 92 | quatre-vingt-douze |\n| 8 | huit | 40 | quarante | 100 | cent |\n| 9 | neuf | 41 | quarante et un | 101 | cent un |\n| 10 | dix | 42 | quarante-deux | 102 | cent deux |\n| 11 | onze | 50 | cinquante | 200 | deux cents |\n| 12 | douze | 51 | cinquante et un | 201 | deux cent un |\n| 13 | treize | 52 | cinquante-deux | 202 | deux cent deux |\n| 14 | quatorze | 60 | soixante | 1000 | mille |\n| 15 | quinze | 61 | soixante et un | 1528 | mille cinq cent vingt-huit |\n| 16 | seize | 62 | soixante-deux | 2000 | deux mille |\n| 17 | dix-sept | 70 | soixante-dix | 2300 | deux mille trois cents |\n| 18 | dix-huit | 71 | soixante et onze | 4359 | quatre mille trois cent cinquante-neuf |\n\n**Onthoud:**\n- Tussen tiental en eenheid staat een streepje (trait d'union), behalve bij 21, 31, 41, 51, 61 en 71. Daar staat **et** in plaats van het verbindingstreepje.\n- Vingt en cent krijgen in het meervoud een **-s** wanneer er geen ander telwoord achter staat.\n- Mille krijgt nooit een **-s**."
+        }
+      ]
+    },
+    {
+      "id": "sec-13",
+      "title": "13. Rangtelwoorden, Datum en Breuken",
+      "blocks": [
+        {
+          "id": "blk-13-content",
+          "type": "text",
+          "content": "## Rangtelwoorden\n\nJe maakt een rangtelwoord door -ième achter het hoofd telwoord te zetten.\n\ntwee → deuxième\ntwintig → vingtième\n\n**Afwijkende rangtelwoorden:**\n- premier, première (eerste)\n- quatrième (vierde)\n- cinquième (vijfde)\n- neuvième (negende)\n- vingt et unième (eenentwintigste)\n\n## Datum\n\nIn de datum gebruik je **le** met een hoofd telwoord, behalve bij de eerste van de maand.\n\n- le 22 juin → 22 juni\n- le 1er septembre / le premier septembre → 1 september\n- Nous sommes le lundi 13 mars → Het is maandag 13 maart\n\n**Dagen van de week:**\nlundi (maandag), mardi (dinsdag), mercredi (woensdag), jeudi (donderdag), vendredi (vrijdag), samedi (zaterdag), dimanche (zondag)\n\n**Maanden van het jaar:**\njanvier (januari), février (februari), mars (maart), avril (april), mai (mei), juin (juni), juillet (juli), août (augustus), septembre (september), octobre (oktober), novembre (november), décembre (december)\n\n## Breuken\n\nBreuken maak je met rangtelwoorden.\n- un cinquième (een vijfde)\n- un dixième (een tiende)\n- deux neuvièmes (twee negende)\n\n**Uitzonderingen:**\n- un demi (een half)\n- un tiers (een derde)\n- un quart (een kwart)"
+        }
+      ]
+    },
+    {
+      "id": "sec-14",
+      "title": "14. Vocabulaire - Thema: Regarder",
+      "blocks": [
+        {
+          "id": "blk-14-content",
+          "type": "text",
+          "content": "## Vocabulaire U1 - Regarder\n\n| Frans | Nederlands |\n|---|---|\n| le pote | de vriend |\n| c'est con (fam.) | dat is stom |\n| la destination | de bestemming |\n| fatigué | moe |\n| le mec | de vent, de gozer |\n| bienvenue | welkom |\n| l'épisode (m) | de aflevering |\n| extraordinaire | buitengewoon |\n| n'importe quel | het maakt niet uit welk |\n| numérique | digitaal |\n| plein de | heel veel |\n| le profit | de winst |\n| la perte | het verlies |\n| le savon | de zeep |\n| le coup de foudre | de liefde op het eerste gezicht |\n| pas grand-chose | niet veel |\n| grâce à | dankzij |\n| méchant | gemeen |\n| l'auditeur / l'auditrice | de luisteraar |\n| elle me manque | ik mis haar |"
+        }
+      ]
+    },
+    {
+      "id": "sec-15",
+      "title": "15. Vocabulaire - Thema: La rentrée",
+      "blocks": [
+        {
+          "id": "blk-15-content",
+          "type": "text",
+          "content": "## Vocabulaire U1 - La rentrée\n\n| Frans | Nederlands |\n|---|---|\n| le voyage | de reis |\n| terminé | afgelopen |\n| rencontrer | ontmoeten |\n| bon courage ! | succes! |\n| retrouver | weer zien |\n| raconter | vertellen |"
+        }
+      ]
+    },
+    {
+      "id": "sec-16",
+      "title": "16. Vocabulaire - Thema: La vie scolaire",
+      "blocks": [
+        {
+          "id": "blk-16-content",
+          "type": "text",
+          "content": "## Vocabulaire U1 - La vie scolaire\n\n| Frans | Nederlands |\n|---|---|\n| redoubler | blijven zitten / doubleren |\n| la filière | het profiel |\n| le bac / baccalauréat | het eindexamen |\n| la matière | het vak |\n| la récré / récréation | de pauze |\n| l'orientation (f) | de studie- of beroepskeuze |\n| le prof principal | de mentor |"
+        }
+      ]
+    },
+    {
+      "id": "sec-17",
+      "title": "17. Vocabulaire - Thema: Les hobbies",
+      "blocks": [
+        {
+          "id": "blk-17-content",
+          "type": "text",
+          "content": "## Vocabulaire U1 - Les hobbies\n\n| Frans | Nederlands |\n|---|---|\n| sortir en boîte | naar de disco gaan |\n| le jeu vidéo | het videospelletje |\n| télécharger sur Internet | downloaden van internet |\n| faire de la danse | dansen |\n| jouer de la guitare | gitaar spelen |\n| jouer aux échecs | schaken |\n| jouer au foot | voetballen |\n| dessiner | tekenen |\n| voyager | reizen |\n| regarder la télé | tv-kijken |"
+        }
+      ]
+    },
+    {
+      "id": "sec-18",
+      "title": "18. Vocabulaire - Thema: Les vacances",
+      "blocks": [
+        {
+          "id": "blk-18-content",
+          "type": "text",
+          "content": "## Vocabulaire U1 - Les vacances\n\n| Frans | Nederlands |\n|---|---|\n| bronzer | zonnen |\n| faire la grasse matinée | uitslapen |\n| la destination | de bestemming |\n| l'été (m) | de zomer |\n| la randonnée | de wandeltocht |\n| les grandes vacances (f pl) | de zomervakantie |"
+        }
+      ]
+    },
+    {
+      "id": "sec-19",
+      "title": "19. Vocabulaire - Thema: L'amitié",
+      "blocks": [
+        {
+          "id": "blk-19-content",
+          "type": "text",
+          "content": "## Vocabulaire U1 - L'amitié\n\n| Frans | Nederlands |\n|---|---|\n| faire la fête | feestvieren |\n| rentrer | naar huis gaan |\n| rappeler | terugbellen |\n| faire connaissance avec | kennismaken met |\n| le rendez-vous | de afspraak |\n| partir en vacances | met vakantie gaan |\n| la bande | de groep |"
+        }
+      ]
+    }
+  ]
+}

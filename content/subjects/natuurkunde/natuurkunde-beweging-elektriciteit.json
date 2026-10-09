@@ -1,0 +1,92 @@
+{
+  "id": "natuurkunde-beweging-elektriciteit",
+  "subject": "Natuurkunde",
+  "siteMetadata": {
+    "title": "Natuurkunde - Beweging en Elektriciteit",
+    "description": "Leer over beweging, elektriciteit, krachten, trillingen, golven en radioactiviteit"
+  },
+  "summary": "Complete overzicht van natuurkunde inclusief beweging, elektriciteit, krachten en beweging, trillingen en golven, radioactiviteit, en stoffen en materialen.",
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": [
+    "simple",
+    "study",
+    "samenvatting",
+    "quiz"
+  ],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showTranscriptExport": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "1. Beweging - Plaats en Snelheid",
+      "blocks": [
+        {
+          "id": "blk-1-content",
+          "type": "text",
+          "content": "## 1.1 Plaats en snelheid\n\n**DOEL**: Je leert hoe je de begrippen plaats, verplaatsing, tijd en snelheid gebruikt om een beweging te beschrijven.\n\n### Kernbegrippen\n\n- **Verplaatsing (Δx)**: De kleinste afstand tussen twee punten, een rechte lijn. Δ is de Griekse letter delta.\n- **Snelheid op een tijdstip**: De snelheid die je op elk moment meet (bijv. op een snelheidsmeter van een scooter).\n- **Gemiddelde snelheid**: De totale verplaatsing gedeeld door de tijd die je erover hebt gedaan.\n\n### Diagrammen\n\n- **Plaats-tijddiagram of (x,t)-diagram**: De plaats x wordt uitgezet tegen de tijd t.\n- **Snelheid-tijddiagram of (v,t)-diagram**: De snelheid v wordt uitgezet tegen de tijd t.\n\n### Soorten bewegingen\n\n**Eenparig rechtlijnige beweging**: Een beweging waarbij de snelheid en de richting niet veranderen.\n- In het (v,t)-diagram: een horizontale rechte lijn.\n- In het (x,t)-diagram: een schuine rechte lijn.\n\n**Eenparig versnelde beweging**: De snelheid neemt elke seconde met dezelfde waarde toe.\n- In het (v,t)-diagram: een schuine rechte lijn die omhoog loopt.\n- In het (x,t)-diagram: een steeds steiler wordende lijn.\n\n**Eenparig vertraagde beweging**: De snelheid neemt elke seconde met dezelfde waarde af.\n- In het (v,t)-diagram: een rechte lijn die schuin naar beneden loopt.\n- In het (x,t)-diagram: een steeds minder steil wordende lijn.\n\n### Positieve en negatieve waarden\n\n- Beweging naar voren of omhoog: verplaatsing en snelheid zijn **positief**.\n- Beweging naar achteren of omlaag: verplaatsing en snelheid zijn **negatief**."
+        }
+      ]
+    },
+    {
+      "id": "sec-2",
+      "title": "2. Elektriciteit",
+      "blocks": [
+        {
+          "id": "blk-2-content",
+          "type": "text",
+          "content": "## 2. Elektriciteit\n\n### 2.1 Spanning en stroomsterkte\n\n- **Spanning (U)**: De elektrische potentiaal, gemeten in volt (V).\n- **Stroomsterkte (I)**: De hoeveelheid lading die per seconde door een geleider stroomt, gemeten in ampère (A).\n\n### 2.2 Weerstand\n\n- **Weerstand (R)**: De mate waarin een materiaal de stroom belemmert, gemeten in ohm (Ω).\n- De weerstand bepaalt hoeveel stroom er bij een bepaalde spanning kan stromen.\n\n### 2.3 Serie- en parallelschakelingen\n\n**Seriële schakeling**:\n- De componenten staan achter elkaar in één kring.\n- De stroom is overal gelijk.\n- De spanningen tellen op.\n\n**Parallelschakeling**:\n- De componenten staan naast elkaar.\n- De spanning is overal gelijk.\n- De stromen tellen op.\n\n### 2.4 Elektriciteit in huis\n\n- Huishoudelijke apparaten werken op netspanning (230 V in Nederland).\n- Veiligheid: aardingsleider, zekeringen, differentieelschakelaars."
+        }
+      ]
+    },
+    {
+      "id": "sec-3",
+      "title": "3. Kracht en Beweging",
+      "blocks": [
+        {
+          "id": "blk-3-content",
+          "type": "text",
+          "content": "## 3. Kracht en beweging\n\n### 3.1 Eigenschappen van krachten\n\nEen kracht is een duw of trek die:\n- Een grootte heeft (in newton, N)\n- Een richting heeft\n- Een aangrijpingspunt heeft\n\n### 3.2 De eerste wet van Newton\n\n**Wet van traagheid**: Een voorwerp blijft in rust of beweegt met constante snelheid tenzij er een kracht op werkt.\n\n### 3.3 De tweede wet van Newton\n\n**F = m × a**\n- F = kracht (in N)\n- m = massa (in kg)\n- a = versnelling (in m/s²)\n\nDe versnelling is evenredig met de kracht en omgekeerd evenredig met de massa.\n\n### 3.4 De derde wet van Newton\n\n**Wet van actie en reactie**: Als voorwerp A een kracht uitoefent op voorwerp B, dan oefent voorwerp B een even grote kracht in tegenovergestelde richting uit op voorwerp A.\n\n### 3.5 Weerstandskrachten\n\n- **Wrijving**: Kracht die beweging tegenwerkt.\n- **Luchtweerstand**: Neemt toe met de snelheid."
+        }
+      ]
+    },
+    {
+      "id": "sec-4",
+      "title": "4. Trillingen en Golven",
+      "blocks": [
+        {
+          "id": "blk-4-content",
+          "type": "text",
+          "content": "## 4. Trillingen en golven\n\n### 4.1 Trillingen\n\nEen trilling is een periodieke heen- en weerbeweging rond een evenwichtspositie.\n\n**Kenmerken:**\n- Amplitude: maximale uitslag\n- Frequentie: aantal trillingen per seconde (in Hz)\n- Periode: tijd voor één volledige trilling\n\n### 4.2 Massa-veersysteem\n\nEen massa aan een veer vormt een trillend systeem.\n- De veerconstante bepaalt hoe stijf de veer is.\n- De trillingstijd hangt af van de massa en de veerconstante.\n\n### 4.3 Fase en snelheid\n\n- **Fase**: De positie in de trillingscyclus.\n- De snelheid is maximaal bij de evenwichtspositie en nul bij de maximaal uitslag.\n\n### 4.4 Lopende golven\n\nEen golf is een verstoring die zich door een medium voortplant.\n- **Golfsnelheid**: v = f × λ (frequentie × golflengte)\n- **Golflengte**: afstand tussen twee opeenvolgende gelijke punten\n\n### 4.5 Staande golven\n\nStaande golven ontstaan door superpositie van twee tegengestelde lopende golven.\n- **Knopen**: punten die altijd in rust zijn\n- **Buiken**: punten met maximale amplitude"
+        }
+      ]
+    },
+    {
+      "id": "sec-5",
+      "title": "5. Radioactiviteit",
+      "blocks": [
+        {
+          "id": "blk-5-content",
+          "type": "text",
+          "content": "## 5. Radioactiviteit\n\n### 5.1 Het atoommodel\n\n- **Atoomkern**: bestaat uit protonen en neutronen\n- **Elektronenschillen**: elektronen draaien rond de kern\n- **Atoomnummer**: aantal protonen (bepaalt het element)\n- **Massagetal**: aantal protonen + aantal neutronen\n\n### 5.2 Radioactief verval\n\nRadioactieve atomen zijn onstabiel en vervallen spontaan:\n- **Alfastraling**: emissie van heliumkern (2 protonen, 2 neutronen)\n- **Betastraling**: emissie van elektron\n- **Gammastraling**: hoogenergetische elektromagnetische straling\n\n### 5.3 Halveringstijd\n\nDe tijd die nodig is om de helft van de radioactieve atomen te laten vervallen.\n\n### 5.4 Activiteit\n\nAantal vervalprocessen per seconde, gemeten in becquerel (Bq).\n\n### 5.5 Doordringend vermogen en dracht\n\n- **Doordringend vermogen**: hoe diep straling doordringt in materiaal\n- **Dracht**: hoe ver straling in de lucht komt\n- Alfastraling: kleine dracht, laag doordringend vermogen\n- Betastraling: middelmatige dracht\n- Gammastraling: grote dracht, hoog doordringend vermogen"
+        }
+      ]
+    },
+    {
+      "id": "sec-6",
+      "title": "6. Stoffen en Materialen",
+      "blocks": [
+        {
+          "id": "blk-6-content",
+          "type": "text",
+          "content": "## 6. Stoffen en materialen (SE)\n\n### 6.1 Het molecuulmodel\n\nStoffen bestaan uit moleculen:\n- **Molecuul**: kleinste deeltje van een stof met de eigenschappen van die stof\n- **Atoombinding**: binding tussen atomen in een molecuul\n\n### 6.2 Warmte\n\n- **Temperatuur**: maat voor de gemiddelde kinetische energie van de deeltjes\n- **Warmte**: energieoverdracht door temperatuurverschil\n- **Specifieke warmte**: hoeveel energie nodig om 1 kg stof 1°C te verwarmen\n\n### 6.3 Elektrische en warmtegeleiding\n\n- **Goede geleiders**: metalen geleiden elektriciteit en warmte goed\n- **Isolatoren**: materialen die niet of slecht geleiden\n\n### 6.4 Halfgeleiders\n\nMaterialen met geleiding tussen geleiders en isolatoren, zoals silicium.\n\n### 6.5 Functionele materialen\n\nMaterialen met speciale eigenschappen voor specifieke toepassingen:\n- Supergeleiders: geleiden zonder weerstand bij lage temperatuur\n- Geheugemetalen: herinneren hun vorm\n- Ferromagnetische materialen: zijn magnetisch"
+        }
+      ]
+    }
+  ]
+}

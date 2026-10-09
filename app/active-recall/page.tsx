@@ -311,7 +311,7 @@ export default function ActiveRecallPage() {
         }
       />
 
-      <div className="mt-10 max-w-3xl mx-auto">
+      <div className="mt-10">
         {/* Progress */}
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-4">

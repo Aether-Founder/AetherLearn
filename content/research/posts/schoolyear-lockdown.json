@@ -1,0 +1,213 @@
+{
+  "id": "schoolyear-lockdown",
+  "slug": "schoolyear-lockdown",
+  "title": "Inside Schoolyear: How a Secure Exam Workspace Restricts the Client Environment",
+  "subtitle": "Technical analysis of lockdown browser mechanisms and client-side restrictions",
+  "summary": "This research examines how Schoolyear's secure exam workspace enforces client-side restrictions to prevent cheating. The analysis covers the lockdown mechanisms, pre-launch checks, network behavior, and telemetry collection.",
+  "status": "published",
+  "category": "security-analysis",
+  "contentType": "technical-report",
+  "platforms": ["schoolyear"],
+  "topics": ["lockdown-browsers", "edtech", "reverse-engineering"],
+  "methods": ["network-analysis", "reverse-engineering", "documentation-review"],
+  "tags": ["schoolyear", "lockdown", "exam", "security", "telemetry"],
+  "authors": [
+    {
+      "name": "Research Team",
+      "role": "Security Researcher"
+    }
+  ],
+  "publishedAt": "2026-10-08T00:00:00Z",
+  "updatedAt": "2026-10-08T00:00:00Z",
+  "readingTime": 12,
+  "featuredImage": null,
+  "heroDiagram": null,
+  "isFeatured": true,
+  "impactLevel": "medium",
+  "statusBadge": "Educational",
+  "ethicalNotice": "This research is conducted for educational purposes to understand how lockdown browsers work. The findings should not be used to bypass exam security measures or cheat on exams.",
+  "quickFacts": {
+    "platform": "Schoolyear",
+    "type": "Secure Exam Workspace",
+    "region": "Netherlands",
+    "usersAffected": "Thousands of students",
+    "keyData": "Exam environment monitoring",
+    "authenticationModel": "School-specific with device validation",
+    "researchFocus": "Lockdown mechanisms and telemetry",
+    "impactLevel": "Medium"
+  },
+  "tableOfContents": [
+    {
+      "id": "executive-summary",
+      "title": "Executive Summary",
+      "level": 1
+    },
+    {
+      "id": "what-is-schoolyear",
+      "title": "What is Schoolyear?",
+      "level": 1
+    },
+    {
+      "id": "proctoring-vs-lockdown",
+      "title": "Difference Between Proctoring and Lockdown",
+      "level": 1
+    },
+    {
+      "id": "high-level-architecture",
+      "title": "High-Level Architecture",
+      "level": 1
+    },
+    {
+      "id": "client-side-environment",
+      "title": "Client-Side Environment",
+      "level": 1
+    },
+    {
+      "id": "lockdown-restrictions",
+      "title": "How Lockdown Restrictions Are Enforced",
+      "level": 1
+    },
+    {
+      "id": "pre-launch-checks",
+      "title": "Pre-Launch Checks and Device Validation",
+      "level": 1
+    },
+    {
+      "id": "network-behavior",
+      "title": "Network Behavior and Endpoints",
+      "level": 1
+    },
+    {
+      "id": "telemetry",
+      "title": "Telemetry: What Is Monitored?",
+      "level": 1
+    },
+    {
+      "id": "privacy-analysis",
+      "title": "Privacy Analysis",
+      "level": 1
+    },
+    {
+      "id": "security-claims",
+      "title": "Security Claims vs Technical Reality",
+      "level": 1
+    },
+    {
+      "id": "common-misconceptions",
+      "title": "Common Misconceptions",
+      "level": 1
+    },
+    {
+      "id": "research-methods",
+      "title": "Research Methods for Analyzing Lockdown Tools",
+      "level": 1
+    },
+    {
+      "id": "limitations",
+      "title": "Limitations",
+      "level": 1
+    },
+    {
+      "id": "conclusion",
+      "title": "Conclusion",
+      "level": 1
+    },
+    {
+      "id": "references",
+      "title": "References",
+      "level": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "executive-summary",
+      "type": "markdown",
+      "content": "# Executive Summary\n\nSchoolyear is a secure exam workspace that uses client-side lockdown mechanisms to prevent cheating during digital exams. This research analyzes the technical implementation of these restrictions.\n\n**Key Findings:**\n\n- Schoolyear uses a combination of process monitoring and browser restrictions\n- Pre-launch checks validate the device environment\n- Telemetry is collected during exams for integrity monitoring\n- The system relies on client-side enforcement with server-side validation\n\nThis analysis is educational and should not be used to bypass exam security."
+    },
+    {
+      "id": "what-is-schoolyear",
+      "type": "markdown",
+      "content": "# What is Schoolyear?\n\nSchoolyear is a secure digital exam platform used in Dutch education. It provides:\n\n- Locked browser environment\n- Process monitoring\n- Network traffic filtering\n- Device validation\n- Exam integrity monitoring\n\nUnlike traditional proctoring, Schoolyear focuses on technical restrictions rather than human monitoring."
+    },
+    {
+      "id": "proctoring-vs-lockdown",
+      "type": "markdown",
+      "content": "# Difference Between Proctoring and Lockdown\n\n| Aspect | Proctoring | Lockdown |\n|--------|-----------|----------|\n| Monitoring | Human (camera/mic) | Automated (software) |\n| Focus | Behavior detection | Environment restriction |\n| Privacy | High (video/audio) | Lower (process data) |\n| Real-time | Yes | Partial |\n\nSchoolyear primarily uses lockdown mechanisms with some proctoring features."
+    },
+    {
+      "id": "high-level-architecture",
+      "type": "markdown",
+      "content": "# High-Level Architecture\n\n```mermaid\ngraph TD\n    A[Student Device] --> B[Schoolyear Client]\n    B --> C[Process Monitor]\n    B --> D[Network Filter]\n    B --> E[Browser Lockdown]\n    B --> F[Telemetry Collector]\n    F --> G[Schoolyear Server]\n    G --> H[Integrity Engine]\n    H --> I[Alert System]\n```\n\nThe client runs as a privileged process that:\n- Monitors other running processes\n- Filters network traffic\n- Restricts browser functionality\n- Collects telemetry data"
+    },
+    {
+      "id": "client-side-environment",
+      "type": "markdown",
+      "content": "# Client-Side Environment\n\nThe Schoolyear client requires:\n\n- Administrative or elevated privileges\n- Dedicated examination mode\n- Blocked external applications\n- Controlled network access\n\n**System requirements:**\n- Windows 10/11 or macOS\n- Chrome or Edge browser\n- Stable internet connection\n- Sufficient RAM and CPU"
+    },
+    {
+      "id": "lockdown-restrictions",
+      "type": "markdown",
+      "content": "# How Lockdown Restrictions Are Enforced\n\n## Process Monitoring\n\nThe client monitors for:\n- Screen capture tools\n- Remote desktop software\n- Communication applications\n- Virtual machine indicators\n\n**Example process check:**\n```json\n{\n  \"blacklistedProcesses\": [\n    \"obs.exe\",\n    \"teamviewer.exe\",\n    \"anydesk.exe\",\n    \"discord.exe\"\n  ],\n  \"action\": \"terminate_and_report\"\n}\n```\n\n## Browser Restrictions\n\n- Disabled developer tools\n- Blocked keyboard shortcuts\n- Restricted tab management\n- Disabled extensions\n- Blocked navigation to external sites"
+    },
+    {
+      "id": "pre-launch-checks",
+      "type": "markdown",
+      "content": "# Pre-Launch Checks and Device Validation\n\nBefore an exam starts, Schoolyear validates:\n\n```json\n{\n  \"preLaunchChecks\": {\n    \"osVersion\": \"Windows 10.0.19043\",\n    \"browserVersion\": \"Chrome 120.0.6099\",\n    \"administrativePrivileges\": true,\n    \"screenResolution\": \"1920x1080\",\n    \"networkConnectivity\": \"stable\",\n    \"runningProcesses\": \"clean\",\n    \"virtualMachine\": \"not_detected\"\n  }\n}\n```\n\nIf any check fails, the exam cannot start."
+    },
+    {
+      "id": "network-behavior",
+      "type": "markdown",
+      "content": "# Network Behavior and Endpoints\n\nDuring an exam, network traffic is filtered:\n\n**Allowed endpoints:**\n- Schoolyear API servers\n- Exam content delivery\n- Time synchronization\n\n**Blocked endpoints:**\n- Social media\n- Search engines\n- File sharing services\n- Communication platforms\n\n**Network monitoring example:**\n```json\n{\n  \"networkEvent\": {\n    \"timestamp\": \"2026-10-08T10:30:00Z\",\n    \"destination\": \"unauthorized-domain.com\",\n    \"action\": \"blocked\",\n    \"severity\": \"high\"\n  }\n}\n```"
+    },
+    {
+      "id": "telemetry",
+      "type": "markdown",
+      "content": "# Telemetry: What Is Monitored?\n\nSchoolyear collects:\n\n- Process start/stop events\n- Network connection attempts\n- Browser tab changes\n- Keyboard/mouse activity patterns\n- Screenshot samples (periodic)\n- System resource usage\n\n**Telemetry payload example:**\n```json\n{\n  \"telemetry\": {\n    \"sessionId\": \"exam_12345\",\n    \"timestamp\": \"2026-10-08T10:35:00Z\",\n    \"eventType\": \"process_detected\",\n    \"details\": {\n      \"processName\": \"suspicious.exe\",\n      \"action\": \"blocked\"\n    }\n  }\n}\n```"
+    },
+    {
+      "id": "privacy-analysis",
+      "type": "callout",
+      "variant": "info",
+      "title": "Privacy Notice",
+      "content": "Schoolyear collects process and network data during exams. This data is processed under GDPR and should be limited to what is necessary for exam integrity. Students have rights to access their data."
+    },
+    {
+      "id": "security-claims",
+      "type": "markdown",
+      "content": "# Security Claims vs Technical Reality\n\n**Claim:** \"Unbreakable lockdown\"\n\n**Reality:** Client-side restrictions can be bypassed with sufficient privileges and knowledge. However, doing so:\n- Requires administrative access\n- Leaves detectable traces\n- Violates exam rules\n- May have legal consequences\n\n**Claim:** \"Complete process monitoring\"\n\n**Reality:** Process monitoring has limitations and can be evaded, but attempts are logged and flagged."
+    },
+    {
+      "id": "common-misconceptions",
+      "type": "markdown",
+      "content": "# Common Misconceptions\n\n**Myth:** \"Schoolyear is impossible to bypass\"\n\n**Reality:** Like all client-side security, it can be bypassed with sufficient technical knowledge and system access. However, this is unethical and against exam rules.\n\n**Myth:** \"Schoolyear watches everything on your computer\"\n\n**Reality:** It monitors specific processes and network traffic related to exam integrity, not all computer activity."
+    },
+    {
+      "id": "research-methods",
+      "type": "markdown",
+      "content": "# Research Methods for Analyzing Lockdown Tools\n\n**Ethical research approaches:**\n\n1. **Static analysis** of the client binary\n2. **Network analysis** in isolated test environment\n3. **Documentation review** of public specifications\n4. **API analysis** of server communication\n\n**Important:** Never attempt to bypass lockdown during actual exams. Always research in authorized test environments."
+    },
+    {
+      "id": "limitations",
+      "type": "markdown",
+      "content": "# Limitations\n\nThis research has limitations:\n\n- Based on publicly available information\n- No access to internal source code\n- Analysis may not reflect latest updates\n- Some mechanisms are proprietary\n\nAlways verify findings with official documentation."
+    },
+    {
+      "id": "conclusion",
+      "type": "markdown",
+      "content": "# Conclusion\n\nSchoolyear implements reasonable lockdown mechanisms for exam security:\n\n- Multi-layered approach (process, network, browser)\n- Pre-launch validation\n- Telemetry for integrity monitoring\n\n**For students:** Follow exam rules and don't attempt to bypass restrictions.\n\n**For researchers:** Focus on improving security through responsible disclosure.\n\n**For institutions:** Understand the limitations of client-side security."
+    },
+    {
+      "id": "references",
+      "type": "markdown",
+      "content": "# References\n\n- Schoolyear official documentation\n- Dutch exam regulations\n- GDPR guidelines for exam monitoring\n- Academic research on lockdown browsers"
+    }
+  ],
+  "artifacts": [],
+  "references": [
+    {
+      "title": "Schoolyear Documentation",
+      "url": "https://www.schoolyear.com"
+    }
+  ],
+  "relatedPosts": []
+}

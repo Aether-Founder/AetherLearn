@@ -10,7 +10,7 @@ export default function PrivacyPageNL() {
         description="Lees hoe wij omgaan met je gegevens"
       />
 
-      <div className="mt-10 max-w-4xl space-y-8">
+      <div className="mt-10 space-y-8">
         <section>
           <h2 className="text-2xl font-semibold mb-4">Informatie die wij verzamelen</h2>
           <p className="text-muted-foreground">

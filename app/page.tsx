@@ -9,6 +9,7 @@ import { useUserProfile, useUser } from "@/hooks/useAuth";
 import { updateUserProfile } from "@/lib/supabase/auth";
 import { GradeOnboardingModal } from "@/components/GradeOnboardingModal";
 import { supabase } from "@/lib/supabase/client";
+import { useActivityTracking } from "@/hooks/useActivityTracking";
 
 function Stat({ value, label }: { value: string; label: string }) {
   return (
@@ -51,6 +52,7 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [allSubjects, setAllSubjects] = useState<any[]>([]);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; subjectName: string } | null>(null);
+  const [showAllSubjects, setShowAllSubjects] = useState(false);
 
   const { profile, loading: profileLoading } = useUserProfile();
   const { user, loading: userLoading } = useUser();
@@ -127,193 +129,59 @@ export default function Home() {
   const getGreeting = () => {
     const now = new Date();
     const hour = now.getHours();
-    const day = now.getDay();
-    const dayNames = ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'];
-    
-    // Casual variants (no coffee)
-    const casualGreetings = [
-      'Hoe gaat het met je?',
-      'Alles goed?',
-      'Wat ben je aan het doen?',
-      'Hoe voel je je vandaag?',
-      'Wat staat er op je programma?',
-      'Hoe was je dag?',
-      'Wat is er nieuw?',
-      'Alles goed met jou?',
-      'Hoe is het met je?',
-      'Wat ga je vandaag doen?'
-    ];
-    
-    // Learning-related greetings
-    const learningGreetings = [
-      'Klaar om te leren?',
-      'Tijd voor studeren?',
-      'Laten we iets leren!',
-      'Studietijd!',
-      'Klaar voor een sessie?',
-      'Tijd voor kennis',
-      'Leren maar!',
-      'Studiebreak?',
-      'Klaar voor de volgende les?',
-      'Tijd om te herhalen'
-    ];
-    
-    // Return greetings
-    const returnGreetings = [
-      'Weer terug!',
-      'Laten we verder gaan',
-      'Weer aan het werk',
-      'Terug!',
-      'Doorgaan waar we gebleven waren'
-    ];
-    
-    // Day-of-week greetings
-    const dayGreetings = [
-      `Fijne ${dayNames[day]}`,
-      `Fijne ${dayNames[day]}`,
-      `Fijne ${dayNames[day]}!`,
-      `Fijne ${dayNames[day]}!`,
-      `Fijne ${dayNames[day].toLowerCase()}!`,
-      `Fijne ${dayNames[day].toLowerCase()}`
-    ];
-    
-    // Late-night greetings (multiple options)
-    const lateNightGreetings = [
-      'Goedenavond, nachtuil',
-      'Nog vroeg op?',
-      'Slaap je nog niet?',
-      'Hallo, nachtuil',
-      'Nog wakker?',
-      'Latenight sessie?',
-      'Nog aan het studeren?',
-      'Tijd voor rust?',
-      'Nog even door?',
-      'Nachtelijke studiebeest'
-    ];
-    
-    // Morning greetings (multiple options)
-    const morningGreetings = [
-      'Goedemorgen',
-      'Goedemorgen',
-      'Morgen!',
-      'Goedemorgen, klaar voor de dag?',
-      'Nieuwe dag, nieuwe kansen',
-      'Opstaan en leren!',
-      'Goedemorgen, tijd voor koffie',
-      'Morgen! Klaar om te beginnen?',
-      'Frisse start',
-      'Goedemorgen, laten we gaan'
-    ];
-    
-    // Funny greetings
-    const funnyGreetings = [
-      'Is het al weekend?',
-      'Klaar om je hersenen te trainen?',
-      'Brain power: aan!',
-      'Geen zorgen, alleen leren',
-      'Je hersenen zullen je bedanken',
-      'Leren is leuk... echt waar!',
-      'Klaar om slimmer te worden?',
-      'Geen paniek, alleen studeren',
-      'Leren: het nieuwe normaal',
-      'Je hersenen werken al, beloofd'
-    ];
-    
+
     // Time-based greetings
-    const timeGreetings = {
-      afternoon: ['Goedemiddag', 'Goedemiddag'],
-      evening: ['Goedenavond', 'Goedenavond']
-    };
-    
-    // General greetings
-    const generalGreetings = [
-      'Hallo',
-      'Hoi',
-      'Welkom terug',
-      'Welkom',
-      'Hé',
-      'Hey',
-      'Goeiedag',
-      'Hoi daar',
-      'Hallo, hoe gaat het?',
-      'Hoi, hoe gaat it?'
-    ];
-    
-    // Weekend-specific greetings
-    const weekendGreetings = [
-      'Welkom in het weekend',
-      'Dat weekendgevoel',
-      'Weekend!',
-      'Geniet van het weekend'
-    ];
-    
-    // Determine which category to use based on time and random selection
-    let selectedGreeting;
-    
-    // Weekend (Saturday or Sunday)
-    if (day === 0 || day === 6) {
-      if (Math.random() < 0.4) {
-        selectedGreeting = weekendGreetings[Math.floor(Math.random() * weekendGreetings.length)];
-      }
+    if (hour >= 6 && hour < 12) {
+      return 'Goedemorgen';
+    } else if (hour >= 12 && hour < 18) {
+      return 'Goedemiddag';
+    } else {
+      return 'Goedenavond';
     }
-    
-    // Late night (11 PM - 6 AM)
-    if (!selectedGreeting && (hour >= 23 || hour < 6)) {
-      const options = [...lateNightGreetings, ...timeGreetings.evening];
-      selectedGreeting = options[Math.floor(Math.random() * options.length)];
-    }
-    // Morning (6 AM - 12 PM)
-    else if (!selectedGreeting && hour >= 6 && hour < 12) {
-      const options = [...morningGreetings, ...casualGreetings];
-      selectedGreeting = options[Math.floor(Math.random() * options.length)];
-    }
-    // Afternoon (12 PM - 6 PM)
-    else if (!selectedGreeting && hour >= 12 && hour < 18) {
-      const options = [...casualGreetings, ...learningGreetings, ...timeGreetings.afternoon];
-      selectedGreeting = options[Math.floor(Math.random() * options.length)];
-    }
-    // Evening (6 PM - 11 PM)
-    else if (!selectedGreeting) {
-      const options = [...casualGreetings, ...learningGreetings, ...timeGreetings.evening];
-      selectedGreeting = options[Math.floor(Math.random() * options.length)];
-    }
-    
-    // 25% chance for day-of-week greeting
-    if (Math.random() < 0.25) {
-      selectedGreeting = dayGreetings[Math.floor(Math.random() * dayGreetings.length)];
-    }
-    
-    // 20% chance for return greeting
-    if (Math.random() < 0.2) {
-      selectedGreeting = returnGreetings[Math.floor(Math.random() * returnGreetings.length)];
-    }
-    
-    // 20% chance for general greeting
-    if (Math.random() < 0.2) {
-      selectedGreeting = generalGreetings[Math.floor(Math.random() * generalGreetings.length)];
-    }
-    
-    // 15% chance for funny greeting
-    if (Math.random() < 0.15) {
-      selectedGreeting = funnyGreetings[Math.floor(Math.random() * funnyGreetings.length)];
-    }
-    
-    return selectedGreeting;
   };
 
-  const greeting = useMemo(() => getGreeting(), []);
-  const showName = useMemo(() => Math.random() < 0.5, []); // 50% chance to show name
-  const showInteractive = useMemo(() => {
-    // Show interactive emoji only for certain greetings
-    const interactiveGreetings = [
-      'Hoe gaat het met je?',
-      'Hoe voel je je vandaag?',
-      'Hoe was je dag?',
-      'Hoe is het met je?',
-      'Alles goed met jou?'
-    ];
-    return interactiveGreetings.includes(greeting);
-  }, [greeting]);
+  const greeting = useMemo(() => {
+    const timeGreeting = getGreeting();
+    const options = ['Hallo', 'Hoi'];
+    const randomOption = options[Math.floor(Math.random() * options.length)];
+    // 70% chance for time-based greeting, 30% for Hallo/Hoi
+    return Math.random() < 0.7 ? timeGreeting : randomOption;
+  }, []);
+  const showName = true; // Always show name
+
+  // Track if interactive greeting was shown today
+  const [showInteractive, setShowInteractive] = useState(false);
+  const [selectedEmoji, setSelectedEmoji] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+    const today = new Date().toDateString();
+    const lastShown = localStorage.getItem(`aether-interactive-greeting:${user.id}`);
+    if (lastShown !== today) {
+      setShowInteractive(true);
+    }
+  }, [user]);
+
+  const handleEmojiClick = (emoji: 'happy' | 'neutral' | 'sad') => {
+    setSelectedEmoji(emoji);
+    // Store today's date so it won't show again until tomorrow
+    if (user) {
+      localStorage.setItem(`aether-interactive-greeting:${user.id}`, new Date().toDateString());
+      // Save emoji response to activity tracking
+      saveEmojiResponse(emoji);
+    }
+    setShowInteractive(false);
+  };
+
+  // Activity tracking
+  const { totalTime, getActivityForLastDays, saveEmojiResponse } = useActivityTracking(user?.id);
+  const [studyTimeDisplay, setStudyTimeDisplay] = useState('0h 0m');
+
+  useEffect(() => {
+    const hours = Math.floor(totalTime / 3600);
+    const minutes = Math.floor((totalTime % 3600) / 60);
+    setStudyTimeDisplay(`${hours}h ${minutes}m`);
+  }, [totalTime]);
 
   // Determine if onboarding is needed
   const needsOnboarding =
@@ -395,6 +263,13 @@ export default function Home() {
     },
     [sortedSubjects, hidden],
   );
+
+  const visibleSubjectCount = useMemo(() => sortedSubjects.filter((s) => !hidden.includes(s.name)).length, [sortedSubjects, hidden]);
+
+  const [showAllProgressSubjects, setShowAllProgressSubjects] = useState(false);
+  const displayedSubjects = useMemo(() => {
+    return showAllProgressSubjects ? sortedSubjects : sortedSubjects.slice(0, 5);
+  }, [sortedSubjects, showAllProgressSubjects]);
 
   const matches = (subjectName: string, text: string) =>
     (subject === "Alle vakken" || subjectName === subject) &&
@@ -525,11 +400,14 @@ export default function Home() {
           <section className="grid gap-8 border-b border-border py-12 md:grid-cols-[1.4fr_1fr] md:items-end">
             <div>
               <h1 className="font-display text-5xl font-semibold leading-[1.05]">
-                {showName && !greeting.includes('?') ? `${greeting}, ${profile?.full_name?.split(' ')[0]}` : greeting}
+                {showName ? `${greeting}, ${profile?.full_name?.split(' ')[0]}` : greeting}
               </h1>
-              {showInteractive && !showName && (
+              {showInteractive && (
                 <div className="mt-4 flex gap-4">
-                  <button className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10 text-green-500 transition-colors hover:bg-green-500/20 dark:bg-green-500/20 dark:text-green-400">
+                  <button
+                    onClick={() => handleEmojiClick('happy')}
+                    className={`flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10 text-green-500 transition-all hover:bg-green-500/20 hover:scale-110 active:scale-95 dark:bg-green-500/20 dark:text-green-400 ${selectedEmoji === 'happy' ? 'ring-2 ring-green-500' : ''}`}
+                  >
                     <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="10"/>
                       <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
@@ -537,7 +415,10 @@ export default function Home() {
                       <circle cx="15" cy="9" r="1" fill="currentColor"/>
                     </svg>
                   </button>
-                  <button className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-500/10 text-yellow-500 transition-colors hover:bg-yellow-500/20 dark:bg-yellow-500/20 dark:text-yellow-400">
+                  <button
+                    onClick={() => handleEmojiClick('neutral')}
+                    className={`flex h-12 w-12 items-center justify-center rounded-full bg-yellow-500/10 text-yellow-500 transition-all hover:bg-yellow-500/20 hover:scale-110 active:scale-95 dark:bg-yellow-500/20 dark:text-yellow-400 ${selectedEmoji === 'neutral' ? 'ring-2 ring-yellow-500' : ''}`}
+                  >
                     <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="10"/>
                       <line x1="9" y1="15" x2="15" y2="15"/>
@@ -545,7 +426,10 @@ export default function Home() {
                       <circle cx="15" cy="9" r="1" fill="currentColor"/>
                     </svg>
                   </button>
-                  <button className="flex h-12 w-12 items-center justify-center rounded-full bg-red-500/10 text-red-500 transition-colors hover:bg-red-500/20 dark:bg-red-500/20 dark:text-red-400">
+                  <button
+                    onClick={() => handleEmojiClick('sad')}
+                    className={`flex h-12 w-12 items-center justify-center rounded-full bg-red-500/10 text-red-500 transition-all hover:bg-red-500/20 hover:scale-110 active:scale-95 dark:bg-red-500/20 dark:text-red-400 ${selectedEmoji === 'sad' ? 'ring-2 ring-red-500' : ''}`}
+                  >
                     <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="10"/>
                       <path d="M8 15s1.5-2 4-2 4 2 4 2"/>
@@ -556,23 +440,23 @@ export default function Home() {
                 </div>
               )}
               <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-                {totalDue > 0 
+                {totalDue > 0
                   ? `Je hebt ${totalDue} kaarten klaarstaan om te herhalen.`
                   : 'Je hebt geen kaarten die herhaald hoeven te worden.'}
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
-                  href="/vakken"
+                  href="/daily-quiz"
                   className="inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
                 >
-                  Bekijk vakken
+                  Daily quiz
                 </Link>
               </div>
             </div>
 
             <dl className="grid grid-cols-3 gap-6 md:border-l md:border-border md:pl-8">
               <Stat value={String(totalSets)} label="Sets" />
-              <Stat value={String(sortedSubjects.filter((s) => !hidden.includes(s.name)).length)} label="Vakken" />
+              <Stat value={String(visibleSubjectCount)} label="Vakken" />
               <Stat value={String(totalDue)} label="Te herhalen" />
             </dl>
           </section>
@@ -582,11 +466,20 @@ export default function Home() {
             <Chip active={subject === "Alle vakken"} onClick={() => setSubject("Alle vakken")}>
               Alle vakken
             </Chip>
-            {sortedSubjects.filter((s) => !hidden.includes(s.name)).map((s) => (
+            {sortedSubjects.filter((s) => !hidden.includes(s.name)).slice(0, showAllProgressSubjects ? undefined : 10).map((s) => (
               <Chip key={s.id} active={subject === s.name} onClick={() => setSubject(s.name)}>
                 {s.name}
               </Chip>
             ))}
+            {sortedSubjects.filter((s) => !hidden.includes(s.name)).length > 10 && !showAllProgressSubjects && (
+              <button
+                type="button"
+                onClick={() => setShowAllProgressSubjects(true)}
+                className="rounded-full border border-border px-3.5 py-1.5 text-[13px] font-medium text-muted-foreground hover:border-foreground/40 hover:text-foreground transition-colors"
+              >
+                ...
+              </button>
+            )}
           </div>
 
           <div className="grid gap-12 lg:grid-cols-[1fr_300px] lg:gap-14">
@@ -600,52 +493,62 @@ export default function Home() {
               >
                 Voortgang per vak
               </SectionTitle>
-              {filtered.length === 0 ? (
+              {sortedSubjects.length === 0 ? (
                 <div className="rounded-lg border border-dashed border-border p-10 text-center">
                   <p className="text-sm text-muted-foreground">
-                    Geen vakken zichtbaar.
+                    Geen vakken beschikbaar.
                   </p>
                 </div>
               ) : (
-                <ul className="divide-y divide-border">
-                  {filtered.map((s) => (
-                    <li
-                      key={s.id}
-                      className="grid grid-cols-[1fr_auto] items-center gap-4 py-5 sm:grid-cols-[1.2fr_1fr_auto]"
-                      onContextMenu={(e) => {
-                        e.preventDefault();
-                        setContextMenu({ x: e.clientX, y: e.clientY, subjectName: s.name });
-                      }}
-                    >
-                      <div className="min-w-0">
-                        <p className="truncate text-[15px] font-semibold">{s.name}</p>
-                        <p className="mt-0.5 text-xs text-muted-foreground">
-                          {s.description}
-                        </p>
-                      </div>
-                      <div className="hidden sm:block">
-                        <div className="mb-1.5 flex items-baseline justify-between text-xs text-muted-foreground">
-                          <span>
-                            Voortgang
-                          </span>
-                          <span className="tabular-nums">{Math.round(s.mastery || 0)}%</span>
+                <>
+                  <ul className="divide-y divide-border">
+                    {displayedSubjects.map((s) => (
+                      <li
+                        key={s.id}
+                        className="grid grid-cols-[1fr_auto] items-center gap-4 py-5 sm:grid-cols-[1.2fr_1fr_auto]"
+                        onContextMenu={(e) => {
+                          e.preventDefault();
+                          setContextMenu({ x: e.clientX, y: e.clientY, subjectName: s.name });
+                        }}
+                      >
+                        <div className="min-w-0">
+                          <p className="truncate text-[15px] font-semibold">{s.name}</p>
+                          <p className="mt-0.5 text-xs text-muted-foreground">
+                            {s.description}
+                          </p>
                         </div>
-                        <Meter value={s.mastery || 0} />
-                      </div>
-                      <div className="flex items-center justify-end gap-3">
-                        <span className="text-xs text-muted-foreground hidden sm:inline">
-                          {s.dueCount || 0} te herhalen
-                        </span>
-                        <Link
-                          href={`/vakken/${s.id}`}
-                          className="inline-flex h-8 items-center rounded-md border border-border px-3 text-xs font-medium transition-colors hover:bg-secondary"
-                        >
-                          Openen
-                        </Link>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                        <div className="hidden sm:block">
+                          <div className="mb-1.5 flex items-baseline justify-between text-xs text-muted-foreground">
+                            <span>
+                              Voortgang
+                            </span>
+                            <span className="tabular-nums">{Math.round(s.mastery || 0)}%</span>
+                          </div>
+                          <Meter value={s.mastery || 0} />
+                        </div>
+                        <div className="flex items-center justify-end gap-3">
+                          <span className="text-xs text-muted-foreground hidden sm:inline">
+                            {s.dueCount || 0} te herhalen
+                          </span>
+                          <Link
+                            href={`/vakken/${s.id}`}
+                            className="inline-flex h-8 items-center rounded-md border border-border px-3 text-xs font-medium transition-colors hover:bg-secondary"
+                          >
+                            Openen
+                          </Link>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  {sortedSubjects.length > 5 && (
+                    <button
+                      onClick={() => setShowAllProgressSubjects(!showAllProgressSubjects)}
+                      className="mt-4 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {showAllProgressSubjects ? 'Toon minder' : `Toon meer (${sortedSubjects.length - 5} meer)`}
+                    </button>
+                  )}
+                </>
               )}
 
               <div className="mt-12">
@@ -722,33 +625,46 @@ export default function Home() {
                 <h2 className="mb-4 border-b border-border pb-3 font-display text-lg font-semibold">
                   Studieritme
                 </h2>
-                {dbSets.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">
-                    Maak studiesets om te beginnen met studeren en je ritme bij te houden.
-                  </p>
-                ) : (
-                  <>
-                    <div className="flex items-end gap-1.5">
-                      {[0, 0, 0, 0, 0, 0, 0].map((h, i) => (
-                        <div key={i} className="flex flex-1 flex-col items-center gap-2">
-                          <div
-                            className="flex w-full items-end rounded-sm bg-secondary"
-                            style={{ height: 64 }}
-                            aria-hidden="true"
-                          >
-                            <div className="w-full rounded-sm bg-foreground/60" style={{ height: `${h}%` }} />
-                          </div>
-                          <span className="text-[10px] text-muted-foreground">
-                            {["m", "d", "w", "d", "v", "z", "z"][i]}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-                      Nog geen studie-activiteit geregistreerd.
+                {(() => {
+                  const last7Days = getActivityForLastDays(7);
+                  const hasActivity = last7Days.some(d => d.totalSeconds > 0);
+                  const maxSeconds = Math.max(...last7Days.map(d => d.totalSeconds), 1);
+
+                  return !hasActivity ? (
+                    <p className="text-sm text-muted-foreground">
+                      Nog geen studie-activiteit geregistreerd. Houd dit tabblad open om je studietijd bij te houden.
                     </p>
-                  </>
-                )}
+                  ) : (
+                    <>
+                      <div className="flex items-end gap-1.5">
+                        {last7Days.map((day, i) => {
+                          const height = maxSeconds > 0 ? (day.totalSeconds / maxSeconds) * 100 : 0;
+                          const hours = Math.floor(day.totalSeconds / 3600);
+                          return (
+                            <div key={i} className="flex flex-1 flex-col items-center gap-2">
+                              <div
+                                className="flex w-full items-end rounded-sm bg-secondary"
+                                style={{ height: 64 }}
+                                aria-hidden="true"
+                              >
+                                <div
+                                  className="w-full rounded-sm bg-foreground/60"
+                                  style={{ height: `${Math.max(height, 5)}%` }}
+                                />
+                              </div>
+                              <span className="text-[10px] text-muted-foreground">
+                                {["m", "d", "w", "d", "v", "z", "z"][i]}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+                        Vandaag: {studyTimeDisplay}
+                      </p>
+                    </>
+                  );
+                })()}
               </div>
 
               <div className="rounded-lg border border-border p-5">

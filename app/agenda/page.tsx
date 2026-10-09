@@ -14,6 +14,7 @@ import {
   X,
 } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
+import { motion } from 'framer-motion';
 
 type AgendaView = 'month' | 'week' | 'workweek' | 'day' | 'agenda' | 'year';
 type AgendaEventType = 'les' | 'huiswerk' | 'examen' | 'other';
@@ -83,85 +84,73 @@ const EVENT_COLOR_OPTIONS = [
     id: 'blue',
     label: 'Blauw',
     swatch: 'bg-blue-500',
-    event:
-      'border-blue-300 bg-blue-50 text-blue-950 hover:bg-blue-100/80 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200',
+    event: 'bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700',
   },
   {
     id: 'darkblue',
     label: 'Donkerblauw',
-    swatch: 'bg-blue-800',
-    event:
-      'border-blue-900 bg-blue-100 text-blue-950 hover:bg-blue-200/70 dark:border-blue-700 dark:bg-blue-950/70 dark:text-blue-200',
+    swatch: 'bg-blue-900',
+    event: 'bg-blue-900 text-white hover:bg-blue-800 dark:bg-blue-950 dark:hover:bg-blue-900',
   },
   {
     id: 'red',
     label: 'Rood',
     swatch: 'bg-red-500',
-    event:
-      'border-red-300 bg-red-50 text-red-950 hover:bg-red-100/80 dark:border-red-800 dark:bg-red-950/40 dark:text-red-200',
+    event: 'bg-red-500 text-white hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700',
   },
   {
     id: 'pink',
     label: 'Roze',
     swatch: 'bg-pink-500',
-    event:
-      'border-pink-300 bg-pink-50 text-pink-950 hover:bg-pink-100/80 dark:border-pink-800 dark:bg-pink-950/40 dark:text-pink-200',
+    event: 'bg-pink-500 text-white hover:bg-pink-600 dark:bg-pink-600 dark:hover:bg-pink-700',
   },
   {
     id: 'purple',
     label: 'Paars',
     swatch: 'bg-purple-500',
-    event:
-      'border-purple-300 bg-purple-50 text-purple-950 hover:bg-purple-100/80 dark:border-purple-800 dark:bg-purple-950/40 dark:text-purple-200',
+    event: 'bg-purple-500 text-white hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-700',
   },
   {
     id: 'green',
     label: 'Groen',
     swatch: 'bg-green-500',
-    event:
-      'border-green-300 bg-green-50 text-green-950 hover:bg-green-100/80 dark:border-green-800 dark:bg-green-950/40 dark:text-green-200',
+    event: 'bg-green-500 text-white hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700',
   },
   {
     id: 'darkgreen',
     label: 'Donkergroen',
     swatch: 'bg-green-800',
-    event:
-      'border-green-900 bg-green-100 text-green-950 hover:bg-green-200/70 dark:border-green-700 dark:bg-green-950/70 dark:text-green-200',
+    event: 'bg-green-800 text-white hover:bg-green-700 dark:bg-green-900 dark:hover:bg-green-800',
   },
   {
     id: 'lightgreen',
     label: 'Lichtgroen',
     swatch: 'bg-lime-400',
-    event:
-      'border-lime-300 bg-lime-50 text-lime-950 hover:bg-lime-100/80 dark:border-lime-800 dark:bg-lime-950/40 dark:text-lime-200',
+    event: 'bg-lime-400 text-gray-900 hover:bg-lime-500 dark:bg-lime-500 dark:hover:bg-lime-600',
   },
   {
     id: 'orange',
     label: 'Oranje',
     swatch: 'bg-orange-500',
-    event:
-      'border-orange-300 bg-orange-50 text-orange-950 hover:bg-orange-100/80 dark:border-orange-800 dark:bg-orange-950/40 dark:text-orange-200',
+    event: 'bg-orange-500 text-white hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700',
   },
   {
     id: 'yellow',
     label: 'Geel',
     swatch: 'bg-yellow-400',
-    event:
-      'border-yellow-300 bg-yellow-50 text-yellow-950 hover:bg-yellow-100/80 dark:border-yellow-700 dark:bg-yellow-950/40 dark:text-yellow-200',
+    event: 'bg-yellow-400 text-gray-900 hover:bg-yellow-500 dark:bg-yellow-500 dark:hover:bg-yellow-600',
   },
   {
     id: 'white',
     label: 'Wit',
     swatch: 'bg-white border border-gray-300',
-    event:
-      'border-gray-300 bg-white text-gray-900 hover:bg-gray-100/80 dark:border-gray-500 dark:bg-gray-100 dark:text-gray-900',
+    event: 'bg-white text-gray-900 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700',
   },
   {
     id: 'black',
     label: 'Zwart',
     swatch: 'bg-black',
-    event:
-      'border-gray-900 bg-gray-900 text-white hover:bg-gray-800 dark:border-gray-500 dark:bg-black dark:text-gray-100',
+    event: 'bg-gray-900 text-white hover:bg-gray-800 dark:bg-black dark:text-white dark:hover:bg-gray-900',
   },
 ];
 
@@ -360,7 +349,7 @@ function normalizeStoredEvent(raw: unknown): AgendaEvent | null {
     endDate,
     allDay: Boolean(record.allDay),
     eventType,
-    color: typeof record.color === 'string' ? record.color : 'blue',
+    color: typeof record.color === 'string' ? record.color : 'red',
     recurrence,
   };
 }
@@ -478,8 +467,43 @@ export default function AgendaPage() {
   const [formError, setFormError] = useState('');
 
   useEffect(() => {
-    setEvents(loadStoredEvents());
-    setLoaded(true);
+    const loadAllEvents = async () => {
+      const userEvents = loadStoredEvents();
+
+      // Load admin events
+      try {
+        const response = await fetch('/api/agenda/admin-events');
+        if (response.ok) {
+          const adminEvents = await response.json();
+          // Convert admin events to agenda events
+          const convertedAdminEvents = adminEvents.map((adminEvent: any) => ({
+            id: adminEvent.id,
+            title: adminEvent.title,
+            description: adminEvent.description,
+            location: adminEvent.location,
+            startDate: new Date(`${adminEvent.startDate}T${adminEvent.time || '00:00'}`),
+            endDate: new Date(`${adminEvent.endDate}T${adminEvent.time || '00:00'}`),
+            allDay: !adminEvent.time,
+            eventType: adminEvent.type === 'exam' ? 'examen' : 
+                      adminEvent.type === 'school' ? 'les' : 'other',
+            color: adminEvent.type === 'exam' ? 'red' : 
+                   adminEvent.type === 'school' ? 'green' : 'orange',
+            recurrence: 'none' as const
+          }));
+
+          setEvents([...userEvents, ...convertedAdminEvents]);
+        } else {
+          setEvents(userEvents);
+        }
+      } catch (error) {
+        console.error('Error loading admin events:', error);
+        setEvents(userEvents);
+      }
+
+      setLoaded(true);
+    };
+
+    loadAllEvents();
   }, []);
 
   useEffect(() => {
@@ -690,7 +714,11 @@ export default function AgendaPage() {
   const monthCells = useMemo(() => getMonthCells(currentDate), [currentDate]);
 
   const renderMonthView = () => (
-    <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+    <motion.div
+      layout
+      className="overflow-hidden rounded-xl border border-border bg-card shadow-sm"
+      transition={{ duration: 0.3, ease: 'easeIn' }}
+    >
       <div className="grid grid-cols-7 border-b border-border bg-secondary/30">
         {['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'].map((day) => (
           <div
@@ -750,18 +778,22 @@ export default function AgendaPage() {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 
   const renderTimeGrid = (days: Date[]) => {
-    const minWidth = days.length > 1 ? days.length * 180 : undefined;
     const hours = Array.from({ length: 24 }, (_, index) => index);
 
     return (
-      <div className="overflow-x-auto pb-2">
-        <div
+      <motion.div
+        layout
+        className="pb-2"
+        transition={{ duration: 0.3, ease: 'easeIn' }}
+      >
+        <motion.div
+          layout
           className="overflow-hidden rounded-xl border border-border bg-card shadow-sm"
-          style={minWidth ? { minWidth } : undefined}
+          transition={{ duration: 0.3, ease: 'easeIn' }}
         >
           <div
             className="grid border-b border-border bg-secondary/30"
@@ -875,8 +907,8 @@ export default function AgendaPage() {
               </div>
             ))}
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     );
   };
 
@@ -898,7 +930,11 @@ export default function AgendaPage() {
 
     if (agendaEvents.length === 0) {
       return (
-        <section className="rounded-xl border border-dashed border-border bg-card/40 p-10 text-center">
+        <motion.section
+          layout
+          className="rounded-xl border border-dashed border-border bg-card/40 p-10 text-center"
+          transition={{ duration: 0.3, ease: 'easeIn' }}
+        >
           <CalendarDays className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
           <h2 className="font-display text-2xl font-semibold">Nog geen afspraken</h2>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -912,21 +948,27 @@ export default function AgendaPage() {
             <Plus className="mr-2 h-4 w-4" />
             Nieuwe afspraak
           </button>
-        </section>
+        </motion.section>
       );
     }
 
     return (
-      <div className="space-y-3">
+      <motion.div
+        layout
+        className="space-y-3"
+        transition={{ duration: 0.3, ease: 'easeIn' }}
+      >
         {agendaEvents.map((event) => {
           const colorOption = getColorOption(event.color);
 
           return (
-            <button
+            <motion.button
+              layout
               key={event.id}
               type="button"
               onClick={() => openEdit(event)}
               className={`block w-full rounded-xl border p-5 text-left shadow-sm transition-colors ${colorOption.event}`}
+              transition={{ duration: 0.3, ease: 'easeIn' }}
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="min-w-0">
@@ -974,10 +1016,10 @@ export default function AgendaPage() {
                   {EVENT_TYPE_LABELS[event.eventType]}
                 </span>
               </div>
-            </button>
+            </motion.button>
           );
         })}
-      </div>
+      </motion.div>
     );
   };
 
@@ -987,7 +1029,11 @@ export default function AgendaPage() {
     const today = new Date();
 
     return (
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <motion.div
+        layout
+        className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
+        transition={{ duration: 0.3, ease: 'easeIn' }}
+      >
         {months.map((monthDate) => {
           const isCurrentMonth =
             today.getFullYear() === year && today.getMonth() === monthDate.getMonth();
@@ -995,11 +1041,13 @@ export default function AgendaPage() {
           const cells = getMonthCells(monthDate);
 
           return (
-            <section
+            <motion.section
+              layout
               key={monthDate.toISOString()}
               className={`rounded-xl border bg-card p-4 shadow-sm ${
                 isCurrentMonth ? 'border-primary/40 ring-2 ring-primary/30' : 'border-border'
               }`}
+              transition={{ duration: 0.3, ease: 'easeIn' }}
             >
               <h3 className="mb-3 font-display text-lg font-semibold capitalize">
                 {monthDate.toLocaleDateString('nl-NL', { month: 'long' })}
@@ -1038,10 +1086,10 @@ export default function AgendaPage() {
                   );
                 })}
               </div>
-            </section>
+            </motion.section>
           );
         })}
-      </div>
+      </motion.div>
     );
   };
 
@@ -1063,21 +1111,35 @@ export default function AgendaPage() {
       />
 
       <div className="mt-8 space-y-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 h-12">
           <div className="flex flex-wrap items-center gap-2">
-            <button type="button" onClick={handlePrevious} className={outlineButtonClass}>
+            <button
+              type="button"
+              onClick={handlePrevious}
+              className={outlineButtonClass}
+            >
               <ChevronLeft className="h-4 w-4" />
             </button>
 
-            <button type="button" onClick={handleToday} className={outlineButtonClass}>
+            <button
+              type="button"
+              onClick={handleToday}
+              className={outlineButtonClass}
+            >
               Vandaag
             </button>
 
-            <button type="button" onClick={handleNext} className={outlineButtonClass}>
+            <button
+              type="button"
+              onClick={handleNext}
+              className={outlineButtonClass}
+            >
               <ChevronRight className="h-4 w-4" />
             </button>
 
-            <h2 className="ml-2 font-display text-2xl font-semibold">{headerTitle}</h2>
+            <h2 className="ml-2 font-display text-2xl font-semibold">
+              {headerTitle}
+            </h2>
           </div>
 
           <div className="flex flex-wrap items-center gap-1 rounded-lg border border-border bg-secondary/40 p-1">
@@ -1117,14 +1179,20 @@ export default function AgendaPage() {
             ))}
           </div>
         ) : (
-          <>
-            {view === 'month' && renderMonthView()}
-            {view === 'week' && renderWeekView(true)}
-            {view === 'workweek' && renderWeekView(false)}
-            {view === 'day' && renderDayView()}
-            {view === 'agenda' && renderAgendaView()}
-            {view === 'year' && renderYearView()}
-          </>
+          <div className="min-h-[600px] w-full">
+            <motion.div
+              layout
+              className="w-full"
+              transition={{ duration: 0.3, ease: 'easeIn' }}
+            >
+              {view === 'month' && renderMonthView()}
+              {view === 'week' && renderWeekView(true)}
+              {view === 'workweek' && renderWeekView(false)}
+              {view === 'day' && renderDayView()}
+              {view === 'agenda' && renderAgendaView()}
+              {view === 'year' && renderYearView()}
+            </motion.div>
+          </div>
         )}
       </div>
 

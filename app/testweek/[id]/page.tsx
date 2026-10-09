@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Calendar, BookOpen, Trash2, Edit } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
+import { AppShell, PageHeader } from '@/components/AppShell';
 
 export default function TestWeekDashboardPage() {
   const params = useParams();
@@ -90,13 +91,20 @@ export default function TestWeekDashboardPage() {
   const isUpcoming = today < startDate;
 
   return (
-    <div className="container mx-auto py-8 px-4 max-w-6xl">
-      <div className="mb-8">
-        <Button variant="ghost" onClick={() => router.push('/')} className="mb-4">
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          {t('testweekdetail_back')}
-        </Button>
-        <div className="flex items-center justify-between">
+    <AppShell>
+      <PageHeader
+        title={testWeek?.name || 'Test Week'}
+        description=""
+        action={
+          <Button variant="ghost" onClick={() => router.push('/')}>
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            {t('testweekdetail_back')}
+          </Button>
+        }
+      />
+
+      <div className="px-6 py-8">
+        <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold mb-2">{testWeek.name}</h1>
             <div className="flex items-center gap-4 text-muted-foreground">
@@ -189,6 +197,6 @@ export default function TestWeekDashboardPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </AppShell>
   );
 }

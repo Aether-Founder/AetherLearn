@@ -408,7 +408,7 @@ function WorkspaceSidebar() {
   // Initialize default workspace if none exists
   useEffect(() => {
     if (workspaces.length === 0) {
-      const defaultId = createWorkspace('Standaard');
+      const defaultId = createWorkspace('Werkruimte 1');
       setCurrentWorkspaceId(defaultId);
     }
   }, [workspaces.length, createWorkspace, setCurrentWorkspaceId]);
@@ -1198,7 +1198,7 @@ function EditorPanel() {
 
 export default function NotitiesPage() {
   return (
-    <AppShell fullWidth hideFooter>
+    <AppShell>
       <section className="flex h-[calc(100vh-4rem)] min-h-[580px]">
         <WorkspaceSidebar />
         <EditorPanel />

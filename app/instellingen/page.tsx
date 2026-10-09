@@ -19,6 +19,8 @@ import { supabase as browserClient } from '@/lib/supabase/client';
 import { useTranslation } from '@/lib/useTranslation';
 import { useTheme } from 'next-themes';
 import { useNavbarPreferences } from '@/hooks/useNavbarPreferences';
+import { useUser } from '@/hooks/useAuth';
+import { useActivityTracking } from '@/hooks/useActivityTracking';
 import {
   Upload,
   Check,
@@ -40,6 +42,151 @@ import {
 const supabase = browserClient as any;
 
 type SettingsSection = 'profile' | 'appearance' | 'navigation' | 'statistics' | 'account' | 'ai' | 'accessibility';
+
+function ActivityGraph() {
+  const { user } = useUser();
+  const { getYearlyActivity } = useActivityTracking(user?.id);
+  const [activityData, setActivityData] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      const data = getYearlyActivity();
+      setActivityData(data);
+    }
+  }, [user, getYearlyActivity]);
+
+  const maxSeconds = Math.max(...activityData.map(d => d.totalSeconds), 1);
+
+  // Group by weeks for the graph
+  const weeks: any[][] = [];
+  for (let i = 0; i < activityData.length; i += 7) {
+    weeks.push(activityData.slice(i, i + 7));
+  }
+
+  const getColor = (seconds: number, emoji?: 'happy' | 'neutral' | 'sad') => {
+    if (seconds === 0 && !emoji) return 'bg-secondary';
+
+    // Base color on emoji if present
+    if (emoji === 'happy') {
+      const intensity = Math.min(seconds / 3600, 4);
+      const colors = [
+        'bg-green-100 dark:bg-green-900',
+        'bg-green-200 dark:bg-green-800',
+        'bg-green-300 dark:bg-green-700',
+        'bg-green-400 dark:bg-green-600',
+        'bg-green-500 dark:bg-green-500',
+      ];
+      return colors[Math.floor(intensity)];
+    } else if (emoji === 'neutral') {
+      const intensity = Math.min(seconds / 3600, 4);
+      const colors = [
+        'bg-yellow-100 dark:bg-yellow-900',
+        'bg-yellow-200 dark:bg-yellow-800',
+        'bg-yellow-300 dark:bg-yellow-700',
+        'bg-yellow-400 dark:bg-yellow-600',
+        'bg-yellow-500 dark:bg-yellow-500',
+      ];
+      return colors[Math.floor(intensity)];
+    } else if (emoji === 'sad') {
+      const intensity = Math.min(seconds / 3600, 4);
+      const colors = [
+        'bg-red-100 dark:bg-red-900',
+        'bg-red-200 dark:bg-red-800',
+        'bg-red-300 dark:bg-red-700',
+        'bg-red-400 dark:bg-red-600',
+        'bg-red-500 dark:bg-red-500',
+      ];
+      return colors[Math.floor(intensity)];
+    }
+
+    // Default green for study time without emoji
+    const intensity = Math.min(seconds / 3600, 4);
+    const colors = [
+      'bg-green-100 dark:bg-green-900',
+      'bg-green-200 dark:bg-green-800',
+      'bg-green-300 dark:bg-green-700',
+      'bg-green-400 dark:bg-green-600',
+      'bg-green-500 dark:bg-green-500',
+    ];
+    return colors[Math.floor(intensity)];
+  };
+
+  const getEmojiIcon = (emoji?: 'happy' | 'neutral' | 'sad') => {
+    if (emoji === 'happy') return '😊';
+    if (emoji === 'neutral') return '😐';
+    if (emoji === 'sad') return '😢';
+    return '';
+  };
+
+  return (
+    <div className="space-y-4">
+      <p className="text-sm text-muted-foreground">
+        GitHub-achtige activiteitsgrafiek van het afgelopen jaar. Elke cel vertegenwoordigt een dag,
+        gekleurd op basis van de studietijd en je emoji-reactie.
+      </p>
+      <div className="overflow-x-auto">
+        <div className="flex gap-1">
+          {weeks.map((week, weekIndex) => (
+            <div key={weekIndex} className="flex flex-col gap-1">
+              {week.map((day) => (
+                <div
+                  key={day.date}
+                  className={`w-3 h-3 rounded-sm ${getColor(day.totalSeconds, day.emoji)} relative`}
+                  title={`${day.date}: ${Math.floor(day.totalSeconds / 60)} minuten ${day.emoji ? getEmojiIcon(day.emoji) : ''}`}
+                >
+                  {day.emoji && (
+                    <span className="absolute inset-0 flex items-center justify-center text-[8px]">
+                      {getEmojiIcon(day.emoji)}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="space-y-2">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <span>Geen activiteit</span>
+          <div className="w-3 h-3 rounded-sm bg-secondary" />
+        </div>
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <span>Blij 😊</span>
+          <div className="flex gap-1">
+            <div className="w-3 h-3 rounded-sm bg-green-100 dark:bg-green-900" />
+            <div className="w-3 h-3 rounded-sm bg-green-200 dark:bg-green-800" />
+            <div className="w-3 h-3 rounded-sm bg-green-300 dark:bg-green-700" />
+            <div className="w-3 h-3 rounded-sm bg-green-400 dark:bg-green-600" />
+            <div className="w-3 h-3 rounded-sm bg-green-500 dark:bg-green-500" />
+          </div>
+          <span>Meer tijd</span>
+        </div>
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <span>Neutraal 😐</span>
+          <div className="flex gap-1">
+            <div className="w-3 h-3 rounded-sm bg-yellow-100 dark:bg-yellow-900" />
+            <div className="w-3 h-3 rounded-sm bg-yellow-200 dark:bg-yellow-800" />
+            <div className="w-3 h-3 rounded-sm bg-yellow-300 dark:bg-yellow-700" />
+            <div className="w-3 h-3 rounded-sm bg-yellow-400 dark:bg-yellow-600" />
+            <div className="w-3 h-3 rounded-sm bg-yellow-500 dark:bg-yellow-500" />
+          </div>
+          <span>Meer tijd</span>
+        </div>
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <span>Tevreden 😢</span>
+          <div className="flex gap-1">
+            <div className="w-3 h-3 rounded-sm bg-red-100 dark:bg-red-900" />
+            <div className="w-3 h-3 rounded-sm bg-red-200 dark:bg-red-800" />
+            <div className="w-3 h-3 rounded-sm bg-red-300 dark:bg-red-700" />
+            <div className="w-3 h-3 rounded-sm bg-red-400 dark:bg-red-600" />
+            <div className="w-3 h-3 rounded-sm bg-red-500 dark:bg-red-500" />
+          </div>
+          <span>Meer tijd</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function InstellingenPage() {
   const { t, currentLanguage, changeLanguage } = useTranslation();
@@ -387,7 +534,7 @@ export default function InstellingenPage() {
           title={t('settings_title')}
           description={t('settings_description')}
         />
-        <div className="mt-10 flex gap-8 max-w-7xl mx-auto px-4">
+        <div className="mt-10 flex gap-8">
           <aside className="w-56 shrink-0">
             <div className="space-y-1">
               {Array.from({ length: 7 }).map((_, index) => (
@@ -395,7 +542,7 @@ export default function InstellingenPage() {
               ))}
             </div>
           </aside>
-          <main className="flex-1 max-w-4xl space-y-6">
+          <main className="flex-1 space-y-6">
             <div className="border border-border rounded-lg p-6 space-y-4">
               <div className="flex items-start gap-6">
                 <div className="skeleton-circle h-24 w-24 rounded-full"></div>
@@ -427,7 +574,7 @@ export default function InstellingenPage() {
         description={t('settings_description')}
       />
 
-      <div className="mt-10 grid grid-cols-[224px_1fr] gap-8 max-w-7xl mx-auto px-4">
+      <div className="mt-10 grid grid-cols-[224px_1fr] gap-8">
         {/* Sidebar Navigation */}
         <aside className="w-56 shrink-0">
           <nav className="space-y-1 sticky top-24">
@@ -512,7 +659,7 @@ export default function InstellingenPage() {
         </aside>
 
         {/* Main Content Area */}
-        <main className="flex-1 max-w-4xl">
+        <main className="flex-1">
           {activeSection === 'profile' && (
             <Panel title={t('settings_profile')}>
               <div className="space-y-6">
@@ -648,14 +795,7 @@ export default function InstellingenPage() {
                     <option value="dark">{t('settings_theme_dark')}</option>
                   </select>
                 </Field>
-                <div className="pt-2">
-                  <Link href="/settings/appearance">
-                    <Button variant="outline" className="w-full">
-                      <Palette className="mr-2 h-4 w-4" />
-                      Kies thema
-                    </Button>
-                  </Link>
-                </div>
+
                 <Field label={t('settings_language')}>
                   <select
                     className={inputClass}
@@ -734,20 +874,8 @@ export default function InstellingenPage() {
           )}
 
           {activeSection === 'statistics' && (
-            <Panel title="Statistieken">
-              <div className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  Bekijk je leerstatistieken en voortgang hier.
-                </p>
-                <div className="pt-4">
-                  <Link href="/statistieken">
-                    <Button className="w-full">
-                      Ga naar Statistieken
-                      <BarChart3 className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </div>
-              </div>
+            <Panel title="Studie-activiteit">
+              <ActivityGraph />
             </Panel>
           )}
 

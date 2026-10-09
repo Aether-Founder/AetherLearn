@@ -154,10 +154,10 @@ export default function InboxPage() {
     <AppShell>
       <PageHeader
         title="Inbox"
-        description="Snel notities, taken en herinneringen — alleen lokaal opgeslagen."
+        description="Snel notities, taken en herinneringen"
       />
 
-      <div className="mt-10 max-w-3xl mx-auto">
+      <div className="mt-10">
         <div className="mb-8 flex flex-col gap-2 sm:flex-row">
           <input
             value={newItem}
@@ -193,8 +193,7 @@ export default function InboxPage() {
             <InboxIcon className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
             <h2 className="font-display text-xl font-semibold">Inbox is leeg</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Typ hierboven iets en klik op Toevoegen of druk op Enter. Alles wordt alleen
-              lokaal in je browser opgeslagen.
+              Typ hierboven iets en klik op Toevoegen of druk op Enter.
             </p>
           </div>
         ) : (

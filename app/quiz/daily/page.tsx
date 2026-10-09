@@ -292,7 +292,7 @@ export default function DailyQuizPage() {
           }
         />
 
-        <div className="mt-10 max-w-3xl mx-auto">
+        <div className="mt-10">
           <div className="rounded-xl border border-border bg-card p-8 text-center mb-6">
             <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-primary/10 mb-6">
               {correctCount >= 8 ? (
@@ -401,7 +401,7 @@ export default function DailyQuizPage() {
         description={`${currentQuestion.vak} • ${currentQuestion.onderwerp}`}
       />
 
-      <div className="mt-10 max-w-3xl mx-auto">
+      <div className="mt-10">
         {/* Progress Bar */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">

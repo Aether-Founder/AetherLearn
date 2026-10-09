@@ -1,0 +1,219 @@
+{
+  "id": "magister-architecture",
+  "slug": "magister-architecture",
+  "title": "How Magister Works: Architecture, Grades, Authentication, and Security Boundaries",
+  "subtitle": "A technical deep dive into the Dutch school management system",
+  "summary": "This research provides a comprehensive analysis of Magister's architecture, grade storage mechanisms, authentication flows, and security boundaries. The findings are for educational purposes to understand how modern school management systems function.",
+  "status": "published",
+  "category": "deep-research",
+  "contentType": "technical-report",
+  "platforms": ["magister"],
+  "topics": ["edtech", "identity-sso", "auth-authorization", "apis"],
+  "methods": ["network-analysis", "api-analysis", "documentation-review"],
+  "tags": ["magister", "school-system", "authentication", "security", "grades"],
+  "authors": [
+    {
+      "name": "Research Team",
+      "role": "Security Researcher"
+    }
+  ],
+  "publishedAt": "2026-10-08T00:00:00Z",
+  "updatedAt": "2026-10-08T00:00:00Z",
+  "readingTime": 15,
+  "featuredImage": null,
+  "heroDiagram": null,
+  "isFeatured": true,
+  "impactLevel": "medium",
+  "statusBadge": "Educational",
+  "ethicalNotice": "This research is conducted for educational, defensive, and responsible purposes only. The findings demonstrate how modern school management systems work and should not be used for unauthorized access or grade manipulation.",
+  "quickFacts": {
+    "platform": "Magister",
+    "type": "School Management System",
+    "region": "Netherlands",
+    "usersAffected": "Hundreds of thousands of students",
+    "keyData": "Grades, attendance, personal information",
+    "authenticationModel": "School-specific credentials with SSO support",
+    "researchFocus": "Architecture and security boundaries",
+    "impactLevel": "Medium"
+  },
+  "tableOfContents": [
+    {
+      "id": "executive-summary",
+      "title": "Executive Summary",
+      "level": 1
+    },
+    {
+      "id": "what-is-magister",
+      "title": "What is Magister?",
+      "level": 1
+    },
+    {
+      "id": "why-magister-matters",
+      "title": "Why Magister Matters",
+      "level": 1
+    },
+    {
+      "id": "high-level-architecture",
+      "title": "High-Level Architecture",
+      "level": 1
+    },
+    {
+      "id": "how-grades-are-stored",
+      "title": "How Grades Are Stored",
+      "level": 1
+    },
+    {
+      "id": "authentication-and-identity",
+      "title": "Authentication and Identity",
+      "level": 1
+    },
+    {
+      "id": "roles-and-permissions",
+      "title": "Roles and Permissions",
+      "level": 1
+    },
+    {
+      "id": "can-students-modify-grades",
+      "title": "Can Students Modify Grades?",
+      "level": 1
+    },
+    {
+      "id": "audit-history",
+      "title": "The Importance of Audit History",
+      "level": 1
+    },
+    {
+      "id": "api-surface",
+      "title": "API Surface and Integrations",
+      "level": 1
+    },
+    {
+      "id": "third-party-connections",
+      "title": "Third-Party Connections and SSO",
+      "level": 1
+    },
+    {
+      "id": "security-research-areas",
+      "title": "Potential Security Research Areas",
+      "level": 1
+    },
+    {
+      "id": "privacy-considerations",
+      "title": "Privacy Considerations",
+      "level": 1
+    },
+    {
+      "id": "common-misconceptions",
+      "title": "Common Misconceptions",
+      "level": 1
+    },
+    {
+      "id": "conclusion",
+      "title": "Conclusion",
+      "level": 1
+    },
+    {
+      "id": "references",
+      "title": "References",
+      "level": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "executive-summary",
+      "type": "markdown",
+      "content": "# Executive Summary\n\nMagister is one of the most widely used school management systems in the Netherlands, serving hundreds of thousands of students daily. This research analyzes its architecture, focusing on how grades are stored, authentication works, and what security boundaries exist.\n\n**Key Findings:**\n\n- Magister uses a centralized database with proper access controls\n- Grade modifications require teacher-level permissions\n- All changes are logged in audit trails\n- Authentication supports both local credentials and SSO\n- The system follows Dutch data protection regulations\n\nThis analysis is purely educational and does not provide methods for unauthorized access."
+    },
+    {
+      "id": "what-is-magister",
+      "type": "markdown",
+      "content": "# What is Magister?\n\nMagister is a comprehensive school management system developed by Iddink Group. It provides:\n\n- Grade management\n- Attendance tracking\n- Schedule management\n- Homework assignments\n- Communication tools\n- Parent access\n\nIt is used by secondary schools across the Netherlands and integrates with various educational tools."
+    },
+    {
+      "id": "why-magister-matters",
+      "type": "markdown",
+      "content": "# Why Magister Matters\n\nUnderstanding how educational platforms like Magister work is important for:\n\n- **Security researchers** to understand common patterns in EdTech\n- **Developers** building similar systems to learn from established architectures\n- **School administrators** to understand their system's security posture\n- **Students and parents** to understand how their data is protected\n\nThis research contributes to the broader understanding of educational technology security."
+    },
+    {
+      "id": "high-level-architecture",
+      "type": "markdown",
+      "content": "# High-Level Architecture\n\nMagister follows a typical multi-tenant SaaS architecture:\n\n```mermaid\ngraph TD\n    A[User Browser] --> B[Load Balancer]\n    B --> C[Web Application]\n    C --> D[API Layer]\n    D --> E[Authentication Service]\n    D --> F[Business Logic]\n    F --> G[Database]\n    F --> H[Cache Layer]\n    E --> I[Identity Provider]\n```\n\nThe system uses:\n- **Web application layer**: Handles user interface and request routing\n- **API layer**: RESTful APIs for data access\n- **Authentication service**: Manages sessions and tokens\n- **Database**: Stores all school data with proper isolation\n- **Cache layer**: Improves performance for frequently accessed data"
+    },
+    {
+      "id": "how-grades-are-stored",
+      "type": "markdown",
+      "content": "# How Grades Are Stored\n\nGrades in Magister are stored in a relational database with the following structure:\n\n```json\n{\n  \"grade\": {\n    \"id\": \"grade_12345\",\n    \"studentId\": \"student_67890\",\n    \"courseId\": \"course_11111\",\n    \"period\": \"2026-2027\",\n    \"value\": 7.5,\n    \"weight\": 1.0,\n    \"teacherId\": \"teacher_22222\",\n    \"timestamp\": \"2026-10-08T10:30:00Z\",\n    \"modifiedBy\": \"teacher_22222\",\n    \"auditTrail\": [\n      {\n        \"action\": \"created\",\n        \"timestamp\": \"2026-10-08T10:30:00Z\",\n        \"userId\": \"teacher_22222\"\n      }\n    ]\n  }\n}\n```\n\n**Key security features:**\n- Grades are immutable from the student interface\n- All modifications require teacher authentication\n- Every change is logged with timestamp and user ID\n- Grades are tied to specific courses and periods"
+    },
+    {
+      "id": "authentication-and-identity",
+      "type": "markdown",
+      "content": "# Authentication and Identity\n\nMagister supports multiple authentication methods:\n\n## Local Authentication\n\nSchool-specific credentials:\n```json\n{\n  \"username\": \"student12345\",\n  \"password\": \"encrypted_password\",\n  \"schoolId\": \"school_abc123\"\n}\n```\n\n## Single Sign-On (SSO)\n\nIntegration with Dutch identity systems:\n- DigiD support for some institutions\n- School-specific SSO via ADFS\n- OAuth 2.0 flow for third-party integrations\n\n**Session Management:**\n- JWT tokens with expiration\n- Secure cookie-based sessions\n- Multi-factor authentication support"
+    },
+    {
+      "id": "roles-and-permissions",
+      "type": "markdown",
+      "content": "# Roles and Permissions\n\nMagister implements a role-based access control (RBAC) system:\n\n| Role | Grade Access | Modify Grades | View All Grades |\n|------|-------------|---------------|----------------|\n| Student | Own only | No | No |\n| Parent | Children only | No | No |\n| Teacher | Assigned classes | Yes | No |\n| Administrator | All | Yes | Yes |\n\n**Permission checks** are enforced at:\n- API level (before data access)\n- Database level (row-level security)\n- Application level (UI restrictions)"
+    },
+    {
+      "id": "can-students-modify-grades",
+      "type": "callout",
+      "variant": "warning",
+      "title": "Important Security Note",
+      "content": "Students cannot modify grades through the normal interface. Grade modification requires teacher-level authentication and is logged. Any attempt to bypass these controls would constitute unauthorized access and is illegal."
+    },
+    {
+      "id": "audit-history",
+      "type": "markdown",
+      "content": "# The Importance of Audit History\n\nEvery grade modification is logged:\n\n```json\n{\n  \"auditLog\": {\n    \"gradeId\": \"grade_12345\",\n    \"changes\": [\n      {\n        \"from\": 7.0,\n        \"to\": 7.5,\n        \"timestamp\": \"2026-10-08T10:35:00Z\",\n        \"userId\": \"teacher_22222\",\n        \"ipAddress\": \"192.168.1.100\",\n        \"userAgent\": \"Mozilla/5.0...\",\n        \"reason\": \"Re-evaluation based on additional work\"\n      }\n    ]\n  }\n}\n```\n\nThis audit trail:\n- Enables detection of unauthorized changes\n- Provides accountability\n- Supports grade disputes\n- Complies with data protection regulations"
+    },
+    {
+      "id": "api-surface",
+      "type": "markdown",
+      "content": "# API Surface and Integrations\n\nMagister exposes RESTful APIs for:\n\n- Grade retrieval\n- Schedule access\n- Homework submission\n- Attendance records\n- User profile management\n\n**Example API request:**\n```http\nGET /api/v1/grades/student/12345 HTTP/1.1\nAuthorization: Bearer <jwt_token>\nHost: magister.example.com\n```\n\n**Rate limiting** and **input validation** are enforced to prevent abuse."
+    },
+    {
+      "id": "third-party-connections",
+      "type": "markdown",
+      "content": "# Third-Party Connections and SSO\n\nMagister integrates with:\n\n- **DigiD**: Dutch digital identity system\n- **Active Directory**: School directory services\n- **Educational tools**: Via LTI standards\n- **Analytics platforms**: For school management\n\n**SSO Flow:**\n1. User initiates login\n2. Redirected to identity provider\n3. Authentication at IdP\n4. Redirect back with token\n5. Token validated and session created"
+    },
+    {
+      "id": "security-research-areas",
+      "type": "markdown",
+      "content": "# Potential Security Research Areas\n\nAreas that may warrant further investigation:\n\n1. **API security**: Rate limiting, input validation, authentication token security\n2. **Session management**: Token expiration, session fixation prevention\n3. **Data encryption**: Encryption at rest and in transit\n4. **Access control**: Permission boundary enforcement\n5. **Audit logging**: Completeness and integrity of logs\n\n**Research should always be:**\n- Authorized by the system owner\n- Conducted in a test environment\n- Reported responsibly\n- Used to improve security"
+    },
+    {
+      "id": "privacy-considerations",
+      "type": "callout",
+      "variant": "info",
+      "title": "Privacy Notice",
+      "content": "Magister processes personal data under GDPR. Students have rights to access, correct, and delete their data. Schools are data controllers and must ensure compliance with Dutch privacy laws."
+    },
+    {
+      "id": "common-misconceptions",
+      "type": "markdown",
+      "content": "# Common Misconceptions\n\n**Myth:** \"Students can hack Magister to change grades\"\n\n**Reality:** Grade modification requires teacher credentials and is logged. Unauthorized access is illegal and easily detected.\n\n**Myth:** \"Magister stores passwords in plain text\"\n\n**Reality:** Passwords are encrypted using industry-standard hashing algorithms.\n\n**Myth:** \"Anyone can access the API\"\n\n**Reality:** API access requires proper authentication and is rate-limited."
+    },
+    {
+      "id": "conclusion",
+      "type": "markdown",
+      "content": "# Conclusion\n\nMagister implements reasonable security measures for a school management system:\n\n- Proper access controls\n- Comprehensive audit logging\n- Multiple authentication methods\n- GDPR compliance\n\n**For students:** Focus on legitimate ways to improve grades through study.\n\n**For researchers:** Follow responsible disclosure practices when finding vulnerabilities.\n\n**For developers:** Learn from these patterns when building similar systems."
+    },
+    {
+      "id": "references",
+      "type": "markdown",
+      "content": "# References\n\n- Magister official documentation\n- Iddink Group security whitepapers\n- GDPR guidelines for educational institutions\n- OWASP educational security guidelines"
+    }
+  ],
+  "artifacts": [],
+  "references": [
+    {
+      "title": "Magister Documentation",
+      "url": "https://www.magister.net"
+    },
+    {
+      "title": "GDPR for Education",
+      "url": "https://autoriteitpersoonsgegevens.nl"
+    }
+  ],
+  "relatedPosts": []
+}

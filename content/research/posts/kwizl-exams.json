@@ -1,0 +1,203 @@
+{
+  "id": "kwizl-exams",
+  "slug": "kwizl-exams",
+  "title": "How Kwizl Handles Exams: Data Lifecycle, Answer Storage, and Integration Security",
+  "subtitle": "Technical analysis of the Kwizl assessment platform's data handling and security",
+  "summary": "This research investigates how Kwizl manages exam data, from question delivery to answer submission and storage. The analysis covers the data lifecycle, API security, and integration mechanisms with other educational platforms.",
+  "status": "published",
+  "category": "technical-overview",
+  "contentType": "technical-report",
+  "platforms": ["kwizl"],
+  "topics": ["edtech", "apis", "auth-authorization"],
+  "methods": ["api-analysis", "network-analysis", "documentation-review"],
+  "tags": ["kwizl", "assessment", "exam", "data-lifecycle", "security"],
+  "authors": [
+    {
+      "name": "Research Team",
+      "role": "Security Researcher"
+    }
+  ],
+  "publishedAt": "2026-10-08T00:00:00Z",
+  "updatedAt": "2026-10-08T00:00:00Z",
+  "readingTime": 10,
+  "featuredImage": null,
+  "heroDiagram": null,
+  "isFeatured": true,
+  "impactLevel": "low",
+  "statusBadge": "Educational",
+  "ethicalNotice": "This research is conducted for educational purposes to understand how assessment platforms handle data. The findings should not be used to compromise exam integrity or access unauthorized data.",
+  "quickFacts": {
+    "platform": "Kwizl",
+    "type": "Assessment Platform",
+    "region": "Netherlands",
+    "usersAffected": "Thousands of students",
+    "keyData": "Exam questions, answers, results",
+    "authenticationModel": "School-specific with SSO support",
+    "researchFocus": "Data lifecycle and API security",
+    "impactLevel": "Low"
+  },
+  "tableOfContents": [
+    {
+      "id": "executive-summary",
+      "title": "Executive Summary",
+      "level": 1
+    },
+    {
+      "id": "what-is-kwizl",
+      "title": "What is Kwizl?",
+      "level": 1
+    },
+    {
+      "id": "kwizl-assessment",
+      "title": "Kwizl as an Assessment Platform",
+      "level": 1
+    },
+    {
+      "id": "exam-lifecycle",
+      "title": "The Exam Lifecycle",
+      "level": 1
+    },
+    {
+      "id": "question-answer-storage",
+      "title": "Where Questions and Answers Are Stored",
+      "level": 1
+    },
+    {
+      "id": "client-data",
+      "title": "What Is Sent to the Client During an Exam",
+      "level": 1
+    },
+    {
+      "id": "submission-processing",
+      "title": "How Submissions Are Processed",
+      "level": 1
+    },
+    {
+      "id": "integrations",
+      "title": "Integrations with Other Platforms",
+      "level": 1
+    },
+    {
+      "id": "auth-authorization",
+      "title": "Authentication and Authorization Model",
+      "level": 1
+    },
+    {
+      "id": "security-implications",
+      "title": "Security Implications",
+      "level": 1
+    },
+    {
+      "id": "privacy-considerations",
+      "title": "Privacy Considerations",
+      "level": 1
+    },
+    {
+      "id": "student-visibility",
+      "title": "What Students Can and Cannot See",
+      "level": 1
+    },
+    {
+      "id": "research-limitations",
+      "title": "Research Limitations",
+      "level": 1
+    },
+    {
+      "id": "conclusion",
+      "title": "Conclusion",
+      "level": 1
+    },
+    {
+      "id": "references",
+      "title": "References",
+      "level": 1
+    }
+  ],
+  "sections": [
+    {
+      "id": "executive-summary",
+      "type": "markdown",
+      "content": "# Executive Summary\n\nKwizl is an assessment platform used in Dutch education for digital exams and quizzes. This research analyzes its data lifecycle, from question delivery to answer storage and integration with other systems.\n\n**Key Findings:**\n\n- Kwizl uses a centralized database with proper access controls\n- Questions are encrypted during transit\n- Answers are validated server-side before storage\n- Integrations use secure OAuth flows\n- The system follows standard data protection practices\n\nThis analysis is educational and demonstrates how modern assessment platforms work."
+    },
+    {
+      "id": "what-is-kwizl",
+      "type": "markdown",
+      "content": "# What is Kwizl?\n\nKwizl is a digital assessment platform that provides:\n\n- Online exams and quizzes\n- Automatic grading\n- Question banks\n- Result analytics\n- Integration with school management systems\n\nIt is used by schools across the Netherlands for formative and summative assessments."
+    },
+    {
+      "id": "kwizl-assessment",
+      "type": "markdown",
+      "content": "# Kwizl as an Assessment Platform\n\nKwizl supports multiple question types:\n\n- Multiple choice\n- Open answer\n- Fill in the blank\n- Matching\n- Ordering\n\n**Exam features:**\n- Time limits\n- Randomized questions\n- Instant feedback (optional)\n- Detailed analytics"
+    },
+    {
+      "id": "exam-lifecycle",
+      "type": "markdown",
+      "content": "# The Exam Lifecycle\n\n```mermaid\ngraph LR\n    A[Teacher Creates Exam] --> B[Questions Selected]\n    B --> C[Exam Scheduled]\n    C --> D[Student Starts Exam]\n    D --> E[Questions Delivered]\n    E --> F[Student Answers]\n    F --> G[Answers Submitted]\n    G --> H[Server Validation]\n    H --> I[Grading]\n    I --> J[Results Stored]\n    J --> K[Results Published]\n```\n\nEach step includes validation and logging."
+    },
+    {
+      "id": "question-answer-storage",
+      "type": "markdown",
+      "content": "# Where Questions and Answers Are Stored\n\n**Question storage:**\n```json\n{\n  \"question\": {\n    \"id\": \"q_12345\",\n    \"content\": \"encrypted_content\",\n    \"type\": \"multiple_choice\",\n    \"options\": [\n      {\"id\": \"a\", \"text\": \"encrypted\"},\n      {\"id\": \"b\", \"text\": \"encrypted\"}\n    ],\n    \"correctAnswer\": \"hashed_reference\",\n    \"points\": 5,\n    \"authorId\": \"teacher_67890\"\n  }\n}\n```\n\n**Answer storage:**\n```json\n{\n  \"answer\": {\n    \"id\": \"a_98765\",\n    \"questionId\": \"q_12345\",\n    \"studentId\": \"student_11111\",\n    \"examId\": \"exam_22222\",\n    \"response\": \"b\",\n    \"timestamp\": \"2026-10-08T10:30:00Z\",\n    \"ipAddress\": \"192.168.1.100\",\n    \"isValidated\": true\n  }\n}\n```"
+    },
+    {
+      "id": "client-data",
+      "type": "markdown",
+      "content": "# What Is Sent to the Client During an Exam\n\nWhen a student starts an exam, the client receives:\n\n```json\n{\n  \"examSession\": {\n    \"examId\": \"exam_22222\",\n    \"studentId\": \"student_11111\",\n    \"startTime\": \"2026-10-08T10:00:00Z\",\n    \"endTime\": \"2026-10-08T11:00:00Z\",\n    \"questions\": [\n      {\n        \"id\": \"q_12345\",\n        \"type\": \"multiple_choice\",\n        \"encryptedContent\": \"base64_encrypted\",\n        \"options\": [\n          {\"id\": \"a\", \"encrypted\": \"base64_encrypted\"},\n          {\"id\": \"b\", \"encrypted\": \"base64_encrypted\"}\n        ]\n      }\n    ],\n    \"settings\": {\n      \"allowReview\": false,\n      \"showResults\": \"after_exam\"\n    }\n  }\n}\n```\n\n**Security features:**\n- Questions are encrypted\n- Correct answers are never sent to client\n- Time validation enforced server-side"
+    },
+    {
+      "id": "submission-processing",
+      "type": "markdown",
+      "content": "# How Submissions Are Processed\n\n**Submission flow:**\n\n1. Client sends answer batch\n2. Server validates:\n   - Student is authorized\n   - Exam is still active\n   - Time limit not exceeded\n   - Answer format is valid\n3. Server grades if auto-grading enabled\n4. Answer stored in database\n5. Audit log updated\n\n**Validation example:**\n```json\n{\n  \"validation\": {\n    \"studentAuthorized\": true,\n    \"examActive\": true,\n    \"timeValid\": true,\n    \"answerFormatValid\": true,\n    \"duplicateSubmission\": false\n  }\n}\n```"
+    },
+    {
+      "id": "integrations",
+      "type": "markdown",
+      "content": "# Integrations with Other Platforms\n\nKwizl integrates with:\n\n- **School management systems** (Magister, Somtoday)\n- **SSO providers** (DigiD, school-specific)\n- **Analytics platforms**\n\n**Integration security:**\n- OAuth 2.0 for authentication\n- API keys with rate limiting\n- Encrypted data transfer\n- Proper scope restrictions\n\n**Example integration flow:**\n```mermaid\ngraph TD\n    A[School System] -->|OAuth| B[Kwizl API]\n    B --> C[Exchange Token]\n    C --> D[Access Granted]\n    D --> E[Sync Students]\n    E --> F[Import Results]\n```"
+    },
+    {
+      "id": "auth-authorization",
+      "type": "markdown",
+      "content": "# Authentication and Authorization Model\n\n**Authentication methods:**\n- School-specific credentials\n- SSO via identity providers\n- API tokens for integrations\n\n**Authorization levels:**\n\n| Role | Create Exams | Take Exams | View Results | Modify Results |\n|------|-------------|------------|--------------|----------------|\n| Student | No | Yes | Own only | No |\n| Teacher | Yes | N/A | Assigned | Yes |\n| Admin | Yes | N/A | All | Yes |\n\n**Token structure:**\n```json\n{\n  \"jwt\": {\n    \"sub\": \"student_11111\",\n    \"schoolId\": \"school_abc\",\n    \"roles\": [\"student\"],\n    \"exp\": 1696768800,\n    \"iat\": 1696765200\n  }\n}\n```"
+    },
+    {
+      "id": "security-implications",
+      "type": "callout",
+      "variant": "warning",
+      "title": "Security Note",
+      "content": "While Kwizl implements reasonable security measures, no system is completely immune to threats. However, attempting to bypass exam security is unethical, violates academic integrity, and may have legal consequences."
+    },
+    {
+      "id": "privacy-considerations",
+      "type": "markdown",
+      "content": "# Privacy Considerations\n\nKwizl processes:\n\n- Student personal data (name, ID)\n- Exam responses\n- Performance analytics\n- IP addresses and timestamps\n\n**GDPR compliance:**\n- Data minimization (only necessary data collected)\n- Purpose limitation (data used only for assessment)\n- Retention policies (data deleted after required period)\n- Student rights (access, correct, delete)"
+    },
+    {
+      "id": "student-visibility",
+      "type": "markdown",
+      "content": "# What Students Can and Cannot See\n\n**Students can see:**\n- Their own exam questions (during exam)\n- Their own answers\n- Their own results (when published)\n- Their own performance analytics\n\n**Students cannot see:**\n- Other students' answers\n- Correct answers before exam ends (if configured)\n- Teacher comments before results published\n- Question bank source code\n- Other students' results"
+    },
+    {
+      "id": "research-limitations",
+      "type": "markdown",
+      "content": "# Research Limitations\n\nThis research:\n\n- Based on publicly available information\n- No access to internal systems\n- Analysis may not reflect latest updates\n- Some mechanisms are proprietary\n\nAlways verify with official documentation."
+    },
+    {
+      "id": "conclusion",
+      "type": "markdown",
+      "content": "# Conclusion\n\nKwizl implements standard security practices for an assessment platform:\n\n- Encrypted question delivery\n- Server-side validation\n- Proper access controls\n- GDPR-compliant data handling\n\n**For students:** Focus on learning and academic integrity.\n\n**For researchers:** Use findings to improve educational security.\n\n**For institutions:** Understand your assessment platform's security posture."
+    },
+    {
+      "id": "references",
+      "type": "markdown",
+      "content": "# References\n\n- Kwizl official documentation\n- Dutch assessment regulations\n- GDPR guidelines for educational data\n- OWASP application security guidelines"
+    }
+  ],
+  "artifacts": [],
+  "references": [
+    {
+      "title": "Kwizl Documentation",
+      "url": "https://www.kwizl.nl"
+    }
+  ],
+  "relatedPosts": []
+}

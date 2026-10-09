@@ -16,23 +16,24 @@ export default async function ChapterDetailPage({
   params: { subjectId: string; chapterId: string };
 }) {
   const { subjectId, chapterId } = params;
+  const decodedSubjectId = decodeURIComponent(subjectId);
   const jsonLesson = findContentPage(chapterId);
-  if (jsonLesson && normalizeSubjectId(jsonLesson.subjectId) === normalizeSubjectId(subjectId)) {
+  if (jsonLesson && normalizeSubjectId(jsonLesson.subjectId) === normalizeSubjectId(decodedSubjectId)) {
     return <JsonLessonPage params={{ page: chapterId }} />;
   }
 
   // Load subject and chapters from JSON
-  const subject = await loadSubject(subjectId);
-  const chapters = await loadChapters(subjectId);
+  const subject = await loadSubject(decodedSubjectId);
+  const chapters = await loadChapters(decodedSubjectId);
   const chapter = chapters.find((c) => c.id === chapterId);
 
   if (!subject || !chapter) {
     return (
-      <AppShell fullWidth>
+      <AppShell>
         <div className="text-center py-20">
           <p>Hoofdstuk niet gevonden</p>
           <Link
-            href={`/vakken/${subjectId}`}
+            href={`/vakken/${decodedSubjectId}`}
             className="mt-4 inline-block text-primary hover:underline"
           >
             Terug naar vak
@@ -43,11 +44,11 @@ export default async function ChapterDetailPage({
   }
 
   return (
-    <AppShell fullWidth>
+    <AppShell>
       <div className="space-y-6">
         {/* Header with back button */}
         <div className="flex items-center gap-4">
-          <Link href={`/vakken/${subjectId}`}>
+          <Link href={`/vakken/${decodedSubjectId}`}>
             <Button variant="outline" size="sm">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Terug
@@ -86,7 +87,7 @@ export default async function ChapterDetailPage({
                 {(chapter.content as any).learningSets?.map((lsId: string) => (
                   <Link
                     key={lsId}
-                    href={`/vakken/${subjectId}/${chapterId}/learning-set/${lsId}`}
+                    href={`/vakken/${decodedSubjectId}/${chapterId}/learning-set/${lsId}`}
                     className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors pl-8"
                   >
                     <Brain className="h-5 w-5 text-primary" />
@@ -108,7 +109,7 @@ export default async function ChapterDetailPage({
                 {(chapter.content as any).quizzes?.map((quizId: string) => (
                   <Link
                     key={quizId}
-                    href={`/vakken/${subjectId}/${chapterId}/quiz/${quizId}`}
+                    href={`/vakken/${decodedSubjectId}/${chapterId}/quiz/${quizId}`}
                     className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors pl-8"
                   >
                     <FileText className="h-5 w-5 text-primary" />
@@ -130,7 +131,7 @@ export default async function ChapterDetailPage({
                 {(chapter.content as any).summaries?.map((summaryId: string) => (
                   <Link
                     key={summaryId}
-                    href={`/vakken/${subjectId}/${chapterId}/summary/${summaryId}`}
+                    href={`/vakken/${decodedSubjectId}/${chapterId}/summary/${summaryId}`}
                     className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors pl-8"
                   >
                     <FileText className="h-5 w-5 text-primary" />
@@ -154,7 +155,7 @@ export default async function ChapterDetailPage({
                 {(chapter.content as any).practiceTests?.map((testId: string) => (
                   <Link
                     key={testId}
-                    href={`/vakken/${subjectId}/${chapterId}/practice-test/${testId}`}
+                    href={`/vakken/${decodedSubjectId}/${chapterId}/practice-test/${testId}`}
                     className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors pl-8"
                   >
                     <FileText className="h-5 w-5 text-primary" />

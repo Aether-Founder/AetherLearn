@@ -1,0 +1,13 @@
+{
+  "id": "wiskunde-d",
+  "name": "Wiskunde D",
+  "slug": "wiskunde-d",
+  "description": "Wiskunde D - de studie van kansrekening, permutaties en combinaties.",
+  "color": "#3b82f6",
+  "icon": "book",
+  "level": "vwo",
+  "mastery": 0,
+  "topics": 0,
+  "topics_done": 0,
+  "due_count": 0
+}

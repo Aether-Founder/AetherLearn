@@ -11,7 +11,7 @@ export default function CreateLeerlijstPage() {
         description="Maak een nieuwe leerset met vragen en antwoorden."
       />
 
-      <div className="mt-8 max-w-3xl">
+      <div className="mt-8">
         <CreateLearningSetForm />
       </div>
     </AppShell>

@@ -21,7 +21,7 @@ export default function Loading() {
 
   return (
     <main className="min-h-screen bg-background p-6">
-      <div className="mx-auto max-w-6xl space-y-6">
+      <div className="space-y-6">
         <div className="skeleton-line h-10 w-40 rounded-xl"></div>
         <div className="grid gap-4 md:grid-cols-3">
           {Array.from({ length: 6 }).map((_, index) => (

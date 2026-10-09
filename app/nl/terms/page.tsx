@@ -11,7 +11,7 @@ export default function TermsPageNL() {
         description="Lees onze algemene voorwaarden en gebruiksaanwijzingen" 
       />
 
-      <div className="mt-10 max-w-4xl space-y-8">
+      <div className="mt-10 space-y-8">
         <section>
           <h2 className="text-2xl font-semibold mb-4">Acceptatie van Voorwaarden</h2>
           <p className="text-muted-foreground">

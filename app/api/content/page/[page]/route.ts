@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import { findContentPage, getJsonPath } from '@/lib/json-content-pages';
+import { findContentPage, getJsonPath, hasLocalContentForSubject } from '@/lib/json-content-pages';
 
 export async function GET(_req: NextRequest, { params }: { params: { page: string } }) {
   // Sanitize: only allow alphanumeric, hyphens, underscores
@@ -11,9 +11,26 @@ export async function GET(_req: NextRequest, { params }: { params: { page: strin
   }
 
   const registeredPage = findContentPage(pageName);
-  const filePath = registeredPage
+  let filePath = registeredPage
     ? getJsonPath(registeredPage)
     : path.join(process.cwd(), 'content', `${pageName}.json`);
+
+  // If not found, try looking in content/subjects/ directory
+  if (!filePath || !fs.existsSync(filePath)) {
+    const subjectsDir = path.join(process.cwd(), 'content', 'subjects');
+    if (fs.existsSync(subjectsDir)) {
+      const subjectFolders = fs.readdirSync(subjectsDir, { withFileTypes: true });
+      for (const folder of subjectFolders) {
+        if (folder.isDirectory()) {
+          const subjectJsonPath = path.join(subjectsDir, folder.name, `${pageName}.json`);
+          if (fs.existsSync(subjectJsonPath)) {
+            filePath = subjectJsonPath;
+            break;
+          }
+        }
+      }
+    }
+  }
 
   if (!filePath || !fs.existsSync(filePath)) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });

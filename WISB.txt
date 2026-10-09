@@ -1,0 +1,473 @@
+WISB
+
+
+Kwadratische formules:
+Je moet de discriminant kunnen berekenen
+Je moet kunnen ontbinden in factoren
+Je moet een vergelijking kunnen oplossen door te ontbinden
+Je moet een vergelijking kunnen oplossen m.b.v de ABC-formule
+Je moet een ongelijkheid kunnen oplossen
+Je moet de intervalnotatie beheersen
+Je moet de ongelijkheidsnotatie beheersen
+Je moet een parabool kunnen schetsen
+
+Transformaties en translaties in de mix betekent dat je grafieken van formules (zoals de kwadratische formules die je al kent) gaat verschuiven, uitrekken of spiegelen.
+
+Om een grafiek te verschuiven (dit noem je een translatie), gebruik je een vast stappenplan. In de wiskunde schrijven we een verschuiving vaak als een vector: $\begin{pmatrix} p \\ q \end{pmatrix}$, waarbij $p$ de verschuiving naar links/rechts is en $q$ de verschuiving naar omhoog/beneden.
+Hier is de complete syntax en het algoritme (het stappenplan) dat je altijd moet volgen.
+------------------------------
+## 1. De Syntax (De Regels)
+Stel dat je begint met een basisfunctie, bijvoorbeeld $y = f(x)$ (zoals $y = x^2$).
+## Verticaal (Omhoog / Omlaag) $\rightarrow$ De makkelijke kant
+Als je de grafiek verticaal verschuift, verandert er iets buiten de basisfunctie. Je plakt het getal er gewoon achteraan.
+
+* Omhoog ($+q$): Tel $q$ op bij de hele formule.
+* Syntax: $y = f(x) + q$
+* Omlaag ($-q$): Trek $q$ af van de hele formule.
+* Syntax: $y = f(x) - q$
+
+## Horizontaal (Links / Rechts) $\rightarrow$ De "verwarrende" kant
+Als je horizontaal verschuift, verander je de $x$ zelf. Je vervangt elke $x$ in de formule door iets tussen haakjes. Let op: het teken in de haakjes is tegenovergesteld aan wat je gevoel zegt!
+
+* Naar rechts ($+p$): Vervang elke $x$ door $(x - p)$.
+* Syntax: $y = f(x - p)$
+* Naar links ($-p$): Vervang elke $x$ door $(x + p)$.
+* Syntax: $y = f(x + p)$
+
+------------------------------
+## 2. Het Algoritme (Stappenplan)
+Als je de opdracht krijgt: "Geef de nieuwe formule na een translatie van $\begin{pmatrix} p \\ q \end{pmatrix}$", volg dan deze 3 stappen:
+## Stap 1: Vervang de $x$ (Horizontaal)
+Kijk naar de verschuiving naar links of rechts. Zet haakjes op de plek waar de $x$ stond en verander het teken.
+
+* Rechts? Maak van $x$ $\rightarrow$ $(x - \text{getal})$.
+* Links? Maak van $x$ $\rightarrow$ $(x + \text{getal})$.
+
+## Stap 2: Pas de achterkant aan (Verticaal)
+Kijk naar de verschuiving omhoog of omlaag. Schrijf dit getal met het juiste teken (+ of -) helemaal aan het einde van je nieuwe formule.
+## Stap 3: Herleid de formule (Haakjes wegwerken)
+Nu ga je de haakjes wegwerken (de algebra die je al kent) en korter opschrijven (husselen) zodat je weer een nette vorm krijgt zoals $y = ax^2 + bx + c$.
+------------------------------
+## 3. Voorbeeld in actie
+De opdracht:
+We hebben de formule $y = x^2 - 4x$. Deze grafiek verschuiven we $3$ naar rechts en $2$ omhoog. Wat is de nieuwe formule?
+(In wiskundetaal: een translatie van $\begin{pmatrix} 3 \\ 2 \end{pmatrix}$)
+
+* Stap 1 (Horizontaal): We moeten $3$ naar rechts. We vervangen elke $x$ door $(x - 3)$.
+* De formule wordt: $y = \mathbf{(x - 3)}^2 - 4\mathbf{(x - 3)}$
+* Stap 2 (Verticaal): We moeten $2$ omhoog. We zetten $+ 2$ aan het einde.
+* De formule wordt: $y = (x - 3)^2 - 4(x - 3) \mathbf{+ 2}$
+* Stap 3 (Haakjes wegwerken):
+* Eerst het kwadraat: $(x - 3)^2 = x^2 - 6x + 9$
+   * Dan de tweede set haakjes: $-4(x - 3) = -4x + 12$
+   * Nu alles achter elkaar zetten: $y = x^2 - 6x + 9 - 4x + 12 + 2$
+   * Gelijke termen samennemen:
+   * $x^2$ blijft $x^2$
+      * $-6x - 4x = -10x$
+      * $9 + 12 + 2 = 23$
+   * Eindantwoord: $y = x^2 - 10x + 23$
+
+------------------------------
+Bij kwadratische formules werk je bij Wiskunde B inderdaad met drie verschillende vormen. Elke vorm heeft zijn eigen "superkracht" omdat je er direct iets speciaals aan kunt aflezen zonder te rekenen.
+Dit zijn de drie vormen:
+
+   1. De Algemene vorm (of $abc$-vorm): $y = ax^2 + bx + c$ $\rightarrow$ Superkracht: Je ziet meteen de $y$-as doorsnede $(0,c)$ en de $a, b, c$ voor de abc-formule.
+   2. De Nulpuntsvorm (of factorvorm): $y = a(x - d)(x - e)$ $\rightarrow$ Superkracht: Je ziet meteen de nulpunten (snijpunten met de $x$-as) op $x = d$ en $x = e$.
+   3. De Topvorm: $y = a(x - p)^2 + q$ $\rightarrow$ Superkracht: Je ziet meteen de top van de parabool, namelijk $(p, q)$. Dit is de vorm die ontstaat door translaties vanuit $y=ax^2$!
+
+------------------------------
+## Het algoritme voor Kwadraat Afsplitsen
+Kwadraat afsplitsen is de wiskundige techniek om van de Algemene vorm naar de Topvorm te gaan. Je dwingt een deel van de formule in een perfect kwadraat $(x \pm \dots)^2$.
+## De Syntax & Het Algoritme (Stappenplan voor $x^2 + bx + c$, waarbij $a=1$)
+Stel je hebt $y = x^2 + 6x + 5$.
+
+* Stap 1: Neem de helft van het getal voor de $x$.
+* Het getal voor de $x$ is $+6$. De helft daarvan is $+3$.
+   * Schrijf op tussen haakjes met een kwadraat: $(x + 3)^2$
+* Stap 2: Trek het kwadraat van dat nieuwe getal er direct weer vanaf.
+* Als je $(x+3)^2$ uitwerkt, krijg je $x^2 + 6x + 9$. Die $+9$ willen we niet, dus die trekken we eraf.
+   * Het vaste recept is: schrijf er altijd $- (\text{helft})^2$ achter.
+   * Formule tot nu toe: $(x + 3)^2 - 3^2 \rightarrow$ $(x + 3)^2 - 9$
+* Stap 3: Plak het oorspronkelijke losse getal ($c$) erachter en herleid.
+* Het oorspronkelijke getal was $+5$.
+   * Formule: $y = (x + 3)^2 - 9 + 5$
+   * Eindantwoord (Topvorm): $y = (x + 3)^2 - 4$
+   * (De top is dus $(-3, -4)$, want de $x$ schuift 3 naar links en 4 omlaag!)
+
+------------------------------
+## De "Verkeersmatrix": Van de ene vorm naar de andere
+Hier is het exacte algoritme hoe je tussen alle drie de vormen switcht:
+
+| Van Vorm $\rightarrow$ Naar Vorm | Algoritme / Welke stappen moet je volgen? | Voorbeeld |
+|---|---|---|
+| Top $\rightarrow$ Algemeen | Haakjes wegwerken & husselen 1. Werk het kwadraat uit. 2. Neem losse getallen samen. | $y = (x+3)^2 - 4$ $y = x^2 + 6x + 9 - 4$ $y = x^2 + 6x + 5$ |
+| Nulpunt $\rightarrow$ Algemeen | Haakjes wegwerken (papegaaienbek) 1. Vermenigvuldig de dubbele haakjes. 2. Vermenigvuldig eventueel met $a$. | $y = (x+1)(x+5)$ $y = x^2 + 5x + 1x + 5$ $y = x^2 + 6x + 5$ |
+| Algemeen $\rightarrow$ Top | Kwadraat afsplitsen 1. Neem de helft van $b$ binnen de haakjes. 2. Trek het kwadraat daarvan af. 3. Tel $c$ erbij op. | $y = x^2 + 6x + 5$ $y = (x+3)^2 - 3^2 + 5$ $y = (x+3)^2 - 4$ |
+| Algemeen $\rightarrow$ Nulpunt | Ontbinden in factoren (product-som methode) 1. Zoek twee getallen die vermenigvuldigd $c$ zijn en opgeteld $b$. 2. Schrijf tussen dubbele haakjes. | $y = x^2 + 6x + 5$ Zoek: $\dots \times \dots = 5$ en $\dots + \dots = 6$ Dat zijn $1$ en $5$. $y = (x+1)(x+5)$ |
+
+En hoe zit het met Top $\leftrightarrow$ Nulpunt?
+Er is geen direct algebraïsch trucje voor. Je reist altijd via de Algemene vorm. Dus wil je van Top naar Nulpunt? Werk eerst de haakjes uit naar de Algemene vorm, en ga daarna ontbinden in factoren naar de Nulpuntsvorm.
+
+------------------------------
+
+Hier vind je de complete en perfecte samenvatting van alle Wiskunde B-vaardigheden rondom kwadratische formules, ongelijkheden én transformaties, direct gevolgd door gerichte oefenopgaven.
+------------------------------
+## Deel 1: Basisvaardigheden Kwadratische Formules
+Bij wiskunde B moet je vloeiend kunnen schakelen tussen het berekenen, oplossen en schetsen van parabolen. Hieronder staat per vaardigheid de exacte syntax en het algoritme.
+## 1. Discriminant berekenen
+De discriminant ($D$) bepaalt hoeveel snijpunten een parabool heeft met de $x$-as (nulpunten), of hoeveel oplossingen een vergelijking heeft.
+
+* Formule: $D = b^2 - 4ac$ (vanuit de algemene vorm $ax^2 + bx + c = 0$).
+* De betekenis van $D$:
+* $D > 0$: 2 oplossingen (2 nulpunten).
+   * $D = 0$: 1 oplossing (1 nulpunt, de top raakt de $x$-as).
+   * $D < 0$: 0 oplossingen (0 nulpunten, de grafiek zweeft boven of onder de $x$-as).
+
+## 2. Ontbinden in factoren (Product-Som-Methode)
+Als $a = 1$ in $x^2 + bx + c$, gebruik je de product-som-methode om sneller nulpunten te vinden dan met de abc-formule.
+
+* Algoritme:
+1. Zoek twee getallen die vermenigvuldigd gelijk zijn aan $c$ (het losse getal).
+   2. Diezelfde getallen moeten opgeteld gelijk zijn aan $b$ (het getal voor de $x$).
+   3. Schrijf het antwoord als: $(x + \text{getal 1})(x + \text{getal 2}) = 0$.
+
+Uitzondering (Gemeenschappelijke factor buiten haakjes halen):
+Als $c = 0$ (bijvoorbeeld $x^2 + bx = 0$), haal je simpelweg een $x$ buiten de haakjes: $x(x + b) = 0$.
+
+## 3. Vergelijkingen oplossen
+Om een kwadratische vergelijking op te lossen, moet je deze altijd eerst op 0 herleiden ($... = 0$). Daarna kies je je aanpak:
+## Route A: Oplossen door te ontbinden
+Wanneer de haakjesvorm $(x - d)(x - e) = 0$ of $x(x + b) = 0$ staat, pas je de regel $A \cdot B = 0 \rightarrow A = 0 \text{ of } B = 0$ toe.
+
+* Voorbeeld: $(x - 3)(x + 5) = 0 \rightarrow x - 3 = 0 \text{ of } x + 5 = 0 \rightarrow x = 3 \text{ of } x = -5$.
+
+## Route B: Oplossen m.b.v. de ABC-formule
+Als ontbinden niet lukt (omdat de getallen geen mooie gehele getallen zijn), gebruik je de abc-formule.
+
+* Algoritme:
+1. Bereken eerst $D = b^2 - 4ac$.
+   2. Is $D \ge 0$? Bereken de $x$-waarden met:
+   $$x = \frac{-b + \sqrt{D}}{2a} \quad \text{of } \quad x = \frac{-b - \sqrt{D}}{2a}$$ 
+
+------------------------------
+## Deel 2: Ongelijkheden, Intervallen en Schetsen
+Het oplossen van een kwadratische ongelijkheid (bijv. $x^2 - 4x > 5$) mag je nooit puur algebraïsch doen. Je hebt altijd een schets en randpunten nodig.
+## 1. Ongelijkheden oplossen (Het 4-stappenplan)
+
+* Stap 1: Maak er een vergelijking van. Vervang het ongelijkheidsteken ($<, >, \le, \ge$) door een is-teken ($=$).
+* Stap 2: Los de vergelijking op. Vind de exacte grenspunten (met ontbinden of de abc-formule).
+* Stap 3: Maak een schets. Kijk naar de oorspronkelijke formule: is het een dalparabool ($a > 0$) of een bergparabool ($a < 0$)? Teken de $x$-as met de gevonden grenspunten.
+* Stap 4: Lees de oplossing af. Kijk naar de oorspronkelijke vraag. Moet de grafiek boven ($>$) of onder ($<$) de $x$-as liggen? Schrijf de intervallen op.
+
+## 2. Ongelijkheidsnotatie vs. Intervalnotatie
+Er zijn twee manieren om je eindantwoord te noteren. Stel de grenspunten zijn $x = 2$ en $x = 5$.
+## Situatie A: Het binnengebied (Tussen de grenzen in)
+
+* Ongelijkheidsnotatie: $2 < x < 5$
+* Intervalnotatie: $\langle 2, 5 \rangle$
+
+## Situatie B: Het buitengebied (Buiten de grenzen om)
+
+* Ongelijkheidsnotatie: $x < 2$ of $x > 5$
+* Intervalnotatie: $\langle -\infty, 2 \rangle \cup \langle 5, \infty \rangle$
+
+Let op de haakjes: Bij $<$ of $>$ gebruik je open haakjes $\langle \dots \rangle$. Bij $\le$ of $\ge$ tellen de grenspunten mee en gebruik je gesloten (rechte) haken $[\dots]$. Oneindig ($\infty$) heeft altijd een open haakje.
+
+## 3. Een parabool schetsen
+Voor een correcte Wiskunde B-schets hoef je geen hele tabel te maken. Je tekent de belangrijkste karakteristieken:
+
+   1. Vorm: Bepaal of het een dal- of bergparabool is op basis van $a$.
+   2. Snijpunt met de $y$-as: Dit is altijd het punt $(0, c)$.
+   3. Nulpunten: Markeer de snijpunten met de $x$-as (als ze er zijn).
+   4. De top: Bereken de $x$-coördinaat van de top via $x_{\text{top}} = \frac{-b}{2a}$ (of precies het midden tussen de twee nulpunten). Vul deze $x$ in de formule in om $y_{\text{top}}$ (het minimum/maximum) te vinden.
+
+------------------------------
+## Deel 3: Transformaties & Translaties (In de Mix)
+Als je transformaties en translaties gaat combineren ("in de mix"), is de volgorde van essentieel belang.
+## De Ultieme Volgorderegel
+Als je meerdere stappen achter elkaar uitvoert, pas je de algebraïsche syntax direct toe op de compleet actuele formule van dat moment.
+## Voorbeeld "In de mix" met vermenigvuldiging:
+We starten met de basisfunctie $y = x^2$. We voeren twee opeenvolgende stappen uit:
+
+   1. Vermenigvuldig ten opzichte van de $x$-as met $3$.
+   * Syntax: Vermenigvuldig de hele formule met 3.
+      * Tussenstand: $y = 3x^2$
+   2. Pas een translatie toe van $\begin{pmatrix} 4 \\ 5 \end{pmatrix}$ ($4$ naar rechts, $5$ omhoog).
+   * Syntax horizontaal: Vervang $x$ door $(x - 4)$.
+      * Syntax verticaal: Plak $+5$ aan het einde.
+      * Eindstand: $y = 3(x - 4)^2 + 5$
+   
+Wanneer je nu de haakjes zou wegwerken naar de algemene vorm, werk je eerst het kwadraat uit, vermenigvuldig je het resultaat daarvan met 3, en tel je er tenslotte 5 bij op.
+------------------------------
+## Oefenopgaven (Test je kennis)
+Pak pen en papier erbij en werk deze opgaven stap voor stap uit volgens de algoritmes.
+## Opgave 1: Vergelijkingen & ABC-formule
+Los de volgende vergelijkingen exact op. Gebruik ontbinden waar het kan, en de abc-formule waar het moet.
+
+   1. $x^2 - 7x + 12 = 0$
+   2. $2x^2 + 5x - 3 = 0$
+
+## Opgave 2: Ongelijkheden & Intervallen
+Los de volgende ongelijkheid op. Geef je antwoord in zowel de ongelijkheidsnotatie als de intervalnotatie.
+
+* $x^2 - 2x - 8 \le 0$
+
+## Opgave 3: Translaties "In de mix"
+Gegeven is de parabool $y = x^2 + 2x$.
+Deze grafiek ondergaat achtereenvolgens een translatie van $\begin{pmatrix} -3 \\ 4 \end{pmatrix}$ ($3$ naar links, $4$ omhoog).
+
+* Geef de nieuwe formule en herleid deze naar de algemene vorm $y = ax^2 + bx + c$.
+
+## Opgave 4: Kwadraat afsplitsen naar de Top
+Gegeven is de formule $y = x^2 - 8x + 10$.
+
+   1. Breng de formule via kwadraat afsplitsen naar de topvorm.
+   2. Wat zijn de coördinaten van de top van deze parabool?
+
+------------------------------
+
+Totaal: **10 opgaven**.  
+Geen hints. Werk exact tenzij er “rond af” staat. Ik kijk later streng na.
+
+---
+
+## Opgave 1
+
+a) Ontbind volledig:
+\[
+4x^3-12x^2-40x
+\]
+
+b) Schrijf zonder haakjes en zo ver mogelijk vereenvoudigd:
+\[
+y=(3x-2)(x+5)-2(x-1)^2
+\]
+
+c) Los exact op:
+\[
+(2x-5)^2=7x
+\]
+
+d) Los exact op:
+\[
+(x+3)(2-5x)=4-2(x-1)
+\]
+
+---
+
+## Opgave 2
+
+Een bal wordt verticaal omhoog getrapt. De hoogte \(h\) in meter na \(t\) seconden wordt gegeven door:
+\[
+h(t)=-5t^2+30t
+\]
+
+a) Na hoeveel seconden is de bal weer op de grond?
+
+b) Hoe hoog komt de bal maximaal?
+
+c) Na hoeveel seconden is de bal voor het eerst op een hoogte van 35 meter?
+
+d) Hoe lang is de bal boven de 20 meter?
+
+---
+
+## Opgave 3
+
+Bij een boog hoort de formule:
+\[
+h(x)=4{,}032x-0{,}021x^2
+\]
+Hierin zijn \(x\) en \(h\) in meter.
+
+a) Schets de grafiek.
+
+b) Hoeveel meter zit er tussen de uiteinden van de boog?
+
+c) Hoe hoog is de boog maximaal?
+
+d) Onder de boog hangt een kabel waarvan de bevestigingspunten op 165 meter hoogte zitten. Hoeveel meter is de afstand tussen de bevestigingspunten?
+
+---
+
+## Opgave 4
+
+Gegeven:
+\[
+f(x)=-\frac14x^2+2x+6
+\]
+en
+\[
+g(x)=\frac25x^2+3x-8
+\]
+
+a) Onderzoek of de top van de grafiek van \(f\) op de grafiek van \(g\) ligt.
+
+b) De nulpunten van \(f\) zijn \(a\) en \(b\) met \(a<b\). De nulpunten van \(g\) zijn \(c\) en \(d\) met \(c<d\). Bereken in twee decimalen nauwkeurig:
+\[
+(b-a)-(d-c)
+\]
+
+c) De lijn \(y=n\), met \(n\) een geheel getal tussen \(-8\) en \(6\), snijdt de grafieken van \(f\) en \(g\) van links naar rechts in de punten \(K,L,M,N\). Bereken in drie decimalen nauwkeurig de grootste lengte van het lijnstuk \(LM\).
+
+---
+
+## Opgave 5
+
+Het aantal bezoekers \(N\) van een website op een doordeweekse dag wordt benaderd door:
+\[
+N(t)=0{,}02t^5-1{,}225t^4+22{,}5t^3-84t^2-646t+5000
+\]
+Hierin is \(N\) het aantal bezoekers en \(t\) de tijd in uren, met \(t=0\) om 0:00 uur.
+
+a) Schets de grafiek van \(N\). Welke Xmin, Xmax, Ymin en Ymax heb je genomen?
+
+b) Hoeveel bezoekers zijn er ’s middags om half een?
+
+c) Hoe laat is het aantal bezoekers het grootst? Hoeveel bezoekers zijn er dan?
+
+d) Er zijn 6000 bezoekers. Hoe laat kan het zijn?
+
+---
+
+## Opgave 6
+
+a) Voor welke \(p\) raakt de grafiek van
+\[
+f_p(x)=2x^2-6x+p
+\]
+de \(x\)-as?
+
+b) Voor welke \(p\) heeft \(f_p\) een negatief minimum?
+
+c) Voor welke \(k\) heeft de vergelijking
+\[
+kx^2+4x+1=0
+\]
+twee verschillende oplossingen?
+
+d) De top van de grafiek van
+\[
+f_p(x)=x^2+px+3
+\]
+ligt op de lijn \(y=x+1\). Bereken \(p\) algebraïsch.
+
+---
+
+## Opgave 7
+
+Los exact op.
+
+a)
+\[
+x^2-3x\le 14
+\]
+
+b)
+\[
+x^2+2x>11
+\]
+
+c)
+\[
+8x^2+6x-35\ge 0
+\]
+
+d)
+\[
+x^3+4{,}5x^2<19x+60
+\]
+
+e)
+\[
+x^4>81
+\]
+
+f)
+\[
+\frac13(x-1)^3>9
+\]
+
+---
+
+## Opgave 8
+
+a) Op de grafiek van
+\[
+y=-\frac12x^3
+\]
+wordt eerst de verschuiving \((-3,-5)\) toegepast en daarna de vermenigvuldiging met \(-3\) ten opzichte van de \(x\)-as. Geef de formule van de beeldgrafiek.
+
+b) Op de grafiek van
+\[
+f(x)=\frac12(x-3)^4+7
+\]
+wordt eerst de verschuiving \((1,2)\) toegepast en daarna de vermenigvuldiging met \(1\frac12\) ten opzichte van de \(x\)-as. Geef de coördinaten van de top van de beeldgrafiek.
+
+c) De grafiek van
+\[
+g(x)=-2\frac12(x+4)^6-7
+\]
+wordt eerst vermenigvuldigd met \(2\) ten opzichte van de \(x\)-as en daarna verschoven met \((-1,3)\). Geef de coördinaten van de top van de beeldgrafiek.
+
+d) Gegeven is
+\[
+f(x)=x^2-2x
+\]
+De grafiek van \(g\) ontstaat uit de grafiek van \(f\) door, in deze volgorde:
+
+1. vermenigvuldiging ten opzichte van de \(x\)-as met factor \(-2\),
+2. vermenigvuldiging ten opzichte van de \(y\)-as met factor \(3\),
+3. verschuiving van \(1\) naar rechts en \(5\) omhoog.
+
+Geef de formule van \(g\) in de vorm
+\[
+g(x)=ax^2+bx+c
+\]
+
+---
+
+## Opgave 9
+
+a) Splits het kwadraat af:
+\[
+x^2+8x+3
+\]
+
+b) Los op met kwadraatafsplitsen:
+\[
+x^2-6x+2=0
+\]
+
+c) Een bal wordt omhooggegooid. De hoogte in meters na \(t\) seconden is:
+\[
+h(t)=-5t^2+20t+1
+\]
+Bereken met kwadraatafsplitsen exact na hoeveel seconden en op welke hoogte de bal het hoogste punt bereikt.
+
+d) Bereken met kwadraatafsplitsen exact na hoeveel seconden de bal de grond raakt.
+
+---
+
+## Opgave 10
+
+a) Los exact op met de abc-formule:
+\[
+x^2-4x=7
+\]
+
+b) Een driehoek heeft een basis van \(x\) cm en een hoogte van \((x+4)\) cm. De oppervlakte van de driehoek is \(30\) cm\(^2\). Bereken \(x\) exact met de abc-formule.
+
+c) Een thermosfles wordt getest. Het model is:
+\[
+T=80\cdot0{,}97^t+20
+\]
+Hierin is \(T\) de temperatuur in \(^\circ\)C na \(t\) minuten. In hoeveel minuten koelt het water af van \(85^\circ\)C tot \(55^\circ\)C? Rond zo nodig af.
+
+d) Een bungeejumper springt van een plateau. Bij deze sprong hoort:
+\[
+s=8t^2-t^3
+\]
+Hierin is \(t\) de tijd in seconden met \(0\le t\le7\) en \(s\) de afstand tot het plateau in meter. Bereken de maximale afstand van de bungeejumper tot het plateau. In welke seconde legt de bungeejumper de grootste afstand af?
+
+

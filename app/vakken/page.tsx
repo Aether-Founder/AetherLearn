@@ -6,7 +6,7 @@ import { useUser, useUserProfile } from '@/hooks/useAuth';
 import { useTranslation } from '@/lib/useTranslation';
 import { useEffect, useMemo, useState } from 'react';
 import { GradeOnboardingModal } from '@/components/GradeOnboardingModal';
-import { Plus, BookOpen } from 'lucide-react';
+import { Plus, BookOpen, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -37,7 +37,6 @@ type Subject = {
 
 type SubjectForm = {
   name: string;
-  code: string;
   color: string;
   description: string;
   teacher: string;
@@ -198,12 +197,14 @@ export default function VakkenIndex() {
   const [createOpen, setCreateOpen] = useState(false);
   const [form, setForm] = useState<SubjectForm>({
     name: '',
-    code: '',
     color: '#3b82f6',
     description: '',
     teacher: '',
   });
   const [saving, setSaving] = useState(false);
+  const [secretSubjects, setSecretSubjects] = useState<Subject[]>([]);
+  const [verifiedCodes, setVerifiedCodes] = useState<Set<string>>(new Set());
+  const [verifyingCode, setVerifyingCode] = useState(false);
 
   const preferenceKey = user
     ? `aether-subject-preferences:${user.id}`
@@ -227,6 +228,53 @@ export default function VakkenIndex() {
     );
     setReady(true);
   }, [user, userLoading, profile?.grade_level, profileLoading, preferenceKey]);
+
+  // Load verified codes from localStorage
+  useEffect(() => {
+    if (!user) return;
+    try {
+      const stored = localStorage.getItem(`aether-verified-codes:${user.id}`);
+      if (stored) {
+        setVerifiedCodes(new Set(JSON.parse(stored)));
+      }
+    } catch {
+      setVerifiedCodes(new Set());
+    }
+  }, [user]);
+
+  // Load secret subjects from JSON
+  useEffect(() => {
+    const loadSecretSubjects = async () => {
+      try {
+        const response = await fetch('/api/admin/secret-subjects');
+        const data = await response.json();
+        const secretSubjectsList = data.secretSubjects || [];
+
+        // Check user's approval status for each secret subject
+        if (user) {
+          const { data: accessData, error } = await supabase
+            .from('secret_subject_access')
+            .select('*')
+            .eq('user_id', user.id)
+            .eq('status', 'approved');
+
+          if (!error && accessData) {
+            const approvedSubjectIds = new Set(accessData.map((a: any) => a.secret_subject_id));
+            const approvedSubjects = secretSubjectsList.filter((s: any) =>
+              approvedSubjectIds.has(s.id) && verifiedCodes.has(s.code)
+            );
+            setSecretSubjects(approvedSubjects);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading secret subjects:', error);
+      }
+    };
+
+    if (user && verifiedCodes.size > 0) {
+      loadSecretSubjects();
+    }
+  }, [user, verifiedCodes]);
 
   useEffect(() => {
     if (ready) localStorage.setItem(preferenceKey, JSON.stringify({ hidden, prioritized }));
@@ -413,12 +461,60 @@ export default function VakkenIndex() {
     e.preventDefault();
     if (!user || !form.name.trim()) return;
 
+    const inputName = form.name.trim();
+
+    // Check if input is a secret code
+    setVerifyingCode(true);
     setSaving(true);
+
     try {
-      const { data, error } = await supabase.from('subjects').insert({
+      // Add delay for security
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Load secret subjects to check for code match
+      const response = await fetch('/api/admin/secret-subjects');
+      const data = await response.json();
+      const secretSubjectsList = data.secretSubjects || [];
+
+      const matchingSecret = secretSubjectsList.find((s: any) => s.code === inputName);
+
+      if (matchingSecret) {
+        // Code matches - save to localStorage and request access
+        const newVerifiedCodes = new Set(verifiedCodes);
+        newVerifiedCodes.add(matchingSecret.code);
+        setVerifiedCodes(newVerifiedCodes);
+        localStorage.setItem(`aether-verified-codes:${user.id}`, JSON.stringify([...newVerifiedCodes]));
+
+        // Create access request in Supabase
+        const { error: accessError } = await supabase
+          .from('secret_subject_access')
+          .insert({
+            user_id: user.id,
+            secret_subject_id: matchingSecret.id,
+            access_code: matchingSecret.code,
+            status: 'pending',
+          });
+
+        if (accessError) {
+          console.error('Error creating access request:', accessError);
+        }
+
+        alert('Code geverifieerd! Wacht op goedkeuring van de beheerder.');
+        setCreateOpen(false);
+        setForm({
+          name: '',
+          color: '#3b82f6',
+          description: '',
+          teacher: '',
+        });
+        return;
+      }
+
+      // Normal subject creation
+      const { data: subjectData, error } = await supabase.from('subjects').insert({
         user_id: user.id,
-        name: form.name.trim(),
-        slug: form.name.trim().toLowerCase().replace(/\s+/g, '-'),
+        name: inputName,
+        slug: inputName.toLowerCase().replace(/\s+/g, '-'),
         color: form.color,
         icon: 'BookOpen',
       }).select().single();
@@ -426,14 +522,14 @@ export default function VakkenIndex() {
       if (error) throw error;
 
       // Sync to filesystem
-      if (data) {
-        await createNode('subject', data.name, 'root', {
+      if (subjectData) {
+        await createNode('subject', subjectData.name, 'root', {
           subject: {
-            id: data.id,
-            name: data.name,
-            slug: data.slug,
-            color: data.color,
-            icon: data.icon,
+            id: subjectData.id,
+            name: subjectData.name,
+            slug: subjectData.slug,
+            color: subjectData.color,
+            icon: subjectData.icon,
             description: form.description,
           },
         });
@@ -445,7 +541,6 @@ export default function VakkenIndex() {
       setCreateOpen(false);
       setForm({
         name: '',
-        code: '',
         color: '#3b82f6',
         description: '',
         teacher: '',
@@ -454,28 +549,30 @@ export default function VakkenIndex() {
       console.error('Error creating subject:', error);
     } finally {
       setSaving(false);
+      setVerifyingCode(false);
     }
   };
 
   return (
-    <AppShell fullWidth>
+    <AppShell>
       <PageHeader
         title="Vakken"
         description="Elk vak is een map. Open een vak om de hoofdstukken te zien en klik door naar een studieset."
         action={
           user && (
             <div className="flex gap-2">
-              <Button onClick={() => setSetupOpen(true)} variant="outline">
-                <BookOpen className="mr-2 h-4 w-4" />
-                Selecteer je vakken
-              </Button>
               <Button onClick={() => setCreateOpen(true)}>
                 <Plus className="mr-2 h-4 w-4" />
                 Nieuw vak
               </Button>
+              <Button onClick={() => setSetupOpen(true)} variant="outline">
+                <BookOpen className="mr-2 h-4 w-4" />
+                Selecteer je vakken
+              </Button>
             </div>
           )
         }
+        actionPosition="right"
       />
 
       {/* Render root-level buttons */}
@@ -545,6 +642,33 @@ export default function VakkenIndex() {
               )}
             </div>
           )}
+
+          {/* Secret Subjects Section */}
+          {secretSubjects.length > 0 && (
+            <div className="mt-12 border-t border-border pt-8">
+              <div className="flex items-center gap-2 mb-4">
+                <Lock className="h-4 w-4 text-muted-foreground" />
+                <h3 className="text-sm font-semibold text-muted-foreground">Speciale vakken</h3>
+              </div>
+              <div className="grid gap-px overflow-hidden rounded-lg border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-3" style={{ gridAutoRows: '1fr' }}>
+                {secretSubjects.map((subject) => (
+                  <Link
+                    key={subject.id}
+                    href={`/vakken/${subject.id}`}
+                    className="relative bg-background transition-colors hover:bg-secondary/50 p-6 border-l-2 border-l-muted-foreground/30"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <Lock className="h-4 w-4 text-muted-foreground" />
+                      <h2 className="font-display text-lg font-semibold">{subject.name}</h2>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      {subject.description || 'Speciaal vak met extra content'}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </>
       )}
       {setupOpen && (
@@ -567,23 +691,18 @@ export default function VakkenIndex() {
           </DialogHeader>
           <form onSubmit={createSubject} className="space-y-4">
             <div>
-              <Label htmlFor="subject-name">Vaknaam *</Label>
+              <Label htmlFor="subject-name">Vaknaam of geheime code *</Label>
               <Input
                 id="subject-name"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
                 placeholder="bijv. Wiskunde B"
+                disabled={verifyingCode}
               />
-            </div>
-            <div>
-              <Label htmlFor="subject-code">Code</Label>
-              <Input
-                id="subject-code"
-                value={form.code}
-                onChange={(e) => setForm({ ...form, code: e.target.value })}
-                placeholder="bijv. WISKB"
-              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Voer een vaknaam in om een nieuw vak te maken, of voer een geheime code in om toegang te vragen tot een speciaal vak.
+              </p>
             </div>
             <div>
               <Label htmlFor="subject-teacher">Docent</Label>
@@ -603,8 +722,8 @@ export default function VakkenIndex() {
                 placeholder="Optionele beschrijving"
               />
             </div>
-            <Button type="submit" disabled={saving} className="w-full">
-              {saving ? 'Opslaan...' : 'Vak toevoegen'}
+            <Button type="submit" disabled={saving || verifyingCode} className="w-full">
+              {verifyingCode ? 'Controleren...' : saving ? 'Opslaan...' : 'Vak toevoegen'}
             </Button>
           </form>
         </DialogContent>

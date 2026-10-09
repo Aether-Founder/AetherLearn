@@ -187,7 +187,17 @@ export function Header({
       <div className="w-full">
         <div className="mb-6 flex items-start gap-4">
           <button
-            onClick={() => (window.location.href = '/')}
+            onClick={() => {
+              // Try to extract subjectId from current URL and go back to subject page
+              const pathParts = window.location.pathname.split('/');
+              if (pathParts.length >= 3 && (pathParts[1] === 'leer' || pathParts[1] === 'vakken')) {
+                const subjectId = pathParts[2];
+                window.location.href = `/vakken/${encodeURIComponent(subjectId)}`;
+              } else {
+                // Fallback to dashboard
+                window.location.href = '/';
+              }
+            }}
             className="mt-2 p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0"
             title={t('back_to_main')}
             aria-label={t('back_to_main')}

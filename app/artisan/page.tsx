@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, CheckCircle, XCircle, AlertCircle, FileText, Image as ImageIcon, File, RefreshCw } from 'lucide-react';
-import { AppShell } from '@/components/AppShell';
+import { AppShell, PageHeader } from '@/components/AppShell';
 
 interface QueueItem {
   id: string;
@@ -312,15 +312,11 @@ export default function ArtisanPage() {
 
   return (
     <AppShell>
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 className="font-display text-4xl font-semibold mb-2 text-foreground">
-          Artisan Werkplaats
-        </h1>
-        <p className="text-muted-foreground mb-8">
-          Upload je studiemateriaal en wij maken er leersets van
-        </p>
-
+      <PageHeader
+        title="Artisan Werkplaats"
+        description="Upload je studiemateriaal en wij maken er leersets van"
+      />
+      <div className="min-h-screen bg-background px-6 py-12">
         {/* Dropzone */}
         <div
           onDrop={handleDrop}
@@ -572,7 +568,6 @@ export default function ArtisanPage() {
           </div>
         )}
       </div>
-    </div>
     </AppShell>
   );
 }

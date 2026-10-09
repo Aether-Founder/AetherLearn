@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Search, BookOpen, Copy, Star, TrendingUp, Loader2 } from 'lucide-react';
 import Fuse from 'fuse.js';
+import { AppShell, PageHeader } from '@/components/AppShell';
 
 interface StudySet {
   id: string;
@@ -193,20 +194,16 @@ export default function BibliotheekPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            Bibliotheek
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Ontdek en kopieer studiemateriaal van andere studenten
-          </p>
-        </div>
+    <AppShell>
+      <PageHeader
+        title="Bibliotheek"
+        description="Ontdek en kopieer studiemateriaal van andere studenten"
+      />
+
+      <div className="px-6 py-8">
 
         {/* Search and Filters */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-8">
+        <div className="bg-card rounded-xl shadow-sm p-6 mb-8">
           <div className="flex flex-col md:flex-row gap-4">
             {/* Search */}
             <div className="flex-1 relative">
@@ -359,6 +356,6 @@ export default function BibliotheekPage() {
           </div>
         )}
       </div>
-    </div>
+    </AppShell>
   );
 }

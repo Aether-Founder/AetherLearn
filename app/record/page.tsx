@@ -83,7 +83,7 @@ export default function RecordPage() {
         title={t('record_title')}
         description={t('record_description')}
       />
-      <div className="mx-auto mt-10 max-w-3xl">
+      <div className="mt-10">
         <section className="overflow-hidden rounded-xl border border-border bg-card">
           <div className="flex min-h-[330px] flex-col items-center justify-center p-8 text-center">
             <div

@@ -1,0 +1,489 @@
+## 0. Algemene invulstrategie
+
+- **Lees altijd de hele zin + context.** Eén signaalwoord of een vorige/volgende zin bepaalt vaak de tense.
+- **Markeer signaalwoorden.** Bijv. *now, every day, yesterday, while, since, already, before*.
+- **Bepaal de tijdlijn.**
+  - Nu / gewoonte / feit → tegenwoordige tijden.
+  - Afgerond verleden → Past Simple.
+  - Verleden dat doorliep/achtergrond → Past Continuous.
+  - Verleden met link naar nu → Present Perfect.
+  - Iets vóór iets anders in het verleden → Past Perfect.
+- **Kijk of de actie afgerond is of nog bezig/van invloed is.**
+- **Let op hulpwerkwoorden:** *do/does/did, am/is/are, was/were, have/has/had*.
+- **Controleer de vorm:** +s bij he/she/it, -ing, voltooid deelwoord, vraag/negatie.
+- **Let op onregelmatige werkwoorden:** *go – went – gone*, *see – saw – seen*, *eat – ate – eaten*.
+
+---
+
+## 1. Present Simple vs Present Continuous
+
+### Present Simple
+- **Vorm:**
+  - Bevestigend: `I/you/we/they + werkwoord`; `he/she/it + werkwoord + s`
+  - Ontkennend: `don't/doesn't + werkwoord`
+  - Vragend: `Do/Does + onderwerp + werkwoord`
+  - Voorbeeld: *I work. She works. He doesn't work. Do they work?*
+- **Signaalwoorden (EN):** always, usually, often, sometimes, never, every day/week/year, on Mondays, normally, generally, as a rule.
+- **Gebruik:**
+  - Gewoontes en routines: *I walk to school every day.*
+  - Feiten en algemene waarheden: *Water boils at 100°C.*
+  - Schema’s/tijdschema’s: *The train leaves at 8.*
+  - Gevoelens, voorkeuren, blijvende situaties: *She likes coffee.*
+- **Herkennen:** geen -ing; vaak frequentiebijwoord; he/she/it + s.
+- **Voorbeelden:**
+  - *I play football every Saturday.*
+  - *She doesn't eat meat.*
+  - *Do you live here?*
+- **Invulstrategie:** staat er *every day, usually, always, never, normally* of gaat het om een feit/gewoonte? → **Present Simple**.
+
+### Present Continuous
+- **Vorm:** `am/is/are + werkwoord + ing`
+  - Ontkennend: `am/is/are not + werkwoord + ing`
+  - Vragend: `Am/Is/Are + onderwerp + werkwoord + ing`
+  - Voorbeeld: *I am working. She is not listening. Are you studying?*
+- **Signaalwoorden (EN):** now, right now, at the moment, currently, today, this week, tonight, look!, listen!, at present, temporarily, for the time being.
+- **Gebruik:**
+  - Nu bezig: *I am studying now.*
+  - Tijdelijke situatie: *I am staying with friends this week.*
+  - Verandering/ontwikkeling: *The weather is getting colder.*
+  - Irritatie met *always*: *He is always losing his keys.*
+  - Nabije toekomst/afspraak: *We are meeting Tom tomorrow.*
+- **Herkennen:** am/is/are + -ing; *now, look, listen, at the moment*.
+- **Voorbeelden:**
+  - *She is watching TV right now.*
+  - *They aren't working today.*
+  - *Are you listening to me?*
+- **Let op:** stative verbs zoals *know, like, want, believe, understand, hate, love, need, seem, belong* staan meestal **niet** in de continuous. Dus: *I know the answer*, niet *I am knowing*.
+- **Invulstrategie:** staat er *now, at the moment, look, listen* of is de actie tijdelijk/nu bezig? → **Present Continuous**.
+
+### Verschil en keuze
+- **Present Simple** = gewoonte, feit, routine, permanent.
+- **Present Continuous** = nu bezig, tijdelijk, veranderend, afspraak in nabije toekomst.
+- Vergelijk:
+  - *I walk to school every day.* → gewoonte → Present Simple.
+  - *I am walking to school today.* → nu/tijdelijk → Present Continuous.
+- **Keuzeregel:** signaalwoord of context bepaalt. *Every day* → PS. *Now / at the moment* → PC.
+
+---
+
+## 2. Past Simple vs Past Continuous
+
+### Past Simple
+- **Vorm:**
+  - Regelmatig: `werkwoord + ed`
+  - Onregelmatig: 2e kolom (*go – went – gone* → *went*)
+  - Ontkennend: `didn't + werkwoord`
+  - Vragend: `Did + onderwerp + werkwoord`
+  - *To be:* `was/were`
+  - Voorbeeld: *I worked. She went. They didn't come. Did you see him?*
+- **Signaalwoorden (EN):** yesterday, last night/week/month/year, in 1990, two days ago, then, when, after that, first, later, finally, once.
+- **Gebruik:**
+  - Afgeronde actie in het verleden: *I visited London last year.*
+  - Reeks gebeurtenissen: *I came home, cooked dinner, and watched TV.*
+  - Gewoonte in het verleden: *I played tennis when I was young.*
+  - Specifiek moment in het verleden: *She called me at 8 pm.*
+- **Herkennen:** concrete verleden tijd; afgerond; *did/was/were*.
+- **Voorbeelden:**
+  - *I saw him yesterday.*
+  - *She didn't call me.*
+  - *Did you finish your homework?*
+- **Invulstrategie:** staat er *yesterday, last week, in 2010, ago*? → **Past Simple**.
+
+### Past Continuous
+- **Vorm:** `was/were + werkwoord + ing`
+  - Ontkennend: `wasn't/weren't + werkwoord + ing`
+  - Vragend: `Was/Were + onderwerp + werkwoord + ing`
+  - Voorbeeld: *I was working. They weren't sleeping. Was she reading?*
+- **Signaalwoorden (EN):** while, when, at 8 o'clock yesterday, all day yesterday, at that moment, as, during.
+- **Gebruik:**
+  - Actie bezig op een moment in het verleden: *At 8 pm I was cooking.*
+  - Achtergrondactie: *The sun was shining and people were singing.*
+  - Twee acties tegelijk: *While I was cooking, he was reading.*
+  - Onderbroken actie: *I was watching TV when she called.*
+- **Herkennen:** was/were + -ing; *while, at that moment, at 8 pm yesterday*.
+- **Voorbeelden:**
+  - *I was watching TV when she called.*
+  - *They were sleeping at 11 pm.*
+  - *While I was cooking, the phone rang.*
+- **Invulstrategie:** *while* → vaak Past Continuous. *At 8 pm yesterday* → Past Continuous. *When* + korte onderbreking → Past Simple.
+
+### Verschil en keuze
+- **Past Simple** = korte, afgeronde actie of reeks.
+- **Past Continuous** = langere actie, achtergrond, iets dat bezig was.
+- Vergelijk:
+  - *I cooked dinner.* → afgerond → Past Simple.
+  - *I was cooking dinner when the phone rang.* → bezig, onderbroken → Past Continuous + Past Simple.
+- **Keuzeregel:**
+  - Langere actie/achtergrond → Past Continuous.
+  - Korte actie/onderbreking → Past Simple.
+  - *While* + vaak Past Continuous; *when* + vaak Past Simple.
+  - Twee tegelijk: *While I was cooking, he was reading.* → beide Past Continuous.
+
+---
+
+## 3. Past Simple vs Present Perfect
+
+### Present Perfect
+- **Vorm:** `have/has + voltooid deelwoord`
+  - Regelmatig: werkwoord + ed
+  - Onregelmatig: 3e kolom (*go – went – gone* → *gone*)
+  - Ontkennend: `haven't/hasn't + voltooid deelwoord`
+  - Vragend: `Have/Has + onderwerp + voltooid deelwoord`
+  - Voorbeeld: *I have worked. She has gone. They haven't finished. Have you seen it?*
+- **Signaalwoorden (EN):** already, yet, just, ever, never, before, so far, up to now, recently, lately, since, for, how long, this week/month/year, today, several times, once/twice.
+- **Gebruik:**
+  - Resultaat nu: *I have lost my keys.* (ik kan nu niet naar binnen)
+  - Ervaring tot nu: *Have you ever been to Paris?*
+  - Net gebeurd: *She has just left.*
+  - Begon in verleden en duurt voort: *I have lived here since 2010.*
+  - Tijd is onbelangrijk/onbekend: *He has written a book.*
+- **Herkennen:** have/has + voltooid deelwoord; signaalwoorden; geen specifiek afgerond verleden tijdstip.
+- **Voorbeelden:**
+  - *I have lost my keys.*
+  - *She has lived here for five years.*
+  - *Have you ever seen this film?*
+- **Invulstrategie:** *since, for, yet, already, ever, never, just* → vaak **Present Perfect**. Geen *yesterday/last week/in 2010* gebruiken.
+
+### Verschil en keuze
+- **Past Simple** = afgerond verleden met vaak een concreet tijdstip.
+- **Present Perfect** = link met nu, ervaring, resultaat, of iets dat tot nu duurt.
+- Vergelijk:
+  - *I saw him yesterday.* → concreet verleden → Past Simple.
+  - *I have seen him.* → ervaring/resultaat nu, tijd niet belangrijk → Present Perfect.
+  - *I lost my keys yesterday.* → afgerond → Past Simple.
+  - *I have lost my keys.* → ik heb ze nu niet → Present Perfect.
+- **Keuzeregel:**
+  - Staat er *yesterday, last week, in 2010, ago*? → **Past Simple**.
+  - Staat er *since, for, yet, already, ever, never, just*? → **Present Perfect**.
+  - Gaat het om resultaat nu of ervaring tot nu? → **Present Perfect**.
+  - Let op: *When did you see him?* → Past Simple. *Have you ever seen him?* → Present Perfect.
+  - *I have been to London* = ervaring. *I went to London in 2019* = concreet verleden.
+
+---
+
+## 4. Past Simple vs Past Perfect
+
+### Past Perfect
+- **Vorm:** `had + voltooid deelwoord`
+  - Ontkennend: `hadn't + voltooid deelwoord`
+  - Vragend: `Had + onderwerp + voltooid deelwoord`
+  - Voorbeeld: *I had worked. She had gone. They hadn't left. Had you seen it?*
+- **Signaalwoorden (EN):** before, after, by the time, already, just, never, until then, when, earlier, previously, by 2010.
+- **Gebruik:**
+  - Actie vóór een andere actie/moment in het verleden: *When I arrived, the train had already left.*
+  - Oorzaak/gevolg in het verleden: *She was tired because she had worked all day.*
+  - Al afgerond vóór iets anders: *By the time we got there, the film had started.*
+- **Herkennen:** had + voltooid deelwoord; twee verleden acties; *before, after, by the time*.
+- **Voorbeelden:**
+  - *When I arrived, the train had already left.*
+  - *She had never seen the sea before she moved.*
+  - *After I had finished my homework, I went out.*
+- **Invulstrategie:** bepaal welke actie **eerder** gebeurde. De vroegste actie → **Past Perfect**. De latere actie → **Past Simple**.
+
+### Verschil en keuze
+- **Past Simple** = gebeurtenis in het verleden, vaak chronologisch.
+- **Past Perfect** = gebeurtenis vóór een andere gebeurtenis in het verleden.
+- Vergelijk:
+  - *I arrived, and then the train left.* → trein vertrok na aankomst → Past Simple + Past Simple.
+  - *When I arrived, the train had left.* → trein was al weg vóór aankomst → Past Perfect.
+- **Keuzeregel:**
+  - Twee verleden acties? Zoek de vroegste.
+  - Vroegste actie → `had + voltooid deelwoord`.
+  - Latere actie → Past Simple.
+  - *Before / after / by the time* wijzen vaak op Past Perfect voor de vroegste actie.
+  - Voorbeeld: *After I had eaten, I went out.* / *Before I went out, I had eaten.*
+
+---
+
+## 5. Samenvatting
+
+- **Present Simple vs Present Continuous**
+  - Gewoonte/feit/permanent → Present Simple.
+  - Nu bezig/tijdelijk/verandering → Present Continuous.
+
+- **Past Simple vs Past Continuous**
+  - Afgeronde korte actie/reeks → Past Simple.
+  - Langere actie/achtergrond/onderbroken actie → Past Continuous.
+
+- **Past Simple vs Present Perfect**
+  - Concreet afgerond verleden → Past Simple.
+  - Link met nu/resultaat/ervaring/tot nu → Present Perfect.
+
+- **Past Simple vs Past Perfect**
+  - Gewone gebeurtenis in verleden → Past Simple.
+  - Gebeurtenis vóór een andere verleden gebeurtenis → Past Perfect.
+
+---
+
+## 6. Voorbeeldzinnen met alle tijden naast elkaar
+
+- **Present Simple:** *I work in Amsterdam every day.*
+- **Present Continuous:** *I am working in Amsterdam this week.*
+- **Past Simple:** *I worked in Amsterdam last year.*
+- **Past Continuous:** *I was working in Amsterdam at 8 pm yesterday.*
+- **Present Perfect:** *I have worked in Amsterdam since 2020.*
+- **Past Perfect:** *I had worked in Amsterdam before I moved to Utrecht.*
+
+Met deze regels en signaalwoorden kun je bij invulopdrachten meestal goed bepalen welke tense nodig is: kijk naar het signaalwoord, de tijdlijn, of de actie afgerond is, of er een link met nu is, en of er een eerdere verleden actie is.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Irregular verbs
+
+| Nr. | Nederlands | Engels (infinitief) | Verleden tijd | Voltooid deelwoord |
+|---:|---|---|---|---|
+| 1 | aansteken | light | lit | lit |
+| 2 | barsten | burst | burst | burst |
+| 3 | bederven | spoil | spoilt | spoilt |
+| 4 | bedoelen | mean | meant | meant |
+| 5 | beginnen | begin | began | begun |
+| 6 | begrijpen | understand | understood | understood |
+| 7 | behandelen | deal | dealt | dealt |
+| 8 | bellen | ring | rang | rung |
+| 9 | betalen | pay | paid | paid |
+| 10 | betekenen | mean | meant | meant |
+| 11 | bijten | bite | bit | bitten |
+| 12 | binden | bind | bound | bound |
+| 13 | blazen | blow | blew | blown |
+| 14 | bloeden | bleed | bled | bled |
+| 15 | bouwen | build | built | built |
+| 16 | branden | burn | burnt | burnt |
+| 17 | breken | break | broke | broken |
+| 18 | meebrengen | bring | brought | brought |
+| 19 | wegbrengen | take | took | taken |
+| 20 | buigen | bend | bent | bent |
+| 21 | delen | deal | dealt | dealt |
+| 22 | denken | think | thought | thought |
+| 23 | dragen | wear | wore | worn |
+| 24 | drinken | drink | drank | drunk |
+| 25 | doorbrengen | spend | spent | spent |
+| 26 | dromen | dream | dreamt | dreamt |
+| 27 | eten | eat | ate | eaten |
+| 28 | gaan | go | went | gone |
+| 29 | geboren worden | born | born | born |
+| 30 | geven | give | gave | given |
+| 31 | gooien | throw | threw | thrown |
+| 32 | graven | dig | dug | dug |
+| 33 | groeien | grow | grew | grown |
+| 34 | handelen | deal | dealt | dealt |
+| 35 | hangen | hang | hung | hung |
+| 36 | horen | hear | heard | heard |
+| 37 | houden | keep | kept | kept |
+| 38 | huilen | weep | wept | wept |
+| 39 | hebben | have | had | had |
+| 40 | kiezen | choose | chose | chosen |
+| 41 | knippen | cut | cut | cut |
+| 42 | komen | come | came | come |
+| 43 | kopen | buy | bought | bought |
+| 44 | kosten | cost | cost | cost |
+| 45 | krijgen | get | got | got |
+| 46 | kruipen | creep | crept | crept |
+| 47 | kunnen | can | could/was able | have been able |
+| 48 | kwesten | hurt | hurt | hurt |
+| 49 | laten | let | let | let |
+| 50 | leggen | put | put | put |
+| 51 | verlaten | leave | left | left |
+| 52 | neerleggen | lay | laid | laid |
+| 53 | leiden | lead | led | led |
+| 54 | lenen | lend | lent | lent |
+| 55 | leren | learn | learnt | learnt |
+| 56 | leren, lesgeven | teach | taught | taught |
+| 57 | leunen | lean | leant | leant |
+| 58 | lezen | read | read | read |
+| 59 | liggen | lie | lay | lain |
+| 60 | maken | make | made | made |
+| 61 | menen | mean | meant | meant |
+| 62 | nemen | take | took | taken |
+| 63 | ondergaan | set | set | set |
+| 64 | opstaan | rise | rose | risen |
+| 65 | ontstaan | arise | arose | arisen |
+| 66 | pijn doen | hurt | hurt | hurt |
+| 67 | plakken | stick | stuck | stuck |
+| 68 | rennen | run | ran | run |
+| 69 | rijden | drive | drove | driven |
+| 70 | rijden | ride | rode | ridden |
+| 71 | ruiken | smell | smelt/smelled | smelt/smelled |
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Leiden lijst
+
+PAGE 2:
+actually = eigenlijk / in feite / feitelijk
+also = ook
+although = ofschoon / hoewel
+and = en
+as = daar / omdat
+as a result of = als gevolg van
+at least = ten minste
+because = omdat
+before = voor
+both … and = zowel ... als ...
+but = maar
+compared to / compared with = vergeleken met
+consequently = met als gevolg van
+despite = ondanks
+even = zelfs
+first = eerst
+for = want
+for example = bijvoorbeeld
+for instance = bijvoorbeeld
+however = echter
+if = als / indien
+in fact = sterker nog
+in short = kortom
+instead = in plaats daarvan
+later = later
+nevertheless = desalniettemin
+now = nu
+of course = natuurlijk
+once = zodra / toen eenmaal / ooit
+rather = eerder dan / in plaats van
+since = aangezien
+so = dus / daarom
+still = toch
+such as = zoals
+
+PAGE 3:
+sure = weliswaar
+then again = aan de andere kant
+though = ofschoon / hoewel
+today = tegenwoordig / vandaag de dag
+too = ook
+true = weliswaar
+unless = tenzij
+while = ondertussen
+yet = toch
+
+PAGE 4:
+actually = sterker nog
+also = ook
+and = en
+as well as = evenals
+besides = bovendien
+both … and … = zowel … als …
+even = zelfs
+first / second / third = eerste / tweede / derde
+furthermore = bovendien
+in addition = bovendien
+indeed = sterker nog
+in fact = sterker nog
+
+PAGE 5:
+(mean)while = ondertussen
+moreover = bovendien
+neither … nor … = noch … noch …
+not only … but also = niet alleen … maar ook
+or = of
+too = ook
+what is more = bovendien
+after all = tenslotte / immers
+as = daar / omdat
+as a result = als gevolg van
+because = omdat
+for = want
+since = aangezien
+
+PAGE 6:
+actually = feitelijk / eigenlijk
+admittedly = toegegeven
+although / though = ofschoon / hoewel
+besides = behalve
+but = maar
+by contrast = daarentegen / als contrast
+certainly = weliswaar
+conversely = daarentegen
+despite = ondanks
+either … or … = ofwel … of …
+even so = toch / desondanks
+fortunately = gelukkig
+however = echter
+
+PAGE 7:
+in fact = feitelijk / eigenlijk
+in spite of = ondanks
+instead = in plaats daarvan
+nevertheless = toch / desalniettemin
+now = nu / tegenwoordig
+of course = natuurlijk
+on the one hand … on the other = enerzijds / anderzijds
+paradoxically = in tegenstrijd daarmee
+rather = eerder dan / in plaats van / liever
+still = toch
+sure = weliswaar
+then again = aan de andere kant
+to be fair = om eerlijk te zijn
+
+PAGE 8:
+true = weliswaar
+unfortunately = helaas
+whereas = terwijl
+(mean)while = ondertussen
+yet = toch
+if = als / indien
+provided / providing = mits / op voorwaarde dat
+unless = tenzij
+before = voor
+earlier = vroeger
+eventually = uiteindelijk
+initially = aanvankelijk
+in the past = in het verleden
+later = later
+now = nu
+
+PAGE 9:
+once = zodra / toen eenmaal / ooit
+once upon a time = op een keer … er was eens …
+present / present-day = nu / tegenwoordig / vandaag de dag
+today = tegenwoordig / vandaag de dag
+until = totdat
+after all = tenslotte
+as a result = daarom
+consequently = met als gevolg
+hence = daarom / zodoende
+in short = kortom
+so = dus / daarom
+that's why = daarom
+therefore = daarom
+thus = zo / op die manier / samenvattend
+
+PAGE 10:
+as if = alsof
+equally = evenzeer / evenzo
+likewise = op dezelfde manier
+similarly = op dezelfde manier
+for example = bijvoorbeeld
+for instance = bijvoorbeeld
+such as = zoals
+at least = tenminste / in elk geval
+
+PAGE 11:
+to make clear = duidelijk maken
+to prove = bewijzen
+to point out = wijzen op
+to illustrate = illustreren
+to give examples = voorbeelden geven
+to show = aantonen
+to emphasise = benadrukken
+to highlight = uitlichten
+to stress = benadrukken
+
+PAGE 12:
+to contradict = tegenspreken
+to criticise = bekritiseren
+to present a different perspective/put into perspective = van een andere kant bekijken
+to question = in twijfel trekken
+to tone down = afzwakken
+to undermine = ondermijnen
+to analyse = analyseren
+to describe = beschrijven
+to outline = beschrijven
+to add = toevoegen
+to elaborate = uitbreiden
+to list = opsommen
+to praise = prijzen
+to support = ondersteunen
+to explain = uitleggen
+
+------------------------------------------------------------------------------------------------------------------------------------------
+

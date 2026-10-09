@@ -131,7 +131,7 @@ export default function StudySetPage() {
         }
       />
 
-      <div className="mx-auto mt-8 max-w-3xl">
+      <div className="mt-8">
         {cards.length === 0 ? (
           <section className="rounded-xl border border-dashed border-border bg-card/40 p-10 text-center">
             <p className="text-sm text-muted-foreground">

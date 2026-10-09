@@ -103,7 +103,14 @@ function getInitialWorkspaces(): Workspace[] {
       /* fallback */
     }
   }
-  return [];
+  // If no workspaces exist, create default workspace
+  return [{
+    id: crypto.randomUUID(),
+    user_id: 'local-user',
+    name: 'Werkruimte 1',
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  }];
 }
 
 function getInitialCurrentWorkspaceId(): string {

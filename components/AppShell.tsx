@@ -321,13 +321,11 @@ export function AppShell({
   children,
   search,
   onSearch,
-  fullWidth = false,
   hideFooter = false,
 }: {
   children: ReactNode;
   search?: string;
   onSearch?: (value: string) => void;
-  fullWidth?: boolean;
   hideFooter?: boolean;
 }) {
   const pathname = usePathname();
@@ -386,15 +384,19 @@ export function AppShell({
     return (
       <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-30 border-b border-border bg-background/90 backdrop-blur">
-          <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
-            <div className="flex items-center gap-2.5">
-              <div className="h-7 w-7 rounded-md bg-muted" />
-              <div className="h-8 w-24 rounded-md bg-muted" />
+          <div className="flex h-16 justify-center px-6">
+            <div className="flex h-full max-w-[1920px] w-full items-center gap-3">
+              <div className="flex items-center gap-2.5">
+                <div className="h-7 w-7 rounded-md bg-muted" />
+                <div className="h-8 w-24 rounded-md bg-muted" />
+              </div>
+              <div className="ml-auto h-9 w-48 rounded-md bg-muted" />
             </div>
-            <div className="ml-auto h-9 w-48 rounded-md bg-muted" />
           </div>
         </header>
-        <main className="mx-auto max-w-6xl px-6 pb-24">{children}</main>
+        <main className="flex-1 w-full px-6 pb-24">
+          {children}
+        </main>
       </div>
     );
   }
@@ -418,23 +420,24 @@ export function AppShell({
         }
       `}</style>
       <header className="sticky top-0 z-30 border-b border-border bg-background/90 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-center px-6">
-          <div className="flex items-center gap-3">
+        <div className="flex h-16 justify-center px-6">
+          <div className="flex h-full max-w-[1920px] w-full items-center justify-center gap-3">
             <div className="flex items-center gap-2.5">
               <MobileNavigation />
               <Link href="/" className="flex items-center gap-1">
                 <Image
                   src="/assets/favicon.png"
                   alt={t('logo_alt')}
-                  width={16}
-                  height={16}
+                  width={64}
+                  height={64}
                   className="h-4 w-4 rounded-md object-contain"
+                  unoptimized
                 />
-                <div className="flex flex-col items-start hidden sm:block">
+                <div className="hidden sm:block flex flex-col">
                   <span className="font-display text-2xl font-semibold tracking-tight leading-none">
                     {t('brand')}
                   </span>
-                  <span className="font-display text-sm font-medium tracking-tight leading-none">
+                  <span className="font-display text-sm font-medium tracking-tight leading-none" style={{ paddingTop: '8px' }}>
                     Learn
                   </span>
                 </div>
@@ -482,9 +485,7 @@ export function AppShell({
       </header>
 
       <main
-        className={
-          fullWidth ? 'flex-1 w-full px-6 pb-20 md:pb-24' : 'flex-1 mx-auto max-w-6xl px-6 pb-20 md:pb-24'
-        }
+        className="flex-1 w-full px-6 pb-20 md:pb-24"
       >
         {children}
       </main>
@@ -493,19 +494,33 @@ export function AppShell({
 
       {!hideFooter && (
         <footer className="border-t border-border hidden md:block">
-          <div className="mx-auto flex flex-wrap items-center justify-between gap-3 max-w-6xl px-6 py-8 text-xs text-muted-foreground">
-            <span className="flex items-center gap-2 font-display text-base font-semibold text-foreground">
+          <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-8 text-xs text-muted-foreground w-full max-w-[1920px] mx-auto">
+            <Link href="/" className="flex items-center gap-1">
               <Image
                 src="/assets/favicon.png"
                 alt=""
-                width={20}
-                height={20}
-                className="h-5 w-5 rounded-md object-contain"
+                width={64}
+                height={64}
+                className="h-4 w-4 rounded-md object-contain"
                 aria-hidden="true"
               />
-              {t('brand')}
-            </span>
-            <span>{t('brand_tagline')}</span>
+              <div className="hidden sm:block flex flex-col">
+                <span className="font-display text-2xl font-semibold tracking-tight leading-none">
+                  {t('brand')}
+                </span>
+                <span className="font-display text-sm font-medium tracking-tight leading-none" style={{ paddingTop: '8px' }}>
+                  Learn
+                </span>
+              </div>
+            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/privacy" className="hover:text-foreground transition-colors">
+                Privacy
+              </Link>
+              <Link href="/terms" className="hover:text-foreground transition-colors">
+                Voorwaarden
+              </Link>
+            </div>
           </div>
         </footer>
       )}
@@ -518,30 +533,29 @@ export function PageHeader({
   title,
   description,
   action,
-  fullWidth = false,
+  actionPosition = 'right',
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   action?: ReactNode;
-  fullWidth?: boolean;
+  actionPosition?: 'left' | 'right';
 }) {
   return (
-    <section
-      className={`flex flex-wrap items-center justify-start gap-6 border-b border-border py-10 ${fullWidth ? 'mx-auto max-w-6xl px-6' : 'px-6'}`}
-    >
-      <div className="max-w-2xl text-left">
+    <section className="flex flex-wrap items-center justify-start gap-6 border-b border-border py-10">
+      {action && actionPosition === 'left' && <div className="flex-shrink-0">{action}</div>}
+      <div className="text-left">
         {eyebrow && (
           <p className="text-[11px] tracking-[0.18em] text-muted-foreground">{eyebrow}</p>
         )}
-        <h1 className="mt-3 font-display text-4xl font-semibold leading-[1.1] max-w-[480px]:text-[1.75rem] max-w-[480px]:leading-[1.2]">
+        <h1 className="mt-3 font-display text-4xl font-semibold leading-[1.1]">
           {title}
         </h1>
         {description && (
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{description}</p>
         )}
       </div>
-      {action}
+      {action && actionPosition === 'right' && <div className="ml-auto">{action}</div>}
     </section>
   );
 }

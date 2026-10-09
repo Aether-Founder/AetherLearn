@@ -1,0 +1,2313 @@
+# CKV Architectuur Kennisbank
+
+## UITGEWERKTE LEERDOELEN
+
+### 1. Architectuurstromingen – Je kent de volgorde, periodes en namen van de architectuurstromingen
+
+De presentatie behandelt de westerse architectuurgeschiedenis in een strikt chronologische volgorde, beginnend in de antieke oudheid en doorlopend tot hedendaagse digitale architectuur (tevens terug te zien op de Europese eurobiljetten):
+
+- 1. Klassieke Oudheid (+/- 700 v.Chr. – 400 na Chr.): Griekse en Romeinse tempelbouw, architraafbouw, de drie klassieke zuilenorden en Romeinse boog- en gewelfconstructies (te zien op het €5-biljet).
+- 2. Middeleeuwen: Romaans (+/- 11e en 12e eeuw): Zware, massieve muren, kleine vensters, rondbogen, tongewelven en sobere, donkere kerkgebouwen die een pelgrimstocht symboliseren (te zien op het €10-biljet).
+- 3. Middeleeuwen: Gotiek (+/- 13e en 14e eeuw): Kathedralenbouw gericht op hemelhoge verticaliteit en licht, skeletbouw met kruisribgewelven, luchtbogen, steunberen, spitsbogen en gebrandschilderde roosvensters (te zien op het €20-biljet).
+- 4. Renaissance (+/- 15e en 16e eeuw): "Wedergeboorte" van de Klassieke Oudheid, herstel van evenwicht, symmetrie, mathematische verhoudingen, rustige horizontale geledingen, koepels en klassieke zuilen/timpanen (te zien op het €50-biljet).
+- 5. Barok (+/- 17e – halverwege 18e eeuw): Emotionele theatraliteit, Gesamtkunstwerk (versmelting van bouw, beeldhouwkunst en schilderkunst), golvende holle en bolle muren, dramatisch clair-obscur en gedraaide dynamische zuilen (te zien op het €100-biljet).
+- 6. Classicisme (+/- 17e eeuw tot halverwege 18e eeuw en neoclassicisme daarna): Reactie tegen de barokke overdaad, hernieuwde terugkeer naar strenge, pure, sobere geometrische vormen, tempelfronten met monumentale trappen en symmetrie.
+- 7. Modernisme (vanaf ca. 1920): Breken met alle historische ornamenten en tradities ("anti-traditioneel"), strakke blokkendozen van gewapend beton, staal en glas, functioneel en zakelijk onder het motto "Form follows function".
+- 8. Postmodernisme (vanaf ca. 1970/1980): Reactie op het kille modernisme; het mengen van historische stijlen met ironie, felle uitbundige kleuren, speelse details, vrije vormen en het vervagen van de grens tussen hoge en lage cultuur.
+- 9. Supermodernisme (hedendaags, eind 20e/begin 21e eeuw): Mogelijk gemaakt door geavanceerde computerberekeningen (CAD/BIM); extreme, spectaculaire en organische vormen met een strakke industriële uitstraling onder het motto "Look at me!" (iconische landmark architectuur).
+
+Voorbeelden: Eurobiljetten reeks (€5 t/m €500), Tijdlijn van Parthenon via Reims naar Van Nellefabriek en Bilbao.
+
+Zie dia's: 2, 26, 28, 29, 31.
+
+---
+
+### 2. Kenmerken bouwkunst – Je kent de kenmerken van bouwkunst tijdens de Klassieke Oudheid (+/- 700 v.Chr. – 400 na Chr.)
+
+De Klassieke Oudheid omvat de Griekse en Romeinse bouwkunst, waarin harmonie, wiskundige proporties, rust en constructieve helderheid centraal stonden.
+
+- Tempelbouw: Gericht op rust, monumentale harmonie en strenge proporties, rustend op een getrapt stenen fundament (de stereobaat en stylobaat).
+- Architraafbouw: Een constructief systeem waarbij zware horizontale stenen balken (de architraaf) rechtstreeks rusten op verticale draagzuilen.
+- Timpaan (fronton): Het driehoekige gevelveld boven het hoofdgestel; functioneert niet alleen als versieringsvlak (vaak gevuld met beeldhouwwerk) maar ook als constructief element dat de drukkracht gelijkmatig verdeelt naar de buitenste zuilen.
+- Hoofdgestel (entablement): Het horizontale stelsel boven de zuilen bestaande uit (van onder naar boven) de architraaf, het fries en de uitkragende kroonlijst (corniche).
+- Drie klassieke zuilenorden:
+  - Dorische orde (vanaf 6e eeuw v.Chr.): Zwaar en krachtig van proportie, geen basement (zuilschacht staat direct op de stylobaat), eenvoudig schotelvormig kussenkapiteel (echinus en abacus), en een fries met afwisselend trigliefen (driegleufstenen) en metopen (beeldvlakken).
+  - Ionische orde (ca. 5e eeuw v.Chr.): Slankere, elegantere zuilen op een geprofileerd basement, kapiteel gekenmerkt door twee spiraalvormige gekrulde voluten, en een doorlopend fries met ononderbroken reliëfsculptuur.
+  - Korinthische orde (na 5e eeuw v.Chr.): Zelfde slanke verhoudingen en basement als de Ionische orde, maar met een weelderig klok- of kelkvormig kapiteel versierd met twee rijen gestileerde acanthusbladeren en kleine hoekvoluten.
+- Romeinse constructieve innovaties: Toepassing van boogconstructies en gewelven gemetseld op houten hulpbekistingen, inclusief tongewelf (langgerekte halfronde kokerboog), kruisgewelf (doorsnijding van twee tongewelven) en koepelgewelf (halve bol zoals bij het Pantheon).
+
+Voorbeelden: Leeuwenpoort in Mycene, Griekse tempelopbouw schema, Tempel van Concordia te Agrigento, Romeinse gewelventeekeningen.
+
+Zie dia's: 3, 4, 5, 6, 7, 8, 9, 10, 11.
+
+---
+
+### 3. Kenmerken bouwkunst – Je kent de kenmerken van Romaanse bouwkunst (+/- 11e en 12e eeuw)
+
+De Romaanse stijl ontstond in de vroege en hoge middeleeuwen in een Europa dat gedomineerd werd door kloosterorden en pelgrimstochten.
+
+- Massieve, dikke muren: Stevige stenen muren met een vestingachtig karakter om de enorme zijwaartse druk van de zware stenen daken op te vangen.
+- Rondbogen en tongewelven: Uitsluitend halfronde bogen (rondbogen) voor doorgangen, arcades en vensters; overspanningen door zware halfronde stenen tongewelven.
+- Kleine vensters & donker interieur: Om de muren constructief niet te verzwakken konden vensters slechts zeer klein worden gemaakt, resulterend in een gedempte, sombere en gewijde lichtsfeer.
+- Horizontaal en geaard karakter: Gebouwen ogen relatief laag, zwaar, aards en horizontaal geritmeerd in vergelijking met latere gotische kathedralen.
+- Sobere uitstraling: Eenvoudige, robuuste stenen vlakken zonder overdadig uiterlijk vertoon.
+- Expressieve kapitelen: Gebeeldhouwde taferelen op kapitelen van zuilen en halfpijlers met religieuze voorstellingen, fabeldieren, monsters en symbolische plantmotieven.
+- Symboliek van de pelgrimstocht: Het kerkgebouw is ontworpen als een fysieke en spirituele tocht. De gelovige betreedt de kerk onder het waarschuwende timpaan met het Laatste Oordeel aan de westgevel, loopt door het donkere middenschip (de beproeving van het aardse leven), en bereikt tenslotte de apsis en het koor waar het oplichtende altaar symbool staat voor het eeuwige Licht van God.
+
+Voorbeelden: Basiliek van Saint-Sernin in Toulouse, Abbaye aux Dames in Caen, Sainte-Foy timpaan in Conques.
+
+Zie dia's: 12, 13, 14, 15.
+
+---
+
+### 4. Kenmerken bouwkunst – Je kent de kenmerken van Gotische bouwkunst (+/- 13e en 14e eeuw)
+
+De Gotiek ontstond in Noord-Frankrijk (vanaf ca. 1140 bij Saint-Denis) en revolutioneerde de architectuur door een overgang van dragende massieve wanden naar een uitgekiend skelet van steen en glas.
+
+- Hoogbouw en verticalisme: De ruimtes reiken tientallen meters omhoog naar de hemel; alle visuele lijnen (bundelpijlers, gewelfribben) benadrukken de opwaartse beweging.
+- Spitsbogen: Bogen die puntig toelopen; deze kunnen de neerwaartse en zijwaartse spatkrachten veel effectiever naar de dragers afvoeren dan een romaanse rondboog.
+- Kruisribgewelf: Een gewelfsysteem waarbij stenen diagonale ribben het gewicht dragen, zodat de tussenliggende gewelfkappen dunner en lichter kunnen zijn.
+- Skeletbouw met externe luchtbogen en steunberen: Een ingenieus exoskelet aan de buitenzijde van de kerk vangt de enorme zijwaartse druk van de hoge gewelven op en leidt deze weg van de muren, zodat de muren niet naar buiten worden geduwd.
+- Pinakels: Spitse torentjes op de steunberen die niet alleen decoratief zijn, maar door hun extra gewicht de steunbeer verticaal verzwaren, waardoor deze stabieler tegen de zijwaartse kracht van de luchtboog bestand is.
+- Dunne muren en gigantische glas-in-loodramen: Omdat de muren geen dragende functie meer hebben, konden ze bijna volledig worden vervangen door torenhoge vensters en gebrandschilderd glas, waardoor een mystiek goddelijk licht (Lux Nova) binnenvalt.
+- Roosvensters: Grote cirkelvormige gebrandschilderde vensters met geometrisch maaswerk, geplaatst boven de portalen en transeptgevels.
+
+Voorbeelden: Kathedraal van Reims, Kathedraal van Burgos, Sainte-Chapelle in Parijs, Skeletbouw diagram met luchtbogen.
+
+Zie dia's: 16, 17, 18, 19, 20.
+
+---
+
+### 5. Kenmerken bouwkunst – Je kent de kenmerken van bouwkunst in de Renaissance (+/- 15e en 16e eeuw)
+
+De Renaissance ("wedergeboorte") begon in Italië (Florence) en verwierp de gotische stijl ten gunste van een herleving van de verhoudingen, logica en vormentaal van de Klassieke Oudheid.
+
+- Wedergeboorte Klassieke Oudheid: Directe inspiratie ontleend aan de theorieën van Vitruvius en de bewaard gebleven Romeinse ruïnes.
+- Harmonie, evenwicht en strikte symmetrie: Zowel in plattegronden als in voorgevels worden linker- en rechterhelft volkomen in balans gebracht rond een centrale as.
+- Wiskundige principes en maatverhoudingen: Gebruik van modulaire rasters, meetkundige basisvormen (cirkel, vierkant) en de gulden snede voor een harmonische schoonheid.
+- Herhaling van vormen: Ritme in raampartijen, bogenreeksen (arcades) en gelijkmatige travee-indelingen.
+- Nadruk op horizontale lijnen: In tegenstelling tot de gotische verticaliteit ligt de nadruk op horizontale cordonlijsten, brede kroonlijsten en evenwichtige verdiepingshoogten.
+- Klassieke sierelementen: Terugkeer van pilasters, zuilen met Dorische, Ionische of Korinthische kapitelen, timpanen (driehoekige frontons) boven deuren en vensters, en balustrades met beelden.
+- Ontwerp van grote koepels en toepassing van balkons: Monumentale koepelconstructies (Brunelleschi, Michelangelo) en brede balkons/loggia's.
+
+Voorbeelden: Basilica Palladiana in Vicenza door Andrea Palladio, Palazzo Medici Riccardi in Florence.
+
+Zie dia's: 21, 22.
+
+---
+
+### 6. Kenmerken bouwkunst – Je kent de kenmerken van Barok (+/- 17e – halverwege 18e eeuw)
+
+De Barok vloeide voort uit de contrareformatie en het absolutisme; de kunst en architectuur dienden om toeschouwers diep te ontroeren, te overweldigen en in vervoering te brengen.
+
+- Gesamtkunstwerk: Een totale versmelting van architectuur, monumentaal beeldhouwwerk, plafondschilderingen en sierstucwerk tot één naadloze theatrale illusie.
+- Theatrale effecten & dramatiek: De architectuur is ontworpen als een theaterdecor om de bezoeker emotioneel te raken en vol ontzag achter te laten.
+- Sterk licht-donker contrast (clair-obscur): Gevels en interieurs hebben diepe uitsnijdingen, vooruitspringende risalieten en diepe nissen waardoor dramatische schaduwen en felle lichtbundels ontstaan.
+- Golvende holle en bolle vormen: Gevels en muren buigen in dynamische convexe (bolle) en concave (holle) golvende curven in plaats van strakke rechte vlakken.
+- Verbreken en vervormen van klassieke regels: Gebroken en gekrulde frontons (timpanen die in het midden openbreken), cartouches, en ovale of complexe plattegronden.
+- Nadruk op dynamiek en beweging: Schijnbaar kolkende draperieën van steen, beelden gevangen in actie, en getordeerde (spiraalvormig gedraaide / Salomonische) zuilen.
+- Betrekken van de omgeving: Grote geometrische paleistuinen, fonteinen, waterpartijen en lange stedelijke zichtassen die naadloos aansluiten op het gebouw.
+
+Voorbeelden: Trevifontein in Rome, San Carlo alle Quattro Fontane door Borromini, Plafondfresco van Andrea Pozzo.
+
+Zie dia's: 23, 24.
+
+---
+
+### 7. Kenmerken bouwkunst – Je kent de kenmerken van Classicisme (17e eeuw tot halverwege 18e eeuw)
+
+Het Classicisme (en later Neoclassicisme) was een bewuste rationele reactie tegen de dynamische overdaad en grilligheid van de Barok, met een hernieuwde voorkeur voor kalme, sobere en strenge orde.
+
+- Terugkeer naar strenge, heldere en zuivere vormen: Nog puristischer en soberder dan in de Renaissance, rechtstreeks geënt op Griekse en Romeinse tempels.
+- Eenvoudig geometrisch grondplan: Gebaseerd op elementaire wiskundige figuren zoals de kubus, balk, cirkel en het rechthoekige raster.
+- Strikte symmetrie: Volmaakte spiegeling rond een nadrukkelijke centrale hoofdas.
+- Centrale monumentale entree: Vaak gemarkeerd door een tempelfront met zuilen en een timpaan, benaderbaar via brede stenen trappen over de gehele breedte van het risaliet.
+- Harmonische rasterindeling: Duidelijke, rustige balans tussen strakke horizontale kroonlijsten en verticale kolommen of pilasters.
+- Klassieke vormentaal: Consequent gebruik van architraven, kapitelen, timpanen, rondbogen en strakke pilasters zonder barokke speelsheid of breuklijnen.
+
+Voorbeelden: Paleis op de Dam in Amsterdam (Jacob van Campen), Panthéon in Parijs (Jacques-Germain Soufflot).
+
+Zie dia's: 25.
+
+---
+
+### 8. Kenmerken bouwkunst – Je kent de kenmerken van Modernisme (vanaf ca. 1920)
+
+Het Modernisme brak radicaal met het verleden en zette de westerse architectuur op een fundamenteel nieuw spoor, ingegeven door de industrialisatie en de machine-esthetiek.
+
+- Anti-traditioneel en breken met het verleden: Volledige afwijzing van historische stijlinvloeden, zuilen en klassieke canons; de blik is puur gericht op de toekomst en maatschappelijke vernieuwing.
+- Form follows function: De vorm van het gebouw moet uitsluitend voortvloeien uit de praktische functie, het gebruik en de constructie, niet uit esthetische willekeur.
+- Sobere en strakke vormen: Geometrische volumes, platte daken, gebouwen als strakke "blokkendozen".
+- Weinig tot geen versieringen: Ornamenten worden gezien als nutteloos ("ornament is crime"). Schoonheid zit in zuivere lijnen, ritme en verhoudingen.
+- Nieuwe industriële bouwmaterialen: Veelzijdig gebruik van gewapend beton, skeletten van constructiestaal en grote glaspartijen (vliesgevels).
+- Functioneel en zakelijk: Nadruk op hygiëne, overvloedig daglicht, frisse lucht en efficiënte ruimtelijke indeling voor wonen en werken.
+
+Voorbeelden: Van Nellefabriek in Rotterdam (Brinkman & Van der Vlugt), Unité d'Habitation in Marseille (Le Corbusier).
+
+Zie dia's: 26, 27.
+
+---
+
+### 9. Kenmerken bouwkunst – Je kent de kenmerken van Postmodernisme (vanaf ca. 1970/1980)
+
+Het Postmodernisme ontstond als een speelse, kritische reactie op de kille, monotone en humorloze "glazen dozen" van het functionalistische Modernisme.
+
+- Reactie op het Modernisme: Afwijzing van het idee dat er maar één universele functionele waarheid is; introductie van pluralisme en gelaagdheid.
+- Vervagen van hoge en lage cultuur: Volkskunst, kitsch, reclame en popcultuur worden zonder schroom gecombineerd met elitaire architectuurtheorieën.
+- Ironie en humor: Architecten maken bewuste grapjes, overdrijvingen en visuele knipogen in gevels en plattegronden.
+- Mengen van stijlen uit het verleden (eclecticisme): Historische stijlelementen (zoals zuilen, frontons, boogpoorten en klokgevels) worden vrijelijk geciteerd, maar dan van felle kunststof, overdreven schaal of contrasterende kleuren.
+- Uitbundig kleurgebruik en speelse details: Vrolijke pastelkleuren of primaire tinten in plaats van saai grijs beton.
+- Vrije vormen: Onconventionele volumes, schuine lijnen en decoratieve toevoegingen zonder strikte functionele noodzaak.
+
+Voorbeelden: Groninger Museum (Alessandro Mendini), Castellum in Houten, Piazza d'Italia (Charles Moore).
+
+Zie dia's: 28.
+
+---
+
+### 10. Kenmerken bouwkunst – Je kent de kenmerken van Supermodernisme (hedendaags / digitaal tijdperk)
+
+Supermodernisme markeert de hedendaagse architectuur waarin geavanceerde computertechnologie, globalisering en spectaculaire visuele statements samenkomen.
+
+- Computer-aided design & engineering: Dankzij krachtige 3D-modelleersoftware (BIM, parametrisch ontwerpen) kunnen voorheen onmogelijke, extreem complexe wiskundige en organische curven exact worden berekend en geprefabriceerd.
+- Extreme en opvallende vormen: Vloeiende krommingen, schuine hellingshoeken, reusachtige overstekken en monumentale schaalgrootte.
+- Strakke, industriële en hightech uitstraling: Gepolijst roestvrij staal, titanium, geperforeerd aluminium, structureel glas en composietmaterialen.
+- Het "Look at me!"-principe: Gebouwen zijn ontworpen als iconische sculpturen en wereldwijde landmarks (het Bilbao-effect) die onmiddellijk de aandacht opeisen in het landschap of de skyline.
+
+Voorbeelden: Guggenheim Museum Bilbao (Frank Gehry), London City Hall (Norman Foster), Vogelnest Stadion Peking (Herzog & de Meuron), Markthal Rotterdam (MVRDV), Rotterdam Centraal Station.
+
+Zie dia's: 29, 30, 34.
+
+---
+
+### 11. De 6 Kenmerken van een gebouw – Je kent de zes kenmerken die de uitstraling van een gebouw bepalen
+
+De presentatie doceert een analytisch model van zes centrale pijlers waarmee de verschijningsvorm en zeggingskracht van elk gebouw ontleed kan worden:
+
+- 1. Functie: Waar dient het gebouw voor? Vroeger was de functie direct herkenbaar aan traditionele typologieën (kerk, kasteel, pakhuis). Tegenwoordig ontwerpen architecten gebouwen waarvan de functie aan de buitenkant niet direct afleesbaar is; toch moet de uitstraling (bijvoorbeeld openheid, veiligheid of plechtigheid) naadloos bij de functie passen.
+- 2. Vorm: De geometrie en silhouet van het gebouw. Klassieke bouwwerken waren symmetrisch met een centrale entree; modernisten lieten de vorm uitsluitend bepalen door de functie ("form follows function"); hedendaagse digitale architecten ontwerpen complexe organische vormen waardoor de functie aan de buitenkant weer verborgen raakt.
+- 3. Omgeving: De relatie tussen het gebouw en zijn context. Een gebouw kan kiezen om harmonieus "op te gaan" in zijn omgeving (via aansluitende hoogte, kleurstelling, gevelritme en lokale materialen) óf juist dramatisch te "contrasteren" met de omgeving (door afwijkende hoogte, futuristische vormgeving of afwijkende materialen).
+- 4. Materiaal: De tastbare stoffelijkheid van het gebouw die een psychologische associatie oproept. Marmer en zwaar natuursteen stralen al sinds de oudheid luxe, soliditeit, macht en betrouwbaarheid uit (zoals bij klassieke bankgebouwen). Glas, staal en aluminium stralen daarentegen transparantie, openheid, democratie en technologische vooruitgang uit.
+- 5. Constructie: De wijze waarop alle onderdelen zijn samengevoegd en hoe het gebouw overeind blijft. Dit gebeurt door funderingen, dragende muren en vloeren, of via skeletbouw (draagskelet van kolommen/pijlers, liggers en steunberen) of dubbelgekromde dragende schaalconstructies.
+- 6. Visie: Het fundamentele filosofische idee van de architect. Hoe kijkt de architect naar de wereld, en hoe wil hij dat mensen in het gebouw wonen, werken, ontmoeten en samenleven? De visie verbindt vorm, functie en maatschappelijke betekenis.
+
+Voorbeelden: Dansend Huis in Praag & Sluishuis IJburg, De Blob Eindhoven (Vorm), Crystal Houses PC Hooftstraat (Omgeving), Station Arnhem Centraal (Constructie), Inntel Hotel Zaandam (Visie).
+
+Zie dia's: 37, 38, 39, 40, 41, 42, 43, 44, 45, 46.
+
+---
+
+### 12. Het Beroep van de Architect – Je weet hoe een architect werkt, wat er allemaal bij het ontwerpen van een gebouw komt kijken en wat een architect nodig heeft
+
+Een architect opereert op het snijvlak van kunst, techniek, psychologie en maatschappij. Een gebouw ontstaat nooit zomaar in het luchtledige, maar volgt een intensief ontwerpproces:
+
+- Wat een architect fundamenteel nodig heeft:
+  - Een Opdracht (een reële maatschappelijke behoefte en een opdrachtgever met budget)
+  - Inspiratie (ideeën opgedaan uit kunst, natuur, geschiedenis, alledaagse voorwerpen of de omgeving)
+  - Fantasie (het creatieve vermogen om buiten gebaande paden te denken en nieuwe werelden te verbeelden)
+- Programma van Eisen (PvE): De architect stelt samen met de opdrachtgever een bindend PvE op. Hierin staan alle richtlijnen waaraan het gebouw moet voldoen: het benodigde aantal kamers en vierkante meters (functie), budgettaire en financiële randvoorwaarden, en de esthetische wensen/uitstraling van de opdrachtgever.
+- Plek & Situatie (Contextonderzoek): De specifieke fysieke eigenschappen en beperkingen van de locatie (de kavelvorm, grondwaterstand, windrichting, zoninval, omringende bebouwing, zichtlijnen en verkeersontsluiting). Zoals Renzo Piano benadrukt: een gebouw midden in het water vraagt om een wezenlijk ander ontwerp dan een gebouw in een historische binnenstad.
+- Externe factoren & Wetgeving: De architect moet rekening houden met gemeentelijke bestemmingsplannen, wetten van ruimtelijke ordening, bouwbesluitvoorschriften (veiligheid, brandwering, isolatie, toegankelijkheid) en welstandscommissies.
+
+Voorbeelden: ARCAM casus in Amsterdam (Anton Peters vs René van Zuuk), Renzo Piano schetsen voor NEMO en Centre Pompidou.
+
+Zie dia's: 47, 48, 49, 50, 51, 52, 53, 54, 55.
+
+---
+
+### 13. Het Beroep van de Architect – Je weet wat voor manieren er zijn om een gebouw te ontwerpen
+
+Architecten hanteren uiteenlopende creatieve en technische methoden om abstracte ideeën om te zetten in ruimtelijke vormen:
+
+- 1. Potloodschetsen: Snelle handgetekende conceptschetsen op papier om eerste invallen, ruimtelijke verhoudingen en composities te onderzoeken.
+- 2. Computerprogramma's: Geavanceerde 3D-CAD, BIM (Building Information Modelling), parametrische rekensoftware en virtual reality simulaties.
+- 3. Fysieke blokken: Modulaire schaalblokken stapelen en schuiven om volumestudies, stedenbouwkundige inpassing en bezonning te bestuderen.
+- 4. Vouwen (papierarchitectuur): Vellen papier vouwen, knikken en knippen om expressieve geometrische, strakke of sculpturale daklijnen en vouwwanden te ontdekken.
+- 5. Kleien en boetseren: Met plastische klei organische, vloeiende en sculpturale vormen kneden die later worden opgemeten en gedigitaliseerd.
+- 6. Inspiratie uit alledaagse gebruiksvoorwerpen (kruisbestuiving): Vormen van bestek, koffiepotten of muziekinstrumenten abstraheren naar gebouwvolumes (zoals Aldo Rossi deed, of het Piano & Viool gebouw in China).
+- 7. Maquettes bouwen: Schaalmodellen maken van karton, hout of 3D-print om lichtval, constructie en schaalgevoel tastbaar te testen.
+
+Voorbeelden: Aldo Rossi espresso-design en schetsen, Het Piano House in China, Papier vouwopdracht leidend tot Guggenheim Bilbao & Eye Filmmuseum.
+
+Zie dia's: 56, 57, 58, 59, 60, 61, 62.
+
+---
+
+### 14. Thema: Lokaal & Globaal – Je kent de kenmerken en definitie van iets dat lokaal is gemaakt, en iets dat globaal is gemaakt
+
+Dit thema onderzoekt de spanning tussen streekgebondenheid en wereldomvattende uniformiteit in de gebouwde omgeving:
+
+- Definitie & kenmerken van LOKAAL gemaakt:
+  - Komt voort uit een specifieke streek, stad, klimaat of cultuur.
+  - Gebruikt streekeigen bouwmaterialen (zoals lokaal hout, specifieke baksteensoorten of regionale natuursteen) en traditionele ambachtelijke bouwtechnieken.
+  - Aan de specifieke vormentaal, kleuren en detaillering kun je direct zien wáár ter wereld het ontstaan is (bijvoorbeeld houten Zaanse huizen met groen hout en witte windveren, of Provençaalse huizen met terracotta dakpannen).
+- Definitie & kenmerken van GLOBAAL gemaakt:
+  - Maakt gebruik van universele beeldkenmerken en bouwtypen die voor mensen over de gehele wereld verspreid herkenbaar zijn.
+  - Vaak gekenmerkt door uniforme materialen (staal, spiegelend vliesgevelglas, strak aluminium) en repetitieve wolkenkrabber-typologieën.
+  - Gebouwen kunnen in principe op elke willekeurige plek ter wereld staan zonder relatie met de lokale cultuur (uitwisselbare skylines zoals Dubai, New York en Guangzhou).
+- Belangrijke valkuil — Lokaal/Globaal is NIET hetzelfde als bekendheid:
+  - Een lokaal gebouw kan wereldwijd (globaal) beroemd zijn, maar blijft in zijn ontstaanswijze en materiaal puur lokaal (bijv. de 17e-eeuwse Amsterdamse grachtenpanden of Zaanse houten huisjes).
+  - Hybride vormen: Gebouwen kunnen lokale vormentaal en globale betekenis doelbewust versmelten (zoals de Westermoskee in Amsterdam: ontworpen door Franse architecten in de lokale Amsterdamse Schoolstijl, maar met een universele Ottomaanse moskeetypologie).
+
+Voorbeelden: Striptekening 1921 regionale verscheidenheid vs 2021 identieke witte kubuswoningen, Zaanse schans vs Skylines New York/Dubai/Guangzhou, De Westermoskee in Amsterdam.
+
+Zie dia's: 63, 64, 65, 66, 67, 68, 69, 70, 71, 72.
+
+---
+
+### 15. Thema: Traditie & Innovatie – Je weet wat verstaan wordt onder traditie en wat verstaan wordt onder innovatie
+
+Architectuur beweegt zich voortdurend in het spanningsveld tussen het behouden van beproefd cultureel erfgoed en het introduceren van baanbrekende vernieuwingen:
+
+- Definitie van Traditie:
+  - Onder traditie verstaan we de gebruiken, gewoontes, vormentaal, ambachtelijke technieken en waarden die van de ene generatie op de volgende worden overgedragen en bewaard gebleven.
+  - In de architectuur uit zich dit in het handhaven van historische bouwstijlen, traditionele materialen (hout, baksteen, leisteen), klassieke ornamentiek en vertrouwde typologieën (zoals Balinese tempels met gelaagde meru-daken of de oorspronkelijke eikenhouten kapconstructie van de middeleeuwse gotiek).
+- Definitie van Innovatie:
+  - Bij innovatie worden nieuwe ontwikkelingen, experimentele technologieën, hedendaagse materialen en vooruitstrevende denkbeelden ingezet om vernieuwing tot stand te brengen.
+  - In de architectuur uit zich dit in spectaculaire nieuwe draagconstructies, parametrische computerberekeningen, ecologische verduurzaming (zoals het verticale bos Bosco Verticale in Milaan) en futuristische transformaties.
+- Synthese van Traditie en Innovatie in de praktijk:
+  - De casus Notre-Dame na de brand van april 2019: De discussie tussen traditionele herbouw (exact terugbrengen in historische staat met eikenhout en lood) versus innovatieve herbouw (glazen dak, zonnecellen, permacultuur daktuin van Vincent Callebaut, lichtgevende kristallen torenspits).
+  - Geslaagde historische toevoegingen: Het Havenhuis in Antwerpen door Zaha Hadid (futuristisch glazen diamantschip bovenop een monumentale historische brandweerkazerne) en Museum De Fundatie in Zwolle door BiermanHenket (glazen/keramische ellipsvormige wolk "De Wolk" bovenop een neoclassicistisch paleis met zuilen).
+
+Voorbeelden: Balinese tempel vs Bosco Verticale Milaan, Notre-Dame brand & innovatieve voorstellen (Palingenesis), Havenhuis Antwerpen & Museum De Fundatie Zwolle.
+
+Zie dia's: 73, 74, 75, 76, 77, 78, 79.
+
+---
+
+## DIA-VOOR-DIA ANALYSE (79 DIA'S)
+
+### Dia 1: Titelpagina: CKV Architectuur [Inleiding]
+
+Originele tekst op de dia:
+CKV Architectuur
+
+Inhoudelijke betekenis & uitleg:
+- Inleiding tot het CKV-domein Architectuur: van klassieke oudheid tot hedendaagse iconische ontwerpen.
+- Visuele kennismaking met de enorme diversiteit in bouwstijlen, materialen, constructies en tijdsperioden.
+
+Afbeeldingsbeschrijvingen:
+Collage van zes toonaangevende bouwwerken: Zes contrasterende architectuuriconen die samen het brede spectrum van de cursus demonstreren:
+- Midden/Links: Guggenheim Museum Bilbao (Frank Gehry) – sculpturale, vloeiende schillen bekleed met glanzende titaniumplaten en glaspartijen (Supermodernisme / deconstructivisme).
+- Rechtsboven: Van Nellefabriek in Rotterdam (Brinkman & Van der Vlugt, 1931) – modernistische fabriek van gewapend beton, staal en transparante vliesgevels met luchtbruggen.
+- Rechtsmidden: Het Dansende Huis ('Fred & Ginger') in Praag (Frank Gehry & Vlado Milunić) – dynamische combinatie van een golvende glazen toren en een stenen toren met speelse ramen.
+- Linksonder: Klassieke Griekse tempel (Parthenon / Concordia) – marmeren zuilenrij (Dorische orde), architraafbalk en driehoekig timpaan.
+- Onder midden: Romaanse stenen kerk (San Martín de Frómista) – massieve zandstenen muren, zware achthoekige vieringstoren, kleine rondboogvensters en sobere horizontale geleding.
+- Rechtsonder: Ciudad de las Artes y las Ciencias in Valencia (Santiago Calatrava) – futuristische, organische overkappingen in wit beton en glas gereflecteerd in waterbassins.
+
+Sleutelbegrippen: #Architectuur #CKV #Diversiteit in bouwstijlen #Cultuurhistorie
+
+---
+
+### Dia 2: Overzicht: Architectuurstromingen [Inleiding]
+
+Originele tekst op de dia:
+Architectuurstromingen
+Klassieke Oudheid +/- 700 v Chr. – 400 na Chr.
+Middeleeuwen Romaans +/- 11e en 12 e eeuw
+Middeleeuwen Gotiek +/- 13e en 14e eeuw
+Renaissance +/- 15e en 16e eeuw.
+Barok +/- 17e – halverwege 18e eeuw
+Classisisme 17e eeuw tot halverwege 18e eeuw
+
+Inhoudelijke betekenis & uitleg:
+- Chronologische opeenvolging van de zes historische hoofdstromingen.
+- Dient als het basisrooster voor de toetsstof en analyse van Europese bouwkunst.
+
+Sleutelbegrippen: #Klassieke Oudheid #Romaans #Gotiek #Renaissance #Barok #Classicisme #Tijdlijn
+
+---
+
+### Dia 3: Klassieke Oudheid: Architraafbouw & Timpaan [Klassieke Oudheid]
+
+Originele tekst op de dia:
+Klassieke oudheid
+Bouwkunst Klassieke Oudheid (+/- 700 v Chr. – 400 n Chr.)
+Architraafbouw: Zuilen ondersteunen een balk; de architraaf
+Timpaan: Een driehoekige vorm (deze zorgt voor de verdeling van de drukkracht)
+De leeuwenpoort in Mycene, Griekenland
+
+Inhoudelijke betekenis & uitleg:
+- Architraafbouw: Draagsysteem waarbij verticale dragers (zuilen/pijlers) een horizontale stenen dwarsbalk (architraaf) dragen.
+- Timpaan: Driehoekige constructie boven de doorgang die helpt de neerwaartse drukkracht naar de zijkanten af te voeren.
+
+Afbeeldingsbeschrijvingen:
+De Leeuwenpoort in Mycene (Griekenland, ca. 1250 v.Chr.): Monumentale megalithische stadspoort van de Myceense citadel:
+- Megalithische zijposten en een gigantische stenen deksteen/balk (latei).
+- Boven de latei bevindt zich een kraagboogconstructie met een driehoekige ontlastingsdriehoek (voorloper van het timpaan).
+- In de driehoek staat een bas-reliëf van twee leeuwinnen die tegenover elkaar staan aan weerszijden van een centrale zuil.
+- Constructief doel: voorkomen dat de enorme massa van de bovenliggende cyclopische stenen de latei breekt.
+
+Sleutelbegrippen: #Architraafbouw #Timpaan #Mycene #Leeuwenpoort #Drukkrachtverdeling
+
+---
+
+### Dia 4: Klassieke Oudheid: Opbouw van de klassieke tempel [Klassieke Oudheid]
+
+Originele tekst op de dia:
+Klassieke oudheid
+Bouwkunst Klassieke Oudheid (+/- 700 v Chr. – 400 n Chr.)
+Opbouw klassieke tempel
+1. Timpaan
+2. Hoofdgestel: timpaan, kroonlijst, fries en architraaf
+3. Zuil
+4. Stereobaat
+
+Inhoudelijke betekenis & uitleg:
+- Gestandaardiseerde anatomie van de klassieke Griekse tempelfaçade.
+- Vier hoofdzones van boven naar beneden: Timpaan (1), Hoofdgestel (2), Zuil (3) en Stereobaat (4).
+
+Afbeeldingsbeschrijvingen:
+Bouwkundig schema klassieke tempel: Strakke aanzichttekening van een tetrastyle Griekse tempel met oranje cijfermarkeringen:
+- Pijl 1 wijst naar het driehoekige gevelveld (Timpaan/fronton).
+- Haak 2 omvat het gehele hoofdgestel (kroonlijst, fries met metopen/trigliefen en architraaf).
+- Pijl 3 wijst naar de gecanneleerde zuilschacht.
+- Haak 4 omvat de getrapte stenen basis (Stereobaat en Stylobaat).
+
+Sleutelbegrippen: #Hoofdgestel #Stereobaat #Zuil #Fries #Architraaf
+
+---
+
+### Dia 5: Klassieke Oudheid: Tempel van Concordia met annotaties [Klassieke Oudheid]
+
+Originele tekst op de dia:
+Klassieke oudheid
+Bouwkunst Klassieke Oudheid (+/- 700 v Chr. – 400 n Chr.)
+
+Inhoudelijke betekenis & uitleg:
+- Toepassing van alle bouwkundige termen op een bestaande antieke ruïne in Sicilië.
+- Bewezen stabiliteit van de Dorische verhoudingen.
+
+Afbeeldingsbeschrijvingen:
+Tempel van Concordia (Agrigento, Sicilië): Grote kleurenfoto van de goed bewaarde Dorische peripteros-tempel met gedetailleerde annotatiepijlen:
+- Pijl naar het driehoekige veld: 'timpaan'.
+- Accolade over het bovendeel: 'hoofdgestel'.
+- Pijl naar de horizontale gebeeldhouwde strook: 'fries'.
+- Pijl naar de drie verticale gleufstenen: 'triglief'.
+- Pijl naar het tussenliggende reliëfvlak: 'metope'.
+- Pijl naar de bovenste uitstekende rand: 'kroonlijst'.
+- Pijl naar de dragende stenen balk: 'architraaf'.
+- Pijl naar het kussenvormige bovendeel van de zuil: 'kapiteel'.
+- Pijl naar de verticale zuilschacht: 'zuil'.
+- Pijl naar de verticale groeven in de schacht: 'cannelures'.
+- Pijl naar het getrapte stenen fundament: 'stereobaat / podium'.
+
+Sleutelbegrippen: #Triglief #Metope #Kroonlijst #Kapiteel #Cannelures #Agrigento
+
+---
+
+### Dia 6: Klassieke Oudheid: Kenmerken & Zuilenorden [Klassieke Oudheid]
+
+Originele tekst op de dia:
+Klassieke oudheid
+Kenmerken:
+- tempelbouw: harmonie, rust, grote tempels
+- drie verschillende zuilen: Dorisch, Ionisch en Korintisch
+- architraafbouw: de balk (architraaf) rust op de zuilen
+- timpaan (driehoek boven de architraaf)
+
+Inhoudelijke betekenis & uitleg:
+- Synthese van de kernbeginselen: harmonie, rust, monumentaliteit.
+- Introductie van de drie canonieke orden: Dorisch, Ionisch en Korinthisch.
+
+Afbeeldingsbeschrijvingen:
+Vergelijking van de drie zuilenorden en fronton: Twee tekeningen: links een klassiek tempelfront met reliëffiguren in het timpaan; rechts de 3 zuilen naast elkaar:
+- Doric (Dorisch): Meest robuust, geen voetstuk (Base), sober schotelkapiteel.
+- Ionic (Ionisch): Slankere schacht, staat op een geprofileerde Base, kapiteel met sierlijke gekrulde voluten.
+- Corinthian (Korinthisch): Slankste verhouding, rust op een Base, rijkelijk versierd kelkkapiteel met gebeeldhouwde bladeren.
+
+Sleutelbegrippen: #Dorisch #Ionisch #Korinthisch #Harmonie #Rust
+
+---
+
+### Dia 7: Klassieke Oudheid: Gedetailleerde Technische Terminologie [Klassieke Oudheid]
+
+Originele tekst op de dia:
+Klassieke oudheid
+Bouwkunst Klassieke Oudheid (+/- 700 v Chr. – 400 n Chr.)
+
+Inhoudelijke betekenis & uitleg:
+- Uiterst gedetailleerde architectonische ontleding van gevelelementen en zuilendetails a t/m o.
+
+Afbeeldingsbeschrijvingen:
+Bouwkundige gravure Dorische, Ionische en Korinthische orde: Uitgebreide technische doorsnedetekening met letterverwijzingen a t/m o en nummers 1, 2, 3:
+- a. tympanon of fronton (driehoekig gevelveld)
+- b. fries (strook met reliëfs of afwisselend trigliefen en metopen)
+- c. triglief (stenen plaat met 3 verticale sleuven)
+- d. metope (vierkant tussenpaneel, vaak voorzien van reliëf)
+- e. regula (smalle lijst onder de triglief)
+- f. guttae / druppels (kleine cilindrische stenen pinnen)
+- g. architraaf (hoofdbalk)
+- h. kapiteel (zuilbekroning)
+- i. abacus (vierkante dekplaat)
+- j. echinus (rond schotelvormig kussen)
+- k. schacht (cilindrische zuillichaam)
+- l. cannelure / gleuf (doorgaans 20 verticale insnijdingen)
+- m. stylobaat (bovenste stenen trede/basis)
+- n. basement (geprofileerde voetplaat bij Ionisch en Korinthisch)
+- o. akroterion (sculpturale hoek- en nokversiering op het dak)
+- 1 = Dorische orde, 2 = Ionische orde, 3 = Korinthische orde.
+
+Sleutelbegrippen: #Abacus #Echinus #Guttae #Stylobaat #Akroterion #Regula
+
+---
+
+### Dia 8: Klassieke Oudheid: De Dorische orde [Klassieke Oudheid]
+
+Originele tekst op de dia:
+Klassieke oudheid
+De Dorische orde
+Ontstaan in de 6e eeuw voor Christus
+- Zware bouwvormen
+- Geen basement
+- Schotel kapiteel
+- Fries bestaat uit metopen en trigliefen
+
+Inhoudelijke betekenis & uitleg:
+- Ontstaan: 6e eeuw v.Chr. op het Griekse vasteland en Magna Graecia.
+- Kenmerken: Mannelijk, krachtig, zwaar, zuilen rusten rechtstreeks op stylobaat zonder basement, schotelkapiteel, alternerend fries.
+
+Afbeeldingsbeschrijvingen:
+Tekeningen Dorische orde: Twee tekeningen: links een close-up van het sobere schotelkapiteel met gecanneleerde zuilhals; rechts een gevelaanzicht met zuilenpaar en hoofdgestel met duidelijke triglief- en metope-indeling.
+
+Sleutelbegrippen: #Dorische orde #Schotelkapiteel #Geen basement #Metopen #Trigliefen
+
+---
+
+### Dia 9: Klassieke Oudheid: De Ionische orde [Klassieke Oudheid]
+
+Originele tekst op de dia:
+Klassieke oudheid
+De Ionische orde
+Ontstaan ca. 5e eeuw voor Christus
+- Slankere bouwvorm
+- Staat op een basement
+- Gekrulde volutenkapiteel
+- Doorlopend fries
+
+Inhoudelijke betekenis & uitleg:
+- Ontstaan: ca. 5e eeuw v.Chr. in Ionië (huidig Turkije / Egeïsche kust).
+- Kenmerken: Vrouwelijker, slanker, geprofileerd basement (voet), kapiteel met kenmerkende dubbele spiraalkrullen (voluten), ononderbroken doorlopend fries.
+
+Afbeeldingsbeschrijvingen:
+Tekeningen Ionische orde: Links: detail van het Ionische kapiteel met de twee naar buiten draaiende spiraalkrullen (voluten) en eierlijst. Rechts: slanke gecanneleerde zuil rustend op een geprofileerd basement.
+
+Sleutelbegrippen: #Ionische orde #Volutenkapiteel #Basement #Doorlopend fries
+
+---
+
+### Dia 10: Klassieke Oudheid: De Korinthische orde [Klassieke Oudheid]
+
+Originele tekst op de dia:
+Klassieke oudheid
+De Korinthische orde
+Ontstaan na 5e eeuw voor Christus
+- Lijkt veel op de Ionische orde
+- Kelkvormig kapiteel, met de bladervorm van een acanthusplant
+
+Inhoudelijke betekenis & uitleg:
+- Ontstaan: eind 5e eeuw v.Chr. in Korinthe.
+- Kenmerken: Slanke schacht op basement (zoals Ionisch), bekroond door een diep gebeeldhouwd kelkvormig kapiteel met rijen gestileerde acanthusbladeren en kleine hoekvoluten.
+
+Afbeeldingsbeschrijvingen:
+Korinthisch kapiteel tekening en zandstenen zuil: Links: fijn gedetailleerde lijntekening van het kelkkapiteel. Rechts: foto van een monumentale antieke zuil tegen een helderblauwe hemel met fraai bewaard gebleven acanthusbladeren.
+
+Sleutelbegrippen: #Korinthische orde #Kelkkapiteel #Acanthusplant #Acanthusblad
+
+---
+
+### Dia 11: Klassieke Oudheid: Boogconstructies en Gewelven [Klassieke Oudheid]
+
+Originele tekst op de dia:
+Klassieke Oudheid
+Boogconstructies en gewelven
+De Romeinen maakten veel gebruik van boogconstructies
+• houten hulpconstructies, waarop ze bogen metselden van metselwerk.
+1. Kruisgewelf
+2. Tongewelf
+3. Koepelgewelf
+
+Inhoudelijke betekenis & uitleg:
+- Romeinse bouwkundige revolutie: Overgang van architraafbouw naar boog- en gewelfconstructies met behulp van houten bekistingen (formeel) en Romeins beton/metselwerk.
+- Drie gewelftypen: 1. Kruisgewelf (doorsnijding van twee gewelven), 2. Tongewelf (langgerekte tunnelboog), 3. Koepelgewelf (halfronde schaal).
+
+Afbeeldingsbeschrijvingen:
+Drie isometrische gewelfmodellen: Technische 3D-tekeningen: Figuur 1 toont een kruisgewelf met vier open bogen en twee gekruiste ruggen; Figuur 2 toont een tongewelf als een doorlopende halfronde tunnel; Figuur 3 toont een halve bol als koepelgewelf.
+
+Sleutelbegrippen: #Tongewelf #Kruisgewelf #Koepelgewelf #Boogconstructie #Romeinen
+
+---
+
+### Dia 12: De Middeleeuwen: Twee hoofdstromingen [Inleiding]
+
+Originele tekst op de dia:
+De Middeleeuwen
+2 belangrijke architectuurstromingen:
+Romaans en Gotisch
+
+Inhoudelijke betekenis & uitleg:
+- De middeleeuwen worden gekarakteriseerd door de opeenvolging van Romaanse bouwkunst (11e-12e eeuw) en Gotische kathedralen (13e-14e eeuw).
+
+Afbeeldingsbeschrijvingen:
+Twee historische stads- en kerkschilderijen: Links: Schilderij van een Romaanse basiliek aan een stadsplein met zware torens, dwerggalerij en sobere rondbogen. Rechts: Schilderij van de Kathedraal van Reims met torenhoge gotische portalen, fijnmazig roosvenster en opengewerkte torens vol licht en feestelijke processie.
+
+Sleutelbegrippen: #Middeleeuwen #Romaans #Gotisch #Contrast
+
+---
+
+### Dia 13: Middeleeuwen: Romaans - Muren & Bogen [Romaans]
+
+Originele tekst op de dia:
+Middeleeuwen: Romaans
+Romaanse bouwkunst 11de en 12de eeuw
+Dikke en massieve muren
+Rondboog, kleine ramen
+
+Inhoudelijke betekenis & uitleg:
+- Tijdvak: 11e en 12e eeuw.
+- Kernkarakteristieken: Zware, massieve stenen muren, rondboogopeningen en zeer kleine vensters om muursterkte te behouden.
+
+Afbeeldingsbeschrijvingen:
+Drie voorbeelden van Romaanse gebouwen: Links: Hoge, zware stenen vestingtoren met weergang en ronde hoektorentjes. Midden: Eenvoudige Romaanse dorpskerk met zware natuurstenen muren en kleine boogvenstertjes. Rechts: Westgevel van de Abbaye aux Dames in Caen met massieve tweelingtorens, zware steunberen en strakke rondbogen.
+
+Sleutelbegrippen: #Massieve muren #Rondboog #Kleine ramen #Abbaye aux Dames #11e en 12e eeuw
+
+---
+
+### Dia 14: Middeleeuwen: Romaans - Kenmerken & Pelgrimstocht [Romaans]
+
+Originele tekst op de dia:
+Middeleeuwen: Romaans
+Romaanse bouwkunst 11de en 12de eeuw
+Kenmerken:
+• Rondbogen en tongewelven
+• Massieve muren, 'lage' donkere gebouwen en kleine vensters met rondbogen
+• Het hele gebouw heeft een horizontaal karakter
+• Sober
+• Expressieve kapitelen op pijlers en halfzuilen.
+• Kerkgebouw symboliseert een pelgrimstocht: laatste oordeel bij ingang, middenschip, apsis (licht van God)
+Saint Sernin, Toulouse
+
+Inhoudelijke betekenis & uitleg:
+- Kenmerken: Rondbogen, tongewelven, massieve muren, sombere lichtsfeer, horizontaal karakter en sobere vormentaal.
+- Spirituele symboliek: Kerkgebouw representeert een pelgrimstocht (binnenkomst onder het Laatste Oordeel, tocht door het aardse middenschip naar het goddelijke licht in de apsis).
+
+Afbeeldingsbeschrijvingen:
+Basiliek van Saint-Sernin in Toulouse: Boven: Exterieur van de bakstenen koorpartij met apsis, kooromgang en straalkapellen met rondboogvensters. Onder: Interieurfoto van het langgerekte middenschip overspannen door een hoog stenen tongewelf met gordelbogen en sobere zijgalerijen.
+
+Sleutelbegrippen: #Saint Sernin #Tongewelf #Pelgrimstocht #Apsis #Licht van God #Middenschip
+
+---
+
+### Dia 15: Romaanse Beeldhouwkunst: Reliëfs & Laatste Oordeel [Romaans]
+
+Originele tekst op de dia:
+Romaanse Beeldhouwkunst
+Romaanse bouwkunst 11de en 12de eeuw
+Kenmerken:
+• Religieus
+• Fantasie, dieren symboliek
+• Reliëfs (niet losstaand)
+• Schematisch, verhalend en versierend
+• Timpaan (west façade / westgevel) met laatste oordeel
+Sainte-Foy, westfacade, timpaan met Laatste Oordeel
+
+Inhoudelijke betekenis & uitleg:
+- Beeldhouwkunst is architectuurgebonden (reliëfs in timpanen en kapitelen).
+- Inhoud is religieus, didactisch, vol fabeldieren en schematische figuren.
+- Waarschuwing bij de ingang: het Laatste Oordeel.
+
+Afbeeldingsbeschrijvingen:
+Timpaan Sainte-Foy in Conques & detailreliëfs: Groot halfcirkelvormig timpaan van Sainte-Foy: in het midden Christus in majesteit binnen een mandorla. Links de uitverkorenen die naar het hemels paradijs geleid worden; rechts de verdoemden die door duivels in de muil van Leviathan worden gesleept. Rechts details van expressieve gebeeldhouwde kapitelen met engelen en fabeldieren.
+
+Sleutelbegrippen: #Reliëf #Laatste Oordeel #Sainte-Foy #Dierensymboliek #Westgevel timpaan
+
+---
+
+### Dia 16: Middeleeuwen: Gotiek - Kathedralen 13e & 14e eeuw [Gotiek]
+
+Originele tekst op de dia:
+Middeleeuwen: Gotiek
+Gotische bouwstijl – kathedralen 13de en 14de eeuw
+Gotische kathedraal van Burgos (Noord-Spanje)
+Gotische kathedraal van Reims, Noord-Frankrijk.
+
+Inhoudelijke betekenis & uitleg:
+- Opkomst van de gotische kathedralen in de 13e en 14e eeuw.
+- Focus op extreme hoogte, overvloedig gekleurd licht en opengewerkte stenen structuren.
+
+Afbeeldingsbeschrijvingen:
+Kathedralen van Burgos en Reims & Roosvenster: Drie foto's: Linksboven en linksonder de Kathedraal van Burgos met haar opengewerkte gotische torenspitsen en steunberen. Midden: Westgevel van de Kathedraal van Reims met diepe portaalwanden, koningsgalerij en groot roosvenster. Rechtsboven: Close-up van het gebrandschilderde roosvenster van Reims met schitterend blauw- en rood glas in geometrisch maaswerk.
+
+Sleutelbegrippen: #Kathedraal van Burgos #Kathedraal van Reims #Roosvenster #13e en 14e eeuw
+
+---
+
+### Dia 17: Middeleeuwen: Gotiek - Sainte-Chapelle te Parijs [Gotiek]
+
+Originele tekst op de dia:
+Middeleeuwen: Gotiek
+Gotische bouwstijl – kathedralen 13de en 14de eeuw
+Sainte-Chapelle, Parijs
+
+Inhoudelijke betekenis & uitleg:
+- Het summum van de rayonante gotiek: muren zijn vrijwel volledig opgelost in glas.
+- Gekleurd daglicht transformeert de kerkruimte tot een hemels visioen.
+
+Afbeeldingsbeschrijvingen:
+Interieur van de Sainte-Chapelle in Parijs: Adembenemende foto van de bovenkapel: 15 meter hoge gebrandschilderde ramen omringen de gehele zaal in diepe tinten kobaltblauw en robijnrood. Het plafond is een diepblauw gewelf bezaaid met gouden Franse lelies, gedragen door flinterdunne vergulde colonnetten. Bezoekers zitten vol verwondering op banken.
+
+Sleutelbegrippen: #Sainte-Chapelle #Glas-in-lood #Goddelijk licht #Rayonnant
+
+---
+
+### Dia 18: Middeleeuwen: Gotiek - Constructieve Kenmerken [Gotiek]
+
+Originele tekst op de dia:
+Middeleeuwen: Gotiek
+Gotische bouwstijl – kathedralen 13de en 14de eeuw
+Kenmerken:
+• Hoogbouw
+• Dunne hoge muren
+• Spitsboogramen
+• Roosvensters
+• Skeletbouw: Kruisribgewelf, Pijlers, Luchtbogen, Steunberen
+• Pinakel (versiering en vergroot gewicht steunbeer zodat deze meer kracht van spitsboog kan weerstaan)
+Beauvais voute
+
+Inhoudelijke betekenis & uitleg:
+- Constructiesysteem: skeletbouw bestaande uit kruisribgewelf, zware pijlers, externe luchtbogen en steunberen.
+- Pinakel vervult dubbelfunctie: siertorentje én verticaal ballastgewicht om de steunbeer te stabiliseren tegen zijwaartse spatkrachten.
+
+Afbeeldingsbeschrijvingen:
+Bouwkundige doorsnede gotisch skelet & gewelf Beauvais: Midden: Gravure van een gotische dwarsdoorsnede waarin te zien is hoe de luchtboog van de lichtbeuk overspant naar de buitenste steunbeer met pinakel. Rechts: Foto kijkend naar het duizelingwekkend hoge koorgewelf van de Kathedraal van Beauvais (48 meter hoog).
+
+Sleutelbegrippen: #Skeletbouw #Kruisribgewelf #Luchtboog #Steunbeer #Pinakel #Beauvais
+
+---
+
+### Dia 19: Middeleeuwen: Gotiek - Werking van het Skelet [Gotiek]
+
+Originele tekst op de dia:
+Middeleeuwen: Gotiek
+Gotische bouwstijl – kathedralen 13de en 14de eeuw
+• De Gotiek ontstond in Noord Frankrijk, rond de 12e eeuw
+• Spitsbogen: deze konden de druk beter afvoeren dan de (Romaanse) rondboog
+• De Gotische kathedraal heeft een 'skelet' van luchtbogen, gewelfribben, steunberen en zuilen
+• Het toepassen van grote ramen werd mogelijk door de grote draagkracht van het skelet; meer licht
+• Ruimtes moesten zo hoog en licht mogelijk ogen, verticale lijnen werden benadrukt
+Het skelet
+
+Inhoudelijke betekenis & uitleg:
+- Ontstaan in Île-de-France (Noord-Frankrijk) ca. 12e eeuw.
+- Spitsboog voert drukkrachten steiler naar beneden af dan de halfronde boog.
+- Het dragende skelet ontlast de tussenwanden, waardoor gigantische ramen mogelijk worden.
+- Verticalisme: alle lijnen trekken de blik van de gelovige omhoog.
+
+Afbeeldingsbeschrijvingen:
+3D-draadmodel van het Gotische skelet: Links: Foto van een kloostergang met kruisribgewelven. Midden: Isometrisch 3D-skeletdiagram met labels 'luchtboog', 'gewelfrib', 'zuil' en 'steunbeer'. Rechts: Gravure van een steunbeersysteem.
+
+Sleutelbegrippen: #Spitsboog #Noord-Frankrijk #Gewelfrib #Verticale lijnen #Lichtinval
+
+---
+
+### Dia 20: Middeleeuwen: Gotische Hoogbouw - Luchtbogen & Steunberen [Gotiek]
+
+Originele tekst op de dia:
+Middeleeuwen Gotische hoogbouw: luchtbogen en steunberen
+Gotische bouwstijl – kathedralen 13de en 14de eeuw
+Door gebruik te maken van luchtbogen en steunberen aan de buitenzijde van de gotische kathedralen konden deze bouwwerken heel veel grote glazen ramen in de muren hebben zonder in te storten.
+De luchtbogen en steunberen houden als het ware de muren op hun plek, zonder dat ze door het gewicht van het dak naar buiten vallen.
+
+Inhoudelijke betekenis & uitleg:
+- Constructief mechanisme: Luchtbogen en steunberen vangen de laterale spatkrachten op.
+- Zonder deze externe schoren zouden de hoge muren door de gewelfdruk naar buiten kantelen.
+
+Afbeeldingsbeschrijvingen:
+Detailfoto en technische schets van een luchtboog: Links: Foto van een weerbarstige stenen luchtboog overspannend van de kathedraalwand naar de steunbeer. Rechts: Nauwkeurige bouwkundige doorsnede van een dubbele luchtboogconstructie met opgemetselde pinakel.
+
+Sleutelbegrippen: #Luchtbogen #Steunberen #Laterale druk #Gewelfkracht #Wandstabiliteit
+
+---
+
+### Dia 21: Renaissance: Basilica Palladiana te Vicenza [Renaissance]
+
+Originele tekst op de dia:
+Renaissance
+Basilica Palladiana, Andrea Palladio, Vincenza
+
+Inhoudelijke betekenis & uitleg:
+- Hoogtepunt van de Italiaanse Renaissance door bouwmeester Andrea Palladio.
+- Introductie van het beroemde Palladio-motief (serliana) en herleving van antieke proporties.
+
+Afbeeldingsbeschrijvingen:
+Basilica Palladiana in Vicenza (Andrea Palladio, ca. 1549): Prachtige perspectieffoto van het monumentale openbare gebouw: twee verdiepingen van witte marmeren arcades met Dorische halfzuilen beneden en Ionische halfzuilen boven. Balustrades bekroond met klassieke beelden op de daklijst, een kopergroen gewelfd dak en de slanke middeleeuwse klokkentoren (Torre Bissara) op de achtergrond.
+
+Sleutelbegrippen: #Renaissance #Andrea Palladio #Basilica Palladiana #Vicenza #Serliana
+
+---
+
+### Dia 22: Renaissance: Kenmerken (15e en 16e eeuw) [Renaissance]
+
+Originele tekst op de dia:
+Renaissance
+Renaissance ongeveer 15e en 16e eeuw.
+Kenmerken:
+- wedergeboorte Klassieke Oudheid, inspiratie uit de bouwkunst van Grieken en Romeinen
+- harmonie, evenwicht, symmetrie
+- herhaling van vormen
+- wiskundige principes, maatverhouding
+- gebruik van balkons
+- ontwerp van (grote) koepels
+- vaak een horizontaal ontwerp
+- herkenbare vormelementen als timpaan en zuilen
+
+Inhoudelijke betekenis & uitleg:
+- Wedergeboorte ('rinascita') van de antieke Romeinse idealen.
+- Belangrijkste ontwerpprincipes: symmetrie, harmonie, wiskundige verhoudingen, rustig horizontaal karakter, koepelbouw, balkons, timpanen en zuilen.
+
+Afbeeldingsbeschrijvingen:
+Palazzo Medici-Riccardi & Renaissance geveltekening: Rechtsboven: Hoekperspectief van Palazzo Medici Riccardi in Florence met zware rustica-natuursteen beneden en verfijnder metselwerk boven onder een monumentale kroonlijst. Onder: Schetsmatige geveldoorsnede met aanduidingen 'halfzuilen' en 'balkons'.
+
+Sleutelbegrippen: #Wedergeboorte #Symmetrie #Harmonie #Maatverhouding #Horizontaal ontwerp #Koepels
+
+---
+
+### Dia 23: Barok: De Trevifontein te Rome [Barok]
+
+Originele tekst op de dia:
+Barok
+
+Inhoudelijke betekenis & uitleg:
+- Prikkelende introductie van de Barok: het theater van water, steen, beelden en architectuur versmolten tot één dramatisch geheel.
+
+Afbeeldingsbeschrijvingen:
+Trevifontein (Fontana di Trevi) in Rome (Nicola Salvi, 1762): Frontale groothoekopname van de wereldberoemde monumentale barokfontein tegen de gevel van Palazzo Poli: gigantische Korinthische pilasters, een triomfboogachtige centrale nis met de god Oceanus op een schelpwagen getrokken door gevleugelde zeepaarden en tritons, woeste natuurlijke rotsformaties waaruit turkoois water kolkt in een gigantisch bassin, geflankeerd door toekijkende menigten.
+
+Sleutelbegrippen: #Barok #Trevifontein #Rome #Nicola Salvi #Dramatiek #Oceanus
+
+---
+
+### Dia 24: Barok: Kenmerken & Theatrale Effecten [Barok]
+
+Originele tekst op de dia:
+Barok
+Barok ongeveer 17e – halverwege 18e eeuw
+Kenmerken
+- 'Gesamtkunst': versieringen, beeldhouwwerken, schilderijen, stucwerk
+- Sterk licht-donker contrast door elementen die naar voren of achter staan (let bijv. op de gevel)
+- Toepassen van holle of bolle vormen
+- Verbreken en vervormen van bestaande klassiek vormen
+- Nadruk op beweging (bijv. zuilen met gedraaid effect)
+- De omgeving (tuinen) wordt betrokken bij de architectuur
+>>> Theatrale effecten om de kijker in vervoering te brengen.
+
+Inhoudelijke betekenis & uitleg:
+- Gesamtkunstwerk: naadloze samensmelting van bouw, beeldhouwwerk, stucwerk en schilderkunst.
+- Vormkenmerken: holle (concave) en bolle (convexe) curven, gebroken frontons, gedraaide zuilen, sterk clair-obscur.
+- Doel: De toeschouwer emotioneel raken, verbijsteren en in vervoering brengen.
+
+Afbeeldingsbeschrijvingen:
+Vier voorbeelden van Barokke dynamiek en illusionisme: Boven links: Golvende hol-bolle gevel van San Carlo alle Quattro Fontane door Francesco Borromini. Boven rechts: Barokke kerkgevel met diep vooruitspringende risalieten en nissen. Onder links en rechts: Spectaculair plafondfresco met quadratura (trompe-l'oeil architectuur die schijnbaar doorloopt tot in de open hemel vol zwevende engelen en heiligen) en rijk verguld stucwerk.
+
+Sleutelbegrippen: #Gesamtkunst #Licht-donker contrast #Hol en bol #Beweging #Theatraal effect #Vervoering
+
+---
+
+### Dia 25: Classicisme: Kenmerken (17e tot halverwege 18e eeuw) [Classicisme]
+
+Originele tekst op de dia:
+Classicisme
+Classicisme 17e eeuw tot halverwege 18e eeuw
+Kenmerken:
+Terugkeer naar strenge, heldere en zuivere vormen uit de Griekse en Romeinse bouwkunst (meer nog dan tijdens de Renaissance)
+- eenvoudig grondplan (o.a. kubus, cirkel)
+- symmetrie
+- centrale entree
+- harmonische indeling d.m.v. horizontale en verticale lijnen
+- gebruik van zuilen/pilasters
+- gebruik van architraven, kapitelen, timpaan, rondbogen
+- bij de entree zijn vaak trappen over de gehele breedte geplaatst (net als bij een Griekse tempel)
+
+Inhoudelijke betekenis & uitleg:
+- Strenge reactie tegen de uitbundige grilligheid van de Barok.
+- Zuiver geometrisch grondplan (kubus, cilinder, rechthoek), volmaakte symmetrie, centrale tempelingang met monumentale trappenpartij over de volle breedte.
+
+Afbeeldingsbeschrijvingen:
+Paleis op de Dam & Panthéon te Parijs: Boven: Paleis op de Dam in Amsterdam (Jacob van Campen, 1648) – Hollands classicistisch stadhuis van zandsteen met strakke ritmiek van pilasters, gebeeldhouwde timpanen en een centrale koepeltoren. Onder: Panthéon in Parijs (Soufflot) – monumentaal Grieks tempelfront met diepe zuilengalerij, timpaan en brede trappenpartij, bekroond door een imposante klassieke koepel.
+
+Sleutelbegrippen: #Classicisme #Paleis op de Dam #Panthéon #Strenge vormen #Centrale entree #Trappenpartij
+
+---
+
+### Dia 26: Modernisme (vanaf 1920): De afgelopen 100 jaar in NL [Modernisme]
+
+Originele tekst op de dia:
+De afgelopen 100 jaar in NL....
+Modernisme (vanaf 1920)
+Het breken met traditionele opvattingen of ideeën, anti-traditioneel.
+Door nieuwe technieken en uitvindingen verandert de maatschappij in snel tempo. De blik is gericht op de toekomst, op veranderingen.
+Bouwkunst:
+-Sobere en strakke vormen
+-Weinig versieringen
+-Gebouwen als blokkendozen
+-Functioneel en zakelijk
+-Beton en staal
+De gedachte: "Form follows function"
+
+Inhoudelijke betekenis & uitleg:
+- Radicale stijlbreuk: afwijzing van alle historische stijlen en ornamenten.
+- Kernmotto: 'Form follows function' – de vorm wordt puur bepaald door het functionele doel.
+- Materialen: gewapend beton, staalprofielen en grote vlakken glas.
+- Uiterlijk: sobere blokkendozen, platte daken, efficiëntie en zakelijkheid.
+
+Afbeeldingsbeschrijvingen:
+Unité d'Habitation & Van Nellefabriek: Boven: Unité d'Habitation in Marseille (Le Corbusier) – monumentaal woongebouw van ruw zichtbeton (béton brut) op zware pilotis (kolommen), met een regelmatig modulair gevelraster en primaire kleurvlakken op de balkons. Onder: Van Nellefabriek in Rotterdam – strakke glazen gevels met stalen profielen, paddenstoelkolommen en de belettering 'VAN NELLE' op het dak.
+
+Sleutelbegrippen: #Modernisme #Form follows function #Blokkendozen #Beton en staal #Anti-traditioneel #Van Nellefabriek
+
+---
+
+### Dia 27: Modernisme: Opdracht 1 (Van Nellefabriek Video) [Modernisme]
+
+Originele tekst op de dia:
+https://www.youtube.com/watch?v=d-UOJabVzzo
+3:40-9:30
+OPDRACHT 1:
+De presentator vertelt dat deze fabriek symbool staat voor het Modernisme en het sterke geloof in de vooruitgang van het begin van de 20e eeuw. Leg dit uit.
+
+Inhoudelijke betekenis & uitleg:
+- Koppeling van theorie aan een concrete case study via video (Van Nellefabriek Rotterdam).
+- Focus op vooruitgangsgeloof: hygiëne, overvloedig daglicht, frisse lucht en mechanisering van de productie.
+
+Afbeeldingsbeschrijvingen:
+Van Nellefabriek luchtbruggen: Foto genomen vanaf maaiveld: de karakteristieke schuine, glazen en stalen luchtbruggen die diagonaal over de fabrieksstraat steken en de verschillende productievleugels met elkaar verbinden voor efficiënt intern goederentransport onder natuurlijk licht.
+
+Opdracht 1: Van Nellefabriek als symbool voor het Modernisme
+Instructies:
+- Bekijk het videofragment (3:40 - 9:30).
+- Leg uit waarom deze fabriek symbool staat voor het Modernisme en het sterke geloof in de vooruitgang van het begin van de 20e eeuw.
+Belangrijke antwoordpunten:
+- Gebruik van revolutionaire materialen: gewapend beton, staal en vliesgevels van glas.
+- Aandacht voor de arbeider: maximale toetreding van daglicht en frisse lucht ('licht, lucht en ruimte') ter vervanging van donkere 19e-eeuwse zweetwerkplaatsen.
+- Functionele efficiëntie: interne transportbanden door schuine glazen bruggen, directe weerspiegeling van het industriële proces in de vormgeving.
+
+Sleutelbegrippen: #Van Nellefabriek #Opdracht 1 #Vooruitgangsgeloof #Luchtbruggen #20e eeuw
+
+---
+
+### Dia 28: Postmodernisme (vanaf ca. 1970/1980): Reactie op het Modernisme [Postmodernisme]
+
+Originele tekst op de dia:
+Na het Modernisme komt..
+Postmodernisme
+Reactie op het Modernisme
+Filosofie/gedachte waarbij men uitgaat dat er niet één waarheid is. Men maakt geen onderscheid tussen lage en hoge cultuur. Architecten gebruiken ironie in hun werk.
+-uitbundige kleuren
+-vrije vormen
+-speelse details
+-het mengen van stijlen uit het verleden
+
+Inhoudelijke betekenis & uitleg:
+- Tegengeluid: protest tegen de eentonige, kille, grijze glazen dozen van het modernisme.
+- Filosofie: pluralisme, geen universele waarheid, versmelting van hoge kunst met populaire cultuur.
+- Kenmerken: ironie en humor, eclectisch citeren van historische stijlelementen, felle uitbundige kleuren en vrije, speelse vormen.
+
+Afbeeldingsbeschrijvingen:
+Groninger Museum & Castellum Houten: Boven: Groninger Museum in het Verbindingskanaal (Alessandro Mendini e.a.) – vrolijk geelgouden toren, mozaïekpatronen, paviljoens met expressieve schuine vlakken en felle contrasterende kleuren op het water. Onder: Castellum in Houten – postmodern wooncomplex met getrapte bakstenen torens, klassieke poortmotieven en speelse gevelgeledingen die verwijzen naar een middeleeuwse vesting of renaissancepaleis.
+
+Sleutelbegrippen: #Postmodernisme #Groninger Museum #Alessandro Mendini #Ironie #Eclectisme #Uitbundige kleuren
+
+---
+
+### Dia 29: Supermodernisme: En nu... [Supermodernisme]
+
+Originele tekst op de dia:
+En nu...
+Supermodernisme
+Dankzij computers is het ontwerpen en berekenen van opvallende, hoge of extreme vormen voor een gebouw mogelijk.
+Gebouwen zien er strak en industrieel uit.
+Het gebouw vraagt om aandacht: "Look at me!"
+https://schooltv.nl/video/college-tour-in-de-klas-rem-koolhaas/
+
+Inhoudelijke betekenis & uitleg:
+- Hedendaags tijdperk: gedreven door computerrekenkracht (3D CAD, parametrisch ontwerpen).
+- Mogelijkheid om extreme, vloeiende en reusachtige constructies foutloos te berekenen.
+- Uiterlijk: strak, hightech en industrieel (glas, titanium, staal).
+- Doel: De iconische eyecatcher ('Look at me!'), ontworpen om mondiaal herkenbaar te zijn.
+
+Sleutelbegrippen: #Supermodernisme #Computers #Look at me! #Extreme vormen #Rem Koolhaas #Industrieel
+
+---
+
+### Dia 30: Supermodernisme: Collage van Hedendaagse Iconen [Supermodernisme]
+
+Inhoudelijke betekenis & uitleg:
+- Visuele demonstratie van de enorme variatie binnen het Supermodernisme en de hedendaagse iconische architectuur.
+
+Afbeeldingsbeschrijvingen:
+Zes iconische voorbeelden van Supermodernisme: Collage van zes wereldberoemde hedendaagse gebouwen:
+- Boven links: London City Hall (Norman Foster) – bolvormig, hellend glazen gebouw aan de Theems bij Tower Bridge, berekend voor minimale zonnewarmte en maximale energie-efficiëntie.
+- Boven midden: Nationaal Stadion van Peking ('Vogelnest', Herzog & de Meuron) – chaotisch ogend vlechtwerk van gigantische stalen liggers gereflecteerd in het water.
+- Midden links: Markthal Rotterdam (MVRDV) – gigantische hoefijzervormige boog van appartementen met daartussen een gigantische hal met een digitaal bedrukt kleurrijk kunstwerk ('Hoorn des Overvloeds').
+- Midden rechts: ARCAM te Amsterdam (René van Zuuk) – golvende aluminium schil met organische glasgevel aan het Oosterdok.
+- Onder links: Kantoorgebouw De Walvis / Westerdok in Amsterdam – gestapelde glazen en gekleurde stroken boven het water.
+- Onder rechts: Rotterdam Centraal Station (Benthem Crouwel / Team CS) – spectaculaire scherpe, roestvrijstalen luifel die als een pijl naar het stadscentrum wijst.
+
+Sleutelbegrippen: #London City Hall #Vogelnest Peking #Markthal #Rotterdam Centraal #ARCAM #Iconisch
+
+---
+
+### Dia 31: Architectuur op Eurobiljetten [Inleiding]
+
+Originele tekst op de dia:
+Je kunt oefenen met de architectuurkenmerken door briefgeld te bestuderen…
+https://www.klu.nl/architectuurgeschiedenis-op-een-eurobiljet/...
+
+Inhoudelijke betekenis & uitleg:
+- Origineel ontwerp van Robert Kalina (1996): elk biljet toont een chronologische bouwstijl via poorten/ramen (voorzijde) en bruggen (achterzijde).
+- Directe kapstok om alle behandelde stromingen aan te koppelen en te onthouden.
+
+Afbeeldingsbeschrijvingen:
+Overzicht van alle Eurobiljetten (€5 t/m €500): Collage van de bankbiljetten:
+- €5 (Grijs): Klassieke Oudheid – Dorische en Ionische architraafbouw en Romeinse aquaducten.
+- €10 (Rood): Romaans – zware stenen rondbogen en massieve brugconstructie.
+- €20 (Blauw): Gotiek – slanke spitsbogen, fijnmazig maaswerk en spitse gotische brugbogen.
+- €50 (Oranje): Renaissance – harmonische rondboogvensters, symmetrische pilasters en klassieke brug.
+- €100 (Groen): Barok & Rococo – weelderig versierde poorten, beelden, cartouches en dynamische lijnen.
+- €200 (Geel/Bruin): IJzer- en glasarchitectuur (19e eeuw) – industriële stalen bogen en stationskappen.
+- €500 (Paars): Moderne architectuur (20e eeuw) – strakke hangbruggen en betonnen/glazen structuren.
+
+Sleutelbegrippen: #Eurobiljetten #Robert Kalina #Architectuurgeschiedenis #Poorten en Bruggen
+
+---
+
+### Dia 32: Opdracht 2: Persoonlijke Smaak & Droomhuis op Funda [Beroep van de Architect]
+
+Originele tekst op de dia:
+OPDRACHT 2:
+• Wat voor soort gebouwen spreken jou aan? Houd je bijvoorbeeld meer van oude historische gebouwen of van moderne nieuwbouw?
+• Zoek een afbeelding van een gebouw dat je aanspreekt en leg uit hoe dat komt.
+• Ga daarna naar Funda en zoek jouw droomhuis. Beschrijf uitvoerig waarom dit woonhuis jou aanspreekt. Beschrijf ook vijf kenmerken waaraan jouw toekomstig huis moet voldoen.
+
+Inhoudelijke betekenis & uitleg:
+- Bewustwording van de eigen esthetische en functionele woonwensen.
+- Formuleren van vijf concrete ontwerpcriteria (PvE-achtige eisen).
+
+Afbeeldingsbeschrijvingen:
+Drie contrasterende woon- en beeldbepalende typen: Boven links: Sydney Opera House (Jørn Utzon) – expressieve witte betonnen schaaldaken aan het water. Boven midden: Amsterdamse historische grachtenpanden met bakstenen gevels, grote schuiframen en monumentale toppen. Boven rechts: Ultramoderne minimalistische witte villa met glazen puien, buitenterras en turkoois zwembad.
+
+Opdracht 2: Persoonlijke smaak & Funda droomhuis
+Instructies:
+- Bepaal je voorkeur: historisch erfgoed of strakke nieuwbouw?
+- Zoek een aansprekende afbeelding en motiveer je keuze.
+- Zoek een droomhuis op Funda en beschrijf 5 specifieke kenmerken waaraan het moet voldoen.
+
+Sleutelbegrippen: #Opdracht 2 #Funda #Persoonlijke smaak #Woonwensen #Historisch vs Nieuwbouw
+
+---
+
+### Dia 33: Case Study ING 1986: Het Zandkasteel (Alberts & Van Huut) [6 Kenmerken]
+
+Originele tekst op de dia:
+Architectenbureau Alberts en van Huut
+1986
+Voormalig Hoofdkantoor ING
+
+Inhoudelijke betekenis & uitleg:
+- Iconisch voorbeeld van Organische Architectuur (Antroposofisch geïnspireerd).
+- Kenmerken: zandkleurige baksteen, geen enkele rechte hoek (90 graden vermeden), torentjes, veel groen, daglicht en een menselijke maat.
+
+Afbeeldingsbeschrijvingen:
+Vier foto's van 'Het Zandkasteel' in Amsterdam Zuidoost: Boven links: Totaalaanzicht van de tien aaneengeschakelde torenclusters van warme zandkleurige baksteen met schuine daken en blauwe dakkapellen omgeven door groen. Boven rechts: Straatentree met schuin toelopende bakstenen zuilen en koperen luifels. Onder links: Kleurrijk interieur met expressieve veelhoekige hanglampen in stervorm en witte pilaren. Onder rechts: Centraal atrium met veelhoekige wandopeningen waardoor klimop naar beneden slingert en daglicht diep in het gebouw doordringt.
+
+Sleutelbegrippen: #Alberts en van Huut #Zandkasteel #Organische architectuur #Geen rechte hoeken #ING Hoofdkantoor 1986
+
+---
+
+### Dia 34: Case Study ING 2002: De Schoen (Meyer & Van Schooten) [6 Kenmerken]
+
+Originele tekst op de dia:
+Meyer en Van Schooten Architecten
+2002
+Voormalig Hoofdkantoor ING
+
+Inhoudelijke betekenis & uitleg:
+- Supermodernistisch en hightech statement langs de snelweg A10 aan de Zuidas.
+- Vorm: 'De Schoen' / 'De Kruimeldief', rustend op schuine stalen V-poten met een aerodynamisch silhouet van geanodiseerd aluminium en dubbele glazen klimaatgevels.
+
+Afbeeldingsbeschrijvingen:
+Drie foto's van 'De Schoen' (ING House): Boven: Exterieur overdag – het futuristische aluminium en glazen volume zweeft op schuine stalen V-kolommen boven het maaiveld langs de ringweg A10. Onder links: Directiekamer/boardroom met een spectaculair schuin glazen lamellendak en een monumentale vergadertafel. Onder rechts: Interieurpassage met dubbele glazen gevel, open stalen trappen en loopbruggen.
+
+Sleutelbegrippen: #Meyer en Van Schooten #De Schoen #Zuidas #Hightech #ING Hoofdkantoor 2002 #V-poten
+
+---
+
+### Dia 35: Drie ING-hoofdkantoren: Dezelfde functie, totaal ander uiterlijk [6 Kenmerken]
+
+Originele tekst op de dia:
+Deze drie gebouwen hebben eenzelfde functie gehad en toch zien ze er totaal verschillende uit. Belangrijk bij dit vak CKV is om de verschijningsvorm van gebouwen onder woorden te leren brengen. Vandaar de volgende opdracht (zie volgende dia).
+
+Inhoudelijke betekenis & uitleg:
+- Kerninzicht van architectuuranalyse: dezelfde corporate bankfunctie leidt in verschillende decennia tot volstrekt andere esthetische oplossingen door veranderende tijdgeest, materialen en visies.
+
+Afbeeldingsbeschrijvingen:
+Vergelijking van drie opeenvolgende ING-hoofdkantoren: Links: Zandkasteel (1986, baksteen, organisch, schuine lijnen). Rechtsboven: De Schoen (2002, aluminium/staal, hightech, zwevend op kolommen). Rechtsonder: ING Cedar kantoor (2019, Benthem Crouwel) – horizontaal wit paviljoen met afgeronde vloervelden, veel glas en liggend aan een vijver in het groen.
+
+Sleutelbegrippen: #Verschijningsvorm #Functie vs Vorm #ING Cedar #Vergelijking
+
+---
+
+### Dia 36: Opdracht 3: Oefening in Waarneming en Verwoorden [Beroep van de Architect]
+
+Originele tekst op de dia:
+Oefening in waarneming en verwoorden
+OPDRACHT 3:
+• Zoek een afbeelding van een gebouw
+• Vorm viertallen
+• Eén leerling gaat zonder dat de anderen het gebouw zien, beschrijven hoe het gebouw eruit ziet.
+• De anderen proberen met potlood het gebouw te tekenen zonder dat ze het zien.
+• Wissel en laat iemand anders een ander soort gebouw omschrijven.
+• Bekijk na de wissels de tekeningen, en bepaal wie het duidelijkst het gebouw omschreven heeft waardoor het zo herkenbaar mogelijk getekend kon worden.
+• Bepaal ook welke tekening wellicht minder lijkt op het origineel, maar waar wel door 'toeval' een interessant gebouw ontstaan is op het tekenvel.
+
+Inhoudelijke betekenis & uitleg:
+- Klassieke didactische oefening in architecturale communicatie en nauwkeurige beeldanalyse.
+
+Afbeeldingsbeschrijvingen:
+Vier zeer diverse gebouwtypen ter inspiratie: Boven links: Traditionele gouden Thaise tempel met meervoudige daken. Boven rechts: Empire State Building in New York (Art Deco wolkenkrabber met getrapte spits). Onder links: Eigentijds kantoorgebouw met vouwende gevelpanelen. Onder rechts: Monumentale Gotische tweelingtorenkathedraal.
+
+Opdracht 3: Waarneming en verwoorden in viertallen
+Instructies:
+- Beschrijf een gebouw mondeling zonder dat groepsgenoten het zien.
+- Anderen tekenen puur op basis van jouw beschrijving.
+- Evalueer welke architectonische termen (vorm, ritme, daktype, ramen) het meest effectief waren.
+
+Sleutelbegrippen: #Waarneming #Verwoorden #Opdracht 3 #Viertallen #Tekenen
+
+---
+
+### Dia 37: De Zes Kenmerken die de Uitstraling van een Gebouw Bepalen [6 Kenmerken]
+
+Originele tekst op de dia:
+Zes kenmerken die de uitstraling van een gebouw bepalen
+
+Inhoudelijke betekenis & uitleg:
+- Introductie van het centrale analytische referentiekader van de cursus:
+- 1. Functie, 2. Vorm, 3. Omgeving, 4. Materiaal, 5. Constructie, 6. Visie.
+
+Afbeeldingsbeschrijvingen:
+Twee beeldbepalende hedendaagse bouwwerken: Links: Het Dansende Huis in Praag (Frank Gehry & Vlado Milunić) – een dynamische botsing tussen een glazen golvende toren en een betonnen toren met speelse ramen. Rechts: Sluishuis op IJburg in Amsterdam (BIG & Barcode Architects) – spectaculair woonblok boven het water met een enorme cantilever/uitkraging waaronder boten kunnen varen en getrapte daktuinen.
+
+Sleutelbegrippen: #Zes kenmerken #Uitstraling #Dansende Huis #Sluishuis IJburg
+
+---
+
+### Dia 38: 1. Functie [6 Kenmerken]
+
+Originele tekst op de dia:
+1. Functie
+Vroeger was de functie van een gebouw herkenbaar.
+Tegenwoordig maken architecten nog maar zelden een gebouw dat herkenbaar is.
+De uitstraling moet bij de functie passen
+
+Inhoudelijke betekenis & uitleg:
+- Verschuiving in herkenbaarheid: vroeger had elk type gebouw (kerk, fabriek, stadhuis, gevangenis) een vaste conventionele vormentaal.
+- Tegenwoordig is het gebouwtype vaak ambigu aan de buitenzijde, maar moet de uitstraling (bijv. plechtig, betrouwbaar, open of uitnodigend) nog steeds harmoniëren met het doel.
+
+Afbeeldingsbeschrijvingen:
+Modern Gerechtsgebouw / Paleis van Justitie: Foto van een eigentijds gerechtsgebouw: strakke natuurstenen gevelbekleding met smalle verticale raamstroken die autoriteit en degelijkheid uitstralen, gecombineerd met een monumentale halfronde glazen cilinder die transparantie van het rechtssysteem symboliseert.
+
+Sleutelbegrippen: #Functie #Herkenbaarheid #Uitstraling #Gerechtsgebouw
+
+---
+
+### Dia 39: 2. Vorm [6 Kenmerken]
+
+Originele tekst op de dia:
+2. Vorm
+• Klassieke gebouwen zijn vaak symmetrisch met een centrale entree. Modernisten laten juist zien hoe ze te werk gaan; de functie bepaald de vorm.
+• Nieuwe technologie maakt het mogelijk om complexe, organische vormen te maken waardoor de functie weer minder zichtbaar is
+
+Inhoudelijke betekenis & uitleg:
+- Klassiek: strikte symmetrie, vaste proporties, centrale as met monumentale toegang.
+- Modernisme: asymmetrie, heldere kubische volumes, direct afgeleid van het gebruik.
+- Eigentijds/Supermodernisme: organische, vloeiende en vrije vormen (blobs) dankzij 3D-modelleersoftware.
+
+Afbeeldingsbeschrijvingen:
+De Blob op het 18 Septemberplein te Eindhoven (Massimiliano Fuksas): Futuristische, organisch gevormde glazen koepel/sculptuur ('Binary Low Object') opgebouwd uit een complex driehoekig stalen vlechtwerk met glaspanelen, staand tussen traditionele vooroorlogse en modernistische winkelpanden.
+
+Sleutelbegrippen: #Vorm #Symmetrie #Centrale entree #Organische vormen #De Blob Eindhoven #Massimiliano Fuksas
+
+---
+
+### Dia 40: 3. Omgeving [6 Kenmerken]
+
+Originele tekst op de dia:
+3. Omgeving
+• Opgaan in de omgeving, of juist contrasteren in de omgeving. Je kunt dit doen door hoogte, vorm, materiaal en kleur.
+
+Inhoudelijke betekenis & uitleg:
+- Twee fundamentele ontwerphoudingen ten opzichte van de context:
+- 1. Opgaan in de omgeving: harmonie, mimicry, aansluiten bij bouwhoogte, ritme en kleurstelling van de buren.
+- 2. Contrasteren met de omgeving: bewuste frictie, provocatie of landmarkwerking door afwijkende schaal, materialen of kleuren.
+
+Afbeeldingsbeschrijvingen:
+Contrasterend grachtenpand & Crystal Houses PC Hooftstraat: Links: Historische Amsterdamse grachtengevelwand waarin één perceel plotseling een fel cyaanblauwe golvende glazen gevel heeft (extreem contrast). Rechts: Crystal Houses in de P.C. Hooftstraat (MVRDV) – traditionele 19e-eeuwse Amsterdamse gevel waarvan de onderste helft is opgebouwd uit volledig transparante massieve glazen bakstenen die vloeiend overgaan in rode kleibakstenen.
+
+Sleutelbegrippen: #Omgeving #Opgaan vs Contrasteren #Hoogte #Materiaal #Kleur #Crystal Houses MVRDV
+
+---
+
+### Dia 41: 4. Materiaal [6 Kenmerken]
+
+Originele tekst op de dia:
+4. Materiaal
+• Materiaal draagt bij aan de uitstraling. Een bankgebouw zal bijvoorbeeld vroeger vaak van / met marmer gemaakt zijn om luxe uit te stralen. Of glas om transparantie uit te stralen
+
+Inhoudelijke betekenis & uitleg:
+- Psychologische en symbolische lading van materialen.
+- Natuursteen/marmer: traditie, luxe, stabiliteit, rijkdom en onvergankelijkheid.
+- Glas en staal: openheid, eerlijkheid, transparantie, democratie en hedendaagse innovatie.
+
+Afbeeldingsbeschrijvingen:
+Twee interieurs/exterieurs met marmer en glas: Links: Luxe atrium van een hedendaags kantoor met lichtgrijze geaderde marmeren vloeren en wanden gecombineerd met strakke zwarte stalen kozijnen en glas. Rechts: Hoge spiegelende glazen vliesgevel met reflecterende kolommen en een bronzen sculptuur op het voorplein.
+
+Sleutelbegrippen: #Materiaal #Marmer #Glas #Transparantie #Luxe #Bankgebouw
+
+---
+
+### Dia 42: 5. Constructie [6 Kenmerken]
+
+Originele tekst op de dia:
+5. Constructie
+• Samenvoegen van verschillende delen.
+• Hoe blijft een gebouw overeind staan? Door skeletbouw of een steunpunt (zuilen). Door muren, vloeren en fundering.
+
+Inhoudelijke betekenis & uitleg:
+- De technische logica: krachtenverdeling en stabiliteit.
+- Traditioneel: dragende muren en balklagen.
+- Modern/hedendaags: dragend skelet van staal en beton, kolommenrasters, of dubbelgekromde dragende schaalconstructies zonder tussenkolommen.
+
+Afbeeldingsbeschrijvingen:
+Station Arnhem Centraal (UNStudio / Ben van Berkel): Twee foto's: Boven/links toont de glooiende buitenzijde van de transferterminal. Midden/rechts toont de iconische 'twist' in de hal – een dubbelgekromde betonnen en stalen constructie die als een gigantische draaikolk van het dak vloeiend overgaat in de vloer en kolom, waardoor een enorme kolomvrije hal ontstaat.
+
+Sleutelbegrippen: #Constructie #Skeletbouw #Steunpunt #Fundering #Station Arnhem Centraal #UNStudio
+
+---
+
+### Dia 43: 6. Visie [6 Kenmerken]
+
+Originele tekst op de dia:
+6. Visie
+• Het idee van de architect; hoe moet een gebouw er uit zien, functioneren, om in te wonen, werken en samenleven.
+
+Inhoudelijke betekenis & uitleg:
+- Het onderliggende filosofische, sociale of artistieke concept van de ontwerper.
+- Bepaalt de verhouding tussen de mens, het gebouw en de gemeenschap.
+
+Afbeeldingsbeschrijvingen:
+Gemeenschappelijk wooncomplex & Inntel Hotel Zaandam: Links: Modern woongebouw met ruime collectieve galerijen en buitentrappen gericht op een grote groene binnentuin (visie gericht op sociale ontmoeting en ecologisch wonen). Rechts: Het Inntel Hotel in Zaandam (WAM Architecten / Wilfried van Winden) – een bijna 40 meter hoge toren opgebouwd uit een collage van bijna zeventig traditionele Zaanse houten huisjes in vier tinten Zaans groen met één contrasterend 'blauw huisje' (Monet).
+
+Sleutelbegrippen: #Visie #Idee van de architect #Samenleven #Inntel Hotel Zaandam #Sociale cohesie
+
+---
+
+### Dia 44: Case Study: Scheepvaartmuseum Amsterdam [Scheepvaartmuseum]
+
+Originele tekst op de dia:
+Scheepvaartmuseum Amsterdam
+
+Inhoudelijke betekenis & uitleg:
+- Monumentaal historisch gebouw: 's Lands Zeemagazijn uit 1656 (ontworpen door Daniël Stalpaert in Hollands Classicisme).
+- Spectaculaire moderne transformatie van de open binnenplaats met een glazen koepel (2011).
+
+Afbeeldingsbeschrijvingen:
+Exterieur Scheepvaartmuseum en Glazen Overkapping: Boven: Foto vanaf het water op het witte classicistische Zeemagazijn met daarvoor het historische VOC-spiegelschip Amsterdam afgemeerd. Linksonder en Rechtsonder: De gerenoveerde binnenplaats ('Het Open Pleyn') overdekt door een gigantische, geometrische glazen koepel van duizenden ruitjes en stalen staven die een ragfijn netwerk vormen en fascinerende schaduwpatronen werpen op de stenen gevels.
+
+Sleutelbegrippen: #Scheepvaartmuseum #Lands Zeemagazijn #Daniël Stalpaert #Glazen overkapping #Het Open Pleyn
+
+---
+
+### Dia 45: Scheepvaartmuseum: Opdracht 4 [Scheepvaartmuseum]
+
+Originele tekst op de dia:
+Opdracht 4:
+• Beschrijf de overkapping van het Scheepvaartmuseum.
+• Wat is volgens jou de visie geweest van architect Liesbeth van der Poll toen zij deze nieuwbouw aan het museum toevoegde?
+• Hoe heeft zij deze visie omgezet in tastbare architectuur?
+• Gebruik in je antwoord de 6 kenmerken: functie, vorm, omgeving, materiaal, constructie en visie.
+
+Inhoudelijke betekenis & uitleg:
+- Praktische integratieopdracht: het toepassen van alle 6 uitstralingskenmerken op één concreet bouwwerk.
+
+Afbeeldingsbeschrijvingen:
+Verlichte koepel 's avonds: Close-up van het plafond van de binnenplaats bij schemering: in elk stalen knooppunt van de koepel brandt een warme led-lamp, waardoor het gewelf oplicht als een stralende hemel boven de verlichte 17e-eeuwse zandstenen vensters.
+
+Opdracht 4: Analyse Scheepvaartmuseum aan de hand van de 6 kenmerken
+Instructies:
+- Beschrijf de glazen overkapping.
+- Wat was de visie van architect Liesbeth van der Poll (Dok Architecten)?
+- Hoe vertaalt zij dit in tastbare architectuur via Functie, Vorm, Omgeving, Materiaal, Constructie en Visie?
+
+Sleutelbegrippen: #Opdracht 4 #Liesbeth van der Poll #Dok Architecten #6 kenmerken toepassing
+
+---
+
+### Dia 46: Scheepvaartmuseum: Uitwerking & Analyse [Scheepvaartmuseum]
+
+Originele tekst op de dia:
+• Doel van de overkapping: meer benutbare ruimte creëren in het museum.
+• Overkapping van staal en glas
+• Glas om binnenplaats-idee te behouden.
+• Vorm van kompas, of lijnen van landkaart.
+• Led-verlichting lijkt in het donker op de sterrenhemel
+• Vloer: doet denken aan ouderwetse klinkers, maar is van kunststof. Doel: geluid absorberen via smalle kieren. Een holle vloer dus eigenlijk.
+
+Inhoudelijke betekenis & uitleg:
+- Functie: centrale overdekte ontmoetings- en evenementenhal die 365 dagen per jaar bruikbaar is.
+- Materiaal: staal en glas om het gevoel van de open hemel en daglicht te behouden.
+- Vorm & Visie: het stalen ribbenpatroon volgt de kompasroos en loxodromen (rhumb lines) van historische maritieme zeekaarten.
+- Verlichting: geïntegreerde leds transformeren het dak 's avonds in de sterrenhemel (eeuwenoude navigatie op zee).
+- Akoestiek & Constructie: holle kunststof vloer met smalle kieren die klinkers nabootst maar nagalm absorbeert.
+
+Afbeeldingsbeschrijvingen:
+Schaduwspel op de museumwanden: Overzichtsfoto van de lege binnenplaats overdag: zonlicht valt door het complexe glazen vlechtwerk en projecteert een geometrisch waaiervormig netwerk van schaduwen op de witte classicistische wanden en de speciale donkere akoestische vloer.
+
+Sleutelbegrippen: #Kompaslijnen #Zeekaarten #Sterrenhemel #Akoestische vloer #Loxodromen #Binnenplaats
+
+---
+
+### Dia 47: Het Beroep van de Architect: De Kernvragen [Beroep van de Architect]
+
+Originele tekst op de dia:
+• Hoe werkt een architect?
+• Wat komt er allemaal kijken bij het ontwerpen van een gebouw?
+• Wat heeft een architect nodig?
+
+Inhoudelijke betekenis & uitleg:
+- Overgang naar de professionele praktijk van het ontwerpen en bouwen.
+
+Sleutelbegrippen: #Architect #Beroepspraktijk #Ontwerpproces #Kernvragen
+
+---
+
+### Dia 48: Wat heeft een architect nodig? [Beroep van de Architect]
+
+Originele tekst op de dia:
+• Hoe werkt een architect?
+• Wat komt er allemaal kijken bij het ontwerpen van een gebouw?
+• Wat heeft een architect nodig?
+Opdracht
+Inspiratie
+Fantasie
+
+Inhoudelijke betekenis & uitleg:
+- De drie onmisbare fundamenten voor elk architectonisch ontwerp:
+- 1. Opdracht: een reële vraag van een opdrachtgever met een programma en budget.
+- 2. Inspiratie: ideeën geput uit natuur, kunst, geschiedenis, techniek of context.
+- 3. Fantasie: het creatieve vermogen om unieke, nog niet bestaande ruimtelijke oplossingen te bedenken.
+
+Sleutelbegrippen: #Opdracht #Inspiratie #Fantasie #Drie pijlers
+
+---
+
+### Dia 49: Factoren die het Uiterlijk Bepalen: Vraagstelling [Beroep van de Architect]
+
+Originele tekst op de dia:
+Welke factoren bepalen hoe een gebouw eruit komt te zien?
+
+Inhoudelijke betekenis & uitleg:
+- Reflectievraag ter voorbereiding op het Programma van Eisen en contextuele randvoorwaarden.
+
+Sleutelbegrippen: #Factoren #Besluitvorming #Ontwerpinvloeden
+
+---
+
+### Dia 50: Factoren die het Uiterlijk Bepalen: Uitwerking [Beroep van de Architect]
+
+Originele tekst op de dia:
+Welke factoren bepalen hoe een gebouw eruit komt te zien?
+• Een architect gaat niet zomaar in het wilde weg een gebouw bedenken. Er is een reden voor, een behoefte aan een bepaald gebouw, en natuurlijk een opdrachtgever.
+• Samen met de opdrachtgever stelt hij een programma van eisen op (PVE). Dat zijn richtlijnen waaraan een gebouw moet voldoen. Het PVE heeft vaak te maken met de functie van het gebouw, maar ook met de financiële aspecten, en de esthetische wensen van de opdrachtgever.
+• De beperkingen en specifieke eigenschappen van de plek, de situatie, zijn ook van invloed.
+• Er zijn ook externe factoren die van invloed zijn op hoe een gebouw eruit komt te zien; de regels en wetten van ruimtelijke ordening, bijvoorbeeld.
+
+Inhoudelijke betekenis & uitleg:
+- Vier bepalende factorenclusters:
+- 1. Behoefte & Opdrachtgever: concrete maatschappelijke en functionele aanleiding.
+- 2. Programma van Eisen (PvE): richtlijnen inzake functionaliteit, budget/kosten en esthetische wensen.
+- 3. Plek & Situatie: unieke eigenschappen en beperkingen van het kavel (bodem, zoninval, buren, verkeer).
+- 4. Externe factoren: bestemmingsplannen, welstandsnormen en wetten van ruimtelijke ordening.
+
+Sleutelbegrippen: #Programma van Eisen #PvE #Opdrachtgever #Plek en situatie #Ruimtelijke ordening #Financiën
+
+---
+
+### Dia 51: ARCAM Exterieur (Architectuurcentrum Amsterdam) [ARCAM Casus]
+
+Originele tekst op de dia:
+ARCAM Exterieur
+(Architectuurcentrum Amsterdam)
+Als je naar het ARCAM-gebouw kijkt, wat denk je dat de eisen van de opdrachtgever waren?
+Schrijf dit op.
+
+Inhoudelijke betekenis & uitleg:
+- Introductie van de casus ARCAM (ontworpen door René van Zuuk, opgeleverd in 2003 aan de Prins Hendrikkade/Oosterdok).
+- Vraag: Welke eisen van de opdrachtgever (PvE) zijn afleesbaar aan de gevel?
+
+Afbeeldingsbeschrijvingen:
+Twee aanzichten van het ARCAM exterieur: Links: Waterzijde – een monumentale, strakke, drie verdiepingen hoge glazen vliesgevel die direct aan het water van het Oosterdok grenst en maximale openheid toont. Rechts: Straatzijde – een vloeiende, golvende sculpturale huid bekleed met grijs gecoat aluminium (KalZip) die zich om het gebouw vouwt en een dramatisch lensvormig raam vormt naar de straat en de kade.
+
+Opdracht 5: Eisen van de opdrachtgever voor ARCAM
+Instructies:
+- Formuleer wat volgens jou de eisen van de opdrachtgever waren voor het gebouw van ARCAM aan de hand van het exterieur.
+
+Sleutelbegrippen: #ARCAM #René van Zuuk #Architectuurcentrum Amsterdam #Exterieur #Oosterdok
+
+---
+
+### Dia 52: ARCAM Interieur: Opdracht 5 [ARCAM Casus]
+
+Originele tekst op de dia:
+ARCAM interieur
+OPDRACHT 5: Kijk naar wat je ziet en probeer je te verplaatsen in de architect. Omschrijf waarom het interieur van dit gebouw op deze manier is vormgegeven.
+
+Inhoudelijke betekenis & uitleg:
+- Analyse van de interne ruimtelijke organisatie in relatie tot de compacte kavelgrootte.
+- Gebruik van splitlevels, vides, overvloedig daglicht en transparantie.
+
+Afbeeldingsbeschrijvingen:
+Drie foto's van het ARCAM interieur: Links: Schuine overstekende wanden en glazen balustrades met zicht op het water. Midden: Een lichte, witgelakte stalen open trap die de verschillende verdiepingen/vides met elkaar verbindt zonder het licht te blokkeren. Rechts: Sculpturaal gevormde schuine wand met ruitvormige en trapeziumvormige glasopeningen waardoor de complexe geometrie van de buitenschil ook binnen ervaren wordt.
+
+Sleutelbegrippen: #ARCAM interieur #Opdracht 5 #Vides #Lichtinval #Open trap #Ruimtewerking
+
+---
+
+### Dia 53: Gebouw ARCAM: Oud versus Nieuw [ARCAM Casus]
+
+Originele tekst op de dia:
+Gebouw ARCAM
+Oud
+Nieuw
+
+Inhoudelijke betekenis & uitleg:
+- Vergelijking van de oorspronkelijke situatie en de transformatie.
+- René van Zuuk hergebruikte de bestaande betonnen fundering en stalen kolommen van het vroegere havenpaviljoen (van Anton Peters) om kosten en vergunningen te optimaliseren, maar gaf het een compleet nieuwe, dynamische gedaante.
+
+Afbeeldingsbeschrijvingen:
+Transformatie van havenpaviljoen naar ARCAM: Links ('Oud'): Het sobere, rechthoekige betonnen en glazen havenpaviljoentje van Anton Peters met een plat uitkragend dak en een puincontainer ervoor tijdens de ontmanteling. Rechts ('Nieuw'): Het voltooide ARCAM-gebouw van René van Zuuk met de golvende sculpturale zink/aluminiumkap die als een vloeiende schelp over de bestaande constructie heen is gedrapeerd.
+
+Sleutelbegrippen: #Oud en nieuw #Hergebruik fundering #Anton Peters #René van Zuuk #Transformatie
+
+---
+
+### Dia 54: Architect Renzo Piano: Centre Pompidou & NEMO [Renzo Piano]
+
+Originele tekst op de dia:
+Architect: Renzo Piano
+OPDRACHT 6:
+Bestudeer deze twee beroemde gebouwen van architect Renzo Piano.
+Kun je bedenken waar de architect zich door heeft laten inspireren toen hij deze gebouwen ontwierp?
+Is dat aan het gebouw te zien? Zo ja, hoe dan?
+
+Inhoudelijke betekenis & uitleg:
+- Vergelijking van twee beroemde werken van Pritzker Prize-winnaar Renzo Piano:
+- 1. Centre Pompidou in Parijs (1977, met Richard Rogers): hightech binnenstebuiten gekeerd museum.
+- 2. NEMO Science Museum in Amsterdam (1997): groen koperen schip/boeg dat uit het water oprijst boven de IJtunnel.
+
+Afbeeldingsbeschrijvingen:
+Centre Pompidou en NEMO: Links: Centre Pompidou in Parijs – gevel bestaande uit een openbaar plein met een gigantische stalen vakwerkstructuur waaraan de diagonale glazen roltraptunnel en felgekleurde leidingen (blauw voor lucht, groen voor water, geel voor elektriciteit) aan de buitenkant zijn gehangen. Rechts: NEMO in Amsterdam – monumentaal wigvormig gebouw bekleed met geoxideerde groenkoperen platen, rustend in het Oosterdok met een schuin oplopend dakterras vol bezoekers.
+
+Opdracht 6: Inspiratiebronnen van Renzo Piano
+Instructies:
+- Onderzoek de inspiratiebronnen voor Centre Pompidou en NEMO.
+- Bepaal of en hoe die inspiratie afleesbaar is aan de vorm van de gebouwen.
+
+Sleutelbegrippen: #Renzo Piano #Centre Pompidou #NEMO Science Museum #Hightech #Opdracht 6
+
+---
+
+### Dia 55: Renzo Piano: Filosofie & Methode [Renzo Piano]
+
+Originele tekst op de dia:
+Renzo Piano zelf zegt dat hij geen eigen stijl heeft wat betreft hoe een gebouw eruit moet zien. Maar hij heeft wel degelijk een eigen stijl in zijn manier van werken, zijn manier van onderzoek doen naar de plek waar een gebouw komt en de positie dat zo'n gebouw inneemt.
+Een gebouw midden in het water heeft per definitie een andere uitstraling dan een groot gebouw midden in een stad.
+
+Inhoudelijke betekenis & uitleg:
+- Geen vaste formele 'handtekening' of uiterlijke stijl, maar een consequente werkwijze.
+- Diepgaand onderzoek naar de 'genius loci' (de unieke betekenis van de plek).
+- NEMO volgt de exacte helling en as van de onderliggende IJtunnel en ontleent zijn boegvorm aan de maritieme havenhistorie.
+
+Afbeeldingsbeschrijvingen:
+Originele handschets NEMO en foto met VOC-schip: Links: De beroemde groene potloodschets van Renzo Piano waarin de hellende curve van de IJtunnel onder het water doorloopt en aan de oppervlakte een tegengestelde opgaande beweging vormt als een oprijzend schip met vlaggenmast. Rechts: Foto van het voltooide NEMO-gebouw met het historische zeilschip Amsterdam direct ernaast in het havenbekken.
+
+Sleutelbegrippen: #Renzo Piano #Manier van werken #Plek en positie #IJtunnel #Handschets #Maritiem
+
+---
+
+### Dia 56: Manieren om een Gebouw te Ontwerpen: Vraagstelling [Ontwerpmethoden]
+
+Originele tekst op de dia:
+Wat voor manieren heb je voor het ontwerpen van een gebouw?
+
+Inhoudelijke betekenis & uitleg:
+- Introductie van de verschillende creatieve en technische ontwerptechnieken die architecten hanteren.
+
+Sleutelbegrippen: #Ontwerpmethoden #Creatief proces #Vormgeving
+
+---
+
+### Dia 57: Manieren om een Gebouw te Ontwerpen: Overzicht & Klokhuis [Ontwerpmethoden]
+
+Originele tekst op de dia:
+Wat voor manieren heb je om een gebouw te ontwerpen?
+• Potloodschetsen
+• Computerprogramma's
+• Blokken
+• Vouwen
+• Kleien
+• Etc.
+• Etc.
+https://www.npostart.nl/het-klokhuis/30-09-2020/VPWON_1292424
+
+Inhoudelijke betekenis & uitleg:
+- Concrete ontwerptechnieken: potloodschetsen, 3D CAD/BIM software, houten/schuimblokken stapelen, papier vouwen en knippen, kleien en boetseren.
+- Verwijzing naar de Klokhuis-aflevering over de bouw van de Markthal Rotterdam.
+
+Afbeeldingsbeschrijvingen:
+Interieur Markthal Rotterdam (MVRDV): Groothoekfoto van de binnenzijde van de Markthal: de gigantische boogvormige schil bekleed met 11.000 m² kleurrijk kunstwerk van fruit, insecten en bloemen (door Arno Coenen en Iris Roskam), met eronder marktkramen en roltrappen vol publiek.
+
+Sleutelbegrippen: #Potloodschetsen #Computerprogramma's #Blokken #Vouwen #Kleien #Klokhuis #Markthal
+
+---
+
+### Dia 58: Architect/Designer Aldo Rossi (1931-1997): Gebouwen & Productdesign [Ontwerpmethoden]
+
+Originele tekst op de dia:
+Architect / Designer Aldo Rossi (1931-1997)
+Bestaande gebouwen inspireerden hem tot het vervaardigen van designvoorwerpen en bestaand design inspireerde hem tot het ontwerpen van gebouwen.
+
+Inhoudelijke betekenis & uitleg:
+- Kruisbestuiving tussen productontwerp en architectuur.
+- Elementaire geometrische basisvormen (kegel, cilinder, koepel) worden over en weer geschaald tussen espressomachine/fluitketel en museumtoren.
+
+Afbeeldingsbeschrijvingen:
+Schets Aldo Rossi & Bonnefantenmuseum Maastricht: Links: Zwart-wit potlood- en inkttekening van Aldo Rossi waarin een industriële cilinder/koffiepotmotief direct naast een klassieke koepeltoren is getekend. Rechts: Foto van het Bonnefantenmuseum in Maastricht met de beroemde cilindrische zinken koepeltoren ('Cupola') aan de oever van de Maas.
+
+Sleutelbegrippen: #Aldo Rossi #Productdesign #Bonnefantenmuseum #Maastricht #Cupola #Kruisbestuiving
+
+---
+
+### Dia 59: Ontwerp-opdracht 1: Gebruiksvoorwerp als Gebouw [Ontwerpmethoden]
+
+Originele tekst op de dia:
+Ontwerp-opdracht 1.
+• Zoek op internet een afbeelding van een gebruiksvoorwerp. Bijv: tandenborstel, stoel, bestek, ventilator, voorraadpot, etc.
+• Teken op het A4-vel alleen de contouren (buitenlijnen) van het voorwerp na.
+• Met het tekenpotlood zet je nu enkele lijnen om van dit voorwerp een gebouw te maken (je mag het A4-vel ook draaien). Denk er goed over na wat je nodig hebt (en wat niet per se) om van de vorm een gebouw te maken.
+
+Inhoudelijke betekenis & uitleg:
+- Creatieve transformatieopdracht: abstraheren van een alledaags voorwerp naar architectonische schaal (toevoegen van deuren, ramen, verdiepingsvloeren en schaalaanduiding).
+
+Opdracht 1: Ontwerp-opdracht 1: Van voorwerp naar gebouw
+Instructies:
+- Kies een alledaags voorwerp (bijv. tandenborstel, ventilator, pot).
+- Teken de omtreklijnen op A4.
+- Transformeer de vorm met functionele architectonische toevoegingen (ramen, entrees, trappen).
+
+Sleutelbegrippen: #Ontwerp-opdracht 1 #Gebruiksvoorwerp #Contouren #Schaaltransformatie
+
+---
+
+### Dia 60: The Piano House in Huainan (China) [Ontwerpmethoden]
+
+Inhoudelijke betekenis & uitleg:
+- Extreem letterlijk voorbeeld van een gebruiksvoorwerp/muziekinstrument omgezet in een gebouw (2007, ontworpen door studenten van de Hefei University of Technology).
+- Vleugel en viool vormen samen een tentoonstellings- en concertgebouw.
+
+Afbeeldingsbeschrijvingen:
+Het Piano en Viool Gebouw (The Piano House): Gedetailleerde foto van het unieke gebouw: een enorme zwarte glazen concertvleugel rust op betonnen kolommen met een openstaande vleugelklep als dakluifel; tegen de vleugel staat een gigantische, kaarsrechte transparante glazen viool waarin de roltrap en glazen lift naar de hoofdruimtes zijn ondergebracht. Twee bezoekers wandelen over het voorpad.
+
+Sleutelbegrippen: #Piano House #China #Huainan #Viool #Concertvleugel #Letterlijke vormgeving
+
+---
+
+### Dia 61: Ontwerp-opdracht 2: Papier Vouwen en Knippen [Ontwerpmethoden]
+
+Originele tekst op de dia:
+Ontwerp-opdracht 2.
+• Ieder neemt een vel papier
+• 3x vouwen, 2x knippen (hoeft niet recht of symmetrisch, mag wel)
+• Uitvouwen en draaien
+• Balanceren
+• Zet de papierenvorm zo voor je neer dat je er een gebouw in zou kunnen herkennen.
+• Teken op een A4-vel de vorm na.
+• Mocht het nodig zijn, dan kun je met potlood lijnen, vlakken toevoegen om de vorm als gebouw te versterken.
+• Teken een mens naast het gebouw om de grootte van het gebouw weer te geven en schrijf erbij van welk materiaal jij het zou willen maken.
+• Maak een foto van zowel de papierenvorm als de tekening en verwerk deze in het Word-bestand (voor in je CKV-map).
+
+Inhoudelijke betekenis & uitleg:
+- Praktische hands-on oefening in sculpturale papierarchitectuur.
+- Cruciaal onderdeel: toevoegen van een mensfiguur om menselijke schaal/verhouding aan te brengen en materiaalkeuze motiveren.
+
+Opdracht 2: Ontwerp-opdracht 2: Papier vouwen, knippen en tekenen
+Instructies:
+- Vouw een vel 3x en knip 2x.
+- Plooi en balanceer het papier tot een herkenbaar ruimtelijk gebouwvolume.
+- Teken het na, voeg ramen/lijnen toe, teken een mens voor de schaal en benoem het bouwmateriaal.
+
+Sleutelbegrippen: #Ontwerp-opdracht 2 #Papier vouwen #Knippen #Schaalmens #Materiaalkeuze
+
+---
+
+### Dia 62: Papieren Vormen in de Praktijk: Guggenheim & Eye [Ontwerpmethoden]
+
+Originele tekst op de dia:
+Guggenheim Museum, Bilbao, Spanje
+Eye Amsterdam (filmmuseum)
+Twee voorbeelden die je wellicht in jouw papieren model kunt herkennen…
+
+Inhoudelijke betekenis & uitleg:
+- Voorbeelden van wereldberoemde gebouwen die ogen alsof ze uit gevouwen, verfrommeld of scherp geknikt papier zijn ontstaan.
+- 1. Guggenheim Bilbao (Frank Gehry): vloeiend, verfrommeld titanium.
+- 2. Eye Filmmuseum Amsterdam (Delugan Meissl): messcherpe, witte gevouwen polygoonvlakken.
+
+Afbeeldingsbeschrijvingen:
+Guggenheim Bilbao en Eye Amsterdam: Links: Guggenheim Museum in Bilbao (Frank Gehry) – zilverkleurig titanium gebouw met golvende, gebogen schillen die lijken op samengefrommeld papier. Rechts: Eye Filmmuseum in Amsterdam-Noord aan het IJ (Delugan Meissl Associated Architects) – strak, wit en aerodynamisch gebouw met vlijmscherpe hoeken en schuine overstekken die lijken op een zorgvuldig gevouwen origami-figuur.
+
+Sleutelbegrippen: #Guggenheim Bilbao #Eye Filmmuseum #Frank Gehry #Delugan Meissl #Gevouwen papier
+
+---
+
+### Dia 63: Thema: Lokaal & Globaal - Introductie & Cartoon [Lokaal & Globaal]
+
+Originele tekst op de dia:
+Architectuur: thema Lokaal & Globaal
+
+Inhoudelijke betekenis & uitleg:
+- Introductie van het spanningsveld tussen lokale identiteit/streekeigen bouwkunst en wereldwijde uniforme architectuur.
+- De cartoon toont de dramatische verschraling van regionale verscheidenheid (1921) naar uniforme modernistische nieuwbouw (2021).
+
+Afbeeldingsbeschrijvingen:
+Zaandam centrum en Cartoon 1921 vs 2021: Links: Stadscentrum van Zaandam (Inverdan) – een wandelpromenade langs de Zaan met felgroene Zaanse gevels gemixt met moderne winkels (zoals Primark). Rechts: Cartoon met vier Franse regio's: in 1921 had Auvergne zware stenen met leistenen daken, Provence terracotta pannen, Alsace houten vakwerk en Bretagne granieten cottages. In 2021 hebben alle vier de regio's exact hetzelfde witte, zielloze kubistische doosje met een plat dak.
+
+Sleutelbegrippen: #Lokaal & Globaal #Cartoon 1921 vs 2021 #Regionale bouwstijlen #Inverdan Zaandam
+
+---
+
+### Dia 64: Thema Lokaal & Globaal: Definitie Lokaal [Lokaal & Globaal]
+
+Originele tekst op de dia:
+Architectuur: thema Lokaal & Globaal
+• Iets dat lokaal is gemaakt, komt uit een specifieke streek, stad of plek in de wereld. Je kunt vaak aan bepaalde voorwerpen of gebouwen zien waar het vandaan komt of waar het ontstaan is.
+
+Inhoudelijke betekenis & uitleg:
+- Definitie Lokaal: gebonden aan een specifieke geografische plek, lokale tradities en streekeigen materialen.
+- Directe herkenbaarheid van herkomst door historische stijlelementen en kleuren.
+
+Afbeeldingsbeschrijvingen:
+Traditionele Zaanse huizen & Inntel Hotel Zaandam: Links: Authentieke houten Zaanse huisjes aan het water van de Zaanse Schans met groene houten weegdelen, witte sierwindveren en rode pannendaken. Rechts: Inntel Hotel in Zaandam – monumentale eigentijdse interpretatie waarin bijna zeventig van deze traditionele groene Zaanse huisjes speels op elkaar gestapeld zijn tot een modern torenhotel.
+
+Sleutelbegrippen: #Lokaal gemaakt #Definitie lokaal #Zaanse huizen #Streekgebonden #Herkomst
+
+---
+
+### Dia 65: Thema Lokaal & Globaal: Definitie Globaal [Lokaal & Globaal]
+
+Originele tekst op de dia:
+Architectuur: thema Lokaal & Globaal
+• Wanneer een gebouw globaal is, worden er beeldkenmerken gebruikt die voor veel mensen over de wereld verspreid herkenbaar zijn.
+De skyline van Ghangzhou, China (rechtsboven), New York (rechtsonder), Dubai (links)
+
+Inhoudelijke betekenis & uitleg:
+- Definitie Globaal: universele vormentaal (spiegelglas, staal, wolkenkrabbers) die wereldwijd direct herkenbaar is.
+- Gevolg: skylines in Azië, Noord-Amerika en het Midden-Oosten gaan sterk op elkaar lijken en zijn onderling bijna uitwisselbaar.
+
+Afbeeldingsbeschrijvingen:
+Drie wereldwijde skylines (Guangzhou, New York, Dubai): Drie foto's van metropolen met glazen wolkenkrabbers weerspiegeld in het water: Rechtsboven de skyline van Guangzhou (China) met de Canton Tower en glazen torens; Rechtsonder de skyline van Lower Manhattan in New York met One World Trade Center; Links de futuristische skyline van Dubai met torenhoge glazen wolkenkrabbers langs de jachthaven.
+
+Sleutelbegrippen: #Globaal gemaakt #Definitie globaal #Skylines #Guangzhou #New York #Dubai #Universeel
+
+---
+
+### Dia 66: Lokaal en Globaal niet Verwarren met Bekendheid [Lokaal & Globaal]
+
+Originele tekst op de dia:
+Architectuur: thema Lokaal & Globaal
+• Je moet lokaal en globaal niet verwarren met bekendheid.
+• Traditionele Zaanse huizen hebben bijvoorbeeld een globale bekendheid, maar zijn lokaal ontstaan en vervaardigd. Hetzelfde geldt voor 17e eeuwse Amsterdamse grachtenhuizen.
+
+Inhoudelijke betekenis & uitleg:
+- Belangrijk onderscheid voor de toets: lokaal/globaal slaat op de *ontstaanswijze en beeldkenmerken*, niet op hoe beroemd een gebouw is.
+- Een lokaal bouwwerk (met streekmaterialen en lokale geschiedenis) kan een wereldwijde faam genieten.
+
+Afbeeldingsbeschrijvingen:
+Amsterdamse grachtenhuizen en brug: Twee foto's: Links een rij monumentale 17e-eeuwse Amsterdamse grachtenpanden met hals- en klokgevels aan de waterkant met een rondvaartboot. Rechts een schilderachtig uitzicht op een gemetselde boogbrug met fietsen en historische bakstenen gevels langs een boomrijke gracht.
+
+Sleutelbegrippen: #Bekendheid vs Ontstaanswijze #Zaanse huizen #Amsterdamse grachtenpanden #17e eeuw
+
+---
+
+### Dia 67: Opdracht 7: Architect Sjoerd Soeters (Inverdan Zaandam) [Lokaal & Globaal]
+
+Originele tekst op de dia:
+Architectuur: thema Lokaal & Globaal
+OPDRACHT 7:
+Bekijk een filmfragment over architect Sjoerd Soeters. Geef antwoord op de vragen in je CKV-aantekeningenbestand.
+https://www.youtube.com/watch?v=ROmzIMIWvKg
+• Beschrijf waarom architect Sjoerd Soeters wel werd gezien als het 'stoutste jongetje' van de klas?
+• Wat is zijn visie met betrekking tot het ontwerpen van gebouwen en ontwikkelen van stedelijk gebied?
+• Wat is zijn strategie ten opzichte van de Zaantoren?
+• Wanneer heb je volgens de architect een goed functionerend centrum?
+• Wat is zijn visie met betrekking tot Thema Lokaal & Globaal denk je?
+
+Inhoudelijke betekenis & uitleg:
+- Diepte-analyse van stedenbouwkundige Sjoerd Soeters en zijn controversiële herontwerp van het centrum van Zaandam (Inverdan).
+- Soeters werd het 'stoutste jongetje van de klas' genoemd omdat hij het modernistische dogma verwierp en bewust koos voor historische streekeigen Zaanse vormentaal en decoratie.
+
+Afbeeldingsbeschrijvingen:
+Tekening en foto van de Zaantoren (Inntel Hotel): Rechtsboven: Originele aquarel/ontwerpschets van de gestapelde Zaanse huisjes. Rechtsonder: Foto van het voltooide Inntel Hotel Zaandam met zijn opvallende groene gevels en het centrale blauwe huisje.
+
+Opdracht 7: Vragen over architect Sjoerd Soeters
+Instructies:
+- Bekijk de video over Sjoerd Soeters.
+- Waarom was hij het 'stoutste jongetje van de klas'?
+- Wat is zijn visie op stedelijke ontwikkeling en een goed functionerend centrum?
+- Hoe verhoudt zijn werk zich tot Thema Lokaal & Globaal?
+
+Sleutelbegrippen: #Sjoerd Soeters #Opdracht 7 #Stoutste jongetje #Inverdan #Zaantoren
+
+---
+
+### Dia 68: Opdracht 8: De Westermoskee Mysterie [Lokaal & Globaal]
+
+Originele tekst op de dia:
+Architectuur: thema Lokaal & Globaal
+OPDRACHT 8:
+Stel jezelf deze vragen:
+-Wat voor gebouw is dit?
+-Waar zou het kunnen staan?
+-Hoe oud zou het ongeveer zijn?
+
+Inhoudelijke betekenis & uitleg:
+- Kijk- en analyse-oefening aan de hand van foto's en maquettes van een intrigerend bakstenen koepelgebouw met minaret.
+
+Afbeeldingsbeschrijvingen:
+Drie beelden van de Westermoskee: Boven: Close-up van de grote centrale koperen/loden koepel met spitsbogen en een slanke, hoge ronde minaret tegen een bewolkte Hollandse lucht. Linksonder: Maquettefoto van het gehele complex aan een gracht met omliggende woonblokken. Rechtsonder: Voorgevel van het gebouw met rode baksteen, natuurstenen speklagen, symmetrische rondbogen en dubbele vensterrijen.
+
+Opdracht 8: Raad het gebouw (Westermoskee)
+Instructies:
+- Wat voor gebouw is dit?
+- Waar zou het kunnen staan?
+- Hoe oud zou het ongeveer zijn?
+
+Sleutelbegrippen: #Opdracht 8 #Mysteriegebouw #Koepel en minaret #Baksteen
+
+---
+
+### Dia 69: Westermoskee: Onthulling & Visie [Lokaal & Globaal]
+
+Originele tekst op de dia:
+Architectuur: thema Lokaal & Globaal
+• Dit gebouw heet de Westermoskee en staat in Amsterdam-west en stamt uit 2016.
+• Visie was dat het gebouw het uiterlijk van een traditionele moskee moest hebben en tevens moest passen in het Amsterdamse stadsbeeld.
+• Laten we eerst eens kijken naar de oorsprong van de traditionele moskeebouw (zie volgende dia).
+
+Inhoudelijke betekenis & uitleg:
+- Locatie: Amsterdam-West (aan de Kostverlorenvaart / Schinkel), voltooid in 2016.
+- Visie: synthese tussen een herkenbare traditionele Ottomaanse moskee én naadloze inpassing in het historische Amsterdamse bakstenen stadsweefsel.
+
+Afbeeldingsbeschrijvingen:
+Maquette en voltooide Westermoskee: Links: Maquette van het plein en het moskeecomplex aan de waterkant. Rechts: Foto van de voltooide Westermoskee met de monumentale rode baksteengevels, witte bogen en de koperen koepel en minaret aan de kade.
+
+Sleutelbegrippen: #Westermoskee #Amsterdam-West #2016 #Amsterdamse stadsbeeld #Traditionele moskee
+
+---
+
+### Dia 70: Oorsprong Moskeebouw: Hagia Sophia te Istanbul (537 na Chr.) [Lokaal & Globaal]
+
+Originele tekst op de dia:
+Hagia Sophia, Istanbul, 537 na Chr.
+Architectuur: thema Lokaal & Globaal
+Gebouwd als kerk, daarna pas moskee, tegenwoordig museum.
+
+Inhoudelijke betekenis & uitleg:
+- Archetype van de monumentale koepelbouw: Hagia Sophia in Constantinopel/Istanbul (in 537 gebouwd door keizer Justinianus).
+- Oorspronkelijk een Byzantijnse christelijke kathedraal, na 1453 omgevormd tot moskee (toevoeging van minaretten), later museum (en recent weer moskee).
+- Werd het directe constructieve en esthetische model voor de klassieke Ottomaanse moskeeën (zoals van architect Mimar Sinan).
+
+Afbeeldingsbeschrijvingen:
+Hagia Sophia exterieur en interieur: Links: Exterieurfoto van de imposante terracotta-rode Hagia Sophia met haar monumentale centrale koepel, halfkoepels, zware steunberen en vier slanke minaretten. Rechts: Spectaculaire interieurfoto kijkend naar de 55 meter hoge hoofdkoepel met lichtvensters rond de koepelring, gouden Byzantijnse mozaïeken, enorme ronde houten schilden met Arabische kalligrafie en hangende kroonluchters boven de marmeren vloer.
+
+Sleutelbegrippen: #Hagia Sophia #Istanbul #537 na Chr. #Byzantijns #Centrale koepel #Ottomaans archetype
+
+---
+
+### Dia 71: Westermoskee: Lokaal én Globaal (Amsterdamse School) [Lokaal & Globaal]
+
+Originele tekst op de dia:
+Architectuur: thema Lokaal & Globaal
+• De Westermoskee werd ontworpen door het Franse architectenpaar Breitman in de lokale maar wereldberoemde Amsterdamse Schoolstijl (van begin vorige eeuw).
+• OPDRACHT 9: Is het gebouw nou lokaal of globaal te noemen? Of beide? Motiveer je antwoord.
+
+Inhoudelijke betekenis & uitleg:
+- Ontwerpers: de Franse architecten Marc & Nada Breitman.
+- Unieke synthese: de expressieve vormentaal van de Amsterdamse School (begin 20e eeuw: roodbruine baksteen, golvend siermetselwerk, horizontale raamkaders) gecombineerd met de klassieke Ottomaanse koepeltypologie.
+- Het gebouw is zowel lokaal (perfect geworteld in Amsterdamse architectuurtraditie) als globaal (verwijst naar een wereldwijde religieuze en architectonische moskeetraditie).
+
+Afbeeldingsbeschrijvingen:
+Amsterdamse School vergelijking met Westermoskee: Linksonder: Historisch gebouw van de Amsterdamse School (Het Schip van Michel de Klerk) met golvend baksteenmetselwerk en ronde torentjes aan het water. Rechtsboven: Close-up van een halfronde erker in expressief Amsterdamse School-baksteen. Rechtsonder: De Westermoskee die exact dezelfde warme baksteentinten, detaillering en vensterindeling overneemt.
+
+Opdracht 9: Is de Westermoskee lokaal of globaal?
+Instructies:
+- Motiveer of de Westermoskee lokaal, globaal of beide is aan de hand van stijl, herkomst en functie.
+
+Sleutelbegrippen: #Westermoskee #Marc en Nada Breitman #Amsterdamse Schoolstijl #Opdracht 9 #Hybride
+
+---
+
+### Dia 72: Opdracht 10: Zoekopdracht Lokaal, Globaal en Hybride [Lokaal & Globaal]
+
+Originele tekst op de dia:
+Opdracht 10: zoek op het internet een lokaal-gebouw, een globaal-gebouw en een gebouw dat als zowel lokaal als globaal gezien kan worden. Beschrijf in je ckv-aantekeningen-bestand jouw antwoord en plak daar tevens foto's van de gebouwen bij.
+Architectuur: thema Lokaal & Globaal
+
+Inhoudelijke betekenis & uitleg:
+- Zelfstandige onderzoeksopdracht waarin leerlingen drie categorieën moeten vinden en onderbouwen.
+
+Afbeeldingsbeschrijvingen:
+Drijvend Chinees restaurant Sea Palace te Amsterdam: Foto van het beroemde drijvende pagoderestaurant Sea Palace in het Oosterdok van Amsterdam: traditionele Chinese goudgroene en rode pagodedaken met opkrullende hoeken en lantaarns, drijvend op een betonnen ponton met op de achtergrond de neobarokke koepel en torens van de Amsterdamse Sint-Nicolaasbasiliek.
+
+Opdracht 10: Drie gebouwen zoeken: Lokaal, Globaal en Hybride
+Instructies:
+- Zoek op internet 1 lokaal gebouw, 1 globaal gebouw en 1 hybride gebouw (zowel lokaal als globaal).
+- Motiveer per gebouw je categorisering en voeg afbeeldingen toe in je verslag.
+
+Sleutelbegrippen: #Opdracht 10 #Sea Palace #Hybride gebouw #Zelfstandig onderzoek
+
+---
+
+### Dia 73: Thema Traditie & Innovatie: Definities & Tegenstelling [Traditie & Innovatie]
+
+Originele tekst op de dia:
+Architectuur: thema Traditie & Innovatie
+Onder traditie verstaan we de gebruiken en gewoontes die van de ene generatie op de andere wordt doorgegeven.
+Bij innovatie worden nieuwe ontwikkelingen en technieken gebruikt om te kunnen vernieuwen.
+
+Inhoudelijke betekenis & uitleg:
+- Definitie Traditie: het doorgeven van eeuwenoude gebruiken, rituelen, beproefde technieken en historische vormen van generatie op generatie.
+- Definitie Innovatie: het toepassen van grensverleggende technieken, nieuwe materialen en revolutionaire concepten om te vernieuwen en vooruitgang te boeken.
+
+Afbeeldingsbeschrijvingen:
+Balinese tempel versus Bosco Verticale in Milaan: Boven: Traditionele Balinese watertempel (Taman Ayun / Ulun Danu Beratan) met gelaagde, getrapte daken (meru) van zwarte palmvezels langs een stille vijver onder palmbomen (oeroude culturele traditie). Onder: Bosco Verticale ('Verticaal Bos') in Milaan (Stefano Boeri) – twee innovatieve betonnen woontorens met uitkragende balkons waarop honderden bomen en duizenden struiken groeien om smog te filteren en de biodiversiteit te herstellen (ecologische innovatie).
+
+Sleutelbegrippen: #Traditie #Innovatie #Definitie traditie #Definitie innovatie #Balinese tempel #Bosco Verticale
+
+---
+
+### Dia 74: Traditie & Innovatie: De Brand in de Notre-Dame (Parijs, 2019) [Notre-Dame Casus]
+
+Originele tekst op de dia:
+Architectuur: thema Traditie & Innovatie
+Nog geen week nadat de Notre Dame te Parijs grotendeels in vlammen opging, hadden architectenbureaus al ideeën om deze middeleeuwse kathedraal weer op te bouwen.
+
+Inhoudelijke betekenis & uitleg:
+- Historische gebeurtenis: op 15 april 2019 verwoestte een catastrofale brand de historische houten kapconstructie ('het woud') en de 19e-eeuwse torenspits van Viollet-le-Duc.
+- Direct ontstond een wereldwijd debat over herbouw: exact historisch reconstrueren (traditie) of eigentijds vernieuwen (innovatie)?
+
+Afbeeldingsbeschrijvingen:
+Notre-Dame voor, tijdens en direct na de brand: Rechtsboven: De serene Notre-Dame vóór de brand, gezien vanaf de Seine met haar slanke vieringtorenspits. Rechtsonder: De dramatische uitslaande vlammenzee die de torenspits en het dak omhult tegen een avondlucht vol rook. Linksonder: De troosteloze ochtend na de brand met ingestort dak, zwarte rooksporen en steigers rond de stenen gotische karkassen.
+
+Sleutelbegrippen: #Notre-Dame #Parijs #Brand 2019 #Herbouw #Vieringtoren #Viollet-le-Duc
+
+---
+
+### Dia 75: Opdracht 11: Innovatieve Ideeën voor de Notre-Dame [Notre-Dame Casus]
+
+Originele tekst op de dia:
+Architectuur: thema Traditie & Innovatie
+OPDRACHT 11: Bekijk de verschillende afbeeldingen van deze ontwerpers/architecten. Zit er volgens jou een goed innovatief idee bij?
+Of moet de kathedraal in precies dezelfde staat worden teruggebracht als voor de brand?
+Licht je antwoord toe waarom jouw voorkeur uitgaat naar een innovatief of juist traditioneel idee…
+Suggestions and inspirations for roof
+Glass roof would allow natural light to illuminate the space below
+New spire made from crystal glass and stainless steel
+Viewing platform
+
+Inhoudelijke betekenis & uitleg:
+- Debatopdracht: standpunt bepalen en beargumenteren.
+- Voorstellen van Foster + Partners en anderen voor glazen daken en torenspitsen van kristalglas en roestvrij staal.
+
+Afbeeldingsbeschrijvingen:
+Innovatieve ontwerpen Foster / Studio NAB voor Notre-Dame: Links: Bouwkundig 3D-conceptmodel met annotaties: 'New spire made from crystal glass and stainless steel', 'Viewing platform', 'Glass roof would allow natural light to illuminate the space below'. Rechts: Artist impression van een verlichte, veelkleurige gebrandschilderde torenspits die 's nachts oplicht als een baken boven Parijs.
+
+Opdracht 11: Traditioneel of innovatief herbouwen van de Notre-Dame?
+Instructies:
+- Beoordeel de innovatieve architectuurvoorstellen.
+- Motiveer of de kathedraal 1-op-1 historisch hersteld moet worden of een innovatief modern dak verdient.
+
+Sleutelbegrippen: #Opdracht 11 #Herbouwdebat #Glazen dak #Kristallen torenspits #Foster + Partners
+
+---
+
+### Dia 76: Notre-Dame: Collage van Innovatieve Voorstellen [Notre-Dame Casus]
+
+Inhoudelijke betekenis & uitleg:
+- Visuele verkenning van de meest gedurfde internationale architectuurvoorstellen:
+- Daktuinen, openbare kweekkassen, glazen belvedères en gouden spitsen.
+
+Afbeeldingsbeschrijvingen:
+Drie visioenen voor de nieuwe Notre-Dame: Linksboven: Interieur van het nieuwe dak ingericht als een openbare botanische tuin/serre met bomen, houten looppaden en mensen die genieten van het uitzicht over Parijs en de Eiffeltoren. Rechtsboven: Zonnige panorama-impressie van de kathedraal met een gouden, kristallijnen spits en een glazen getand dak. Middenonder: Zwart-wit vogelvluchtimpressie van het daklandschap van Parijs waarin de Notre-Dame een transparant lichtgevend dak en glazen naaldspits heeft gekregen.
+
+Sleutelbegrippen: #Daktuin #Botanische serre #Kristallen spits #Artist impressions
+
+---
+
+### Dia 77: Vincent Callebaut: Palingenesis Tribute to Notre-Dame [Notre-Dame Casus]
+
+Originele tekst op de dia:
+https://static.designboom.com/wp-content/uploads/2019/05/vincent-callebaut-notre-dame-cathedral-tribute-paris-designboom-GIF.gif
+
+Inhoudelijke betekenis & uitleg:
+- Baanbrekend project 'Palingenesis' van ecologisch architect Vincent Callebaut.
+- Koppeling van gotische kruisribben aan een hightech zonne-energiedak en een permacultuur stadsboerderij die tonnen groenten en fruit per jaar oplevert voor Parijse daklozen.
+
+Afbeeldingsbeschrijvingen:
+Vincent Callebaut 'Palingenesis' ontwerp: Hoofdafbeelding: Luchtopname van de kathedraal getooid met een adembenemend vloeiend dak van kristalglas en houten kruisribspanten dat naadloos omhoog krult in een spitse torenspits. Linksboven: Interieurimpressie van de permacultuurtuin onder het glazen houten dakgewelf waar bezoekers tussen volwassen fruitbomen en plantenbedden wandelen.
+
+Sleutelbegrippen: #Vincent Callebaut #Palingenesis #Permacultuur #Zonne-energie dak #Designboom
+
+---
+
+### Dia 78: Opdracht 12: Ontwerp-opdracht Innovatieve Toevoeging [Traditie & Innovatie]
+
+Originele tekst op de dia:
+Architectuur ontwerp-opdracht: Innovatie
+Opdracht 12:
+• Zoals de Notre Dame wellicht een modern jasje zal krijgen, zo kun je meerdere gebouwen aanpassen met een innovatief idee.
+• Kies een gebouw dat volgens jou een innovatieve aanpassing nodig heeft.
+• Zoek een foto van dit gebouw en pas deze in Photoshop of in Word aan. Of maak een tekenontwerp. Of een knip/plak-fotocollage.
+• Bedoeling is dat je iets aan het gebouw veranderd waardoor het een toonbeeld is van innovatie in deze tijd.
+
+Inhoudelijke betekenis & uitleg:
+- Praktische ontwerpopdracht: kies een bestaand historisch gebouw en voeg een innovatieve eigentijdse ingreep toe.
+- Twee toonaangevende voorbeelden uit de praktijk:
+- 1. Havenhuis in Antwerpen (Zaha Hadid Architects): een gigantische glazen 'diamant' zwevend bovenop een beschermde historische brandweerkazerne.
+- 2. Museum De Fundatie in Zwolle (BiermanHenket): de keramische ellipsvormige opbouw 'De Wolk' bovenop een neoclassicistisch paleis met zuilen.
+
+Afbeeldingsbeschrijvingen:
+Havenhuis Antwerpen en Museum De Fundatie Zwolle: Links: Havenhuis in Antwerpen (Zaha Hadid) – een monumentale, facetgeslepen glazen sculptuur die als een schip/diamant op een witte betonnen poot balanceert bovenop een symmetrische, bakstenen neorenaissance brandweerkazerne. Rechts: Museum De Fundatie in Zwolle (BiermanHenket) – een statig neoclassicistisch gerechtsgebouw met een Dorisch tempelfront en zuilen, waarop op het dak een futuristische, ovaalvormige 'wolk' bekleed met 55.000 driedimensionale wit-blauwe keramische tegels en een groot panoramavenster is geplaatst.
+
+Opdracht 12: Ontwerp een innovatieve toevoeging op een bestaand gebouw
+Instructies:
+- Kies een historisch of bestaand gebouw.
+- Ontwerp een innovatieve eigentijdse toevoeging (via Photoshop, tekening of fotocollage).
+- Zorg dat het resultaat een inspirerend toonbeeld is van hedendaagse innovatie.
+
+Sleutelbegrippen: #Opdracht 12 #Havenhuis Antwerpen #Zaha Hadid #Museum De Fundatie #BiermanHenket #De Wolk
+
+---
+
+### Dia 79: Opdracht 13: Oefenopdracht / Eindopdracht Architectuuranalyse [Eindopdrachten]
+
+Originele tekst op de dia:
+Opdracht 13: Oefenopdracht (verwerk in je aantekeningenbestand)
+• Denk aan een bekend gebouw dat je aanspreekt om wat voor reden dan ook.
+• Zoek op welke architect / welk architectenbureau dit gebouw ontworpen heeft.
+• Beschrijf het gebouw uitvoerig.
+• Wat is volgens jou de visie geweest van de architect?
+• Hoe is deze visie omgezet in tastbare architectuur?
+• Gebruik in je antwoord de begrippen: functie, vorm, omgeving, materiaal, constructie.
+• Zoek nog enkele gebouwen op van deze architect en beschrijf de overeenkomsten en verschillen betreft bovenstaande begrippen.
+• Voeg afbeeldingen toe.
+• Presenteer na 30 minuten in drie/viertallen de uitkomst van je onderzoek.
+
+Inhoudelijke betekenis & uitleg:
+- Integrale eindopdracht van de module Architectuur:
+- Volledige analyse van een gekozen gebouw en oeuvre van de architect aan de hand van de 6 kernbegrippen (Functie, Vorm, Omgeving, Materiaal, Constructie, Visie).
+- Presentatie van de bevindingen in groepsverband na 30 minuten onderzoek.
+
+Opdracht 13: Integrale architectuuranalyse en presentatie
+Instructies:
+- Kies een aansprekend bekend gebouw en identificeer de architect.
+- Beschrijf het gebouw en achterhaal de visie.
+- Ontleed de vertaling naar tastbare architectuur via Functie, Vorm, Omgeving, Materiaal en Constructie.
+- Vergelijk met andere werken van dezelfde architect.
+- Presenteer in viertallen.
+
+Sleutelbegrippen: #Opdracht 13 #Eindopdracht #Integrale analyse #Oeuvre-onderzoek #Presentatie
+
+---
+
+## TIJDLIJN STROMINGEN
+
+### Stap 1: Klassieke Oudheid (+/- 700 v.Chr. – 400 na Chr.)
+
+Kernconcept: "Harmonie, proportie, rust en constructieve helderheid met goddelijke en monumentale maatsystemen."
+
+Kenmerken:
+- Tempelbouw op getrapte basis (stereobaat/stylobaat)
+- Architraafbouw: dragende zuilen met zware stenen balken (architraaf)
+- Timpaan: driehoekig gevelveld voor drukkrachtverdeling en beeldhouwwerk
+- Drie klassieke orden: Dorisch (zwaar, geen basement, schotelkapiteel), Ionisch (slank, basement, volutenkrullen), Korinthisch (acanthusbladeren)
+- Romeinse innovatie: boogconstructies, tongewelf, kruisgewelf en koepelgewelf
+
+Voorbeelden: Parthenon (Athene), Tempel van Concordia (Agrigento), Leeuwenpoort (Mycene), Pantheon (Rome)
+
+Briefgeld: €5 (Klassieke poort & Romeins aquaduct)
+Zie dia's: 3, 4, 5, 6, 7, 8, 9, 10, 11
+
+---
+
+### Stap 2: Middeleeuwen: Romaans (+/- 11e en 12e eeuw)
+
+Kernconcept: "Vestingachtige godshuizen met zware stenen constructies die de aardse tocht naar het goddelijke licht symboliseren."
+
+Kenmerken:
+- Zeer dikke, massieve stenen muren met steunberen
+- Rondbogen voor deuren, vensters en arcades
+- Tongewelven en kruisgewelven
+- Kleine vensters resulterend in donkere, ingetogen en sobere interieurs
+- Horizontaal, aards en zwaar karakter
+- Expressieve reliëfs op kapitelen en timpanen (dierensymboliek, Laatste Oordeel)
+- Kerkgebouw als pelgrimstocht (ingang westgevel -> schip -> apsis met altaar)
+
+Voorbeelden: Saint-Sernin (Toulouse), Abbaye aux Dames (Caen), Sainte-Foy (Conques), San Martín de Frómista
+
+Briefgeld: €10 (Romaanse rondboogpoort & stenen boogbrug)
+Zie dia's: 12, 13, 14, 15
+
+---
+
+### Stap 3: Middeleeuwen: Gotiek (+/- 13e en 14e eeuw)
+
+Kernconcept: "Dematerialisatie van de stenen muur: hemelhoge verticaliteit en overvloedig gekleurd goddelijk licht."
+
+Kenmerken:
+- Verticalisme en hoogbouw met extreem dunne muren
+- Spitsbogen: veel effectievere drukverdeling naar beneden dan rondbogen
+- Skeletbouw: kruisribgewelven gedragen door bundelpijlers
+- Exoskelet buiten het gebouw: luchtbogen en steunberen vangen laterale druk op
+- Pinakels: decoratieve ballasttorentjes die steunberen extra stabiliteit geven
+- Gigantische gebrandschilderde glas-in-loodramen en cirkelvormige roosvensters
+
+Voorbeelden: Kathedraal van Reims, Kathedraal van Burgos, Sainte-Chapelle (Parijs), Kathedraal van Beauvais
+
+Briefgeld: €20 (Gotische spitsboogvensters & spitse brugbogen)
+Zie dia's: 16, 17, 18, 19, 20
+
+---
+
+### Stap 4: Renaissance (+/- 15e en 16e eeuw)
+
+Kernconcept: "Wedergeboorte ("rinascita") van de antieke Romeinse verhoudingen, rationaliteit en menselijke maat."
+
+Kenmerken:
+- Herstel van harmonie, evenwicht en strikte spiegelsymmetrie
+- Wiskundige principes, geometrische rasters en modulaire maatverhoudingen
+- Rustig horizontaal ontwerp met geprononceerde kroonlijsten en cordonlijsten
+- Herhaling van gelijke venstervormen en bogenreeksen
+- Klassieke elementen: timpanen, pilasters, antieke zuilen en balustrades
+- Toepassing van balkons, open loggia's en monumentale koepels
+
+Voorbeelden: Basilica Palladiana (Vicenza, Andrea Palladio), Palazzo Medici-Riccardi (Florence), Sint-Pietersbasiliek (Rome)
+
+Briefgeld: €50 (Renaissance gevel met pilasters & klassieke brug)
+Zie dia's: 21, 22
+
+---
+
+### Stap 5: Barok (+/- 17e – halverwege 18e eeuw)
+
+Kernconcept: "Het theater van de architectuur: overweldiging, dynamiek en emotionele vervoering."
+
+Kenmerken:
+- Gesamtkunstwerk: architectuur, beeldhouwkunst, stucwerk en schilderkunst versmolten tot één geheel
+- Theatrale effecten en dramatische illusies om de toeschouwer te emotioneren
+- Sterk clair-obscur (licht-donker contrast) door diepe reliëfs, nissen en uitsnijdingen
+- Golvende gevels met holle (concave) en bolle (convexe) curven
+- Verbreken en vervormen van klassieke regels (gebroken frontons, cartouches)
+- Dynamiek en beweging (spiraalvormig gedraaide / getordeerde zuilen)
+- Integratie van de omgeving (monumentale paleistuinen, fonteinen, zichtassen)
+
+Voorbeelden: Trevifontein (Rome, Nicola Salvi), San Carlo alle Quattro Fontane (Rome, Borromini), Paleis van Versailles
+
+Briefgeld: €100 (Barokke poort met beelden & dynamische brug)
+Zie dia's: 23, 24
+
+---
+
+### Stap 6: Classicisme (17e eeuw tot halverwege 18e eeuw (& Neoclassicisme))
+
+Kernconcept: "Hernieuwde afwijzing van barokke overdaad: sobere, pure en strenge geometrische orde."
+
+Kenmerken:
+- Terugkeer naar strenge, heldere en zuivere vormen van de antieke oudheid
+- Eenvoudige grondplannen (kubus, rechthoek, cirkel)
+- Volmaakte symmetrie en harmonische indeling door horizontale en verticale lijnen
+- Centrale monumentale entree met tempelfront en timpaan
+- Brede monumentale trappen over de gehele breedte van de gevel/ingang
+- Gebruik van sobere pilasters, architraven, kapitelen en rondbogen
+
+Voorbeelden: Paleis op de Dam (Amsterdam, Jacob van Campen), Panthéon (Parijs, Soufflot), Scheepvaartmuseum (Amsterdam, Daniël Stalpaert)
+
+Briefgeld: Verwant aan €5 en €50 idealen
+Zie dia's: 25, 44
+
+---
+
+### Stap 7: Modernisme (Vanaf ca. 1920)
+
+Kernconcept: "Form follows function: radicale breuk met alle tradities ten gunste van industriële efficiency en gezondheid."
+
+Kenmerken:
+- Anti-traditioneel: complete afwijzing van ornamenten en historische canons
+- Form follows function: uiterlijk volgt puur het gebruik en de constructie
+- Sobere en strakke vormen: gebouwen als functionele "blokkendozen"
+- Materialen van de machine-eeuw: gewapend beton, staal en grote glasvlakken
+- Licht, lucht en ruimte: hygiënische, lichte en open ruimtes voor werkers en bewoners
+
+Voorbeelden: Van Nellefabriek (Rotterdam, Brinkman & Van der Vlugt), Unité d'Habitation (Marseille, Le Corbusier), Bauhaus (Dessau, Walter Gropius)
+
+Briefgeld: €500 (Moderne 20e-eeuwse architectuur & hangbruggen)
+Zie dia's: 26, 27
+
+---
+
+### Stap 8: Postmodernisme (Vanaf ca. 1970/1980)
+
+Kernconcept: "Less is a bore: speelsheid, ironie, kleur en het hergebruik van historische stijlen."
+
+Kenmerken:
+- Reactie tegen het kille, strenge en eentonige modernisme
+- Geen universele waarheid: pluralisme en vervaging van hoge en lage cultuur
+- Ironie en humor in vormgeving en detaillering
+- Eclecticisme: mengen en citeren van historische stijlen met een knipoog
+- Uitbundige, vrolijke kleuren, vrije vormen en speelse toevoegingen
+
+Voorbeelden: Groninger Museum (Alessandro Mendini), Castellum (Houten), Piazza d'Italia (New Orleans, Charles Moore)
+
+Briefgeld: N.v.t.
+Zie dia's: 28
+
+---
+
+### Stap 9: Supermodernisme (Hedendaags (eind 20e & 21e eeuw))
+
+Kernconcept: "Look at me! – door computers berekende extreme, spectaculaire en vloeiende iconische landmark-architectuur."
+
+Kenmerken:
+- Mogelijk gemaakt door geavanceerde computersoftware (CAD, BIM, parametrisch rekenen)
+- Ontwerpen en berekenen van extreme, opvallende, hoge of organische sculpturale vormen
+- Strakke, industriële en hightech uitstraling (titanium, aluminium, structureel glas, composieten)
+- Het "Look at me!"-principe: gebouwen als beeldbepalende sculpturen en mondiale landmarks
+
+Voorbeelden: Guggenheim Museum Bilbao (Frank Gehry), Markthal (Rotterdam, MVRDV), London City Hall (Norman Foster), Vogelnest (Peking, Herzog & de Meuron), Rotterdam Centraal
+
+Briefgeld: N.v.t.
+Zie dia's: 29, 30, 34, 62
+
+---
+
+## DE 6 KENMERKEN
+
+### 1. Functie
+
+Waar dient het gebouw voor? Wat is het praktische en maatschappelijke gebruiksdoel?
+
+Vroeger: Direct herkenbare typologieën (kerk, stadhuis, pakhuis).
+Nu: Vorm is vaak abstract of sculpturaal, maar de sfeer moet naadloos aansluiten bij het doel.
+
+---
+
+### 2. Vorm
+
+De geometrie, proporties, contouren en het ruimtelijke volume van het gebouw.
+
+Klassiek: Symmetrisch met monumentale centrale entree.
+Modernistisch: "Form follows function" – vorm volgt puur de constructieve logica.
+Hedendaags: Organische blobs en vrije sculpturale vormen dankzij geavanceerde 3D-software.
+
+---
+
+### 3. Omgeving
+
+De relatie en dialoog tussen het gebouw en zijn directe fysieke en culturele context.
+
+Opgaan in de omgeving: Aansluiting zoeken bij gevels, goothoogtes en streekeigen materialen.
+Contrasteren met de omgeving: Bewust afwijken in hoogte, vorm en glans om een autonoom statement te maken.
+
+---
+
+### 4. Materiaal
+
+De stoffelijke textuur en psychologische betekenis van de toegepaste bouwmaterialen.
+
+Marmer & Natuursteen: Rijkdom, degelijkheid, macht en betrouwbaarheid (klassieke banken/rechtbanken).
+Glas & Staal: Democratische transparantie, openheid en technologische vooruitgang.
+
+---
+
+### 5. Constructie
+
+Hoe blijft het gebouw overeind? De bouwkundige samenvoeging van dragende delen.
+
+Draagmuren: Massieve stenen wanden die het dak dragen (Romaans).
+Skeletbouw: Zuilen, pijlers, liggers en externe steunberen (Gotiek en Modernisme).
+Schalen: Zelfdragende dubbelgekromde constructies (Station Arnhem Centraal).
+
+---
+
+### 6. Visie
+
+Het achterliggende idee en maatschappijbeeld van de architect.
+
+Doel: Hoe moeten mensen in een gebouw wonen, werken, ontmoeten en samenleven?
+Voorbeeld: Inntel Hotel Zaandam van Wilfried van Winden – herstel van de Zaanse identiteit op monumentale schaal.
+
+---
+
+### Casus: Integrale Toepassing: Overkapping Scheepvaartmuseum (Liesbeth van der Poll, dia 44-46)
+
+1. Functie: Centrale multifunctionele evenementen- en ontvangstruimte creëren zodat de open binnenplaats 365 dagen per jaar bruikbaar is.
+2. Vorm: Geometrisch lijnenpatroon ontleend aan de kompasroos en maritieme navigatielijnen (loxodromen) op historische zeekaarten.
+3. Omgeving: Zweeft als een lichte baldakijn boven het 17e-eeuwse monument ('s Lands Zeemagazijn, 1656) en raakt het historische metselwerk minimaal.
+4. Materiaal: Staal en helder glas voor maximaal daglicht; speciale holle akoestische kunststof vloer met kieren die klinkers nabootst en galm absorbeert.
+5. Constructie: Zelfdragende stalen koepel van honderden ribben die de krachten via vier verborgen steunpunten afvoeren.
+6. Visie: Overdag het gevoel van een open hemel behouden, 's avonds lichten de led-knooppunten op als een sterrenhemel waarlangs zeevaarders eeuwenlang navigeerden.
+
+---
+
+## THEMA'S (LOKAAL/GLOBAAL)
+
+### Thema 1: Lokaal & Globaal vs. Thema 2: Traditie & Innovatie
+
+Grondige analyse van de twee centrale CKV-thema's en casussen (Westermoskee, Hagia Sophia, Notre-Dame, Havenhuis, De Fundatie).
+
+---
+
+### Thema 1: Lokaal & Globaal (dia 63 t/m 72)
+
+**Lokaal gemaakt:**
+- Komt voort uit een specifieke streek, stad, klimaat of traditie.
+- Gebruikt streekeigen materialen (Zaans hout, Delftse baksteen, mergel).
+- Aan de vormentaal is direct te zien waar het ontstaan is.
+
+**Globaal gemaakt:**
+- Gebruikt universele beeldkenmerken die wereldwijd herkenbaar zijn.
+- Universele materialen: spiegelglas, aluminium en stalen geraamtes.
+- Kan op elke willekeurige plek ter wereld staan (uitwisselbare skylines in Dubai, New York, Guangzhou).
+
+Belangrijk: Verwar lokaal/globaal niet met bekendheid! Zaanse houten huizen en Amsterdamse grachtenpanden genieten globale bekendheid, maar zijn puur lokaal ontstaan.
+
+**Casus: Westermoskee in Amsterdam-West (Marc & Nada Breitman, 2016)**
+
+Een schoolvoorbeeld van een hybride (lokaal én globaal):
+- Lokaal: Gemetseld in de karakteristieke Amsterdamse Schoolstijl met roodbruine bakstenen, siermetselwerk en typisch Amsterdamse vensterkaders.
+- Globaal: Verwijst via de centrale koepel, rondbogen en minaret naar de universele islamitische en Ottomaanse moskeebouw (Hagia Sophia).
+
+---
+
+### Thema 2: Traditie & Innovatie (dia 73 t/m 79)
+
+**Traditie:**
+Gebruiken, gewoontes, vormentaal en ambachten die van generatie op generatie worden doorgegeven en gekoesterd (bijv. Balinese watertempels met meru-daken).
+
+**Innovatie:**
+Nieuwe technologische ontwikkelingen, eigentijdse materialen en vooruitstrevende concepten om te vernieuwen en vooruitgang te boeken (bijv. Bosco Verticale in Milaan).
+
+**Casus Notre-Dame na de Brand (2019)**
+- Traditionele visie: 1-op-1 historisch herstel van eikenhouten dak en de 19e-eeuwse spits van Viollet-le-Duc.
+- Innovatieve visie: Glazen daken (Foster), kristallen spitsen of Vincent Callebauts *Palingenesis* (zonnedak en ecologische stadsboerderij).
+
+**Havenhuis Antwerpen (Zaha Hadid):**
+Futuristische facetgeslepen glazen sculptuur zwevend bovenop een historische brandweerkazerne.
+
+**Museum De Fundatie Zwolle (BiermanHenket):**
+Ellipsvormige keramische opbouw ('De Wolk') bovenop een neoclassicistisch gerechtsgebouw met zuilen.
+
+---
+
+## OEFENTOETS & QUIZ
+
+### Vraag 1: Wat is de chronologische volgorde van de architectuurstromingen van oud naar nieuw?
+
+Antwoord:
+1. Klassieke Oudheid (+/- 700 v.Chr. – 400 na Chr.)
+2. Romaans (11e en 12e eeuw)
+3. Gotiek (13e en 14e eeuw)
+4. Renaissance (15e en 16e eeuw)
+5. Barok (17e – halverwege 18e eeuw)
+6. Classicisme (17e tot halverwege 18e eeuw)
+7. Modernisme (vanaf 1920)
+8. Postmodernisme (vanaf 1970/1980)
+9. Supermodernisme (hedendaags)
+
+---
+
+### Vraag 2: Wat is het constructieve doel van een timpaan en van architraafbouw in de Klassieke Oudheid?
+
+Antwoord: Architraafbouw is een stelsel waarbij horizontale stenen dwarsbalken (architraven) rechtstreeks rusten op verticale draagzuilen. Het timpaan (het driehoekige gevelveld) zorgt voor de gelijkmatige verdeling van de neerwaartse drukkracht naar de buitenste kolommen, zodat de architraafbalk niet doorbreekt.
+
+---
+
+### Vraag 3: Hoe herken je direct het verschil tussen een Dorische, Ionische en Korinthische zuil?
+
+Antwoord:
+- Dorisch: zware verhouding, géén basement (zuil staat direct op de stylobaat), sober schotelvormig kussenkapiteel.
+- Ionisch: slankere zuil op een geprofileerd basement, kapiteel met twee spiraalvormige krullen (voluten).
+- Korinthisch: slanke zuil op basement, weelderig kelkvormig kapiteel versierd met gebeeldhouwde acanthusbladeren.
+
+---
+
+### Vraag 4: Waarom hebben Romaanse kerken dikke massieve muren en kleine vensters, en Gotische kerken juist gigantische glas-in-loodramen?
+
+Antwoord: In de Romaanse bouwkunst droegen de massieve stenen muren zelf het volledige gewicht van de zware stenen tongewelven; grote ramen zouden de muur verzwakken. In de Gotiek werd skeletbouw uitgevonden: kruisribgewelven en externe luchtbogen met steunberen vangen alle zijwaartse drukkrachten buiten het gebouw op. De tussenliggende muren hadden geen dragende functie meer en konden vervangen worden door glas.
+
+---
+
+### Vraag 5: Welke dubbele functie heeft een pinakel op een gotische steunbeer?
+
+Antwoord:
+1. Decoratieve functie (siertorentje ter verrijking van de gevel).
+2. Constructieve functie: het extra gewicht van de zware stenen pinakel verzwaart de steunbeer verticaal, waardoor deze stabieler tegen de zijwaartse spatkracht van de luchtboog bestand is.
+
+---
+
+### Vraag 6: Wat betekent het begrip 'Gesamtkunst' in de Barok?
+
+Antwoord: Een totale versmelting van architectuur, monumentale beeldhouwkunst, plafondschilderingen (quadratura) en stucwerk tot één theatraal, overweldigend geheel om de bezoeker emotioneel in vervoering te brengen.
+
+---
+
+### Vraag 7: Wat houdt het modernistische motto 'Form follows function' in en wie bouwde de Van Nellefabriek?
+
+Antwoord: De vorm van een gebouw moet uitsluitend voortvloeien uit het praktische gebruik, de interne routing en de constructieve functie, zonder overbodige versieringen of ornamenten. De Van Nellefabriek in Rotterdam is ontworpen door Brinkman & Van der Vlugt (opgeleverd in 1931).
+
+---
+
+### Vraag 8: Noem de zes kenmerken die de uitstraling van een gebouw bepalen.
+
+Antwoord:
+1. Functie (het gebruiksdoel)
+2. Vorm (de geometrie, symmetrie of organische vormentaal)
+3. Omgeving (opgaan in of juist contrasteren met de context)
+4. Materiaal (de symbolische en tastbare werking van marmer, glas, baksteen, etc.)
+5. Constructie (de wijze waarop het gebouw overeind blijft: draagmuren, skeletbouw of schalen)
+6. Visie (het achterliggende maatschappij- en ontwerpprincipe van de architect).
+
+---
+
+### Vraag 9: Waarom is de Westermoskee in Amsterdam een voorbeeld van zowel lokaal als globaal?
+
+Antwoord: Lokaal: ontworpen in de lokale Amsterdamse Schoolstijl met rode baksteen, siermetselwerk en typisch Amsterdamse raamkaders. Globaal: de herkenbare vormentaal van een traditionele islamitische/Ottomaanse moskee (koepel, minaret) die wereldwijd herkenbaar is.
+
+---
+
+### Vraag 10: Wat heeft een architect volgens dia 48 fundamenteel nodig om te kunnen ontwerpen?
+
+Antwoord:
+1. Een Opdracht (behoefte en opdrachtgever met budget)
+2. Inspiratie (ideeën uit kunst, natuur, geschiedenis of alledaagse voorwerpen)
+3. Fantasie (het creatieve vermogen om unieke ruimtelijke oplossingen te bedenken).

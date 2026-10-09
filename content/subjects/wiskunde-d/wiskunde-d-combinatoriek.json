@@ -1,0 +1,92 @@
+{
+  "id": "wiskunde-d-combinatoriek",
+  "subject": "Wiskunde D",
+  "siteMetadata": {
+    "title": "Wiskunde D - Combinatoriek",
+    "description": "Leer over combinatoriek, variaties, combinaties, driehoek van Pascal en binomium van Newton"
+  },
+  "summary": "Complete overzicht van wiskunde D combinatoriek inclusief som- en productregel, variaties en herhalingsvariaties, combinaties en herhalingscombinaties, kortste routes, driehoek van Pascal, binomium van Newton, sigma-notatie, en multinomiaalcoëfficiënten.",
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": [
+    "simple",
+    "study",
+    "samenvatting",
+    "quiz"
+  ],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showTranscriptExport": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "1.1 Som- en Productregel",
+      "blocks": [
+        {
+          "id": "blk-1-content",
+          "type": "text",
+          "content": "## Som- en Productregel\n\n### Productregel\n\nAls je keuze A op n manieren kunt maken en keuze B op m manieren, dan kun je A en B samen op n × m manieren maken.\n\n**Voorbeeld:** Een restaurant heeft 5 voorgerechten, 7 hoofdgerechten en 3 nagerechten.\n- Aantal driegangenmenu's: 5 × 7 × 3 = 105\n\n### Somregel\n\nAls keuze A op n manieren kan en keuze B op m manieren, en deze sluiten elkaar uit, dan kun je A of B op n + m manieren maken.\n\n**Voorbeeld:** Een driegangenmenu zonder nagerecht: 5 × 7 × 1 = 35 (want 1 optie = geen nagerecht)"
+        }
+      ]
+    },
+    {
+      "id": "sec-2",
+      "title": "1.2 Variaties en Herhalingsvariaties",
+      "blocks": [
+        {
+          "id": "blk-2-content",
+          "type": "text",
+          "content": "## Variaties\n\nEen variatie is een rangschikking waarbij de volgorde belangrijk is.\n\n**Met herhaling:** P(n, n) = n^n\n- Voorbeeld: Code van 4 letters uit 8 letters met herhaling: 8^4 = 4096\n\n**Zonder herhaling:** P(n, k) = n! / (n-k)!\n- Voorbeeld: Code van 4 letters uit 8 letters zonder herhaling: 8! / 4! = 8 × 7 × 6 × 5 = 1680\n\n**Met voorwaarden:**\n- Als de eerste letter een klinker moet zijn (2 opties): 2 × 7^3 = 686\n- Als de code met 'a' moet beginnen en alle letters verschillend: 1 × 7 × 6 × 5 = 210"
+        }
+      ]
+    },
+    {
+      "id": "sec-3",
+      "title": "1.3 Combinaties en Herhalingscombinaties",
+      "blocks": [
+        {
+          "id": "blk-3-content",
+          "type": "text",
+          "content": "## Combinaties\n\nEen combinatie is een keuze waarbij de volgorde niet belangrijk is.\n\n**Formule:** C(n, k) = n! / (k! × (n-k)!)\n\n**Voorbeeld:** Uit 12 personen een commissie van 4 kiezen:\n- C(12, 4) = 12! / (4! × 8!) = 495 manieren\n\n**Met voorwaarden:**\n- Precies 2 vrouwen (uit 5) en 2 mannen (uit 7): C(5, 2) × C(7, 2) = 10 × 21 = 210\n- Minstens 3 mannen: (3M, 1V) + (4M, 0V) = C(7,3)×C(5,1) + C(7,4)×C(5,0) = 175 + 35 = 210\n\n## Herhalingscombinaties\n\n**Formule:** C(n + k - 1, k)\n\n**Voorbeeld:** 8 identieke ballen over 3 vaten verdeelen:\n- Zonder voorwaarden: C(8 + 3 - 1, 8) = C(10, 8) = 45\n- Elk vat minstens 1 bal: C(8 - 1, 3 - 1) = C(7, 2) = 21\n- Eerste vat precies 3 ballen: C(5 + 2 - 1, 5) = C(6, 5) = 6"
+        }
+      ]
+    },
+    {
+      "id": "sec-4",
+      "title": "1.4 Kortste Routes",
+      "blocks": [
+        {
+          "id": "blk-4-content",
+          "type": "text",
+          "content": "## Kortste Routes\n\nHet aantal kortste routes in een rooster van punt A naar B (alleen naar rechts en boven) wordt gegeven door combinaties.\n\n**Formule:** Als je r stappen naar rechts en s stappen omhoog moet maken, is het aantal routes C(r + s, r) of C(r + s, s).\n\n**Voorbeeld:** Rooster met 6 rijen en 8 kolommen (A linksonder, B rechtsboven):\n- Van A naar B: 7 stappen rechts + 5 stappen omhoog = 12 stappen totaal\n- Aantal routes: C(12, 5) = C(12, 7) = 792\n\n**Via een tussenpunt P:**\n- Routes A → P × routes P → B\n- **Niet** via P: totaal - via P"
+        }
+      ]
+    },
+    {
+      "id": "sec-5",
+      "title": "Binomium van Newton",
+      "blocks": [
+        {
+          "id": "blk-5-content",
+          "type": "text",
+          "content": "## Driehoek van Pascal\n\nDe driehoek van Pascal geeft de coëfficiënten voor (a + b)^n.\n\n**Eigenschappen:**\n- Elke rij begint en eindigt met 1\n- Elk getal is de som van de twee getallen erboven\n- Rij n geeft de coëfficiënten voor (a + b)^n\n- De som van alle getallen in rij n is 2^n\n\n**Kortste routes:** De driehoek kan ook gebruikt worden voor het tellen van kortste routes.\n\n## Binomium van Newton\n\n**Formule:** (a + b)^n = Σ (van k=0 tot n) C(n, k) × a^(n-k) × b^k\n\n**Uitgeschreven:** (a + b)^n = C(n,0)a^n + C(n,1)a^(n-1)b + C(n,2)a^(n-2)b² + ... + C(n,n)b^n\n\n**Specifieke termen berekenen:**\n\nOm de coëfficiënt van een specifieke term te vinden:\n1. Gebruik de term C(n, k) × a^(n-k) × b^k\n2. Bepaal k uit de gewenste exponent\n3. Vul k in en reken uit\n\n**Voorbeeld:** Coëfficiënt van x^5 in (2x - 3)^8\n- We willen x^5, dus (x)^(8-k) = x^5 → 8 - k = 5 → k = 3\n- Coëfficiënt: C(8, 3) × (2)^5 × (-3)^3 = 56 × 32 × (-27) = -48384"
+        }
+      ]
+    },
+    {
+      "id": "sec-6",
+      "title": "Sigma-notatie en Multinomiaalcoëfficiënten",
+      "blocks": [
+        {
+          "id": "blk-6-content",
+          "type": "text",
+          "content": "## Sigma-notatie (Σ)\n\nHet teken Σ betekent \"de som van\".\n\n**Voorbeeld:** Σ (van k=1 tot 5) k² betekent: 1² + 2² + 3² + 4² + 5² = 55\n\nJe ziet dit vaak terug in de algemene formule van Newton.\n\n## Multinomiaalcoëfficiënten\n\nAls je 3 of meer termen in de haakjes hebt, zoals (p + q + r)^n, krijg je multinomiaalcoëfficiënten.\n\n**Formule voor coëfficiënt van p^a q^b r^c (waarbij a + b + c = n):**\n- n! / (a! × b! × c!)\n- Wordt genoteerd als C(n, a, b, c)\n\n**Voorbeeld:** (2a - 3b + 4c)^6\n- Term met a^4bc: exponenten 4, 1, 1 (samen 6)\n- Coëfficiënt: C(6, 4, 1, 1) = 6! / (4! × 1! × 1!) = 30\n- Volledige term: 30 × (2a)^4 × (-3b) × (4c) = -5760 a^4 b c\n\n**Aantal termen in een multinomiaal:**\n- Het aantal termen in (x₁ + x₂ + ... + x_m)^n is C(n + m - 1, n)"
+        }
+      ]
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Clock, Users, BookOpen, Activity, Lock } from 'lucide-react';
+import { AppShell, PageHeader } from '@/components/AppShell';
 
 interface DashboardData {
   summary: {
@@ -130,12 +131,13 @@ export default function AnalyticsDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">Analytics Dashboard</h1>
-          <p className="text-muted-foreground">User activity and engagement metrics</p>
-        </div>
+    <AppShell>
+      <PageHeader
+        title="Analytics Dashboard"
+        description="User activity and engagement metrics"
+      />
+
+      <div className="px-6 py-8">
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -303,6 +305,6 @@ export default function AnalyticsDashboard() {
           </div>
         </div>
       </div>
-    </div>
+    </AppShell>
   );
 }

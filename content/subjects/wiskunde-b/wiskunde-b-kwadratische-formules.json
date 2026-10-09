@@ -1,0 +1,81 @@
+{
+  "id": "wiskunde-b-kwadratische-formules",
+  "subject": "Wiskunde B",
+  "siteMetadata": {
+    "title": "Wiskunde B - Kwadratische Formules",
+    "description": "Leer over kwadratische formules, transformaties, discriminant, ongelijkheden en parabolen"
+  },
+  "summary": "Complete overzicht van wiskunde B kwadratische formules inclusief transformaties en translaties, drie vormen (algemeen, nulpunt, top), kwadraat afsplitsen, discriminant, ontbinden in factoren, ABC-formule, ongelijkheden, intervallen, en parabolen schetsen.",
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": [
+    "simple",
+    "study",
+    "samenvatting",
+    "quiz"
+  ],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showTranscriptExport": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "Transformaties en Translaties",
+      "blocks": [
+        {
+          "id": "blk-1-content",
+          "type": "text",
+          "content": "## Transformaties en Translaties\n\nOm een grafiek te verschuiven (translatie), gebruik je een vector: \\(\\begin{pmatrix} p \\\\ q \\end{pmatrix}\\), waarbij p de verschuiving naar links/rechts is en q de verschuiving naar omhoog/beneden.\n\n### 1. De Syntax (De Regels)\n\n**Verticaal (Omhoog / Omlaag)** → De makkelijke kant\n- Omhoog (+q): Tel q op bij de hele formule. Syntax: y = f(x) + q\n- Omlaag (-q): Trek q af van de hele formule. Syntax: y = f(x) - q\n\n**Horizontaal (Links / Rechts)** → De \"verwarrende\" kant\n- Naar rechts (+p): Vervang elke x door (x - p). Syntax: y = f(x - p)\n- Naar links (-p): Vervang elke x door (x + p). Syntax: y = f(x + p)\n\nLet op: het teken in de haakjes is tegenovergesteld aan wat je gevoel zegt!\n\n### 2. Het Algoritme (Stappenplan)\n\n**Stap 1: Vervang de x (Horizontaal)**\n- Rechts? Maak van x → (x - getal)\n- Links? Maak van x → (x + getal)\n\n**Stap 2: Pas de achterkant aan (Verticaal)**\n- Schrijf het getal met het juiste teken (+ of -) helemaal aan het einde\n\n**Stap 3: Herleid de formule (Haakjes wegwerken)**\n- Werk de haakjes uit en korter opschrijven naar de vorm y = ax² + bx + c\n\n### Voorbeeld\n\nFormule y = x² - 4x. Translatie van \\(\\begin{pmatrix} 3 \\\\ 2 \\end{pmatrix}\\) (3 naar rechts, 2 omhoog).\n\n1. Stap 1: y = (x - 3)² - 4(x - 3)\n2. Stap 2: y = (x - 3)² - 4(x - 3) + 2\n3. Stap 3: y = x² - 6x + 9 - 4x + 12 + 2 = x² - 10x + 23"
+        }
+      ]
+    },
+    {
+      "id": "sec-2",
+      "title": "Drie Vormen van Kwadratische Formules",
+      "blocks": [
+        {
+          "id": "blk-2-content",
+          "type": "text",
+          "content": "## Drie Vormen van Kwadratische Formules\n\nBij Wiskunde B werk je met drie verschillende vormen. Elke vorm heeft zijn eigen \"superkracht\":\n\n### 1. De Algemene vorm (abc-vorm)\n- y = ax² + bx + c\n- Superkracht: Je ziet meteen de y-as doorsnede (0, c) en de a, b, c voor de abc-formule\n\n### 2. De Nulkuntsvorm (factorvorm)\n- y = a(x - d)(x - e)\n- Superkracht: Je ziet meteen de nulpunten op x = d en x = e\n\n### 3. De Topvorm\n- y = a(x - p)² + q\n- Superkracht: Je ziet meteen de top van de parabool, namelijk (p, q)\n\n## Kwadraat Afsplitsen\n\nKwadraat afsplitsen is de techniek om van de Algemene vorm naar de Topvorm te gaan.\n\n**Algoritme voor x² + bx + c (waarbij a = 1):**\n\n1. Neem de helft van het getal voor de x. Schrijf (x + helft)²\n2. Trek het kwadraat van dat nieuwe getal eraf: - (helft)²\n3. Plak het oorspronkelijke losse getal (c) erachter en herleid\n\n**Voorbeeld:** y = x² + 6x + 5\n- Helft van 6 is 3 → (x + 3)²\n- Trek 3² = 9 eraf → (x + 3)² - 9\n- Tel 5 erbij → (x + 3)² - 4\n\n## De \"Verkeersmatrix\": Van de ene vorm naar de andere\n\n| Van Vorm → Naar Vorm | Algoritme |\n|---|---|\n| Top → Algemeen | Haakjes wegwerken & husselen |\n| Nulpunt → Algemeen | Haakjes wegwerken (papegaaienbek) |\n| Algemeen → Top | Kwadraat afsplitsen |\n| Algemeen → Nulpunt | Ontbinden in factoren (product-som methode) |\n\nTop ↔ Nulpunt: geen direct trucje, reis altijd via de Algemene vorm."
+        }
+      ]
+    },
+    {
+      "id": "sec-3",
+      "title": "Discriminant en Vergelijkingen Oplossen",
+      "blocks": [
+        {
+          "id": "blk-3-content",
+          "type": "text",
+          "content": "## Discriminant Berekenen\n\nDe discriminant (D) bepaalt hoeveel snijpunten een parabool heeft met de x-as.\n\n**Formule:** D = b² - 4ac (vanuit y = ax² + bx + c)\n\n**Betekenis van D:**\n- D > 0: 2 oplossingen (2 nulpunten)\n- D = 0: 1 oplossing (1 nulpunt, de top raakt de x-as)\n- D < 0: 0 oplossingen (0 nulpunten, de grafiek zweeft boven of onder de x-as)\n\n## Ontbinden in Factoren (Product-Som-Methode)\n\nAls a = 1 in x² + bx + c:\n\n1. Zoek twee getallen die vermenigvuldigd gelijk zijn aan c\n2. Diezelfde getallen moeten opgeteld gelijk zijn aan b\n3. Schrijf: (x + getal 1)(x + getal 2) = 0\n\n**Uitzondering:** Als c = 0, haal x buiten haakjes: x(x + b) = 0\n\n## Vergelijkingen Oplossen\n\n**Route A: Oplossen door te ontbinden**\n- Als haakjesvorm (x - d)(x - e) = 0\n- Pas regel A·B = 0 → A = 0 of B = 0 toe\n\n**Route B: Oplossen met ABC-formule**\n1. Bereken D = b² - 4ac\n2. Als D ≥ 0, bereken x-waarden:\n   x = (-b + √D) / 2a of x = (-b - √D) / 2a"
+        }
+      ]
+    },
+    {
+      "id": "sec-4",
+      "title": "Ongelijkheden, Intervallen en Schetsen",
+      "blocks": [
+        {
+          "id": "blk-4-content",
+          "type": "text",
+          "content": "## Ongelijkheden Oplossen (4-stappenplan)\n\n1. Maak er een vergelijking van (vervang <, >, ≤, ≥ door =)\n2. Los de vergelijking op (vind de grenspunten)\n3. Maak een schets (dalparabool als a > 0, bergparabool als a < 0)\n4. Lees de oplossing af (boven of onder de x-as volgens de oorspronkelijke vraag)\n\n## Ongelijkheidsnotatie vs Intervalnotatie\n\n**Binnengebied (tussen de grenzen in):**\n- Ongelijkheidsnotatie: 2 < x < 5\n- Intervalnotatie: ⟨2, 5⟩\n\n**Buitengebied (buiten de grenzen om):**\n- Ongelijkheidsnotatie: x < 2 of x > 5\n- Intervalnotatie: ⟨-∞, 2⟩ ∪ ⟨5, ∞⟩\n\nLet op:\n- Bij < of >: open haakjes ⟨ ⟩\n- Bij ≤ of ≥: gesloten haken [ ]\n- Oneindig (∞) heeft altijd een open haakje\n\n## Een Parabool Schetsen\n\nVoor een correcte schets teken je:\n\n1. Vorm: dalparabool (a > 0) of bergparabool (a < 0)\n2. Snijpunt met de y-as: (0, c)\n3. Nulpunten: snijpunten met de x-as (als ze er zijn)\n4. De top: x_top = -b / 2a (of midden tussen nulpunten), vul in voor y_top"
+        }
+      ]
+    },
+    {
+      "id": "sec-5",
+      "title": "Transformaties \"In de Mix\"",
+      "blocks": [
+        {
+          "id": "blk-5-content",
+          "type": "text",
+          "content": "## Transformaties en Translaties \"In de Mix\"\n\nAls je meerdere stappen achter elkaar uitvoert, pas je de syntax direct toe op de actuele formule.\n\n### De Ultieme Volgorderegel\n\nWanneer je meerdere stappen uitvoert, pas je elke stap toe op de formule zoals die op dat moment is.\n\n**Voorbeeld met vermenigvuldiging:**\n\nStart: y = x²\n1. Vermenigvuldig ten opzichte van de x-as met 3 → y = 3x²\n2. Translatie van (4, 5) → y = 3(x - 4)² + 5\n\n**Belangrijk:** Wanneer je de haakjes wegwerkt naar de algemene vorm, werk je eerst het kwadraat uit, vermenigvuldig het resultaat met 3, en tel er tenslotte 5 bij op."
+        }
+      ]
+    }
+  ]
+}

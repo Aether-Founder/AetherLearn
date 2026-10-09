@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "event-1",
+      "title": "Toetsweek",
+      "description": "Toetsweek",
+      "startDate": "2024-10-01",
+      "endDate": "2024-10-09",
+      "type": "exam",
+      "location": "School"
+    }
+  ],
+  "lastUpdated": "2024-01-01T00:00:00.000Z"
+}

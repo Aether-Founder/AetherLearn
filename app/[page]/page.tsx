@@ -1,15 +1,15 @@
 'use client';
 
 import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
+import { AppShell } from '@/components/AppShell';
+import { ContentSidebar } from '@/components/ContentSidebar';
 import { NestedSection } from '@/components/NestedSection';
 import { SimpleMode } from '@/components/SimpleMode';
 import { LearningPlatform } from '@/components/learning-platform/LearningPlatform';
 import { TextbookSection } from '@/components/TextbookSection';
 import { ModeSwitcher } from '@/components/ModeSwitcher';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { ContentSkeleton, SidebarSkeleton } from '@/components/ContentSkeleton';
+import { ContentSkeleton } from '@/components/ContentSkeleton';
 import { Toetsweekplanning } from '@/components/Toetsweekplanning';
 import { ScrollToTop } from '@/components/ScrollToTop';
 import { SummaryMode } from '@/components/SummaryMode';
@@ -21,7 +21,7 @@ import { useBookmarks } from '@/hooks/useBookmarks';
 import { getSectionTitle } from '@/lib/section-title';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 export type ViewMode =
   | 'book'
@@ -181,7 +181,6 @@ function applyLoadedData(
 }
 
 export default function Page({ params }: { params: { page: string } }) {
-  const [activeSection, setActiveSection] = useState<string>('');
   const [data, setData] = useState<any>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('simple');
   const [availableModes, setAvailableModes] = useState<ViewMode[]>(VISIBLE_MODES);
@@ -191,7 +190,6 @@ export default function Page({ params }: { params: { page: string } }) {
   const [visibleSections, setVisibleSections] = useState<number>(CHUNK_SIZE);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [loadError, setLoadError] = useState<boolean>(false);
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
   const searchParams = useSearchParams();
   const progressiveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -219,18 +217,6 @@ export default function Page({ params }: { params: { page: string } }) {
     },
     [availableModes, params.page]
   );
-
-  const toggleSection = useCallback((sectionId: string) => {
-    setExpandedSections((prev) => {
-      const next = new Set(prev);
-      if (next.has(sectionId)) {
-        next.delete(sectionId);
-      } else {
-        next.add(sectionId);
-      }
-      return next;
-    });
-  }, []);
 
   // ── Main data loader ─────────────────────────────────────────────────────────
   useEffect(() => {
@@ -365,81 +351,22 @@ export default function Page({ params }: { params: { page: string } }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [data?.sections, visibleSections, totalSections]);
 
-  // ── Scroll spy ───────────────────────────────────────────────────────────────
-  useEffect(() => {
-    if (!data?.sections) return;
-
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100;
-      let activeId = '';
-
-      const allElements: { id: string; offsetTop: number; endTop: number }[] = [];
-
-      for (const section of data.sections) {
-        const element = document.getElementById(section.id);
-        if (element) {
-          allElements.push({
-            id: section.id,
-            offsetTop: element.offsetTop,
-            endTop: element.offsetTop + element.offsetHeight,
-          });
-        }
-
-        section.blocks?.forEach((block: any) => {
-          if (block.type === 'text' && block.content) {
-            const h3Matches = block.content.match(/\{#([a-z0-9-]+)\}/g);
-            if (h3Matches) {
-              h3Matches.forEach((match: string) => {
-                const idMatch = match.match(/\{#([a-z0-9-]+)\}/);
-                if (idMatch) {
-                  const subElement = document.getElementById(idMatch[1]);
-                  if (subElement) {
-                    const allHeadings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
-                    const currentIndex = allHeadings.findIndex((h) => h.id === idMatch[1]);
-                    const nextHeading = currentIndex >= 0 ? allHeadings[currentIndex + 1] : null;
-                    const endTop = nextHeading
-                      ? (nextHeading as HTMLElement).offsetTop
-                      : subElement.offsetTop + subElement.offsetHeight;
-                    allElements.push({
-                      id: idMatch[1],
-                      offsetTop: subElement.offsetTop,
-                      endTop,
-                    });
-                  }
-                }
-              });
-            }
-          }
-        });
-      }
-
-      allElements.sort((a, b) => a.offsetTop - b.offsetTop);
-
-      for (const elem of allElements) {
-        if (scrollPosition >= elem.offsetTop && scrollPosition < elem.endTop) {
-          activeId = elem.id;
-          break;
-        } else if (scrollPosition < elem.offsetTop) {
-          break;
-        } else {
-          activeId = elem.id;
-        }
-      }
-
-      setActiveSection(activeId);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [data?.sections]);
-
   const showSkeleton = isLoading || !data;
 
   if (loadError) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Page not found.</p>
+      <div className="min-h-screen relative">
+        <button
+          type="button"
+          onClick={() => window.history.back()}
+          className="absolute top-4 left-4 inline-flex h-10 items-center justify-center rounded-md border border-border bg-secondary px-4 text-sm font-medium transition-colors hover:bg-secondary/80 gap-2"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Terug
+        </button>
+        <div className="flex items-center justify-center h-screen">
+          <p className="text-muted-foreground">Page not found.</p>
+        </div>
       </div>
     );
   }
@@ -449,13 +376,10 @@ export default function Page({ params }: { params: { page: string } }) {
   }
 
   return (
-    <>
-      {/* Outer wrapper is in normal flow — scrolls away with the page.
-          Controls are absolute inside it so they sit exactly at top-right. */}
+    <AppShell>
       <div className="relative w-full">
         {/* Controls: top-right corner, small margin from top edge */}
         <div className="absolute top-2 right-2 flex items-center gap-2 z-10">
-          <ThemeToggle />
           {!showSkeleton && !isCustomContent && (isParagraphContent || isTextbookContent) && (
             <ModeSwitcher
               currentMode={viewMode}
@@ -493,93 +417,18 @@ export default function Page({ params }: { params: { page: string } }) {
 
       <div className="w-full border-t border-border"></div>
 
-      <main className="json-lesson-page min-h-screen bg-background">
-        <div className="flex flex-col md:flex-row md:gap-8 mt-8 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Sidebar — independently scrollable, does not propagate wheel to page */}
-          <aside
-            className={`md:block flex-shrink-0 transition-all duration-300 ease-out ${
-              viewMode === 'study' || isCustomContent
-                ? 'w-0 max-w-0 basis-0 opacity-0 -translate-x-4 pointer-events-none overflow-hidden'
-                : 'xl:w-[280px] lg:w-[250px] md:w-[220px] max-w-none basis-auto opacity-100 translate-x-0'
-            }`}
-          >
-            <div
-              className="sticky top-5 flex flex-col"
-              style={{ height: 'calc(100vh - 2.5rem)' }}
-              onWheel={(e) => {
-                // Prevent the page from scrolling when the wheel is over the sidebar
-                e.stopPropagation();
-              }}
-            >
-              <div className="p-5 pb-3 flex-shrink-0">
-                <h2 className="text-sm font-medium text-foreground mb-3">
-                  {t('table_of_contents', 'Inhoudsopgave')}
-                </h2>
-              </div>
-
-              {/* Scrollable nav — takes all remaining height, scrollbar hidden */}
-              <nav className="flex-1 overflow-y-auto overscroll-contain min-h-0 scrollbar-hide">
-                <div className="space-y-1 px-2 pb-4">
-                  {showSkeleton && <SidebarSkeleton />}
-                  {!showSkeleton && data.sections && data.sections.length > 0 && (
-                    <>
-                      <div className="w-full text-left px-3 py-2 rounded-md text-[13px] font-medium text-foreground select-none cursor-default">
-                        <span className="inline">
-                          {data.siteMetadata?.title || getSectionTitle(data.sections[0])}
-                        </span>
-                      </div>
-
-                      <div className="ml-2 space-y-0.5 pl-3">
-                        {data.sections.map((section: any) => (
-                          <div key={section.id} className="space-y-1">
-                            <button
-                              onClick={() => toggleSection(section.id)}
-                              className={`w-full text-left px-2 py-1.5 rounded text-[12px] font-medium transition-colors hover:bg-secondary/50 flex items-center gap-2 ${
-                                activeSection === section.id
-                                  ? 'bg-secondary/50 text-foreground'
-                                  : 'text-muted-foreground'
-                              }`}
-                            >
-                              <ChevronRight
-                                className={`w-4 h-4 transition-transform ${
-                                  expandedSections.has(section.id) ? 'rotate-90' : ''
-                                }`}
-                              />
-                              <span className="inline">{getSectionTitle(section)}</span>
-                            </button>
-                            {expandedSections.has(section.id) &&
-                              section.blocks?.map((block: any) => {
-                                const title =
-                                  block.title ||
-                                  block.content?.match(/^#+\s+(.+)$/m)?.[1] ||
-                                  (block.type === 'questions' ? 'Opdrachten' : block.id);
-                                return (
-                                  <button
-                                    key={block.id}
-                                    onClick={() => {
-                                      document
-                                        .getElementById(block.id)
-                                        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                    }}
-                                    className={`w-full text-left px-4 py-1 rounded text-[11px] transition-colors hover:bg-secondary/50 ml-6 ${
-                                      activeSection === block.id
-                                        ? 'bg-secondary/50 text-foreground'
-                                        : 'text-muted-foreground'
-                                    }`}
-                                  >
-                                    <span className="inline">{title}</span>
-                                  </button>
-                                );
-                              })}
-                          </div>
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </div>
-              </nav>
+      <main className="json-lesson-page bg-background">
+        <div className="relative flex flex-col md:flex-row md:gap-4 mt-8 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Content Sidebar */}
+          {data && data.sections && (
+            <div className="xl:w-[280px] lg:w-[250px] md:w-[220px] flex-shrink-0">
+              <ContentSidebar
+                sections={data.sections}
+                pageTitle={data.siteMetadata?.title}
+                hidden={viewMode === 'study' || isCustomContent}
+              />
             </div>
-          </aside>
+          )}
 
           {/* Main content */}
           <div className="flex-1 px-5 py-10 min-w-0">
@@ -650,11 +499,6 @@ export default function Page({ params }: { params: { page: string } }) {
                     
                     return (
                       <div key={section.id}>
-                        <div className="mb-4 flex items-center justify-between">
-                          <h2 className="text-2xl font-serif text-foreground font-normal">
-                            {getSectionTitle(section)}
-                          </h2>
-                        </div>
                         <TextbookSection
                           section={{
                             ...section,
@@ -727,11 +571,10 @@ export default function Page({ params }: { params: { page: string } }) {
                 </div>
               )}
             </div>
-            <Footer />
           </div>
         </div>
       </main>
       <ScrollToTop />
-    </>
+    </AppShell>
   );
 }

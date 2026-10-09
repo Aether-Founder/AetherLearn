@@ -1,0 +1,735 @@
+# Frans: Ontkenningen en Tijden
+
+## 1. Ontkenningen (La négation)
+
+In het Frans zet je een ontkenning meestal om de persoonsvorm (het vervoegde werkwoord) heen. De basisregel is: **ne ... pas**.
+Let op: als er een klinker of stomme h volgt, verandert `ne` in `n'`.
+
+| Ontkenning | Betekenis | Voorbeeld |
+|---|---|---|
+| **ne ... pas** | niet | Je **ne** parle **pas**. (Ik praat niet.) |
+| **ne ... ni ... ni** | niet ... en ook niet ... | Je **ne** parle **ni** anglais **ni** allemand. (Ik spreek geen Engels en ook geen Duits.) |
+| **ne ... personne** | niemand | Il **n'**y a **personne**. (Er is niemand.) |
+| **ne ... rien** | niets | Je **ne** fais **rien**. (Ik doe niets.) |
+| **ne ... plus** | niet meer | Je **ne** travaille **plus**. (Ik werk niet meer.) |
+| **ne ... jamais** | nooit | Je **ne** vais **jamais** à Paris. (Ik ga nooit naar Parijs.) |
+
+> **Let op bij `pas de` / `plus de` etc.:** Als je een ontkenning gebruikt bij een zelfstandig naamwoord met een lidwoord (un, une, des, du, de la), verandert het lidwoord vaak in **de** of **d'**.
+> *Voorbeeld:* J'ai un chat. ➔ Je n'ai **pas de** chat. (Ik heb geen kat.)
+
+---
+
+## 2. De Tijdlijn
+
+De tijden volgen een logische volgorde in de tijd:
+
+**Passé Composé & Imparfait** (Verleden tijd) ➔ **Présent** (Tegenwoordige tijd) ➔ **Futur** (Toekomende tijd)
+
+---
+
+## 3. Passé Composé (Voltooid Verleden Tijd)
+
+**Gebruik:**
+* Een eenmalige handeling of gebeurtenis in het verleden.
+* Een serie handelingen of gebeurtenissen in het verleden.
+* De handeling of gebeurtenis is afgerond.
+
+**Signaalwoorden:**
+`hier` (gisteren), `l'année dernière` (vorig jaar), `soudain` (plotseling), `tout à coup` (plotseling), `ce matin` (vanmorgen), `à 8 heures` (om 8 uur).
+
+**Hoe maak je de passé composé?**
+De passé composé bestaat uit twee delen:
+1. **Het hulpwerkwoord** (`avoir` of `être`) in de tegenwoordige tijd (présent).
+2. **Het voltooid deelwoord** (participe passé) van het hoofdwerkwoord.
+
+*Regels voor het voltooid deelwoord:*
+* Werkwoorden op **-er** ➔ **-é** (travailler ➔ travaillé)
+* Werkwoorden op **-ir** ➔ **-i** (finir ➔ fini)
+* Werkwoorden op **-re** ➔ **-u** (vendre ➔ vendu)
+
+*Let op:* De meeste werkwoorden gebruiken `avoir`. Een specifieke groep werkwoorden (vaak beweging of verandering van toestand) gebruikt `être`. Bij `être` moet het voltooid deelwoord zich aanpassen aan het onderwerp (extra -e, -s of -es).
+
+**Oefeningen (Passé Composé):**
+Vervoeg de werkwoorden in de passé composé.
+1. elle ... (travailler)
+2. vous ... (habiter)
+3. tu ... (chanter)
+
+*Antwoorden:*
+1. elle **a travaillé**
+2. vous **avez habité**
+3. tu **as chanté**
+
+---
+
+## 4. Imparfait (Onvoltooid Verleden Tijd)
+
+**Gebruik:**
+* Beschrijving van een gewoonte of toestand in het verleden.
+
+**Signaalwoorden:**
+`avant` (vroeger), `souvent` (vaak), `toujours` (altijd), `chaque jour` (elke dag), `tous les week-ends` (elk weekend).
+
+**Hoe maak je een imparfait?**
+Volg exact deze stappen:
+1. Neem de **nous-vorm** van het werkwoord in de présent.
+2. Haal **-ons** van het werkwoord af. Dit is je stam voor de imparfait.
+3. Voeg de juiste uitgang toe.
+
+*De uitgangen voor de imparfait (voor -er, -ir en -re werkwoorden):*
+
+| Persoon | Uitgang |
+|---|---|
+| je | + ais |
+| tu | + ais |
+| il/elle/on | + ait |
+| nous | + ions |
+| vous | + iez |
+| ils/elles | + aient |
+
+*Voorbeeld:* `chanter` ➔ nous chantons ➔ stam: chant- ➔ je chantais, tu chantais, etc.
+
+**Oefeningen (Imparfait):**
+Vervoeg de werkwoorden in de imparfait.
+1. elle ... (travailler)
+2. vous ... (habiter)
+3. tu ... (chanter)
+
+*Antwoorden:*
+1. elle **travaillait** (stam: travaill- + ait)
+2. vous **habitiez** (stam: habit- + iez)
+3. tu **chantais** (stam: chant- + ais)
+
+---
+
+## 5. Présent (Tegenwoordige Tijd)
+
+**Gebruik:**
+* Gebeurtenissen of handelingen die nu plaatsvinden.
+
+**Signaalwoorden:**
+`maintenant` (nu), `en ce moment` (op dit moment), `actuellement` (momenteel).
+
+**Vorming van de Présent (-er, -ir, -re):**
+
+| Persoon | -er (bijv. parler) | -ir (bijv. finir) | -re (bijv. vendre) |
+|---|---|---|---|
+| je | + e | + is | + s |
+| tu | + es | + is | + s |
+| il/elle/on | + e | + it | + (geen uitgang) |
+| nous | + ons | + ons | + ons |
+| vous | + ez | + ez | + ez |
+| ils/elles | + ent | + ent | + ent |
+
+**Oefeningen (Présent):**
+Vervoeg de werkwoorden in de présent.
+1. elle ... (travailler)
+2. vous ... (habiter)
+3. tu ... (chanter)
+
+*Antwoorden:*
+1. elle **travaille**
+2. vous **habitez**
+3. tu **chantes**
+
+---
+
+## 6. Futur (Toekomende Tijd)
+
+**Gebruik:**
+* Een activiteit of handeling in de toekomst.
+
+**Signaalwoorden:**
+`demain` (morgen), `la semaine prochaine` (volgende week), `dans dix jours` (over tien dagen), `bientôt` (binnenkort), `un jour` (op een dag).
+
+**Hoe maak je de futur?**
+Het infinitief (het hele werkwoord) is de basis.
+
+*Voor -er, -ir en -re:*
+hele werkwoord + uitgang
+
+| Persoon | Uitgang | Voorbeeld (parler) |
+|---|---|---|
+| je | + ai | je parlerai |
+| tu | + as | tu parleras |
+| il/elle/on | + a | il parlera |
+| nous | + ons | nous parlerons |
+| vous | + ez | vous parlerez |
+| ils/elles | + ont | ils parleront |
+
+> **Let op:** Bij werkwoorden op **-re** haal je de **-e** weg voordat je de uitgang toevoegt.
+> *Voorbeeld:* `vendre` ➔ vend- + uitgang ➔ je vendrai.
+
+**Oefeningen (Futur):**
+Vervoeg de werkwoorden in de futur.
+1. elle ... (travailler)
+2. vous ... (habiter)
+3. tu ... (chanter)
+
+*Antwoorden:*
+1. elle **travaillera**
+2. vous **habiterez**
+3. tu **chanteras**
+
+
+
+
+
+Grammatica
+
+# 3 HET BIJVOEGLIJK NAAMWOORD • L'ADJECTIF
+
+Het bijvoeglijk naamwoord zegt iets over een zelfstandig naamwoord. De vorm van het bijvoeglijk naamwoord is veranderlijk.
+
+## 3.1 MANNELIJK ENKELVOUD
+
+In een woordenboek vind je de vorm van het bijvoeglijk naamwoord dat bij een mannelijk zelfstandig naamwoord hoort.
+
+> Ils habitent dans un **petit** village.
+> C'est un problème **intéressant**.
+
+## 3.2 VROUWELIJK ENKELVOUD
+
+Een bijvoeglijk naamwoord dat bij een vrouwelijk zelfstandig naamwoord hoort, krijgt meestal een -e.
+
+> Elle habite dans une petit**e** maison.
+> C'est une question intéressant**e**.
+
+Bij een aantal bijvoeglijke naamwoorden is de vorming van het vrouwelijk enkelvoud afwijkend.
+
+| | mannelijk | vrouwelijk |
+|---|---|---|
+| -e blijft -e | un sac **rouge** | une jupe **rouge** |
+| -er wordt -ère | le dernier **concert** | la derni**ère** fois |
+| -f wordt -ve | un garçon **sportif** | une fille **sportive** |
+| -x wordt -se | un pays **dangereux** | une route **dangereuse** |
+
+Sommige bijvoeglijke naamwoorden krijgen in de vrouwelijke vorm een dubbele medeklinker.
+
+| | mannelijk | vrouwelijk |
+|---|---|---|
+| -el | un parc **naturel** | une couleur **naturelle** |
+| -on | un **bon** café | une **bonne** ambiance |
+| -en | un **ancien** élève | une **ancienne** élève |
+
+Er zijn meer bijvoeglijke naamwoorden die afwijkend of onregelmatig worden gevormd. Dit zijn de meest gebruikte.
+
+| mannelijk | vrouwelijk | |
+|---|---|---|
+| gentil | gentille | aardig / lief |
+| bas | basse | laag |
+| gros | grosse | dik |
+| pareil | pareille | hetzelfde |
+| beau | belle | mooi |
+| nouveau | nouvelle | nieuw |
+| franc | franche | oprecht |
+| blanc | blanche | wit |
+| sec | sèche | droog |
+| frais | fraîche | fris / vers |
+| long | longue | lang |
+| favori | favorite | favoriet |
+| fou | folle | gek |
+| faux | fausse | fout / vals |
+| doux | douce | zacht |
+| vieux | vieille | oud |
+| inquiet | inquiète | ongerust |
+
+## 3.3 MANNELIJK EN VROUWELIJK MEERVOUD
+
+In het meervoud krijgt het bijvoeglijk naamwoord meestal een -s.
+
+| enkelvoud | meervoud |
+|---|---|
+| mannelijk | Le sac est noir. | Les sacs sont noir**s**. |
+| vrouwelijk | La voiture est grande. | Les voitures sont grande**s**. |
+| | Une jeune femme. | Deux jeune**s** femmes. |
+
+Sommige mannelijke bijvoeglijke naamwoorden zijn afwijkend in het meervoud.
+
+| mannelijk enkelvoud | mannelijk meervoud |
+|---|---|
+| -s blijft -s | le pull **gris** | les pulls **gris** |
+| -x blijft -x | le vieux **livre** | les vieux **livres** |
+| -al wordt -aux | le concours **national** | les concours **nationaux** |
+| -eau wordt -eaux | le **beau** garçon | les **beaux** garçons |
+
+Enkele bijvoeglijke naamwoorden zijn onveranderlijk en hebben dus maar één vorm.
+
+> des yeux **marron** (bruine ogen)
+> des chaussettes **orange** (oranje sokken)
+
+## 3.4 BEL, NOUVEL, VIEIL
+
+Beau, nouveau en vieux hebben een speciale vorm voor een mannelijk zelfstandig naamwoord dat met een klinker of een stomme h begint.
+
+| voor medeklinker | voor klinker / stomme h | |
+|---|---|---|
+| beau | bel | un **bel** appartement |
+| nouveau | nouvel | un **nouvel** hôtel |
+| vieux | vieil | un **vieil** agenda |
+
+## 3.5 DE PLAATS VAN HET BIJVOEGLIJK NAAMWOORD
+
+Een bijvoeglijk naamwoord staat meestal **achter** het zelfstandig naamwoord.
+
+> un homme **sympathique** (een aardige man)
+> une voiture **rapide** (een snelle auto)
+
+Sommige bijvoeglijke naamwoorden staan **voor** het zelfstandig naamwoord.*
+
+> un **grand** homme (een grote man)
+> une **longue** nuit (een lange nacht)
+
+* In de volgende lijst staan bijvoeglijke naamwoorden die vóór het zelfstandig naamwoord komen:
+
+| | | | |
+|---|---|---|---|
+| beau | mooi | jeune | jong |
+| bon | goed | vieux | oud |
+| joli | knap | grand | groot |
+| haut | hoog | gros | dik |
+| long | lang | mauvais | slecht |
+| petit | klein | méchant | gemeen |
+| | | premier | eerste |
+| | | deuxième | tweede |
+| | | dernier | laatste |
+| | | autre | ander |
+
+## 3.6 HET BIJVOEGLIJK NAAMWOORD VAN LANDENNAMEN
+
+Het bijvoeglijk naamwoord dat van een landennaam gemaakt wordt, schrijf je in het Frans **niet** met een hoofdletter.
+
+| landennaam | bijvoeglijk naamwoord* | |
+|---|---|---|
+| la France | français | Frans |
+| la Belgique | belge | Belgisch |
+| la Suisse | suisse | Zwitsers |
+| la Turquie | turc, turque | Turks |
+| la Pologne | polonais | Pools |
+| la Chine | chinois | Chinees |
+| la Hollande | hollandais | Nederlands |
+| le Maroc | marocain | Marokkaans |
+| le Portugal | portugais | Portugees |
+| l'Angleterre | anglais | Engels |
+| l'Allemagne | allemand | Duits |
+| l'Italie | italien | Italiaans |
+| l'Espagne | espagnol | Spaans |
+| l'Europe | européen | Europees |
+| l'Amérique | américain | Amerikaans |
+| l'Afrique | africain | Afrikaans |
+| les Pays-Bas | néerlandais | Nederlands |
+| les Antilles | antillais | Antilliaans |
+
+* Ook de taal (le français, het Frans) schrijf je **niet** met een hoofdletter. De persoon (le Français, de Fransman) schrijf je **wel** met een hoofdletter.
+
+| INFINITIF | PARTICIPE PRÉSENT | PARTICIPE PASSÉ |
+|---|---|---|
+| **donner** geven | **donnant** | **donné** |
+
+| FUTUR | IMPARFAIT | PASSÉ COMPOSÉ | PRÉSENT | PASSÉ SIMPLE |
+|---|---|---|---|---|
+| je donnerai<br>tu donneras<br>il donnera<br>nous donnerons<br>vous donnerez<br>ils donneront | je donnais<br>tu donnais<br>il donnait<br>nous donnions<br>vous donniez<br>ils donnaient | j'ai **donné**<br>tu as donné<br>il a donné<br>nous avons donné<br>vous avez donné<br>ils ont donné | je donne<br>tu donnes<br>il donne<br>nous donnons<br>vous donnez<br>ils donnent | je donnai<br>tu donnas<br>il donna<br>nous donnâmes<br>vous donnâtes<br>ils donnèrent |
+
+| FUTUR DU PASSÉ | SUBJONCTIF | IMPÉRATIF |
+|---|---|---|
+| je donnerais<br>tu donnerais<br>il donnerait<br>nous donnerions<br>vous donneriez<br>ils donneraient | que je donne<br>que tu donnes<br>qu'il donne<br>que nous donnions<br>que vous donniez<br>qu'ils donnent | donne<br>donnons<br>donnez |
+
+Sommige regelmatige werkwoorden op -er hebben een bijzonderheid. Zie § 21.13
+
+| INFINITIF | PARTICIPE PRÉSENT | PARTICIPE PASSÉ |
+|---|---|---|
+| **aller** gaan | **allant** | **allé** |
+
+| FUTUR | IMPARFAIT | PASSÉ COMPOSÉ | PRÉSENT | PASSÉ SIMPLE |
+|---|---|---|---|---|
+| **j'irai**<br>tu iras<br>il ira<br>nous irons<br>vous irez<br>ils iront | j'allais<br>tu allais<br>il allait<br>nous allions<br>vous alliez<br>ils allaient | je suis allé<br>tu es allé<br>il est allé<br>nous sommes allés<br>vous êtes allé(s)<br>ils sont allés | **je vais**<br>**tu vas**<br>**il va**<br>nous allons<br>vous allez<br>**ils vont** | **j'allai**<br>tu allas<br>il alla<br>nous allâmes<br>vous allâtes<br>ils allèrent |
+
+| FUTUR DU PASSÉ | SUBJONCTIF | IMPÉRATIF |
+|---|---|---|
+| **j'irais**<br>tu irais<br>il irait<br>nous irions<br>vous iriez<br>ils iraient | **que j'aille**<br>**que tu ailles**<br>**qu'il aille**<br>que nous allions<br>que vous alliez<br>**qu'ils aillent** | **va**<br>allons<br>allez |
+
+| INFINITIF | PARTICIPE PRÉSENT | PARTICIPE PASSÉ |
+|---|---|---|
+| **avoir** hebben | **ayant** | **eu** |
+
+| FUTUR | IMPARFAIT | PASSÉ COMPOSÉ | PRÉSENT | PASSÉ SIMPLE |
+|---|---|---|---|---|
+| **j'aurai**<br>tu auras<br>il aura<br>nous aurons<br>vous aurez<br>ils auront | **j'avais**<br>tu avais<br>il avait<br>nous avions<br>vous aviez<br>ils avaient | j'ai eu<br>tu as eu<br>il a eu<br>nous avons eu<br>vous avez eu<br>ils ont eu | **j'ai**<br>**tu as**<br>**il a**<br>**nous avons**<br>**vous avez**<br>**ils ont** | **j'eus**<br>tu eus<br>il eut<br>nous eûmes<br>vous eûtes<br>ils eurent |
+
+| FUTUR DU PASSÉ | SUBJONCTIF | IMPÉRATIF |
+|---|---|---|
+| **j'aurais**<br>tu aurais<br>il aurait<br>nous aurions<br>vous auriez<br>ils auraient | **que j'aie**<br>**que tu aies**<br>**qu'il ait**<br>que nous ayons<br>que vous ayez<br>**qu'ils aient** | **aie**<br>**ayons**<br>**ayez** |
+
+| INFINITIF | PARTICIPE PRÉSENT | PARTICIPE PASSÉ |
+|---|---|---|
+| **être** zijn | **étant** | **été** |
+
+| FUTUR | IMPARFAIT | PASSÉ COMPOSÉ | PRÉSENT | PASSÉ SIMPLE |
+|---|---|---|---|---|
+| **je serai**<br>tu seras<br>il sera<br>nous serons<br>vous serez<br>ils seront | j'étais<br>tu étais<br>il était<br>nous étions<br>vous étiez<br>ils étaient | j'ai été<br>tu as été<br>il a été<br>nous avons été<br>vous avez été<br>ils ont été | **je suis**<br>**tu es**<br>**il est**<br>**nous sommes**<br>**vous êtes**<br>**ils sont** | **je fus**<br>tu fus<br>il fut<br>nous fûmes<br>vous fûtes<br>ils furent |
+
+| FUTUR DU PASSÉ | SUBJONCTIF | IMPÉRATIF |
+|---|---|---|
+| **je serais**<br>tu serais<br>il serait<br>nous serions<br>vous seriez<br>ils seraient | **que je sois**<br>**que tu sois**<br>**qu'il soit**<br>**que nous soyons**<br>**que vous soyez**<br>**qu'ils soient** | **sois**<br>**soyons**<br>**soyez** |
+
+| INFINITIF | PARTICIPE PRÉSENT | PARTICIPE PASSÉ |
+|---|---|---|
+| **faire**<br>doen, maken, laten | **faisant** | **fait** |
+
+| FUTUR | IMPARFAIT | PASSÉ COMPOSÉ | PRÉSENT | PASSÉ SIMPLE |
+|---|---|---|---|---|
+| **je ferai**<br>tu feras<br>il fera<br>nous ferons<br>vous ferez<br>ils feront | je faisais<br>tu faisais<br>il faisait<br>nous faisions<br>vous faisiez<br>ils faisaient | j'ai fait<br>tu as fait<br>il a fait<br>nous avons fait<br>vous avez fait<br>ils ont fait | **je fais**<br>**tu fais**<br>**il fait**<br>nous faisons<br>**vous faites**<br>**ils font** | **je fis**<br>tu fis<br>il fit<br>nous fîmes<br>vous fîtes<br>ils firent |
+
+| FUTUR DU PASSÉ | SUBJONCTIF | IMPÉRATIF |
+|---|---|---|
+| **je ferais**<br>tu ferais<br>il ferait<br>nous ferions<br>vous feriez<br>ils feraient | **que je fasse**<br>que tu fasses<br>qu'il fasse<br>que nous fassions<br>que vous fassiez<br>qu'ils fassent | fais<br>faisons<br>faites |
+
+Ook zo:
+refaire overdoen
+satisfaire voldoen
+
+# 6 GETALLEN • LES NOMBRES
+
+## 6.1 HOOFDTELWOORDEN
+
+| 1 | un/une | 19 | dix-neuf | 72 | soixante-douze |
+|---|---|---|---|---|---|
+| 2 | deux | 20 | vingt | 80 | quatre-vingts |
+| 3 | trois | 21 | vingt et un | 81 | quatre-vingt-un |
+| 4 | quatre | 22 | vingt-deux | 82 | quatre-vingt-deux |
+| 5 | cinq | 30 | trente | 90 | quatre-vingt-dix |
+| 6 | six | 31 | trente et un | 91 | quatre-vingt-onze |
+| 7 | sept | 32 | trente-deux | 92 | quatre-vingt-douze |
+| 8 | huit | 40 | quarante | 100 | cent |
+| 9 | neuf | 41 | quarante et un | 101 | cent un |
+| 10 | dix | 42 | quarante-deux | 102 | cent deux |
+| 11 | onze | 50 | cinquante | 200 | deux cents |
+| 12 | douze | 51 | cinquante et un | 201 | deux cent un |
+| 13 | treize | 52 | cinquante-deux | 202 | deux cent deux |
+| 14 | quatorze | 60 | soixante | 1000 | mille |
+| 15 | quinze | 61 | soixante et un | 1528 | mille cinq cent vingt-huit |
+| 16 | seize | 62 | soixante-deux | 2000 | deux mille |
+| 17 | dix-sept | 70 | soixante-dix | 2300 | deux mille trois cents |
+| 18 | dix-huit | 71 | soixante et onze | 4359 | quatre mille trois cent cinquante-neuf |
+
+**Onthoud:**
+* Tussen tiental en eenheid staat een streepje (trait d'union), behalve bij 21, 31, 41, 51, 61 en 71. Daar staat **et** in plaats van het verbindingstreepje.
+* Vingt en cent krijgen in het meervoud een **-s** wanneer er geen ander telwoord achter staat.
+* Mille krijgt nooit een **-s**.
+* In België en Zwitserland bestaan varianten voor 70, 80 en 90 die in Frankrijk niet gebruikt worden (septante, octante, nonante).
+
+## 6.2 RANGTELWOORDEN
+
+Je maakt een rangtelwoord door -ième achter het hoofd telwoord te zetten.*
+
+| | | | |
+|---|---|---|---|
+| deux | | twee | |
+| deuxième | ➔ | tweede | |
+| vingt | | twintig | |
+| vingtième | ➔ | twintigste | |
+
+* De volgende getallen hebben een afwijkend rangtelwoord:
+
+| | |
+|---|---|
+| premier, première | eerste |
+| quatrième | vierde |
+| cinquième | vijfde |
+| neuvième | negende |
+| vingt et unième | eenentwintigste |
+
+## 6.3 DATUM
+
+In de datum gebruik je **le** met een hoofd telwoord, behalve bij de eerste van de maand.
+
+| | |
+|---|---|
+| le 22 juin | 22 juni |
+| le 1er septembre / le premier septembre | 1 september |
+| Nous sommes le lundi 13 mars. | Het is maandag 13 maart. |
+
+De dagen van de week en de maanden van het jaar:
+
+| | | | |
+|---|---|---|---|
+| janvier | januari | lundi | maandag |
+| février | februari | mardi | dinsdag |
+| mars | maart | mercredi | woensdag |
+| avril | april | jeudi | donderdag |
+| mai | mei | vendredi | vrijdag |
+| juin | juni | samedi | zaterdag |
+| juillet | juli | dimanche | zondag |
+| août | augustus | | |
+| septembre | september | | |
+| octobre | oktober | | |
+| novembre | november | | |
+| décembre | december | | |
+
+## 6.4 BREUKEN
+
+Breuken maak je met rangtelwoorden.
+
+| | |
+|---|---|
+| un cinquième | een vijfde |
+| un dixième | een tiende |
+| deux neuvièmes | twee negende |
+
+Er zijn daarop een paar uitzonderingen:
+
+| | |
+|---|---|
+| un demi | een half |
+| un tiers | een derde |
+| un quart | een kwart |
+
+## 6.5 KLOKTIJDEN
+
+Een kloktijd begint altijd met **il est**.
+
+| | |
+|---|---|
+| Quelle heure est-il? | Hoe laat is het? |
+| **Il est** huit heures. | Het is 8.00 uur. |
+| Il est huit heures cinq. | Het is 8.05 uur. |
+| Il est huit heures dix. | Het is 8.10 uur. |
+| Il est huit heures et quart. | Het is 8.15 uur. |
+| Il est huit heures vingt. | Het is 8.20 uur. |
+| Il est huit heures vingt-cinq. | Het is 8.25 uur. |
+| Il est huit heures et demie. | Het is 8.30 uur. |
+| Il est neuf heures moins vingt-cinq. | Het is 8.35 uur. |
+| Il est neuf heures moins vingt. | Het is 8.40 uur. |
+| Il est neuf heures moins le quart. | Het is 8.45 uur. |
+| Il est neuf heures moins dix. | Het is 8.50 uur. |
+| Il est neuf heures moins cinq. | Het is 8.55 uur. |
+
+Bij twaalf uur zijn er een paar bijzonderheden.
+
+| | |
+|---|---|
+| Il est midi. | Het is 12.00 uur (overdag). |
+| Il est minuit. | Het is 0.00 uur. |
+| Il est midi et demi (zonder -e) | Het is 12.30 uur (overdag). |
+| Il est minuit et demi (zonder -e) | Het is 0.30 uur. |
+
+Je kunt **du matin**, **de l'après-midi** of **du soir** toevoegen om verwarring te voorkomen.
+
+| | |
+|---|---|
+| Il est neuf heures **du matin**. | Het is 9 uur 's ochtends. |
+| Il est trois heures **du matin**. | Het is 3 uur 's nachts. |
+| Il est trois heures **de l'après-midi**. | Het is 3 uur 's middags. |
+| Il est sept heures et demie **du soir**. | Het is half 8 's avonds. |
+
+> Voor de N-F-secties is de kolomvolgorde **Nederlands | Frans**; voor de F-N-secties **Frans | Nederlands**.
+
+### U1 – Regarder
+| Frans | Nederlands |
+|---|---|
+| le pote | de vriend |
+| c'est con (fam.) | dat is stom |
+| la destination | de bestemming |
+| fatigué | moe |
+| le mec | de vent, de gozer |
+| bienvenue | welkom |
+| l'épisode (m) | de aflevering |
+| extraordinaire | buitengewoon |
+| n'importe quel | het maakt niet uit welk |
+| numérique | digitaal |
+| plein de | heel veel |
+| le profit | de winst |
+| la perte | het verlies |
+| le savon | de zeep |
+| le coup de foudre | de liefde op het eerste gezicht |
+| pas grand-chose | niet veel |
+| grâce à | dankzij |
+| méchant | gemeen |
+| l'auditeur / l'auditrice | de luisteraar |
+| elle me manque | ik mis haar |
+
+### U1 – Vocabulaire thématique: la rentrée
+| Frans | Nederlands |
+|---|---|
+| le voyage | de reis |
+| terminé | afgelopen |
+| rencontrer | ontmoeten |
+| bon courage ! | succes! |
+| retrouver | weer zien |
+| raconter | vertellen |
+
+### U1 – Lire
+| Frans | Nederlands |
+|---|---|
+| l'horaire (m) | het tijdschema |
+| bête | dom / stom |
+| recommander | aanbevelen |
+| sans doute | waarschijnlijk |
+| bien que | hoewel |
+| détendu | ontspannen |
+| sauter | overslaan / springen |
+| le proverbe | het spreekwoord |
+| apprendre | leren |
+| se dérouler | zich afspelen |
+| il vaut mieux | je kunt beter |
+| la veille | de dag ervoor |
+| pâle | bleek |
+| l'ouvrier (m) | de arbeider |
+| la façon | de manier |
+| dès | zodra |
+| rater | missen |
+| quand même | toch |
+| se révéler | blijken |
+| le comportement | het gedrag |
+| je m'en fous | het kan me niets schelen |
+| le courrier | de post |
+| les fournitures (f pl) | de spullen / benodigdheden |
+
+### U1 – Vocabulaire thématique: la vie scolaire
+| Frans | Nederlands |
+|---|---|
+| redoubler | blijven zitten / doubleren |
+| la filière | het profiel |
+| le bac / baccalauréat | het eindexamen |
+| la matière | het vak |
+| la récré / récréation | de pauze |
+| l'orientation (f) | de studie- of beroepskeuze |
+| le prof principal | de mentor |
+
+### U1 – Écrire
+| Nederlands | Frans |
+|---|---|
+| het kledingstuk | le vêtement |
+| vooral | surtout |
+| toevoegen | joindre |
+| ontmoeten | rencontrer |
+| slecht | nul, nulle |
+| daarom | c'est pourquoi |
+| de hobby | le passe-temps |
+| zich voorstellen | se présenter |
+| in de vierde klas | en seconde |
+| fit blijven | rester en forme |
+| verbeteren | améliorer |
+| vergeten | oublier |
+| het lichaamsdeel | la partie du corps |
+| indien mogelijk | si possible |
+| nogal / tamelijk | assez |
+| lievelings- | favori, favorite |
+| schrijven | correspondre |
+| een heleboel | plein de |
+| op zaterdag, 's zaterdags | le samedi |
+| liever hebben, de voorkeur geven (aan) | préférer |
+
+### U1 – Vocabulaire thématique: les hobbies
+| Nederlands | Frans |
+|---|---|
+| naar de disco gaan | sortir en boîte |
+| het videospelletje | le jeu vidéo |
+| downloaden van internet | télécharger sur Internet |
+| dansen | faire de la danse |
+| gitaar spelen | jouer de la guitare |
+| schaken | jouer aux échecs |
+| voetballen | jouer au foot |
+| tekenen | dessiner |
+| reizen | voyager |
+| tv-kijken | regarder la télé |
+
+### U1 – Écrire: Phrases
+| Nederlands | Frans |
+|---|---|
+| 1 Het is een jongen van dezelfde leeftijd als ik. | 1 C'est un garçon qui a le même âge que moi. |
+| 2 Mijn correspondentievriendin heeft blond haar en blauwe ogen. | 2 Ma correspondante a les cheveux blonds et les yeux bleus. |
+| 3 Mijn hobby's zijn lezen en kletsen met mijn vrienden. | 3 Mes hobbies sont lire et bavarder avec mes amis. |
+| 4 Ik wil een heleboel jongeren ontmoeten. | 4 Je voudrais rencontrer plein de jeunes. |
+| 5 In 2013 woonde ik niet in Parijs, maar op het platteland. | 5 En 2013 je n'habitais pas à Paris, mais à la campagne. |
+| 6 Wij hebben dezelfde hobby's. | 6 Nous avons les mêmes passe-temps. |
+| 7 Ik schrijf het liefst in het Frans, want ik ben slecht in Engels. | 7 Je préfère écrire en français, car je suis nul(le) en anglais. |
+| 8 Ik ben erg sportief, ik voetbal. | 8 Je suis très sportif / sportive, je joue au foot. |
+| 9 Hij zit in de vierde klas. | 9 Il est en seconde. |
+| 10 Schrijf me snel en stuur me een foto. | 10 Écris-moi vite et envoie-moi une photo. |
+
+### U1 – Écouter
+| Frans | Nederlands |
+|---|---|
+| se rendre compte | beseffen, zich realiseren |
+| avancer | vervroegen |
+| libérer | vrij geven, bevrijden |
+| être occupé de | bezig zijn met |
+| reculer | verzetten |
+| repartir | weer vertrekken |
+| indispensable | onmisbaar |
+| les congés payés (m pl) | betaalde vakantie |
+| retourner au boulot | weer aan het werk gaan |
+| rendre fou | gek maken |
+| ça y est | het is zover |
+| rater | mislukken |
+| le / la pire | het ergste, het slechtste |
+| perdre | verliezen |
+| agricole | landbouw- |
+| la réussite | het slagen, het succes |
+| oublier | vergeten |
+| la chasse | de jacht |
+| raccourcir | verkorten |
+| parvenir à | erin slagen te |
+
+### U1 – Vocabulaire thématique: les vacances
+| Frans | Nederlands |
+|---|---|
+| bronzer | zonnen |
+| faire la grasse matinée | uitslapen |
+| la destination | de bestemming |
+| l'été (m) | de zomer |
+| la randonnée | de wandeltocht |
+| les grandes vacances (f pl) | de zomervakantie |
+
+### U1 – Parler
+| Nederlands | Frans |
+|---|---|
+| de persoonlijke gegevens | les coordonnées (f pl) |
+| week- / wekelijks | hebdomadaire |
+| eerst | d'abord |
+| de sluiting | la fermeture |
+| ontvangen | accueillir |
+| het antwoordapparaat | le répondeur |
+| hartstikke | vachement |
+| binnenkort | prochainement |
+| de haven | le port |
+| elkaar weer ontmoeten | se retrouver |
+| grappig / leuk | drôle |
+| zich vervelen | s'ennuyer |
+| zwemmen | se baigner |
+| de mobiele telefoon | le portable |
+| vervolgens | ensuite |
+| iets drinken | prendre un pot |
+| het bureau | l'agence (f) |
+| aan zee | au bord de la mer |
+| zou u zo vriendelijk willen zijn om | veuillez |
+| niet geweldig | pas terrible |
+| bezitten | posséder |
+| terugzien | revoir |
+| geopend | ouvert |
+
+### U1 – Vocabulaire thématique: l’amitié
+| Nederlands | Frans |
+|---|---|
+| feestvieren | faire la fête |
+| naar huis gaan | rentrer |
+| terugbellen | rappeler |
+| kennismaken met | faire connaissance avec |
+| de afspraak | le rendez-vous |
+| met vakantie gaan | partir en vacances |
+| de groep | la bande |
+
+### U1 – Parler: Phrases
+| Nederlands | Frans |
+|---|---|
+| 1 Henri wil graag kennismaken met jouw zus. | 1 Henri aimerait faire connaissance avec ta sœur. |
+| 2 Zullen we iets gaan drinken op het terras? | 2 On va prendre un pot à la terrasse ? |
+| 3 Mijn broer heeft een baantje voor de zomervakantie. | 3 Mon frère a un travail pour les vacances d'été. |
+| 4 Ik zal u het nummer van mijn mobiel geven. | 4 Je vais vous donner le numéro de mon portable. |
+| 5 Ik ben dol op talen en vind het leuk om buitenlandse jongeren te ontmoeten. | 5 J'adore les langues et j'aime rencontrer de jeunes étrangers. |
+| 6 Christian gaat een tafel voor vier personen reserveren om 19.00 uur. | 6 Christian va réserver une table pour quatre personnes à 19.00 heures. |
+| 7 Mijn ouders brengen hun vakantie aan zee door. | 7 Mes parents passent leurs vacances au bord de la mer. |
+| 8 We zagen elkaar soms op het strand. | 8 On se voyait parfois sur la plage. |
+| 9 In de vakantie is zij verliefd geworden. | 9 Elle est tombée amoureuse pendant les vacances. |
+| 10 Ik hoop die aardige jongen terug te zien. | 10 J'espère le revoir, ce garçon sympa. |

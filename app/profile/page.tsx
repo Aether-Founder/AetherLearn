@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { AppShell, PageHeader } from '@/components/AppShell';
 import { Loader2, Save, LogOut } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
 
@@ -134,13 +135,14 @@ export default function ProfilePage() {
   const createdAt = profile?.created_at || user.created_at;
 
   return (
-    <div className="container mx-auto py-8 px-4 max-w-4xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{t('profile_title')}</h1>
-        <p className="text-muted-foreground">{t('profile_subtitle')}</p>
-      </div>
+    <AppShell>
+      <PageHeader
+        title={t('profile_title')}
+        description={t('profile_subtitle')}
+      />
 
-      <Tabs defaultValue="profile" className="space-y-6">
+      <div className="py-8">
+        <Tabs defaultValue="profile" className="space-y-6">
         <TabsList>
           <TabsTrigger value="profile">{t('profile_tab_profile')}</TabsTrigger>
           <TabsTrigger value="preferences">{t('profile_tab_preferences')}</TabsTrigger>
@@ -350,6 +352,7 @@ export default function ProfilePage() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+      </div>
+    </AppShell>
   );
 }

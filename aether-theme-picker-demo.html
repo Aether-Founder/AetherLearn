@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Theme Picker Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* Default light mode styles */
+        :root {
+            --background: #f5f5f5;
+            --foreground: #020817;
+            --primary: #3b82f6;
+            --primary-foreground: #ffffff;
+            --border: rgba(2, 8, 23, 0.1);
+            --muted-foreground: #64748b;
+        }
+
+        /* Dark mode styles */
+        .dark {
+            --background: #020817;
+            --foreground: #f8fafc;
+            --primary: #3b82f6;
+            --primary-foreground: #ffffff;
+            --border: rgba(248, 250, 252, 0.1);
+            --muted-foreground: #94a3b8;
+        }
+
+        /* Custom theme styles */
+        [data-theme="custom"] {
+            --background: var(--theme-background, #f5f5f5);
+            --foreground: var(--theme-text, #020817);
+            --primary: var(--theme-main, #3b82f6);
+            --primary-foreground: var(--primary-foreground, #ffffff);
+            --border: var(--theme-shade-secondary, rgba(2, 8, 23, 0.1));
+            --muted-foreground: var(--theme-shade-primary, #64748b);
+        }
+
+        body {
+            background: var(--background);
+            color: var(--foreground);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--foreground);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--foreground);
+        }
+
+        .demo-section {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .demo-card {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .demo-button {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: opacity 0.2s;
+        }
+
+        .demo-button:hover {
+            opacity: 0.9;
+        }
+
+        .demo-button-outline {
+            background: transparent;
+            color: var(--foreground);
+            border: 2px solid var(--border);
+        }
+
+        code {
+            background: var(--border);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--foreground);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--foreground);
+        }
+
+        .feature-list li:before {
+            content: "✓ ";
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .info-box {
+            background: var(--border);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .info-box p {
+            margin: 0;
+            color: var(--foreground);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Aether Theme Picker Demo</h1>
+        
+        <p>This is a demo page showing the Aether Theme Picker in action. Click the paint icon button in the top-right corner to explore all available themes!</p>
+
+        <div class="info-box">
+            <p><strong>Try it out:</strong> Click the theme picker button (paint icon) in the top-right corner to preview and select from 100+ themes. Click a theme to preview it, then click "Opslaan" to save your selection.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>Primary Color Demo</h2>
+            <p>This section uses the primary color from the current theme.</p>
+            <button class="demo-button">Primary Button</button>
+            <button class="demo-button demo-button-outline">Outline Button</button>
+        </div>
+
+        <h2>Features</h2>
+        <ul class="feature-list">
+            <li>100+ pre-built themes from MonkeyType</li>
+            <li>Preview themes before saving</li>
+            <li>Persistent theme selection via localStorage</li>
+            <li>Automatic color contrast calculation</li>
+            <li>Responsive and accessible design</li>
+            <li>Easy integration with any HTML page</li>
+            <li>Customizable position and styling</li>
+            <li>Search functionality to find themes quickly</li>
+        </ul>
+
+        <h2>Sample Content</h2>
+        <div class="demo-card">
+            <h3>Card Component</h3>
+            <p>This is a sample card component that adapts to the current theme colors.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div class="demo-card">
+            <h3>Another Card</h3>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+        <h2>How to Use</h2>
+        <p>To add the theme picker to any HTML page, simply add this script tag before the closing <code>&lt;/body&gt;</code> tag:</p>
+        
+        <div class="demo-card">
+            <code>&lt;script src="https://your-domain.com/aether-theme-picker.js"&gt;&lt;/script&gt;</code>
+        </div>
+
+        <h2>Configuration</h2>
+        <p>You can customize the theme picker by modifying the <code>CONFIG</code> object in the JavaScript file:</p>
+        
+        <div class="demo-card">
+            <pre><code style="color: var(--foreground);">const CONFIG = {
+    storageKey: 'aether-selected-theme',
+    position: 'top-right', // top-right, top-left, bottom-right, bottom-left
+    zIndex: '2147483646',
+    showThemePicker: true,
+    defaultTheme: 'aether',
+};</code></pre>
+        </div>
+
+        <h2>API Usage</h2>
+        <p>You can also control the theme picker programmatically:</p>
+        
+        <div class="demo-card">
+            <pre><code style="color: var(--foreground);">// Set theme by ID (preview only)
+AetherThemePicker.setTheme('dracula');
+
+// Save the current preview theme
+AetherThemePicker.saveTheme();
+
+// Get current saved theme
+const currentTheme = AetherThemePicker.getCurrentTheme();
+
+// Get current preview theme
+const previewTheme = AetherThemePicker.getPreviewTheme();</code></pre>
+        </div>
+
+        <h2>Theme Categories</h2>
+        <p>The theme picker includes themes from various categories:</p>
+        <ul class="feature-list">
+            <li>Dark themes (Dracula, Monokai, Nord, etc.)</li>
+            <li>Light themes (Solarized Light, Gruvbox Light, etc.)</li>
+            <li>Colorful themes (Miami, Vaporwave, Aurora, etc.)</li>
+            <li>Minimal themes (Paper, Dots, Shadow, etc.)</li>
+            <li>Retro themes (80s After Dark, SNES, DMG, etc.)</li>
+            <li>And many more!</li>
+        </ul>
+
+        <div class="info-box">
+            <p><strong>Note:</strong> Each theme is a standalone color palette. Click on a theme to preview it, then click "Opslaan" to confirm your selection.</p>
+        </div>
+
+        <h2>Browser Support</h2>
+        <ul class="feature-list">
+            <li>Chrome/Edge (latest)</li>
+            <li>Firefox (latest)</li>
+            <li>Safari (latest)</li>
+            <li>Mobile browsers</li>
+        </ul>
+
+        <p style="margin-top: 2rem; color: var(--muted-foreground);">
+            Built with ❤️ using Aether Theme Picker
+        </p>
+    </div>
+
+    <!-- Add the Aether theme picker script -->
+    <script src="aether-theme-picker.js"></script>
+</body>
+</html>
