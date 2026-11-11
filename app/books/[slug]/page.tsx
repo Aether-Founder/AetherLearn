@@ -8,7 +8,7 @@ import { loadBookContent } from '@/lib/books/content';
 import { Book, Chapter } from '@/lib/books/types';
 import { AppShell } from '@/components/AppShell';
 import { BookCard } from '@/components/books/BookCard';
-import { BookOpen, Clock, Globe, ChevronRight, Play, Bookmark, CheckCircle, Brain, ChevronDown, Share2, Copy, Check, ChevronLeft } from 'lucide-react';
+import { BookOpen, Clock, Globe, ChevronRight, Play, Bookmark, Brain, ChevronDown, Share2, Copy, Check, ChevronLeft } from 'lucide-react';
 import { supabase } from '@/lib/supabase/client';
 import { useTranslation } from '@/lib/useTranslation';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
@@ -67,7 +67,7 @@ export default function BookDetailPage() {
 
         const content = await loadBookContent(slug, bookData);
         if (content) {
-          const sortedChapters = content.chapters.sort((a, b) => a.order - b.order);
+          const sortedChapters = [...content].sort((a, b) => a.order - b.order);
           setChapters(sortedChapters);
         }
 

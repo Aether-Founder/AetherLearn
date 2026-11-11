@@ -58,13 +58,20 @@ function LoginPageContent() {
     setError(null);
     setLoading(true);
 
-    const { error } = await signIn({ email, password });
+    console.info('[login] submitting credentials', { email, redirectTo });
+    const { data, error } = await signIn({ email, password });
 
     if (error) {
+      console.error('[login] signIn returned error', error);
       setError(error.message);
       setLoading(false);
       return;
     }
+
+    console.info('[login] signIn ok', {
+      hasSession: Boolean(data?.session),
+      userId: data?.user?.id ?? null,
+    });
 
     // Clear draft on successful login
     if (typeof window !== 'undefined') {

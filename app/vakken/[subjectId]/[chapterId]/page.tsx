@@ -5,8 +5,7 @@ import {
   type Paragraph,
 } from '@/lib/content-loader';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, Folder, FileText, Brain } from 'lucide-react';
+import { ArrowLeft, Folder, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { findContentPage, normalizeSubjectId } from '@/lib/json-content-pages';
 import JsonLessonPage from '@/app/[page]/page';
@@ -30,6 +29,22 @@ export default async function ChapterDetailPage({
   const chapters = await loadChapters(decodedSubjectId);
   const chapter = chapters.find((c) => c.id === chapterId);
   const paragraphs = await loadParagraphs(decodedSubjectId, chapterId);
+
+  if (!subject || !chapter) {
+    return (
+      <AppShell>
+        <div className="text-center py-20">
+          <p>Hoofdstuk niet gevonden</p>
+          <Link
+            href={`/vakken/${decodedSubjectId}`}
+            className="mt-4 inline-block text-primary hover:underline"
+          >
+            Terug naar vak
+          </Link>
+        </div>
+      </AppShell>
+    );
+  }
 
   // If there are paragraphs, show the first one by default
   if (paragraphs.length > 0) {
@@ -90,27 +105,11 @@ export default async function ChapterDetailPage({
     );
   }
 
-  if (!subject || !chapter) {
-    return (
-      <AppShell>
-        <div className="text-center py-20">
-          <p>Hoofdstuk niet gevonden</p>
-          <Link
-            href={`/vakken/${decodedSubjectId}`}
-            className="mt-4 inline-block text-primary hover:underline"
-          >
-            Terug naar vak
-          </Link>
-        </div>
-      </AppShell>
-    );
-  }
-
   return (
     <AppShell>
       <PageHeader
         title={chapter.title}
-        description={firstParagraph.summary || `${subject.name} • ${chapter.description}`}
+        description={`${subject.name} • ${chapter.description}`}
         action={
           <Link
             href={`/vakken/${decodedSubjectId}`}

@@ -39,7 +39,7 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
   const topicsTotal = chapters.length;
   const topicsDone = subject?.topics_done ?? 0;
   const upcomingTests = subject?.due_count ?? 0;
-  const averageGrade = masteryPercentage === 0 ? '-' : '7.0'; // Will be replaced with real DB data
+  const averageGrade: string | number = masteryPercentage === 0 ? '-' : '7.0'; // Will be replaced with real DB data
 
   // Determine status based on mastery
   const getStatus = (mastery: number) => {
@@ -55,7 +55,7 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
   const actualTopicsDone = Math.min(topicsDone, topicsTotal);
 
   // Ensure averageGrade is string
-  const displayAverageGrade = typeof averageGrade === 'string' ? averageGrade : averageGrade.toFixed(1);
+  const displayAverageGrade = String(averageGrade);
 
   // Use encoded subjectId for URLs
   const encodedSubjectId = encodeURIComponent(subjectId);

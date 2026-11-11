@@ -26,18 +26,43 @@ export async function signUp({
   password: string;
   name: string;
 }) {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        full_name: name,
-        username: name.toLowerCase().replace(/\s+/g, '.'),
+  console.info('[auth] signUp attempt', { email, nameLength: name.length });
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: name,
+          username: name.toLowerCase().replace(/\s+/g, '.'),
+        },
       },
-    },
-  });
+    });
 
-  return { data, error };
+    if (error) {
+      console.error('[auth] signUp failed', {
+        message: error.message,
+        status: error.status,
+        code: error.code,
+        name: error.name,
+      });
+    } else {
+      console.info('[auth] signUp response', {
+        hasUser: Boolean(data?.user),
+        userId: data?.user?.id ?? null,
+        hasSession: Boolean(data?.session),
+        // 0 identities usually means the email is already registered or
+        // email confirmation is required before a session is issued.
+        identitiesCount: data?.user?.identities?.length ?? null,
+        emailConfirmed: data?.user?.email_confirmed_at ?? null,
+      });
+    }
+
+    return { data, error };
+  } catch (err) {
+    console.error('[auth] signUp threw unexpected error', err);
+    throw err;
+  }
 }
 
 /**
@@ -54,12 +79,32 @@ export async function signIn({
   email: string;
   password: string;
 }) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  console.info('[auth] signIn attempt', { email });
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-  return { data, error };
+    if (error) {
+      console.error('[auth] signIn failed', {
+        message: error.message,
+        status: error.status,
+        code: error.code,
+        name: error.name,
+      });
+    } else {
+      console.info('[auth] signIn success', {
+        userId: data?.user?.id ?? null,
+        hasSession: Boolean(data?.session),
+      });
+    }
+
+    return { data, error };
+  } catch (err) {
+    console.error('[auth] signIn threw unexpected error', err);
+    throw err;
+  }
 }
 
 /**

@@ -83,6 +83,7 @@ export default function RegisterPage() {
       return;
     }
 
+    console.info('[register] submitting signUp', { email: formData.email });
     const { data, error: signUpError } = await signUp({
       email: formData.email,
       password: formData.password,
@@ -90,22 +91,34 @@ export default function RegisterPage() {
     });
 
     if (signUpError) {
+      console.error('[register] signUp returned error', signUpError);
       setError(signUpError.message);
       setLoading(false);
       return;
     }
 
+    console.info('[register] signUp ok', {
+      hasUser: Boolean(data?.user),
+      hasSession: Boolean(data?.session),
+      identitiesCount: data?.user?.identities?.length ?? null,
+    });
+
     // Ensure session is active
     if (!data?.session) {
-      const { error: signInError } = await signIn({
+      console.info('[register] no session after signUp, attempting signIn fallback');
+      const { data: signInData, error: signInError } = await signIn({
         email: formData.email,
         password: formData.password,
       });
       if (signInError) {
+        console.error('[register] signIn fallback failed', signInError);
         setError(signInError.message);
         setLoading(false);
         return;
       }
+      console.info('[register] signIn fallback ok', {
+        hasSession: Boolean(signInData?.session),
+      });
     }
 
     // Clear drafts
