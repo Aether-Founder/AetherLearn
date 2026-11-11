@@ -1,16 +1,42 @@
 /** @type {import('next').NextConfig} */
+const fs = require('fs');
+const path = require('path');
 
-// Build-time env diagnostics. NEXT_PUBLIC_* vars are inlined into the client
-// bundle during `next build`, so this output appears in the Vercel build logs
-// and proves whether Supabase config was present when the bundle was compiled.
-console.log(
-  '[env-check] NEXT_PUBLIC_SUPABASE_URL:',
-  process.env.NEXT_PUBLIC_SUPABASE_URL || 'MISSING'
-);
+// Fallback Supabase config from the committed .env_for_vercel file.
+// Real env vars (e.g. Vercel project settings) always take precedence;
+// these fallbacks only apply when the vars are missing at build time.
+// NEXT_PUBLIC_* values are inlined into the client bundle during
+// `next build`, so a missing var cannot be fixed at runtime.
+function loadEnvFileFallback(file) {
+  try {
+    const content = fs.readFileSync(path.join(__dirname, file), 'utf8');
+    const vars = {};
+    for (const line of content.split(/\r?\n/)) {
+      const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
+      if (m) vars[m[1]] = m[2].replace(/^["']|["']$/g, '');
+    }
+    return vars;
+  } catch {
+    return {};
+  }
+}
+const envFileFallback = loadEnvFileFallback('.env_for_vercel');
+
+const resolvedSupabaseUrl =
+  process.env.NEXT_PUBLIC_SUPABASE_URL || envFileFallback.NEXT_PUBLIC_SUPABASE_URL || '';
+const resolvedSupabaseAnonKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  envFileFallback.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  '';
+
+// Build-time env diagnostics — visible in the Vercel build log.
+console.log('[env-check] NEXT_PUBLIC_SUPABASE_URL:', resolvedSupabaseUrl || 'MISSING');
 console.log(
   '[env-check] NEXT_PUBLIC_SUPABASE_ANON_KEY:',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    ? `set (length ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.length})`
+  resolvedSupabaseAnonKey
+    ? `set (length ${resolvedSupabaseAnonKey.length}, source: ${
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'env' : 'env-file-fallback'
+      })`
     : 'MISSING'
 );
 console.log(
@@ -22,6 +48,10 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['localhost'],
+  },
+  env: {
+    NEXT_PUBLIC_SUPABASE_URL: resolvedSupabaseUrl,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: resolvedSupabaseAnonKey,
   },
 };
 
