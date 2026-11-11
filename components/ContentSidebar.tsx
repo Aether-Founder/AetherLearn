@@ -27,9 +27,9 @@ interface ContentSidebarProps {
 export function ContentSidebar({ sections, pageTitle, className = "", hidden = false }: ContentSidebarProps) {
   const [activeSection, setActiveSection] = useState<string>("");
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
-  const [isPinned, setIsPinned] = useState(false);
   const [sidebarStyle, setSidebarStyle] = useState<React.CSSProperties>({});
   const asideRef = useRef<HTMLElement>(null);
+  const sidebarHeightRef = useRef<number>(0);
 
   const toggleSection = (sectionId: string) => {
     setExpandedSections((prev) => {
@@ -43,36 +43,58 @@ export function ContentSidebar({ sections, pageTitle, className = "", hidden = f
     });
   };
 
-  // JavaScript sticky fallback
+  // Manual sticky behavior using position: fixed
   useEffect(() => {
-    if (!asideRef.current) return;
-
     const aside = asideRef.current;
+    if (!aside) return;
 
-    // Store original position
-    const originalRect = aside.getBoundingClientRect();
-    const originalTop = originalRect.top + window.scrollY;
-    const originalLeft = originalRect.left;
+    const originalTop = aside.getBoundingClientRect().top + window.scrollY;
+    const originalLeft = aside.getBoundingClientRect().left;
     const originalWidth = aside.offsetWidth;
+    sidebarHeightRef.current = aside.offsetHeight;
+
+    let stopPinningAt = originalTop + 2000; // Where to stop pinning
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const shouldPin = scrollY >= originalTop;
 
-      if (shouldPin && !isPinned) {
-        // Switch to pinned state
-        setIsPinned(true);
+      // Find the final section in the TOC
+      if (sections && sections.length > 0) {
+        const finalSectionId = sections[sections.length - 1].id;
+        const finalSectionElement = document.getElementById(finalSectionId);
+        if (finalSectionElement) {
+          // Use the bottom of the final section (top + height) instead of just top
+          const finalSectionBottom = finalSectionElement.getBoundingClientRect().bottom + window.scrollY;
+          stopPinningAt = finalSectionBottom - 200; // Stop 200px before final section ends
+        }
+      }
+
+      if (scrollY < originalTop) {
+        // Before original position - stay in normal flow
+        setSidebarStyle({
+          transition: 'all 0.3s ease-out',
+        });
+      } else if (scrollY >= originalTop && scrollY < stopPinningAt) {
+        // Between original and stop point - pin to top
         setSidebarStyle({
           position: 'fixed',
-          top: '0px',
+          top: '16px',
           left: `${originalLeft}px`,
           width: `${originalWidth}px`,
           zIndex: 40,
+          transition: 'all 0.3s ease-out',
         });
-      } else if (!shouldPin && isPinned) {
-        // Switch back to normal state
-        setIsPinned(false);
-        setSidebarStyle({});
+      } else {
+        // After stop point - stay at the stop position (relative to parent)
+        const distanceScrolled = stopPinningAt - originalTop;
+        setSidebarStyle({
+          position: 'absolute',
+          top: `${distanceScrolled}px`,
+          left: '0',
+          width: '100%',
+          zIndex: 40,
+          transition: 'all 0.3s ease-out',
+        });
       }
     };
 
@@ -82,7 +104,7 @@ export function ContentSidebar({ sections, pageTitle, className = "", hidden = f
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isPinned]);
+  }, [sections]);
 
   // Scroll spy
   useEffect(() => {
@@ -142,18 +164,12 @@ export function ContentSidebar({ sections, pageTitle, className = "", hidden = f
   return (
     <aside
       ref={asideRef}
-      className={`md:block self-start transition-all duration-300 ease-out max-w-none basis-auto opacity-100 bg-background ${className}`}
+      className={`md:block self-start max-w-none basis-auto bg-background transition-all duration-300 ease-out relative ${className}`}
       style={sidebarStyle}
     >
-      <div
-        className="flex flex-col"
-        onWheel={(e) => {
-          // Prevent the page from scrolling when the wheel is over the sidebar
-          e.stopPropagation();
-        }}
-      >
+      <div className="flex flex-col">
         <div className="p-5 pb-3 flex-shrink-0">
-          <h2 className="text-sm font-medium text-foreground mb-3">
+          <h2 className="text-lg font-semibold text-foreground mb-3">
             Inhoudsopgave
           </h2>
         </div>

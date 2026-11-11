@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar as CalendarIcon, Plus, Clock } from "lucide-react";
+import { Calendar as CalendarIcon, Plus } from "lucide-react";
 
 interface Event {
   id: string;

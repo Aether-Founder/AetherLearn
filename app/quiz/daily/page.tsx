@@ -19,12 +19,14 @@ type QuizQuestion = {
   id: string;
   vak: string;
   onderwerp: string;
-  type: 'multiple-choice' | 'open' | 'cloze' | 'true-false';
+  type: 'multiple-choice' | 'open' | 'cloze' | 'true-false' | 'matching' | 'ordering' | 'numeric' | 'essay';
   vraag: string;
   opties?: string[];
-  correct_antwoord: string;
+  correct_antwoord: string | string[] | number[];
   uitleg?: string;
   moeilijkheid: 'makkelijk' | 'gemiddeld' | 'moeilijk';
+  matching_pairs?: { left: string; right: string }[];
+  order_items?: string[];
 };
 
 type QuizSession = {
@@ -34,6 +36,10 @@ type QuizSession = {
   scores: Map<string, boolean>;
   startTime: Date;
   endTime?: Date;
+  granularScores?: Map<string, 'good' | 'partial' | 'wrong' | 'not_done'>;
+  confidenceScores?: Map<string, number>;
+  hintUsage?: Map<string, boolean>;
+  questionTimes?: Map<string, number>;
 };
 
 export default function DailyQuizPage() {
@@ -44,11 +50,33 @@ export default function DailyQuizPage() {
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [loading, setLoading] = useState(true);
   const [previousSessions, setPreviousSessions] = useState<any[]>([]);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [examMode, setExamMode] = useState(false);
+  const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now());
+  const [confidenceLevel, setConfidenceLevel] = useState<number>(3);
+  const [usedHint, setUsedHint] = useState(false);
 
   useEffect(() => {
     fetchQuestions();
     fetchPreviousSessions();
   }, []);
+
+  // Timer effect
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isTimerRunning && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
+    } else if (timeLeft === 0 && isTimerRunning) {
+      setIsTimerRunning(false);
+      finishQuiz();
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isTimerRunning, timeLeft]);
 
   const fetchQuestions = async () => {
     const { data, error } = await supabase.from('daily_quiz_questions').select('*');
@@ -81,7 +109,7 @@ export default function DailyQuizPage() {
     }
   };
 
-  const startQuiz = async () => {
+  const startQuiz = async (durationMinutes?: number, isExam = false) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -96,10 +124,24 @@ export default function DailyQuizPage() {
       antwoorden: new Map(),
       scores: new Map(),
       startTime: new Date(),
+      granularScores: new Map(),
+      confidenceScores: new Map(),
+      hintUsage: new Map(),
+      questionTimes: new Map(),
     });
     setUserAnswer('');
     setShowAnswer(false);
     setCompleted(false);
+    setExamMode(isExam);
+    setQuestionStartTime(Date.now());
+    setConfidenceLevel(3);
+    setUsedHint(false);
+
+    // Start timer if duration is specified
+    if (durationMinutes && durationMinutes > 0) {
+      setTimeLeft(durationMinutes * 60);
+      setIsTimerRunning(true);
+    }
   };
 
   const checkAnswer = () => {
@@ -107,12 +149,35 @@ export default function DailyQuizPage() {
 
     const currentQuestion = session.vragen[session.currentIndex];
     let isCorrect = false;
+    let granularScore: 'good' | 'partial' | 'wrong' | 'not_done' = 'wrong';
 
     if (currentQuestion.type === 'multiple-choice' || currentQuestion.type === 'true-false') {
       isCorrect = userAnswer === currentQuestion.correct_antwoord;
+      granularScore = isCorrect ? 'good' : 'wrong';
+    } else if (currentQuestion.type === 'numeric') {
+      isCorrect = parseFloat(userAnswer) === parseFloat(currentQuestion.correct_antwoord as string);
+      granularScore = isCorrect ? 'good' : 'wrong';
+    } else if (currentQuestion.type === 'essay') {
+      // Essay questions are manually graded - mark as pending
+      isCorrect = false;
+      granularScore = 'not_done';
+    } else if (currentQuestion.type === 'matching' || currentQuestion.type === 'ordering') {
+      // These types need special handling - mark as pending
+      isCorrect = false;
+      granularScore = 'not_done';
     } else {
-      isCorrect = userAnswer.toLowerCase().includes(currentQuestion.correct_antwoord.toLowerCase());
+      const correctAnswer = currentQuestion.correct_antwoord;
+      if (typeof correctAnswer === 'string') {
+        const similarity = userAnswer.toLowerCase().includes(correctAnswer.toLowerCase());
+        isCorrect = similarity;
+        if (similarity) {
+          granularScore = userAnswer.toLowerCase() === correctAnswer.toLowerCase() ? 'good' : 'partial';
+        }
+      }
     }
+
+    // Calculate time spent on this question
+    const timeSpent = Date.now() - questionStartTime;
 
     const newScores = new Map(session.scores);
     newScores.set(currentQuestion.id, isCorrect);
@@ -120,10 +185,26 @@ export default function DailyQuizPage() {
     const newAntwoorden = new Map(session.antwoorden);
     newAntwoorden.set(currentQuestion.id, userAnswer);
 
+    const newGranularScores = new Map(session.granularScores);
+    newGranularScores.set(currentQuestion.id, granularScore);
+
+    const newConfidenceScores = new Map(session.confidenceScores);
+    newConfidenceScores.set(currentQuestion.id, confidenceLevel);
+
+    const newHintUsage = new Map(session.hintUsage);
+    newHintUsage.set(currentQuestion.id, usedHint);
+
+    const newQuestionTimes = new Map(session.questionTimes);
+    newQuestionTimes.set(currentQuestion.id, timeSpent);
+
     setSession({
       ...session,
       scores: newScores,
       antwoorden: newAntwoorden,
+      granularScores: newGranularScores,
+      confidenceScores: newConfidenceScores,
+      hintUsage: newHintUsage,
+      questionTimes: newQuestionTimes,
     });
     setShowAnswer(true);
   };
@@ -138,6 +219,9 @@ export default function DailyQuizPage() {
       });
       setUserAnswer('');
       setShowAnswer(false);
+      setQuestionStartTime(Date.now());
+      setConfidenceLevel(3);
+      setUsedHint(false);
     } else {
       finishQuiz();
     }
@@ -166,18 +250,49 @@ export default function DailyQuizPage() {
       started_at: session.startTime,
       ended_at: endTime,
       duration_seconds: durationSeconds,
+      exam_mode: examMode,
     });
 
     if (error) {
       console.error('Failed to save session:', error);
     }
 
+    // Automatically log errors from quizzes
+    session.vragen.forEach((vraag, index) => {
+      const isCorrect = session.scores.get(vraag.id);
+      if (!isCorrect) {
+        const userAnswer = session.antwoorden.get(vraag.id) || '';
+        logError(vraag, userAnswer);
+      }
+    });
+
     setSession({
       ...session,
       endTime,
     });
     setCompleted(true);
+    setIsTimerRunning(false);
     await fetchPreviousSessions();
+  };
+
+  const logError = async (question: QuizQuestion, userAnswer: string) => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return;
+
+    try {
+      await supabase.from('foutenlogboek').insert({
+        user_id: user.id,
+        vraag: question.vraag,
+        onderwerp: question.onderwerp,
+        vak: question.vak,
+        status: 'nieuw',
+        created_at: new Date().toISOString(),
+      });
+    } catch (error) {
+      console.error('Failed to log error:', error);
+    }
   };
 
   const resetQuiz = () => {
@@ -185,6 +300,9 @@ export default function DailyQuizPage() {
     setUserAnswer('');
     setShowAnswer(false);
     setCompleted(false);
+    setQuestionStartTime(Date.now());
+    setConfidenceLevel(3);
+    setUsedHint(false);
   };
 
   const getDifficultyColor = (moeilijkheid: string) => {
@@ -232,10 +350,19 @@ export default function DailyQuizPage() {
                 <p className="text-muted-foreground mb-6">
                   Je krijgt {Math.min(10, questions.length)} willekeurige vragen uit de database.
                 </p>
-                <Button onClick={startQuiz} size="lg">
-                  <Brain className="mr-2 h-5 w-5" />
-                  Start Quiz
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+                  <Button onClick={() => startQuiz()} size="lg">
+                    <Brain className="mr-2 h-5 w-5" />
+                    Start Quiz
+                  </Button>
+                  <Button onClick={() => startQuiz(10, true)} variant="outline" size="lg">
+                    <Brain className="mr-2 h-5 w-5" />
+                    Examen Modus (10 min)
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Examen modus bevat een timer en toont geen antwoorden tijdens de quiz.
+                </p>
               </div>
 
               {/* Previous Sessions */}
@@ -274,7 +401,7 @@ export default function DailyQuizPage() {
   }
 
   if (completed) {
-    const correctCount = Array.from(session.scores.values()).filter(Boolean).length;
+    const correctCount = Array.from(session.scores.values()).filter((value) => value === true).length;
     const totalTime = session.endTime
       ? Math.round((session.endTime.getTime() - session.startTime.getTime()) / 60000)
       : 0;
@@ -344,6 +471,10 @@ export default function DailyQuizPage() {
               {session.vragen.map((vraag, index) => {
                 const isCorrect = session.scores.get(vraag.id);
                 const userAnswer = session.antwoorden.get(vraag.id) || '(geen antwoord)';
+                const granularScore = session.granularScores?.get(vraag.id);
+                const confidence = session.confidenceScores?.get(vraag.id);
+                const hintUsed = session.hintUsage?.get(vraag.id);
+                const timeSpent = session.questionTimes?.get(vraag.id);
                 return (
                   <div key={vraag.id} className="p-4 rounded-lg border border-border">
                     <div className="flex items-start justify-between mb-2">
@@ -355,6 +486,16 @@ export default function DailyQuizPage() {
                         >
                           {vraag.moeilijkheid}
                         </span>
+                        {granularScore && (
+                          <span className={`px-2 py-0.5 rounded text-xs ${
+                            granularScore === 'good' ? 'bg-green-500/10 text-green-600' :
+                            granularScore === 'partial' ? 'bg-yellow-500/10 text-yellow-600' :
+                            granularScore === 'wrong' ? 'bg-red-500/10 text-red-600' :
+                            'bg-gray-500/10 text-gray-600'
+                          }`}>
+                            {granularScore}
+                          </span>
+                        )}
                       </div>
                       {isCorrect ? (
                         <CheckCircle className="h-5 w-5 text-green-500" />
@@ -372,8 +513,32 @@ export default function DailyQuizPage() {
                       </div>
                       <div>
                         <p className="text-muted-foreground mb-1">Correct antwoord:</p>
-                        <p className="text-green-600">{vraag.correct_antwoord}</p>
+                        <p className="text-green-600">
+                          {typeof vraag.correct_antwoord === 'string'
+                            ? vraag.correct_antwoord
+                            : JSON.stringify(vraag.correct_antwoord)}
+                        </p>
                       </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 mt-3 text-xs text-muted-foreground">
+                      {confidence !== undefined && (
+                        <div>
+                          <p className="font-medium">Zekerheid:</p>
+                          <p>{confidence}/5</p>
+                        </div>
+                      )}
+                      {timeSpent !== undefined && (
+                        <div>
+                          <p className="font-medium">Tijd:</p>
+                          <p>{Math.round(timeSpent / 1000)}s</p>
+                        </div>
+                      )}
+                      {hintUsed !== undefined && (
+                        <div>
+                          <p className="font-medium">Hint:</p>
+                          <p>{hintUsed ? 'Ja' : 'Nee'}</p>
+                        </div>
+                      )}
                     </div>
                     {vraag.uitleg && (
                       <div className="mt-3 p-3 rounded bg-secondary/50 text-sm">
@@ -402,6 +567,18 @@ export default function DailyQuizPage() {
       />
 
       <div className="mt-10">
+        {/* Timer Display */}
+        {isTimerRunning && (
+          <div className="mb-6 p-4 rounded-lg border border-border bg-card">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-muted-foreground">Resterende tijd</span>
+              <span className={`font-mono text-2xl font-semibold ${timeLeft < 60 ? 'text-red-500' : 'text-foreground'}`}>
+                {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* Progress Bar */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
@@ -429,6 +606,45 @@ export default function DailyQuizPage() {
 
           <h2 className="text-xl font-semibold mb-6">{currentQuestion.vraag}</h2>
 
+          {/* Confidence Rating */}
+          {!showAnswer && !examMode && (
+            <div className="mb-6 p-4 rounded-lg border border-border bg-secondary/30">
+              <p className="text-sm font-medium mb-3">Hoe zeker ben je van je antwoord?</p>
+              <div className="flex gap-2">
+                {[1, 2, 3, 4, 5].map((level) => (
+                  <button
+                    key={level}
+                    type="button"
+                    onClick={() => setConfidenceLevel(level)}
+                    className={`flex-1 py-2 rounded-lg border transition-colors ${
+                      confidenceLevel === level
+                        ? 'border-primary bg-primary/10 text-primary'
+                        : 'border-border hover:border-foreground/30'
+                    }`}
+                  >
+                    {level}
+                  </button>
+                ))}
+              </div>
+              <div className="flex justify-between mt-2 text-xs text-muted-foreground">
+                <span>Niet zeker</span>
+                <span>Zeer zeker</span>
+              </div>
+            </div>
+          )}
+
+          {/* Hint Button */}
+          {!showAnswer && !examMode && (
+            <button
+              type="button"
+              onClick={() => setUsedHint(true)}
+              disabled={usedHint}
+              className="mb-6 text-sm text-primary hover:underline disabled:text-muted-foreground disabled:no-underline"
+            >
+              {usedHint ? '✓ Hint gebruikt' : '💡 Toon hint'}
+            </button>
+          )}
+
           {(currentQuestion.type === 'multiple-choice' || currentQuestion.type === 'true-false') &&
           currentQuestion.opties ? (
             <div className="space-y-3 mb-6">
@@ -448,6 +664,49 @@ export default function DailyQuizPage() {
                 </button>
               ))}
             </div>
+          ) : currentQuestion.type === 'matching' && currentQuestion.matching_pairs ? (
+            <div className="mb-6">
+              <p className="text-sm text-muted-foreground mb-4">Match de items uit de linker kolom met de rechter kolom</p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  {currentQuestion.matching_pairs.map((pair, index) => (
+                    <div key={index} className="p-3 rounded-lg border border-border bg-secondary/50">
+                      {pair.left}
+                    </div>
+                  ))}
+                </div>
+                <div className="space-y-2">
+                  {currentQuestion.matching_pairs.map((pair, index) => (
+                    <div key={index} className="p-3 rounded-lg border border-border bg-secondary/50">
+                      {pair.right}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-4">Tip: Klik op items om ze te matchen (nog te implementeren)</p>
+            </div>
+          ) : currentQuestion.type === 'numeric' ? (
+            <div className="mb-6">
+              <input
+                type="number"
+                value={userAnswer}
+                onChange={(e) => setUserAnswer(e.target.value)}
+                placeholder="Voer een getal in..."
+                className="w-full rounded-lg border border-border bg-background p-4 text-sm focus:border-foreground/40 outline-none"
+                disabled={showAnswer}
+              />
+            </div>
+          ) : currentQuestion.type === 'essay' ? (
+            <div className="mb-6">
+              <textarea
+                value={userAnswer}
+                onChange={(e) => setUserAnswer(e.target.value)}
+                placeholder="Schrijf je antwoord hier..."
+                className="w-full h-48 rounded-lg border border-border bg-background p-4 text-sm resize-none focus:border-foreground/40 outline-none"
+                disabled={showAnswer}
+              />
+              <p className="text-xs text-muted-foreground mt-2">Essay vragen worden handmatig nagekeken</p>
+            </div>
           ) : (
             <div className="mb-6">
               <textarea
@@ -464,15 +723,27 @@ export default function DailyQuizPage() {
             <div className="space-y-4">
               <div
                 className={`p-4 rounded-lg ${
-                  userAnswer.toLowerCase().includes(currentQuestion.correct_antwoord.toLowerCase())
-                    ? 'bg-green-500/10 border border-green-500/30'
-                    : 'bg-red-500/10 border border-red-500/30'
+                  (() => {
+                    const correctAnswer = currentQuestion.correct_antwoord;
+                    if (typeof correctAnswer === 'string') {
+                      return userAnswer.toLowerCase().includes(correctAnswer.toLowerCase())
+                        ? 'bg-green-500/10 border border-green-500/30'
+                        : 'bg-red-500/10 border border-red-500/30';
+                    }
+                    return 'bg-yellow-500/10 border border-yellow-500/30';
+                  })()
                 }`}
               >
                 <p className="font-medium mb-2">
-                  {userAnswer.toLowerCase().includes(currentQuestion.correct_antwoord.toLowerCase())
-                    ? '✓ Correct!'
-                    : '✗ Niet helemaal correct'}
+                  {(() => {
+                    const correctAnswer = currentQuestion.correct_antwoord;
+                    if (typeof correctAnswer === 'string') {
+                      return userAnswer.toLowerCase().includes(correctAnswer.toLowerCase())
+                        ? '✓ Correct!'
+                        : '✗ Niet helemaal correct';
+                    }
+                    return 'Antwoord gecontroleerd';
+                  })()}
                 </p>
                 <p className="text-sm">
                   <span className="font-medium">Jouw antwoord:</span>{' '}
@@ -480,7 +751,9 @@ export default function DailyQuizPage() {
                 </p>
                 <p className="text-sm">
                   <span className="font-medium">Correct antwoord:</span>{' '}
-                  {currentQuestion.correct_antwoord}
+                  {typeof currentQuestion.correct_antwoord === 'string'
+                    ? currentQuestion.correct_antwoord
+                    : JSON.stringify(currentQuestion.correct_antwoord)}
                 </p>
               </div>
 

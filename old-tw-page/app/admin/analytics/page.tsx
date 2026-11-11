@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { BarChart3, Clock, Users, BookOpen, Activity, Lock } from "lucide-react";
+import { useState } from "react";
+import { Clock, Users, BookOpen, Activity, Lock } from "lucide-react";
 
 interface DashboardData {
   summary: {

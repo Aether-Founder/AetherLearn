@@ -1,0 +1,102 @@
+{
+  "id": "code-complete",
+  "slug": "code-complete",
+  "title": "Code Complete",
+  "author": "Steve McConnell",
+  "description": "A practical handbook of software construction. Learn the best practices for writing high-quality, maintainable code.",
+  "topic": "technology",
+  "languages": [
+    "en"
+  ],
+  "formats": [
+    "concise",
+    "detailed"
+  ],
+  "readingTime": {
+    "concise": 25,
+    "detailed": 70
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">Code Complete</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">Steve McConnell</div></div>"
+  },
+  "collections": [
+    "technology",
+    "programming",
+    "essential"
+  ],
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "order": 1,
+      "title": "Welcome to Software Construction",
+      "keyConcepts": [
+        "software quality",
+        "construction",
+        "development process"
+      ],
+      "summary": {
+        "en": "Software construction is the central activity of software development. This chapter introduces the fundamental principles of writing high-quality code.",
+        "nl": "Software-constructie is de centrale activiteit van softwareontwikkeling. Dit hoofdstuk introduceert de fundamentele principes van het schrijven van hoogwaardige code."
+      },
+      "content": {
+        "en": {
+          "concise": "Software construction is the detailed creation of working software through coding, debugging, and verification. It's the only activity that must be done to produce working software. Good construction practices lead to reliable, maintainable, and efficient software.",
+          "detailed": "Software construction is the detailed creation of working software through coding, debugging, and verification. It's the only activity that must be done to produce working software. Good construction practices lead to reliable, maintainable, and efficient software. Construction is not just about writing code; it's about understanding requirements, designing solutions, and implementing them carefully. The quality of software construction directly affects the maintainability, reliability, and performance of the final product. Poor construction practices lead to technical debt, bugs, and systems that are difficult to modify."
+        },
+        "nl": {
+          "concise": "Software-constructie is de gedetailleerde creatie van werkende software door middel van coderen, debuggen en verifiëren. Het is de enige activiteit die moet worden uitgevoerd om werkende software te produceren. Goede constructiepraktijken leiden tot betrouwbare, onderhoudbare en efficiënte software.",
+          "detailed": "Software-constructie is de gedetailleerde creatie van werkende software door middel van coderen, debuggen en verifiëren. Het is de enige activiteit die moet worden uitgevoerd om werkende software te produceren. Goede constructiepraktijken leiden tot betrouwbare, onderhoudbare en efficiënte software. Constructie gaat niet alleen over het schrijven van code; het gaat over het begrijpen van vereisten, het ontwerpen van oplossingen en het zorgvuldig implementeren ervan. De kwaliteit van software-constructie beïnvloedt direct de onderhoudbaarheid, betrouwbaarheid en prestaties van het eindproduct. Slechte constructiepraktijken leiden tot technische schuld, bugs en systemen die moeilijk te wijzigen zijn."
+        }
+      }
+    },
+    {
+      "id": "chapter-2",
+      "order": 2,
+      "title": "Metaphors for Software Development",
+      "keyConcepts": [
+        "metaphors",
+        "software architecture",
+        "building construction"
+      ],
+      "summary": {
+        "en": "Metaphors help us understand complex software concepts. This chapter explores various metaphors for software development and their implications.",
+        "nl": "Metaforen helpen ons complexe softwareconcepten begrijpen. Dit hoofdstuk onderzoekt verschillende metaforen voor softwareontwikkeling en hun implicaties."
+      },
+      "content": {
+        "en": {
+          "concise": "Common metaphors include writing, farming, growing, and building. Each metaphor offers insights into different aspects of software development. The building metaphor is particularly useful for understanding construction activities.",
+          "detailed": "Common metaphors include writing, farming, growing, and building. Each metaphor offers insights into different aspects of software development. The writing metaphor emphasizes the creative and communicative aspects of coding. The farming metaphor suggests organic growth and nurturing. The building metaphor is particularly useful for understanding construction activities, architectural decisions, and structural integrity. The oyster and pearl metaphor suggests that software emerges from the accumulation of small details. Choosing the right metaphor depends on the context and what aspect of software development you want to emphasize."
+        },
+        "nl": {
+          "concise": "Veelvoorkomende metaforen omvatten schrijven, landbouw, groei en bouwen. Elke metafoor biedt inzichten in verschillende aspecten van softwareontwikkeling. De bouwmetafoor is bijzonder nuttig voor het begrijpen van constructieactiviteiten.",
+          "detailed": "Veelvoorkomende metaforen omvatten schrijven, landbouw, groei en bouwen. Elke metafoor biedt inzichten in verschillende aspecten van softwareontwikkeling. De schrijfmetafoor benadrukt de creatieve en communicatieve aspecten van coderen. De landbouwmetafoor suggereert organische groei en verzorging. De bouwmetafoor is bijzonder nuttig voor het begrijpen van constructieactiviteiten, architecturale beslissingen en structurele integriteit. De oester en parel-metafoor suggereert dat software voortkomt uit de accumulatie van kleine details. Het kiezen van de juiste metafoor hangt af van de context en welk aspect van softwareontwikkeling je wilt benadrukken."
+        }
+      }
+    },
+    {
+      "id": "chapter-3",
+      "order": 3,
+      "title": "Prerequisites to High-Quality Code",
+      "keyConcepts": [
+        "code quality",
+        "prerequisites",
+        "best practices"
+      ],
+      "summary": {
+        "en": "Before writing code, you need to understand the prerequisites for high-quality software. This chapter covers the foundation skills and knowledge needed for effective software construction.",
+        "nl": "Voordat je code schrijft, moet je de voorwaarden voor hoogwaardige software begrijpen. Dit hoofdstuk behandelt de basisvaardigheden en kennis die nodig zijn voor effectieve software-constructie."
+      },
+      "content": {
+        "en": {
+          "concise": "Understanding the problem, designing a solution, and following good practices are essential prerequisites. You need to know programming languages, tools, and development methodologies. The ability to think clearly about the problem is crucial.",
+          "detailed": "Understanding the problem, designing a solution, and following good practices are essential prerequisites. You need to know programming languages, tools, and development methodologies. The ability to think clearly about the problem is crucial. Other prerequisites include understanding software architecture, knowing how to work with requirements, and having a grasp of user needs. Communication skills are essential for working in teams. Knowledge of design patterns, algorithms, and data structures provides the technical foundation for writing high-quality code."
+        },
+        "nl": {
+          "concise": "Het begrijpen van het probleem, het ontwerpen van een oplossing en het volgen van goede praktijken zijn essentiële voorwaarden. Je moet programmeertalen, tools en ontwikkelingsmethodologieën kennen. Het vermogen om helder te denken over het probleem is cruciaal.",
+          "detailed": "Het begrijpen van het probleem, het ontwerpen van een oplossing en het volgen van goede praktijken zijn essentiële voorwaarden. Je moet programmeertalen, tools en ontwikkelingsmethodologieën kennen. Het vermogen om helder te denken over het probleem is cruciaal. Andere voorwaarden omvatten het begrijpen van software-architectuur, weten hoe je met vereisten werkt, en een greep hebben op gebruikersbehoeften. Communicatieve vaardigheden zijn essentieel voor werken in teams. Kennis van ontwerppatronen, algoritmen en datastructuren biedt de technische basis voor het schrijven van hoogwaardige code."
+        }
+      }
+    }
+  ]
+}

@@ -463,6 +463,7 @@ export function AppShell({
                       { href: PAGE_HREFS.inbox, label: PAGE_LABELS.inbox },
                       { href: PAGE_HREFS.foutenlogboek, label: PAGE_LABELS.foutenlogboek },
                       { href: PAGE_HREFS.planner, label: PAGE_LABELS.planner },
+                      { href: PAGE_HREFS.books, label: PAGE_LABELS.books },
                     ]}
                   />
                 </div>

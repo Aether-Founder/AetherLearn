@@ -382,6 +382,39 @@ class FilesystemService {
   }
 
   /**
+   * Create a shortcut to a target node
+   */
+  async createShortcut(
+    targetId: string,
+    targetPath: string,
+    buttonText: string,
+    parentId: string,
+    buttonIcon?: string
+  ): Promise<FilesystemNode> {
+    const targetNode = this.nodes.get(targetId);
+    if (!targetNode) {
+      throw new Error(`Target node ${targetId} not found`);
+    }
+
+    const parentNode = this.nodes.get(parentId);
+    if (!parentNode) {
+      throw new Error(`Parent node ${parentId} not found`);
+    }
+
+    const nodeName = `Shortcut: ${buttonText}`;
+
+    const shortcutNode = await this.createNode(
+      'shortcut',
+      nodeName,
+      parentId,
+      { shortcut: { targetId, targetPath, buttonText, buttonIcon } },
+      true // Shortcuts are local to user
+    );
+
+    return shortcutNode;
+  }
+
+  /**
    * Get all descendants of a node
    */
   private getAllDescendants(id: string): FilesystemNode[] {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Lightbulb, RotateCcw, CheckCircle, XCircle, ChevronRight } from "lucide-react";
+import { Lightbulb, RotateCcw, CheckCircle, XCircle } from "lucide-react";
 
 interface QuizQuestion {
   id: number;

@@ -1,4 +1,4 @@
-import { AppShell, PageHeader } from '@/components/AppShell';
+import { AppShell } from '@/components/AppShell';
 import CreateLearningSetForm from '@/components/learning-set/CreateLearningSetForm';
 
 export const dynamic = 'force-dynamic';
@@ -6,12 +6,7 @@ export const dynamic = 'force-dynamic';
 export default function CreateLeerlijstPage() {
   return (
     <AppShell>
-      <PageHeader
-        title="Nieuwe leerlijst"
-        description="Maak een nieuwe leerset met vragen en antwoorden."
-      />
-
-      <div className="mt-8">
+      <div className="py-10 max-w-3xl mx-auto">
         <CreateLearningSetForm />
       </div>
     </AppShell>

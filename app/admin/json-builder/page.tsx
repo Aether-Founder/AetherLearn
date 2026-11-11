@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,17 +16,16 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
-  Plus, 
-  Edit2, 
-  Trash2, 
-  Eye, 
-  FileText, 
-  GripVertical, 
-  Image as ImageIcon, 
-  Video, 
-  Type, 
-  Heading1, 
+import {
+  Plus,
+  Edit2,
+  Trash2,
+  FileText,
+  GripVertical,
+  Image as ImageIcon,
+  Video,
+  Type,
+  Heading1,
   Heading2,
   Save,
   X,

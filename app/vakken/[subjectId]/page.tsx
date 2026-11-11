@@ -2,13 +2,13 @@ import {
   loadSubject,
   loadChapters,
 } from '@/lib/content-loader';
-import { AppShell, PageHeader } from '@/components/AppShell';
+import { AppShell, PageHeader, Meter } from '@/components/AppShell';
 import Link from 'next/link';
 import { listContentPagesForSubject, getLocalContentForSubject } from '@/lib/json-content-pages';
 import fs from 'fs';
 import path from 'path';
 import ButtonSection from '@/components/ButtonSection';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, BookOpen, TrendingUp, Calendar, Award, Target } from 'lucide-react';
 
 export default async function SubjectDetailPage({ params }: { params: { subjectId: string } }) {
   const subjectId = decodeURIComponent(params.subjectId);
@@ -34,13 +34,36 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
   const localContentPages = getLocalContentForSubject(subjectName);
   const itemCount = chapters.length + contentPages.length + localContentPages.length;
 
+  // Use real subject data for statistics
+  const masteryPercentage = subject?.mastery ?? 0;
+  const topicsTotal = chapters.length;
+  const topicsDone = subject?.topics_done ?? 0;
+  const upcomingTests = subject?.due_count ?? 0;
+  const averageGrade = masteryPercentage === 0 ? '-' : '7.0'; // Will be replaced with real DB data
+
+  // Determine status based on mastery
+  const getStatus = (mastery: number) => {
+    if (mastery >= 85) return { label: 'Beheerst', color: 'text-green-500 bg-green-500/10' };
+    if (mastery >= 65) return { label: 'Redelijk', color: 'text-yellow-500 bg-yellow-500/10' };
+    if (mastery >= 40) return { label: 'Let op', color: 'text-orange-500 bg-orange-500/10' };
+    return { label: 'Gevaar', color: 'text-red-500 bg-red-500/10' };
+  };
+
+  const status = getStatus(masteryPercentage);
+
+  // Ensure topicsDone doesn't exceed topicsTotal
+  const actualTopicsDone = Math.min(topicsDone, topicsTotal);
+
+  // Ensure averageGrade is string
+  const displayAverageGrade = typeof averageGrade === 'string' ? averageGrade : averageGrade.toFixed(1);
+
   // Use encoded subjectId for URLs
   const encodedSubjectId = encodeURIComponent(subjectId);
 
   return (
     <AppShell>
-      <PageHeader 
-        title={subjectName} 
+      <PageHeader
+        title={subjectName}
         description={subjectDescription}
         action={
           <Link
@@ -56,11 +79,134 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
       />
 
       <div className="pl-0 sm:pl-0 md:pl-12 lg:pl-12 xl:pl-12">
+        {/* Subject Navigation */}
+        <div className="flex items-center gap-2 mt-4 border-b border-border pb-4">
+          <Link
+            href={`/vakken/${encodedSubjectId}`}
+            className="px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground"
+          >
+            Overzicht
+          </Link>
+          <Link
+            href={`/vakken/${encodedSubjectId}/kennis-kluis`}
+            className="px-4 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:bg-secondary transition-colors"
+          >
+            Kennis Kluis
+          </Link>
+          <Link
+            href={`/vakken/${encodedSubjectId}/begripskaarten`}
+            className="px-4 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:bg-secondary transition-colors"
+          >
+            Begripskaarten
+          </Link>
+          <Link
+            href={`/vakken/${encodedSubjectId}/formulekaarten`}
+            className="px-4 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:bg-secondary transition-colors"
+          >
+            Formulekaarten
+          </Link>
+          <Link
+            href={`/vakken/${encodedSubjectId}/toetsen`}
+            className="px-4 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:bg-secondary transition-colors"
+          >
+            Toetsen
+          </Link>
+          {subject?.customButtons?.map((button) => (
+            <Link
+              key={button.id}
+              href={button.href}
+              className="px-4 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:bg-secondary transition-colors"
+            >
+              {button.label}
+            </Link>
+          ))}
+        </div>
+
         {/* Render subject-level buttons */}
         <ButtonSection placement="subject" placementId={encodedSubjectId} className="mt-4" />
 
+        {/* Mastery Overview Cards */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-8">
+          <div className="rounded-xl border border-border bg-card p-5">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-muted-foreground">Meesterschap</span>
+              <Target className="h-5 w-5 text-muted-foreground" />
+            </div>
+            <div className="mt-4 text-3xl font-semibold">{masteryPercentage}%</div>
+            <div className="mt-2">
+              <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${status.color}`}>
+                {status.label}
+              </span>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-border bg-card p-5">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-muted-foreground">Leerdoelen</span>
+              <BookOpen className="h-5 w-5 text-muted-foreground" />
+            </div>
+            <div className="mt-4 text-3xl font-semibold">{actualTopicsDone}/{topicsTotal}</div>
+            <div className="mt-2 text-xs text-muted-foreground">Voltooid</div>
+          </div>
+
+          <div className="rounded-xl border border-border bg-card p-5">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-muted-foreground">Gemiddelde cijfer</span>
+              <Award className="h-5 w-5 text-muted-foreground" />
+            </div>
+            <div className="mt-4 text-3xl font-semibold">{displayAverageGrade}</div>
+            <div className="mt-2 text-xs text-muted-foreground">Laatste toetsen</div>
+          </div>
+
+          <div className="rounded-xl border border-border bg-card p-5">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-muted-foreground">Aankomende toetsen</span>
+              <Calendar className="h-5 w-5 text-muted-foreground" />
+            </div>
+            <div className="mt-4 text-3xl font-semibold">{upcomingTests}</div>
+            <div className="mt-2 text-xs text-muted-foreground">Komende periode</div>
+          </div>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="mt-8 rounded-xl border border-border bg-card p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-semibold">Voortgang</h3>
+            <span className="text-sm text-muted-foreground">{masteryPercentage}% voltooid</span>
+          </div>
+          <Meter value={masteryPercentage === 0 ? 0 : masteryPercentage} />
+          <div className="mt-4 grid grid-cols-4 gap-4 text-center text-xs text-muted-foreground">
+            <div>
+              <div className="font-medium text-green-500">85-100%</div>
+              <div>Beheerst</div>
+            </div>
+            <div>
+              <div className="font-medium text-yellow-500">65-85%</div>
+              <div>Redelijk</div>
+            </div>
+            <div>
+              <div className="font-medium text-orange-500">40-65%</div>
+              <div>Let op</div>
+            </div>
+            <div>
+              <div className="font-medium text-red-500">0-40%</div>
+              <div>Gevaar</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Chapters and Content */}
         <div className="space-y-6 mt-12">
-          <p className="text-sm text-muted-foreground">{itemCount} onderdelen</p>
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">{itemCount} onderdelen</p>
+            <Link
+              href={`/vakken/${encodedSubjectId}/kennis-kluis`}
+              className="text-sm text-primary hover:underline flex items-center gap-1"
+            >
+              <TrendingUp className="h-4 w-4" />
+              Kennis kluis
+            </Link>
+          </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {chapters.map((chapter) => (
                 <Link

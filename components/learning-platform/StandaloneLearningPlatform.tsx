@@ -213,7 +213,7 @@ export function saveFolders(folders: LocalFolder[]) {
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
 
-function createId(prefix: string) {
+export function createId(prefix: string) {
   return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
@@ -303,13 +303,13 @@ function AccountProfileModal({
   return (
     <div
       onClick={(e) => {
-        if (e.target === e.currentTarget && currentProfile.isOnboarded) onClose();
+        if (e.target === e.currentTarget) onClose();
       }}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto"
     >
       <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-border bg-card p-6 shadow-2xl my-auto">
         <div className="flex items-center justify-between border-b border-border pb-4 mb-5">
-          <h2 className="font-serif text-2xl font-bold text-foreground">
+          <h2 className="font-display font-normal text-2xl text-foreground">
             {currentProfile.isOnboarded ? t('lp_account_title') : t('lp_account_create_title')}
           </h2>
           {currentProfile.isOnboarded && (
@@ -1510,10 +1510,7 @@ function StudySetDetailPage({ set, onBack, onDelete, onDuplicate }: StudySetDeta
       {/* Header */}
       <section className="flex flex-wrap items-end justify-between gap-6 border-b border-border py-8">
         <div className="max-w-xl min-w-0">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-            {t('lp_study_set')}
-          </p>
-          <h1 className="mt-3 font-display text-4xl font-semibold leading-[1.1] truncate">
+          <h1 className="font-display text-4xl font-semibold leading-[1.1] truncate">
             {set.title}
           </h1>
           {set.description && (
@@ -1656,7 +1653,7 @@ function Meter({ value }: { value: number }) {
   );
 }
 
-type MainScreen = 'home' | 'library' | 'create' | 'folders' | 'study-detail';
+type MainScreen = 'home' | 'library' | 'create' | 'folders' | 'study-detail' | 'settings';
 
 const DEFAULT_PROFILE: UserAccountProfile = {
   username: '',
@@ -1664,16 +1661,21 @@ const DEFAULT_PROFILE: UserAccountProfile = {
   year: 5,
   schoolProfile: 'NT',
   selectedSubjects: PROFILE_RECOMMENDED_SUBJECTS.NT,
-  isOnboarded: false,
+  isOnboarded: true,
 };
 
 export function StandaloneLearningPlatform({
   sourceSets: _sourceSets,
+  autoSelectSetId,
+  hideNavbar,
 }: {
   sourceSets: SourceLearningSet[];
+  autoSelectSetId?: string | null;
+  hideNavbar?: boolean;
 }) {
   const { t, currentLanguage } = useTranslation();
   const dateLocale = currentLanguage === 'nl' ? 'nl-NL' : 'en-US';
+  const hideNavbarHeader = hideNavbar === true;
   const [sets, setSets] = useState<LocalStudySet[]>([]);
   const [folders, setFolders] = useState<LocalFolder[]>([]);
   const [selectedSetId, setSelectedSetId] = useState<string | null>(null);
@@ -1695,8 +1697,18 @@ export function StandaloneLearningPlatform({
     setFolders(storedFolders);
     const profile = loadUserProfile();
     setUserProfile(profile);
+
+    // Auto-select set if provided (coming from book learning)
+    if (autoSelectSetId && storedSets.some((s) => s.id === autoSelectSetId)) {
+      setSelectedSetId(autoSelectSetId);
+      setScreen('study-detail');
+      // Don't show onboarding modal when coming from book learning
+      return;
+    }
+
+    // Only show onboarding modal if not onboarded and not coming from book
     if (!profile.isOnboarded) setShowProfileModal(true);
-  }, []);
+  }, [autoSelectSetId]);
 
   const persistSets = (next: LocalStudySet[]) => {
     setSets(next);
@@ -1819,6 +1831,7 @@ export function StandaloneLearningPlatform({
       {showStreak && <StreakModal streak={streak || 1} onClose={() => setShowStreak(false)} />}
 
       {/* ── Navbar ── */}
+      {!hideNavbarHeader && (
       <header className="sticky top-0 z-30 border-b border-border bg-background/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center gap-8 px-8">
           {/* Logo */}
@@ -1855,6 +1868,13 @@ export function StandaloneLearningPlatform({
               className={`relative px-4 py-2 text-[15px] font-medium transition-colors ${screen === 'library' || screen === 'folders' ? 'text-foreground after:absolute after:inset-x-4 after:-bottom-[21px] after:h-px after:bg-foreground' : 'text-muted-foreground hover:text-foreground'}`}
             >
               {t('lp_lists')}
+            </button>
+            <button
+              type="button"
+              onClick={() => setScreen('settings')}
+              className={`relative px-4 py-2 text-[15px] font-medium transition-colors ${screen === 'settings' ? 'text-foreground after:absolute after:inset-x-4 after:-bottom-[21px] after:h-px after:bg-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+            >
+              {t('lp_account_title')}
             </button>
           </nav>
 
@@ -1900,6 +1920,7 @@ export function StandaloneLearningPlatform({
           </div>
         </div>
       </header>
+      )}
 
       {/* ── Screen router ── */}
       {screen === 'create' && (
@@ -1964,6 +1985,18 @@ export function StandaloneLearningPlatform({
           }}
           onBack={() => setScreen('home')}
           onCreateSet={() => setScreen('create')}
+        />
+      )}
+
+      {screen === 'settings' && (
+        <AccountProfileModal
+          currentProfile={userProfile}
+          onSave={(p) => {
+            setUserProfile(p);
+            saveUserProfile(p);
+            setScreen('home');
+          }}
+          onClose={() => setScreen('home')}
         />
       )}
 

@@ -1,4 +1,3 @@
-import { getUserById } from './auth';
 import db from './db';
 
 interface SyncData {

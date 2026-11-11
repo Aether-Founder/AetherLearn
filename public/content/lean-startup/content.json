@@ -1,0 +1,71 @@
+{
+  "id": "lean-startup",
+  "title": "The Lean Startup",
+  "author": "Eric Ries",
+  "description": "How today's entrepreneurs use continuous innovation to create radically successful businesses",
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "title": "The Vision",
+      "order": 1,
+      "summaries": {
+        "en": {
+          "concise": "Traditional startup management often fails because it's based on assumptions rather than validated learning. The Lean Startup methodology focuses on building a minimum viable product (MVP), measuring customer response, and learning whether to pivot or persevere. Speed and learning are more important than perfection.",
+          "detailed": "Eric Ries introduces the Lean Startup methodology as a response to the high failure rate of startups. Traditional management practices don't work for startups because they deal with extreme uncertainty. Instead of building elaborate business plans based on assumptions, lean startups focus on validated learning. They build a minimum viable product (MVP)—the simplest version that can test core assumptions. They measure how real customers respond and learn whether to pivot (change direction) or persevere. The goal is to minimize the total time through the build-measure-learn feedback loop. This approach recognizes that startups are not smaller versions of large companies—they require different management practices. Speed of learning is more important than perfection. The vision provides direction, but the path to achieving it is discovered through experimentation and customer feedback."
+        },
+        "nl": {
+          "concise": "Traditioneel startup-management faalt vaak omdat het is gebaseerd op aannames in plaats van gevalideerd leren. De Lean Startup-methodologie richt zich op het bouwen van een minimum viable product (MVP), meten van klantreactie, en leren of men moet draaien of volharden. Snelheid en leren zijn belangrijker dan perfectie.",
+          "detailed": "Eric Ries introduceert de Lean Startup-methodologie als reactie op het hoge faalpercentage van startups. Traditionele managementpraktijken werken niet voor startups omdat ze te maken hebben met extreme onzekerheid. In plaats van uitgebreide bedrijfsplannen te bouwen op basis van aannames, richten lean startups zich op gevalideerd leren. Ze bouwen een minimum viable product (MVP)—de eenvoudigste versie die kernaannames kan testen. Ze meten hoe echte klanten reageren en leren of ze moeten draaien (van richting veranderen) of volharden. Het doel is om de totale tijd door de build-measure-learn feedbacklus te minimaliseren. Deze aanpak erkent dat startups geen kleinere versies zijn van grote bedrijven—ze vereisen verschillende managementpraktijken. Snelheid van leren is belangrijker dan perfectie. De visie geeft richting, maar het pad om deze te bereiken wordt ontdekt door experimentatie en klantfeedback."
+        }
+      },
+      "keyConcepts": ["MVP", "validated learning", "build-measure-learn", "pivot vs persevere", "feedback loop"],
+      "learningOutcomes": [
+        "Understand the Lean Startup methodology",
+        "Learn why traditional management fails for startups",
+        "Apply the build-measure-learn cycle"
+      ]
+    },
+    {
+      "id": "chapter-2",
+      "title": "The Steer",
+      "order": 2,
+      "summaries": {
+        "en": {
+          "concise": "Steering a startup requires actionable metrics rather than vanity metrics. Use innovation accounting to measure progress, establish a baseline, and tune the engine. The leap-of-faith assumptions are the critical beliefs that must be tested. Learn to distinguish between value hypothesis (do customers want this?) and growth hypothesis (can we grow?).",
+          "detailed": "To steer a startup effectively, you need to know if you're making progress. Traditional accounting doesn't work for startups. Instead, use innovation accounting: establish a baseline, tune the engine, and pivot if necessary. Focus on actionable metrics that guide decision-making, not vanity metrics that look good but don't inform action. The most critical assumptions are called leap-of-faith assumptions—beliefs about the business that must be true for success. These include the value hypothesis (do customers value what we're building?) and the growth hypothesis (can we sustain growth?). Testing these hypotheses through experiments is essential. The startup's engine of growth determines how it acquires customers—through sticky products (retention), viral marketing (word-of-mouth), or paid marketing. Understanding which engine to use and how to optimize it is key to steering the startup in the right direction."
+        },
+        "nl": {
+          "concise": "Een startup sturen vereist meetbare metrics in plaats van ijdelheidsmetrics. Gebruik innovatie-accounting om vooruitgang te meten, een basislijn vast te stellen en de motor af te stellen. De leap-of-faith-aannames zijn de kritieke overtuigingen die moeten worden getest. Leer onderscheid te maken tussen waardehypothese (willen klanten dit?) en groeihypothese (kunnen we groeien?).",
+          "detailed": "Om een startup effectief te sturen, moet je weten of je vooruitgang boekt. Traditionele accounting werkt niet voor startups. Gebruik in plaats daarvan innovatie-accounting: stel een basislijn vast, stem de motor af en draai indien nodig. Focus op meetbare metrics die besluitvorming sturen, niet op ijdelheidsmetrics die er goed uitzien maar geen actie informeren. De meest kritieke aannames worden leap-of-faith-aannames genoemd—overtuigingen over het bedrijf die waar moeten zijn voor succes. Deze omvatten de waardehypothese (waarderen klanten wat we bouwen?) en de groeihypothese (kunnen we groei behouden?). Deze hypothesen testen door experimenten is essentieel. De groeimotor van de startup bepaalt hoe hij klanten verwerft—through plakkerige producten (retentie), virale marketing (mond-tot-mond), of betaalde marketing. Begrijpen welke motor te gebruiken en hoe deze te optimaliseren is sleutel tot het sturen van de startup in de juiste richting."
+        }
+      },
+      "keyConcepts": ["innovation accounting", "actionable metrics", "leap-of-faith assumptions", "value hypothesis", "growth hypothesis"],
+      "learningOutcomes": [
+        "Implement innovation accounting",
+        "Identify and test leap-of-faith assumptions",
+        "Choose the right growth engine"
+      ]
+    },
+    {
+      "id": "chapter-3",
+      "title": "Accelerate",
+      "order": 3,
+      "summaries": {
+        "en": {
+          "concise": "Accelerate the startup by shortening the build-measure-learn cycle. Use small batches, continuous deployment, and adaptive organizations. The Five Whys technique helps identify root causes of problems. Build a sustainable startup that can innovate continuously without burning out.",
+          "detailed": "The final phase of the Lean Startup is acceleration—making the feedback loop faster. Use small batches rather than large batch processing to reduce waste and increase learning speed. Continuous deployment allows for frequent, small releases that can be quickly adjusted based on feedback. Create an adaptive organization that can pivot quickly. The Five Whys technique—asking 'why' five times to get to the root cause—helps solve problems systematically rather than treating symptoms. This prevents the same problems from recurring. The goal is to build a sustainable startup that can innovate continuously without burning out the team. This requires balancing speed with stability, and recognizing that long-term success comes from continuous learning and adaptation, not from one big breakthrough. The Lean Startup is about creating organizations that can thrive in uncertainty by turning it into a competitive advantage."
+        },
+        "nl": {
+          "concise": "Versnel de startup door de build-measure-learn cyclus te verkorten. Gebruik kleine batches, continue implementatie en adaptieve organisaties. De Vijf Waarom-techniek helpt de oorzaak van problemen identificeren. Bouw een duurzame startup die continu kan innoveren zonder uitgeput te raken.",
+          "detailed": "De laatste fase van de Lean Startup is versnelling—de feedbacklus sneller maken. Gebruik kleine batches in plaats van grote batchverwerking om verspilling te verminderen en leersnelheid te verhogen. Continue implementatie maakt frequente, kleine releases mogelijk die snel kunnen worden aangepast op basis van feedback. Creëer een adaptieve organisatie die snel kan draaien. De Vijf Waarom-techniek—vijf keer 'waarom' vragen om bij de oorzaak te komen—helpt problemen systematisch oplossen in plaats van symptomen te behandelen. Dit voorkomt dat dezelfde problemen terugkeren. Het doel is een duurzame startup te bouwen die continu kan innoveren zonder het team uit te putten. Dit vereist balans tussen snelheid en stabiliteit, en het erkennen dat langetermijnsucces voortkomt uit continu leren en aanpassing, niet van één grote doorbraak. De Lean Startup gaat over het creëren van organisaties die kunnen floreren in onzekerheid door deze om te zetten in een concurrentievoordeel."
+        }
+      },
+      "keyConcepts": ["small batches", "continuous deployment", "Five Whys", "adaptive organization", "sustainable innovation"],
+      "learningOutcomes": [
+        "Accelerate the feedback loop",
+        "Apply the Five Whys technique",
+        "Build an adaptive, sustainable organization"
+      ]
+    }
+  ]
+}

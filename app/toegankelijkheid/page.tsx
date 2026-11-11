@@ -118,8 +118,6 @@ export default function AccessibilityPage() {
       />
 
       <div className="mt-10">
-        </div>
-
         <Card>
           <CardHeader>
             <CardTitle>{t('a11y_comfort')}</CardTitle>

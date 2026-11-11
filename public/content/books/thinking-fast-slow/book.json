@@ -1,0 +1,19 @@
+{
+  "id": "thinking-fast-slow",
+  "slug": "thinking-fast-slow",
+  "title": "Thinking, Fast and Slow",
+  "author": "Daniel Kahneman",
+  "description": "Explore the two systems that drive the way we think: System 1 is fast, intuitive, and emotional; System 2 is slower, more deliberative, and more logical.",
+  "topic": "psychology",
+  "languages": ["en", "nl"],
+  "formats": ["concise", "detailed"],
+  "readingTime": {
+    "concise": 18,
+    "detailed": 50
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">Thinking,<br/>Fast and Slow</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">Daniel Kahneman</div></div>"
+  },
+  "collections": ["psychology", "science", "essential"],
+}

@@ -1,0 +1,463 @@
+{
+  "id": "praktijkboek-gedragstherapie-1",
+  "slug": "praktijkboek-gedragstherapie-1",
+  "title": "Praktijkboek Gedragstherapie 1",
+  "author": "Bas van Heycop ten Ham, Bert de Vos, Monique Hulsbergen",
+  "description": "Een praktisch handboek voor gedragstherapie, met concrete methoden en technieken voor de behandeling van psychologische problemen.",
+  "topic": "psychology",
+  "languages": ["nl"],
+  "formats": ["original", "concise", "detailed"],
+  "readingTime": {
+    "concise": 20,
+    "detailed": 55
+  },
+  "cover": {
+    "type": "image",
+    "imageUrl": "https://www.boom.nl/media/4/9789461051707.jpg"
+  },
+  "collections": ["psychology", "essential"],
+  "pinned": true,
+  "position": 1,
+  "authorInfo": "Het **Praktijkboek Gedragstherapie** is het resultaat van een intensieve samenwerking tussen drie vooraanstaande experts met een schat aan ervaring binnen de Nederlandse geestelijke gezondheidszorg (GGZ). De auteurs combineren hun diepgaande theoretische kennis met een jarenlange dagelijkse behandelpraktijk:\n\n* **Bas van Heycop ten Ham** is klinisch psycholoog, psychotherapeut en cognitief gedragstherapeut. Hij is al decennia actief in de specialistische GGZ en staat bekend om zijn expertise in complexe diagnostiek, functie- en betekenisanalyses en de concrete vertaling van psychotherapeutische richtlijnen naar de behandelkamer.\n* **Bert de Vos** is als ervaren cognitief gedragstherapeut en supervisor nauw betrokken bij het opleiden van professionals. Zijn specifieke expertise ligt op het gebied van evidence-based interventies bij angst- en stemmingsstoornissen en het helder overdraagbaar maken van therapeutische vaardigheden.\n* **Monique Hulsbergen** is psycholoog en auteur, gespecialiseerd in de derde generatie gedragstherapie. Zij heeft een grote bijdrage geleverd aan de integratie van mindfulness en Acceptance and Commitment Therapy (ACT) in de Nederlandstalige praktijkliteratuur.\n\nSamen hebben zij met dit handboek dé brug geslagen tussen de wetenschappelijke kaders van de cognitieve gedragstherapie en de dynamische, alledaagse praktijk van de cognitief gedragstherapeutisch werker.",
+  "learningModes": {
+    "uitleg": false,
+    "leren": false,
+    "samenvatting": false,
+    "quiz": false
+  },
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "order": 1,
+      "title": "Titelpagina",
+      "summaries": {
+        "nl": {
+          "concise": "",
+          "detailed": ""
+        }
+      },
+      "pages": [
+        {
+          "pageNumber": 2,
+          "sourceImage": "IMAGE-001",
+          "content": [
+            ""
+          ]
+        },
+        {
+          "pageNumber": 3,
+          "sourceImage": "IMAGE-001",
+          "content": [
+            "**Praktijkboek gedragstherapie – deel 1**",
+            "",
+            "Handboek voor cognitief gedragstherapeutisch werkers",
+            "",
+            "Bas van Heycop ten Ham, Bert de Vos en Monique Hulsbergen",
+            "",
+            "Boom | Amsterdam"
+          ]
+        }
+      ],
+      "learningOutcomes": []
+    },
+    {
+      "id": "chapter-2",
+      "order": 2,
+      "title": "Colofon",
+      "summaries": {
+        "nl": {
+          "concise": "",
+          "detailed": ""
+        }
+      },
+      "pages": [
+        {
+          "pageNumber": 4,
+          "sourceImage": "IMAGE-002",
+          "content": [
+            "© 2012 Bas van Heycop ten Ham, Bert de Vos, Monique Hulsbergen",
+            "© 2012 Uitgeverij Boom, Amsterdam",
+            "",
+            "Behoudens de in of krachtens de Auteurswet van 1912 gestelde uitzonderingen mag niets uit deze uitgave worden verveelvoudigd, opgeslagen in een geautomatiseerd gegevensbestand, of openbaar gemaakt, in enige vorm of op enige wijze, hetzij elektronisch, mechanisch door fotokopieën, opnamen of enig andere manier, zonder voorafgaande schriftelijke toestemming van de uitgever.",
+            "",
+            "Voor zover het maken van kopieën uit deze uitgave is toegestaan op grond van artikel 16h t/m 16m van de Auteurswet 1912 jo. Besluit van 27 november 2002, Stb 575, dient men de daarvoor wettelijk verschuldigde vergoeding te voldoen aan de Stichting Reprorecht te Hoofddorp (Postbus 3060, 2130 KB, www.reprorecht.nl) of contact op te nemen met de uitgever voor het overnemen van (een gedeelte(n) uit) deze uitgave in bloemlezingen, readers en andere compilatiewerken (artikel 16, Auteurswet 1912). Voor een of meer compilatiewerken (artikel 16, Auteurswet 1912) kan men zich wenden tot de Stichting PRO (Stichting Publicatie- en Reproductierechten, Postbus 3060, 2130 KB Hoofddorp, www.cedar.nl/pro).",
+            "",
+            "*No part of this book may be reproduced in any way whatsoever without the written permission of the publisher.*",
+            "",
+            "De uitgever heeft ernaar gestreefd de rechten van de illustraties en de artikelen volgens wettelijke bepalingen te regelen. Degenen die desondanks menen zekere rechten te kunnen doen gelden, kunnen zich alsnog tot de uitgever wenden.",
+            "",
+            "Verzorging omslag: René van der Vooren",
+            "Verzorging binnenwerk: Steven Boland",
+            "",
+            "ISBN 978 94 6105 170 7",
+            "NUR 770",
+            "",
+            "www.uitgeverijboom.nl"
+          ]
+        }
+      ],
+      "learningOutcomes": []
+    },
+    {
+      "id": "chapter-3",
+      "order": 3,
+      "title": "Inhoud",
+      "summaries": {
+        "nl": {
+          "concise": "",
+          "detailed": ""
+        }
+      },
+      "pages": [
+        {
+          "pageNumber": 5,
+          "sourceImage": "IMAGE-002",
+          "content": [
+            "# Inhoud",
+            "",
+            "Inleiding 9",
+            "Voorwoord 13",
+            "Voorwoord 17",
+            "**1 De geschiedenis van de cognitieve gedragstherapie 19**",
+            "   Inleiding 19",
+            "   1.1 De pioniers 20",
+            "       1.1.1 Emotionele reacties – Pavlov en Watson 20",
+            "       1.1.2 Gedragsverandering – Thorndike en Skinner 24",
+            "   1.2 Van onderzoek naar praktijk: opkomst van de eerste generatie gedragstherapie 33",
+            "   1.3 Van S-R naar S-O-R-C 37",
+            "   1.4 De opkomst van de cognitieve therapie 39",
+            "   1.5 Integratie van cognitieve therapie en gedragstherapie: de tweede generatie gedragstherapie heet cognitieve gedragstherapie 40",
+            "   1.6 De derde generatie gedragstherapie: mindfulness en acceptance and commitment therapy 43",
+            "   1.7 Definiëring cognitieve gedragstherapie 46",
+            "**2 Functieanalyse: analyse van disfunctioneel gedrag 49**",
+            "   Inleiding 49",
+            "   2.1 Wat voor soorten disfunctioneel gedrag kom je tegen in de klinische praktijk? 50",
+            "   2.2 De leergeschiedenis van disfunctioneel gedrag 53"
+          ]
+        },
+        {
+          "pageNumber": 6,
+          "sourceImage": "IMAGE-003",
+          "content": [
+            "6 INHOUD",
+            "",
+            "   2.3 De functieanalyse (FA) 55",
+            "   2.4 Klinische voorbeelden van de functieanalyse 62",
+            "   2.5 Wanneer en hoe stel je een functieanalyse op? 68",
+            "   2.6 Mogelijke interventies vanuit de functieanalyse 74",
+            "       2.6.1 Interventies gericht op de uitlokkende stimulus (Sd) 76",
+            "       2.6.2 Interventies gericht op het gedrag (R) 77",
+            "       2.6.3 Interventies gericht op de gevolgen (Sr) 78",
+            "**3 Betekenisanalyse: analyse van disfunctionele emotionele reacties 91**",
+            "   Inleiding 91",
+            "   3.1 Wat voor soort disfunctionele emotionele reacties kom je tegen in de klinische praktijk? 91",
+            "   3.2 De leergeschiedenis van functionele en disfunctionele emotionele reacties: het leren van betekenissen 92",
+            "       3.2.1 Aanbieding van biologisch relevante stimuli 97",
+            "       3.2.2 Klassieke conditionering: de koppeling van een biologisch relevante stimulus aan een neutrale stimulus 98",
+            "   3.3 De betekenisanalyse (BA) 105",
+            "   3.4 Hoe stel je een betekenisanalyse op? 110",
+            "   3.5 Mogelijke interventies vanuit de betekenisanalyse 125",
+            "   3.6 FA en BA gecombineerd 139",
+            "**4 Het gedragstherapeutisch proces: probleemsamenhang en behandelplan 143**",
+            "   Inleiding 143",
+            "   4.1 Probleemsamenhang in een holistische theorie 145",
+            "       4.1.1 De holistische theorie 145",
+            "       4.1.2 Beschermende factoren en risicofactoren 147",
+            "       4.1.3 Voorbeelden van de holistische theorie 147",
+            "   4.2 Opstellen van een holistische theorie 162",
+            "   4.3 Gevolgen van de disfunctionele gedragingen en gevoelens: integratie met het verpleegkundig model van Gordon 173",
+            "   4.4 Van holistische theorie naar behandelplan 189"
+          ]
+        },
+        {
+          "pageNumber": 7,
+          "sourceImage": "IMAGE-003",
+          "content": [
+            "INHOUD 7",
+            "",
+            "**5 Technieken: gedragsverandering en vaardigheidstraining 207**",
+            "   Inleiding 207",
+            "   5.1 Zelfcontroleprocedure 208",
+            "   5.2 Dilemma-afweging (kosten-batenanalyse) 212",
+            "   5.3 Sociaalvaardigheidstraining 219",
+            "   5.4 Relaxatietraining 225",
+            "**6 Technieken: veranderen van emotionele reacties 227**",
+            "   Inleiding 227",
+            "   6.1 Contraconditionering en COMET 228",
+            "       6.1.1 Hoe pas je contraconditionering of COMET toe? 232",
+            "   6.2 Herevaluatie van de UCS/UCR-representatie: gestructureerde schrijfopdracht 240",
+            "**7 Cognitieve therapie 247**",
+            "   Inleiding 247",
+            "   7.1 Theoretische basis van cognitieve therapie 248",
+            "   7.2 Praktische toepassing van cognitieve therapie 254",
+            "**8 Schematherapie 275**",
+            "   Inleiding 275",
+            "   8.1 Begrippen uit de schematherapie 276",
+            "   8.2 Beschrijving van de domeinen en de schema's 283",
+            "       8.2.1 Onverbondenheid en Afwijzing (domein I) 283",
+            "       8.2.2 Verzwakte autonomie en verzwakt functioneren (domein II) 293",
+            "       8.2.3 Verzwakte grenzen (domein III) 301",
+            "       8.2.4 Gerichtheid op anderen (domein IV) 304",
+            "       8.2.5 Overmatige waakzaamheid en inhibitie (domein V) 309",
+            "   8.3 Diagnostiek en behandeling in schematherapie 315",
+            "**9 Mindfulness en Acceptance and commitment therapy 319**",
+            "   Inleiding 319",
+            "   9.1 Mindfulness 319",
+            "   9.2 Acceptance and commitment therapy 327"
+          ]
+        },
+        {
+          "pageNumber": 8,
+          "sourceImage": "IMAGE-004",
+          "content": [
+            "8 INHOUD",
+            "",
+            "**10 De therapeutische context 335**",
+            "   Inleiding 335",
+            "   10.1 Patiëntfactoren 335",
+            "   10.2 Therapeutfactoren 336",
+            "   10.3 Therapeutische relatie en therapeutische alliantie 340",
+            "   10.4 Behandelfactoren 342",
+            "   10.5 Omgevingsfactoren 359",
+            "Literatuur 367",
+            "Bijlagen 385",
+            "Register 409",
+            "Over de auteurs 415"
+          ]
+        }
+      ],
+      "learningOutcomes": []
+    },
+    {
+      "id": "chapter-4",
+      "order": 4,
+      "title": "Inleiding",
+      "summaries": {
+        "nl": {
+          "concise": "",
+          "detailed": ""
+        }
+      },
+      "pages": [
+        {
+          "pageNumber": 9,
+          "sourceImage": "IMAGE-004",
+          "content": [
+            "# Inleiding",
+            "",
+            "*De totstandkoming van dit boek*",
+            "",
+            "Vanuit de opleiding tot cognitief gedragstherapeutisch werker VGGT® kwam regelmatig de feedback dat men de bestaande literatuur over cognitieve gedragstherapie te ingewikkeld vond, en te weinig gericht op de praktijk van de cgw'ers. De eerste auteur, Bas van Heycop ten Ham, maakte in zijn functie als docent aan de opleidingen de behoefte om met een praktijkboek over cognitieve gedragstherapie te komen. Belofte maakt schuld en hij zoekt contact met de sectie CGW binnen de VGGT. Bert de Vos, cognitief gedragstherapeutisch werker van het eerste uur en medeoprichter van de sectie CGW, was bereid om mee te werken om zo'n praktijkboek gestalte te geven. Samen betrokken zij Monique Hulsbergen, opleidingsgenoot van Bas, erbij voor de inhoudelijke redactie en het schrijven van hoofdstuk 9. Al snel ontstond het idee om er twee delen van te maken: het eerste deel over de principes en toepassing van de cognitieve gedragstherapie, en het tweede deel over de behandeling van DSM-IV stoornissen, de toepassing van cognitieve gedragstherapie bij transdiagnostische factoren en bij specifieke doelgroepen. Transdiagnostische factoren zijn symptomen, problemen of mechanismen die je bij verschillende stoornissen terugziet, zoals piekeren, een laag zelfbeeld en moeite met het reguleren van emoties.",
+            "",
+            "Met de praktijkboeken deel 1 en 2 wordt een volledige beschrijving gegeven van alle aspecten van de cognitieve gedragstherapie op een toegankelijke, leesbare wijze, aansluitend op de praktijk van de cognitief gedragstherapeutisch werker of werkende."
+          ]
+        },
+        {
+          "pageNumber": 10,
+          "sourceImage": "IMAGE-005",
+          "content": [
+            "10 PRAKTIJKBOEK GEDRAGSTHERAPIE",
+            "",
+            "*Voor wie is het bedoeld?*",
+            "",
+            "Het boek is bedoeld voor cognitief gedragstherapeutisch werkers VGGT® (in opleiding), vaktherapeuten, verpleegkundigen en alle andere professionals die werken met principes uit de cognitieve gedragstherapie of hierin geïnteresseerd zijn. De lezer wordt verondersteld kennis te hebben van de DSM-IV-classificatie en de meest voorkomende DSM-IV-as I en DSM-5-as I pathologieën (angststoornissen en depressieve stoornissen). Bij het verschijnen van deel 1 en in deel 2 van dit praktijkboek (respectievelijk najaar 2012 en voorjaar 2013) stond de DSM-5 op het punt om het levenslicht te zien. In deel 2 hebben we getracht zo veel mogelijk de kennis die op dat moment beschikbaar was over de DSM-5 te integreren.",
+            "",
+            "*Opbouw van deel 1 van het praktijkboek*",
+            "",
+            "Het eerste deel bestaat uit 10 hoofdstukken. We beginnen met het doornemen van de geschiedenis van de gedragstherapie, omdat veel begrippen uit de hedendaagse cognitieve gedragstherapie makkelijker te begrijpen zijn als je kennis hebt van het ontstaan van de zogenoemde eerste, tweede en derde generatie gedragstherapie (respectievelijk de gedragstherapie, de cognitieve gedragstherapie en mindfulness en acceptance and commitment therapy). Vervolgens bespreken we in hoofdstuk 2 en 3 de principes van operante conditionering (aanleren en veranderen van gedrag) en de daaraan gekoppelde functieanalyse gevolgd door de principes van klassieke conditionering (aanleren en veranderen van emotionele betekenissen) met de daaraan gerelateerde betekenisanalyse. Deze kennis moeten we kunnen toepassen op een individuele patiënt die met allerlei symptomen, problemen en een al dan niet duidelijke hulpvraag bij ons komt. Het therapeutisch proces begint met het ordenen van alle relevante informatie over de patiënt in een holistische theorie. We bespreken in hoofdstuk 4 deze holistische theorie en hoe je vanuit een holistische theorie, de hulpvraag en de eventuele bijkomende problemen als gevolg van de pathologie (de 'gevolgschade') tot een behandelplan kunt komen. Voor het beschrijven van de gevolgschade hebben we voor het verpleegkundige inventarisatiemodel van Gordon gekozen. Dit is niet toevallig, omdat veel cognitief gedragstherapeutisch werkers een verpleegkundige achtergrond hebben. In hoofdstuk 5 tot en met 9 lees je over de verschillende cognitief gedragstherapeutische technieken en interventies die toegepast kunnen worden om problematisch gedrag of problematische emotionele reacties en betekenissen te wijzigen."
+          ]
+        },
+        {
+          "pageNumber": 11,
+          "sourceImage": "IMAGE-005",
+          "content": [
+            "INLEIDING 11",
+            "",
+            "In hoofdstuk 5 bespreken we breed en algemeen toepasbare gedragsveranderingsstrategieën en in hoofdstuk 6 interventies om tot een andere emotionele reactie te komen. Stoornisspecifieke interventies komen in het praktijkboek deel 2 aan de orde. Hoofdstuk 7 en 8 gaan over cognitieve interventies en manieren om langdurig bestaande cognitieve schema's te wijzigen en in hoofdstuk 9 wordt de houding die de patiënt tot zijn klachten of symptomen heeft besproken aan de hand van mindfulness en acceptance and commitment therapy.",
+            "",
+            "Het laatste hoofdstuk is een uitgebreid hoofdstuk over de zogenoemde non-specifieke therapiefactoren: dat zijn factoren die het therapie-effect kunnen beïnvloeden, ongeacht welke therapie je ook doet, zoals de therapeutische relatie, patiënt- en therapeutfactoren en omgevingsfactoren. We vinden het belangrijk om hier uitgebreid bij stil te staan, omdat deze non-specifieke therapiefactoren in belangrijke mate het therapieproces en het therapie-effect beïnvloeden. We hopen hiermee inzichtelijk te maken waarom de ene therapie succesvol verloopt en de andere niet, ondanks de juiste toepassing van cognitief gedragstherapeutische procedures.",
+            "",
+            "*Hoe te studeren?*",
+            "",
+            "De beste manier om dit boek te bestuderen is als volgt:",
+            "",
+            "1 Lees aan het begin van elk hoofdstuk de titels van de paragrafen en subparagrafen.",
+            "2 Lees daarna per paragraaf de samenvatting in het grijze kader aan het eind van de paragraaf.",
+            "3 Begin vervolgens per paragraaf met het kritisch lezen van de vragen en probeer daar alvast een antwoord op te formuleren. Hou deze vragen in het achterhoofd met het lezen van de paragraaf.",
+            "4 Beantwoord na het lezen van de paragraaf de vragen schriftelijk. Deze 'vraaggestuurde' manier van leren is op basis van allerlei onderzoek de beste manier om de stof tot je te nemen en te integreren in bestaande kennis (Anderson, 2010).",
+            "",
+            "*Dankwoord*",
+            "",
+            "Een woord van dank gaat uit naar Dimitri Pelser, verpleegkundige op de PAAZ van het Canisius-Wilhelmina Ziekenhuis te Nijmegen. Hij"
+          ]
+        },
+        {
+          "pageNumber": 12,
+          "sourceImage": "IMAGE-009",
+          "content": [
+            "12 PRAKTIJKBOEK GEDRAGSTHERAPIE",
+            "",
+            "heeft als vertegenwoordiger van de lezersdoelgroep de hele tekst beoordeeld op leesbaarheid en begrijpelijkheid. Zeer veel dank!",
+            "",
+            "Verder willen we Uitgeverij Boom bedanken voor de support vanaf het ontstaan van het idee voor dit boek. Hun enthousiasme werkte motiverend om het praktijkboek te schrijven.",
+            "",
+            "Bas van Heycop ten Ham, Zwolle",
+            "Bert de Vos, Groningen",
+            "Monique Hulsbergen, Enschede",
+            "Juli 2012"
+          ]
+        }
+      ],
+      "learningOutcomes": []
+    },
+    {
+      "id": "chapter-5",
+      "order": 5,
+      "title": "Voorwoord Hans Jacobs",
+      "summaries": {
+        "nl": {
+          "concise": "",
+          "detailed": ""
+        }
+      },
+      "pages": [
+        {
+          "pageNumber": 13,
+          "sourceImage": "IMAGE-009",
+          "content": [
+            "# Voorwoord",
+            "",
+            "Door Hans Jacobs, cognitief gedragstherapeutisch werker",
+            "",
+            "Allereerst wil ik aangeven dat ik zeer vereerd ben met het verzoek om dit voorwoord te schrijven bij het eerste boek voor de cognitief gedragstherapeutisch werker. Ik ben er trots op dat het boek er ligt. Wat is er een hoop aan voorafgegaan. In dit voorwoord zal ik beknopt de geschiedenis tot op heden beschrijven.",
+            "",
+            "Als psychiatrisch verpleegkundige volgde ik in 1974 een gedragstherapeutische opleiding voor verpleegkundigen in het Academisch Angstcentrum Maastricht (AAC). Deze experimentele opleiding was een initiatief van François Wils. Hij wilde in navolging van Isaac Marks van het Maudsley Hospital in Londen, verpleegkundigen opleiden tot verpleegkundig gedragstherapeuten. Isaac Marks begon hier al mee in de jaren zestig van de vorige eeuw. Onderzoek wees uit dat de hbo-gedragstherapeuten in de praktijk niet onderdoen voor hun academische collega's. Een succes dus in Engeland. Helaas ging de opleiding in Maastricht ter ziele. Ik was inmiddels heel enthousiast geworden en toen er een vacature kwam in Kliniek Overwaal, met Overwaal de pionier van de gedragstherapie in Nederland, was ik o zo blij dat ik daar mocht werken!",
+            "",
+            "Ik vond het zo zonde dat het eerder genoemde initiatief van Wils het in Nederland niet gehaald had dat ik het initiatief genomen heb om hbo'ers die werken volgens de cognitief gedragstherapeutische principes bij elkaar te brengen. De respons was unaniem positief.",
+            "",
+            "Onze eerste bijeenkomst was eind 1999 in kliniek Overwaal te Nijmegen. Van daaruit zijn we met gedreven mensen uit alle hoeken van Nederland verdergegaan met het ontwikkelen van onze kennis én met het positioneren van de cognitief gedragstherapeutisch werker (CGW). Een lastige, maar ook mooie klus. We noemden onszelf"
+          ]
+        },
+        {
+          "pageNumber": 14,
+          "sourceImage": "IMAGE-006",
+          "content": [
+            "14 PRAKTIJKBOEK GEDRAGSTHERAPIE",
+            "",
+            "Vakgroep Gedragstherapeutisch Werkers (VGW). Ons bestuur werd gevormd door afgevaardigden van verschillende angstklinieken: na de Wolf-Ermelo, Overwaal-Nijmegen, Academisch Angstcentrum Maastricht, Kliniek UMC-Groningen en GGZ-Schagen. De VGW had 80 leden. We werden één van de 55 beroepsgroepen onder de paraplu van de VGGT. Ons jaarlijks congres was hét moment om alle collega's te ontmoeten en met hen van gedachten te wisselen. Vragen kwamen er in overvloed: hoe gaan we om met de gedragstherapie? Hoe kunnen we onze kwaliteit waarborgen? Moet er een opleiding komen?",
+            "",
+            "We probeerden dus eerst bij de VGGT om een opleiding te krijgen om formeel juridisch ons potentieel aan hbo'ers die zich bezighielden met de gedragstherapie nooit zouden kunnen komen. Dit gaf weer een hoop extra problemen en orde op zaken te stellen.",
+            "",
+            "We zagen in dat er orde op zaken moest komen. Met de gedragstherapie nooit zouden kunnen komen. Dit gaf weer een hoop extra problemen en orde op zaken te stellen.",
+            "",
+            "In de persoon van Jacques Oomen zagen we een enthousiaste medestander om onze doelen dichterbij te halen. Er volgden vele gesprekken intern en besprekingen met de VGGT om met het geheel wat wij als gedragstherapeutisch werkers (zoals we ons toen nog noemden) in zo'n groot geheel blijven?",
+            "",
+            "Met de overgang in 2007 als groep naar de VGGT kwamen we in een stroomversnelling terecht. De academici reageerden erg positief op ons en we voelden ons welkom. De medewerkers van het stafbureau stonden ons bij met raad en daad terzijde. Voortaan hoefden wij ons als bestuur alleen nog maar bezig te houden met de inhoud. Dat was een luxepositie.",
+            "",
+            "We werden een eigen sectie binnen de VGGT. De CGW'er kon zich in een register inschrijven. In dit register zijn de kwaliteitseisen omschreven. Door steeds te moeten voldoen aan deze kwaliteitseisen is de kwaliteit van de CGW'er gewaarborgd.",
+            "",
+            "Als CGW hebben we een duidelijke stem gekregen in de inspraak van de VGGT middels een zetel in de ledenraad. En heel belangrijk: er kwamen steeds meer cursussen door het hele land. Met het oog op staan van meerdere opleidingen voor CGW'ers is het ledental sterk aan het toenemen. Maar wat ontbrak er nu nog en wat lijkt een logisch vervolg? Ja, een eigen studieboek voor onze trotse beroepsgroep. Na"
+          ]
+        },
+        {
+          "pageNumber": 15,
+          "sourceImage": "IMAGE-006",
+          "content": [
+            "VOORWOORD 15",
+            "",
+            "dertien jaar is het ervan gekomen. Een mijlpaal! Het is een lijvig boek geworden. De auteurs hebben zich goed verplaatst in de positie van de CGW'er. Die is er vooral een van een doener. Praktisch ingesteld. Een boek moet praktische handvatten bieden, iets waar de cliënt verder mee komt. Dat is de moraal van de CGW!",
+            "",
+            "Hans Jacobs – Overwaal, centrum voor angststoornissen, Nijmegen"
+          ]
+        }
+      ],
+      "learningOutcomes": []
+    },
+    {
+      "id": "chapter-6",
+      "order": 6,
+      "title": "Voorwoord Jacques Oomen",
+      "summaries": {
+        "nl": {
+          "concise": "",
+          "detailed": ""
+        }
+      },
+      "pages": [
+        {
+          "pageNumber": 16,
+          "sourceImage": "IMAGE-007",
+          "content": [
+            ""
+          ]
+        },
+        {
+          "pageNumber": 17,
+          "sourceImage": "IMAGE-007",
+          "content": [
+            "# Voorwoord",
+            "",
+            "Door Jacques Oomen, supervisor VGGT",
+            "",
+            "Hans Jacobs heeft gelijk: dit boek is een mijlpaal. Maar dan wel een die langs drie verschillende wegen staat. Deze beweging vraagt uiteraard om enige toelichting.",
+            "",
+            "In de eerste plaats langs de weg die de VGGT insloeg toen zij exact tien jaar geleden het historische besluit nam om een register in te stellen voor Cognitief Gedragstherapeutisch Medewerkers, zo werden die toen nog genoemd. De Vereniging zette daarmee haar deuren (weer) open voor hbo-opgeleiden. En dat gaat niet zonder slag of stoot: natuurlijk voelen de zittende leden zich bedreigd door een nieuwe beroepsgroep, temeer omdat er enkele jaren eerder ook al een nieuwe beroepsgroep bijkwam in de vorm van de gz-psycholoog. Maar die is tenminste nog universitair opgeleid. Een gedurfde stap dus, van de Vereniging.",
+            "",
+            "Een stap die ertoe leidt dat er gaandeweg steeds meer basiscursussen voor hbo-opgeleiden gegeven worden, waarvan de kwaliteit haar taak. Het leidt tot een ware boost aan door het hele land heen georganiseerde en goedgekeurde basiscursussen (177 in de afgelopen tien jaar) waaraan meer dan tweeduizend cursisten met succes deelnamen. Van al hen volgen helaas niet het hele opleidingstraject waardoor het huidige aantal geregistreerde CGW'ers nog slechts 231 bedraagt. Hun aantal groeit echter gestaag: zo hebben zich al 93 cursisten laten registreren als CGW'er in opleiding, een mogelijkheid die sinds 2010 bestaat. De VGGT doet er intussen alles aan om het aantal CGW'ers te doen toenemen en de eenmaal geregistreerden te behouden.",
+            "",
+            "Zoveel cursussen en cursisten vragen al langere tijd om een helder en op de doelgroep gericht boek. En dat is er nu. 'Was het er maar"
+          ]
+        },
+        {
+          "pageNumber": 18,
+          "sourceImage": "IMAGE-008",
+          "content": [
+            "18 PRAKTIJKBOEK GEDRAGSTHERAPIE",
+            "",
+            "eerder geweest', verzucht ik, na tientallen basiscursussen met plezier te hebben gegeven. En het verschijnt dan ook nog juist nadat ik mijn laatste cursus heb afgesloten.",
+            "",
+            "In de tweede plaats is dit boek een mijlpaal, langs de weg naar een grotere toegankelijkheid van het cognitief gedragstherapeutisch gedachtegoed voor een breed publiek. Het is prettig leesbaar geschreven zonder afbreuk te doen aan soms toch tamelijk ingewikkelde zaken. De veelgehoorde klacht van cursisten is het hoogdravende taalgebruik van de bestaande handboeken en de overdaad van daarin gemelde experimenten. Wat dit betreft alle lof voor de auteurs. Ik voorspel dan ook dat dit boek een belangrijke rol zal gaan spelen in de gedragstherapiecursussen die gegeven worden in het kader van andere opleidingen zoals die van de gz-psychologen, psychotherapeuten, en klinisch psychologen. Temeer daar het zo'n veelomvattend boek is geworden met zelfs aandacht voor de zogenaamde derde generatie gedragstherapie en voor non-specifieke factoren die werkzaam zijn binnen het veld van de psychotherapie.",
+            "",
+            "En daarmee komen we aan het derde en laatste punt. Cognitief gedragstherapeutisch werkers zijn toch geen psychotherapeuten? Wat zijn dan wel hun specifieke kwaliteiten, hun bevoegdheden? Kan een CGW'er zelfstandig cognitief gedragstherapeut? De discussie daarover is door een Adviescommissie binnen de VGGT, die ik mocht voorzitten, aangewakkerd en nog nauwelijks op gang gekomen. Op dit punt zul je in onderhavig boek geen standpunten of antwoorden aantreffen. Sterker nog: het boek is zo alomvattend dat je de indruk krijgt dat de auteurs gaan voor een volwaardige cognitief gedragstherapeutische scholing en opleiding. Wellicht zal het daarmee op den duur een mijlpaal blijken te zijn op de weg van de CGW'er die wil uitgroeien naar de status van cognitief gedragstherapeut, conform het Engelse model, waarvan Hans Jacobs hierboven melding maakt. Ik wens de CGW'ers daarbij veel succes.",
+            "",
+            "Rest mij de auteurs te feliciteren met het voor u liggende resultaat van hun moeizame arbeid. Het mag er zonder meer zijn.",
+            "",
+            "Jacques Oomen – eigen praktijk, Venray"
+          ]
+        }
+      ],
+      "learningOutcomes": []
+    },
+    {
+      "id": "chapter-7",
+      "order": 7,
+      "title": "Hoofdstuk 1",
+      "summaries": {
+        "nl": {
+          "concise": "",
+          "detailed": ""
+        }
+      },
+      "pages": [
+        {
+          "pageNumber": 19,
+          "sourceImage": "IMAGE-008",
+          "content": [
+            "# Hoofdstuk 1",
+            "",
+            "## De geschiedenis van de cognitieve gedragstherapie",
+            "",
+            "### Inleiding",
+            "",
+            "De hedendaagse cognitieve gedragstherapie (CGT) heeft zich in drie fases ontwikkeld. In de eerste fase, aan het begin van de twintigste eeuw, lag de nadruk op laboratoriumonderzoek en onderzoeken wetenschappers hoe je gedrag van dieren en mensen kunt beïnvloeden. In de jaren vijftig werden de bevindingen uit het onderzoek toegepast in de klinische praktijk. Het accent lag lange tijd op het aanleren en beïnvloeden van gedrag en emotionele reacties door omgevingsfactoren.",
+            "",
+            "Halverwege de twintigste eeuw kwam daar verandering in. In die periode onderzocht men de invloed van gedachten (of cognities) op het gedrag en de emotionele reacties, waarmee een nieuwe stroming ontstond: de cognitieve therapie. Na enige tijd bleek het bestaan van twee stromingen onhoudbaar. De bevindingen uit de gedragstherapie en de cognitieve therapie werden samengevoegd en zo ontstond de cognitieve gedragstherapie. De cognitieve gedragstherapie wordt ook wel de tweede generatie gedragstherapie genoemd. In de tweede generatie gedragstherapie is er zowel aandacht voor gedragsfactoren als voor cognitieve factoren.",
+            "",
+            "Sinds het laatste decennium van de vorige eeuw is er toenemend aandacht voor aanvaarding van psychische klachten als deze niet direct zijn op te lossen. Hierdoor ontstaat er meer ruimte voor het ontwikkelen en bestendigen van gezonde gedragingen en emotionele reacties. Mindfulness en acceptance and commitment therapy (ACT) deden hun intrede in de cognitieve gedragstherapie. Deze ontwikkeling wordt ook wel de derde generatie cognitieve gedragstherapie genoemd."
+          ]
+        }
+      ],
+      "learningOutcomes": []
+    }
+  ]
+}

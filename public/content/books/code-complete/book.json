@@ -1,0 +1,19 @@
+{
+  "id": "code-complete",
+  "slug": "code-complete",
+  "title": "Code Complete",
+  "author": "Steve McConnell",
+  "description": "A practical handbook of software construction. Learn the best practices for writing high-quality, maintainable code.",
+  "topic": "technology",
+  "languages": ["en", "nl"],
+  "formats": ["concise", "detailed"],
+  "readingTime": {
+    "concise": 25,
+    "detailed": 70
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">Code Complete</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">Steve McConnell</div></div>"
+  },
+  "collections": ["technology", "programming", "essential"],
+}

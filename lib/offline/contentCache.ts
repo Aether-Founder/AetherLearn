@@ -174,6 +174,8 @@ class ContentCacheService {
    * Save cache to localStorage
    */
   private saveToStorage(): void {
+    if (typeof window === 'undefined') return;
+
     try {
       const cacheData = Array.from(this.cache.entries());
       localStorage.setItem(this.CACHE_PREFIX + 'data', JSON.stringify(cacheData));
@@ -186,6 +188,8 @@ class ContentCacheService {
    * Load cache from localStorage
    */
   private loadFromStorage(): void {
+    if (typeof window === 'undefined') return;
+
     try {
       const cacheData = localStorage.getItem(this.CACHE_PREFIX + 'data');
       if (cacheData) {

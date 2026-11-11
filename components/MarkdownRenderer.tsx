@@ -21,7 +21,7 @@ export function MarkdownRenderer({ children, className }: MarkdownRendererProps)
       rehypePlugins={[rehypeKatex]}
       className={cn(
         'prose prose-sm max-w-none',
-        'prose-headings:font-serif prose-headings:text-foreground prose-headings:font-normal',
+        'prose-headings:font-display prose-headings:text-foreground prose-headings:font-normal',
         'prose-h1:text-3xl prose-h1:mb-4 prose-h1:mt-6',
         'prose-h2:text-2xl prose-h2:mb-3 prose-h2:mt-5',
         'prose-h3:text-xl prose-h3:mb-2 prose-h3:mt-4',
@@ -46,7 +46,7 @@ export function MarkdownRenderer({ children, className }: MarkdownRendererProps)
       components={{
         // Custom components for better styling
         h1: ({ children, ...props }) => (
-          <h1 className="text-3xl font-serif text-foreground font-normal mb-4 mt-6" {...props}>
+          <h1 className="text-3xl font-display text-foreground font-normal mb-4 mt-6" {...props}>
             {children}
           </h1>
         ),
@@ -60,7 +60,7 @@ export function MarkdownRenderer({ children, className }: MarkdownRendererProps)
           return (
             <h2
               id={id}
-              className="text-2xl font-serif text-foreground font-normal mb-3 mt-5"
+              className="text-2xl font-display text-foreground font-normal mb-3 mt-5"
               {...props}
             >
               {cleanText || children}
@@ -77,7 +77,7 @@ export function MarkdownRenderer({ children, className }: MarkdownRendererProps)
           return (
             <h3
               id={id}
-              className="text-2xl font-serif text-foreground font-normal mb-3 mt-5"
+              className="text-2xl font-display text-foreground font-normal mb-3 mt-5"
               {...props}
             >
               {cleanText || children}

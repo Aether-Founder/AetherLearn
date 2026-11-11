@@ -1,0 +1,86 @@
+{
+  "id": "atomic-habits",
+  "slug": "atomic-habits",
+  "title": "Atomic Habits",
+  "author": "James Clear",
+  "description": "An easy and proven way to build good habits and break bad ones. Learn how tiny changes can lead to remarkable results.",
+  "topic": "self-improvement",
+  "languages": ["en"],
+  "formats": ["concise", "detailed"],
+  "readingTime": {
+    "concise": 12,
+    "detailed": 35
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">Atomic Habits</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">James Clear</div></div>"
+  },
+  "collections": ["self-improvement", "productivity", "essential"],
+  "pinned": true,
+  "position": 2,
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "title": "The Fundamentals",
+      "order": 1,
+      "summaries": {
+        "en": {
+          "concise": "Small changes can lead to remarkable results. Habits are the compound interest of self-improvement. Getting 1% better every day leads to significant transformation over time. Focus on systems rather than goals.",
+          "detailed": "The central thesis of Atomic Habits is that small, consistent changes compound over time to produce remarkable results. Just as money multiplies through compound interest, habits multiply as you repeat them. If you get 1% better each day, you'll be 37 times better by the end of the year. Conversely, 1% worse each day leads to near-zero improvement. This is why habits matter more than goals. Goals are about the results you want to achieve; systems are about the processes that lead to those results. Winners and losers have the same goals—it's the systems that differentiate them. The key is to focus on who you wish to become rather than what you want to achieve. Identity-based habits focus on changing who you are, not just what you do. For example, instead of saying 'I want to run a marathon,' say 'I am a runner.' This subtle shift changes your relationship with the habit."
+        },
+        "nl": {
+          "concise": "Kleine veranderingen kunnen leiden tot opmerkelijke resultaten. Gewoonten zijn de samengestelde rente van zelfverbetering. Elke dag 1% beter worden leidt tot aanzienlijke transformatie in de tijd. Focus op systemen in plaats van doelen.",
+          "detailed": "De centrale these van Atomic Habits is dat kleine, consistente veranderingen in de tijd samenkomen om opmerkelijke resultaten te produceren. Net zoals geld vermenigvuldigt door samengestelde rente, vermenigvuldigen gewoonten zich naarmate je ze herhaalt. Als je elke dag 1% beter wordt, ben je aan het einde van het jaar 37 keer beter. Omgekeerd leidt elke dag 1% slechter tot bijna geen verbetering. Dit is waarom gewoonten belangrijker zijn dan doelen. Doelen gaan over de resultaten die je wilt bereiken; systemen gaan over de processen die tot die resultaten leiden. Winnaars en verliezers hebben dezelfde doelen—het zijn de systemen die ze onderscheiden. De sleutel is om te focussen op wie je wilt worden in plaats van wat je wilt bereiken. Identiteitsgebaseerde gewoonten focussen op het veranderen van wie je bent, niet alleen wat je doet. In plaats van bijvoorbeeld te zeggen 'Ik wil een marathon lopen', zeg 'Ik ben een loper.' Deze subtiele verschuiving verandert je relatie met de gewoonte."
+        }
+      },
+      "keyConcepts": ["compound interest", "systems vs goals", "identity-based habits", "1% improvement"],
+      "learningOutcomes": [
+        "Understand the power of small habits",
+        "Learn why systems matter more than goals",
+        "Shift from outcome-based to identity-based habits"
+      ]
+    },
+    {
+      "id": "chapter-2",
+      "title": "The Four Laws of Behavior Change",
+      "order": 2,
+      "summaries": {
+        "en": {
+          "concise": "Build good habits with the four laws: make it obvious, make it attractive, make it easy, make it satisfying. Break bad habits by inverting these laws. Use implementation intentions and habit stacking.",
+          "detailed": "The Four Laws of Behavior Change provide a simple set of rules for building good habits and breaking bad ones. To create a good habit: 1) Make it obvious—design your environment to make cues visible. Use implementation intentions ('I will [BEHAVIOR] at [TIME] in [LOCATION]') and habit stacking ('After [CURRENT HABIT], I will [NEW HABIT]'). 2) Make it attractive—pair habits you need with habits you want. Use temptation bundling. 3) Make it easy—reduce friction. The two-minute rule states that when starting a new habit, it should take less than two minutes. 4) Make it satisfying—use immediate rewards. To break a bad habit, invert these laws: make it invisible, make it unattractive, make it difficult, make it unsatisfying. Environment design is powerful—we follow the path of least resistance. By shaping your environment, you can make good habits easier and bad habits harder."
+        },
+        "nl": {
+          "concise": "Bouw goede gewoonten met de vier wetten: maak het duidelijk, maak het aantrekkelijk, maak het gemakkelijk, maak het bevredigend. Doorbreek slechte gewoonten door deze wetten om te keren. Gebruik implementatie-intenties en gewoontestapeling.",
+          "detailed": "De Vier Wetten van Gedragsverandering bieden een eenvoudige set regels voor het bouwen van goede gewoonten en het doorbreken van slechte gewoonten. Om een goede gewoonte te creëren: 1) Maak het duidelijk—ontwerp je omgeving om signalen zichtbaar te maken. Gebruik implementatie-intenties ('Ik zal [GEDRAG] op [TIJD] in [LOCATIE]') en gewoontestapeling ('Na [HUIDIGE GEWOONTE], zal ik [NIEUWE GEWOONTE]'). 2) Maak het aantrekkelijk—koppel gewoonten die je nodig hebt met gewoonten die je wilt. Gebruik verleidingbundeling. 3) Maak het gemakkelijk—verminder wrijving. De twee-minutenregel stelt dat bij het starten van een nieuwe gewoonte het minder dan twee minuten moet duren. 4) Maak het bevredigend—gebruik onmiddellijke beloningen. Om een slechte gewoonte te doorbreken, keer deze wetten om: maak het onzichtbaar, maak het onaantrekkelijk, maak het moeilijk, maak het onbevredigend. Omgevingsontwerp is krachtig—we volgen het pad van minste weerstand. Door je omgeving te vormen, kun je goede gewoonten gemakkelijker en slechte gewoonten moeilijker maken."
+        }
+      },
+      "keyConcepts": ["four laws", "implementation intentions", "habit stacking", "environment design", "two-minute rule"],
+      "learningOutcomes": [
+        "Apply the four laws to build good habits",
+        "Use implementation intentions and habit stacking",
+        "Design your environment to support good habits"
+      ]
+    },
+    {
+      "id": "chapter-3",
+      "title": "Advanced Techniques",
+      "order": 3,
+      "summaries": {
+        "en": {
+          "concise": "Master advanced habit techniques: the Goldilocks Rule (work on tasks of just manageable difficulty), tracking habits, and never missing twice. Habits become automatic through repetition—eventually they become part of your identity.",
+          "detailed": "Advanced techniques help maintain habits long-term. The Goldilocks Rule states that humans experience peak motivation when working on tasks that are right on the edge of their current abilities—not too hard, not too easy. This keeps you in a state of flow. Tracking habits provides visual evidence of progress and makes you accountable. Use a habit tracker or calendar. The most important rule is never miss twice. If you miss one day, get back on track immediately. Missing once is an accident; missing twice is the start of a new habit. Habits become automatic through the process of habituation. With enough repetition, behaviors become automatic—carried out without conscious thought. This is when habits truly become part of your identity. The ultimate form of intrinsic motivation is when a habit becomes part of who you are. You don't have to do it—you are the type of person who does it."
+        },
+        "nl": {
+          "concise": "Meester geavanceerde gewoontetechnieken: de Goldilocks-regel (werk aan taken van net beheersbare moeilijkheid), gewoonten bijhouden, en nooit twee keer missen. Gewoonten worden automatisch door herhaling—uiteindelijk worden ze deel van je identiteit.",
+          "detailed": "Geavanceerde technieken helpen gewoonten op de lange termijn te behouden. De Goldilocks-regel stelt dat mensen piekmotivatie ervaren wanneer ze werken aan taken die precies aan de rand van hun huidige vaardigheden liggen—niet te moeilijk, niet te gemakkelijk. Dit houdt je in een staat van flow. Het bijhouden van gewoonten biedt visueel bewijs van vooruitgang en maakt je verantwoordelijk. Gebruik een gewoontetracker of kalender. De belangrijkste regel is nooit twee keer missen. Als je een dag mist, kom je direct weer op het goede spoor. Een keer missen is een ongeluk; twee keer missen is het begin van een nieuwe gewoonte. Gewoonten worden automatisch door het proces van habituatie. Met genoeg herhaling worden gedragingen automatisch—uitgevoerd zonder bewust denken. Dit is wanneer gewoonten echt deel worden van je identiteit. De ultieme vorm van intrinsieke motivatie is wanneer een gewoonte deel wordt van wie je bent. Je hoeft het niet te doen—je bent het type persoon die het doet."
+        }
+      },
+      "keyConcepts": ["Goldilocks Rule", "habit tracking", "never miss twice", "automaticity", "identity"],
+      "learningOutcomes": [
+        "Apply the Goldilocks Rule for optimal challenge",
+        "Track habits effectively",
+        "Maintain habits long-term through identity"
+      ]
+    }
+  ]
+}

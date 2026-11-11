@@ -69,7 +69,7 @@ function placeFinal(
 }
 
 function clearFullLines(grid: (string | null)[][]) {
-  let next = grid.map((row) => [...row]);
+  const next = grid.map((row) => [...row]);
   let cleared = 0;
   for (let r = 0; r < GRID; r++) {
     if (next[r].every((cell) => cell)) {

@@ -11,6 +11,16 @@
       "icon": "atom",
       "level": "VWO",
       "chapters": ["mechanica", "thermodynamica", "elektriciteit-magnetisme"]
+    },
+    {
+      "id": "scheikunde",
+      "name": "Scheikunde",
+      "slug": "scheikunde",
+      "description": "De studie van materie, zijn eigenschappen, samenstelling en reacties",
+      "color": "#10b981",
+      "icon": "flask",
+      "level": "VWO",
+      "chapters": ["hoofdstuk-1", "hoofdstuk-2"]
     }
   ]
 }

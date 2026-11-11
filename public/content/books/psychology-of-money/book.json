@@ -1,0 +1,19 @@
+{
+  "id": "the-psychology-of-money",
+  "slug": "psychology-of-money",
+  "title": "The Psychology of Money",
+  "author": "Morgan Housel",
+  "description": "Timeless lessons on wealth, greed, and happiness. Learn about the behavioral aspects of personal finance and investment.",
+  "topic": "finance",
+  "languages": ["en", "nl"],
+  "formats": ["concise", "detailed"],
+  "readingTime": {
+    "concise": 16,
+    "detailed": 45
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">The Psychology of Money</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">Morgan Housel</div></div>"
+  },
+  "collections": ["finance", "business", "essential"],
+}

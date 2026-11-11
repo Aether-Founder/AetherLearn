@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Target, TrendingUp, TrendingDown, Calendar, Clock, CheckCircle2, Circle } from "lucide-react";
+import { Target, TrendingUp, Calendar, Clock, CheckCircle2, Circle } from "lucide-react";
 
 interface Goal {
   id: string;

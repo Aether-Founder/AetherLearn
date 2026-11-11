@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, CheckCircle2, RotateCcw, X, Star, Flame } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, RotateCcw, X, Star, Flame, Clock, Settings } from 'lucide-react';
 import { AppShell } from '@/components/AppShell';
 import { supabase } from '@/lib/supabase/client';
 import { useTranslation } from '@/lib/useTranslation';
@@ -12,10 +12,9 @@ import {
   type CardState,
   type ReviewGrade,
 } from '@/lib/fsrs';
-import { gradeWithPartialCredit, calculateSimilarity } from '@/lib/semantic-grading';
 import { useGamification } from '@/hooks/useGamification';
 
-type StudyCard = { id: string; question: string; answer: string; cardState?: CardState };
+type StudyCard = { id: string; term: string; definition: string; cardState?: CardState };
 
 const RATINGS: Array<{ grade: ReviewGrade; labelKey: string; hintKey: string }> = [
   { grade: 'again', labelKey: 'study_rating_again', hintKey: 'study_again_hint' },
@@ -40,7 +39,18 @@ export default function StudyModePage() {
   const [error, setError] = useState('');
   const [xpEarned, setXPEarned] = useState(0);
 
-  // Learn mode state
+  // Session tracking
+  const [sessionStartTime, setSessionStartTime] = useState<Date>(new Date());
+  const [sessionEndTime, setSessionEndTime] = useState<Date | null>(null);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [incorrectCount, setIncorrectCount] = useState(0);
+
+  // Term/Definition settings
+  const [learnTerm, setLearnTerm] = useState(false);
+  const [learnDefinition, setLearnDefinition] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
+
+  // MCQ mode state
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -56,10 +66,6 @@ export default function StudyModePage() {
     Record<string, { correct: boolean; similarity: number }>
   >({});
   const [showTestResults, setShowTestResults] = useState(false);
-
-  // Match mode state
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  const [matchedPairs, setMatchedPairs] = useState<Array<{ term: string; def: string }>>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -78,10 +84,10 @@ export default function StudyModePage() {
       if (cardError) setError(t('study_load_error'));
       setTitle(deck?.title || t('study_session'));
       setCards(
-        (cardRows || []).map((card: StudyCard) => ({
+        (cardRows || []).map((card: any) => ({
           id: card.id,
-          question: card.question,
-          answer: card.answer,
+          term: card.question,
+          definition: card.answer,
           cardState: initializeCard(),
         }))
       );
@@ -98,6 +104,54 @@ export default function StudyModePage() {
     ? Math.round(((index + (complete ? 1 : 0)) / cards.length) * 100)
     : 0;
 
+  // Determine question type based on settings
+  const askForTerm = learnTerm && (!learnDefinition || Math.random() < 0.5);
+  const question = askForTerm ? card.definition : card.term;
+  const correctAnswer = askForTerm ? card.term : card.definition;
+  const questionType = askForTerm ? 'Wat is de term?' : 'Wat is de definitie?';
+
+  // Calculate Dutch grade (1-10)
+  const calculateDutchGrade = (correct: number, total: number): number => {
+    if (total === 0) return 0;
+    return Math.round((correct / total) * 10 * 10) / 10;
+  };
+
+  // Format time duration
+  const formatDuration = (ms: number): string => {
+    const seconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+
+  // Save session analytics
+  const saveSessionAnalytics = () => {
+    const sessionEndTime = new Date();
+    setSessionEndTime(sessionEndTime);
+    const duration = sessionEndTime.getTime() - sessionStartTime.getTime();
+    const grade = calculateDutchGrade(correctCount, cards.length);
+
+    const analytics = {
+      deckId,
+      mode,
+      correctCount,
+      incorrectCount,
+      totalQuestions: cards.length,
+      grade,
+      duration,
+      timestamp: new Date().toISOString(),
+    };
+
+    try {
+      const existing = localStorage.getItem('aether_study_analytics');
+      const allAnalytics = existing ? JSON.parse(existing) : [];
+      allAnalytics.push(analytics);
+      localStorage.setItem('aether_study_analytics', JSON.stringify(allAnalytics));
+    } catch {
+      console.error('Failed to save analytics');
+    }
+  };
+
   const handleNext = () => {
     setFlipped(false);
     setSelectedOption(null);
@@ -105,9 +159,9 @@ export default function StudyModePage() {
     setUserAnswer('');
     setWriteFeedback('');
     setWriteCorrect(false);
-    setSelectedItems([]);
     if (index >= cards.length - 1) {
       setComplete(true);
+      saveSessionAnalytics();
       // Update streak when completing a session
       if (gamificationState.enabled) {
         updateStreak();
@@ -136,64 +190,71 @@ export default function StudyModePage() {
     else setIndex((value) => value + 1);
   };
 
-  // Learn mode: generate real distractors from other cards
-  const getDistractors = () => {
-    if (!card || cards.length < 4) return ['Distractor 1', 'Distractor 2', 'Distractor 3'];
+  // MCQ mode: generate real distractors from other cards
+  const getMCQOptions = () => {
+    if (!card || cards.length < 4) return ['Optie 1', 'Optie 2', 'Optie 3'];
 
     const otherCards = cards.filter((c, i) => i !== index);
     const shuffled = [...otherCards].sort(() => Math.random() - 0.5);
-    const distractors = shuffled.slice(0, 3).map((c) => c.answer);
+    const distractors = shuffled.slice(0, 3).map((c) => askForTerm ? c.term : c.definition);
 
     // Combine with correct answer and shuffle
-    const allOptions = [card.answer, ...distractors];
+    const allOptions = [correctAnswer, ...distractors];
     return allOptions.sort(() => Math.random() - 0.5);
   };
 
-  const handleLearnOption = (optionIndex: number, option: string) => {
+  const handleMCQOption = (optionIndex: number, option: string) => {
     setSelectedOption(optionIndex);
-    setIsCorrect(option === card.answer);
+    const correct = option === correctAnswer;
+    setIsCorrect(correct);
     setShowFeedback(true);
+    if (correct) {
+      setCorrectCount((prev) => prev + 1);
+    } else {
+      setIncorrectCount((prev) => prev + 1);
+    }
   };
 
-  // Write mode: semantic grading
+  // Write mode: exact match (no partial credit)
   const handleWriteSubmit = () => {
-    const result = gradeWithPartialCredit(userAnswer, card.answer);
-    setWriteCorrect(result.correct);
-    setWriteFeedback(result.feedback);
+    const correct = userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase();
+    setWriteCorrect(correct);
+    setWriteFeedback(correct ? 'Correct!' : `Niet correct. Het juiste antwoord is: ${correctAnswer}`);
+    if (correct) {
+      setCorrectCount((prev) => prev + 1);
+    } else {
+      setIncorrectCount((prev) => prev + 1);
+    }
   };
 
-  // Test mode: grade all answers
+  // Test mode: grade all answers (exact match, no partial credit)
   const handleTestSubmit = () => {
     const results: Record<string, { correct: boolean; similarity: number }> = {};
+    let correct = 0;
+    let incorrect = 0;
+
     cards.forEach((c) => {
       const answer = testAnswers[c.id] || '';
-      const similarity = calculateSimilarity(answer, c.answer);
+      const askForTermTest = learnTerm && (!learnDefinition || Math.random() < 0.5);
+      const correctAnswerTest = askForTermTest ? c.term : c.definition;
+      const isCorrect = answer.trim().toLowerCase() === correctAnswerTest.trim().toLowerCase();
+
       results[c.id] = {
-        correct: similarity >= 0.8,
-        similarity,
+        correct: isCorrect,
+        similarity: isCorrect ? 1 : 0,
       };
+
+      if (isCorrect) {
+        correct++;
+      } else {
+        incorrect++;
+      }
     });
+
+    setCorrectCount(correct);
+    setIncorrectCount(incorrect);
     setTestResults(results);
     setShowTestResults(true);
-  };
-
-  // Match mode: handle selection
-  const handleMatchSelect = (itemIndex: number, side: 'term' | 'def') => {
-    if (selectedItems.length === 0) {
-      setSelectedItems([itemIndex]);
-    } else if (selectedItems.length === 1) {
-      const firstIndex = selectedItems[0];
-      // Check if this is a match (simplified - in real app would check actual pairs)
-      if (firstIndex === itemIndex) {
-        setSelectedItems([]);
-      } else {
-        // Assume it's a match for demo
-        const currentCard = cards[Math.floor(itemIndex / 2)];
-        const pairedCard = cards[Math.floor(firstIndex / 2)];
-        setMatchedPairs([...matchedPairs, { term: currentCard.question, def: pairedCard.answer }]);
-        setSelectedItems([]);
-      }
-    }
   };
 
   if (loading)
@@ -224,10 +285,9 @@ export default function StudyModePage() {
 
   const modeTitles: Record<string, string> = {
     flashcards: 'Flashcards',
-    learn: 'Leren',
+    mcq: 'Meerkeuze',
     write: 'Schrijven',
     test: 'Toets',
-    match: 'Match',
   };
   const modeTitle = modeTitles[mode] || 'Studeren';
 
@@ -254,8 +314,50 @@ export default function StudyModePage() {
               total: cards.length,
             })}
           </span>
-          <span>{t('study_remaining', undefined, { n: Math.max(cards.length - index, 0) })}</span>
+          <div className="flex items-center gap-4">
+            <span>{t('study_remaining', undefined, { n: Math.max(cards.length - index, 0) })}</span>
+            <button
+              type="button"
+              onClick={() => setShowSettings(!showSettings)}
+              className="hover:text-foreground"
+            >
+              <Settings className="h-4 w-4" />
+            </button>
+          </div>
         </div>
+
+        {/* Settings Panel */}
+        {showSettings && (
+          <div className="mt-4 p-4 rounded-lg border border-border bg-card">
+            <h3 className="font-medium mb-3">Instellingen</h3>
+            <div className="space-y-2">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={learnTerm}
+                  onChange={(e) => {
+                    if (!e.target.checked && !learnDefinition) return;
+                    setLearnTerm(e.target.checked);
+                  }}
+                  className="rounded"
+                />
+                <span className="text-sm">Leer termen</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={learnDefinition}
+                  onChange={(e) => {
+                    if (!e.target.checked && !learnTerm) return;
+                    setLearnDefinition(e.target.checked);
+                  }}
+                  className="rounded"
+                />
+                <span className="text-sm">Leer definities</span>
+              </label>
+            </div>
+          </div>
+        )}
         <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-secondary">
           <div
             className="h-full rounded-full bg-foreground transition-all"
@@ -272,6 +374,34 @@ export default function StudyModePage() {
             <p className="mt-2 text-sm text-muted-foreground">
               {t('study_complete_text', undefined, { n: cards.length })}
             </p>
+
+            {/* Session Summary */}
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+                <p className="text-sm text-muted-foreground">Correct</p>
+                <p className="text-2xl font-semibold text-emerald-600">{correctCount}</p>
+              </div>
+              <div className="p-4 rounded-lg bg-rose-500/10 border border-rose-500/30">
+                <p className="text-sm text-muted-foreground">Incorrect</p>
+                <p className="text-2xl font-semibold text-rose-600">{incorrectCount}</p>
+              </div>
+              <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
+                <p className="text-sm text-muted-foreground">Cijfer</p>
+                <p className="text-2xl font-semibold text-blue-600">
+                  {calculateDutchGrade(correctCount, cards.length)}/10
+                </p>
+              </div>
+            </div>
+
+            {sessionEndTime && (
+              <div className="mt-4 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                <Clock className="h-4 w-4" />
+                <span>
+                  Duur: {formatDuration(sessionEndTime.getTime() - sessionStartTime.getTime())}
+                </span>
+              </div>
+            )}
+
             {gamificationState.enabled && (
               <div className="mt-6 flex items-center justify-center gap-4 sm:gap-6 flex-wrap">
                 <div className="flex items-center gap-2 text-amber-500">
@@ -295,7 +425,10 @@ export default function StudyModePage() {
                 setTestAnswers({});
                 setTestResults({});
                 setShowTestResults(false);
-                setMatchedPairs([]);
+                setCorrectCount(0);
+                setIncorrectCount(0);
+                setSessionStartTime(new Date());
+                setSessionEndTime(null);
                 setXPEarned(0);
               }}
               className="mt-7 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
@@ -316,7 +449,10 @@ export default function StudyModePage() {
                     {flipped ? t('study_back') : t('study_front')}
                   </span>
                   <span className="mx-auto mt-8 block max-w-2xl font-display text-2xl sm:text-4xl font-semibold leading-tight">
-                    {flipped ? card.answer : card.question}
+                    {flipped ? correctAnswer : question}
+                  </span>
+                  <span className="mt-4 block text-xs text-muted-foreground">
+                    {questionType}
                   </span>
                   <span className="mt-10 block text-xs text-muted-foreground">
                     {t('study_flip_hint')}
@@ -340,33 +476,34 @@ export default function StudyModePage() {
               </>
             )}
 
-            {mode === 'learn' && (
+            {mode === 'mcq' && (
               <div className="mt-10 rounded-2xl border border-border bg-card p-10 text-center shadow-sm">
                 <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                   Meerkeuze
                 </span>
-                <h2 className="mx-auto mt-8 font-display text-3xl font-semibold leading-tight">
-                  {card.question}
+                <p className="mt-2 text-sm text-muted-foreground">{questionType}</p>
+                <h2 className="mx-auto mt-6 font-display text-3xl font-semibold leading-tight">
+                  {question}
                 </h2>
                 <div className="mt-8 grid gap-3 max-w-md mx-auto">
-                  {getDistractors().map((option, i) => (
+                  {getMCQOptions().map((option, i) => (
                     <button
                       key={i}
-                      onClick={() => !showFeedback && handleLearnOption(i, option)}
+                      onClick={() => !showFeedback && handleMCQOption(i, option)}
                       disabled={showFeedback}
                       className={`w-full text-left p-4 rounded-lg border transition-colors ${
                         showFeedback && selectedOption === i
-                          ? option === card.answer
+                          ? option === correctAnswer
                             ? 'border-emerald-500 bg-emerald-500/10'
                             : 'border-rose-500 bg-rose-500/10'
                           : 'border-border hover:bg-secondary hover:border-primary/50'
                       } ${showFeedback ? 'opacity-50' : ''}`}
                     >
                       {option}
-                      {showFeedback && selectedOption === i && option === card.answer && (
+                      {showFeedback && selectedOption === i && option === correctAnswer && (
                         <CheckCircle2 className="inline-block ml-2 h-4 w-4 text-emerald-500" />
                       )}
-                      {showFeedback && selectedOption === i && option !== card.answer && (
+                      {showFeedback && selectedOption === i && option !== correctAnswer && (
                         <X className="inline-block ml-2 h-4 w-4 text-rose-500" />
                       )}
                     </button>
@@ -378,7 +515,7 @@ export default function StudyModePage() {
                   >
                     {isCorrect
                       ? 'Correct!'
-                      : `Niet correct. Het juiste antwoord is: ${card.answer}`}
+                      : `Niet correct. Het juiste antwoord is: ${correctAnswer}`}
                   </div>
                 )}
                 <button
@@ -396,8 +533,9 @@ export default function StudyModePage() {
                 <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                   Typ je antwoord
                 </span>
-                <h2 className="mx-auto mt-8 font-display text-3xl font-semibold leading-tight">
-                  {card.question}
+                <p className="mt-2 text-sm text-muted-foreground">{questionType}</p>
+                <h2 className="mx-auto mt-6 font-display text-3xl font-semibold leading-tight">
+                  {question}
                 </h2>
                 <textarea
                   value={userAnswer}
@@ -429,8 +567,9 @@ export default function StudyModePage() {
                       <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                         Toets modus - Beantwoord alle vragen
                       </span>
-                      <h2 className="mx-auto mt-8 font-display text-3xl font-semibold leading-tight">
-                        {card.question}
+                      <p className="mt-2 text-sm text-muted-foreground">{questionType}</p>
+                      <h2 className="mx-auto mt-6 font-display text-3xl font-semibold leading-tight">
+                        {question}
                       </h2>
                       <textarea
                         value={testAnswers[card.id] || ''}
@@ -479,17 +618,13 @@ export default function StudyModePage() {
                             className={`p-4 rounded-lg border ${result?.correct ? 'border-emerald-500 bg-emerald-500/5' : 'border-rose-500 bg-rose-500/5'}`}
                           >
                             <p className="font-medium">
-                              {i + 1}. {c.question}
+                              {i + 1}. {c.term}
                             </p>
                             <p className="mt-2 text-sm text-muted-foreground">
                               Jouw antwoord: {answer || '(geen antwoord)'}
                             </p>
                             <p className="mt-1 text-sm text-muted-foreground">
-                              Juiste antwoord: {c.answer}
-                            </p>
-                            <p className="mt-1 text-xs">
-                              Overeenkomst:{' '}
-                              {result?.similarity ? Math.round(result.similarity * 100) : 0}%
+                              Juiste antwoord: {c.definition}
                             </p>
                           </div>
                         );
@@ -499,6 +634,7 @@ export default function StudyModePage() {
                       onClick={() => {
                         setIndex(0);
                         setComplete(true);
+                        saveSessionAnalytics();
                       }}
                       className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
                     >
@@ -506,59 +642,6 @@ export default function StudyModePage() {
                     </button>
                   </div>
                 )}
-              </div>
-            )}
-
-            {mode === 'match' && (
-              <div className="mt-10 rounded-2xl border border-border bg-card p-10">
-                <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                  Koppel de paren
-                </span>
-                <div className="mt-8 grid grid-cols-2 gap-4">
-                  <div className="space-y-3">
-                    {cards.slice(0, 4).map((c, i) => (
-                      <div
-                        key={i}
-                        onClick={() => handleMatchSelect(i, 'term')}
-                        className={`p-4 rounded-lg border cursor-pointer transition-colors ${
-                          selectedItems.includes(i)
-                            ? 'border-primary bg-primary/10'
-                            : 'border-border bg-secondary hover:border-primary/50'
-                        }`}
-                      >
-                        {c.question}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="space-y-3">
-                    {cards.slice(0, 4).map((c, i) => (
-                      <div
-                        key={i + 4}
-                        onClick={() => handleMatchSelect(i + 4, 'def')}
-                        className={`p-4 rounded-lg border cursor-pointer transition-colors ${
-                          selectedItems.includes(i + 4)
-                            ? 'border-primary bg-primary/10'
-                            : 'border-border bg-secondary hover:border-primary/50'
-                        }`}
-                      >
-                        {c.answer}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                {matchedPairs.length > 0 && (
-                  <div className="mt-6 p-4 rounded-lg bg-emerald-500/10 border border-emerald-500">
-                    <p className="text-sm text-emerald-700">
-                      Gekoppelde paren: {matchedPairs.length}
-                    </p>
-                  </div>
-                )}
-                <button
-                  onClick={handleNext}
-                  className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
-                >
-                  Volgende
-                </button>
               </div>
             )}
           </>

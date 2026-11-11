@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { AppShell, SectionTitle } from "@/components/AppShell";
-import { Search, Filter, Calendar, Clock, TrendingUp } from "lucide-react";
+import { Search, Calendar, Clock } from "lucide-react";
 
 interface ResearchPost {
   id: string;

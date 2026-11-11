@@ -1,58 +1,50 @@
 {
-  "378f9d78-d1b1-46c5-b4e5-7741dbb3e589": {
-    "id": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+  "f11b3485-fb8e-44d1-b28a-0b685fa941ad": {
+    "id": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
     "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "startTime": 1790719065282,
-    "endTime": 1790719198653,
-    "duration": 1063,
+    "startTime": 1793057889805,
+    "endTime": null,
+    "duration": 0,
     "events": [
       {
-        "eventType": "page_view",
-        "timestamp": 1790719065282,
-        "data": {
-          "path": "/vakken/Biologie/inleiding-in-de-biologie",
-          "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
-        }
-      },
-      {
-        "eventType": "page_view",
-        "timestamp": 1790719065300,
-        "data": {
-          "path": "/vakken/Biologie/inleiding-in-de-biologie",
-          "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
-        }
-      },
-      {
-        "eventType": "page_view",
-        "timestamp": 1790719197569,
-        "data": {
-          "path": "/vakken/Biologie/inleiding-in-de-biologie",
-          "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
-        }
-      },
-      {
         "eventType": "session_start",
-        "timestamp": 1790719197568,
+        "timestamp": 1793057889805,
         "data": {
-          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
           "language": "nl-NL",
           "screenResolution": "1280x800"
         }
       },
       {
-        "eventType": "session_start",
-        "timestamp": 1790719197590,
+        "eventType": "mode_switch",
+        "timestamp": 1793057930830,
         "data": {
-          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
-          "language": "nl-NL",
-          "screenResolution": "1280x800"
+          "from": "simple",
+          "to": "study"
         }
       },
       {
-        "eventType": "session_end",
-        "timestamp": 1790719198653,
+        "eventType": "mode_switch",
+        "timestamp": 1793057931893,
         "data": {
-          "duration": 1063
+          "from": "study",
+          "to": "simple"
+        }
+      },
+      {
+        "eventType": "page_view",
+        "timestamp": 1793057959215,
+        "data": {
+          "path": "/books/praktijkboek-gedragstherapie-1/read",
+          "referrer": "http://localhost:4422/books/praktijkboek-gedragstherapie-1"
+        }
+      },
+      {
+        "eventType": "page_view",
+        "timestamp": 1793057959216,
+        "data": {
+          "path": "/books/praktijkboek-gedragstherapie-1/read",
+          "referrer": "http://localhost:4422/books/praktijkboek-gedragstherapie-1"
         }
       }
     ]

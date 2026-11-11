@@ -1,0 +1,102 @@
+{
+  "id": "principles-of-economics",
+  "slug": "principles-of-economics",
+  "title": "Principles of Economics",
+  "author": "N. Gregory Mankiw",
+  "description": "An introduction to the fundamental principles of economics, covering supply and demand, market structures, and macroeconomic theory.",
+  "topic": "science",
+  "languages": [
+    "en"
+  ],
+  "formats": [
+    "concise",
+    "detailed"
+  ],
+  "readingTime": {
+    "concise": 22,
+    "detailed": 65
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">Principles of Economics</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">N. Gregory Mankiw</div></div>"
+  },
+  "collections": [
+    "science",
+    "economics",
+    "beginners"
+  ],
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "order": 1,
+      "title": "Introduction to Economics",
+      "keyConcepts": [
+        "scarcity",
+        "opportunity cost",
+        "marginal thinking"
+      ],
+      "summary": {
+        "en": "Economics is the study of how society manages its scarce resources. In this chapter, we explore the fundamental principles that underpin economic decision-making, including the concepts of scarcity, opportunity cost, and marginal analysis.",
+        "nl": "Economie is de studie van hoe samenleving haar schaarse middelen beheert. In dit hoofdstuk verkennen we de fundamentele principes die economische besluitvorming ondersteunen, inclusief de concepten schaarste, opportuniteitskosten en marginale analyse."
+      },
+      "content": {
+        "en": {
+          "concise": "Economics begins with a simple observation: resources are limited, but human wants are unlimited. This fundamental conflict between scarcity and unlimited wants is the core problem that economics tries to solve. By understanding this, we can make better decisions about how to use our limited resources efficiently.",
+          "detailed": "Economics is the study of how society manages its scarce resources. The field of economics is divided into two main branches: microeconomics, which examines the behavior of individual households and firms in making decisions, and macroeconomics, which looks at the economy as a whole. In this chapter, we introduce the ten principles of economics that will guide our understanding throughout the book. These principles include trade-offs, the cost of something is what you give up to get it, rational people think at the margin, people respond to incentives, trade can make everyone better off, markets are usually a good way to organize economic activity, governments can sometimes improve market outcomes, a country's standard of living depends on its ability to produce goods and services, prices rise when the government prints too much money, and society faces a short-run trade-off between inflation and unemployment."
+        },
+        "nl": {
+          "concise": "Economie begint met een eenvoudige observatie: middelen zijn beperkt, maar menselijke behoeften zijn onbeperkt. Dit fundamentele conflict tussen schaarste en onbeperkte behoeften is het kernprobleem dat economie probeert op te lossen. Door dit te begrijpen, kunnen we betere beslissingen nemen over hoe we onze beperkte middelen efficiënt kunnen gebruiken.",
+          "detailed": "Economie is de studie van hoe samenleving haar schaarse middelen beheert. Het vakgebied economie is verdeeld in twee hoofdtakken: micro-economie, die het gedrag van individuele huishoudens en bedrijven bij het nemen van beslissingen onderzoekt, en macro-economie, die naar de economie als geheel kijkt. In dit hoofdstuk introduceren we de tien principes van economie die ons begrip door het hele boek zullen begeleiden. Deze principes omvatten afwegingen, de kosten van iets is wat je opgeeft om het te krijgen, rationele mensen denken op de marge, mensen reageren op prikkels, handel kan iedereen beter maken, markten zijn meestal een goede manier om economische activiteit te organiseren, overheden kunnen soms marktprestaties verbeteren, de levensstandaard van een land hangt af van zijn vermogen om goederen en diensten te produceren, prijzen stijgen wanneer de overheid te veel geld drukt, en de samenleving kijst naar een korte-term afweg tussen inflatie en werkloosheid."
+        }
+      }
+    },
+    {
+      "id": "chapter-2",
+      "order": 2,
+      "title": "Thinking Like an Economist",
+      "keyConcepts": [
+        "incentives",
+        "efficiency",
+        "equity"
+      ],
+      "summary": {
+        "en": "Learn to think like an economist by understanding incentives, efficiency, and equity. This chapter explores how these concepts shape economic outcomes and policy decisions.",
+        "nl": "Leer denken als een econoom door prikkels, efficiëntie en rechtvaardigheid te begrijpen. Dit hoofdstuk onderzoekt hoe deze concepten economische resultaten en beleidsbeslissingen vormen."
+      },
+      "content": {
+        "en": {
+          "concise": "Incentives are the key to understanding human behavior. People respond to incentives in predictable ways. When policymakers design policies, they must consider how people will change their behavior in response. Efficiency means society is getting the most it can from its scarce resources. Equity means the benefits of those resources are distributed fairly among society's members.",
+          "detailed": "Thinking like an economist requires understanding three key concepts: incentives, efficiency, and equity. Incentives are the inducements or penalties that motivate people to act in certain ways. Rational people respond to incentives because they make decisions by comparing costs and benefits. Efficiency is the property of society getting the most it can from its scarce resources. Market outcomes can be efficient only when they allocate resources to the people who value them most. Equity is often at odds with efficiency. When the government redistributes income from the rich to the poor, it reduces the reward for working hard, and as a result, people work less and produce less. This is the trade-off between efficiency and equity."
+        },
+        "nl": {
+          "concise": "Prikkels zijn de sleutel tot het begrijpen van menselijk gedrag. Mensen reageren op prikkels op voorspelbare manieren. Wanneer beleidsmakers beleid ontwerpen, moeten ze overwegen hoe mensen hun gedrag zullen veranderen als reactie daarop. Efficiëntie betekent dat de samenleving het meeste haalt uit haar schaarse middelen. Rechtvaardigheid betekent dat de voordelen van die middelen eerlijk worden verdeeld onder de leden van de samenleving.",
+          "detailed": "Denken als een econoom vereist het begrijpen van drie sleutelconcepten: prikkels, efficiëntie en rechtvaardigheid. Prikkels zijn de stimulansen of straffen die mensen motiveren om op bepaalde manieren te handelen. Rationele mensen reageren op prikkels omdat ze beslissingen nemen door kosten en baten te vergelijken. Efficiëntie is de eigenschap dat de samenleving het meeste haalt uit haar schaarse middelen. Marktresultaten kunnen alleen efficiënt zijn als ze middelen toewijzen aan de mensen die ze het meest waarderen. Rechtvaardigheid bots vaak met efficiëntie. Wanneer de overheid inkomen herverdeelt van rijk naar arm, vermindert het de beloning voor hard werken, en als gevolgt werken mensen minder en produceren ze minder. Dit is de afweging tussen efficiëntie en rechtvaardigheid."
+        }
+      }
+    },
+    {
+      "id": "chapter-3",
+      "order": 3,
+      "title": "Interdependence and the Gains from Trade",
+      "keyConcepts": [
+        "comparative advantage",
+        "trade",
+        "specialization"
+      ],
+      "summary": {
+        "en": "Explore why trade allows people to specialize and increase productivity. This chapter explains comparative advantage and how countries benefit from trading with each other.",
+        "nl": "Onderzoek waarom handel mensen in staat stelt zich te specialiseren en de productiviteit te verhogen. Dit hoofdstuk legt comparatief voordeel uit en hoe landen profiteren van handel met elkaar."
+      },
+      "content": {
+        "en": {
+          "concise": "Trade allows each person to specialize in what they do best, whether it's farming, building, or some other occupation. By specializing and trading, people can produce more than they could without trade. Trade is based on comparative advantage, not absolute advantage. Even if one person is better at everything than another, both can still benefit from trade.",
+          "detailed": "Interdependence and trade are desirable because they allow everyone to specialize in what they do best. Trade allows countries to specialize in what they do best and enjoy a greater variety of goods and services. Comparative advantage is the driving force of trade. Two countries can trade to their mutual benefit when each specializes in the good it produces at a lower opportunity cost. Absolute advantage is the ability to produce a good using fewer inputs than another producer. Comparative advantage is the ability to produce a good at a lower opportunity cost than another producer. When each country specializes in the good in which it has a comparative advantage, total production in the economy rises, and both countries can gain from trade."
+        },
+        "nl": {
+          "concise": "Handel stelt elke persoon in staat zich te specialiseren in wat hij het beste doet, of het nu landbouw, bouwen of een ander beroep. Door specialisatie en handel kunnen mensen meer produceren dan ze zonder handel zouden kunnen. Handel is gebaseerd op comparatief voordeel, niet op absoluut voordeel. Zelfs als één persoon beter is in alles dan een ander, kunnen beiden nog steeds profiteren van handel.",
+          "detailed": "Interdependentie en handel zijn wenselijk omdat ze iedereen in staat stellen zich te specialiseren in wat ze het beste doen. Handel stelt landen in staat zich te specialiseren in wat ze het beste doen en te genieten van een grotere verscheidenheid aan goederen en diensten. Comparatief voordeel is de drijvende kracht van handel. Twee landen kunnen handel drijven tot hun wederzijds voordeel wanneer elk zich specialiseert in het goed dat het produceert tegen een lagere opportuniteitskosten. Absoluut voordeel is het vermogen om een goed te produceren met minder inputs dan een andere producent. Comparatief voordeel is het vermogen om een goed te produceren tegen een lagere opportuniteitskosten dan een andere producent. Wanneer elk land zich specialiseert in het goed waarin het een comparatief voordeel heeft, stijgt de totale productie in de economie, en kunnen beide landen profiteren van handel."
+        }
+      }
+    }
+  ]
+}

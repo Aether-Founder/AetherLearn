@@ -5,14 +5,10 @@ import { detectLanguageFromLocation } from './i18n-location';
 
 export type { Language };
 
-export interface Translation {
-  [key: string]: string;
-}
-
 type TParams = Record<string, string | number>;
 
 class I18n {
-  private translations: Record<string, Translation> = {};
+  private translations: Record<string, Record<string, any>> = {};
   private currentLanguage: Language = DEFAULT_LANGUAGE;
   private loaded = false;
   private version = 0;
@@ -110,7 +106,7 @@ class I18n {
 
       responses.forEach((dict, index) => {
         this.translations[LANGUAGES[index]] =
-          dict && typeof dict === 'object' ? (dict as Translation) : {};
+          dict && typeof dict === 'object' ? dict : {};
       });
 
       // Cache in localStorage
@@ -141,14 +137,24 @@ class I18n {
   }
 
   /**
-   * Resolve a translation key. Fallback chain:
-   * current language -> default language (nl) -> fallback argument -> key.
+   * Resolve a translation key. Supports nested keys like "books.reader.key_concepts".
+   * Fallback chain: current language -> default language (nl) -> fallback argument -> key.
    */
   public t(id: string, fallback?: string, params?: TParams): string {
     this.ensureInitialized();
+
+    // Helper to get nested value from object using dot notation
+    const getNestedValue = (obj: any, path: string): string | undefined => {
+      const value = path.split('.').reduce((current, key) => {
+        return current?.[key];
+      }, obj);
+      // Ensure we return a string, not an object
+      return typeof value === 'string' ? value : undefined;
+    };
+
     const text =
-      this.translations[this.currentLanguage]?.[id] ??
-      this.translations[DEFAULT_LANGUAGE]?.[id] ??
+      getNestedValue(this.translations[this.currentLanguage], id) ??
+      getNestedValue(this.translations[DEFAULT_LANGUAGE], id) ??
       fallback ??
       id;
     return this.interpolate(text, params);

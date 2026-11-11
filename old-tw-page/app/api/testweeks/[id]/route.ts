@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '@/lib/auth';
-import { getTestWeekById, updateTestWeek, deleteTestWeek, addSubjectToTestWeek, removeSubjectFromTestWeek } from '@/lib/testweeks';
+import { getTestWeekById, updateTestWeek, deleteTestWeek } from '@/lib/testweeks';
 
 export async function GET(
   request: NextRequest,

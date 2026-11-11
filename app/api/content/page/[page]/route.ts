@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import { findContentPage, getJsonPath, hasLocalContentForSubject } from '@/lib/json-content-pages';
+import { findContentPage, getJsonPath } from '@/lib/json-content-pages';
 
 export async function GET(_req: NextRequest, { params }: { params: { page: string } }) {
   // Sanitize: only allow alphanumeric, hyphens, underscores

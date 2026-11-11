@@ -14,6 +14,7 @@ import { signUp, signIn } from '@/lib/supabase/auth';
 import { useRedirectIfAuthenticated } from '@/hooks/useAuth';
 import { Eye, EyeOff } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
+import { OnboardingPreferences } from '@/components/onboarding/OnboardingPreferences';
 
 export default function RegisterPage() {
   useRedirectIfAuthenticated();
@@ -38,15 +39,16 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
-    if (success) {
+    if (success && !showOnboarding) {
       const timer = setTimeout(() => {
-        router.push('/vakken');
-      }, 2000); // Redirect to vakken page for setup after 2 seconds
+        setShowOnboarding(true);
+      }, 1000); // Show onboarding after 1 second
       return () => clearTimeout(timer);
     }
-  }, [success, router]);
+  }, [success, showOnboarding]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -112,19 +114,27 @@ export default function RegisterPage() {
       sessionStorage.removeItem('auth_draft_password');
     }
 
-    // Set success to true to show success message
-    setSuccess(true);
+    // Show onboarding preferences instead of redirecting
+    setShowOnboarding(true);
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
       <div className="w-full max-w-md">
-        <div className="text-center">
-          <h1 className="font-display text-4xl font-semibold">{t('register_title')}</h1>
-          <p className="mt-2 text-sm text-muted-foreground">{t('register_subtitle')}</p>
-        </div>
+        {/* Show onboarding after successful registration */}
+        {showOnboarding ? (
+          <OnboardingPreferences
+            onComplete={() => router.push('/vakken')}
+            skipUrl="/vakken"
+          />
+        ) : (
+          <>
+            <div className="text-center">
+              <h1 className="font-display text-4xl font-semibold">{t('register_title')}</h1>
+              <p className="mt-2 text-sm text-muted-foreground">{t('register_subtitle')}</p>
+            </div>
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+            <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           {error && (
             <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200">
               {error}
@@ -283,6 +293,8 @@ export default function RegisterPage() {
           </Link>
           .
         </p>
+          </>
+        )}
       </div>
     </div>
   );

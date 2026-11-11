@@ -1,184 +1,64 @@
 [
   {
     "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "page_view",
-    "timestamp": 1790719043252,
-    "data": {
-      "path": "/vakken/Biologie/inleiding-in-de-biologie",
-      "referrer": "http://localhost:4422/leer/Biologie/inleiding-in-de-biologie"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "sessionId": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
     "eventType": "session_start",
-    "timestamp": 1790719043267,
+    "timestamp": 1793057889805,
     "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
       "language": "nl-NL",
       "screenResolution": "1280x800"
     }
   },
   {
     "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "session_end",
-    "timestamp": 1790719043948,
+    "sessionId": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
+    "eventType": "mode_switch",
+    "timestamp": 1793057930830,
     "data": {
-      "duration": 682
+      "from": "simple",
+      "to": "study"
     }
   },
   {
     "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "session_start",
-    "timestamp": 1790719050204,
+    "sessionId": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
+    "eventType": "mode_switch",
+    "timestamp": 1793057931893,
     "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "from": "study",
+      "to": "simple"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
+    "eventType": "page_view",
+    "timestamp": 1793057959215,
+    "data": {
+      "path": "/books/praktijkboek-gedragstherapie-1/read",
+      "referrer": "http://localhost:4422/books/praktijkboek-gedragstherapie-1"
+    }
+  },
+  {
+    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
+    "sessionId": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
+    "eventType": "session_start",
+    "timestamp": 1793057959214,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
       "language": "nl-NL",
       "screenResolution": "1280x800"
     }
   },
   {
     "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
+    "sessionId": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
     "eventType": "page_view",
-    "timestamp": 1790719050204,
+    "timestamp": 1793057959216,
     "data": {
-      "path": "/vakken/Biologie/inleiding-in-de-biologie",
-      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "page_view",
-    "timestamp": 1790719050219,
-    "data": {
-      "path": "/vakken/Biologie/inleiding-in-de-biologie",
-      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "session_end",
-    "timestamp": 1790719050954,
-    "data": {
-      "duration": 736
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "session_start",
-    "timestamp": 1790719061499,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
-      "language": "nl-NL",
-      "screenResolution": "1280x800"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "page_view",
-    "timestamp": 1790719061499,
-    "data": {
-      "path": "/vakken/Biologie/inleiding-in-de-biologie",
-      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "page_view",
-    "timestamp": 1790719061513,
-    "data": {
-      "path": "/vakken/Biologie/inleiding-in-de-biologie",
-      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "session_end",
-    "timestamp": 1790719062600,
-    "data": {
-      "duration": 1087
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "session_start",
-    "timestamp": 1790719065281,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
-      "language": "nl-NL",
-      "screenResolution": "1280x800"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "page_view",
-    "timestamp": 1790719065282,
-    "data": {
-      "path": "/vakken/Biologie/inleiding-in-de-biologie",
-      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "page_view",
-    "timestamp": 1790719065300,
-    "data": {
-      "path": "/vakken/Biologie/inleiding-in-de-biologie",
-      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "page_view",
-    "timestamp": 1790719197569,
-    "data": {
-      "path": "/vakken/Biologie/inleiding-in-de-biologie",
-      "referrer": "http://localhost:4422/vakken/Biologie/inleiding-in-de-biologie"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "session_start",
-    "timestamp": 1790719197568,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
-      "language": "nl-NL",
-      "screenResolution": "1280x800"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "session_start",
-    "timestamp": 1790719197590,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
-      "language": "nl-NL",
-      "screenResolution": "1280x800"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "378f9d78-d1b1-46c5-b4e5-7741dbb3e589",
-    "eventType": "session_end",
-    "timestamp": 1790719198653,
-    "data": {
-      "duration": 1063
+      "path": "/books/praktijkboek-gedragstherapie-1/read",
+      "referrer": "http://localhost:4422/books/praktijkboek-gedragstherapie-1"
     }
   }
 ]

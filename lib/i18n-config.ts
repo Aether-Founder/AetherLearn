@@ -43,4 +43,46 @@ export const LANGUAGES: readonly Language[] = LANGUAGE_REGISTRY.map((lang) => la
 
 export const DEFAULT_LANGUAGE: Language = 'nl';
 
+/**
+ * Regional language defaults for automatic language detection.
+ * Maps country codes to their default language.
+ * This preserves Dutch as default for NL/BE users while enabling
+ * regional defaults for other countries.
+ */
+export const REGIONAL_DEFAULTS: Record<string, Language> = {
+  'nl': 'nl', // Netherlands
+  'be': 'nl', // Belgium (Dutch/French - Dutch as primary)
+  'de': 'de', // Germany
+  'at': 'de', // Austria
+  'ch': 'de', // Switzerland (German as primary)
+  'fr': 'fr', // France
+  'es': 'es', // Spain
+  'it': 'it', // Italy
+  'pt': 'pt', // Portugal
+  'br': 'pt', // Brazil
+  'ru': 'ru', // Russia
+  'ua': 'uk', // Ukraine
+  'pl': 'pl', // Poland
+  'tr': 'tr', // Turkey
+  'sa': 'ar', // Saudi Arabia
+  'ae': 'ar', // UAE
+  'eg': 'ar', // Egypt
+  'jp': 'ja', // Japan
+  'kr': 'ko', // South Korea
+  'cn': 'zh', // China
+  'tw': 'zh', // Taiwan
+  'in': 'hi', // India
+  'id': 'id', // Indonesia
+  'vn': 'vi', // Vietnam
+  'th': 'th', // Thailand
+  // English as fallback for many countries
+  'us': 'en',
+  'gb': 'en',
+  'ca': 'en',
+  'au': 'en',
+  'nz': 'en',
+  'ie': 'en',
+  'za': 'en',
+};
+
 export const STORAGE_KEY = 'aether_language';

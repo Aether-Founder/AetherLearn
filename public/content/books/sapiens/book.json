@@ -1,0 +1,21 @@
+{
+  "id": "sapiens",
+  "slug": "sapiens",
+  "title": "Sapiens: A Brief History of Humankind",
+  "author": "Yuval Noah Harari",
+  "description": "Explore how Homo sapiens came to dominate the world, from the Stone Age to the present day, examining cognitive, agricultural, and scientific revolutions.",
+  "topic": "history",
+  "languages": ["en"],
+  "formats": ["concise", "detailed"],
+  "readingTime": {
+    "concise": 20,
+    "detailed": 60
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">Sapiens</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">Yuval Noah Harari</div></div>"
+  },
+  "collections": ["history", "science", "essential"],
+  "pinned": true,
+  "position": 3
+}

@@ -1,4 +1,3 @@
-import db from "./db";
 import { getStreakData } from "./streaks";
 import { getUserAchievements } from "./achievements";
 import { getStudySetsByUserId } from "./studysets";

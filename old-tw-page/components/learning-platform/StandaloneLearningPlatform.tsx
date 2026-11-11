@@ -6,7 +6,6 @@ import {
   ArrowLeft,
   BookOpen,
   Check,
-  ChevronRight,
   Copy,
   Edit2,
   Flame,

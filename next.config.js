@@ -21,7 +21,14 @@ try {
       disableDevLogs: true,
       runtimeCaching: [
         {
-          urlPattern: /^https?.*/,
+          // The Binas chunks are ~412 MiB in total. Caching them in the
+          // service worker would blow the browser's Cache Storage quota, so
+          // they are always served straight from the network.
+          urlPattern: /\/binas\//,
+          handler: 'NetworkOnly',
+        },
+        {
+          urlPattern: /^(?!.*\/binas\/).*$/,
           handler: 'NetworkFirst',
           options: {
             cacheName: 'offlineCache',

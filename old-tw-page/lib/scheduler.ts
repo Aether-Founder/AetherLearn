@@ -1,4 +1,4 @@
-import { addDays, differenceInDays, isWeekend, setHours, setMinutes, isSameDay } from "date-fns";
+import { addDays, differenceInDays, isWeekend, setHours, setMinutes } from "date-fns";
 
 interface StudySession {
   id: string;

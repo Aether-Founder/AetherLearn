@@ -13,7 +13,7 @@ import { Diagram, MindMap, Drawing } from '@/types/filesystem';
 import DiagramEditor from '@/components/notes/DiagramEditor';
 import MindMapEditor from '@/components/notes/MindMapEditor';
 import DrawingEditor from '@/components/notes/DrawingEditor';
-import { exportNoteAsText } from '@/utils/noteExportUtils';
+import { exportNoteAsText, exportNoteAsPDF, exportNoteAsImage } from '@/utils/noteExportUtils';
 import { useFilesystem } from '@/hooks/useFilesystem';
 import { filesystemService } from '@/lib/filesystem/filesystemService';
 import FileOperationsMenu from '@/components/filesystem/FileOperationsMenu';
@@ -250,7 +250,7 @@ function TreeItem({
           event.preventDefault();
           setMenuOpen(true);
         }}
-        className={`relative flex min-h-7 items-center rounded px-1 text-sm transition-colors hover:bg-secondary ${isSelected ? 'bg-secondary text-foreground' : 'text-muted-foreground'} ${dragState.draggedId === item.id ? 'opacity-40' : ''} ${dragState.dropTargetId === item.id ? 'bg-secondary outline outline-1 outline-foreground/40' : ''} ${dragState.droppedId === item.id ? 'workspace-drop-success' : ''}`}
+        className={`relative flex min-h-7 items-center rounded px-1 text-sm hover:bg-secondary ${isSelected ? 'bg-secondary text-foreground' : 'text-muted-foreground'}`}
         style={{ paddingLeft: `${level * 16 + 8}px` }}
       >
         <button
@@ -738,6 +738,7 @@ function EditorPanel() {
   const [diagrams, setDiagrams] = useState<Diagram[]>([]);
   const [mindMaps, setMindMaps] = useState<MindMap[]>([]);
   const [drawings, setDrawings] = useState<Drawing[]>([]);
+  const exportRef = useRef<HTMLDivElement>(null);
   const { createNode, updateNode, getUserNotes } = useFilesystem();
 
   // Cache note content for offline access
@@ -809,6 +810,26 @@ function EditorPanel() {
       drawings,
       item.name || 'note'
     );
+  };
+
+  const handleExportPDF = async () => {
+    if (!item || !exportRef.current) return;
+    try {
+      await exportNoteAsPDF(exportRef.current, item.name || 'note');
+    } catch (error) {
+      console.error('Failed to export PDF:', error);
+      alert('PDF export failed');
+    }
+  };
+
+  const handleExportImage = async (format: 'png' | 'jpg') => {
+    if (!item || !exportRef.current) return;
+    try {
+      await exportNoteAsImage(exportRef.current, item.name || 'note', format);
+    } catch (error) {
+      console.error('Failed to export image:', error);
+      alert('Image export failed');
+    }
   };
 
   // Save note to filesystem
@@ -892,6 +913,39 @@ function EditorPanel() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
+
+  // Load visual artifacts from filesystem when note is loaded
+  useEffect(() => {
+    const loadVisualArtifacts = async () => {
+      if (!item) return;
+
+      try {
+        await filesystemService.initialize();
+        const existingNotes = getUserNotes();
+        const existingNote = existingNotes.find(n => n.name === item.name);
+
+        if (existingNote && existingNote.content && typeof existingNote.content === 'object') {
+          const noteData = existingNote.content as any;
+          if (noteData.note) {
+            if (noteData.note.diagrams && Array.isArray(noteData.note.diagrams)) {
+              setDiagrams(noteData.note.diagrams);
+            }
+            if (noteData.note.mindMaps && Array.isArray(noteData.note.mindMaps)) {
+              setMindMaps(noteData.note.mindMaps);
+            }
+            if (noteData.note.drawings && Array.isArray(noteData.note.drawings)) {
+              setDrawings(noteData.note.drawings);
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load visual artifacts from filesystem:', error);
+      }
+    };
+
+    loadVisualArtifacts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [item?.id, item?.name]);
   const save = (content: string) => {
     if (!item) return;
     const title = editorRef.current?.querySelector('h1')?.textContent?.trim();
@@ -1101,9 +1155,12 @@ function EditorPanel() {
         onAddMindMap={handleAddMindMap}
         onAddDrawing={handleAddDrawing}
         onExportText={handleExportText}
+        onExportPDF={handleExportPDF}
+        onExportImage={handleExportImage}
       />
 
-      <div 
+      <div
+        ref={exportRef}
         className="relative min-h-0 flex-1 overflow-y-auto px-8 py-10 sm:px-14 lg:px-24"
       >
         {showFontSize && <div className="workspace-font-size-indicator">{fontSize}px</div>}

@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
-import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, isSameWeek, startOfWeek, endOfWeek, isWeekend } from "date-fns";
+import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, startOfWeek, endOfWeek, isWeekend } from "date-fns";
 import { nl } from "date-fns/locale";
 
 type CalendarView = "month" | "week" | "day" | "workweek" | "agenda";

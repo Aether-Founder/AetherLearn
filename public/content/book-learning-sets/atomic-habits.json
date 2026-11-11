@@ -1,0 +1,88 @@
+{
+  "id": "atomic-habits-learning",
+  "bookId": "atomic-habits",
+  "title": "Atomic Habits - Key Concepts",
+  "description": "Master the fundamental concepts from James Clear's Atomic Habits to build better habits and break bad ones",
+  "cards": [
+    {
+      "front": "What is the 1% better rule?",
+      "back": "Making small improvements of just 1% every day leads to remarkable results over time. 1.01^365 = 37.78, while 0.99^365 = 0.03"
+    },
+    {
+      "front": "What are the four laws of behavior change?",
+      "back": "1) Make it obvious (cue), 2) Make it attractive (craving), 3) Make it easy (response), 4) Make it satisfying (reward)"
+    },
+    {
+      "front": "What is the Habit Loop?",
+      "back": "The four-step loop: Cue → Craving → Response → Reward. Habits are built by completing this loop repeatedly"
+    },
+    {
+      "front": "What is implementation intention?",
+      "back": "A strategy that links your habit to a specific time and place using the formula: 'I will [BEHAVIOR] at [TIME] in [LOCATION]'"
+    },
+    {
+      "front": "What is habit stacking?",
+      "back": "Linking a new habit to an existing one using the formula: 'After [CURRENT HABIT], I will [NEW HABIT]'"
+    },
+    {
+      "front": "What is environment design?",
+      "back": "Designing your environment to make good habits obvious and bad habits invisible. Motivation is overrated; environment often matters more"
+    },
+    {
+      "front": "What is the difference between motion and action?",
+      "back": "Motion is planning and strategizing (doesn't produce results), while action is the behavior that delivers an outcome. You can only master the habits by actually doing them"
+    },
+    {
+      "front": "What is the Two-Minute Rule?",
+      "back": "When starting a new habit, it should take less than two minutes to do. Scale down habits until they are 'too small to fail'"
+    },
+    {
+      "front": "What is the Goldilocks Rule?",
+      "back": "Humans experience peak motivation when working on tasks that are right on the edge of their current abilities - not too hard, not too easy"
+    },
+    {
+      "front": "What is the difference between immediate and delayed rewards?",
+      "back": "Good habits have a cost in the present but provide a reward in the future. Bad habits provide immediate reward but have a cost in the future"
+    },
+    {
+      "front": "What is a commitment device?",
+      "back": "A choice you make in the present that controls your actions in the future, making it easier to maintain good habits and harder to break them"
+    },
+    {
+      "front": "What is the difference between outcome-based and identity-based habits?",
+      "back": "Outcome-based habits focus on what you want to achieve (run a marathon), while identity-based habits focus on who you wish to become (I am a runner)"
+    },
+    {
+      "front": "What is habit tracking?",
+      "back": "Measuring whether you performed a habit or not. It provides visual proof of your progress and is naturally satisfying"
+    },
+    {
+      "front": "What is never miss twice?",
+      "back": "When you miss a habit once, get back on track immediately. Missing once is an accident, missing twice is the start of a new habit"
+    },
+    {
+      "front": "What is plateaus of latent potential?",
+      "back": "The frustrating time when you're working hard but not seeing results. Results often come later, as a byproduct of the work done earlier"
+    },
+    {
+      "front": "What is the difference between being in motion and taking action?",
+      "back": "Motion is when you're planning, learning, and researching but not actually doing. Action is the specific behavior that produces an outcome"
+    },
+    {
+      "front": "What is the most effective way to change your habits?",
+      "back": "Change your identity first. The goal is not to read a book, the goal is to become a reader. Your identity emerges from your habits"
+    },
+    {
+      "front": "What is temptation bundling?",
+      "back": "Pairing an action you want to do with an action you need to do. For example, listening to podcasts only while exercising"
+    },
+    {
+      "front": "What is the 3rd rule of behavior change?",
+      "back": "Make it easy. The most effective form of learning is practice, not planning. Reduce friction for good habits and increase it for bad ones"
+    },
+    {
+      "front": "What is the difference between automatic and manual habits?",
+      "back": "Automatic habits are behaviors you do without thinking (brushing teeth). Manual habits require conscious effort and eventually become automatic through repetition"
+    }
+  ]
+}

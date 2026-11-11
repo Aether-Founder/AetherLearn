@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar, Clock, AlertCircle, CheckCircle2, MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { Calendar, AlertCircle, CheckCircle2, ArrowUpDown } from "lucide-react";
 
 interface Homework {
   id: string;

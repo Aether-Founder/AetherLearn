@@ -530,21 +530,49 @@ export default function DashboardOverview() {
             : null);
 
         if (supabase) {
-          const { data, error } = await supabase
-            .from('subjects')
-            .select('*')
-            .order('name', { ascending: true });
+          // First, try to get user's selected subjects from profile
+          const { data: { user } } = await supabase.auth.getUser();
+          
+          if (user) {
+            const { data: userData, error: userError } = await supabase
+              .from('users')
+              .select('selected_subjects, country_code, educational_level')
+              .eq('id', user.id)
+              .single();
 
-          if (!error && Array.isArray(data) && data.length > 0) {
-            fetchedSubjects = data
-              .map(normalizeSubject)
-              .filter((subject): subject is Subject => subject !== null);
+            if (!userError && userData && userData.selected_subjects && userData.selected_subjects.length > 0) {
+              // Load subjects from curriculum mapping based on user's selections
+              const { getSubjectsForCountryAndLevel } = await import('@/lib/curriculum-mapping');
+              const allSubjects = getSubjectsForCountryAndLevel(
+                userData.country_code || 'NL',
+                userData.educational_level || 'middle-school'
+              );
+              
+              fetchedSubjects = allSubjects.filter((s: Subject) => 
+                userData.selected_subjects.includes(s.id)
+              );
+            }
+          }
+
+          // Fallback: load from subjects table if no user selections
+          if (fetchedSubjects.length === 0) {
+            const { data, error } = await supabase
+              .from('subjects')
+              .select('*')
+              .order('name', { ascending: true });
+
+            if (!error && Array.isArray(data) && data.length > 0) {
+              fetchedSubjects = data
+                .map(normalizeSubject)
+                .filter((subject): subject is Subject => subject !== null);
+            }
           }
         }
       } catch {
         fetchedSubjects = [];
       }
 
+      // Final fallback: load from local storage
       if (fetchedSubjects.length === 0) {
         const localKeys = ['aether_subjects', 'subjects', 'aether_vakken'];
 
@@ -650,21 +678,37 @@ export default function DashboardOverview() {
   if (!mounted || !dataLoaded || !subjectsLoaded) {
     return (
       <AppShell>
-        <div className="space-y-6">
-          <div className="h-44 animate-pulse rounded-2xl border border-border bg-card" />
+        <div className="space-y-6 py-8">
+          {/* Greeting skeleton */}
+          <div className="space-y-2">
+            <div className="skeleton-line h-6 w-48"></div>
+            <div className="skeleton-line h-4 w-96"></div>
+          </div>
 
+          {/* Stats cards skeleton */}
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {Array.from({ length: 4 }).map((_, index) => (
-              <div
-                key={index}
-                className="h-28 animate-pulse rounded-xl border border-border bg-card"
-              />
+              <div key={index} className="p-6 border border-border rounded-xl bg-card space-y-3">
+                <div className="skeleton-line h-4 w-24"></div>
+                <div className="skeleton-line h-8 w-16"></div>
+              </div>
             ))}
           </div>
 
+          {/* Main content skeleton */}
           <div className="grid gap-6 xl:grid-cols-3">
-            <div className="h-96 animate-pulse rounded-xl border border-border bg-card xl:col-span-2" />
-            <div className="h-96 animate-pulse rounded-xl border border-border bg-card" />
+            <div className="xl:col-span-2 p-6 border border-border rounded-xl bg-card space-y-4">
+              <div className="skeleton-line h-6 w-32"></div>
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="skeleton-line h-4 w-full"></div>
+              ))}
+            </div>
+            <div className="p-6 border border-border rounded-xl bg-card space-y-4">
+              <div className="skeleton-line h-6 w-32"></div>
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="skeleton-line h-4 w-full"></div>
+              ))}
+            </div>
           </div>
         </div>
       </AppShell>
@@ -740,7 +784,17 @@ export default function DashboardOverview() {
 
             <div className="mt-4 text-3xl font-semibold">{stats.activitiesThisWeek}</div>
 
-            <p className="mt-2 text-xs text-muted-foreground">Echte geregistreerde activiteiten</p>
+            <div className="mt-3">
+              <div className="h-2 w-full rounded-full bg-secondary">
+                <div
+                  className="h-2 rounded-full bg-primary transition-all"
+                  style={{ width: `${Math.min(stats.activitiesThisWeek * 10, 100)}%` }}
+                />
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                {Math.min(stats.activitiesThisWeek * 10, 100)}% van weekdoel
+              </p>
+            </div>
           </Link>
 
           <Link href="#studie-trend" className={`${cardClass} transition-colors hover:bg-secondary/20`}>
@@ -753,7 +807,21 @@ export default function DashboardOverview() {
               {stats.averageScore === null ? '—' : `${stats.averageScore}%`}
             </div>
 
-            <p className="mt-2 text-xs text-muted-foreground">Gebaseerd op beschikbare scores</p>
+            <div className="mt-3">
+              <div className="h-2 w-full rounded-full bg-secondary">
+                <div
+                  className={`h-2 rounded-full transition-all ${
+                    stats.averageScore !== null && stats.averageScore >= 70
+                      ? 'bg-green-500'
+                      : stats.averageScore !== null && stats.averageScore >= 50
+                      ? 'bg-yellow-500'
+                      : 'bg-red-500'
+                  }`}
+                  style={{ width: `${stats.averageScore ?? 0}%` }}
+                />
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">Gebaseerd op beschikbare scores</p>
+            </div>
           </Link>
 
           <Link href="#studie-trend" className={`${cardClass} transition-colors hover:bg-secondary/20`}>
@@ -764,7 +832,17 @@ export default function DashboardOverview() {
 
             <div className="mt-4 text-3xl font-semibold">{stats.streakDays} dagen</div>
 
-            <p className="mt-2 text-xs text-muted-foreground">Aaneengesloten studiedagen</p>
+            <div className="mt-3">
+              <div className="h-2 w-full rounded-full bg-secondary">
+                <div
+                  className="h-2 rounded-full bg-orange-500 transition-all"
+                  style={{ width: `${Math.min(stats.streakDays * 3.33, 100)}%` }}
+                />
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                {stats.streakDays >= 30 ? 'Maandelijks doel behaald!' : `${30 - stats.streakDays} dagen tot doel`}
+              </p>
+            </div>
           </Link>
 
           <Link href="/planner" className={`${cardClass} transition-colors hover:bg-secondary/20`}>
@@ -775,7 +853,19 @@ export default function DashboardOverview() {
 
             <div className="mt-4 text-3xl font-semibold">{activeTasks.length}</div>
 
-            <p className="mt-2 text-xs text-muted-foreground">Bekijk je planner</p>
+            <div className="mt-3">
+              <div className="h-2 w-full rounded-full bg-secondary">
+                <div
+                  className="h-2 rounded-full bg-blue-500 transition-all"
+                  style={{ width: `${activeTasks.length > 0 ? Math.min((tasks.length - activeTasks.length) / tasks.length * 100, 100) : 100}%` }}
+                />
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                {tasks.length === 0
+                  ? 'Geen taken'
+                  : `${Math.round(((tasks.length - activeTasks.length) / tasks.length) * 100)}% voltooid`}
+              </p>
+            </div>
           </Link>
         </section>
 
@@ -889,16 +979,19 @@ export default function DashboardOverview() {
               <span className="text-xs text-muted-foreground">Laatste 7 dagen</span>
             </div>
 
-            <div className="flex h-28 items-end gap-2">
+            <div className="flex h-40 items-end gap-2">
               {chart.map((day) => (
-                <div key={day.key} className="flex h-full flex-1 items-end">
+                <div key={day.key} className="flex h-full flex-1 flex-col items-end gap-1">
                   <div
-                    className="w-full rounded-t-md bg-primary/70"
+                    className="w-full rounded-t-md bg-primary/70 transition-all hover:bg-primary/90"
                     style={{
                       height: `${Math.max(6, (day.count / maxChartCount) * 100)}%`,
                     }}
                     title={`${day.count} activiteiten`}
                   />
+                  <div className="text-[10px] text-muted-foreground text-center">
+                    {day.count}
+                  </div>
                 </div>
               ))}
             </div>

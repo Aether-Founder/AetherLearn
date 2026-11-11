@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { addOfflineReview, cacheDeck, getCachedDeck } from '@/lib/pwa/db';
+import { addOfflineReview, getCachedDeck } from '@/lib/pwa/db';
 import { isOnline, syncOfflineReviews } from '@/lib/pwa/sync';
 
 export function useOfflineStudy(deckId: string) {

@@ -1,0 +1,102 @@
+{
+  "id": "how-we-learn",
+  "slug": "how-we-learn",
+  "title": "How We Learn",
+  "author": "Barbara Oakley",
+  "description": "The surprising truth about when, where, and why it happens. Discover effective learning strategies and cognitive science principles.",
+  "topic": "education",
+  "languages": [
+    "en"
+  ],
+  "formats": [
+    "concise",
+    "detailed"
+  ],
+  "readingTime": {
+    "concise": 14,
+    "detailed": 40
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">How We Learn</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">Barbara Oakley</div></div>"
+  },
+  "collections": [
+    "education",
+    "learning",
+    "beginners"
+  ],
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "order": 1,
+      "title": "The Brain's Two Modes of Thinking",
+      "keyConcepts": [
+        "focused mode",
+        "diffuse mode",
+        "brain plasticity"
+      ],
+      "summary": {
+        "en": "The brain has two different modes of thinking: focused and diffuse. This chapter explains how to use both modes effectively for learning.",
+        "nl": "De hersenen hebben twee verschillende denkwijzen: gefocust en diffuus. Dit hoofdstuk legt uit hoe je beide modi effectief kunt gebruiken voor leren."
+      },
+      "content": {
+        "en": {
+          "concise": "Focused mode is for concentrated, analytical thinking. Diffuse mode is for relaxed, creative thinking. Effective learning requires switching between both modes. Taking breaks allows the diffuse mode to work on problems.",
+          "detailed": "Focused mode is for concentrated, analytical thinking. It's what you use when you're solving a math problem or learning a new concept. Diffuse mode is for relaxed, creative thinking. It's what happens when you take a walk, daydream, or sleep. Effective learning requires switching between both modes. When you're stuck on a problem, switching to diffuse mode can help you see new connections. Taking breaks allows the diffuse mode to work on problems unconsciously. This is why sleep is so important for learning."
+        },
+        "nl": {
+          "concise": "Gefocuste modus is voor geconcentreerd, analytisch denken. Diffuse modus is voor ontspannen, creatief denken. Effectief leren vereist schakelen tussen beide modi. Pauzes nemen stelt de diffuse modus in staat om aan problemen te werken.",
+          "detailed": "Gefocuste modus is voor geconcentreerd, analytisch denken. Het is wat je gebruikt wanneer je een wiskundeprobleem oplost of een nieuw concept leert. Diffuse modus is voor ontspannen, creatief denken. Het gebeurt wanneer je een wandeling maakt, dagdroomt of slaapt. Effectief leren vereist schakelen tussen beide modi. Wanneer je vastloopt op een probleem, kan schakelen naar diffuse modus je helpen nieuwe verbindingen te zien. Pauzes nemen stelt de diffuse modus in staat om onbewust aan problemen te werken. Dit is waarom slaap zo belangrijk is voor leren."
+        }
+      }
+    },
+    {
+      "id": "chapter-2",
+      "order": 2,
+      "title": "Chunking and Learning Techniques",
+      "keyConcepts": [
+        "chunking",
+        "working memory",
+        "learning strategies"
+      ],
+      "summary": {
+        "en": "Chunking is the process of breaking information into small, manageable pieces. This chapter explores effective chunking strategies and other learning techniques.",
+        "nl": "Chunking is het proces van het breken van informatie in kleine, behapbare stukken. Dit hoofdstuk onderzoekt effectieve chunking-strategieën en andere leertechnieken."
+      },
+      "content": {
+        "en": {
+          "concise": "Working memory can only hold about four items at once. Chunking helps by grouping related information together. Repeated practice helps form strong neural connections. Active recall is more effective than passive review.",
+          "detailed": "Working memory can only hold about four items at once. Chunking helps by grouping related information together. A chunk is a compact package of information that your mind can easily access. Repeated practice helps form strong neural connections, making chunks more automatic. Active recall is more effective than passive review because it strengthens memory pathways. Spaced repetition, where you review material at increasing intervals, is one of the most effective learning techniques known. The key is to practice regularly over time rather than cramming."
+        },
+        "nl": {
+          "concise": "Werkgeheugen kan slechts ongeveer vier items tegelijk vasthouden. Chunking helpt door gerelateerde informatie samen te groeperen. Herhaalde oefening helpt sterke neurale verbindingen te vormen. Actieve herinnering is effectiever dan passieve herhaling.",
+          "detailed": "Werkgeheugen kan slechts ongeveer vier items tegelijk vasthouden. Chunking helpt door gerelateerde informatie samen te groeperen. Een chunk is een compact pakket informatie dat je geest gemakkelijk kan benaderen. Herhaalde oefening helpt sterke neurale verbindingen te vormen, waardoor chunks meer automatisch worden. Actieve herinnering is effectiever dan passieve herhaling omdat het geheugenpaden versterkt. Ruimtelijke herhaling, waarbij je materiaal op toenemende intervallen herhaalt, is een van de meest effectieve leertechnieken die bekend zijn. De sleutel is om regelmatig in de tijd te oefenen in plaats van te stampen."
+        }
+      }
+    },
+    {
+      "id": "chapter-3",
+      "order": 3,
+      "title": "Overcoming Procrastination",
+      "keyConcepts": [
+        "procrastination",
+        "habits",
+        "productivity"
+      ],
+      "summary": {
+        "en": "Procrastination is a common obstacle to learning. This chapter explains why we procrastinate and provides strategies to overcome it.",
+        "nl": "Uitstelgedrag is een veelvoorkomend obstakel voor leren. Dit hoofdstuk legt uit waarom we uitstellen en biedt strategieën om het te overwinnen."
+      },
+      "content": {
+        "en": {
+          "concise": "Procrastination often comes from feeling overwhelmed or fearing failure. Breaking tasks into smaller steps makes them less intimidating. The Pomodoro Technique helps by using timed work sessions. Starting is often the hardest part.",
+          "detailed": "Procrastination often comes from feeling overwhelmed or fearing failure. The pain of starting can be worse than the pain of doing the work. Breaking tasks into smaller steps makes them less intimidating. The Pomodoro Technique helps by using timed work sessions followed by short breaks. Starting is often the hardest part, so focus on just taking the first step. Building good habits makes it easier to overcome procrastination over time. Remember that imperfect action is better than perfect inaction."
+        },
+        "nl": {
+          "concise": "Uitstelgedrag komt vaak door overweldigd te voelen of angst voor mislukking. Taken opbreken in kleinere stappen maakt ze minder intimiderend. De Pomodoro-techniek helpt door getimede werksessies te gebruiken. Beginnen is vaak het moeilijkste deel.",
+          "detailed": "Uitstelgedrag komt vaak door overweldigd te voelen of angst voor mislukking. De pijn van beginnen kan erger zijn dan de pijn van het werk doen. Taken opbreken in kleinere stappen maakt ze minder intimiderend. De Pomodoro-techniek helpt door getimede werksessies gevolgd door korte pauzes. Beginnen is vaak het moeilijkste deel, dus focus op het nemen van de eerste stap. Goede gewoonten opbouwen maakt het in de tijd gemakkelijker om uitstelgedrag te overwinnen. Onthoud dat imperfecte actie beter is dan perfecte inactie."
+        }
+      }
+    }
+  ]
+}

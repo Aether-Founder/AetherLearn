@@ -1,0 +1,128 @@
+{
+  "source": "binas.pdf",
+  "sourceSize": 434440652,
+  "totalPages": 299,
+  "generatedAt": "2026-10-26T14:49:39Z",
+  "chunks": [
+    {
+      "file": "part-01.pdf",
+      "startPage": 1,
+      "endPage": 15,
+      "size": 14162427
+    },
+    {
+      "file": "part-02.pdf",
+      "startPage": 16,
+      "endPage": 30,
+      "size": 26467342
+    },
+    {
+      "file": "part-03.pdf",
+      "startPage": 31,
+      "endPage": 45,
+      "size": 23599223
+    },
+    {
+      "file": "part-04.pdf",
+      "startPage": 46,
+      "endPage": 60,
+      "size": 24732084
+    },
+    {
+      "file": "part-05.pdf",
+      "startPage": 61,
+      "endPage": 75,
+      "size": 23398907
+    },
+    {
+      "file": "part-06.pdf",
+      "startPage": 76,
+      "endPage": 90,
+      "size": 14622647
+    },
+    {
+      "file": "part-07.pdf",
+      "startPage": 91,
+      "endPage": 105,
+      "size": 23167469
+    },
+    {
+      "file": "part-08.pdf",
+      "startPage": 106,
+      "endPage": 120,
+      "size": 15893648
+    },
+    {
+      "file": "part-09.pdf",
+      "startPage": 121,
+      "endPage": 135,
+      "size": 18080399
+    },
+    {
+      "file": "part-10.pdf",
+      "startPage": 136,
+      "endPage": 150,
+      "size": 21378963
+    },
+    {
+      "file": "part-11.pdf",
+      "startPage": 151,
+      "endPage": 165,
+      "size": 19971754
+    },
+    {
+      "file": "part-12.pdf",
+      "startPage": 166,
+      "endPage": 180,
+      "size": 24952045
+    },
+    {
+      "file": "part-13.pdf",
+      "startPage": 181,
+      "endPage": 195,
+      "size": 23522143
+    },
+    {
+      "file": "part-14.pdf",
+      "startPage": 196,
+      "endPage": 210,
+      "size": 24589811
+    },
+    {
+      "file": "part-15.pdf",
+      "startPage": 211,
+      "endPage": 225,
+      "size": 21389263
+    },
+    {
+      "file": "part-16.pdf",
+      "startPage": 226,
+      "endPage": 240,
+      "size": 24963155
+    },
+    {
+      "file": "part-17.pdf",
+      "startPage": 241,
+      "endPage": 255,
+      "size": 24911150
+    },
+    {
+      "file": "part-18.pdf",
+      "startPage": 256,
+      "endPage": 270,
+      "size": 19654229
+    },
+    {
+      "file": "part-19.pdf",
+      "startPage": 271,
+      "endPage": 285,
+      "size": 22458929
+    },
+    {
+      "file": "part-20.pdf",
+      "startPage": 286,
+      "endPage": 299,
+      "size": 20204605
+    }
+  ]
+}

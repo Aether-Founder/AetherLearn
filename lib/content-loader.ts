@@ -13,6 +13,11 @@ export interface Subject {
   topics: number;
   topics_done: number;
   due_count: number;
+  customButtons?: Array<{
+    id: string;
+    label: string;
+    href: string;
+  }>;
 }
 
 export interface Chapter {
@@ -23,6 +28,14 @@ export interface Chapter {
   order: number;
   paragraphs?: string[];
   content?: string;
+}
+
+export interface Paragraph {
+  id: string;
+  title: string;
+  content: string;
+  order: number;
+  summary?: string;
 }
 
 export interface LearningSet {
@@ -98,10 +111,18 @@ export async function loadAllSubjects(): Promise<Subject[]> {
 
 export async function loadSubject(subjectId: string): Promise<Subject | null> {
   try {
+    // First, try to load from the subject-specific JSON file which has mastery data
+    const subjectPath = path.join(CONTENT_DIR, 'subjects', subjectId, 'subject.json');
+    if (fs.existsSync(subjectPath)) {
+      const subjectContent = fs.readFileSync(subjectPath, 'utf-8');
+      return JSON.parse(subjectContent);
+    }
+
+    // Fallback: load from index.json
     const indexPath = path.join(CONTENT_DIR, 'subjects', 'index.json');
     const indexContent = fs.readFileSync(indexPath, 'utf-8');
     const indexData = JSON.parse(indexContent);
-    
+
     const subject = indexData.subjects?.find((s: Subject) => s.id === subjectId || s.slug === subjectId);
     return subject || null;
   } catch (error) {
@@ -218,5 +239,41 @@ export async function loadPracticeTest(
   } catch (error) {
     console.error(`Error loading practice test ${testId}:`, error);
     return null;
+  }
+}
+
+export async function loadParagraphs(
+  subjectId: string,
+  chapterId: string
+): Promise<Paragraph[]> {
+  try {
+    const paragraphsDir = path.join(
+      CONTENT_DIR,
+      'subjects',
+      subjectId,
+      'chapters',
+      chapterId,
+      'paragraphs'
+    );
+
+    if (!fs.existsSync(paragraphsDir)) {
+      return [];
+    }
+
+    const paragraphFiles = fs.readdirSync(paragraphsDir);
+    const paragraphs: Paragraph[] = [];
+
+    for (const file of paragraphFiles) {
+      if (file.endsWith('.json')) {
+        const filePath = path.join(paragraphsDir, file);
+        const content = fs.readFileSync(filePath, 'utf-8');
+        paragraphs.push(JSON.parse(content));
+      }
+    }
+
+    return paragraphs.sort((a, b) => a.order - b.order);
+  } catch (error) {
+    console.error(`Error loading paragraphs for chapter ${chapterId}:`, error);
+    return [];
   }
 }

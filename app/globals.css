@@ -496,6 +496,15 @@
     font-family: var(--font-display);
   }
 
+  .prose-headings\:font-display h1,
+  .prose-headings\:font-display h2,
+  .prose-headings\:font-display h3,
+  .prose-headings\:font-display h4,
+  .prose-headings\:font-display h5,
+  .prose-headings\:font-display h6 {
+    font-family: var(--font-display);
+  }
+
   .tint-success {
     background-color: color-mix(in oklab, var(--success) 12%, transparent);
     color: var(--success);

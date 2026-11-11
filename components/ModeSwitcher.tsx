@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   FileText,
   GraduationCap,
@@ -14,7 +14,7 @@ import {
 import { useTranslation } from '@/lib/useTranslation';
 import { useAnalytics } from '@/lib/analytics';
 
-type ViewMode =
+export type ViewMode =
   | 'book'
   | 'study'
   | 'simple'
@@ -35,10 +35,54 @@ export function ModeSwitcher({ currentMode, availableModes, onModeChange }: Mode
   const { t } = useTranslation();
   const { track } = useAnalytics();
   const [mounted, setMounted] = useState(false);
+  const [pillStyle, setPillStyle] = useState<React.CSSProperties>({});
+  const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRefs = useRef<Map<ViewMode, HTMLButtonElement>>(new Map());
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Update pill position when mode changes
+  useEffect(() => {
+    if (!mounted || !containerRef.current) return;
+
+    const button = buttonRefs.current.get(currentMode);
+    if (!button) return;
+
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const buttonRect = button.getBoundingClientRect();
+
+    setPillStyle({
+      left: buttonRect.left - containerRect.left,
+      width: buttonRect.width,
+      top: buttonRect.top - containerRect.top,
+      height: buttonRect.height,
+    });
+  }, [currentMode, mounted]);
+
+  // Recalculate on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (!containerRef.current) return;
+
+      const button = buttonRefs.current.get(currentMode);
+      if (!button) return;
+
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const buttonRect = button.getBoundingClientRect();
+
+      setPillStyle({
+        left: buttonRect.left - containerRect.left,
+        width: buttonRect.width,
+        top: buttonRect.top - containerRect.top,
+        height: buttonRect.height,
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [currentMode]);
 
   const handleModeChange = (mode: ViewMode) => {
     track('mode_switch', { from: currentMode, to: mode });
@@ -46,7 +90,7 @@ export function ModeSwitcher({ currentMode, availableModes, onModeChange }: Mode
   };
 
   if (!mounted) {
-    return <div className="skeleton-line h-10 w-48 rounded-md" />;
+    return <div className="skeleton-line h-8 w-40 rounded-md" />;
   }
 
   const modes: { id: ViewMode; label: string; icon: React.ReactNode; description: string }[] = [
@@ -110,15 +154,23 @@ export function ModeSwitcher({ currentMode, availableModes, onModeChange }: Mode
   }
 
   return (
-    <div className="flex items-center gap-1 p-1 bg-secondary/50 rounded-lg border border-border">
+    <div ref={containerRef} className="flex items-center gap-0.5 p-0.5 bg-secondary/50 rounded border border-border relative">
+      {/* Sliding pill indicator */}
+      <div
+        className="absolute bg-background border border-border shadow-sm rounded transition-all duration-300 ease-out"
+        style={pillStyle}
+      />
       {visibleModes.map((mode) => (
         <button
           key={mode.id}
+          ref={(el) => {
+            if (el) buttonRefs.current.set(mode.id, el);
+          }}
           onClick={() => handleModeChange(mode.id)}
-          className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+          className={`flex items-center gap-1.5 px-2 py-1 rounded text-xs font-medium relative z-10 ${
             currentMode === mode.id
-              ? 'bg-background text-foreground shadow-sm border border-border'
-              : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+              ? 'text-foreground'
+              : 'text-muted-foreground hover:text-foreground'
           }`}
           title={mode.description}
         >

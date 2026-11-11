@@ -1,14 +1,17 @@
 import {
   loadSubject,
   loadChapters,
+  loadParagraphs,
+  type Paragraph,
 } from '@/lib/content-loader';
-import { AppShell } from '@/components/AppShell';
+import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Folder, FileText, Brain } from 'lucide-react';
 import Link from 'next/link';
 import { findContentPage, normalizeSubjectId } from '@/lib/json-content-pages';
 import JsonLessonPage from '@/app/[page]/page';
 import ButtonSection from '@/components/ButtonSection';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 
 export default async function ChapterDetailPage({
   params,
@@ -26,6 +29,66 @@ export default async function ChapterDetailPage({
   const subject = await loadSubject(decodedSubjectId);
   const chapters = await loadChapters(decodedSubjectId);
   const chapter = chapters.find((c) => c.id === chapterId);
+  const paragraphs = await loadParagraphs(decodedSubjectId, chapterId);
+
+  // If there are paragraphs, show the first one by default
+  if (paragraphs.length > 0) {
+    const firstParagraph = paragraphs[0];
+    return (
+      <AppShell>
+        <PageHeader
+          title={chapter.title}
+          description={`${subject.name} • ${chapter.description}`}
+          action={
+            <Link
+              href={`/vakken/${decodedSubjectId}`}
+              className="mt-2 p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0 inline-flex items-center justify-center"
+              title="Terug naar vak"
+              aria-label="Terug naar vak"
+            >
+              <ArrowLeft className="w-4 h-4" />
+            </Link>
+          }
+          actionPosition="left"
+        />
+
+        <div className="pl-0 sm:pl-0 md:pl-12 lg:pl-12 xl:pl-12 space-y-6">
+          {/* Render chapter-level buttons */}
+          <ButtonSection placement="chapter" placementId={chapterId} />
+
+          {/* Paragraph Navigation */}
+          <div className="border border-border rounded-lg overflow-hidden mt-8">
+            <div className="bg-muted/50 px-4 py-3 border-b border-border">
+              <span className="text-sm text-muted-foreground">
+                {paragraphs.length} {paragraphs.length === 1 ? 'paragraaf' : 'paragrafen'}
+              </span>
+            </div>
+
+            <div className="divide-y divide-border">
+              {paragraphs.map((paragraph: Paragraph) => (
+                <Link
+                  key={paragraph.id}
+                  href={`/vakken/${decodedSubjectId}/${chapterId}/${paragraph.id}`}
+                  className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors"
+                >
+                  <FileText className="h-5 w-5 text-primary" />
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium truncate">{paragraph.title}</div>
+                    <div className="text-sm text-muted-foreground">{paragraph.id}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Paragraph Content */}
+          <div className="prose prose-sm max-w-none mt-8">
+            <MarkdownRenderer>{firstParagraph.content}</MarkdownRenderer>
+          </div>
+        </div>
+      </AppShell>
+    );
+  }
 
   if (!subject || !chapter) {
     return (
@@ -45,145 +108,60 @@ export default async function ChapterDetailPage({
 
   return (
     <AppShell>
-      <div className="space-y-6">
-        {/* Header with back button */}
-        <div className="flex items-center gap-4">
-          <Link href={`/vakken/${decodedSubjectId}`}>
-            <Button variant="outline" size="sm">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Terug
-            </Button>
+      <PageHeader
+        title={chapter.title}
+        description={firstParagraph.summary || `${subject.name} • ${chapter.description}`}
+        action={
+          <Link
+            href={`/vakken/${decodedSubjectId}`}
+            className="mt-2 p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0 inline-flex items-center justify-center"
+            title="Terug naar vak"
+            aria-label="Terug naar vak"
+          >
+            <ArrowLeft className="w-4 h-4" />
           </Link>
-          <div>
-            <h1 className="font-display text-2xl font-semibold tracking-tight">{chapter.title}</h1>
-            <p className="text-sm text-muted-foreground">
-              {subject.name} • {chapter.description}
-            </p>
-          </div>
-        </div>
+        }
+        actionPosition="left"
+      />
+
+      <div className="pl-0 sm:pl-0 md:pl-12 lg:pl-12 xl:pl-12 space-y-6">
 
         {/* Render chapter-level buttons */}
         <ButtonSection placement="chapter" placementId={chapterId} />
 
         {/* Filesystem-like Content Structure */}
-        <div className="border border-border rounded-lg overflow-hidden">
-          <div className="bg-muted/50 px-4 py-2 border-b border-border">
+        <div className="border border-border rounded-lg overflow-hidden mt-8">
+          <div className="bg-muted/50 px-4 py-3 border-b border-border">
             <span className="text-sm text-muted-foreground">
-              {typeof chapter.content === 'object' && chapter.content
-                ? ((chapter.content as any).learningSets?.length || 0) +
-                  ((chapter.content as any).quizzes?.length || 0) +
-                  ((chapter.content as any).summaries?.length || 0) +
-                  ((chapter.content as any).practiceTests?.length || 0)
-                : 0}{' '}
-              items
+              {paragraphs.length} {paragraphs.length === 1 ? 'paragraaf' : 'paragrafen'}
             </span>
           </div>
 
           <div className="divide-y divide-border">
-            {/* Learning Sets */}
-            {typeof chapter.content === 'object' && chapter.content && (chapter.content as any).learningSets?.length > 0 && (
-              <div>
-                <div className="px-4 py-2 bg-muted/30 font-medium text-sm">Leersets</div>
-                {(chapter.content as any).learningSets?.map((lsId: string) => (
-                  <Link
-                    key={lsId}
-                    href={`/vakken/${decodedSubjectId}/${chapterId}/learning-set/${lsId}`}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors pl-8"
-                  >
-                    <Brain className="h-5 w-5 text-primary" />
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium truncate">
-                        {lsId.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
-                      </div>
-                      <div className="text-sm text-muted-foreground">Flashcards</div>
-                    </div>
-                  </Link>
-                ))}
+            {/* Paragraphs */}
+            {paragraphs.length > 0 ? (
+              paragraphs.map((paragraph) => (
+                <Link
+                  key={paragraph.id}
+                  href={`/vakken/${decodedSubjectId}/${chapterId}/${paragraph.id}`}
+                  className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors"
+                >
+                  <FileText className="h-5 w-5 text-primary" />
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium truncate">{paragraph.title}</div>
+                    <div className="text-sm text-muted-foreground">{paragraph.id}</div>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <div className="text-center py-12">
+                <Folder className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+                <p className="text-lg font-medium mb-2">Nog geen inhoud</p>
+                <p className="text-sm text-muted-foreground">
+                  Voeg paragrafen toe aan dit hoofdstuk.
+                </p>
               </div>
             )}
-
-            {/* Quizzes */}
-            {typeof chapter.content === 'object' && chapter.content && (chapter.content as any).quizzes?.length > 0 && (
-              <div>
-                <div className="px-4 py-2 bg-muted/30 font-medium text-sm">Quizzes</div>
-                {(chapter.content as any).quizzes?.map((quizId: string) => (
-                  <Link
-                    key={quizId}
-                    href={`/vakken/${decodedSubjectId}/${chapterId}/quiz/${quizId}`}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors pl-8"
-                  >
-                    <FileText className="h-5 w-5 text-primary" />
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium truncate">
-                        {quizId.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
-                      </div>
-                      <div className="text-sm text-muted-foreground">Quiz</div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
-
-            {/* Summaries */}
-            {typeof chapter.content === 'object' && chapter.content && (chapter.content as any).summaries?.length > 0 && (
-              <div>
-                <div className="px-4 py-2 bg-muted/30 font-medium text-sm">Samenvattingen</div>
-                {(chapter.content as any).summaries?.map((summaryId: string) => (
-                  <Link
-                    key={summaryId}
-                    href={`/vakken/${decodedSubjectId}/${chapterId}/summary/${summaryId}`}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors pl-8"
-                  >
-                    <FileText className="h-5 w-5 text-primary" />
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium truncate">
-                        {summaryId
-                          .replace(/-/g, ' ')
-                          .replace(/\b\w/g, (l: string) => l.toUpperCase())}
-                      </div>
-                      <div className="text-sm text-muted-foreground">Samenvatting</div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
-
-            {/* Practice Tests */}
-            {typeof chapter.content === 'object' && chapter.content && (chapter.content as any).practiceTests?.length > 0 && (
-              <div>
-                <div className="px-4 py-2 bg-muted/30 font-medium text-sm">Oefentoetsen</div>
-                {(chapter.content as any).practiceTests?.map((testId: string) => (
-                  <Link
-                    key={testId}
-                    href={`/vakken/${decodedSubjectId}/${chapterId}/practice-test/${testId}`}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors pl-8"
-                  >
-                    <FileText className="h-5 w-5 text-primary" />
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium truncate">
-                        {testId.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
-                      </div>
-                      <div className="text-sm text-muted-foreground">Oefentoets</div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
-
-            {/* Empty state */}
-            {typeof chapter.content === 'object' && chapter.content &&
-              (chapter.content as any).learningSets?.length === 0 &&
-              (chapter.content as any).quizzes?.length === 0 &&
-              (chapter.content as any).summaries?.length === 0 &&
-              (chapter.content as any).practiceTests?.length === 0 && (
-                <div className="text-center py-12">
-                  <Folder className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-                  <p className="text-lg font-medium mb-2">Nog geen inhoud</p>
-                  <p className="text-sm text-muted-foreground">
-                    Voeg leersets, quizzes, samenvattingen of oefentoetsen toe aan dit hoofdstuk.
-                  </p>
-                </div>
-              )}
           </div>
         </div>
       </div>

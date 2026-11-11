@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ChevronLeft, ChevronRight, Users, BookOpen, Settings, Check } from "lucide-react";
+import { ChevronLeft, ChevronRight, Users, Settings, Check } from "lucide-react";
 
 interface ClassCreationWizardProps {
   userId: string;

@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye, Calendar, Tag, User, Lock, Globe } from "lucide-react";
+import { Eye, Calendar, Tag, Lock, Globe } from "lucide-react";
 
 interface ContentPreviewProps {
   content: {

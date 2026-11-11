@@ -1,0 +1,21 @@
+{
+  "id": "atomic-habits",
+  "slug": "atomic-habits",
+  "title": "Atomic Habits",
+  "author": "James Clear",
+  "description": "An easy and proven way to build good habits and break bad ones. Learn how tiny changes can lead to remarkable results.",
+  "topic": "self-improvement",
+  "languages": ["en", "nl", "es"],
+  "formats": ["concise", "detailed"],
+  "readingTime": {
+    "concise": 12,
+    "detailed": 35
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">Atomic Habits</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">James Clear</div></div>"
+  },
+  "collections": ["self-improvement", "productivity", "essential"],
+  "pinned": true,
+  "position": 2
+}

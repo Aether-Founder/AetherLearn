@@ -173,7 +173,8 @@ export default function AdminAgendaEventsPage() {
     setFormData({
       title: '',
       description: '',
-      date: '',
+      startDate: '',
+      endDate: '',
       time: '',
       type: 'school',
       location: ''

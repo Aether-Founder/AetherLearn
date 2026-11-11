@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Target, Plus, TrendingUp, CheckCircle2, Calendar, Clock } from "lucide-react";
+import { Target, Plus, CheckCircle2, Calendar, Clock } from "lucide-react";
 
 interface StudyGoal {
   id: string;

@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Plus, Edit, Trash2, Save, X, Users, Check, X as XIcon } from "lucide-react";
+import { Plus, Edit, Trash2, Save, X, Check, X as XIcon } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 
 interface SecretSubject {
@@ -66,7 +66,7 @@ export default function SecretSubjectsPage() {
 
   const loadAccessRequests = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("secret_subject_access")
         .select(`
           *,
@@ -165,7 +165,7 @@ export default function SecretSubjectsPage() {
 
   const handleApproveAccess = async (requestId: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("secret_subject_access")
         .update({
           status: "approved",
@@ -183,7 +183,7 @@ export default function SecretSubjectsPage() {
 
   const handleDisapproveAccess = async (requestId: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("secret_subject_access")
         .update({
           status: "disapproved",

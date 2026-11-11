@@ -1,0 +1,111 @@
+{
+  "id": "thinking-fast-slow",
+  "slug": "thinking-fast-slow",
+  "title": "Thinking, Fast and Slow",
+  "author": "Daniel Kahneman",
+  "description": "Explore the two systems that drive the way we think: System 1 is fast, intuitive, and emotional; System 2 is slower, more deliberative, and more logical.",
+  "topic": "psychology",
+  "languages": [
+    "en"
+  ],
+  "formats": [
+    "concise",
+    "detailed"
+  ],
+  "readingTime": {
+    "concise": 18,
+    "detailed": 50
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">Thinking,<br/>Fast and Slow</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">Daniel Kahneman</div></div>"
+  },
+  "collections": [
+    "psychology",
+    "science",
+    "essential"
+  ],
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "title": "The Two Systems",
+      "order": 1,
+      "summaries": {
+        "en": {
+          "concise": "System 1 is fast, intuitive, and emotional. System 2 is slow, deliberative, and logical. System 1 operates automatically with little effort, while System 2 requires conscious attention. Most of our decisions are made by System 1.",
+          "detailed": "Daniel Kahneman introduces two distinct systems of thinking. System 1 operates quickly, automatically, with little effort, and no sense of voluntary control. It handles routine tasks like reading facial expressions, detecting simple objects, and completing common phrases. System 2 is slower, more deliberative, and more logical. It handles complex computations, conscious reasoning, and careful decision-making. System 1 continuously generates suggestions for System 2, which can accept or reject them. The problem is that System 2 is often lazy and accepts System 1's suggestions without proper scrutiny. This leads to cognitive biases and systematic errors in judgment. Understanding these two systems helps us recognize when we're thinking intuitively versus analytically, and when we need to engage System 2 to avoid mistakes."
+        },
+        "nl": {
+          "concise": "Systeem 1 is snel, intuïtief en emotioneel. Systeem 2 is traag, doordacht en logisch. Systeem 1 werkt automatisch met weinig moeite, terwijl Systeem 2 bewuste aandacht vereist. De meeste van onze beslissingen worden genomen door Systeem 1.",
+          "detailed": "Daniel Kahneman introduceert twee verschillende systemen van denken. Systeem 1 werkt snel, automatisch, met weinig moeite en zonder gevoel van vrijwillige controle. Het behandelt routine-taken zoals gezichtsuitdrukkingen lezen, eenvoudige objecten detecteren en veelvoorkomende zinnen voltooien. Systeem 2 is trager, doordachter en logischer. Het behandelt complexe berekeningen, bewust redeneren en zorgvuldige besluitvorming. Systeem 1 genereert continu suggesties voor Systeem 2, die deze kan accepteren of afwijzen. Het probleem is dat Systeem 2 vaak lui is en de suggesties van Systeem 1 accepteert zonder behoorlijke toetsing. Dit leidt tot cognitieve vooroordelen en systematische fouten in het oordeel. Het begrijpen van deze twee systemen helpt ons te herkennen wanneer we intuïtief versus analytisch denken, en wanneer we Systeem 2 moeten inschakelen om fouten te vermijden."
+        }
+      },
+      "keyConcepts": [
+        "System 1",
+        "System 2",
+        "intuitive thinking",
+        "analytical thinking",
+        "cognitive biases"
+      ],
+      "learningOutcomes": [
+        "Distinguish between System 1 and System 2 thinking",
+        "Recognize when each system is active",
+        "Understand the relationship between the two systems"
+      ]
+    },
+    {
+      "id": "chapter-2",
+      "title": "Heuristics and Biases",
+      "order": 2,
+      "summaries": {
+        "en": {
+          "concise": "System 1 uses heuristics—mental shortcuts that usually work but sometimes lead to errors. Common biases include anchoring (relying too heavily on first information), availability (judging by ease of recall), and framing (decisions depend on how options are presented).",
+          "detailed": "Heuristics are mental shortcuts that System 1 uses to make quick judgments. While often useful, they can lead to systematic biases. The anchoring effect occurs when we rely too heavily on the first piece of information (the anchor) when making decisions. For example, initial price perceptions influence willingness to pay. The availability heuristic causes us to judge the likelihood of events based on how easily examples come to mind—dramatic events like plane crashes seem more common than they actually are. The framing effect shows that decisions depend on how options are presented—people prefer a treatment described as '90% survival rate' over one described as '10% mortality rate,' even though they're identical. The representativeness heuristic leads us to judge probability by similarity to a prototype, ignoring base rates. Understanding these biases helps us make better decisions by recognizing when heuristics might mislead us."
+        },
+        "nl": {
+          "concise": "Systeem 1 gebruikt heuristieken—mentale snelkoppelingen die meestal werken maar soms tot fouten leiden. Veelvoorkomende vooroordelen omvatten verankering (te zwaar leunen op eerste informatie), beschikbaarheid (oordelen door gemak van herinnering) en framing (beslissingen hangen af van hoe opties worden gepresenteerd).",
+          "detailed": "Heuristieken zijn mentale snelkoppelingen die Systeem 1 gebruikt om snelle oordelen te maken. Hoewel vaak nuttig, kunnen ze leiden tot systematische vooroordelen. Het verankeringseffect treedt op wanneer we te zwaar leunen op het eerste stukje informatie (het anker) bij het nemen van beslissingen. Bijvoorbeeld, initiële prijspercepties beïnvloeden de bereidheid om te betalen. De beschikbaarheidsheuristiek zorgt ervoor dat we de waarschijnlijkheid van gebeurtenissen beoordelen op basis van hoe gemakkelijk voorbeelden in gedachten komen—dramatische gebeurtenissen zoals vliegtuigcrashes lijken vaker voor te komen dan ze werkelijk zijn. Het framing-effect toont dat beslissingen afhangen van hoe opties worden gepresenteerd—mensen geven de voorkeur aan een behandeling die wordt beschreven als '90% overlevingspercentage' boven een die wordt beschreven als '10% sterftecijfer', zelfs als ze identiek zijn. De representativiteitsheuristiek leidt ertoe dat we waarschijnlijkheid beoordelen door gelijkenis met een prototype, basisfrequenties negerend. Het begrijpen van deze vooroordelen helpt ons betere beslissingen te nemen door te herkennen wanneer heuristieken ons kunnen misleiden."
+        }
+      },
+      "keyConcepts": [
+        "heuristics",
+        "anchoring",
+        "availability heuristic",
+        "framing effect",
+        "representativeness"
+      ],
+      "learningOutcomes": [
+        "Understand common cognitive biases",
+        "Recognize when heuristics might lead to errors",
+        "Apply this knowledge to improve decision-making"
+      ]
+    },
+    {
+      "id": "chapter-3",
+      "title": "Overconfidence",
+      "order": 3,
+      "summaries": {
+        "en": {
+          "concise": "We suffer from various illusions of certainty. The illusion of validity makes us trust our judgments even when evidence is weak. The illusion of skill leads experts to overestimate their predictive abilities. Hindsight bias makes past events seem predictable after they happen.",
+          "detailed": "Humans are prone to overconfidence in their judgments. The illusion of validity is the belief that our predictions are accurate even when we have little evidence. For example, stock pickers often believe they can consistently beat the market despite evidence that most cannot. The illusion of skill causes experts in fields with low predictability (like stock picking, political forecasting) to overestimate their abilities. Hindsight bias makes past events seem more predictable than they actually were—'I knew it all along.' This bias leads to overconfidence in future predictions. The planning fallacy causes us to underestimate the time and resources needed for projects. The focusing illusion causes us to overemphasize one aspect of a situation when making decisions. Recognizing these illusions helps us be more humble in our predictions and seek disconfirming evidence."
+        },
+        "nl": {
+          "concise": "We lijden aan verschillende illusies van zekerheid. De illusie van validiteit laat ons onze oordelen vertrouwen zelfs wanneer bewijs zwak is. De illusie van vaardigheid laat experts hun voorspellende vermogens overschatten. Hindsight bias maakt verleden gebeurtenissen voorspelbaar lijken nadat ze gebeurd zijn.",
+          "detailed": "Mensen zijn vatbaar voor overmoed in hun oordelen. De illusie van validiteit is de overtuiging dat onze voorspellingen accuraat zijn zelfs wanneer we weinig bewijs hebben. Bijvoorbeeld, aandelenkiezers geloven vaak dat ze consequent de markt kunnen verslaan ondanks bewijs dat de meesten dat niet kunnen. De illusie van vaardigheid zorgt ervoor dat experts in gebieden met lage voorspelbaarheid (zoals aandelenkiezen, politieke voorspelling) hun vermogens overschatten. Hindsight bias maakt verleden gebeurtenissen voorspelbaarder lijken dan ze werkelijk waren—'Ik wist het allemaal al.' Deze bias leidt tot overmoed in toekomstige voorspellingen. De planning-falacie zorgt ervoor dat we de tijd en middelen die nodig zijn voor projecten onderschatten. De focus-illusie zorgt ervoor dat we één aspect van een situatie overbenadrukken bij het nemen van beslissingen. Het herkennen van deze illusies helpt ons nederiger te zijn in onze voorspellingen en ontkennend bewijs zoeken."
+        }
+      },
+      "keyConcepts": [
+        "illusion of validity",
+        "illusion of skill",
+        "hindsight bias",
+        "planning fallacy",
+        "overconfidence"
+      ],
+      "learningOutcomes": [
+        "Recognize illusions of certainty",
+        "Understand why experts can be overconfident",
+        "Avoid common overconfidence traps"
+      ]
+    }
+  ]
+}

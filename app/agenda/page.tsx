@@ -465,10 +465,39 @@ export default function AgendaPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<AgendaFormState>(() => emptyForm(new Date()));
   const [formError, setFormError] = useState('');
+  const [isCalendarView, setIsCalendarView] = useState(true);
 
   useEffect(() => {
     const loadAllEvents = async () => {
       const userEvents = loadStoredEvents();
+
+      // Load homework as events
+      try {
+        const homeworkStored = localStorage.getItem('aether_homework');
+        if (homeworkStored) {
+          const homeworkItems = JSON.parse(homeworkStored);
+          const homeworkEvents = homeworkItems
+            .filter((hw: any) => !hw.completed)
+            .map((hw: any) => ({
+              id: hw.id,
+              title: hw.title,
+              description: hw.subject,
+              location: undefined,
+              startDate: new Date(hw.dueDate),
+              endDate: new Date(hw.dueDate),
+              allDay: true,
+              eventType: 'other' as const,
+              color: hw.grade === 'red' ? 'red' : hw.grade === 'orange' ? 'orange' : hw.grade === 'green' ? 'green' : 'blue',
+              recurrence: 'none' as const
+            }));
+          setEvents([...userEvents, ...homeworkEvents]);
+        } else {
+          setEvents(userEvents);
+        }
+      } catch (error) {
+        console.error('Error loading homework:', error);
+        setEvents(userEvents);
+      }
 
       // Load admin events
       try {
@@ -484,20 +513,42 @@ export default function AgendaPage() {
             startDate: new Date(`${adminEvent.startDate}T${adminEvent.time || '00:00'}`),
             endDate: new Date(`${adminEvent.endDate}T${adminEvent.time || '00:00'}`),
             allDay: !adminEvent.time,
-            eventType: adminEvent.type === 'exam' ? 'examen' : 
+            eventType: adminEvent.type === 'exam' ? 'examen' :
                       adminEvent.type === 'school' ? 'les' : 'other',
-            color: adminEvent.type === 'exam' ? 'red' : 
+            color: adminEvent.type === 'exam' ? 'red' :
                    adminEvent.type === 'school' ? 'green' : 'orange',
             recurrence: 'none' as const
           }));
 
-          setEvents([...userEvents, ...convertedAdminEvents]);
-        } else {
-          setEvents(userEvents);
+          setEvents((prev) => [...prev, ...convertedAdminEvents]);
         }
       } catch (error) {
         console.error('Error loading admin events:', error);
-        setEvents(userEvents);
+      }
+
+      // Load tests as events
+      try {
+        const testsStored = localStorage.getItem('aether_tests');
+        if (testsStored) {
+          const testItems = JSON.parse(testsStored);
+          const testEvents = testItems
+            .filter((test: any) => !test.completed)
+            .map((test: any) => ({
+              id: test.id,
+              title: `Toets: ${test.subject}`,
+              description: test.type === 'examen' ? 'Examen' : test.type === 'herkansing' ? 'Herkansing' : 'Toets',
+              location: undefined,
+              startDate: new Date(test.date),
+              endDate: new Date(test.date),
+              allDay: true,
+              eventType: 'other' as const,
+              color: test.type === 'examen' ? 'red' : test.type === 'herkansing' ? 'orange' : 'purple',
+              recurrence: 'none' as const
+            }));
+          setEvents((prev) => [...prev, ...testEvents]);
+        }
+      } catch (error) {
+        console.error('Error loading tests:', error);
       }
 
       setLoaded(true);
@@ -508,7 +559,21 @@ export default function AgendaPage() {
 
   useEffect(() => {
     if (!loaded) return;
-    saveStoredEvents(events);
+    // Only save user events (not homework, tests, or admin events)
+    const userEvents = events.filter((event) => {
+      const homeworkStored = localStorage.getItem('aether_homework');
+      if (homeworkStored) {
+        const homeworkIds = new Set(JSON.parse(homeworkStored).map((hw: any) => hw.id));
+        if (homeworkIds.has(event.id)) return false;
+      }
+      const testsStored = localStorage.getItem('aether_tests');
+      if (testsStored) {
+        const testIds = new Set(JSON.parse(testsStored).map((t: any) => t.id));
+        if (testIds.has(event.id)) return false;
+      }
+      return true;
+    });
+    saveStoredEvents(userEvents);
   }, [events, loaded]);
 
   const sortedEvents = useMemo(
@@ -1142,30 +1207,44 @@ export default function AgendaPage() {
             </h2>
           </div>
 
-          <div className="flex flex-wrap items-center gap-1 rounded-lg border border-border bg-secondary/40 p-1">
-            {(
-              [
-                { id: 'month', label: 'Maand' },
-                { id: 'week', label: 'Week' },
-                { id: 'workweek', label: 'Werkweek' },
-                { id: 'day', label: 'Dag' },
-                { id: 'agenda', label: 'Agenda' },
-                { id: 'year', label: 'Jaar' },
-              ] as Array<{ id: AgendaView; label: string }>
-            ).map((button) => (
-              <button
-                key={button.id}
-                type="button"
-                onClick={() => setView(button.id)}
-                className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
-                  view === button.id
-                    ? 'border border-border bg-background text-foreground shadow-sm'
-                    : 'text-muted-foreground hover:bg-secondary'
-                }`}
-              >
-                {button.label}
-              </button>
-            ))}
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setIsCalendarView(!isCalendarView)}
+              className={`inline-flex items-center gap-2 rounded-lg border border-border bg-secondary/40 px-3 py-1.5 text-xs font-medium transition-colors ${
+                isCalendarView ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:bg-secondary'
+              }`}
+            >
+              <CalendarDays className="h-4 w-4" />
+              {isCalendarView ? 'Kalender' : 'Lijst'}
+            </button>
+
+            {isCalendarView && (
+              <div className="flex flex-wrap items-center gap-1 rounded-lg border border-border bg-secondary/40 p-1">
+                {(
+                  [
+                    { id: 'month', label: 'Maand' },
+                    { id: 'week', label: 'Week' },
+                    { id: 'workweek', label: 'Werkweek' },
+                    { id: 'day', label: 'Dag' },
+                    { id: 'year', label: 'Jaar' },
+                  ] as Array<{ id: AgendaView; label: string }>
+                ).map((button) => (
+                  <button
+                    key={button.id}
+                    type="button"
+                    onClick={() => setView(button.id)}
+                    className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                      view === button.id
+                        ? 'border border-border bg-background text-foreground shadow-sm'
+                        : 'text-muted-foreground hover:bg-secondary'
+                    }`}
+                  >
+                    {button.label}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -1185,12 +1264,17 @@ export default function AgendaPage() {
               className="w-full"
               transition={{ duration: 0.3, ease: 'easeIn' }}
             >
-              {view === 'month' && renderMonthView()}
-              {view === 'week' && renderWeekView(true)}
-              {view === 'workweek' && renderWeekView(false)}
-              {view === 'day' && renderDayView()}
-              {view === 'agenda' && renderAgendaView()}
-              {view === 'year' && renderYearView()}
+              {isCalendarView ? (
+                <>
+                  {view === 'month' && renderMonthView()}
+                  {view === 'week' && renderWeekView(true)}
+                  {view === 'workweek' && renderWeekView(false)}
+                  {view === 'day' && renderDayView()}
+                  {view === 'year' && renderYearView()}
+                </>
+              ) : (
+                renderAgendaView()
+              )}
             </motion.div>
           </div>
         )}

@@ -10,7 +10,7 @@ import { CodeBlock } from "@/components/research/CodeBlock";
 import { TerminalBlock } from "@/components/research/TerminalBlock";
 import { JsonViewer } from "@/components/research/JsonViewer";
 import { Callout } from "@/components/research/Callout";
-import { Calendar, Clock, ArrowLeft, Share2, Download } from "lucide-react";
+import { Calendar, Clock, Share2, Download } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 interface ResearchPost {

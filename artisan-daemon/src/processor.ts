@@ -2,7 +2,6 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { supabase, type ArtisanQueueItem } from './supabase.js';
 import {
-  ensureWorkspace,
   downloadFile,
   deleteFromStorage,
   moveToArchive,

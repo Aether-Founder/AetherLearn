@@ -1,0 +1,71 @@
+{
+  "id": "sapiens",
+  "title": "Sapiens: A Brief History of Humankind",
+  "author": "Yuval Noah Harari",
+  "description": "Explore how Homo sapiens came to dominate the world",
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "title": "The Cognitive Revolution",
+      "order": 1,
+      "summaries": {
+        "en": {
+          "concise": "About 70,000 years ago, Homo sapiens developed a new way of thinking and communicating. This Cognitive Revolution enabled us to create complex language, share abstract ideas, and cooperate in large groups. This ability to imagine and believe in shared myths (religion, nations, money) allowed sapiens to dominate other species.",
+          "detailed": "The Cognitive Revolution, occurring around 70,000 years ago, marked a pivotal moment in human history. Homo sapiens developed the ability to think about things that don't physically exist—gods, nations, human rights, money. This capacity for abstract thought and complex language allowed sapiens to share information with unprecedented efficiency. Unlike other animals that can communicate about reality (like 'there's a lion'), humans can communicate about things that exist only in our collective imagination. This enabled cooperation in groups of thousands, far beyond the small groups typical of other species. Shared beliefs in common myths—religions, political ideologies, economic systems—created bonds between strangers. This ability to cooperate flexibly in large numbers gave sapiens a decisive advantage over other human species like Neanderthals, who went extinct despite being physically stronger."
+        },
+        "nl": {
+          "concise": "Ongeveer 70.000 jaar geleden ontwikkelde Homo sapiens een nieuwe manier van denken en communiceren. Deze Cognitieve Revolutie stelde ons in staat om complexe taal te creëren, abstracte ideeën te delen en samen te werken in grote groepen. Dit vermogen om gemeenschappelijke mythen (religie, naties, geld) voor te stellen en te geloven stond sapiens toe om andere soorten te domineren.",
+          "detailed": "De Cognitieve Revolutie, ongeveer 70.000 jaar geleden, markeerde een beslissend moment in de menselijke geschiedenis. Homo sapiens ontwikkelde het vermogen om na te denken over dingen die fysiek niet bestaan—goden, naties, mensenrechten, geld. Deze capaciteit voor abstract denken en complexe taal stond sapiens toe om informatie met ongekende efficiëntie te delen. In tegenstelling tot andere dieren die kunnen communiceren over realiteit (zoals 'er is een leeuw'), kunnen mensen communiceren over dingen die alleen in onze collectieve verbeelding bestaan. Dit stelde samenwerking in groepen van duizenden in staat, ver voorbij de kleine groepen die typisch zijn voor andere soorten. Gedeelde overtuigingen in gemeenschappelijke mythen—religies, politieke ideologieën, economische systemen—creëerden banden tussen vreemden. Dit vermogen om flexibel samen te werken in grote aantallen gaf sapiens een beslissend voordeel op andere menselijke soorten zoals Neanderthalers, die uitstierven ondanks dat ze fysiek sterker waren."
+        }
+      },
+      "keyConcepts": ["Cognitive Revolution", "abstract thought", "shared myths", "cooperation", "language"],
+      "learningOutcomes": [
+        "Understand the significance of the Cognitive Revolution",
+        "Learn how shared myths enable large-scale cooperation",
+        "Recognize the unique human capacity for abstract thinking"
+      ]
+    },
+    {
+      "id": "chapter-2",
+      "title": "The Agricultural Revolution",
+      "order": 2,
+      "summaries": {
+        "en": {
+          "concise": "About 12,000 years ago, humans shifted from hunting and gathering to agriculture. This Agricultural Revolution increased food production but often worsened individual lives. Farmers worked harder, had poorer diets, and faced more disease. Yet agriculture enabled population growth and the rise of cities, writing, and empires.",
+          "detailed": "The Agricultural Revolution began around 12,000 years ago when humans started domesticating plants and animals. This transition is often portrayed as progress, but Harari argues it was actually a trap for most individuals. Agricultural lifestyles required more work than hunting and gathering, produced less varied and nutritious diets, and increased susceptibility to disease. Farmers were tied to their land, making them vulnerable to crop failures. However, agriculture enabled dramatic population growth. More people could be fed per unit of land, leading to the rise of cities, specialized labor, writing systems, and eventually empires. Domesticated species also suffered—most domesticated animals exist only because they're useful to humans. The revolution changed not just how we lived but our relationship with the environment and other species."
+        },
+        "nl": {
+          "concise": "Ongeveer 12.000 jaar geleden verschoven mensen van jagen en verzamelen naar landbouw. Deze Agrarische Revolutie verhoogde de voedselproductie maar verergerde vaak het individuele leven. Boeren werkten harder, hadden slechtere diëten en zagen meer ziekte. Toch stelde landbouw bevolkingsgroei en de opkomst van steden, schrift en rijken toe.",
+          "detailed": "De Agrarische Revolutie begon ongeveer 12.000 jaar geleden toen mensen begonnen met het domesticeren van planten en dieren. Deze overgang wordt vaak voorgesteld als vooruitgang, maar Harari betoogt dat het eigenlijk een valkuil was voor de meeste individuen. Landbouwlevensstijlen vereisten meer werk dan jagen en verzamelen, produceerden minder gevarieerde en voedzame diëten, en verhoogden de vatbaarheid voor ziekte. Boeren waren gebonden aan hun land, waardoor ze kwetsbaar waren voor misoogsten. Landbouw stelde echter dramatische bevolkingsgroei toe. Meer mensen konden per eenheid land worden gevoed, wat leidde tot de opkomst van steden, gespecialiseerde arbeid, schrijfsystemen en uiteindelijk rijken. Gedomesticeerde soorten leden ook—de meeste gedomesticeerde dieren bestaan alleen omdat ze nuttig zijn voor mensen. De revolutie veranderde niet alleen hoe we leefden maar onze relatie met de omgeving en andere soorten."
+        }
+      },
+      "keyConcepts": ["Agricultural Revolution", "domestication", "population growth", "cities", "specialization"],
+      "learningOutcomes": [
+        "Evaluate the costs and benefits of agriculture",
+        "Understand how agriculture enabled civilization",
+        "Critique the narrative of historical progress"
+      ]
+    },
+    {
+      "id": "chapter-3",
+      "title": "The Unification of Humankind",
+      "order": 3,
+      "summaries": {
+        "en": {
+          "concise": "Despite biological differences being minimal, humans have increasingly unified into a single global civilization. Three forces drove this: money, empires, and universal religions. These allowed cooperation across vast distances and diverse cultures, creating an increasingly interconnected world.",
+          "detailed": "Biologically, all humans are very similar—genetic differences between populations are tiny. Yet culturally, we've created an increasingly unified global civilization. Three historical forces drove this unification. Money is a universal system of trust that allows strangers to cooperate economically. Empires conquered and culturally assimilated diverse peoples, spreading common languages, laws, and systems. Universal religions (Christianity, Islam, Buddhism) provided shared belief systems that transcended local cultures. Together, these forces created networks of cooperation that spanned continents. The result is today's globally interconnected world where ideas, goods, and people flow across borders. This unification has both positive aspects (peace, prosperity) and negative (loss of cultural diversity, environmental impact). Understanding these forces helps explain how we arrived at our current globalized state."
+        },
+        "nl": {
+          "concise": "Ondanks minimale biologische verschillen hebben mensen zich steeds meer verenigd in één globale beschaving. Drie krachten dreven dit aan: geld, rijken en universele religies. Deze stelden samenwerking over grote afstanden en diverse culturen toe, waardoor een steeds meer verbonden wereld ontstond.",
+          "detailed": "Biologisch zijn alle mensen erg vergelijkbaar—genetische verschillen tussen bevolkingsgroepen zijn klein. Cultureel hebben we echter een steeds meer verenigde globale beschaving gecreëerd. Drie historische krachten dreven deze unificatie aan. Geld is een universeel systeem van vertrouwen dat vreemden in staat stelt economisch samen te werken. Rijken veroverden en assimileerden cultureel diverse volkeren, en verspreidden gemeenschappelijke talen, wetten en systemen. Universele religies (christendom, islam, boeddhisme) boden gedeelde geloofssystemen die lokale culturen overstegen. Samen creëerden deze krachten netwerken van samenwerking die continenten overspannen. Het resultaat is de wereld van vandaag, wereldwijd verbonden, waarbij ideeën, goederen en mensen over grenzen stromen. Deze unificatie heeft zowel positieve aspecten (vrede, welvaart) als negatieve (verlies van culturele diversiteit, milieu-impact). Het begrijpen van deze krachten helpt verklaren hoe we bij onze huidige geglobaliseerde staat zijn aangekomen."
+        }
+      },
+      "keyConcepts": ["money", "empires", "universal religions", "globalization", "unification"],
+      "learningOutcomes": [
+        "Understand the forces that unified humanity",
+        "Analyze the role of money in enabling cooperation",
+        "Evaluate the impact of empires and universal religions"
+      ]
+    }
+  ]
+}

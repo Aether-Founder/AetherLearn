@@ -107,6 +107,24 @@ export function useFilesystem() {
     return buttonNode;
   }, [refreshNodes]);
 
+  const createShortcut = useCallback(async (
+    targetId: string,
+    targetPath: string,
+    buttonText: string,
+    parentId: string,
+    buttonIcon?: string
+  ) => {
+    const shortcutNode = await filesystemService.createShortcut(
+      targetId,
+      targetPath,
+      buttonText,
+      parentId,
+      buttonIcon
+    );
+    refreshNodes();
+    return shortcutNode;
+  }, [refreshNodes]);
+
   const getNode = useCallback((id: string) => {
     return filesystemService.getNode(id);
   }, []);
@@ -136,6 +154,7 @@ export function useFilesystem() {
       renameNode: async () => ({ id: '', type: 'root', name: '', parentId: null, path: '', metadata: { order: 0, permissions: { canRead: [], canWrite: [], canDelete: [] } }, createdAt: '', updatedAt: '', createdBy: '', isLocal: false } as FilesystemNode),
       duplicateNode: async () => ({ id: '', type: 'root', name: '', parentId: null, path: '', metadata: { order: 0, permissions: { canRead: [], canWrite: [], canDelete: [] } }, createdAt: '', updatedAt: '', createdBy: '', isLocal: false } as FilesystemNode),
       addButtonLink: async () => ({ id: '', type: 'root', name: '', parentId: null, path: '', metadata: { order: 0, permissions: { canRead: [], canWrite: [], canDelete: [] } }, createdAt: '', updatedAt: '', createdBy: '', isLocal: false } as FilesystemNode),
+      createShortcut: async () => ({ id: '', type: 'root', name: '', parentId: null, path: '', metadata: { order: 0, permissions: { canRead: [], canWrite: [], canDelete: [] } }, createdAt: '', updatedAt: '', createdBy: '', isLocal: false } as FilesystemNode),
       getNode: () => undefined,
       getChildren: () => [],
       getUserNotes: () => [],
@@ -155,6 +174,7 @@ export function useFilesystem() {
     renameNode,
     duplicateNode,
     addButtonLink,
+    createShortcut,
     getNode,
     getChildren,
     getUserNotes,

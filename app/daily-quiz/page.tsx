@@ -5,13 +5,11 @@ import Link from 'next/link';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Clock, Loader2, Play } from 'lucide-react';
 import { loadAllLearningSets } from '@/lib/learning-sets';
+import type { LearningSet as BaseLearningSet } from '@/lib/learning-sets';
 
-interface LearningSet {
-  id: string;
-  title: string;
+interface LearningSet extends BaseLearningSet {
   cardCount: number;
   lastStudied?: string;
-  cards: any[];
 }
 
 type PageState = 'loading' | 'empty' | 'list';
@@ -34,15 +32,21 @@ export default function DailyQuizPage() {
 
         // Sort by lastStudied date (most recent first), then by id for consistency
         const sorted = allSets.sort((a, b) => {
-          const aDate = a.lastStudied ? new Date(a.lastStudied).getTime() : 0;
-          const bDate = b.lastStudied ? new Date(b.lastStudied).getTime() : 0;
+          const aDate = ('lastStudied' in a && typeof a.lastStudied === 'string') ? new Date(a.lastStudied).getTime() : 0;
+          const bDate = ('lastStudied' in b && typeof b.lastStudied === 'string') ? new Date(b.lastStudied).getTime() : 0;
           if (bDate !== aDate) {
             return bDate - aDate;
           }
           return b.id.localeCompare(a.id);
         });
 
-        setSets(sorted);
+        // Add cardCount to each set
+        const setsWithCount = sorted.map(set => ({
+          ...set,
+          cardCount: set.cards.length
+        }));
+
+        setSets(setsWithCount);
         setState('list');
       })
       .catch(() => {

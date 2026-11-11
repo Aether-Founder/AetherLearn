@@ -1,0 +1,103 @@
+{
+  "id": "why-we-sleep",
+  "slug": "why-we-sleep",
+  "title": "Why We Sleep",
+  "author": "Matthew Walker",
+  "description": "Unlocking the power of sleep and dreams. Discover the science behind sleep and how it affects our health, learning, and creativity.",
+  "topic": "health",
+  "languages": [
+    "en"
+  ],
+  "formats": [
+    "concise",
+    "detailed"
+  ],
+  "readingTime": {
+    "concise": 18,
+    "detailed": 50
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">Why We Sleep</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">Matthew Walker</div></div>"
+  },
+  "collections": [
+    "health",
+    "science",
+    "essential"
+  ],
+  "publishedAt": "2024-01-22",
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "order": 1,
+      "title": "The Sleep Crisis",
+      "keyConcepts": [
+        "sleep deprivation",
+        "circadian rhythm",
+        "biological clock"
+      ],
+      "summary": {
+        "en": "Modern society is suffering from a silent sleep loss epidemic. This chapter explores the impact of sleep deprivation on our health, productivity, and cognitive function.",
+        "nl": "De moderne samenleving lijdt aan een stille epidemie van slaapgebrek. Dit hoofdstuk onderzoekt de impact van slaapgebrek op onze gezondheid, productiviteit en cognitieve functie."
+      },
+      "content": {
+        "en": {
+          "concise": "The scientific evidence indicates that the recommended amount of sleep for an adult is between seven and nine hours. Yet most adults are not getting this amount. The consequences of insufficient sleep are severe, including impaired judgment, reduced mood, increased accident rates, and higher mortality risk.",
+          "detailed": "The scientific evidence indicates that the recommended amount of sleep for an adult is between seven and nine hours. Yet most adults are not getting this amount. The consequences of insufficient sleep are severe, including impaired judgment, reduced mood, increased accident rates, and higher mortality risk. Sleep deprivation affects every major physiological system in the body, including the cardiovascular, metabolic, immune, and nervous systems. It compromises our ability to think clearly, remember information, and regulate our emotions. The sleep deprivation epidemic is one of the most important, yet least recognized, public health challenges in industrialized nations."
+        },
+        "nl": {
+          "concise": "Het wetenschappelijke bewijs geeft aan dat de aanbevolen hoeveelheid slaap voor een volwassene tussen zeven en negen uur is. Toch krijgen de meeste volwassenen deze hoeveelheid niet. De gevolgen van onvoldoende slaap zijn ernstig, waaronder verminderd oordeel, slechte stemming, verhoogde ongevalpercentages en een hoger mortaliteitsrisico.",
+          "detailed": "Het wetenschappelijke bewijs geeft aan dat de aanbevolen hoeveelheid slaap voor een volwassene tussen zeven en negen uur is. Toch krijgen de meeste volwassenen deze hoeveelheid niet. De gevolgen van onvoldoende slaap zijn ernstig, waaronder verminderd oordeel, slechte stemming, verhoogde ongevalpercentages en een hoger mortaliteitsrisico. Slaapgebrek beïnvloed elk belangrijk fysiologisch systeem in het lichaam, inclusief het cardiovasculaire, metabole, immuun en zenuwstelsysteem. Het compromitteert ons vermogen om helder te denken, informatie te onthouden en onze emoties te reguleren. De epidemie van slaapgebrek is een van de belangrijkste, maar minst erkende, volksgezondheidsuitdagingen in geïndustrialiseerde landen."
+        }
+      }
+    },
+    {
+      "id": "chapter-2",
+      "order": 2,
+      "title": "Sleep and Learning",
+      "keyConcepts": [
+        "memory consolidation",
+        "learning",
+        "brain plasticity"
+      ],
+      "summary": {
+        "en": "Sleep is essential for learning and memory consolidation. This chapter explains how sleep affects our ability to acquire new information and retain it.",
+        "nl": "Slaap is essentieel voor leren en geheugenconsolidatie. Dit hoofdstuk legt uit hoe slaap ons vermogen beïnvloed om nieuwe informatie te verwerven en deze te behouden."
+      },
+      "content": {
+        "en": {
+          "concise": "Sleep after learning helps consolidate memory. Without sleep, we cannot learn new information effectively. Sleep also plays a critical role in creativity and problem-solving abilities.",
+          "detailed": "Sleep after learning helps consolidate memory. Without sleep, we cannot learn new information effectively. Sleep deprivation impairs the acquisition of new memories and the retrieval of old ones. Sleep also plays a critical role in creativity and problem-solving abilities. REM sleep, in particular, has been linked to creative problem-solving. The brain processes information during sleep, strengthening important connections and pruning away unnecessary ones. This process of memory consolidation is essential for long-term learning and retention."
+        },
+        "nl": {
+          "concise": "Slaap na het leren helpt bij het consolideren van het geheugen. Zonder slaap kunnen we nieuwe informatie niet effectief leren. Slaap speelt ook een cruciale rol in creativiteit en probleemoplossende vaardigheden.",
+          "detailed": "Slaap na het leren helpt bij het consolideren van het geheugen. Zonder slaap kunnen we nieuwe informatie niet effectief leren. Slaapgebrek beïnvloed de verwerving van nieuwe herinneringen en het ophalen van oude. Slaap speelt ook een cruciale rol in creativiteit en probleemoplossende vaardigheden. REM-slaap, in het bijzonder, is gekoppeld aan creatief probleemoplossen. De hersenen verwerken informatie tijdens de slaap, versterken belangrijke verbindingen en snoeien onnodige weg. Dit proces van geheugenconsolidatie is essentieel voor langetermijn leren en behoud."
+        }
+      }
+    },
+    {
+      "id": "chapter-3",
+      "order": 3,
+      "title": "Sleep and Emotional Regulation",
+      "keyConcepts": [
+        "emotional stability",
+        "mental health",
+        "stress"
+      ],
+      "summary": {
+        "en": "Sleep is essential for emotional regulation and mental health. This chapter explores the relationship between sleep and our emotional well-being.",
+        "nl": "Slaap is essentieel voor emotionele regulatie en geestelijke gezondheid. Dit hoofdstuk onderzoekt de relatie tussen slaap en ons emotionele welzijn."
+      },
+      "content": {
+        "en": {
+          "concise": "Sleep deprivation leads to increased emotional reactivity and reduced emotional regulation. Good sleep is essential for mental health and emotional stability.",
+          "detailed": "Sleep deprivation leads to increased emotional reactivity and reduced emotional regulation. Good sleep is essential for mental health and emotional stability. Without adequate sleep, the emotional centers of the brain become hyperactive, leading to increased irritability, anxiety, and mood swings. Sleep disorders are strongly associated with mental health conditions including depression, anxiety, and bipolar disorder. The relationship between sleep and mental health is bidirectional: poor sleep contributes to mental health problems, and mental health problems can disrupt sleep."
+        },
+        "nl": {
+          "concise": "Slaapgebrek leidt tot verhoogde emotionele reactiviteit en verminderde emotionele regulatie. Goede slaap is essentieel voor geestelijke gezondheid en emotionele stabiliteit.",
+          "detailed": "Slaapgebrek leidt tot verhoogde emotionele reactiviteit en verminderde emotionele regulatie. Goede slaap is essentieel voor geestelijke gezondheid en emotionele stabiliteit. Zonder adequate slaap worden de emotionele centra van de hersenen hyperactief, wat leid tot verhoogde irritatie, angst en stemmingswisselingen. Slaapstoornissen zijn sterk geassocieerd met geestelijke gezondheidsproblemen inclusief depressie, angst en bipolaire stoornis. De relatie tussen slaap en geestelijke gezondheid is tweericht: slechte slaap draagt bij aan geestelijke gezondheidsproblemen, en geestelijke gezondheidsproblemen kunnen slaap verstoren."
+        }
+      }
+    }
+  ]
+}

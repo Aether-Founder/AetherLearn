@@ -21,7 +21,7 @@ import { useBookmarks } from '@/hooks/useBookmarks';
 import { getSectionTitle } from '@/lib/section-title';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Minus, Plus, Maximize2, Bookmark } from 'lucide-react';
 
 export type ViewMode =
   | 'book'
@@ -91,9 +91,6 @@ function hasStudyMaterial(sections: any[], data: any): boolean {
 function ToetsweekplanningSkeleton() {
   return (
     <main className="min-h-screen bg-background">
-      <div className="absolute right-2 top-2 z-10">
-        <ThemeToggle />
-      </div>
       <div className="mx-auto max-w-[900px] px-5 py-14 sm:px-8">
         <div className="mb-8 space-y-3">
           <div className="skeleton-line h-10 w-2/3 rounded" />
@@ -197,6 +194,85 @@ export default function Page({ params }: { params: { page: string } }) {
   const { bookmarks, toggleBookmark } = useBookmarks(params.page);
 
   const totalSections = useMemo(() => data?.sections?.length || 0, [data]);
+
+  const estimatedReadingTime = useMemo(() => {
+    if (!data?.sections) return 0;
+    let totalWords = 0;
+    data.sections.forEach((section: any) => {
+      if (section.content) {
+        totalWords += (section.content as string).split(/\s+/).length;
+      }
+      if (section.paragraphs) {
+        section.paragraphs.forEach((paragraph: any) => {
+          if (paragraph.content) {
+            totalWords += (paragraph.content as string).split(/\s+/).length;
+          }
+        });
+      }
+    });
+    const wordsPerMinute = 200;
+    return Math.ceil(totalWords / wordsPerMinute);
+  }, [data]);
+
+  const [fontSize, setFontSize] = useState(() => {
+    if (typeof window === 'undefined') return 16;
+    const saved = localStorage.getItem('fontSize');
+    return saved ? parseInt(saved, 10) : 16;
+  });
+
+  const handleFontSizeChange = (size: number) => {
+    setFontSize(size);
+    localStorage.setItem('fontSize', size.toString());
+  };
+
+  const [focusMode, setFocusMode] = useState(false);
+
+  const scrollToSection = (index: number) => {
+    const element = document.getElementById(`section-${index}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // Fallback: scroll to approximate position
+      const scrollPosition = (index / totalSections) * document.documentElement.scrollHeight;
+      window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+    }
+  };
+
+  const navigateToPreviousSection = () => {
+    const scrollPosition = window.scrollY + window.innerHeight / 2;
+    let currentSectionIndex = 0;
+    for (let i = 0; i < totalSections; i++) {
+      const element = document.getElementById(`section-${i}`);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        if (rect.top + window.scrollY > scrollPosition) {
+          break;
+        }
+        currentSectionIndex = i;
+      }
+    }
+    if (currentSectionIndex > 0) {
+      scrollToSection(currentSectionIndex - 1);
+    }
+  };
+
+  const navigateToNextSection = () => {
+    const scrollPosition = window.scrollY + window.innerHeight / 2;
+    let currentSectionIndex = totalSections - 1;
+    for (let i = 0; i < totalSections; i++) {
+      const element = document.getElementById(`section-${i}`);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        if (rect.top + window.scrollY > scrollPosition) {
+          currentSectionIndex = i;
+          break;
+        }
+      }
+    }
+    if (currentSectionIndex < totalSections - 1) {
+      scrollToSection(currentSectionIndex + 1);
+    }
+  };
 
   // ── Load view mode from localStorage / query param ──────────────────────────
   useEffect(() => {
@@ -380,18 +456,71 @@ export default function Page({ params }: { params: { page: string } }) {
       <div className="relative w-full">
         {/* Controls: top-right corner, small margin from top edge */}
         <div className="absolute top-2 right-2 flex items-center gap-2 z-10">
-          {!showSkeleton && !isCustomContent && (isParagraphContent || isTextbookContent) && (
-            <ModeSwitcher
-              currentMode={viewMode}
-              availableModes={availableModes}
-              onModeChange={handleModeChange}
-            />
+          {!showSkeleton && (
+            <>
+              {/* Reading time */}
+              {estimatedReadingTime > 0 && (
+                <div className="px-2 py-1 rounded border border-border/50 bg-secondary/30 text-xs text-muted-foreground">
+                  {estimatedReadingTime} min leestijd
+                </div>
+              )}
+
+              {/* Font size controls */}
+              <div className="flex items-center gap-0.5 rounded border border-border/50 bg-secondary/30 px-1">
+                <button
+                  type="button"
+                  onClick={() => handleFontSizeChange(Math.max(12, fontSize - 2))}
+                  className="p-1 rounded hover:bg-secondary transition-colors"
+                  title="Verklein lettergrootte"
+                >
+                  <Minus className="h-3.5 w-3.5" />
+                </button>
+                <span className="text-xs text-muted-foreground w-6 text-center">{fontSize}</span>
+                <button
+                  type="button"
+                  onClick={() => handleFontSizeChange(Math.min(72, fontSize + 2))}
+                  className="p-1 rounded hover:bg-secondary transition-colors"
+                  title="Vergroot lettergrootte"
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                </button>
+              </div>
+
+              {/* Focus mode */}
+              <button
+                type="button"
+                onClick={() => setFocusMode(!focusMode)}
+                className="p-1.5 rounded border border-border/50 bg-secondary/30 hover:bg-secondary transition-all duration-300"
+                title="Focus modus"
+              >
+                <Maximize2 className="h-3.5 w-3.5" />
+              </button>
+
+              {/* Bookmark */}
+              <button
+                type="button"
+                onClick={() => toggleBookmark(params.page, data?.siteMetadata?.title || 'Pagina')}
+                className="p-1.5 rounded border border-border/50 bg-secondary/30 hover:bg-secondary transition-colors"
+                title="Bladwijzer"
+              >
+                <Bookmark className={`h-3.5 w-3.5 ${bookmarks.has(params.page) ? 'fill-primary text-primary' : ''}`} />
+              </button>
+
+              {/* ModeSwitcher - always on the far right */}
+              {!isCustomContent && (isParagraphContent || isTextbookContent) && (
+                <ModeSwitcher
+                  currentMode={viewMode}
+                  availableModes={availableModes}
+                  onModeChange={handleModeChange}
+                />
+              )}
+            </>
           )}
         </div>
 
         {/* Header — pushed down below the controls row */}
         <div
-          className="w-full px-4 sm:px-6 lg:px-8 pt-20 pb-8"
+          className="w-full px-4 sm:px-6 lg:px-8 pt-12 pb-6"
           style={{ paddingRight: 'max(1rem, 280px)' }}
         >
           {showSkeleton ? (
@@ -418,10 +547,10 @@ export default function Page({ params }: { params: { page: string } }) {
       <div className="w-full border-t border-border"></div>
 
       <main className="json-lesson-page bg-background">
-        <div className="relative flex flex-col md:flex-row md:gap-4 mt-8 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative flex flex-col md:flex-row md:gap-4 mt-4 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Content Sidebar */}
-          {data && data.sections && (
-            <div className="xl:w-[280px] lg:w-[250px] md:w-[220px] flex-shrink-0">
+          {data && data.sections && !focusMode && (
+            <div className="xl:w-[280px] lg:w-[250px] md:w-[220px] flex-shrink-0 relative transition-all duration-300 ease-in-out">
               <ContentSidebar
                 sections={data.sections}
                 pageTitle={data.siteMetadata?.title}
@@ -431,8 +560,8 @@ export default function Page({ params }: { params: { page: string } }) {
           )}
 
           {/* Main content */}
-          <div className="flex-1 px-5 py-10 min-w-0">
-            <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex-1 px-5 py-10 min-w-0 transition-all duration-300 ease-in-out">
+            <div className={`mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 ease-in-out ${focusMode ? 'max-w-5xl' : 'max-w-[900px]'}`} style={{ fontSize: `${fontSize}px`, lineHeight: '1.6' }}>
               {showSkeleton ? (
                 <ContentSkeleton />
               ) : isCustomContent ? (
@@ -483,11 +612,11 @@ export default function Page({ params }: { params: { page: string } }) {
                         />
                       ) : null;
                     }
-                    
+
                     // Handle visual-placeholder sections in textbook mode
                     if (section.contentType === 'visual-placeholder' && section.visualTag) {
                       return (
-                        <div key={section.id}>
+                        <div key={section.id} id={`section-${index}`}>
                           <VisualPlaceholderSection
                             visualTag={section.visualTag}
                             pageId={params.page}
@@ -496,9 +625,9 @@ export default function Page({ params }: { params: { page: string } }) {
                         </div>
                       );
                     }
-                    
+
                     return (
-                      <div key={section.id}>
+                      <div key={section.id} id={`section-${index}`}>
                         <TextbookSection
                           section={{
                             ...section,
@@ -527,11 +656,11 @@ export default function Page({ params }: { params: { page: string } }) {
                       />
                     ) : null;
                   }
-                  
+
                   // Handle visual-placeholder sections
                   if (section.contentType === 'visual-placeholder' && section.visualTag) {
                     return (
-                      <div key={section.id}>
+                      <div key={section.id} id={`section-${index}`}>
                         <VisualPlaceholderSection
                           visualTag={section.visualTag}
                           pageId={params.page}
@@ -540,9 +669,9 @@ export default function Page({ params }: { params: { page: string } }) {
                       </div>
                     );
                   }
-                  
+
                   return (
-                    <div key={section.id}>
+                    <div key={section.id} id={`section-${index}`}>
                       <div className="mb-4 flex items-center justify-between">
                         <h2 className="text-2xl font-serif text-foreground font-normal">
                           {getSectionTitle(section)}
@@ -555,12 +684,13 @@ export default function Page({ params }: { params: { page: string } }) {
               ) : (
                 data.sections
                   .slice(0, visibleSections)
-                  .map((section: any) => (
-                    <NestedSection
-                      key={section.id}
-                      section={section}
-                      showTimestamps={data.showTimestamps}
-                    />
+                  .map((section: any, index: number) => (
+                    <div key={section.id} id={`section-${index}`}>
+                      <NestedSection
+                        section={section}
+                        showTimestamps={data.showTimestamps}
+                      />
+                    </div>
                   ))
               )}
 

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Settings, Calendar as CalendarIcon, Sun, Moon } from "lucide-react";
+import { Settings, Calendar as CalendarIcon } from "lucide-react";
 
 type CalendarView = "day" | "week" | "workweek" | "month" | "agenda";
 type FirstDayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6;

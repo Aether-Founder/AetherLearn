@@ -37,11 +37,12 @@ import {
   Zap,
   Accessibility,
   Loader2,
+  Globe,
 } from 'lucide-react';
 
 const supabase = browserClient as any;
 
-type SettingsSection = 'profile' | 'appearance' | 'navigation' | 'statistics' | 'account' | 'ai' | 'accessibility';
+type SettingsSection = 'profile' | 'appearance' | 'navigation' | 'statistics' | 'account' | 'ai' | 'accessibility' | 'language';
 
 function ActivityGraph() {
   const { user } = useUser();
@@ -235,6 +236,12 @@ export default function InstellingenPage() {
   const [aiTesting, setAiTesting] = useState(false);
   const [aiLoading, setAiLoading] = useState(true);
 
+  // Language and Educational Level State
+  const [languageCode, setLanguageCode] = useState('nl');
+  const [educationalLevel, setEducationalLevel] = useState('middle-school');
+  const [countryCode, setCountryCode] = useState('');
+  const [preferencesSaving, setPreferencesSaving] = useState(false);
+
   useEffect(() => {
     fetchUserProfile();
     loadAISettings();
@@ -265,6 +272,11 @@ export default function InstellingenPage() {
       setAvatarUrl(profileData.avatar_url || '');
       setAvatarPreview(profileData.avatar_url || '');
       setGamificationEnabled(profileData.gamification_enabled || false);
+      
+      // Load new internationalization preferences (if they exist after migration)
+      setLanguageCode(profileData.language_code || 'nl');
+      setEducationalLevel(profileData.educational_level || 'middle-school');
+      setCountryCode(profileData.country_code || '');
     }
     setLoading(false);
   };
@@ -527,6 +539,43 @@ export default function InstellingenPage() {
     }
   };
 
+  const handlePreferencesSave = async () => {
+    if (!user) return;
+
+    setPreferencesSaving(true);
+    setSaveMessage(null);
+
+    try {
+      // Update user profile with language and educational level preferences
+      const { error } = await supabase
+        .from('users')
+        .update({
+          language_code: languageCode,
+          educational_level: educationalLevel,
+          country_code: countryCode || null,
+          updated_at: new Date().toISOString(),
+        } as any)
+        .eq('id', user.id);
+
+      if (error) throw error;
+
+      // Update localStorage for language preference
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('aether_language', languageCode);
+      }
+
+      // Update the translation system
+      changeLanguage(languageCode);
+
+      setSaveMessage({ type: 'success', text: 'Voorkeuren opgeslagen!' });
+    } catch (error: any) {
+      console.error('Failed to save preferences:', error);
+      setSaveMessage({ type: 'error', text: 'Opslaan mislukt' });
+    } finally {
+      setPreferencesSaving(false);
+    }
+  };
+
   if (loading) {
     return (
       <AppShell>
@@ -654,6 +703,17 @@ export default function InstellingenPage() {
             >
               <Accessibility className="h-4 w-4" />
               Toegankelijkheid
+            </button>
+            <button
+              onClick={() => setActiveSection('language')}
+              className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+                activeSection === 'language'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+              }`}
+            >
+              <Globe className="h-4 w-4" />
+              Taal en Niveau
             </button>
           </nav>
         </aside>
@@ -1066,6 +1126,130 @@ export default function InstellingenPage() {
                     </Button>
                   </>
                 )}
+              </div>
+            </Panel>
+          )}
+
+          {activeSection === 'language' && (
+            <Panel title="Taal en onderwijsniveau">
+              <div className="space-y-6">
+                <p className="text-sm text-muted-foreground">
+                  Pas je taalvoorkeuren en onderwijsniveau aan voor een gepersonaliseerde leerervaring.
+                </p>
+
+                {/* Language Selection */}
+                <div>
+                  <Label htmlFor="language-select">Taal</Label>
+                  <select
+                    id="language-select"
+                    value={languageCode}
+                    onChange={(e) => setLanguageCode(e.target.value)}
+                    className={inputClass}
+                  >
+                    <option value="nl">Nederlands</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="pt">Português</option>
+                    <option value="ru">Русский</option>
+                    <option value="zh">中文</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                    <option value="ar">العربية</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="it">Italiano</option>
+                    <option value="tr">Türkçe</option>
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="vi">Tiếng Việt</option>
+                    <option value="th">ไทย</option>
+                    <option value="pl">Polski</option>
+                    <option value="uk">Українська</option>
+                  </select>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    De taal van de interface en aanbevolingen.
+                  </p>
+                </div>
+
+                {/* Educational Level Selection */}
+                <div>
+                  <Label htmlFor="educational-level-select">Onderwijsniveau</Label>
+                  <select
+                    id="educational-level-select"
+                    value={educationalLevel}
+                    onChange={(e) => setEducationalLevel(e.target.value as any)}
+                    className={inputClass}
+                  >
+                    <option value="middle-school">Middle School (12-15 jaar)</option>
+                    <option value="high-school">High School (15-18 jaar)</option>
+                    <option value="university">University (18+ jaar)</option>
+                    <option value="professional">Professional (werkend)</option>
+                  </select>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Hiermee passen we de inhoud en aanbevelingen aan jouw niveau.
+                  </p>
+                </div>
+
+                {/* Country Selection (Optional) */}
+                <div>
+                  <Label htmlFor="country-select">Land (optioneel)</Label>
+                  <select
+                    id="country-select"
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    className={inputClass}
+                  >
+                    <option value="">Niet geselecteerd</option>
+                    <option value="NL">Nederland</option>
+                    <option value="BE">België</option>
+                    <option value="DE">Duitsland</option>
+                    <option value="FR">Frankrijk</option>
+                    <option value="ES">Spanje</option>
+                    <option value="IT">Italië</option>
+                    <option value="PT">Portugal</option>
+                    <option value="GB">Verenigd Koninkrijk</option>
+                    <option value="US">Verenigde Staten</option>
+                    <option value="CA">Canada</option>
+                    <option value="AU">Australië</option>
+                    <option value="IN">India</option>
+                    <option value="CN">China</option>
+                    <option value="JP">Japan</option>
+                    <option value="KR">Zuid-Korea</option>
+                    <option value="BR">Brazilië</option>
+                    <option value="RU">Rusland</option>
+                    <option value="UA">Oekraïne</option>
+                    <option value="TR">Turkije</option>
+                    <option value="SA">Saoedi-Arabië</option>
+                    <option value="AE">Verenigde Arabische Emiraten</option>
+                    <option value="EG">Egypte</option>
+                    <option value="ZA">Zuid-Afrika</option>
+                    <option value="ID">Indonesië</option>
+                    <option value="VN">Vietnam</option>
+                    <option value="TH">Thailand</option>
+                    <option value="PL">Polen</option>
+                  </select>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Voor curriculum-specifieke aanbevelingen (optioneel).
+                  </p>
+                </div>
+
+                <Button
+                  onClick={handlePreferencesSave}
+                  disabled={preferencesSaving}
+                  className="w-full"
+                >
+                  {preferencesSaving ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Opslaan...
+                    </>
+                  ) : (
+                    <>
+                      <Save className="mr-2 h-4 w-4" />
+                      Voorkeuren opslaan
+                    </>
+                  )}
+                </Button>
               </div>
             </Panel>
           )}

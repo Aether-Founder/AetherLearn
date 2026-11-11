@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import { getGameById, type GameShellProps } from "@/lib/learning-platform/game-registry";
+import { getGameById } from "@/lib/learning-platform/game-registry";
 import { getHighScore, saveHighScore, type GameScoreId } from "@/lib/learning-platform/game-scores";
 import type { LearningMode } from "@/types/learning-platform";
 import { useTranslation } from "@/lib/i18n";

@@ -21,7 +21,8 @@ export type NavPage =
   | 'settings'
   | 'vandaag'
   | 'admin'
-  | 'research';
+  | 'research'
+  | 'books';
 
 export interface NavVisibility {
   [key: string]: boolean;
@@ -42,6 +43,7 @@ const DEFAULT_VISIBILITY: NavVisibility = {
   vandaag: false,
   admin: false,
   research: true,
+  books: true,
 };
 
 const PAGE_LABELS: Record<NavPage, string> = {
@@ -59,6 +61,7 @@ const PAGE_LABELS: Record<NavPage, string> = {
   vandaag: 'Vandaag',
   admin: 'Admin',
   research: 'Research',
+  books: 'Books',
 };
 
 const PAGE_HREFS: Record<NavPage, string> = {
@@ -76,6 +79,7 @@ const PAGE_HREFS: Record<NavPage, string> = {
   vandaag: '/vandaag',
   admin: '/admin',
   research: '/research',
+  books: '/books',
 };
 
 export function useNavbarPreferences() {

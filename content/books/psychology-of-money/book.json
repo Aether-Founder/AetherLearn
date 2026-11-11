@@ -1,0 +1,102 @@
+{
+  "id": "the-psychology-of-money",
+  "slug": "psychology-of-money",
+  "title": "The Psychology of Money",
+  "author": "Morgan Housel",
+  "description": "Timeless lessons on wealth, greed, and happiness. Learn about the behavioral aspects of personal finance and investment.",
+  "topic": "finance",
+  "languages": [
+    "en"
+  ],
+  "formats": [
+    "concise",
+    "detailed"
+  ],
+  "readingTime": {
+    "concise": 16,
+    "detailed": 45
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">The Psychology of Money</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">Morgan Housel</div></div>"
+  },
+  "collections": [
+    "finance",
+    "business",
+    "essential"
+  ],
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "order": 1,
+      "title": "The Role of Luck and Risk",
+      "keyConcepts": [
+        "luck",
+        "risk",
+        "behavioral finance"
+      ],
+      "summary": {
+        "en": "Nothing is as good or as bad as it seems. This chapter explores how luck and risk influence financial outcomes and why we should be careful about judging success.",
+        "nl": "Niets is zo goed of zo slecht als het lijkt. Dit hoofdstuk onderzoekt hoe geluk en risico financiële resultaten beïnvloeden en waarom we voorzichtig moeten zijn bij het beoordelen van succes."
+      },
+      "content": {
+        "en": {
+          "concise": "Luck and risk are both reality and are the siblings of each other. You cannot have one without the other. Everything worth pursuing comes with a risk of failure. Being good at something doesn't mean you're immune to bad luck.",
+          "detailed": "Luck and risk are both reality and are the siblings of each other. You cannot have one without the other. Everything worth pursuing comes with a risk of failure. Being good at something doesn't mean you're immune to bad luck. Nothing is as good or as bad as it seems. Every success is a combination of hard work and luck. Every failure is a combination of mistakes and bad timing. The hardest part of finance is accepting that much of what happens is outside our control. The more you think you understand how the world works, the more you realize how much is random chance."
+        },
+        "nl": {
+          "concise": "Geluk en risico zijn beide realiteit en zijn broers van elkaar. Je kunt niet het een hebben zonder het ander. Alles wat de moeite waard is om na te streven, brengt een risico op mislukking met zich mee. Goed zijn in iets betekent niet dat je immuun bent voor pech.",
+          "detailed": "Geluk en risico zijn beide realiteit en zijn broers van elkaar. Je kunt niet het een hebben zonder het ander. Alles wat de moeite waard is om na te streven, brengt een risico op mislukking met zich mee. Goed zijn in iets betekent niet dat je immuun bent voor pech. Niets is zo goed of zo slecht als het lijkt. Elk succes is een combinatie van hard werken en geluk. Elke mislukking is een combinatie van fouten en slechte timing. Het moeilijkste deel van financiën is accepteren dat veel van wat gebeurt buiten onze controle ligt. Hoe meer je denkt dat je begrijpt hoe de wereld werkt, hoe meer je realiseert hoeveel toeval is."
+        }
+      }
+    },
+    {
+      "id": "chapter-2",
+      "order": 2,
+      "title": "Happiness and Spending",
+      "keyConcepts": [
+        "diminishing returns",
+        "wealth psychology",
+        "lifestyle"
+      ],
+      "summary": {
+        "en": "Money can buy happiness, but only up to a point. This chapter explores the relationship between wealth and happiness and how to spend money wisely.",
+        "nl": "Geld kan geluk kopen, maar alleen tot op zekere hoogte. Dit hoofdstuk onderzoekt de relatie tussen rijkdom en geluk en hoe je geld verstandig kunt uitgeven."
+      },
+      "content": {
+        "en": {
+          "concise": "Research shows that happiness increases with income up to about $75,000 per year, after which additional income has diminishing returns. The best things in life are often free or very cheap.",
+          "detailed": "Research shows that happiness increases with income up to about $75,000 per year, after which additional income has diminishing returns. Beyond this point, more money doesn't necessarily lead to more happiness. The best things in life are often free or very cheap. Wealth is what you don't see. Wealth is the nice cars not purchased. The diamonds not bought. The watches not worn. Building wealth requires spending less than you make and having the patience to let your investments grow over time."
+        },
+        "nl": {
+          "concise": "Onderzoek toont aan dat geluk toeneemt met inkomen tot ongeveer $75.000 per jaar, waarna extra inkomen afnemende returns heeft. De beste dingen in het leven zijn vaak gratis of erg goedkoop.",
+          "detailed": "Onderzoek toont aan dat geluk toeneemt met inkomen tot ongeveer $75.000 per jaar, waarna extra inkomen afnemende returns heeft. Voorbij dit punt leidt meer geld niet noodzakelijk tot meer geluk. De beste dingen in het leven zijn vaak gratis of erg goedkoop. Rijkdom is wat je niet ziet. Rijkdom zijn de mooie auto's die niet gekocht zijn. De diamanten die niet gekocht zijn. De horloges die niet gedragen worden. Rijkdom opbouwen vereist minder uitgeven dan je verdient en de geduld te hebben om je investeringen in de tijd te laten groeien."
+        }
+      }
+    },
+    {
+      "id": "chapter-3",
+      "order": 3,
+      "title": "Wealth and Savings",
+      "keyConcepts": [
+        "saving",
+        "investing",
+        "compound interest"
+      ],
+      "summary": {
+        "en": "Building wealth is not about high income but about high savings rate. This chapter explains the importance of saving and investing for long-term financial freedom.",
+        "nl": "Rijkdom opbouwen gaat niet over hoog inkomen maar over een hoge spaarquote. Dit hoofdstuk legt het belang uit van sparen en investeren voor langetermijn financiële vrijheid."
+      },
+      "content": {
+        "en": {
+          "concise": "The most important financial skill is getting the goalpost to stop moving. Building wealth has little to do with your income and everything to do with your savings rate. The value of wealth is relative to what you need.",
+          "detailed": "The most important financial skill is getting the goalpost to stop moving. Building wealth has little to do with your income and everything to do with your savings rate. The value of wealth is relative to what you need. Saving money is the gap between your ego and your income. Wealth is what you don't see. It's hidden. It's income not spent. Savings in the bank can transform into future income. Compound interest is the most powerful force in finance. Starting early and being consistent is more important than the amount you invest."
+        },
+        "nl": {
+          "concise": "De belangrijkste financiële vaardigheid is het doelwit laten stoppen met bewegen. Rijkdom opbouwen heeft weinig te maken met je inkomen en alles met je spaarquote. De waarde van rijkdom is relatief aan wat je nodig hebt.",
+          "detailed": "De belangrijkste financiële vaardigheid is het doelwit laten stoppen met bewegen. Rijkdom opbouwen heeft weinig te maken met je inkomen en alles met je spaarquote. De waarde van rijkdom is relatief aan wat je nodig hebt. Geld sparen is het gat tussen je ego en je inkomen. Rijkdom is wat je niet ziet. Het is verborgen. Het is inkomen dat niet uitgegeven is. Spaargeld op de bank kan transformeren in toekomstig inkomen. Samengestelde interest is de krachtigste kracht in financiën. Vroeg beginnen en consistent zijn is belangrijker dan het bedrag dat je investeert."
+        }
+      }
+    }
+  ]
+}

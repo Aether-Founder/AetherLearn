@@ -1,0 +1,71 @@
+{
+  "id": "deep-work",
+  "title": "Deep Work",
+  "author": "Cal Newport",
+  "description": "Rules for focused success in a distracted world",
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "title": "The Deep Work Philosophy",
+      "order": 1,
+      "summaries": {
+        "en": {
+          "concise": "Deep work is the ability to focus without distraction on cognitively demanding tasks. It's a skill that's becoming rare and therefore valuable. In our increasingly distracted world, the ability to do deep work is becoming a superpower that can help you produce elite-level output.",
+          "detailed": "Cal Newport defines deep work as professional activities performed in a state of distraction-free concentration that push your cognitive capabilities to their limit. These efforts create new value, improve your skills, and are hard to replicate. In contrast, shallow work is non-cognitively demanding, logistical-style tasks often performed while distracted. Newport argues that deep work is becoming increasingly rare due to modern distractions (email, social media, open offices) but also increasingly valuable. Two core abilities are thriving in the new economy: the ability to quickly master hard things and the ability to produce at an elite level in terms of both quality and speed. Both of these abilities require deep work. The book provides strategies to cultivate deep work, including embracing boredom, quitting social media, and draining the shallows to make time for depth."
+        },
+        "nl": {
+          "concise": "Deep work is het vermogen om zonder afleiding te focussen op cognitief veeleisende taken. Het is een vaardigheid die zeldzaam wordt en daarom waardevol. In onze steeds meer afgeleide wereld is het vermogen om deep work te doen een superkracht die je kan helpen elite-niveau output te produceren.",
+          "detailed": "Cal Newport definieert deep work als professionele activiteiten die worden uitgevoerd in een staat van afleidingsvrije concentratie die je cognitieve mogelijkheden tot hun limiet duwen. Deze inspanningen creëren nieuwe waarde, verbeteren je vaardigheden en zijn moeilijk te repliceren. In tegenstelling, shallow work is niet-cognitief veeleisend, logistiek-stijl taken die vaak worden uitgevoerd tijdens afleiding. Newport betoogt dat deep work steeds zeldzamer wordt door moderne afleidingen (e-mail, sociale media, open kantoren) maar ook steeds waardevoller. Twee kernvaardigheden floreren in de nieuwe economie: het vermogen om snel moeilijke dingen te beheersen en het vermogen om op elite-niveau te produceren wat betreft zowel kwaliteit als snelheid. Beide vaardigheden vereisen deep work. Het boek biedt strategieën om deep work te cultiveren, waaronder verveling omarmen, sociale media opgeven en de ondieptes legen om tijd voor diepte te maken."
+        }
+      },
+      "keyConcepts": ["deep work", "shallow work", "focus", "distraction", "cognitive capabilities"],
+      "learningOutcomes": [
+        "Define deep work and its importance",
+        "Distinguish between deep and shallow work",
+        "Recognize the value of focus in the modern economy"
+      ]
+    },
+    {
+      "id": "chapter-2",
+      "title": "The Rules of Deep Work",
+      "order": 2,
+      "summaries": {
+        "en": {
+          "concise": "Four rules for cultivating deep work: 1) Work deeply by scheduling focused blocks and ritualizing your routine. 2) Embrace boredom to train your mind to focus. 3) Quit social media to regain control of your attention. 4) Drain the shallows by reducing shallow work and scheduling downtime.",
+          "detailed": "Newport provides four rules for developing a deep work habit. Rule 1: Work Deeply. Build rituals and routines that minimize the willpower required to transition into focus. Schedule deep work blocks like you would important meetings. Rule 2: Embrace Boredom. Don't seek constant stimulation. Train your mind to be comfortable with boredom, which strengthens your ability to focus. Rule 3: Quit Social Media. Most social media tools are addictive fragments of shallow interaction. Use the craftsman approach to tool selection—only adopt tools that substantially contribute to your most important goals. Rule 4: Drain the Shallows. Schedule every minute of your day to force intentionality about how you spend time. Include downtime, which helps your brain recharge. By reducing shallow work, you create space for deep work. These rules work together to transform your relationship with focus and attention."
+        },
+        "nl": {
+          "concise": "Vier regels voor het cultiveren van deep work: 1) Werk diep door gefocuste blokken te plannen en je routine te ritualiseren. 2) Omarm verveling om je geest te trainen te focussen. 3) Stop met sociale media om controle over je aandacht terug te krijgen. 4) Leeg de ondieptes door shallow work te verminderen en downtime in te plannen.",
+          "detailed": "Newport biedt vier regels voor het ontwikkelen van een deep work-gewoonte. Regel 1: Werk Diep. Bouw rituelen en routines op die de wilskracht verminderen die nodig is om in focus te komen. Plan deep work-blokken zoals je belangrijke vergaderingen zou plannen. Regel 2: Omarm Verveling. Zoek niet constante stimulatie. Train je geest om comfortabel te zijn met verveling, wat je vermogen om te focussen versterkt. Regel 3: Stop met Sociale Media. De meeste sociale media-tools zijn verslavende fragmenten van ondiepe interactie. Gebruik de ambachtsman-benadering voor tool-selectie—adopteer alleen tools die substantieel bijdragen aan je belangrijkste doelen. Regel 4: Leeg de Ondieptes. Plan elke minuut van je dag om intentionaliteit af te dwingen over hoe je tijd besteedt. Inclusief downtime, wat je hersenen helpt opladen. Door shallow work te verminderen, creëer je ruimte voor deep work. Deze regels werken samen om je relatie met focus en aandacht te transformeren."
+        }
+      },
+      "keyConcepts": ["rituals", "boredom", "social media", "shallow work", "intentionality"],
+      "learningOutcomes": [
+        "Apply the four rules of deep work",
+        "Create effective deep work rituals",
+        "Evaluate and reduce social media use"
+      ]
+    },
+    {
+      "id": "chapter-3",
+      "title": "Deep Work in Practice",
+      "order": 3,
+      "summaries": {
+        "en": {
+          "concise": "Different philosophies for scheduling deep work: the monastic (eliminate distraction entirely), the bimodal (divide time between deep and shallow), the rhythmic (daily deep work habit), and the journalistic (fit deep work into any available time). Choose the approach that fits your life and work style.",
+          "detailed": "Newport presents four philosophies for scheduling deep work, allowing you to choose what fits your circumstances. The Monastic Philosophy involves eliminating all shallow work and distraction entirely, dedicating long periods to deep work. This works for people like professors or writers who can arrange their lives this way. The Bimodal Philosophy divides time into distinct blocks—deep for long stretches, shallow for others. This might mean deep work mornings, shallow afternoons. The Rhythmic Philosophy creates a daily deep work habit at the same time each day, building a chain that you don't want to break. This is easier to maintain. The Journalistic Philosophy fits deep work into any available moment, adapting to your schedule. This requires advanced training to quickly enter deep focus. Regardless of the philosophy, the key is consistency and protecting your deep work time from interruption. Deep work is a skill that improves with practice, and different people need different approaches to develop it."
+        },
+        "nl": {
+          "concise": "Verschillende filosofieën voor het plannen van deep work: de monastieke (elimineer afleiding volledig), de bimodale (deel tijd tussen diep en ondiep), de ritmische (dagelijkse deep work-gewoonte) en de journalistieke (pas deep work aan in elke beschikbare tijd). Kies de aanpak die bij je leven en werkstijl past.",
+          "detailed": "Newport presenteert vier filosofieën voor het plannen van deep work, waardoor je kunt kiezen wat bij je omstandigheden past. De Monastieke Filosofie omvat het elimineren van alle shallow work en afleiding volledig, waarbij lange periodes worden gewijd aan deep work. Dit werkt voor mensen zoals professoren of schrijvers die hun leven zo kunnen regelen. De Bimodale Filosofie deelt tijd in duidelijke blokken—diep voor lange stukken, ondiep voor anderen. Dit kan betekenen deep work ochtenden, shallow middagen. De Ritmische Filosofie creëert een dagelijkse deep work-gewoonte op dezelfde tijd elke dag, waarbij een keten wordt gebouwd die je niet wilt breken. Dit is gemakkelijker te onderhouden. De Journalistieke Filosofie past deep work aan in elk beschikbaar moment, past zich aan je schema aan. Dit vereist geavanceerde training om snel in diepe focus te komen. Ongeacht de filosofie is de sleutel consistentie en het beschermen van je deep work-tijd tegen onderbreking. Deep work is een vaardigheid die verbetert met oefening, en verschillende mensen hebben verschillende benaderingen nodig om het te ontwikkelen."
+        }
+      },
+      "keyConcepts": ["monastic philosophy", "bimodal philosophy", "rhythmic philosophy", "journalistic philosophy", "consistency"],
+      "learningOutcomes": [
+        "Evaluate different deep work scheduling philosophies",
+        "Choose the approach that fits your lifestyle",
+        "Implement a sustainable deep work practice"
+      ]
+    }
+  ]
+}

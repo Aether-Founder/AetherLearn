@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technology Book Cover Example</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f0f0f0; }
+    .cover {
+      width: min(88vw, 440px);
+      aspect-ratio: 2/3;
+      background: var(--background, #ffffff);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      color: var(--foreground, #122845);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .gradient-wrapper {
+      width: min(88vw, 440px);
+      aspect-ratio: 2/3;
+      padding: 32px;
+      border-radius: 12px;
+      position: relative;
+    }
+    .gradient-glow {
+      position: absolute;
+      inset: -16px;
+      border-radius: 50%;
+      background: radial-gradient(circle, oklch(0.60 0.20 270) 0%, transparent 70%);
+      filter: blur(24px);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .author {
+      font-size: 0.875rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="gradient-wrapper">
+    <div class="gradient-glow"></div>
+    <div class="cover">
+      <div class="title">Code Complete</div>
+      <div class="author">Steve McConnell</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -17,7 +17,6 @@ import { filterPlayableTerms, prioritizeTermsForExam } from "@/lib/learning-plat
 import { defaultSrsProgress } from "@/lib/learning-platform/srs";
 import type {
   LearningMode,
-  Question,
   StudySession,
   StudySet,
   StudySettings,

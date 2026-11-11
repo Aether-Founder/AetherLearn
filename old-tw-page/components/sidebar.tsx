@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/i18n";
 

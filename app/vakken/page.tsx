@@ -252,7 +252,7 @@ export default function VakkenIndex() {
 
         // Check user's approval status for each secret subject
         if (user) {
-          const { data: accessData, error } = await supabase
+          const { data: accessData, error } = await (supabase as any)
             .from('secret_subject_access')
             .select('*')
             .eq('user_id', user.id)
@@ -486,7 +486,7 @@ export default function VakkenIndex() {
         localStorage.setItem(`aether-verified-codes:${user.id}`, JSON.stringify([...newVerifiedCodes]));
 
         // Create access request in Supabase
-        const { error: accessError } = await supabase
+        const { error: accessError } = await (supabase as any)
           .from('secret_subject_access')
           .insert({
             user_id: user.id,

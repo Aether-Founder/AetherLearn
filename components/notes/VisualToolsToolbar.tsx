@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { 
-  Network, 
-  Circle, 
-  PenTool, 
-  FileText
+import {
+  Network,
+  Circle,
+  PenTool,
+  FileText,
+  Download
 } from 'lucide-react';
 import DiagramEditor from './DiagramEditor';
 import MindMapEditor from './MindMapEditor';
@@ -18,6 +19,8 @@ interface VisualToolsToolbarProps {
   onAddMindMap: (mindMap: MindMap) => void;
   onAddDrawing: (drawing: Drawing) => void;
   onExportText: () => void;
+  onExportPDF: () => void;
+  onExportImage: (format: 'png' | 'jpg') => void;
 }
 
 export default function VisualToolsToolbar({
@@ -25,6 +28,8 @@ export default function VisualToolsToolbar({
   onAddMindMap,
   onAddDrawing,
   onExportText,
+  onExportPDF,
+  onExportImage,
 }: VisualToolsToolbarProps) {
   const [showDiagramDialog, setShowDiagramDialog] = useState(false);
   const [showMindMapDialog, setShowMindMapDialog] = useState(false);
@@ -109,6 +114,33 @@ export default function VisualToolsToolbar({
           >
             <FileText className="h-4 w-4" />
             TXT
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onExportPDF}
+            className="flex items-center gap-2"
+          >
+            <Download className="h-4 w-4" />
+            PDF
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onExportImage('png')}
+            className="flex items-center gap-2"
+          >
+            <Download className="h-4 w-4" />
+            PNG
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onExportImage('jpg')}
+            className="flex items-center gap-2"
+          >
+            <Download className="h-4 w-4" />
+            JPG
           </Button>
         </div>
       </div>

@@ -1,0 +1,567 @@
+/* ==========================================================================
+   Binas reader — ported 1:1 from the original `binas.html`.
+
+   Everything is scoped under `.binas-root` so the page can live inside the
+   AetherLearn app without hijacking the global design system.  The tokens use
+   a `--binas-` prefix, so app-wide Tailwind utilities (the back button, the
+   page header) keep the app's own colours.
+
+   The light/dark palettes are the originals.  The reader follows the app-wide
+   theme (the `dark` class on <html>); the `data-binas-theme` attribute is kept
+   as an override for the reader's own toggle.
+
+   The fonts are the app's own: `--font-sans` (Inter) and `--font-display`
+   (Cormorant Garamond) are inherited from the root layout, so the reader uses
+   exactly the same typefaces as the standalone HTML did.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. THEME TOKENS
+   ========================================================================== */
+.binas-root {
+  /* Use app's background and foreground for consistency with subject page */
+  --binas-background: var(--background);
+  --binas-foreground: var(--foreground);
+  --binas-card: #ffffff;
+  --binas-border: var(--border);
+  --binas-border-solid: var(--border);
+  --binas-muted: var(--muted);
+  --binas-muted-foreground: var(--muted-foreground);
+  --binas-secondary: var(--secondary);
+  --binas-secondary-foreground: var(--secondary-foreground);
+  --binas-primary: var(--primary);
+  --binas-primary-foreground: var(--primary-foreground);
+  --binas-primary-hover: var(--primary-hover);
+  --binas-code-bg: var(--code-bg);
+  --binas-focus-ring: var(--focus-ring);
+
+  --font-serif: var(--font-display), Georgia, Cambria, serif;
+}
+
+.binas-root[data-binas-theme='dark'],
+.dark .binas-root {
+  /* Use app's dark theme tokens */
+  --binas-background: var(--background);
+  --binas-foreground: var(--foreground);
+  --binas-card: var(--card);
+  --binas-border: var(--border);
+  --binas-border-solid: var(--border);
+  --binas-muted: var(--muted);
+  --binas-muted-foreground: var(--muted-foreground);
+  --binas-secondary: var(--secondary);
+  --binas-secondary-foreground: var(--secondary-foreground);
+  --binas-primary: var(--primary);
+  --binas-primary-foreground: var(--primary-foreground);
+  --binas-primary-hover: var(--primary-hover);
+  --binas-code-bg: var(--code-bg);
+  --binas-focus-ring: var(--focus-ring);
+}
+
+/* ==========================================================================
+   2. RESET & BASE
+   ========================================================================== */
+.binas-root *,
+.binas-root *::before,
+.binas-root *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.binas-root * {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.binas-root *::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.binas-root {
+  font-family: var(--font-sans);
+  color-scheme: light dark;
+  /* Don't override background - let app's background show through */
+  color: var(--binas-foreground);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  width: 100%;
+  overflow: hidden;
+  line-height: 1.6;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+
+  /* De lezer vult de resterende hoogte onder de app-navigatie.  De negatieve
+     marge heft de bottom-padding van AppShell's <main> op, zodat de pagina
+     exact één schermhoogte blijft en de PDF-lijst intern scrollt. */
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 4rem);
+  margin-bottom: -5rem;
+}
+
+@supports (height: 100dvh) {
+  .binas-root {
+    height: calc(100dvh - 4rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .binas-root {
+    margin-bottom: -6rem;
+  }
+}
+
+/* De koppen binnen de lezer gebruiken het serif van de app (Cormorant
+   Garamond).  De app-kop hierboven gebruikt de eigen Tailwind-klassen en
+   wordt daarom niet door een generieke h1/h2-regel overschreven. */
+.binas-root .tw-sidebar-title h2 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   3. ATOMS
+   ========================================================================== */
+.binas-root .btn-icon {
+  padding: 0.45rem;
+  border-radius: 4px;
+  border: 1px solid var(--binas-border);
+  background: transparent;
+  color: var(--binas-muted-foreground);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+  font-family: inherit;
+}
+
+.binas-root .btn-icon:hover {
+  color: var(--binas-foreground);
+  background-color: var(--binas-secondary);
+}
+
+.binas-root .btn-icon:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.binas-root .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: var(--binas-secondary);
+  color: var(--binas-foreground);
+  border: 1px solid var(--binas-border);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   4. APP LAYOUT
+   ========================================================================== */
+.binas-root .app-layout {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+}
+
+/* ==========================================================================
+   5. SIDEBAR  (Inhoudsopgave)
+   ========================================================================== */
+.binas-root .tw-sidebar {
+  flex-shrink: 0;
+  width: 320px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-right: 1px solid var(--binas-border);
+  background-color: var(--background);
+}
+
+@media (min-width: 1280px) {
+  .binas-root .tw-sidebar {
+    width: 340px;
+  }
+}
+
+@media (max-width: 720px) {
+  .binas-root .tw-sidebar {
+    width: 230px;
+  }
+}
+
+.binas-root .tw-sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.binas-root .tw-sidebar-title {
+  padding: 1.5rem 1.25rem 0.75rem 1.25rem;
+  flex-shrink: 0;
+}
+
+.binas-root .tw-sidebar-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.binas-root .tw-sidebar-title h2 {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--binas-foreground);
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* fold/unfold-all knop — compact, geen tekst */
+.binas-root .tw-fold-all {
+  flex-shrink: 0;
+  padding: 0.3rem;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--binas-muted-foreground);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.binas-root .tw-fold-all:hover {
+  color: var(--binas-foreground);
+  background-color: var(--binas-secondary);
+  border-color: var(--binas-border);
+}
+
+.binas-root .tw-fold-all svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.binas-root .tw-sidebar-search {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  font: inherit;
+  font-size: 12.5px;
+  background-color: var(--binas-card);
+  color: var(--binas-foreground);
+  border: 1px solid var(--binas-border);
+  border-radius: 4px;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.binas-root .tw-sidebar-search:focus {
+  border-color: var(--binas-primary);
+  box-shadow: 0 0 0 3px var(--binas-focus-ring);
+}
+
+.binas-root .tw-sidebar-search::placeholder {
+  color: var(--binas-muted-foreground);
+}
+
+.binas-root .tw-sidebar-nav {
+  flex: 1 1 auto;
+}
+
+.binas-root .tw-sidebar-nav-inner {
+  padding: 0 0.5rem 2rem 0.5rem;
+}
+
+.binas-root .tw-chapter {
+  width: 100%;
+  text-align: left;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.25rem;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  color: var(--binas-muted-foreground);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+  line-height: 1.4;
+}
+
+.binas-root .tw-chapter:hover {
+  background-color: var(--binas-secondary);
+  color: var(--binas-foreground);
+}
+
+.binas-root .tw-chapter.active {
+  background-color: var(--binas-secondary);
+  color: var(--binas-foreground);
+  font-weight: 600;
+}
+
+.binas-root .tw-chapter.active .tw-pg {
+  color: var(--binas-primary);
+}
+
+.binas-root .tw-chevron {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--binas-muted-foreground);
+  transition:
+    transform 0.2s ease,
+    color 0.15s ease;
+  transform: rotate(90deg);
+}
+
+.binas-root .tw-chapter.closed .tw-chevron {
+  transform: rotate(0deg);
+}
+
+.binas-root .tw-chapter:hover .tw-chevron {
+  color: var(--binas-foreground);
+}
+
+.binas-root .tw-chapter.no-children .tw-chevron {
+  visibility: hidden;
+}
+
+.binas-root .tw-label {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.binas-root .tw-pg {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--binas-muted-foreground);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.binas-root .tw-children {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.22s ease;
+}
+
+.binas-root .tw-children.closed {
+  grid-template-rows: 0fr;
+}
+
+.binas-root .tw-children > .tw-children-inner {
+  overflow: hidden;
+}
+
+.binas-root .tw-sub {
+  width: 100%;
+  text-align: left;
+  padding: 0.3rem 0.6rem 0.3rem 1.75rem;
+  border-radius: 0.25rem;
+  font-size: 12.5px;
+  font-weight: 400;
+  font-family: var(--font-sans);
+  color: var(--binas-muted-foreground);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+  line-height: 1.4;
+}
+
+.binas-root .tw-sub:hover {
+  background-color: var(--binas-secondary);
+  color: var(--binas-foreground);
+}
+
+.binas-root .tw-sub.active {
+  background-color: var(--binas-secondary);
+  color: var(--binas-foreground);
+  font-weight: 500;
+}
+
+.binas-root .tw-sub.active .tw-pg {
+  color: var(--binas-primary);
+}
+
+.binas-root .tw-sub[hidden],
+.binas-root .tw-chapter[hidden] {
+  display: none;
+}
+
+/* ==========================================================================
+   6. CONTENT COLUMN
+   ========================================================================== */
+.binas-root .content-col {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* De paginakop (terugknop + "Binas") gebruikt dezelfde Tailwind-klassen als
+   PageHeader op de vakkenpagina, en staat daarom boven de TOC. */
+
+/* ==========================================================================
+   7. PDF TOOLBAR
+   ========================================================================== */
+.binas-root .pdf-toolbar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  padding: 0.5rem 0.85rem;
+  border-bottom: 1px solid var(--binas-border);
+  background-color: var(--binas-background);
+}
+
+.binas-root .pdf-toolbar input[type='number'] {
+  font: inherit;
+  font-size: 12.5px;
+  padding: 0.4rem 0.55rem;
+  background-color: var(--binas-card);
+  color: var(--binas-foreground);
+  border: 1px solid var(--binas-border);
+  border-radius: 4px;
+  outline: none;
+  width: 76px;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.binas-root .pdf-toolbar input[type='number']:focus {
+  border-color: var(--binas-primary);
+  box-shadow: 0 0 0 3px var(--binas-focus-ring);
+}
+
+.binas-root .pdf-toolbar .spacer {
+  flex: 1 1 auto;
+}
+
+.binas-root .pdf-toolbar .btn-icon {
+  padding: 0.4rem 0.55rem;
+  font-size: 12px;
+}
+
+/* ==========================================================================
+   8. PDF VIEWER
+   ========================================================================== */
+.binas-root .pdf-wrap {
+  flex: 1 1 auto;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #4a5568;
+  padding: 1.25rem 0;
+  touch-action: pan-y;
+}
+
+.binas-root[data-binas-theme='dark'] .pdf-wrap,
+.dark .binas-root .pdf-wrap {
+  background-color: #0a0f1a;
+}
+
+.binas-root .pdf-container {
+  position: relative;
+}
+
+.binas-root .pdf-page {
+  margin: 0 auto 1rem;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.binas-root .pdf-page canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.binas-root .pdf-page .placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b6bdc7;
+  font-size: 13px;
+  font-family: var(--font-sans);
+}
+
+.binas-root .pdf-error {
+  color: #e5e7eb;
+  text-align: center;
+  padding: 3rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+
+/* ==========================================================================
+   9. FAB
+   ========================================================================== */
+.binas-root .scroll-top-fab {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 40;
+  padding: 0.55rem;
+  border-radius: 50%;
+  background-color: var(--binas-card);
+  border: 1px solid var(--binas-border);
+  color: var(--binas-foreground);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: none;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.binas-root .scroll-top-fab:hover {
+  background-color: var(--binas-secondary);
+}
+
+.binas-root .scroll-top-fab.show {
+  display: inline-flex;
+}

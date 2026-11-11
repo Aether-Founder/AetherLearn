@@ -1,0 +1,19 @@
+{
+  "id": "lean-startup",
+  "slug": "lean-startup",
+  "title": "The Lean Startup",
+  "author": "Eric Ries",
+  "description": "How today's entrepreneurs use continuous innovation to create radically successful businesses. Learn about validated learning and the build-measure-learn cycle.",
+  "topic": "business",
+  "languages": ["en", "nl"],
+  "formats": ["concise", "detailed"],
+  "readingTime": {
+    "concise": 15,
+    "detailed": 40
+  },
+  "cover": {
+    "type": "html",
+    "html": "<div style=\"width: 100%; height: 100%; background: var(--background); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; color: var(--foreground); font-family: 'Cormorant Garamond', Georgia, serif; box-sizing: border-box; overflow: hidden;\"><link href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap\" rel=\"stylesheet\"><div style=\"font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; line-height: 1.2;\">The Lean Startup</div><div style=\"font-size: 0.875rem; font-weight: 400; opacity: 0.9;\">Eric Ries</div></div>"
+  },
+  "collections": ["business", "entrepreneurship", "essential"],
+}
