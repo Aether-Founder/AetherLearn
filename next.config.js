@@ -1,4 +1,23 @@
 /** @type {import('next').NextConfig} */
+
+// Build-time env diagnostics. NEXT_PUBLIC_* vars are inlined into the client
+// bundle during `next build`, so this output appears in the Vercel build logs
+// and proves whether Supabase config was present when the bundle was compiled.
+console.log(
+  '[env-check] NEXT_PUBLIC_SUPABASE_URL:',
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 'MISSING'
+);
+console.log(
+  '[env-check] NEXT_PUBLIC_SUPABASE_ANON_KEY:',
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    ? `set (length ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.length})`
+    : 'MISSING'
+);
+console.log(
+  '[env-check] SUPABASE_SERVICE_ROLE_KEY:',
+  process.env.SUPABASE_SERVICE_ROLE_KEY ? 'set' : 'MISSING'
+);
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
