@@ -96,6 +96,27 @@ export interface PracticeTest {
 
 const CONTENT_DIR = path.join(process.cwd(), 'content');
 
+/**
+ * Resolve the on-disk subject directory for a subjectId/slug.
+ * Subject ids in URLs may differ in case from the folder names
+ * (e.g. /vakken/Natuurkunde vs content/subjects/natuurkunde),
+ * so match directory names case-insensitively.
+ */
+function resolveSubjectDir(subjectId: string): string {
+  const subjectsDir = path.join(CONTENT_DIR, 'subjects');
+  try {
+    const match = fs
+      .readdirSync(subjectsDir, { withFileTypes: true })
+      .filter((d) => d.isDirectory())
+      .map((d) => d.name)
+      .find((name) => name.toLowerCase() === subjectId.toLowerCase());
+    if (match) return path.join(subjectsDir, match);
+  } catch {
+    // fall through to the literal path
+  }
+  return path.join(subjectsDir, subjectId);
+}
+
 export async function loadAllSubjects(): Promise<Subject[]> {
   try {
     const indexPath = path.join(CONTENT_DIR, 'subjects', 'index.json');
@@ -112,9 +133,9 @@ export async function loadAllSubjects(): Promise<Subject[]> {
 export async function loadSubject(subjectId: string): Promise<Subject | null> {
   try {
     // First, try to load from the subject-specific JSON file which has mastery data
-    const subjectPath = path.join(CONTENT_DIR, 'subjects', subjectId, 'subject.json');
-    if (fs.existsSync(subjectPath)) {
-      const subjectContent = fs.readFileSync(subjectPath, 'utf-8');
+    const subjectJsonPath = path.join(resolveSubjectDir(subjectId), 'subject.json');
+    if (fs.existsSync(subjectJsonPath)) {
+      const subjectContent = fs.readFileSync(subjectJsonPath, 'utf-8');
       return JSON.parse(subjectContent);
     }
 
@@ -123,7 +144,11 @@ export async function loadSubject(subjectId: string): Promise<Subject | null> {
     const indexContent = fs.readFileSync(indexPath, 'utf-8');
     const indexData = JSON.parse(indexContent);
 
-    const subject = indexData.subjects?.find((s: Subject) => s.id === subjectId || s.slug === subjectId);
+    const subject = indexData.subjects?.find(
+      (s: Subject) =>
+        s.id.toLowerCase() === subjectId.toLowerCase() ||
+        s.slug.toLowerCase() === subjectId.toLowerCase()
+    );
     return subject || null;
   } catch (error) {
     console.error(`Error loading subject ${subjectId}:`, error);
@@ -133,7 +158,7 @@ export async function loadSubject(subjectId: string): Promise<Subject | null> {
 
 export async function loadChapters(subjectId: string): Promise<Chapter[]> {
   try {
-    const chaptersDir = path.join(CONTENT_DIR, 'subjects', subjectId, 'chapters');
+    const chaptersDir = path.join(resolveSubjectDir(subjectId), 'chapters');
     const chapterDirs = fs.readdirSync(chaptersDir);
 
     const chapters: Chapter[] = [];
@@ -157,9 +182,7 @@ export async function loadLearningSet(
 ): Promise<LearningSet | null> {
   try {
     const filePath = path.join(
-      CONTENT_DIR,
-      'subjects',
-      subjectId,
+      resolveSubjectDir(subjectId),
       'chapters',
       chapterId,
       'learning-sets',
@@ -180,9 +203,7 @@ export async function loadQuiz(
 ): Promise<Quiz | null> {
   try {
     const filePath = path.join(
-      CONTENT_DIR,
-      'subjects',
-      subjectId,
+      resolveSubjectDir(subjectId),
       'chapters',
       chapterId,
       'quizzes',
@@ -203,9 +224,7 @@ export async function loadSummary(
 ): Promise<Summary | null> {
   try {
     const filePath = path.join(
-      CONTENT_DIR,
-      'subjects',
-      subjectId,
+      resolveSubjectDir(subjectId),
       'chapters',
       chapterId,
       'summaries',
@@ -226,9 +245,7 @@ export async function loadPracticeTest(
 ): Promise<PracticeTest | null> {
   try {
     const filePath = path.join(
-      CONTENT_DIR,
-      'subjects',
-      subjectId,
+      resolveSubjectDir(subjectId),
       'chapters',
       chapterId,
       'practice-tests',
@@ -248,9 +265,7 @@ export async function loadParagraphs(
 ): Promise<Paragraph[]> {
   try {
     const paragraphsDir = path.join(
-      CONTENT_DIR,
-      'subjects',
-      subjectId,
+      resolveSubjectDir(subjectId),
       'chapters',
       chapterId,
       'paragraphs'

@@ -51,25 +51,8 @@ function getBrowserConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  // Detailed diagnostics: NEXT_PUBLIC_* vars are inlined at build time, so
-  // these values reflect what Vercel had configured when `next build` ran.
-  console.info('[supabase] browser config check', {
-    hasUrl: Boolean(url),
-    hasAnonKey: Boolean(anonKey),
-    url: url ?? null,
-    anonKeyPrefix: anonKey ? `${anonKey.slice(0, 10)}…` : null,
-    anonKeyLength: anonKey?.length ?? 0,
-    isPlaceholderFallback: !url || !anonKey,
-  });
-
   // Return early if env vars are missing (allows build to succeed)
   if (!url || !anonKey) {
-    console.warn(
-      '⚠️  Supabase environment variables not configured in browser client.',
-      'NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY must be set in Vercel ' +
-        'for the environment being built, followed by a redeploy (they are inlined at build time).'
-    );
-    // Return placeholder values that will fail gracefully when used
     return { url: 'https://placeholder.supabase.co', anonKey: 'placeholder' };
   }
 
