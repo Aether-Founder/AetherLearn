@@ -49,6 +49,11 @@ const nextConfig = {
   images: {
     domains: ['localhost'],
   },
+  experimental: {
+    // Rewrites named imports from large packages to direct module imports,
+    // significantly shrinking the client bundle (lucide-react ships ~1500 icons).
+    optimizePackageImports: ['lucide-react'],
+  },
   env: {
     NEXT_PUBLIC_SUPABASE_URL: resolvedSupabaseUrl,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: resolvedSupabaseAnonKey,
@@ -66,6 +71,11 @@ try {
     skipWaiting: true,
     disable: process.env.NODE_ENV === 'development',
     buildExcludes: [/middleware-manifest-json$/],
+    // public/binas holds ~413 MB of PDF chunks. Precached files are fully
+    // downloaded on first visit, which saturated the network and left
+    // first-time visitors staring at a blank background. They stay
+    // NetworkOnly via the runtimeCaching rule below.
+    publicExcludes: ['!noprecache/**/*', '!binas/**'],
     workboxOptions: {
       disableDevLogs: true,
       runtimeCaching: [

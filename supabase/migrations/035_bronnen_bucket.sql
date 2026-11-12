@@ -1,11 +1,12 @@
 -- Create bronnen storage bucket for subject resource files (PDFs, videos, etc.)
 -- Public bucket: files are downloadable/previewable by anyone with the link
+--
+-- NOTE: storage.objects is managed by Supabase and already has RLS enabled,
+-- so no ALTER TABLE is needed (it fails with "must be owner of table objects").
 
 INSERT INTO storage.buckets (id, name, public)
 VALUES ('bronnen', 'bronnen', true)
 ON CONFLICT (id) DO NOTHING;
-
-ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
 
 -- Anyone can read/list public bronnen files
 CREATE POLICY "Public read bronnen"

@@ -3,13 +3,25 @@
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
+// The skeleton should only appear on a genuine first page load. Client-side
+// navigations (tab switches, links) reuse this module, so after the first
+// render we return null and the previous page simply stays until the new
+// one is ready.
+let hasShownInitialLoader = false;
+
 export default function Loading() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isInitialLoad] = useState(() => !hasShownInitialLoader);
 
   useEffect(() => {
+    hasShownInitialLoader = true;
     setMounted(true);
   }, []);
+
+  if (!isInitialLoad) {
+    return null;
+  }
 
   if (!mounted) {
     return (
