@@ -7,12 +7,12 @@ import { useWorkspaceStore, type WorkspaceItem } from '@/store/useWorkspaceStore
 import { OfflineStorage, LocalNote } from '@/lib/offline/storage';
 import { ChevronDown, ChevronRight, Edit, Eye, FolderPlus, Plus, Type, SpellCheck } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
-import { marked } from 'marked';
+import dynamic from 'next/dynamic';
 import VisualToolsToolbar from '@/components/notes/VisualToolsToolbar';
 import { Diagram, MindMap, Drawing } from '@/types/filesystem';
-import DiagramEditor from '@/components/notes/DiagramEditor';
-import MindMapEditor from '@/components/notes/MindMapEditor';
-import DrawingEditor from '@/components/notes/DrawingEditor';
+const DiagramEditor = dynamic(() => import('@/components/notes/DiagramEditor'), { ssr: false });
+const MindMapEditor = dynamic(() => import('@/components/notes/MindMapEditor'), { ssr: false });
+const DrawingEditor = dynamic(() => import('@/components/notes/DrawingEditor'), { ssr: false });
 import { exportNoteAsText, exportNoteAsPDF, exportNoteAsImage } from '@/utils/noteExportUtils';
 import { useFilesystem } from '@/hooks/useFilesystem';
 import { filesystemService } from '@/lib/filesystem/filesystemService';
@@ -761,6 +761,7 @@ function EditorPanel() {
   const handlePaste = async (event: React.ClipboardEvent) => {
     event.preventDefault();
     const text = event.clipboardData.getData('text/plain');
+    const { marked } = await import('marked');
     const html = await marked.parse(text);
     document.execCommand('insertHTML', false, html);
   };

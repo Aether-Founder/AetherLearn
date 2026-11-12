@@ -3,8 +3,6 @@
  */
 
 import { Drawing, Diagram, MindMap } from '@/types/filesystem';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 
 export interface NoteExportOptions {
   format: 'txt' | 'pdf' | 'png' | 'jpg';
@@ -68,6 +66,8 @@ export async function exportNoteAsPDF(
   filename: string
 ): Promise<void> {
   try {
+    const { default: html2canvas } = await import('html2canvas');
+    const { jsPDF } = await import('jspdf');
     const canvas = await html2canvas(element, {
       scale: 2,
       useCORS: true,
@@ -109,6 +109,7 @@ export async function exportNoteAsImage(
   format: 'png' | 'jpg'
 ): Promise<void> {
   try {
+    const { default: html2canvas } = await import('html2canvas');
     const canvas = await html2canvas(element, {
       scale: 2,
       useCORS: true,
