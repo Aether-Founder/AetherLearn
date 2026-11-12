@@ -105,7 +105,7 @@ After thorough comparison with UI-REFERENCE-2, I've verified that our project **
 - Hover: `hover:bg-secondary/50`
 - Border radius: `rounded-lg` (12px) on container
 
-**Location:** `app/vakken/page.tsx`
+**Location:** `app/subjects/page.tsx`
 
 **Verification:**
 
@@ -113,7 +113,7 @@ After thorough comparison with UI-REFERENCE-2, I've verified that our project **
 <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
   {SUBJECTS.map((s) => (
     <Link
-      href={`/vakken/${s.slug}`}
+      href={`/subjects/${s.slug}`}
       className="bg-background p-6 transition-colors hover:bg-secondary/50"
     >
       {/* Card content */}
@@ -227,18 +227,18 @@ export function Chip({
 ### All Pages Verified
 
 - ✅ `/` (Homepage) - Dashboard with stats, chips, study rhythm
-- ✅ `/vakken` - Subject grid with cards
-- ✅ `/vakken/[slug]` - Subject detail/folder view
+- ✅ `/subjects` - Subject grid with cards
+- ✅ `/subjects/[slug]` - Subject detail/folder view
 - ✅ `/agenda` - Calendar with filters
-- ✅ `/cijfers` - Grades table
-- ✅ `/cijfers/[subject]` - Subject grades
+- ✅ `/grades` - Grades table
+- ✅ `/grades/[subject]` - Subject grades
 - ✅ `/planner` - Kanban board
-- ✅ `/notities` - Notes list
+- ✅ `/notes` - Notes list
 - ✅ `/decks` - Deck review
-- ✅ `/lessen` - Lessons grid
-- ✅ `/groepen` - Groups list
-- ✅ `/statistieken` - Statistics dashboard
-- ✅ `/instellingen` - Settings page
+- ✅ `/lessons` - Lessons grid
+- ✅ `/groups` - Groups list
+- ✅ `/statistics` - Statistics dashboard
+- ✅ `/settings` - Settings page
 
 ---
 

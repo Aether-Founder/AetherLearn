@@ -15,9 +15,9 @@ export default function LeerplatformLayout({
 
   const navLinks = [
     { href: '/leerplatform', label: 'Overzicht' },
-    { href: '/leerplatform/vakken', label: 'Vakken' },
+    { href: '/leerplatform/subjects', label: 'Vakken' },
     { href: '/leerplatform/kalender', label: 'Kalender' },
-    { href: '/leerplatform/lessen', label: 'Lessen' },
+    { href: '/leerplatform/lessons', label: 'Lessen' },
   ];
 
   const isActive = (href: string) => {

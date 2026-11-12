@@ -69,7 +69,7 @@ export function SearchField({
       />
       {showMoreResults && val.length >= 2 && (
         <Link
-          href="/zoeken"
+          href="/search"
           className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-primary hover:underline"
         >
           Meer resultaten
@@ -197,7 +197,7 @@ function QuickCreateMenu() {
       {open && (
         <div className="absolute right-0 top-full z-40 mt-2 w-48 rounded-md border border-border bg-background p-1 shadow-xl">
           <Link
-            href="/create/leerlijst"
+            href="/create/learning-list"
             onClick={() => setOpen(false)}
             className="flex items-center gap-2 rounded-[6px] px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground text-muted-foreground"
           >
@@ -224,7 +224,7 @@ function QuickCreateMenu() {
                 workspace.setSelectedId(newId);
               }
               setOpen(false);
-              window.location.href = '/notities';
+              window.location.href = '/notes';
             }}
             className="flex items-center gap-2 rounded-[6px] px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground text-muted-foreground w-full text-left"
           >
@@ -283,7 +283,7 @@ function UserMenu() {
       {open && (
         <div className="absolute right-0 top-full z-40 mt-2 w-48 rounded-md border border-border bg-background p-1 shadow-xl">
           <Link
-            href="/instellingen"
+            href="/settings"
             onClick={() => setOpen(false)}
             className="flex items-center gap-2 rounded-md px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground"
           >
@@ -291,7 +291,7 @@ function UserMenu() {
             Instellingen
           </Link>
           <Link
-            href="/instellingen"
+            href="/settings"
             onClick={() => setOpen(false)}
             className="flex items-center gap-2 rounded-md px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground"
           >

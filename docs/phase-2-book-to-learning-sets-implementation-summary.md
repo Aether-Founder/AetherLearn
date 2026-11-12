@@ -115,7 +115,7 @@ This document summarizes the completion of Phase 2 (Connect Books to Learning Se
   - source_chapters: selected chapter IDs
   - source_language: selected language
 - Inserts flashcards with study_set_id, question, answer, number, order_index
-- Navigates to `/leersets/{study_set_id}`
+- Navigates to `/study-sets/{study_set_id}`
 
 ### 6. Book Detail Page Integration ✅
 
@@ -171,7 +171,7 @@ AetherLearn/
 10. User clicks "Save as Learning Set"
 11. System creates study_set with source metadata
 12. System inserts flashcards into flashcards table
-13. User is navigated to study set page (`/leersets/{id}`)
+13. User is navigated to study set page (`/study-sets/{id}`)
 14. User can now study using existing study modes
 
 ---

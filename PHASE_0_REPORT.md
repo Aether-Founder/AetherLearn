@@ -13,7 +13,7 @@
      - `app/admin/agenda-events/page.tsx` - Changed `date` to `startDate`/`endDate`
      - `app/admin/secret-subjects/page.tsx` - Added type assertions for Supabase queries
      - `app/daily-quiz/page.tsx` - Fixed LearningSet interface and lastStudied type checking
-     - `app/vakken/page.tsx` - Added type assertions for Supabase queries
+     - `app/subjects/page.tsx` - Added type assertions for Supabase queries
    - Ran `npm run lint:fix` to auto-fix auto-fixable issues
    - Remaining warnings are in old-tw-page (deprecated) and scripts (intentional)
 
@@ -202,7 +202,7 @@
 ### ✅ Resolved:
 1. **Visual artifacts not restored when loading notes**
    - Fixed: Added useEffect to load visual artifacts from filesystem when note loads
-   - Location: `app/notities/page.tsx` (lines 897-923)
+   - Location: `app/notes/page.tsx` (lines 897-923)
 
 ### Medium Priority (Non-blocking):
 1. **Deprecated packages**
@@ -274,8 +274,8 @@
 1. `app/admin/agenda-events/page.tsx` - Fixed date field
 2. `app/admin/secret-subjects/page.tsx` - Added type assertions
 3. `app/daily-quiz/page.tsx` - Fixed LearningSet interface
-4. `app/vakken/page.tsx` - Added type assertions
-5. `app/notities/page.tsx` - Added visual artifacts restoration, enhanced export functionality
+4. `app/subjects/page.tsx` - Added type assertions
+5. `app/notes/page.tsx` - Added visual artifacts restoration, enhanced export functionality
 6. `components/notes/VisualToolsToolbar.tsx` - Added PDF, PNG, JPG export buttons
 7. `lib/filesystem/filesystemService.ts` - Added createShortcut method
 8. `hooks/useFilesystem.ts` - Added createShortcut hook method

@@ -92,14 +92,14 @@ function Index() {
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
-              to="/vakken/$"
+              to="/subjects/$"
               params={{ _splat: "natuurkunde/mechanica/arbeid-energie" }}
               className="inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
             >
               Start oefensessie
             </Link>
             <Link
-              to="/vakken"
+              to="/subjects"
               className="inline-flex h-10 items-center rounded-md border border-border px-5 text-sm font-medium transition-colors hover:bg-secondary"
             >
               Bekijk vakken
@@ -167,7 +167,7 @@ function Index() {
                     <span className="text-xs tabular-nums text-muted-foreground">{s.due} te doen</span>
                   )}
                   <Link
-                    to="/vakken/$"
+                    to="/subjects/$"
                     params={{ _splat: s.slug }}
                     className="inline-flex h-8 items-center rounded-md border border-border px-3 text-xs font-medium transition-colors hover:bg-secondary"
                   >
@@ -182,7 +182,7 @@ function Index() {
             <SectionTitle
               action={
                 <Link
-                  to="/lessen"
+                  to="/lessons"
                   className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
                 >
                   Alle lessen

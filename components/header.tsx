@@ -192,7 +192,7 @@ export function Header({
               const pathParts = window.location.pathname.split('/');
               if (pathParts.length >= 3 && (pathParts[1] === 'leer' || pathParts[1] === 'vakken')) {
                 const subjectId = pathParts[2];
-                window.location.href = `/vakken/${encodeURIComponent(subjectId)}`;
+                window.location.href = `/subjects/${encodeURIComponent(subjectId)}`;
               } else {
                 // Fallback to dashboard
                 window.location.href = '/';

@@ -531,7 +531,7 @@ export default function Home() {
                             {s.dueCount || 0} te herhalen
                           </span>
                           <Link
-                            href={`/vakken/${s.id}`}
+                            href={`/subjects/${s.id}`}
                             className="inline-flex h-8 items-center rounded-md border border-border px-3 text-xs font-medium transition-colors hover:bg-secondary"
                           >
                             Openen
@@ -555,7 +555,7 @@ export default function Home() {
                 <SectionTitle
                   action={
                     <Link
-                      href="/lessen"
+                      href="/lessons"
                       className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
                     >
                       Alle lessen
@@ -673,7 +673,7 @@ export default function Home() {
                   Zet aantekeningen om in een studieset en oefen er direct mee.
                 </p>
                 <Link
-                  href="/create/leerlijst"
+                  href="/create/learning-list"
                   className="mt-4 h-9 w-full rounded-md bg-primary text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 inline-flex items-center justify-center gap-2"
                 >
                   <Plus className="h-4 w-4" />

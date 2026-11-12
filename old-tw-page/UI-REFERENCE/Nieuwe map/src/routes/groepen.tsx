@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, PageHeader } from "@/components/AppShell";
 import { GROUPS } from "@/lib/aether-data";
 
-export const Route = createFileRoute("/groepen")({
+export const Route = createFileRoute("/groups")({
   head: () => ({
     meta: [
       { title: "Groepen — Aether" },

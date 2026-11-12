@@ -77,7 +77,7 @@ export default function FolderDetailPage() {
           >
             Map niet gevonden
           </h1>
-          <Link href="/leerplatform/vakken">
+          <Link href="/leerplatform/subjects">
             <Button className="bg-purple-600 hover:bg-purple-700">
               Terug naar mappen
             </Button>
@@ -95,7 +95,7 @@ export default function FolderDetailPage() {
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 mb-8 text-sm text-gray-600">
         <Link
-          href="/leerplatform/vakken"
+          href="/leerplatform/subjects"
           className="flex items-center gap-1 hover:text-purple-600 transition-colors"
         >
           <Home className="w-4 h-4" />
@@ -108,7 +108,7 @@ export default function FolderDetailPage() {
               <span className="text-purple-600 font-medium">{f.name}</span>
             ) : (
               <Link
-                href={`/leerplatform/vakken/${f.id}`}
+                href={`/leerplatform/subjects/${f.id}`}
                 className="hover:text-purple-600 transition-colors"
               >
                 {f.name}
@@ -181,7 +181,7 @@ export default function FolderDetailPage() {
               </h2>
               <div className="grid grid-cols-3 gap-6">
                 {subFolders.map((subFolder) => (
-                  <Link key={subFolder.id} href={`/leerplatform/vakken/${subFolder.id}`}>
+                  <Link key={subFolder.id} href={`/leerplatform/subjects/${subFolder.id}`}>
                     <Card className="border-2 hover:border-purple-400 transition-all cursor-pointer">
                       <CardContent className="p-6">
                         <div className="flex items-center gap-3">

@@ -89,16 +89,16 @@ export async function middleware(req: NextRequest) {
   const isProtectedRoute =
     req.nextUrl.pathname === '/dashboard' ||
     req.nextUrl.pathname.startsWith('/dashboard') ||
-    req.nextUrl.pathname.startsWith('/vakken') ||
+    req.nextUrl.pathname.startsWith('/subjects') ||
     req.nextUrl.pathname.startsWith('/agenda') ||
     req.nextUrl.pathname.startsWith('/calendar') ||
-    req.nextUrl.pathname.startsWith('/lessen') ||
-    req.nextUrl.pathname.startsWith('/leersets') ||
+    req.nextUrl.pathname.startsWith('/lessons') ||
+    req.nextUrl.pathname.startsWith('/study-sets') ||
     req.nextUrl.pathname.startsWith('/planner') ||
-    req.nextUrl.pathname.startsWith('/statistieken') ||
-    req.nextUrl.pathname.startsWith('/groepen') ||
-    req.nextUrl.pathname.startsWith('/notities') ||
-    req.nextUrl.pathname.startsWith('/instellingen') ||
+    req.nextUrl.pathname.startsWith('/statistics') ||
+    req.nextUrl.pathname.startsWith('/groups') ||
+    req.nextUrl.pathname.startsWith('/notes') ||
+    req.nextUrl.pathname.startsWith('/settings') ||
     req.nextUrl.pathname.startsWith('/admin');
 
   // If user is not logged in and trying to access protected route

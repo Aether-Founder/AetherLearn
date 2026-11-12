@@ -466,7 +466,7 @@ export default function ArtisanPage() {
                 </div>
                 {uploadState.resultDeckId && (
                   <a
-                    href={`/leersets/${uploadState.resultDeckId}`}
+                    href={`/study-sets/${uploadState.resultDeckId}`}
                     className="inline-block h-10 px-6 py-3 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
                   >
                     Bekijk leerset
@@ -555,7 +555,7 @@ export default function ArtisanPage() {
                     </span>
                     {item.status === 'completed' && item.result_deck_id && (
                       <a
-                        href={`/leersets/${item.result_deck_id}`}
+                        href={`/study-sets/${item.result_deck_id}`}
                         className="h-8 px-4 py-2 bg-primary text-primary-foreground text-sm rounded-md hover:opacity-90 transition-opacity"
                       >
                         Bekijk

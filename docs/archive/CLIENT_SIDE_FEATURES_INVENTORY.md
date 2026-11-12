@@ -52,7 +52,7 @@ This document lists all client-side browser APIs used throughout the codebase th
 - Storing agenda events
   **SSR Impact**: MEDIUM - Needs proper guards
 
-#### app/vakken/page.tsx
+#### app/subjects/page.tsx
 
 **Lines**: 130, 134, 138, 240
 **Usage**:
@@ -61,7 +61,7 @@ This document lists all client-side browser APIs used throughout the codebase th
 - Grade setup completion tracking
   **SSR Impact**: MEDIUM - Needs proper guards
 
-#### app/notities/page.tsx
+#### app/notes/page.tsx
 
 **Lines**: 190, 191, 264
 **Usage**:
@@ -229,13 +229,13 @@ The following files store authentication tokens in localStorage (security concer
 **Usage**: `window.confirm()`
 **SSR Impact**: LOW - Already in event handler
 
-#### app/vakken/[subjectId]/[chapterId]/page.tsx
+#### app/subjects/[subjectId]/[chapterId]/page.tsx
 
 **Line**: 239
 **Usage**: `window.confirm()`
 **SSR Impact**: LOW - Already in event handler
 
-#### app/notities/page.tsx
+#### app/notes/page.tsx
 
 **Lines**: 68, 173, 205, 237, 239, 247
 **Usage**: setTimeout, getSelection
@@ -347,7 +347,7 @@ The following files store authentication tokens in localStorage (security concer
 **Usage**: Creating and removing links for downloads
 **SSR Impact**: LOW - Only in event handlers
 
-#### app/notities/page.tsx
+#### app/notes/page.tsx
 
 **Lines**: 170, 227, 229, 252, 254
 **Usage**: Range selection, execCommand
@@ -530,8 +530,8 @@ The following files store authentication tokens in localStorage (security concer
 
 1. **app/dashboard/page.tsx** - Add `typeof window !== 'undefined'` guards
 2. **app/agenda/page.tsx** - Add `typeof window !== 'undefined'` guards
-3. **app/vakken/page.tsx** - Add `typeof window !== 'undefined'` guards
-4. **app/notities/page.tsx** - Add `typeof window !== 'undefined'` guards
+3. **app/subjects/page.tsx** - Add `typeof window !== 'undefined'` guards
+4. **app/notes/page.tsx** - Add `typeof window !== 'undefined'` guards
 5. **app/[page]/page.tsx** - Add `typeof window !== 'undefined'` guards
 6. **components/learning-platform/StandaloneLearningPlatform.tsx** - Add comprehensive guards
 

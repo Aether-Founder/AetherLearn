@@ -286,7 +286,7 @@ export default function DecksPage() {
   };
 
   const openCreateSetDialog = () => {
-    router.push('/create/leerlijst');
+    router.push('/create/learning-list');
   };
 
   const openCreateCardDialog = () => {
@@ -296,7 +296,7 @@ export default function DecksPage() {
   };
 
   const openEditSetDialog = (set: StudySet) => {
-    router.push(`/leersets/edit/${set.id}`);
+    router.push(`/study-sets/edit/${set.id}`);
   };
 
   const openEditCardDialog = (card: Flashcard) => {
@@ -456,7 +456,7 @@ export default function DecksPage() {
                 Kaart toevoegen
               </Button>
               {selectedSet.subject && (
-                <Link href={`/vakken/${selectedSet.subject.id}`}>
+                <Link href={`/subjects/${selectedSet.subject.id}`}>
                   <Button variant="outline" size="sm">
                     <BookOpen className="mr-2 h-4 w-4" />
                     Bekijk in Vakken

@@ -84,7 +84,7 @@ export default function Leersets() {
       )}
 
       <TouchableOpacity style={styles.addButton}>
-        <Link href="/create/leerlijst" asChild>
+        <Link href="/create/learning-list" asChild>
           <Text style={styles.addButtonText}>+ Nieuwe leerlijst</Text>
         </Link>
       </TouchableOpacity>

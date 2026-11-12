@@ -37,7 +37,7 @@ interface OnboardingPreferencesProps {
  */
 export function OnboardingPreferences({
   onComplete,
-  skipUrl = '/vakken',
+  skipUrl = '/subjects',
   className = '',
 }: OnboardingPreferencesProps) {
   const router = useRouter();

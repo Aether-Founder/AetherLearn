@@ -124,8 +124,8 @@ export default function RegisterPage() {
         {/* Show onboarding after successful registration */}
         {showOnboarding ? (
           <OnboardingPreferences
-            onComplete={() => router.push('/vakken')}
-            skipUrl="/vakken"
+            onComplete={() => router.push('/subjects')}
+            skipUrl="/subjects"
           />
         ) : (
           <>

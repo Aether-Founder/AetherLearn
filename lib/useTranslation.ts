@@ -7,7 +7,7 @@ type TParams = Record<string, string | number>;
 
 export function useTranslation() {
   const [i18nInstance, setI18nInstance] = useState<any>(null);
-  const [currentLanguage, setCurrentLanguage] = useState<Language>('nl');
+  const [currentLanguage, setCurrentLanguage] = useState<Language>('en');
   const [translationsReady, setTranslationsReady] = useState(false);
 
   useEffect(() => {

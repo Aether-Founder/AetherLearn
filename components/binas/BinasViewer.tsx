@@ -817,7 +817,7 @@ export default function BinasViewer() {
         description="De volledige Binas (Zesde editie)."
         action={
           <Link
-            href="/vakken/scheikunde"
+            href="/subjects/scheikunde"
             className="mt-2 p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0 inline-flex items-center justify-center"
             title="Terug naar scheikunde"
             aria-label="Terug naar scheikunde"

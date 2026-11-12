@@ -235,7 +235,7 @@ export function StudySetEditorView({
         if (onSaved && localStudySet.id) {
           onSaved(localStudySet.id);
         } else {
-          router.push('/leersets');
+          router.push('/study-sets');
         }
         return;
       }
@@ -310,7 +310,7 @@ export function StudySetEditorView({
       if (onSaved && targetSetId) {
         onSaved(targetSetId);
       } else {
-        router.push('/leersets');
+        router.push('/study-sets');
       }
     } catch (err: any) {
       console.error('Failed to save deck:', err);

@@ -60,7 +60,7 @@
 
 ---
 
-## Vakken Page (`/vakken`)
+## Vakken Page (`/subjects`)
 
 ### ✅ Functional Features
 
@@ -74,7 +74,7 @@
 
 ### ⚠️ Non-Functional/Placeholder Features
 
-- **Subject Detail Pages**: `/vakken/{slug}` routes may not be implemented
+- **Subject Detail Pages**: `/subjects/{slug}` routes may not be implemented
 - **Progress Calculation**: Shows 0% by default, needs actual progress logic
 - **Folder/Set Creation**: No UI to create folders or sets yet
 
@@ -103,7 +103,7 @@
 
 ---
 
-## Cijfers Page (`/cijfers`)
+## Cijfers Page (`/grades`)
 
 ### ✅ Functional Features
 
@@ -212,7 +212,7 @@
 
 ---
 
-## Lessen Page (`/lessen`)
+## Lessen Page (`/lessons`)
 
 ### ✅ Functional Features
 
@@ -229,7 +229,7 @@
 
 ---
 
-## Groepen Page (`/groepen`)
+## Groepen Page (`/groups`)
 
 ### ✅ Functional Features
 
@@ -246,7 +246,7 @@
 
 ---
 
-## Statistieken Page (`/statistieken`)
+## Statistieken Page (`/statistics`)
 
 ### ✅ Functional Features
 
@@ -261,7 +261,7 @@
 
 ---
 
-## Instellingen Page (`/instellingen`)
+## Instellingen Page (`/settings`)
 
 ### ✅ Functional Features
 
@@ -283,7 +283,7 @@
 - **Notification Settings**: UI exists but not functional (coming soon)
 - **Password Change**: Button exists but not implemented
 
-## Statistieken Page (`/statistieken`)
+## Statistieken Page (`/statistics`)
 
 ### ✅ Functional Features
 
@@ -304,7 +304,7 @@
 - **Comparisons**: No comparison with other users or benchmarks
 - **Goals**: No goal setting or tracking
 
-## Zoeken Page (`/zoeken`)
+## Zoeken Page (`/search`)
 
 ### ✅ Functional Features
 
@@ -325,7 +325,7 @@
 - **Search History**: No search history or saved searches
 - **Global Search**: Only searches user's own content
 
-## Lessen Page (`/lessen`)
+## Lessen Page (`/lessons`)
 
 ### ✅ Functional Features
 
@@ -351,7 +351,7 @@
 
 ---
 
-## Notities Page (`/notities`)
+## Notities Page (`/notes`)
 
 ### ✅ Functional Features
 
@@ -386,8 +386,8 @@
 ### ✅ Functional Features
 
 - **Profile Menu**: Click on profile avatar to open dropdown
-- **Settings Link**: Links to /instellingen
-- **Edit Profile Link**: Links to /instellingen
+- **Settings Link**: Links to /settings
+- **Edit Profile Link**: Links to /settings
 - **Theme Toggle**: Dark/light mode toggle functionality
 - **Click Outside**: Closes menu when clicking outside
 - **Avatar Display**: Shows user avatar if uploaded, otherwise shows initials

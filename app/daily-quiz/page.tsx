@@ -81,7 +81,7 @@ export default function DailyQuizPage() {
             </p>
 
             <Link
-              href="/create/leerlijst"
+              href="/create/learning-list"
               className="mt-6 inline-flex h-10 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
             >
               Nieuwe leerset
@@ -94,7 +94,7 @@ export default function DailyQuizPage() {
             {sets.map((set) => (
               <Link
                 key={set.id}
-                href={`/leersets/${set.id}`}
+                href={`/study-sets/${set.id}`}
                 className="group relative rounded-xl border border-border bg-card p-5 shadow-sm transition-all hover:border-primary/50 hover:shadow-md"
               >
                 <div className="flex items-start justify-between gap-3">

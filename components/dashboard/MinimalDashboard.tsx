@@ -44,7 +44,7 @@ export default function MinimalDashboard() {
 
           <div className="mt-10 grid gap-3">
             <Link
-              href="/leersets"
+              href="/study-sets"
               className="inline-flex h-14 items-center justify-center rounded-xl bg-primary px-6 text-base font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
             >
               <BookOpen className="mr-2 h-5 w-5" />

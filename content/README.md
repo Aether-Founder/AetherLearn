@@ -281,7 +281,7 @@ Use this for a complete JSON-driven page that uses the legacy learning layout: i
 3. Enter a page title and URL id, select the subject id, and enter the path relative to `content/` (for example `aardrijkskunde/h5.json`).
 4. The portal verifies the file and JSON before adding it to `content/content-pages.json`.
 
-The page then appears as a document item in `/vakken/{subject-id}` and opens at `/{page-id}`. `content-pages.json` is the editable registry; it only stores the page metadata and location, while the learning material stays in its own JSON file.
+The page then appears as a document item in `/subjects/{subject-id}` and opens at `/{page-id}`. `content-pages.json` is the editable registry; it only stores the page metadata and location, while the learning material stays in its own JSON file.
 
 ### Adding a New Subject
 

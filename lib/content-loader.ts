@@ -104,7 +104,7 @@ function readTextFile(filePath: string): string {
 /**
  * Resolve the on-disk subject directory for a subjectId/slug.
  * Subject ids in URLs may differ in case from the folder names
- * (e.g. /vakken/Natuurkunde vs content/subjects/natuurkunde),
+ * (e.g. /subjects/Natuurkunde vs content/subjects/natuurkunde),
  * so match directory names case-insensitively.
  */
 function resolveSubjectDir(subjectId: string): string {

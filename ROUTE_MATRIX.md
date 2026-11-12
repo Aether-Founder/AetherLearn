@@ -56,18 +56,18 @@ This document covers all pages and features in the application, organized by cat
 - **File**: `app/dashboard/page.tsx`
 - **Features**: Daily statistics, quick navigation, greeting
 
-### `/vandaag` (Today)
+### `/today` (Today)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Today's dashboard with focus on daily tasks
-- **File**: `app/vandaag/page.tsx`
+- **File**: `app/today/page.tsx`
 - **Features**: Daily stats, streak, study suggestions
 
-### `/instellingen` (Settings)
+### `/settings` (Settings)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: User settings and preferences
-- **File**: `app/instellingen/page.tsx`
+- **File**: `app/settings/page.tsx`
 - **Features**: Theme, language, notifications, account settings
 
 ### `/profile`
@@ -81,67 +81,67 @@ This document covers all pages and features in the application, organized by cat
 
 ## Learning & Study Routes
 
-### `/vakken` (Subjects)
+### `/subjects` (Subjects)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Subject management and navigation
-- **File**: `app/vakken/page.tsx`
+- **File**: `app/subjects/page.tsx`
 - **Features**: Subject list, subject creation, secret subjects
 
-### `/vakken/[subjectId]`
+### `/subjects/[subjectId]`
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Subject detail page
-- **File**: `app/vakken/[subjectId]/page.tsx`
+- **File**: `app/subjects/[subjectId]/page.tsx`
 - **Features**: Subject overview, content sections
 
-### `/vakken/[subjectId]/[chapterId]`
+### `/subjects/[subjectId]/[chapterId]`
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Chapter detail page
-- **File**: `app/vakken/[subjectId]/[chapterId]/page.tsx`
+- **File**: `app/subjects/[subjectId]/[chapterId]/page.tsx`
 - **Features**: Chapter sections, content navigation
 
-### `/vakken/[subjectId]/[chapterId]/[id]`
+### `/subjects/[subjectId]/[chapterId]/[id]`
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Paragraph/section detail page
-- **File**: `app/vakken/[subjectId]/[chapterId]/[id]/page.tsx`
+- **File**: `app/subjects/[subjectId]/[chapterId]/[id]/page.tsx`
 - **Features**: Content view, study mode
 
-### `/leer/[subjectId]/[pageId]`
+### `/learn/[subjectId]/[pageId]`
 - **Type**: Page
 - **Authentication**: Public (content can be public)
 - **Purpose**: Learn page with content display
-- **File**: `app/leer/[subjectId]/[pageId]/page.tsx`
+- **File**: `app/learn/[subjectId]/[pageId]/page.tsx`
 - **Features**: Content rendering, view modes (simple/book/study)
 
-### `/leersets` (Study Sets)
+### `/study-sets` (Study Sets)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Study sets list and management
-- **File**: `app/leersets/page.tsx`
+- **File**: `app/study-sets/page.tsx`
 - **Features**: Study set list, filtering, search
 
-### `/leersets/[id]`
+### `/study-sets/[id]`
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Study set detail
-- **File**: `app/leersets/[id]/page.tsx`
+- **File**: `app/study-sets/[id]/page.tsx`
 - **Features**: Study set overview, study modes
 
-### `/leersets/create`
+### `/study-sets/create`
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Create new study set
-- **File**: `app/leersets/create/page.tsx`
+- **File**: `app/study-sets/create/page.tsx`
 - **Features**: Study set creation form
 
-### `/leersets/edit/[id]`
+### `/study-sets/edit/[id]`
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Edit existing study set
-- **File**: `app/leersets/edit/[id]/page.tsx`
+- **File**: `app/study-sets/edit/[id]/page.tsx`
 - **Features**: Study set editing
 
 ### `/decks` (Flashcard Decks)
@@ -232,29 +232,29 @@ This document covers all pages and features in the application, organized by cat
 - **File**: `app/[page]/raw/page.tsx`
 - **Features**: Raw JSON/Markdown display
 
-### `/lessen` (Lessons)
+### `/lessons` (Lessons)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Lessons overview
-- **File**: `app/lessen/page.tsx`
+- **File**: `app/lessons/page.tsx`
 - **Features**: Lesson list, lesson management
 
-### `/bibliotheek` (Library)
+### `/library` (Library)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Content library
-- **File**: `app/bibliotheek/page.tsx`
+- **File**: `app/library/page.tsx`
 - **Features**: Content browsing, search
 
 ---
 
 ## Productivity Routes
 
-### `/notities` (Notes)
+### `/notes` (Notes)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Note-taking workspace
-- **File**: `app/notities/page.tsx`
+- **File**: `app/notes/page.tsx`
 - **Features**: Rich text editor, visual tools (diagrams, mind maps), filesystem integration
 
 ### `/inbox`
@@ -278,43 +278,43 @@ This document covers all pages and features in the application, organized by cat
 - **File**: `app/agenda/page.tsx`
 - **Features**: Calendar display, event management
 
-### `/foutenlogboek` (Error Log)
+### `/error-log` (Error Log)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Error tracking and review
-- **File**: `app/foutenlogboek/page.tsx`
+- **File**: `app/error-log/page.tsx`
 - **Features**: Error logging, categorization, review
 
 ---
 
 ## Test Week Routes
 
-### `/toetsweek` (Test Week)
+### `/test-week` (Test Week)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Test week overview
-- **File**: `app/toetsweek/page.tsx`
+- **File**: `app/test-week/page.tsx`
 - **Features**: Test week list, test week management
 
-### `/toetsweek/[page]`
+### `/test-week/[page]`
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Test week detail
-- **File**: `app/toetsweek/[page]/page.tsx`
+- **File**: `app/test-week/[page]/page.tsx`
 - **Features**: Test week subjects, planning
 
-### `/toetsweekvoorbereiding` (Test Week Preparation)
+### `/test-prep` (Test Week Preparation)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Test week preparation interface
-- **File**: `app/toetsweekvoorbereiding/page.tsx`
+- **File**: `app/test-prep/page.tsx`
 - **Features**: Study planning for test week
 
-### `/toetsweekvoorbereiding/[page]`
+### `/test-prep/[page]`
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Test week preparation detail
-- **File**: `app/toetsweekvoorbereiding/[page]/page.tsx`
+- **File**: `app/test-prep/[page]/page.tsx`
 - **Features**: Detailed preparation interface
 
 ### `/testweek/[id]`
@@ -328,11 +328,11 @@ This document covers all pages and features in the application, organized by cat
 
 ## Analytics Routes
 
-### `/statistieken` (Statistics)
+### `/statistics` (Statistics)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: User statistics dashboard
-- **File**: `app/statistieken/page.tsx`
+- **File**: `app/statistics/page.tsx`
 - **Features**: Study stats, progress charts, performance metrics
 
 ### `/analytics`
@@ -349,18 +349,18 @@ This document covers all pages and features in the application, organized by cat
 - **File**: `app/analytics/fsrs/page.tsx`
 - **Features**: Spaced repetition analytics
 
-### `/cijfers` (Grades)
+### `/grades` (Grades)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Grade tracking
-- **File**: `app/cijfers/page.tsx`
+- **File**: `app/grades/page.tsx`
 - **Features**: Grade overview, subject grades
 
-### `/cijfers/[subject]`
+### `/grades/[subject]`
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Subject-specific grades
-- **File**: `app/cijfers/[subject]/page.tsx`
+- **File**: `app/grades/[subject]/page.tsx`
 - **Features**: Detailed grade information per subject
 
 ---
@@ -473,25 +473,25 @@ This document covers all pages and features in the application, organized by cat
 
 ## Utility Routes
 
-### `/zoeken` (Search)
+### `/search` (Search)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Global search
-- **File**: `app/zoeken/page.tsx`
+- **File**: `app/search/page.tsx`
 - **Features**: Search across content, study sets, notes
 
-### `/groepen` (Groups)
+### `/groups` (Groups)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Group/class management
-- **File**: `app/groepen/page.tsx`
+- **File**: `app/groups/page.tsx`
 - **Features**: Class management, member management
 
-### `/toegankelijkheid` (Accessibility)
+### `/accessibility` (Accessibility)
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Accessibility settings
-- **File**: `app/toegankelijkheid/page.tsx`
+- **File**: `app/accessibility/page.tsx`
 - **Features**: Accessibility preferences
 
 ### `/landing`
@@ -558,18 +558,18 @@ This document covers all pages and features in the application, organized by cat
 
 ## Learn List Management
 
-### `/create/leerlijst`
+### `/create/learning-list`
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Create learning list
-- **File**: `app/create/leerlijst/page.tsx`
+- **File**: `app/create/learning-list/page.tsx`
 - **Features**: Learning list creation
 
-### `/edit/leerlijst/[id]`
+### `/edit/learning-list/[id]`
 - **Type**: Page
 - **Authentication**: Required
 - **Purpose**: Edit learning list
-- **File**: `app/edit/leerlijst/[id]/page.tsx`
+- **File**: `app/edit/learning-list/[id]/page.tsx`
 - **Features**: Learning list editing
 
 ---
@@ -647,17 +647,17 @@ This document covers all pages and features in the application, organized by cat
 ### Dynamic Routes:
 - `/[page]` - Generic content pages
 - `/[page]/ai`, `/[page]/copy`, `/[page]/raw` - Content sub-pages
-- `/vakken/[subjectId]` - Subject pages
-- `/vakken/[subjectId]/[chapterId]` - Chapter pages
-- `/vakken/[subjectId]/[chapterId]/[id]` - Paragraph pages
-- `/leer/[subjectId]/[pageId]` - Learn pages
-- `/leersets/[id]` - Study set pages
+- `/subjects/[subjectId]` - Subject pages
+- `/subjects/[subjectId]/[chapterId]` - Chapter pages
+- `/subjects/[subjectId]/[chapterId]/[id]` - Paragraph pages
+- `/learn/[subjectId]/[pageId]` - Learn pages
+- `/study-sets/[id]` - Study set pages
 - `/decks/edit/[id]` - Deck editing
 - `/study/[deck_id]/[mode]` - Study sessions
-- `/toetsweek/[page]` - Test week pages
-- `/toetsweekvoorbereiding/[page]` - Test week preparation
+- `/test-week/[page]` - Test week pages
+- `/test-prep/[page]` - Test week preparation
 - `/testweek/[id]` - Alternative test week
-- `/cijfers/[subject]` - Subject grades
+- `/grades/[subject]` - Subject grades
 - `/research/[slug]` - Research topics
 - `/standalone/[file]` - File viewer
-- `/edit/leerlijst/[id]` - Learning list editing
+- `/edit/learning-list/[id]` - Learning list editing

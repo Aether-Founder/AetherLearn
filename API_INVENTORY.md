@@ -97,7 +97,7 @@ This document inventories all API routes in `app/api/**`, documenting caller, au
 
 ### `/api/content/page/[page]`
 - **Methods**: GET
-- **Caller**: Learn pages (`/leer/[subjectId]/[pageId]`)
+- **Caller**: Learn pages (`/learn/[subjectId]/[pageId]`)
 - **Authentication**: None (public content)
 - **Storage Backend**: Filesystem (JSON files in public/content/)
 - **Response Contract**: JSON page content with sections

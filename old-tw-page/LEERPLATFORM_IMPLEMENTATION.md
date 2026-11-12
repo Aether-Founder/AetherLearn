@@ -7,8 +7,8 @@ The learning platform has been refactored from a single-page application to a pr
 
 ```
 /leerplatform/                              → Dashboard (Overzicht)
-├── /vakken                                 → Folders/Maps overview
-│   └── /vakken/[folderId]                  → Individual folder detail
+├── /subjects                                 → Folders/Maps overview
+│   └── /subjects/[folderId]                  → Individual folder detail
 ├── /studiesets                             → All study sets
 │   ├── /studiesets/nieuw                   → Create new study set
 │   └── /studiesets/[setId]                 → Study set detail
@@ -18,7 +18,7 @@ The learning platform has been refactored from a single-page application to a pr
 │       ├── /meerkeuze                      → Multiple choice mode (placeholder)
 │       └── /toets                          → Test mode (placeholder)
 ├── /kalender                               → Calendar with events
-├── /lessen                                 → Lessons (placeholder)
+├── /lessons                                 → Lessons (placeholder)
 └── /profiel                                → Profile settings
 ```
 
@@ -33,7 +33,7 @@ The learning platform has been refactored from a single-page application to a pr
 - Study statistics with progress bar
 - Empty state with call-to-action
 
-### ✅ Folders/Maps (/leerplatform/vakken)
+### ✅ Folders/Maps (/leerplatform/subjects)
 - File explorer-like interface (no modals)
 - Breadcrumb navigation
 - Create folders with color selection
@@ -83,7 +83,7 @@ The learning platform has been refactored from a single-page application to a pr
 - Subject management
 - Save/cancel actions
 
-### ✅ Lessons (/leerplatform/lessen)
+### ✅ Lessons (/leerplatform/lessons)
 - Placeholder page ready for future implementation
 
 ## Design & UI

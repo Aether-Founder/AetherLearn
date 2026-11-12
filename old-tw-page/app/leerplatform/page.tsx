@@ -144,7 +144,7 @@ export default function LeerplatformDashboard() {
               Jouw items
             </h2>
             <div className="grid grid-cols-2 gap-6">
-              <Link href="/leerplatform/vakken">
+              <Link href="/leerplatform/subjects">
                 <Card className="border-2 hover:border-purple-400 transition-all cursor-pointer group">
                   <CardContent className="p-8">
                     <FolderOpen className="w-12 h-12 text-purple-600 mb-4 group-hover:scale-110 transition-transform" />

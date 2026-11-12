@@ -55,7 +55,7 @@ export default function CreateContent() {
         Alert.alert('Succes', 'Leerlijst aangemaakt!', [
           {
             text: 'OK',
-            onPress: () => router.replace('/leersets'),
+            onPress: () => router.replace('/study-sets'),
           },
         ]);
       }

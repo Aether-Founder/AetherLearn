@@ -16,8 +16,8 @@
 
 ### Product routes
 
-- Dashboard and Aether routes: `/`, `/agenda`, `/cijfers`, `/decks`, `/groepen`, `/instellingen`, `/lessen`, `/notities`, `/planner`, `/statistieken`, `/vakken`.
-- Learning/content routes: `/learning-platform`, `/toetsweekvoorbereiding`, `/toetsweekvoorbereiding/[page]`, `/[page]`, `/[page]/copy`, `/[page]/raw`, `/[page]/ai`.
+- Dashboard and Aether routes: `/`, `/agenda`, `/grades`, `/decks`, `/groups`, `/settings`, `/lessons`, `/notes`, `/planner`, `/statistics`, `/subjects`.
+- Learning/content routes: `/learning-platform`, `/test-prep`, `/test-prep/[page]`, `/[page]`, `/[page]/copy`, `/[page]/raw`, `/[page]/ai`.
 - Account/product routes: `/login`, `/register`, `/reset-password`, `/reset-password/confirm`, `/profile`, `/calendar`, `/testweek/[id]`, `/admin/analytics`.
 
 ### API contract groups

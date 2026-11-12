@@ -6,10 +6,10 @@ import logo from "@/assets/logo.png.asset.json";
 
 const NAV = [
   { to: "/", label: "Overzicht" },
-  { to: "/vakken", label: "Vakken" },
+  { to: "/subjects", label: "Vakken" },
   { to: "/kalender", label: "Kalender" },
-  { to: "/lessen", label: "Lessen" },
-  { to: "/groepen", label: "Groepen" },
+  { to: "/lessons", label: "Lessen" },
+  { to: "/groups", label: "Groepen" },
 ] as const;
 
 export function SearchField({

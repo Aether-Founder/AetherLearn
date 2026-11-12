@@ -80,7 +80,7 @@ export default function Dashboard() {
         <Text style={styles.sectionTitle}>Snelle acties</Text>
 
         <TouchableOpacity style={styles.actionCard}>
-          <Link href="/create/leerlijst" asChild>
+          <Link href="/create/learning-list" asChild>
             <View style={styles.actionContent}>
               <Text style={styles.actionTitle}>Nieuwe leerlijst</Text>
               <Text style={styles.actionSubtitle}>Maak flashcards</Text>
@@ -89,7 +89,7 @@ export default function Dashboard() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.actionCard}>
-          <Link href="/vakken" asChild>
+          <Link href="/subjects" asChild>
             <View style={styles.actionContent}>
               <Text style={styles.actionTitle}>Vakken</Text>
               <Text style={styles.actionSubtitle}>Bekijk je vakken</Text>
@@ -98,7 +98,7 @@ export default function Dashboard() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.actionCard}>
-          <Link href="/leersets" asChild>
+          <Link href="/study-sets" asChild>
             <View style={styles.actionContent}>
               <Text style={styles.actionTitle}>Leerlijsten</Text>
               <Text style={styles.actionSubtitle}>Bekijk je sets</Text>

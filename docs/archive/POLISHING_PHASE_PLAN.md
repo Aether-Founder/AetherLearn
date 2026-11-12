@@ -189,7 +189,7 @@ Priority Level: [High/Medium/Low]
 
 ---
 
-### 2. Vakken (`/vakken`)
+### 2. Vakken (`/subjects`)
 
 #### Current State:
 
@@ -253,7 +253,7 @@ Priority Level: [High/Medium/Low]
 
 ---
 
-### 4. Vandaag (`/vandaag`)
+### 4. Vandaag (`/today`)
 
 #### Current State:
 
@@ -285,7 +285,7 @@ Priority Level: [High/Medium/Low]
 
 ---
 
-### 5. Statistieken (`/statistieken`)
+### 5. Statistieken (`/statistics`)
 
 #### Current State:
 

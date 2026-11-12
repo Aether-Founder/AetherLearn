@@ -193,7 +193,7 @@ export default function TutorPage() {
                           {message.sources.map((source, idx) => (
                             <a
                               key={idx}
-                              href={`/leersets/${source.id}`}
+                              href={`/study-sets/${source.id}`}
                               className="inline-flex items-center space-x-1 px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs rounded-md hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
                             >
                               <BookOpen className="w-3 h-3" />

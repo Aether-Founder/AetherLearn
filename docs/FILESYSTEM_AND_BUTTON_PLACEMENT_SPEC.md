@@ -269,7 +269,7 @@ interface ButtonConfig {
   - Uses configured style
 
 **Subject Page Buttons**:
-- When user visits subject page (`/vakken/[subjectId]`)
+- When user visits subject page (`/subjects/[subjectId]`)
 - Fetch subject ID from URL
 - Fetch all buttons with `placement: 'subject'` and `placementId: subjectId`
 - Render buttons in designated section (e.g., top of subject page, or in sidebar)
@@ -279,7 +279,7 @@ interface ButtonConfig {
   - Uses configured style
 
 **Chapter Page Buttons**:
-- When user visits chapter page (`/vakken/[subjectId]/[chapterId]`)
+- When user visits chapter page (`/subjects/[subjectId]/[chapterId]`)
 - Fetch chapter ID from URL
 - Fetch all buttons with `placement: 'chapter'` and `placementId: chapterId`
 - Render buttons in designated section (e.g., top of chapter page)
@@ -289,7 +289,7 @@ interface ButtonConfig {
   - Uses configured style
 
 **Paragraph/Content Page Buttons**:
-- When user visits content page (`/vakken/[subjectId]/[chapterId]/[paragraphId]`)
+- When user visits content page (`/subjects/[subjectId]/[chapterId]/[paragraphId]`)
 - Fetch paragraph ID from URL
 - Fetch all buttons with `placement: 'paragraph'` and `placementId: paragraphId`
 - Render buttons in designated section (e.g., inline in content, or sidebar)
@@ -353,9 +353,9 @@ function ButtonSection({ placement, placementId }: { placement: string, placemen
 
 **Integration in Pages**:
 - Add `ButtonSection` component to:
-  - `app/vakken/[subjectId]/page.tsx` - Subject page
-  - `app/vakken/[subjectId]/[chapterId]/page.tsx` - Chapter page
-  - `app/vakken/[subjectId]/[chapterId]/[paragraphId]/page.tsx` - Paragraph page
+  - `app/subjects/[subjectId]/page.tsx` - Subject page
+  - `app/subjects/[subjectId]/[chapterId]/page.tsx` - Chapter page
+  - `app/subjects/[subjectId]/[chapterId]/[paragraphId]/page.tsx` - Paragraph page
   - `app/page.tsx` - Homepage (for root buttons)
 
 #### 6. Button Creation API

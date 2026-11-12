@@ -4,7 +4,7 @@ import { AppShell } from "@/components/AppShell";
 import { StudySetViewer } from "@/components/StudySet";
 import { countSets, resolvePath, type TreeNode } from "@/lib/aether-data";
 
-export const Route = createFileRoute("/vakken/$")({
+export const Route = createFileRoute("/subjects/$")({
   head: () => ({
     meta: [
       { title: "Mappen & studiesets — Aether" },
@@ -27,14 +27,14 @@ function Crumbs({ segments }: { segments: string[] }) {
   const { subject, trail } = resolvePath(segments);
   return (
     <nav className="flex flex-wrap items-center gap-1.5 pt-8 text-xs text-muted-foreground">
-      <Link to="/vakken" className="underline-offset-4 hover:text-foreground hover:underline">
+      <Link to="/subjects" className="underline-offset-4 hover:text-foreground hover:underline">
         Vakken
       </Link>
       {subject && (
         <>
           <span aria-hidden="true">/</span>
           <Link
-            to="/vakken/$"
+            to="/subjects/$"
             params={{ _splat: subject.slug }}
             className="underline-offset-4 hover:text-foreground hover:underline"
           >
@@ -46,7 +46,7 @@ function Crumbs({ segments }: { segments: string[] }) {
         <span key={n.slug} className="flex items-center gap-1.5">
           <span aria-hidden="true">/</span>
           <Link
-            to="/vakken/$"
+            to="/subjects/$"
             params={{ _splat: [subject!.slug, ...trail.slice(0, i + 1).map((t) => t.slug)].join("/") }}
             className="underline-offset-4 hover:text-foreground hover:underline"
           >
@@ -64,7 +64,7 @@ function FolderList({ base, nodes }: { base: string; nodes: TreeNode[] }) {
       {nodes.map((n) => (
         <li key={n.slug}>
           <Link
-            to="/vakken/$"
+            to="/subjects/$"
             params={{ _splat: `${base}/${n.slug}` }}
             className="flex flex-wrap items-center gap-4 py-5 transition-colors hover:bg-secondary/40"
           >
@@ -104,7 +104,7 @@ function BrowsePage() {
           <h1 className="font-display text-3xl font-semibold">Niet gevonden</h1>
           <p className="mt-2 text-sm text-muted-foreground">Deze map of studieset bestaat niet.</p>
           <Link
-            to="/vakken"
+            to="/subjects"
             className="mt-6 inline-flex h-9 items-center rounded-md border border-border px-4 text-sm font-medium transition-colors hover:bg-secondary"
           >
             Terug naar vakken

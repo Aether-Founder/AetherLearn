@@ -13,16 +13,16 @@ export function MobileNavigation() {
 
   const navItems = [
     { href: '/', icon: Home, label: 'Home' },
-    { href: '/leersets', icon: BookOpen, label: 'Leersets' },
+    { href: '/study-sets', icon: BookOpen, label: 'Leersets' },
     { href: '/calendar', icon: Calendar, label: 'Kalender' },
     { href: '/agenda', icon: Calendar, label: 'Agenda' },
     { href: '/study', icon: BookOpen, label: 'Studeren' },
     { href: '/analytics', icon: BarChart3, label: 'Analytics' },
-    { href: '/statistieken', icon: BarChart3, label: 'Statistieken' },
+    { href: '/statistics', icon: BarChart3, label: 'Statistieken' },
     { href: '/profile', icon: User, label: 'Profiel' },
-    { href: '/instellingen', icon: Settings, label: 'Instellingen' },
-    { href: '/vakken', icon: BookOpen, label: 'Vakken' },
-    { href: '/notities', icon: FileText, label: 'Notities' },
+    { href: '/settings', icon: Settings, label: 'Instellingen' },
+    { href: '/subjects', icon: BookOpen, label: 'Vakken' },
+    { href: '/notes', icon: FileText, label: 'Notities' },
   ];
 
   return (

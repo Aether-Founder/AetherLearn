@@ -58,6 +58,43 @@ const nextConfig = {
     NEXT_PUBLIC_SUPABASE_URL: resolvedSupabaseUrl,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: resolvedSupabaseAnonKey,
   },
+  // Routes were renamed from Dutch to English. Permanent redirects keep
+  // old bookmarks, emails, and stored links working.
+  async redirects() {
+    const pairs = [
+      ['bibliotheek', 'library'],
+      ['cijfers', 'grades'],
+      ['foutenlogboek', 'error-log'],
+      ['groepen', 'groups'],
+      ['huiswerk', 'homework'],
+      ['instellingen', 'settings'],
+      ['leer', 'learn'],
+      ['leersets', 'study-sets'],
+      ['lessen-notities', 'lesson-notes'],
+      ['lessen', 'lessons'],
+      ['notities', 'notes'],
+      ['statistieken', 'statistics'],
+      ['studie-modi', 'study-modes'],
+      ['toets-planning', 'test-planning'],
+      ['toetsweekvoorbereiding', 'test-prep'],
+      ['toetsweek', 'test-week'],
+      ['toegankelijkheid', 'accessibility'],
+      ['vakken', 'subjects'],
+      ['vandaag', 'today'],
+      ['zoeken', 'search'],
+    ];
+    const redirects = pairs.flatMap(([from, to]) => [
+      { source: `/${from}`, destination: `/${to}`, permanent: true },
+      { source: `/${from}/:path*`, destination: `/${to}/:path*`, permanent: true },
+    ]);
+    redirects.push(
+      { source: '/create/leerlijst/:path*', destination: '/create/learning-list/:path*', permanent: true },
+      { source: '/edit/leerlijst/:path*', destination: '/edit/learning-list/:path*', permanent: true },
+      { source: '/subjects/:subjectId/begripskaarten/:path*', destination: '/subjects/:subjectId/concept-cards/:path*', permanent: true },
+      { source: '/subjects/:subjectId/formulekaarten/:path*', destination: '/subjects/:subjectId/formula-cards/:path*', permanent: true }
+    );
+    return redirects;
+  },
 };
 
 // PWA configuration for offline support and mobile responsiveness

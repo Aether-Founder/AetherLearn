@@ -191,7 +191,7 @@ The book reading page at `/books/[slug]/read/page.tsx` is a **Content Reader** p
 The book reader follows the same architectural pattern as the existing JSON lesson pages:
 
 - **Generic Lesson Page**: `app/[page]/page.tsx` - Renders JSON content with multiple view modes
-- **Subject Lesson Page**: `app/leer/[subjectId]/[pageId]/page.tsx` - Uses the generic lesson page for subject-specific content
+- **Subject Lesson Page**: `app/learn/[subjectId]/[pageId]/page.tsx` - Uses the generic lesson page for subject-specific content
 - **Book Reader Page**: `app/books/[slug]/read/page.tsx` - Renders book chapters with reading modes
 
 All three are "Content Reader" or "Lesson Reader" pages - they render structured content with:

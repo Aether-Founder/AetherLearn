@@ -28,7 +28,7 @@
 - [ ] `components/ui-kit.tsx` - Add missing BarChart, Chip components
 - [ ] `components/AppShell.tsx` - Fix search box styling
 - [ ] `app/page.tsx` - Add study rhythm chart
-- [ ] `app/vakken/page.tsx` - Update subject card styling
+- [ ] `app/subjects/page.tsx` - Update subject card styling
 - [ ] `app/agenda/page.tsx` - Update agenda styling
 
 ### 2. Styling Adjustments
@@ -117,7 +117,7 @@ _This file will be updated with each change made during the UI update process._
 
 ### Change #3
 
-**File:** `app/vakken/page.tsx`
+**File:** `app/subjects/page.tsx`
 **Type:** Verification
 **Description:** Verified vakken page structure matches UI-REFERENCE-2
 **Status:** ✅ Already correct - includes:

@@ -80,7 +80,7 @@
 - [x] Integrate Leersets with Vakken (subject linking)
 - [x] Enable Groepen in navbar
 - [x] Hide Cijfers from navigation
-- [x] Create /leersets route with proper terminology
+- [x] Create /study-sets route with proper terminology
 
 ---
 

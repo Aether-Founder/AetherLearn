@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AppShell, PageHeader, SearchField } from "@/components/AppShell";
 import { LESSONS } from "@/lib/aether-data";
 
-export const Route = createFileRoute("/lessen")({
+export const Route = createFileRoute("/lessons")({
   head: () => ({
     meta: [
       { title: "Lessen — Aether" },

@@ -17,7 +17,7 @@ const collectionCards = [
   {
     title: "Toetsweekvoorbereiding",
     description: "Open alle vakken, begrippenlijsten, leerstanden, oefentoetsen en spelletjes voor de toetsweek.",
-    href: "/toetsweekvoorbereiding",
+    href: "/test-prep",
   },
   {
     title: "Toetsweekplanning",

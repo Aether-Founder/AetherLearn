@@ -1079,7 +1079,7 @@ export default function DashboardOverview() {
               </div>
 
               <Link
-                href="/foutenlogboek"
+                href="/error-log"
                 className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 Open
@@ -1174,7 +1174,7 @@ export default function DashboardOverview() {
               </Link>
 
               <Link
-                href="/notities"
+                href="/notes"
                 className="flex items-center justify-between rounded-lg border border-border bg-background/70 p-4 transition-colors hover:bg-secondary/30"
               >
                 <span className="text-sm font-medium">Open notities</span>
@@ -1192,7 +1192,7 @@ export default function DashboardOverview() {
             </div>
 
             <Link
-              href="/vakken"
+              href="/subjects"
               className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               Alle vakken
@@ -1218,7 +1218,7 @@ export default function DashboardOverview() {
               {subjects.map((subject) => (
                 <Link
                   key={subject.id}
-                  href={`/vakken/${subject.slug ?? subject.id}`}
+                  href={`/subjects/${subject.slug ?? subject.id}`}
                   className="rounded-lg border border-border bg-background/70 p-4 transition-colors hover:bg-secondary/30"
                 >
                   <div className="truncate text-sm font-semibold">{subject.name}</div>

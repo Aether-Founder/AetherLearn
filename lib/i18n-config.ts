@@ -41,7 +41,7 @@ export type Language = (typeof LANGUAGE_REGISTRY)[number]['code'];
 /** Languages selectable in the UI (all registered languages are candidates). */
 export const LANGUAGES: readonly Language[] = LANGUAGE_REGISTRY.map((lang) => lang.code);
 
-export const DEFAULT_LANGUAGE: Language = 'nl';
+export const DEFAULT_LANGUAGE: Language = 'en';
 
 /**
  * Regional language defaults for automatic language detection.

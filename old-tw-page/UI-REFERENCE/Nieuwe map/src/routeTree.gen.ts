@@ -10,9 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as GroepenRouteImport } from './routes/groepen'
+import { Route as GroepenRouteImport } from './routes/groups'
 import { Route as KalenderRouteImport } from './routes/kalender'
-import { Route as LessenRouteImport } from './routes/lessen'
+import { Route as LessenRouteImport } from './routes/lessons'
 import { Route as VakkenIndexRouteImport } from './routes/vakken.index'
 import { Route as VakkenSplatRouteImport } from './routes/vakken.$'
 
@@ -22,8 +22,8 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const GroepenRoute = GroepenRouteImport.update({
-  id: '/groepen',
-  path: '/groepen',
+  id: '/groups',
+  path: '/groups',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KalenderRoute = KalenderRouteImport.update({
@@ -32,60 +32,60 @@ const KalenderRoute = KalenderRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const LessenRoute = LessenRouteImport.update({
-  id: '/lessen',
-  path: '/lessen',
+  id: '/lessons',
+  path: '/lessons',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VakkenIndexRoute = VakkenIndexRouteImport.update({
-  id: '/vakken/',
-  path: '/vakken/',
+  id: '/subjects/',
+  path: '/subjects/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VakkenSplatRoute = VakkenSplatRouteImport.update({
-  id: '/vakken/$',
-  path: '/vakken/$',
+  id: '/subjects/$',
+  path: '/subjects/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/groepen': typeof GroepenRoute
+  '/groups': typeof GroepenRoute
   '/kalender': typeof KalenderRoute
-  '/lessen': typeof LessenRoute
-  '/vakken/$': typeof VakkenSplatRoute
-  '/vakken/': typeof VakkenIndexRoute
+  '/lessons': typeof LessenRoute
+  '/subjects/$': typeof VakkenSplatRoute
+  '/subjects/': typeof VakkenIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/groepen': typeof GroepenRoute
+  '/groups': typeof GroepenRoute
   '/kalender': typeof KalenderRoute
-  '/lessen': typeof LessenRoute
-  '/vakken/$': typeof VakkenSplatRoute
-  '/vakken': typeof VakkenIndexRoute
+  '/lessons': typeof LessenRoute
+  '/subjects/$': typeof VakkenSplatRoute
+  '/subjects': typeof VakkenIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/groepen': typeof GroepenRoute
+  '/groups': typeof GroepenRoute
   '/kalender': typeof KalenderRoute
-  '/lessen': typeof LessenRoute
-  '/vakken/$': typeof VakkenSplatRoute
-  '/vakken/': typeof VakkenIndexRoute
+  '/lessons': typeof LessenRoute
+  '/subjects/$': typeof VakkenSplatRoute
+  '/subjects/': typeof VakkenIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/groepen' | '/kalender' | '/lessen' | '/vakken/$' | '/vakken/'
+    '/' | '/groups' | '/kalender' | '/lessons' | '/subjects/$' | '/subjects/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/groepen' | '/kalender' | '/lessen' | '/vakken/$' | '/vakken'
+  to: '/' | '/groups' | '/kalender' | '/lessons' | '/subjects/$' | '/subjects'
   id:
     | '__root__'
     | '/'
-    | '/groepen'
+    | '/groups'
     | '/kalender'
-    | '/lessen'
-    | '/vakken/$'
-    | '/vakken/'
+    | '/lessons'
+    | '/subjects/$'
+    | '/subjects/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,10 +106,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/groepen': {
-      id: '/groepen'
-      path: '/groepen'
-      fullPath: '/groepen'
+    '/groups': {
+      id: '/groups'
+      path: '/groups'
+      fullPath: '/groups'
       preLoaderRoute: typeof GroepenRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -120,24 +120,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KalenderRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lessen': {
-      id: '/lessen'
-      path: '/lessen'
-      fullPath: '/lessen'
+    '/lessons': {
+      id: '/lessons'
+      path: '/lessons'
+      fullPath: '/lessons'
       preLoaderRoute: typeof LessenRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/vakken/': {
-      id: '/vakken/'
-      path: '/vakken'
-      fullPath: '/vakken/'
+    '/subjects/': {
+      id: '/subjects/'
+      path: '/subjects'
+      fullPath: '/subjects/'
       preLoaderRoute: typeof VakkenIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/vakken/$': {
-      id: '/vakken/$'
-      path: '/vakken/$'
-      fullPath: '/vakken/$'
+    '/subjects/$': {
+      id: '/subjects/$'
+      path: '/subjects/$'
+      fullPath: '/subjects/$'
       preLoaderRoute: typeof VakkenSplatRouteImport
       parentRoute: typeof rootRouteImport
     }

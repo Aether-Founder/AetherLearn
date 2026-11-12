@@ -297,7 +297,7 @@ export default function StudyModePage() {
         <div className="flex items-center justify-between gap-4">
           <button
             type="button"
-            onClick={() => router.push('/leersets')}
+            onClick={() => router.push('/study-sets')}
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" /> Terug naar sets

@@ -186,7 +186,7 @@ export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }
           {contentFiles.map((content) => (
             <Link
               key={content.pageName}
-              href={`/toetsweekvoorbereiding/${content.pageName}`}
+              href={`/test-prep/${content.pageName}`}
               className="block min-h-[190px] p-6 border border-border rounded-lg transition-colors hover:bg-secondary/50"
             >
               <div className="flex items-start justify-between mb-3">

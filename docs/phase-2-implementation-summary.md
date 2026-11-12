@@ -112,7 +112,7 @@ This document summarizes the completed Phase 2 implementation for adding onboard
 4. **Step 1**: User selects language (or skips)
 5. **Step 2**: User selects educational level (or skips)
 6. **Preferences saved** to database and localStorage
-7. **Redirect** to `/vakken` (subjects page)
+7. **Redirect** to `/subjects` (subjects page)
 
 ### Skip Behavior
 If user clicks "Skip for now":
@@ -140,7 +140,7 @@ If user clicks "Skip for now":
 - [ ] Skip button works and uses defaults
 - [ ] Preferences save to database (after migration)
 - [ ] Preferences save to localStorage
-- [ ] Redirect to /vakken after completion
+- [ ] Redirect to /subjects after completion
 - [ ] Back button works in step 2
 - [ ] Component handles migration not run (no errors)
 
@@ -219,17 +219,17 @@ If issues arise, Phase 2 changes can be rolled back:
 
 ### Before Phase 2
 ```
-Register → Success → Redirect to /vakken
+Register → Success → Redirect to /subjects
 ```
 
 ### After Phase 2
 ```
-Register → Success → Onboarding (optional) → Redirect to /vakken
+Register → Success → Onboarding (optional) → Redirect to /subjects
 ```
 
 ### With Skip
 ```
-Register → Success → Onboarding → Skip → Redirect to /vakken (with defaults)
+Register → Success → Onboarding → Skip → Redirect to /subjects (with defaults)
 ```
 
 ---

@@ -360,7 +360,7 @@ export default function CreateLearningSetForm() {
         })),
       });
 
-      router.push('/leersets');
+      router.push('/study-sets');
     } catch {
       setError('Opslaan mislukt. Probeer het opnieuw.');
     } finally {

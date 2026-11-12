@@ -10,7 +10,7 @@ This document summarizes all completed Phase 3 work for internationalizing and e
 
 ### 1. Settings Page Integration ✅
 
-**Modified File:** `app/instellingen/page.tsx`
+**Modified File:** `app/settings/page.tsx`
 
 **Added:**
 - New sidebar navigation item: "Taal en Niveau" (Language and Level)
@@ -153,7 +153,7 @@ All functionality requires running migrations in order:
 ### Phase 3 Files
 
 **Modified Files (2)**
-- `app/instellingen/page.tsx` - Added language/level settings section
+- `app/settings/page.tsx` - Added language/level settings section
 - `components/onboarding/OnboardingPreferences.tsx` - Added auto-detection
 
 **New Files (2)**

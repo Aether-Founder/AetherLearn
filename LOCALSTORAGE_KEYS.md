@@ -43,25 +43,25 @@ This document records all persisted browser keys from localStorage usage across 
 
 ### `aether-grade-setup-complete:{userId}`
 - **Type**: string ('true')
-- **Location**: `app/vakken/page.tsx`
+- **Location**: `app/subjects/page.tsx`
 - **Purpose**: Track if user has completed grade/subject setup
 
 ### `user_selected_subjects`
 - **Type**: JSON array
 - **Structure**: `[{ id: string, name: string, ... }]`
-- **Location**: `app/vakken/page.tsx`
+- **Location**: `app/subjects/page.tsx`
 - **Purpose**: User's selected subjects
 
 ### `aether-verified-codes:{userId}`
 - **Type**: JSON array
 - **Structure**: `['code1', 'code2', ...]`
-- **Location**: `app/vakken/page.tsx`
+- **Location**: `app/subjects/page.tsx`
 - **Purpose**: Verified secret subject access codes
 
 ### `aether-folders`
 - **Type**: JSON array
 - **Structure**: Folder objects
-- **Location**: `components/learning-platform/StandaloneLearningPlatform.tsx`, `old-tw-page/app/leerplatform/vakken/page.tsx`
+- **Location**: `components/learning-platform/StandaloneLearningPlatform.tsx`, `old-tw-page/app/leerplatform/subjects/page.tsx`
 - **Purpose**: Study set folder organization
 
 ### `aether-study-sets`
@@ -99,12 +99,12 @@ This document records all persisted browser keys from localStorage usage across 
 ### `aether-workspace-header-font`
 - **Type**: string
 - **Values**: 'display', 'inter'
-- **Location**: `app/notities/page.tsx`
+- **Location**: `app/notes/page.tsx`
 - **Purpose**: Header font preference in notes
 
 ### `aether-workspace-spellcheck`
 - **Type**: string ('true'/'false')
-- **Location**: `app/notities/page.tsx`
+- **Location**: `app/notes/page.tsx`
 - **Purpose**: Spellcheck enabled/disabled in notes
 
 ### `aether-workspaces`
@@ -194,7 +194,7 @@ This document records all persisted browser keys from localStorage usage across 
     resolved: boolean
   }]
   ```
-- **Location**: `app/foutenlogboek/page.tsx`
+- **Location**: `app/error-log/page.tsx`
 - **Purpose**: Error log entries
 
 ---

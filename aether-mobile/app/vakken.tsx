@@ -67,7 +67,7 @@ export default function Vakken() {
             <TouchableOpacity
               key={subject.id}
               style={styles.subjectCard}
-              onPress={() => router.push(`/vakken/${subject.id}`)}
+              onPress={() => router.push(`/subjects/${subject.id}`)}
             >
               <View style={[styles.colorDot, { backgroundColor: subject.color || '#3b82f6' }]} />
               <View style={styles.subjectInfo}>

@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell, Meter, PageHeader } from "@/components/AppShell";
 import { SUBJECTS, countSets } from "@/lib/aether-data";
 
-export const Route = createFileRoute("/vakken/")({
+export const Route = createFileRoute("/subjects/")({
   head: () => ({
     meta: [
       { title: "Vakken & mappen — Aether" },
@@ -35,7 +35,7 @@ function VakkenIndex() {
         {SUBJECTS.map((s) => (
           <Link
             key={s.slug}
-            to="/vakken/$"
+            to="/subjects/$"
             params={{ _splat: s.slug }}
             className="bg-background p-6 transition-colors hover:bg-secondary/50"
           >

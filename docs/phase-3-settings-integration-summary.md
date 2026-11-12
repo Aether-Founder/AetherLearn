@@ -10,7 +10,7 @@ This document summarizes the completed Phase 3 work for adding language and educ
 
 ### 1. New Settings Section: "Taal en Niveau"
 
-**Modified File:** `app/instellingen/page.tsx`
+**Modified File:** `app/settings/page.tsx`
 
 **Added Settings Section:**
 - New sidebar navigation item: "Taal en Niveau" (Language and Level)
@@ -172,7 +172,7 @@ await supabase
 
 ### User Flow
 
-1. **User navigates to Settings** (`/instellingen`)
+1. **User navigates to Settings** (`/settings`)
 2. **User clicks "Taal en Niveau"** in sidebar
 3. **User selects language** from dropdown (e.g., English)
 4. **User selects educational level** (e.g., University)
@@ -268,7 +268,7 @@ Before proceeding, verify:
 ## Files Changed Summary
 
 ### Modified Files (1)
-- `app/instellingen/page.tsx` - Added language/level settings section
+- `app/settings/page.tsx` - Added language/level settings section
 
 ### New Files (0)
 - No new files created in this phase
