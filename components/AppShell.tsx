@@ -535,25 +535,41 @@ export function PageHeader({
   description,
   action,
   actionPosition = 'right',
+  compact = false,
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   action?: ReactNode;
   actionPosition?: 'left' | 'right';
+  compact?: boolean;
 }) {
   return (
-    <section className="flex flex-wrap items-center justify-start gap-6 border-b border-border py-10">
+    <section
+      className={`flex flex-wrap items-center justify-start gap-6 ${
+        compact ? 'pb-4' : 'border-b border-border py-10'
+      }`}
+    >
       {action && actionPosition === 'left' && <div className="flex-shrink-0">{action}</div>}
       <div className="text-left">
         {eyebrow && (
           <p className="text-[11px] tracking-[0.18em] text-muted-foreground">{eyebrow}</p>
         )}
-        <h1 className="mt-3 font-display text-4xl font-semibold leading-[1.1]">
+        <h1
+          className={`font-display font-semibold leading-[1.1] ${
+            compact ? 'mt-1 text-2xl' : 'mt-3 text-4xl'
+          }`}
+        >
           {title}
         </h1>
         {description && (
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{description}</p>
+          <p
+            className={`text-sm leading-relaxed text-muted-foreground ${
+              compact ? 'mt-1 line-clamp-1' : 'mt-3'
+            }`}
+          >
+            {description}
+          </p>
         )}
       </div>
       {action && actionPosition === 'right' && <div className="ml-auto">{action}</div>}
@@ -575,7 +591,7 @@ export function Meter({ value }: { value: number }) {
     <div className="h-[3px] w-full overflow-hidden rounded-full bg-secondary">
       <div
         className="h-full rounded-full bg-foreground/70 transition-all"
-        style={{ width: `${Math.max(value, 2)}%` }}
+        style={{ width: `${Math.min(Math.max(value, 0), 100)}%` }}
       />
     </div>
   );

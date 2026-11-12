@@ -8,6 +8,14 @@ import { allThemes } from '@/lib/themes';
 
 const THEME_SELECTION_COMPLETED_KEY = 'aether-theme-selection-completed';
 const THEME_SELECTION_SKIPPED_KEY = 'aether-theme-selection-skipped';
+const OPEN_THEME_PICKER_EVENT = 'aether:open-theme-picker';
+
+/** Open the theme picker modal from anywhere in the app. */
+export function openThemePicker() {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent(OPEN_THEME_PICKER_EVENT));
+  }
+}
 
 export function ThemeSelectionModal() {
   const { selectedTheme, setSelectedTheme } = useColorTheme();
@@ -19,11 +27,16 @@ export function ThemeSelectionModal() {
     // Check if user has already completed theme selection
     const completed = localStorage.getItem(THEME_SELECTION_COMPLETED_KEY);
     const skipped = localStorage.getItem(THEME_SELECTION_SKIPPED_KEY);
-    
+
     // Only show if neither completed nor explicitly skipped
     if (!completed && !skipped) {
       setIsOpen(true);
     }
+
+    // Allow opening the picker on demand (e.g. from the instellingen page)
+    const handleOpenRequest = () => setIsOpen(true);
+    window.addEventListener(OPEN_THEME_PICKER_EVENT, handleOpenRequest);
+    return () => window.removeEventListener(OPEN_THEME_PICKER_EVENT, handleOpenRequest);
   }, []);
 
   const filteredThemes = allThemes.filter((theme) =>
@@ -32,6 +45,9 @@ export function ThemeSelectionModal() {
 
   const handleThemeSelect = (theme: any) => {
     setSelectedTheme(theme);
+    // A chosen theme counts as completed — the auto-popup must not
+    // reappear on future visits.
+    localStorage.setItem(THEME_SELECTION_COMPLETED_KEY, 'true');
   };
 
   const handleContinue = () => {

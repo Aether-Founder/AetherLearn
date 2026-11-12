@@ -18,6 +18,7 @@ import {
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { useTranslation } from '@/lib/useTranslation';
 import { useTheme } from 'next-themes';
+import { openThemePicker } from '@/components/ThemeSelectionModal';
 import { useNavbarPreferences } from '@/hooks/useNavbarPreferences';
 import { useUser } from '@/hooks/useAuth';
 import { useActivityTracking } from '@/hooks/useActivityTracking';
@@ -639,7 +640,10 @@ export default function InstellingenPage() {
               Profiel
             </button>
             <button
-              onClick={() => setActiveSection('appearance')}
+              onClick={() => {
+                setActiveSection('appearance');
+                openThemePicker();
+              }}
               className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                 activeSection === 'appearance'
                   ? 'bg-primary text-primary-foreground'
@@ -844,6 +848,15 @@ export default function InstellingenPage() {
           {activeSection === 'appearance' && (
             <Panel title={t('settings_preferences')}>
               <div className="space-y-4">
+                <Field label="Kleurenthema">
+                  <Button variant="outline" size="sm" onClick={openThemePicker}>
+                    <Palette className="h-4 w-4 mr-2" />
+                    Thema kiezen
+                  </Button>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Kies een kleurenpalet dat bij jou past.
+                  </p>
+                </Field>
                 <Field label={t('settings_theme')}>
                   <select
                     className={inputClass}

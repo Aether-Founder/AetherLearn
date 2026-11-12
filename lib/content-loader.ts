@@ -96,6 +96,11 @@ export interface PracticeTest {
 
 const CONTENT_DIR = path.join(process.cwd(), 'content');
 
+/** Read a UTF-8 text file, stripping a leading BOM so JSON.parse never fails on it. */
+function readTextFile(filePath: string): string {
+  return fs.readFileSync(filePath, 'utf-8').replace(/^\uFEFF/, '');
+}
+
 /**
  * Resolve the on-disk subject directory for a subjectId/slug.
  * Subject ids in URLs may differ in case from the folder names
@@ -120,7 +125,7 @@ function resolveSubjectDir(subjectId: string): string {
 export async function loadAllSubjects(): Promise<Subject[]> {
   try {
     const indexPath = path.join(CONTENT_DIR, 'subjects', 'index.json');
-    const indexContent = fs.readFileSync(indexPath, 'utf-8');
+    const indexContent = readTextFile(indexPath);
     const indexData = JSON.parse(indexContent);
     
     return indexData.subjects || [];
@@ -135,13 +140,13 @@ export async function loadSubject(subjectId: string): Promise<Subject | null> {
     // First, try to load from the subject-specific JSON file which has mastery data
     const subjectJsonPath = path.join(resolveSubjectDir(subjectId), 'subject.json');
     if (fs.existsSync(subjectJsonPath)) {
-      const subjectContent = fs.readFileSync(subjectJsonPath, 'utf-8');
+      const subjectContent = readTextFile(subjectJsonPath);
       return JSON.parse(subjectContent);
     }
 
     // Fallback: load from index.json
     const indexPath = path.join(CONTENT_DIR, 'subjects', 'index.json');
-    const indexContent = fs.readFileSync(indexPath, 'utf-8');
+    const indexContent = readTextFile(indexPath);
     const indexData = JSON.parse(indexContent);
 
     const subject = indexData.subjects?.find(
@@ -164,7 +169,7 @@ export async function loadChapters(subjectId: string): Promise<Chapter[]> {
     const chapters: Chapter[] = [];
     for (const chapterDir of chapterDirs) {
       const chapterPath = path.join(chaptersDir, chapterDir, 'chapter.json');
-      const content = fs.readFileSync(chapterPath, 'utf-8');
+      const content = readTextFile(chapterPath);
       chapters.push(JSON.parse(content));
     }
 
@@ -188,7 +193,7 @@ export async function loadLearningSet(
       'learning-sets',
       `${learningSetId}.json`
     );
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = readTextFile(filePath);
     return JSON.parse(content);
   } catch (error) {
     console.error(`Error loading learning set ${learningSetId}:`, error);
@@ -209,7 +214,7 @@ export async function loadQuiz(
       'quizzes',
       `${quizId}.json`
     );
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = readTextFile(filePath);
     return JSON.parse(content);
   } catch (error) {
     console.error(`Error loading quiz ${quizId}:`, error);
@@ -230,7 +235,7 @@ export async function loadSummary(
       'summaries',
       `${summaryId}.json`
     );
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = readTextFile(filePath);
     return JSON.parse(content);
   } catch (error) {
     console.error(`Error loading summary ${summaryId}:`, error);
@@ -251,7 +256,7 @@ export async function loadPracticeTest(
       'practice-tests',
       `${testId}.json`
     );
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = readTextFile(filePath);
     return JSON.parse(content);
   } catch (error) {
     console.error(`Error loading practice test ${testId}:`, error);
@@ -281,7 +286,7 @@ export async function loadParagraphs(
     for (const file of paragraphFiles) {
       if (file.endsWith('.json')) {
         const filePath = path.join(paragraphsDir, file);
-        const content = fs.readFileSync(filePath, 'utf-8');
+        const content = readTextFile(filePath);
         paragraphs.push(JSON.parse(content));
       }
     }

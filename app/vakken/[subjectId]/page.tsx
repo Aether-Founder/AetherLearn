@@ -8,7 +8,7 @@ import { listContentPagesForSubject, getLocalContentForSubject } from '@/lib/jso
 import fs from 'fs';
 import path from 'path';
 import ButtonSection from '@/components/ButtonSection';
-import { ArrowLeft, BookOpen, TrendingUp, Calendar, Award, Target } from 'lucide-react';
+import { ArrowLeft, BookOpen, Calendar, Award, Target } from 'lucide-react';
 
 export default async function SubjectDetailPage({ params }: { params: { subjectId: string } }) {
   const subjectId = decodeURIComponent(params.subjectId);
@@ -63,12 +63,13 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
   return (
     <AppShell>
       <PageHeader
+        compact
         title={subjectName}
         description={subjectDescription}
         action={
           <Link
             href="/vakken"
-            className="mt-2 p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0 inline-flex items-center justify-center"
+            className="p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0 inline-flex items-center justify-center"
             title="Terug naar vakken"
             aria-label="Terug naar vakken"
           >
@@ -80,7 +81,7 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
 
       <div className="pl-0 sm:pl-0 md:pl-12 lg:pl-12 xl:pl-12">
         {/* Subject Navigation */}
-        <div className="flex items-center gap-2 mt-4 border-b border-border pb-4">
+        <div className="flex items-center gap-2 mt-2 border-b border-border pb-2">
           <Link
             href={`/vakken/${encodedSubjectId}`}
             className="px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground"
@@ -123,59 +124,59 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
         </div>
 
         {/* Render subject-level buttons */}
-        <ButtonSection placement="subject" placementId={encodedSubjectId} className="mt-4" />
+        <ButtonSection placement="subject" placementId={encodedSubjectId} className="mt-2" />
 
         {/* Mastery Overview Cards */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-8">
-          <div className="rounded-xl border border-border bg-card p-5">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mt-4">
+          <div className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-muted-foreground">Meesterschap</span>
-              <Target className="h-5 w-5 text-muted-foreground" />
+              <span className="text-xs font-medium text-muted-foreground">Meesterschap</span>
+              <Target className="h-4 w-4 text-muted-foreground" />
             </div>
-            <div className="mt-4 text-3xl font-semibold">{masteryPercentage}%</div>
-            <div className="mt-2">
-              <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${status.color}`}>
+            <div className="mt-2 text-2xl font-semibold">{masteryPercentage}%</div>
+            <div className="mt-1">
+              <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${status.color}`}>
                 {status.label}
               </span>
             </div>
           </div>
 
-          <div className="rounded-xl border border-border bg-card p-5">
+          <div className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-muted-foreground">Leerdoelen</span>
-              <BookOpen className="h-5 w-5 text-muted-foreground" />
+              <span className="text-xs font-medium text-muted-foreground">Leerdoelen</span>
+              <BookOpen className="h-4 w-4 text-muted-foreground" />
             </div>
-            <div className="mt-4 text-3xl font-semibold">{actualTopicsDone}/{topicsTotal}</div>
-            <div className="mt-2 text-xs text-muted-foreground">Voltooid</div>
+            <div className="mt-2 text-2xl font-semibold">{actualTopicsDone}/{topicsTotal}</div>
+            <div className="mt-1 text-xs text-muted-foreground">Voltooid</div>
           </div>
 
-          <div className="rounded-xl border border-border bg-card p-5">
+          <div className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-muted-foreground">Gemiddelde cijfer</span>
-              <Award className="h-5 w-5 text-muted-foreground" />
+              <span className="text-xs font-medium text-muted-foreground">Gemiddelde cijfer</span>
+              <Award className="h-4 w-4 text-muted-foreground" />
             </div>
-            <div className="mt-4 text-3xl font-semibold">{displayAverageGrade}</div>
-            <div className="mt-2 text-xs text-muted-foreground">Laatste toetsen</div>
+            <div className="mt-2 text-2xl font-semibold">{displayAverageGrade}</div>
+            <div className="mt-1 text-xs text-muted-foreground">Laatste toetsen</div>
           </div>
 
-          <div className="rounded-xl border border-border bg-card p-5">
+          <div className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-muted-foreground">Aankomende toetsen</span>
-              <Calendar className="h-5 w-5 text-muted-foreground" />
+              <span className="text-xs font-medium text-muted-foreground">Aankomende toetsen</span>
+              <Calendar className="h-4 w-4 text-muted-foreground" />
             </div>
-            <div className="mt-4 text-3xl font-semibold">{upcomingTests}</div>
-            <div className="mt-2 text-xs text-muted-foreground">Komende periode</div>
+            <div className="mt-2 text-2xl font-semibold">{upcomingTests}</div>
+            <div className="mt-1 text-xs text-muted-foreground">Komende periode</div>
           </div>
         </div>
 
         {/* Progress Bar */}
-        <div className="mt-8 rounded-xl border border-border bg-card p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold">Voortgang</h3>
-            <span className="text-sm text-muted-foreground">{masteryPercentage}% voltooid</span>
+        <div className="mt-4 rounded-xl border border-border bg-card p-4">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-sm font-semibold">Voortgang</h3>
+            <span className="text-xs text-muted-foreground">{masteryPercentage}% voltooid</span>
           </div>
           <Meter value={masteryPercentage === 0 ? 0 : masteryPercentage} />
-          <div className="mt-4 grid grid-cols-4 gap-4 text-center text-xs text-muted-foreground">
+          <div className="mt-3 hidden sm:grid grid-cols-4 gap-2 text-center text-xs text-muted-foreground">
             <div>
               <div className="font-medium text-green-500">85-100%</div>
               <div>Beheerst</div>
@@ -196,16 +197,9 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
         </div>
 
         {/* Chapters and Content */}
-        <div className="space-y-6 mt-12">
+        <div className="space-y-4 mt-6">
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">{itemCount} onderdelen</p>
-            <Link
-              href={`/vakken/${encodedSubjectId}/kennis-kluis`}
-              className="text-sm text-primary hover:underline flex items-center gap-1"
-            >
-              <TrendingUp className="h-4 w-4" />
-              Kennis kluis
-            </Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {chapters.map((chapter) => (
