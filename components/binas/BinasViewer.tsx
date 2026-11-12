@@ -574,6 +574,7 @@ export default function BinasViewer() {
     stateRef.current = st;
 
     const init = async () => {
+      for (let attempt = 0; attempt < 3; attempt++) {
       try {
         const pdfjs = await loadPdfJs();
         if (st.destroyed) return;
@@ -631,9 +632,15 @@ export default function BinasViewer() {
         await buildViewer();
         if (st.destroyed) return;
         if (mountedRef.current) setStatus('ready');
+        return;
       } catch (error) {
         console.error('[binas] kon het document niet laden:', error);
+        if (attempt < 2) {
+          await new Promise((resolve) => setTimeout(resolve, 1000 * (attempt + 1)));
+          continue;
+        }
         if (mountedRef.current) setStatus('error');
+      }
       }
     };
 

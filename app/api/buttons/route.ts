@@ -34,10 +34,10 @@ export async function GET(request: NextRequest) {
     const { data, error } = await query;
 
     if (error) {
-      return NextResponse.json(
-        { error: 'Failed to fetch buttons' },
-        { status: 500 }
-      );
+      console.error('Error fetching buttons:', error);
+      // Buttons are a non-critical UI enhancement; degrade gracefully
+      // (e.g. missing table/RLS) instead of surfacing a 500 to the client.
+      return NextResponse.json({ buttons: [], warning: 'unavailable' });
     }
 
     return NextResponse.json({ buttons: data || [] });

@@ -2,7 +2,8 @@ import {
   loadSubject,
   loadChapters,
 } from '@/lib/content-loader';
-import { AppShell, PageHeader, Meter } from '@/components/AppShell';
+import { AppShell, PageHeader } from '@/components/AppShell';
+import { SubjectProgressBar } from '@/components/SubjectProgressBar';
 import Link from 'next/link';
 import { listContentPagesForSubject, getLocalContentForSubject } from '@/lib/json-content-pages';
 import fs from 'fs';
@@ -89,10 +90,10 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
             Overzicht
           </Link>
           <Link
-            href={`/vakken/${encodedSubjectId}/kennis-kluis`}
+            href={`/vakken/${encodedSubjectId}/bronnen`}
             className="px-4 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:bg-secondary transition-colors"
           >
-            Kennis Kluis
+            Bronnen
           </Link>
           <Link
             href={`/vakken/${encodedSubjectId}/begripskaarten`}
@@ -175,25 +176,7 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
             <h3 className="text-sm font-semibold">Voortgang</h3>
             <span className="text-xs text-muted-foreground">{masteryPercentage}% voltooid</span>
           </div>
-          <Meter value={masteryPercentage === 0 ? 0 : masteryPercentage} />
-          <div className="mt-3 hidden sm:grid grid-cols-4 gap-2 text-center text-xs text-muted-foreground">
-            <div>
-              <div className="font-medium text-green-500">85-100%</div>
-              <div>Beheerst</div>
-            </div>
-            <div>
-              <div className="font-medium text-yellow-500">65-85%</div>
-              <div>Redelijk</div>
-            </div>
-            <div>
-              <div className="font-medium text-orange-500">40-65%</div>
-              <div>Let op</div>
-            </div>
-            <div>
-              <div className="font-medium text-red-500">0-40%</div>
-              <div>Gevaar</div>
-            </div>
-          </div>
+          <SubjectProgressBar value={masteryPercentage} />
         </div>
 
         {/* Chapters and Content */}
