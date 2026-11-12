@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { BookOpen, Plus } from 'lucide-react';
 import { loadAllLearningSets, type LearningSet } from '@/lib/learning-sets';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function LeersetsPage() {
+  const { t } = useTranslation();
   const [sets, setSets] = useState<LearningSet[]>([]);
   const [loaded, setLoaded] = useState(false);
 
@@ -33,15 +35,15 @@ export default function LeersetsPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Leersets"
-        description="Kies een leerset om te starten met leren."
+        title={t('set_title')}
+        description={t('set_description')}
         action={
           <Link
             href="/create/learning-list"
             className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
           >
             <Plus className="mr-2 h-4 w-4" />
-            Nieuwe leerset
+            {t('set_new')}
           </Link>
         }
       />
@@ -59,9 +61,9 @@ export default function LeersetsPage() {
         ) : sets.length === 0 ? (
           <section className="rounded-xl border border-dashed border-border bg-card/40 p-10 text-center">
             <BookOpen className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
-            <h2 className="font-display text-2xl font-semibold">Geen leersets</h2>
+            <h2 className="font-display text-2xl font-semibold">{t('set_empty')}</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Maak je eerste leerset om te beginnen met leren.
+              {t('set_empty_desc')}
             </p>
 
             <Link
@@ -69,7 +71,7 @@ export default function LeersetsPage() {
               className="mt-6 inline-flex h-10 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
             >
               <Plus className="mr-2 h-4 w-4" />
-              Nieuwe leerset
+              {t('set_new')}
             </Link>
           </section>
         ) : (
@@ -89,7 +91,7 @@ export default function LeersetsPage() {
                   )}
 
                   <p className="mt-3 text-xs text-muted-foreground">
-                    {set.cards.length} kaarten
+                    {t('subject_cards', undefined, { n: set.cards.length })}
                   </p>
                 </div>
 
@@ -98,7 +100,7 @@ export default function LeersetsPage() {
                     href={`/study-sets/${set.id}`}
                     className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
                   >
-                    Start leren
+                    {t('set_start')}
                   </Link>
                 </div>
               </article>

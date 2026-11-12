@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Calendar, Clock, TrendingUp, Brain, Target, Zap } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface AdaptiveSchedule {
   id: string;
@@ -33,6 +34,7 @@ export function AdaptiveScheduling({
   userId: _userId,
   onScheduleSession,
 }: AdaptiveSchedulingProps) {
+  const { t } = useTranslation();
   const [schedules, setSchedules] = useState<AdaptiveSchedule[]>([]);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<'week' | 'month'>('week');
@@ -102,10 +104,10 @@ export function AdaptiveScheduling({
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Adaptieve Planning</CardTitle>
+          <CardTitle>{t('shell_adaptive_scheduling')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -114,7 +116,7 @@ export function AdaptiveScheduling({
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Adaptieve Planning</h2>
+        <h2 className="text-2xl font-bold">{t('shell_adaptive_scheduling')}</h2>
         <div className="flex items-center gap-2">
           <Select
             value={timeRange}
@@ -124,8 +126,8 @@ export function AdaptiveScheduling({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="week">Deze Week</SelectItem>
-              <SelectItem value="month">Deze Maand</SelectItem>
+              <SelectItem value="week">{t('shell_this_week')}</SelectItem>
+              <SelectItem value="month">{t('shell_this_month')}</SelectItem>
             </SelectContent>
           </Select>
           <Select
@@ -136,9 +138,9 @@ export function AdaptiveScheduling({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="priority">Prioriteit</SelectItem>
-              <SelectItem value="difficulty">Moeilijkheid</SelectItem>
-              <SelectItem value="confidence">Zelfvertrouwen</SelectItem>
+              <SelectItem value="priority">{t('shell_priority')}</SelectItem>
+              <SelectItem value="difficulty">{t('shell_difficulty')}</SelectItem>
+              <SelectItem value="confidence">{t('shell_confidence')}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -147,7 +149,7 @@ export function AdaptiveScheduling({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Totaal Studietijd</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_total_study_time')}</CardTitle>
             <Clock className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -158,23 +160,23 @@ export function AdaptiveScheduling({
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Gemiddeld Zelfvertrouwen</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_avg_confidence')}</CardTitle>
             <Brain className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{averageConfidence}%</div>
-            <p className="text-xs text-muted-foreground">voortgang</p>
+            <p className="text-xs text-muted-foreground">{t('shell_progress_lower')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Hoge Prioriteit</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_high_priority')}</CardTitle>
             <Target className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{highPriorityCount}</div>
-            <p className="text-xs text-muted-foreground">onderwerpen</p>
+            <p className="text-xs text-muted-foreground">{t('shell_subjects_lower')}</p>
           </CardContent>
         </Card>
       </div>
@@ -217,13 +219,13 @@ export function AdaptiveScheduling({
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Zelfvertrouwen</span>
+                  <span className="text-muted-foreground">{t('shell_confidence')}</span>
                   <span className="font-medium">{schedule.confidence}%</span>
                 </div>
                 <Progress value={schedule.confidence} className="h-2" />
 
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Prioriteit</span>
+                  <span className="text-muted-foreground">{t('shell_priority')}</span>
                   <span className="font-medium">{schedule.priority}/10</span>
                 </div>
                 <Progress value={schedule.priority * 10} className="h-2" />
@@ -234,14 +236,14 @@ export function AdaptiveScheduling({
                   <TrendingUp className="w-3 h-3" />
                   <span>
                     {schedule.confidence < 50
-                      ? 'Oefening aanbevolen'
+                      ? t('shell_practice_recommended')
                       : schedule.confidence < 75
-                        ? 'Versterking nodig'
-                        : 'Klaar voor toets'}
+                        ? t('shell_strengthening_needed')
+                        : t('shell_ready_for_test')}
                   </span>
                 </div>
                 <Badge variant={schedule.priority >= 8 ? 'default' : 'outline'}>
-                  {schedule.priority >= 8 ? 'Hoog' : schedule.priority >= 5 ? 'Middel' : 'Laag'}
+                  {schedule.priority >= 8 ? t('shell_priority_high') : schedule.priority >= 5 ? t('shell_priority_medium') : t('shell_priority_low')}
                 </Badge>
               </div>
             </div>
@@ -253,7 +255,7 @@ export function AdaptiveScheduling({
         <Card>
           <CardContent className="text-center py-12">
             <Brain className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-            <h3 className="text-lg font-semibold mb-2">Geen Aanbevelingen</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('shell_no_recommendations')}</h3>
             <p className="text-sm text-muted-foreground">
               Voltooi meer sessies om AI-aanbevelingen te ontvangen
             </p>
@@ -266,9 +268,9 @@ export function AdaptiveScheduling({
           <div className="flex items-start gap-4">
             <Zap className="w-8 h-8 text-blue-500 mt-1" />
             <div>
-              <h3 className="font-semibold mb-2">Hoe Adaptieve Planning Werkt</h3>
+              <h3 className="font-semibold mb-2">{t('shell_how_adaptive_works')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• AI analyseert je prestaties en zelfvertrouwen per onderwerp</li>
+                <li>• {t('shell_tip_ai_analysis')}</li>
                 <li>• Moeilijke onderwerpen met laag zelfvertrouwen krijgen prioriteit</li>
                 <li>• Planning wordt automatisch aangepast op basis van je voortgang</li>
                 <li>• Studietijd wordt geoptimaliseerd voor maximale effectiviteit</li>

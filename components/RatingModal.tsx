@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, X } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface RatingModalProps {
   deckId: string;
@@ -12,6 +13,7 @@ interface RatingModalProps {
 }
 
 export function RatingModal({ deckId, deckTitle, onClose, onSubmit }: RatingModalProps) {
+  const { t } = useTranslation();
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,7 +50,7 @@ export function RatingModal({ deckId, deckTitle, onClose, onSubmit }: RatingModa
         >
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Beoordeel deze deck
+              {t('shell_rate_deck')}
             </h2>
             <button
               onClick={onClose}
@@ -59,7 +61,7 @@ export function RatingModal({ deckId, deckTitle, onClose, onSubmit }: RatingModa
           </div>
 
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Hoe beoordeel je "{deckTitle}"?
+            {t('shell_rate_question', undefined, { title: deckTitle })}
           </p>
 
           {/* Star Rating */}
@@ -85,11 +87,11 @@ export function RatingModal({ deckId, deckTitle, onClose, onSubmit }: RatingModa
 
           {rating > 0 && (
             <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
-              {rating === 1 && 'Slecht'}
-              {rating === 2 && 'Matig'}
-              {rating === 3 && 'Goed'}
-              {rating === 4 && 'Heel goed'}
-              {rating === 5 && 'Uitstekend'}
+              {rating === 1 && t('shell_rating_1')}
+              {rating === 2 && t('shell_rating_2')}
+              {rating === 3 && t('shell_rating_3')}
+              {rating === 4 && t('shell_rating_4')}
+              {rating === 5 && t('shell_rating_5')}
             </p>
           )}
 
@@ -100,14 +102,14 @@ export function RatingModal({ deckId, deckTitle, onClose, onSubmit }: RatingModa
               disabled={isSubmitting}
               className="flex-1 px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 transition-colors"
             >
-              Annuleren
+              {t('cancel')}
             </button>
             <button
               onClick={handleSubmit}
               disabled={rating === 0 || isSubmitting}
               className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {isSubmitting ? 'Verzenden...' : 'Verstuur beoordeling'}
+              {isSubmitting ? t('shell_sending') : t('shell_submit_rating')}
             </button>
           </div>
         </motion.div>

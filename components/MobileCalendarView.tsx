@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Plus, Calendar as CalendarIcon } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface MobileCalendarViewProps {
   currentDate: Date;
@@ -19,6 +20,7 @@ export function MobileCalendarView({
   events = [],
 }: MobileCalendarViewProps) {
   const [selectedDate, setSelectedDate] = useState(currentDate);
+  const { t, currentLanguage } = useTranslation();
 
   const getDaysInMonth = (date: Date) => {
     const year = date.getFullYear();
@@ -40,7 +42,7 @@ export function MobileCalendarView({
   };
 
   const days = getDaysInMonth(currentDate);
-  const weekDays = ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'];
+  const weekDays = ['calendar_dow_zo', 'calendar_dow_ma', 'calendar_dow_di', 'calendar_dow_wo', 'calendar_dow_do', 'calendar_dow_vr', 'calendar_dow_za'];
 
   const getEventsForDate = (date: Date) => {
     return events.filter((event) => event.date.toDateString() === date.toDateString());
@@ -81,7 +83,7 @@ export function MobileCalendarView({
               <ChevronLeft className="w-5 h-5" />
             </Button>
             <h2 className="text-lg font-semibold">
-              {currentDate.toLocaleDateString('nl-NL', { month: 'long', year: 'numeric' })}
+              {currentDate.toLocaleDateString(currentLanguage, { month: 'long', year: 'numeric' })}
             </h2>
             <Button variant="ghost" size="icon" onClick={handleNextMonth}>
               <ChevronRight className="w-5 h-5" />
@@ -91,7 +93,7 @@ export function MobileCalendarView({
           <div className="grid grid-cols-7 gap-1 mb-2">
             {weekDays.map((day) => (
               <div key={day} className="text-center text-xs font-medium text-muted-foreground py-2">
-                {day}
+                {t(day)}
               </div>
             ))}
           </div>
@@ -133,7 +135,7 @@ export function MobileCalendarView({
         <CardContent className="p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold">
-              {selectedDate.toLocaleDateString('nl-NL', {
+              {selectedDate.toLocaleDateString(currentLanguage, {
                 weekday: 'long',
                 day: 'numeric',
                 month: 'long',
@@ -150,7 +152,7 @@ export function MobileCalendarView({
           {getEventsForDate(selectedDate).length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
               <CalendarIcon className="w-8 h-8 mx-auto mb-2 opacity-50" />
-              <p className="text-sm">Geen events</p>
+              <p className="text-sm">{t('shell_no_events')}</p>
             </div>
           ) : (
             <div className="space-y-2">

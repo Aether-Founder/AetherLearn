@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { ArrowLeft, ChevronLeft, ChevronRight, Shuffle } from 'lucide-react';
 import { getLearningSetById, type LearningCard, type LearningSet } from '@/lib/learning-sets';
+import { useTranslation } from '@/lib/useTranslation';
 
 function shuffleCards(cards: LearningCard[]): LearningCard[] {
   const result = [...cards];
@@ -19,6 +20,7 @@ function shuffleCards(cards: LearningCard[]): LearningCard[] {
 }
 
 export default function StudySetPage() {
+  const { t } = useTranslation();
   const params = useParams<{ id?: string | string[] }>();
 
   const id = Array.isArray(params?.id)
@@ -88,7 +90,7 @@ export default function StudySetPage() {
     return (
       <AppShell>
         <div className="py-20 text-center text-sm text-muted-foreground">
-          Leerset laden...
+          {t('set_loading')}
         </div>
       </AppShell>
     );
@@ -98,9 +100,9 @@ export default function StudySetPage() {
     return (
       <AppShell>
         <div className="mx-auto max-w-xl rounded-xl border border-border bg-card p-10 text-center shadow-sm">
-          <h1 className="font-display text-2xl font-semibold">Leerset niet gevonden</h1>
+          <h1 className="font-display text-2xl font-semibold">{t('set_not_found')}</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Deze leerset bestaat niet of kon niet worden geladen.
+            {t('set_not_found_desc')}
           </p>
 
           <Link
@@ -108,7 +110,7 @@ export default function StudySetPage() {
             className="mt-6 inline-flex h-10 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Terug naar leersets
+            {t('set_back_to_sets')}
           </Link>
         </div>
       </AppShell>
@@ -119,14 +121,14 @@ export default function StudySetPage() {
     <AppShell>
       <PageHeader
         title={set.title}
-        description={set.description ?? 'Oefen met deze leerset.'}
+        description={set.description ?? t('set_default_description')}
         action={
           <Link
             href="/study-sets"
             className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm transition-colors hover:bg-secondary"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Terug
+            {t('set_back')}
           </Link>
         }
       />
@@ -135,14 +137,14 @@ export default function StudySetPage() {
         {cards.length === 0 ? (
           <section className="rounded-xl border border-dashed border-border bg-card/40 p-10 text-center">
             <p className="text-sm text-muted-foreground">
-              Deze leerset heeft nog geen kaarten.
+              {t('set_no_cards')}
             </p>
           </section>
         ) : (
           <section className="space-y-6">
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               <span>
-                Kaart {index + 1} van {cards.length}
+                {t('set_card_progress', undefined, { n: index + 1, total: cards.length })}
               </span>
 
               <button
@@ -151,7 +153,7 @@ export default function StudySetPage() {
                 className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm transition-colors hover:bg-secondary"
               >
                 <Shuffle className="mr-2 h-4 w-4" />
-                Schudden
+                {t('set_shuffle')}
               </button>
             </div>
 
@@ -161,7 +163,7 @@ export default function StudySetPage() {
               className="flex min-h-[280px] w-full flex-col items-center justify-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm transition-colors hover:bg-secondary/20"
             >
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                {flipped ? 'Antwoord' : 'Vraag'}
+                {flipped ? t('answer') : t('question')}
               </p>
 
               <p className="mt-4 whitespace-pre-wrap font-display text-2xl font-semibold">
@@ -169,7 +171,9 @@ export default function StudySetPage() {
               </p>
 
               <p className="mt-6 text-xs text-muted-foreground">
-                Klik om {flipped ? 'de vraag' : 'het antwoord'} te tonen
+                {t('set_flip_hint', undefined, {
+                  target: flipped ? t('set_show_question') : t('set_show_answer'),
+                })}
               </p>
             </button>
 
@@ -180,7 +184,7 @@ export default function StudySetPage() {
                 className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 text-sm font-medium shadow-sm transition-colors hover:bg-secondary"
               >
                 <ChevronLeft className="mr-2 h-4 w-4" />
-                Vorige
+                {t('previous')}
               </button>
 
               <button
@@ -188,7 +192,7 @@ export default function StudySetPage() {
                 onClick={goNext}
                 className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
               >
-                Volgende
+                {t('next')}
                 <ChevronRight className="ml-2 h-4 w-4" />
               </button>
             </div>

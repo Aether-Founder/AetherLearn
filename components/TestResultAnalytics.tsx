@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { TrendingUp, TrendingDown, Clock, Target, BookOpen, Award, Download } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface TestResult {
   id: string;
@@ -57,6 +58,7 @@ interface TestResultAnalyticsProps {
 }
 
 export function TestResultAnalytics({ userId: _userId }: TestResultAnalyticsProps) {
+  const { t } = useTranslation();
   const [analytics, setAnalytics] = useState<TestAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<'week' | 'month' | 'all'>('all');
@@ -115,10 +117,10 @@ export function TestResultAnalytics({ userId: _userId }: TestResultAnalyticsProp
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Test Resultaten Analyse</CardTitle>
+          <CardTitle>{t('shell_test_results_analysis')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -128,10 +130,10 @@ export function TestResultAnalytics({ userId: _userId }: TestResultAnalyticsProp
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Test Resultaten Analyse</CardTitle>
+          <CardTitle>{t('shell_test_results_analysis')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Geen resultaten beschikbaar</div>
+          <div className="text-center text-muted-foreground">{t('shell_no_results')}</div>
         </CardContent>
       </Card>
     );
@@ -173,7 +175,7 @@ export function TestResultAnalytics({ userId: _userId }: TestResultAnalyticsProp
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Test Resultaten Analyse</h2>
+        <h2 className="text-2xl font-bold">{t('shell_test_results_analysis')}</h2>
         <div className="flex items-center gap-2">
           <Select
             value={timeRange}
@@ -183,9 +185,9 @@ export function TestResultAnalytics({ userId: _userId }: TestResultAnalyticsProp
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="week">Deze Week</SelectItem>
-              <SelectItem value="month">Deze Maand</SelectItem>
-              <SelectItem value="all">Alles</SelectItem>
+              <SelectItem value="week">{t('shell_this_week')}</SelectItem>
+              <SelectItem value="month">{t('shell_this_month')}</SelectItem>
+              <SelectItem value="all">{t('shell_all')}</SelectItem>
             </SelectContent>
           </Select>
           <Button onClick={handleExportResults} variant="outline">
@@ -198,47 +200,47 @@ export function TestResultAnalytics({ userId: _userId }: TestResultAnalyticsProp
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Totaal Tests</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_total_tests')}</CardTitle>
             <BookOpen className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{analytics.totalTests}</div>
-            <p className="text-xs text-muted-foreground">afgenomen</p>
+            <p className="text-xs text-muted-foreground">{t('shell_taken')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Gemiddelde Score</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_avg_score')}</CardTitle>
             <Target className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{Math.round(analytics.averageScore)}%</div>
-            <p className="text-xs text-muted-foreground">klas gemiddelde</p>
+            <p className="text-xs text-muted-foreground">{t('shell_class_average')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Beste Score</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_best_score')}</CardTitle>
             <Award className="w-4 h-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-yellow-500">
               {Math.round(analytics.bestScore)}%
             </div>
-            <p className="text-xs text-muted-foreground">persoonlijk record</p>
+            <p className="text-xs text-muted-foreground">{t('shell_personal_record')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Gemiddelde Tijd</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_avg_time')}</CardTitle>
             <Clock className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{formatTime(analytics.averageTime)}</div>
-            <p className="text-xs text-muted-foreground">per test</p>
+            <p className="text-xs text-muted-foreground">{t('shell_per_test')}</p>
           </CardContent>
         </Card>
       </div>
@@ -246,7 +248,7 @@ export function TestResultAnalytics({ userId: _userId }: TestResultAnalyticsProp
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Modus Overzicht</CardTitle>
+            <CardTitle>{t('shell_mode_overview')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {analytics.modeBreakdown.map((mode) => (
@@ -266,26 +268,26 @@ export function TestResultAnalytics({ userId: _userId }: TestResultAnalyticsProp
 
         <Card>
           <CardHeader>
-            <CardTitle>Algemene Statistieken</CardTitle>
+            <CardTitle>{t('shell_general_stats')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm">Totale Vragen</span>
+              <span className="text-sm">{t('shell_total_questions')}</span>
               <Badge variant="secondary">{analytics.totalQuestions}</Badge>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm">Correcte Antwoorden</span>
+              <span className="text-sm">{t('shell_correct_answers')}</span>
               <Badge variant="default">{analytics.totalCorrect}</Badge>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm">Correctheid</span>
+              <span className="text-sm">{t('shell_correctness')}</span>
               <Badge variant="outline">
                 {Math.round((analytics.totalCorrect / analytics.totalQuestions) * 100)}%
               </Badge>
             </div>
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium">Voltooiingspercentage</span>
+                <span className="text-sm font-medium">{t('shell_completion_rate')}</span>
                 <span className="text-sm font-bold">{Math.round(analytics.averageScore)}%</span>
               </div>
               <Progress value={analytics.averageScore} className="h-2" />
@@ -296,7 +298,7 @@ export function TestResultAnalytics({ userId: _userId }: TestResultAnalyticsProp
 
       <Card>
         <CardHeader>
-          <CardTitle>Wekelijkse Voortgang</CardTitle>
+          <CardTitle>{t('shell_weekly_progress')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
@@ -328,7 +330,7 @@ export function TestResultAnalytics({ userId: _userId }: TestResultAnalyticsProp
 
       <Card>
         <CardHeader>
-          <CardTitle>Recente Resultaten</CardTitle>
+          <CardTitle>{t('shell_recent_results')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">

@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { BarChart3, TrendingUp, Target, Clock, Star, BookOpen, FileText, Zap } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface ModeStats {
   mode: string;
@@ -21,6 +22,7 @@ interface StudyModeComparisonProps {
 }
 
 export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
+  const { t } = useTranslation();
   const [modeStats, setModeStats] = useState<ModeStats[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -92,10 +94,10 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Studiemode Vergelijking</CardTitle>
+          <CardTitle>{t('shell_study_mode_comparison')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -104,7 +106,7 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Studiemode Vergelijking</h2>
+        <h2 className="text-2xl font-bold">{t('shell_study_mode_comparison')}</h2>
         <Badge variant="secondary">{modeStats.length} modes</Badge>
       </div>
 
@@ -142,7 +144,7 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
             <CardContent className="space-y-4">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-muted-foreground">Nauwkeurigheid</span>
+                  <span className="text-sm text-muted-foreground">{t('shell_accuracy')}</span>
                   <span className="font-semibold">{stats.averageAccuracy.toFixed(1)}%</span>
                 </div>
                 <Progress value={stats.averageAccuracy} className="h-2" />
@@ -150,7 +152,7 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-muted-foreground">Gemiddelde Score</span>
+                  <span className="text-sm text-muted-foreground">{t('shell_avg_score')}</span>
                   <span className="font-semibold">{stats.averageScore.toFixed(0)}</span>
                 </div>
                 <Progress value={(stats.averageScore / 100) * 100} className="h-2" />
@@ -160,14 +162,14 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
                 <div className="flex items-center gap-2">
                   <Target className="w-4 h-4 text-muted-foreground" />
                   <div>
-                    <div className="text-xs text-muted-foreground">Kaarten</div>
+                    <div className="text-xs text-muted-foreground">{t('shell_cards')}</div>
                     <div className="font-semibold">{stats.totalCards}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-muted-foreground" />
                   <div>
-                    <div className="text-xs text-muted-foreground">Tijd/kaart</div>
+                    <div className="text-xs text-muted-foreground">{t('shell_time_per_card')}</div>
                     <div className="font-semibold">{stats.averageTime.toFixed(1)}s</div>
                   </div>
                 </div>
@@ -175,7 +177,7 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
 
               <div className="pt-2 border-t">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Correct</span>
+                  <span className="text-muted-foreground">{t('advanced_correct')}</span>
                   <span className="font-medium text-green-500">
                     {stats.correctAnswers}/{stats.totalCards}
                   </span>
@@ -190,7 +192,7 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
         <Card>
           <CardContent className="text-center py-12">
             <BarChart3 className="w-12 h-12 mx-auto mb-4 opacity-50" />
-            <h3 className="text-lg font-semibold mb-2">Geen Data</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('shell_no_data')}</h3>
             <p className="text-sm text-muted-foreground">
               Voltooi studie sessies om prestatievergelijking te zien
             </p>
@@ -203,12 +205,12 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
           <div className="flex items-start gap-4">
             <TrendingUp className="w-8 h-8 text-blue-500 mt-1" />
             <div>
-              <h3 className="font-semibold mb-2">Over Prestatievergelijking</h3>
+              <h3 className="font-semibold mb-2">{t('shell_about_comparison')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Vergelijk nauwkeurigheid tussen verschillende studiemodes</li>
-                <li>• Identificeer welke mode het beste voor je werkt</li>
-                <li>• Bekijk tijd per kaart om efficiëntie te meten</li>
-                <li>• Gebruik deze inzichten om je studiestrategie aan te passen</li>
+                <li>• {t('shell_tip_compare_accuracy')}</li>
+                <li>• {t('shell_tip_best_mode')}</li>
+                <li>• {t('shell_tip_time_per_card')}</li>
+                <li>• {t('shell_tip_adjust_strategy')}</li>
               </ul>
             </div>
           </div>

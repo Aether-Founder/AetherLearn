@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { Calendar, Clock, LayoutGrid, List } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Toets {
   vak: string;
@@ -17,10 +18,10 @@ interface ToetsweekplanningProps {
 type ViewMode = 'table' | 'agenda' | 'timeline' | 'compact';
 
 const modeOptions: { id: ViewMode; label: string; icon: React.ReactNode }[] = [
-  { id: 'table', label: 'Tabel', icon: <LayoutGrid className="h-4 w-4" /> },
-  { id: 'agenda', label: 'Agenda', icon: <Calendar className="h-4 w-4" /> },
-  { id: 'timeline', label: 'Tijdlijn', icon: <Clock className="h-4 w-4" /> },
-  { id: 'compact', label: 'Compact', icon: <List className="h-4 w-4" /> },
+  { id: 'table', label: 'shell_table', icon: <LayoutGrid className="h-4 w-4" /> },
+  { id: 'agenda', label: 'nav_agenda', icon: <Calendar className="h-4 w-4" /> },
+  { id: 'timeline', label: 'shell_timeline', icon: <Clock className="h-4 w-4" /> },
+  { id: 'compact', label: 'shell_compact', icon: <List className="h-4 w-4" /> },
 ];
 
 const formatFullDate = (date: string) =>
@@ -38,6 +39,7 @@ const formatShortDate = (date: string) =>
   });
 
 export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
+  const { t } = useTranslation();
   const [viewMode, setViewMode] = useState<ViewMode>('table');
   const [countdown, setCountdown] = useState({
     weeks: 0,
@@ -91,15 +93,15 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
     <div className="rounded-xl border border-border bg-gradient-to-br from-card to-secondary/40 p-5 shadow-sm sm:p-6">
       <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold text-foreground sm:text-2xl">
         <Clock className="h-6 w-6 text-muted-foreground" />
-        Tijd tot eerste toets: {firstToets.vak}
+        {t('shell_time_until_first_test', undefined, { subject: firstToets.vak })}
       </h2>
       <div className="grid grid-cols-2 gap-3 text-center sm:grid-cols-5 sm:gap-4">
         {[
-          ['Weken', countdown.weeks],
-          ['Dagen', countdown.days],
-          ['Uren', countdown.hours],
-          ['Minuten', countdown.minutes],
-          ['Seconden', countdown.seconds],
+          [t('shell_weeks'), countdown.weeks],
+          [t('shell_days'), countdown.days],
+          [t('shell_hours_lower'), countdown.hours],
+          [t('shell_minutes_lower'), countdown.minutes],
+          [t('shell_seconds'), countdown.seconds],
         ].map(([label, value]) => (
           <div
             key={label}
@@ -132,13 +134,13 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
               <thead className="bg-background/70">
                 <tr>
                   <th className="px-4 py-2 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    Vak
+                    {t('shell_subject')}
                   </th>
                   <th className="px-4 py-2 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    Tijd
+                    {t('shell_time')}
                   </th>
                   <th className="px-4 py-2 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    Stof
+                    {t('shell_material')}
                   </th>
                 </tr>
               </thead>
@@ -256,7 +258,7 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
             }`}
           >
             {mode.icon}
-            <span>{mode.label}</span>
+            <span>{t(mode.label)}</span>
           </button>
         ))}
       </div>

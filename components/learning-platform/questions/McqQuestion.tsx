@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Check, X } from 'lucide-react';
 import type { Question } from '@/types/learning-platform';
 import { MarkdownContent } from '../shared/MarkdownContent';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface McqQuestionProps {
   question: Question;
@@ -18,6 +19,7 @@ export function McqQuestion({
   disabled,
   showFeedback = true,
 }: McqQuestionProps) {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
@@ -78,8 +80,8 @@ export function McqQuestion({
           }`}
         >
           {selected === question.correctAnswer
-            ? 'Goed antwoord.'
-            : 'Nog niet. Kijk even naar het juiste antwoord voordat je doorgaat.'}
+            ? t('comp_correct_answer_short')
+            : t('comp_not_yet_review_answer')}
         </div>
       )}
     </div>

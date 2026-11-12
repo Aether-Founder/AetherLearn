@@ -15,6 +15,7 @@ import {
   Clock,
   AlertCircle,
 } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface TeacherDashboardProps {
   userId: string;
@@ -52,6 +53,7 @@ interface StudentProgress {
 }
 
 export function TeacherDashboard({ userId }: TeacherDashboardProps) {
+  const { t } = useTranslation();
   const [classes, setClasses] = useState<Class[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [studentProgress, setStudentProgress] = useState<StudentProgress[]>([]);
@@ -106,7 +108,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Docent Dashboard</h1>
+        <h1 className="text-3xl font-bold">{t('shell_teacher_dashboard')}</h1>
         <Button>
           <Plus className="w-4 h-4 mr-2" />
           Nieuwe Klas
@@ -116,7 +118,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Totale Klassen</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_total_classes')}</CardTitle>
             <BookOpen className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -126,7 +128,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Totale Leerlingen</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_total_students')}</CardTitle>
             <Users className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -136,7 +138,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Aanvragen</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_requests')}</CardTitle>
             <AlertCircle className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -146,7 +148,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Actieve Opdrachten</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_active_assignments')}</CardTitle>
             <CheckCircle className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -157,10 +159,10 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
 
       <Tabs defaultValue="classes" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="classes">Klassen</TabsTrigger>
-          <TabsTrigger value="assignments">Opdrachten</TabsTrigger>
-          <TabsTrigger value="students">Leerlingen</TabsTrigger>
-          <TabsTrigger value="settings">Instellingen</TabsTrigger>
+          <TabsTrigger value="classes">{t('shell_classes')}</TabsTrigger>
+          <TabsTrigger value="assignments">{t('shell_assignments')}</TabsTrigger>
+          <TabsTrigger value="students">{t('shell_students')}</TabsTrigger>
+          <TabsTrigger value="settings">{t('nav_settings')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="classes" className="space-y-4">
@@ -178,16 +180,16 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Leden</span>
+                    <span className="text-muted-foreground">{t('shell_members')}</span>
                     <span className="font-medium">{cls.memberCount}</span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Klascode</span>
+                    <span className="text-muted-foreground">{t('shell_class_code')}</span>
                     <span className="font-mono font-medium">{cls.joinCode}</span>
                   </div>
                   {cls.pendingRequests > 0 && (
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Aanvragen</span>
+                      <span className="text-muted-foreground">{t('shell_requests')}</span>
                       <Badge variant="destructive">{cls.pendingRequests}</Badge>
                     </div>
                   )}
@@ -207,7 +209,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
 
         <TabsContent value="assignments" className="space-y-4">
           <div className="flex justify-between items-center">
-            <h2 className="text-xl font-semibold">Opdrachten</h2>
+            <h2 className="text-xl font-semibold">{t('shell_assignments')}</h2>
             <Button>
               <Plus className="w-4 h-4 mr-2" />
               Nieuwe Opdracht
@@ -252,7 +254,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
         </TabsContent>
 
         <TabsContent value="students" className="space-y-4">
-          <h2 className="text-xl font-semibold">Leerling Voortgang</h2>
+          <h2 className="text-xl font-semibold">{t('shell_student_progress')}</h2>
           <div className="space-y-3">
             {studentProgress.map((student) => {
               const assignmentRate =
@@ -278,7 +280,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
                       </div>
                       <div className="text-right">
                         <div className="text-2xl font-bold">{Math.round(assignmentRate)}%</div>
-                        <div className="text-xs text-muted-foreground">Opdrachten</div>
+                        <div className="text-xs text-muted-foreground">{t('shell_assignments')}</div>
                       </div>
                     </div>
                   </CardContent>
@@ -289,21 +291,21 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
         </TabsContent>
 
         <TabsContent value="settings" className="space-y-4">
-          <h2 className="text-xl font-semibold">Instellingen</h2>
+          <h2 className="text-xl font-semibold">{t('nav_settings')}</h2>
           <Card>
             <CardHeader>
-              <CardTitle>Profiel Instellingen</CardTitle>
+              <CardTitle>{t('shell_profile_settings')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="text-sm font-medium">Naam</label>
+                <label className="text-sm font-medium">{t('shell_name')}</label>
                 <input className="w-full mt-1 p-2 border rounded" type="text" />
               </div>
               <div>
                 <label className="text-sm font-medium">Email</label>
                 <input className="w-full mt-1 p-2 border rounded" type="email" />
               </div>
-              <Button>Opslaan</Button>
+              <Button>{t('save')}</Button>
             </CardContent>
           </Card>
         </TabsContent>

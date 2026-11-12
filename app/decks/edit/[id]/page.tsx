@@ -5,10 +5,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { StudySetEditorView, type StudyCardItem } from '@/components/StudySetEditorView';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { AppShell } from '@/components/AppShell';
+import { useTranslation } from '@/lib/useTranslation';
 
 const supabase = browserClient as any;
 
 export default function EditDeckPage() {
+  const { t } = useTranslation();
   const params = useParams();
   const router = useRouter();
   const setId = params.id as string;
@@ -71,7 +73,7 @@ export default function EditDeckPage() {
   if (loading) {
     return (
       <AppShell>
-        <div className="py-20 text-center text-sm text-muted-foreground">Set laden...</div>
+        <div className="py-20 text-center text-sm text-muted-foreground">{t('deck_loading')}</div>
       </AppShell>
     );
   }

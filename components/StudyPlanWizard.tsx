@@ -17,6 +17,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Calendar } from '@/components/ui/calendar';
 import { Badge } from '@/components/ui/badge';
 import { ChevronLeft, ChevronRight, BookOpen, Clock, Target, Check } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface StudyPlanWizardProps {
   userId: string;
@@ -25,6 +26,7 @@ interface StudyPlanWizardProps {
 }
 
 export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: StudyPlanWizardProps) {
+  const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -101,28 +103,28 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
   const renderStep1 = () => (
     <div className="space-y-6">
       <div>
-        <Label htmlFor="title">Titel *</Label>
+        <Label htmlFor="title">{t('shell_title')} *</Label>
         <Input
           id="title"
           value={planData.title}
           onChange={(e) => setPlanData({ ...planData, title: e.target.value })}
-          placeholder="Bijv. Wiskunde Toetsweek"
+          placeholder={t('shell_plan_example')}
         />
       </div>
 
       <div>
-        <Label htmlFor="description">Beschrijving</Label>
+        <Label htmlFor="description">{t('shell_description')}</Label>
         <Textarea
           id="description"
           value={planData.description}
           onChange={(e) => setPlanData({ ...planData, description: e.target.value })}
-          placeholder="Beschrijf je studiedoel..."
+          placeholder={t('shell_plan_desc_placeholder')}
           rows={3}
         />
       </div>
 
       <div>
-        <Label htmlFor="goalType">Type Doel *</Label>
+        <Label htmlFor="goalType">{t('shell_goal_type')}</Label>
         <Select
           value={planData.goalType}
           onValueChange={(value: any) => setPlanData({ ...planData, goalType: value })}
@@ -131,16 +133,16 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="exam">Toets/Examen</SelectItem>
-            <SelectItem value="daily">Dagelijks Doel</SelectItem>
-            <SelectItem value="custom">Aangepast Doel</SelectItem>
+            <SelectItem value="exam">{t('shell_exam_test')}</SelectItem>
+            <SelectItem value="daily">{t('shell_daily_goal')}</SelectItem>
+            <SelectItem value="custom">{t('shell_custom_goal')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       {planData.goalType === 'exam' && (
         <div>
-          <Label>Doeldatum *</Label>
+          <Label>{t('shell_target_date')}</Label>
           <Calendar
             mode="single"
             selected={planData.targetDate}
@@ -155,7 +157,7 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
   const renderStep2 = () => (
     <div className="space-y-6">
       <div>
-        <Label htmlFor="dailyGoal">Dagelijkse Doel (minuten) *</Label>
+        <Label htmlFor="dailyGoal">{t('shell_daily_goal_minutes')}</Label>
         <Input
           id="dailyGoal"
           type="number"
@@ -169,7 +171,7 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
       </div>
 
       <div>
-        <Label>Voorkeurstijden</Label>
+        <Label>{t('shell_preferred_times')}</Label>
         <div className="grid grid-cols-2 gap-2 mt-2">
           {[
             'Ochtend (06:00-12:00)',
@@ -196,7 +198,7 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
   const renderStep3 = () => (
     <div className="space-y-6">
       <div>
-        <Label>Selecteer Studie Sets</Label>
+        <Label>{t('shell_select_study_sets')}</Label>
         <p className="text-sm text-muted-foreground mb-4">
           Kies de studie sets die je wilt opnemen in je plan
         </p>
@@ -229,30 +231,30 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
   const renderStep4 = () => (
     <div className="space-y-6">
       <div className="bg-muted/50 p-4 rounded-lg">
-        <h3 className="font-semibold mb-3">Overzicht</h3>
+        <h3 className="font-semibold mb-3">{t('shell_overview')}</h3>
         <div className="space-y-2 text-sm">
           <div>
-            <span className="font-medium">Titel:</span> {planData.title}
+            <span className="font-medium">{t('shell_title_colon')}</span> {planData.title}
           </div>
           <div>
-            <span className="font-medium">Type:</span> {planData.goalType}
+            <span className="font-medium">{t('shell_type_colon')}</span> {planData.goalType}
           </div>
           {planData.goalType === 'exam' && (
             <div>
-              <span className="font-medium">Doeldatum:</span>{' '}
+              <span className="font-medium">{t('shell_target_date_colon')}</span>{' '}
               {planData.targetDate.toLocaleDateString('nl-NL')}
             </div>
           )}
           <div>
-            <span className="font-medium">Dagelijks Doel:</span> {planData.dailyGoalMinutes} minuten
+            <span className="font-medium">{t('shell_daily_goal_colon')}</span> {planData.dailyGoalMinutes} {t('shell_minutes_lower')}
           </div>
           <div>
-            <span className="font-medium">Voorkeurstijden:</span>{' '}
-            {planData.preferredTimes.join(', ') || 'Geen'}
+            <span className="font-medium">{t('shell_preferred_times_colon')}</span>{' '}
+            {planData.preferredTimes.join(', ') || t('shell_none')}
           </div>
           <div>
-            <span className="font-medium">Studie Sets:</span> {planData.selectedStudySets.length}{' '}
-            geselecteerd
+            <span className="font-medium">{t('shell_study_sets_colon')}</span> {planData.selectedStudySets.length}{' '}
+            {t('shell_selected')}
           </div>
         </div>
       </div>
@@ -262,7 +264,7 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
   return (
     <Card className="w-full max-w-2xl">
       <CardHeader>
-        <CardTitle>Studie Plan Wizard</CardTitle>
+        <CardTitle>{t('shell_study_plan_wizard')}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="mb-8">

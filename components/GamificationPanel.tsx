@@ -9,12 +9,14 @@ import {
   xpProgress,
   type GamificationStats,
 } from '@/lib/gamification/stats';
+import { useTranslation } from '@/lib/useTranslation';
 
 export function GamificationPanel({
   initialStats = DEFAULT_GAMIFICATION_STATS,
 }: {
   initialStats?: GamificationStats;
 }) {
+  const { t } = useTranslation();
   const [stats, setStats] = useState(initialStats);
   const progress = useMemo(() => xpProgress(stats), [stats]);
 
@@ -44,7 +46,7 @@ export function GamificationPanel({
         <div>
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="text-sm text-muted-foreground">Ervaring</p>
+              <p className="text-sm text-muted-foreground">{t('shell_experience')}</p>
               <p className="mt-1 text-3xl font-semibold tabular-nums">{stats.xp} XP</p>
             </div>
             <p className="text-xs text-muted-foreground tabular-nums">
@@ -71,12 +73,12 @@ export function GamificationPanel({
           <div className="rounded-lg border border-border p-4">
             <Flame className="h-4 w-4 text-warning" aria-hidden="true" />
             <p className="mt-3 text-2xl font-semibold tabular-nums">{stats.currentStreak}</p>
-            <p className="text-xs text-muted-foreground">dagen streak</p>
+            <p className="text-xs text-muted-foreground">{t('shell_days_streak')}</p>
           </div>
           <div className="rounded-lg border border-border p-4">
             <Star className="h-4 w-4 text-warning" aria-hidden="true" />
             <p className="mt-3 text-2xl font-semibold tabular-nums">{stats.cardsReviewed}</p>
-            <p className="text-xs text-muted-foreground">kaarten herhaald</p>
+            <p className="text-xs text-muted-foreground">{t('shell_cards_reviewed')}</p>
           </div>
         </div>
       </div>

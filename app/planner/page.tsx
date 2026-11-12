@@ -5,6 +5,7 @@ import type { FormEvent } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { CalendarDays, Plus, Trash2, X } from 'lucide-react';
 import { logActivity } from '@/lib/activity';
+import { useTranslation } from '@/lib/useTranslation';
 
 type PlannerStatus = 'todo' | 'bezig' | 'review' | 'klaar';
 
@@ -36,10 +37,16 @@ const STORAGE_KEY = 'aether_planner_tasks';
 const TASK_COLUMNS: PlannerStatus[] = ['todo', 'bezig', 'review', 'klaar'];
 
 const TASK_LABELS: Record<PlannerStatus, string> = {
-  todo: 'Te doen',
-  bezig: 'Bezig',
-  review: 'Nakijken',
-  klaar: 'Klaar',
+  todo: 'plan_status_todo',
+  bezig: 'plan_status_bezig',
+  review: 'plan_status_review',
+  klaar: 'plan_status_klaar',
+};
+
+const PRIORITY_LABEL_KEYS: Record<PlannerTask['priority'], string> = {
+  laag: 'plan_prio_low',
+  normaal: 'plan_prio_normal',
+  hoog: 'plan_prio_high',
 };
 
 const PRIORITY_STYLES: Record<PlannerTask['priority'], string> = {
@@ -139,6 +146,7 @@ const emptyForm: PlannerFormState = {
 };
 
 export default function PlannerPage() {
+  const { t } = useTranslation();
   const [tasks, setTasks] = useState<PlannerTask[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -187,7 +195,7 @@ export default function PlannerPage() {
     const title = form.title.trim();
 
     if (!title) {
-      setFormError('Titel is verplicht.');
+      setFormError(t('plan_error_title'));
       return;
     }
 
@@ -235,12 +243,12 @@ export default function PlannerPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Taken"
-        description="Beheer je schooltaken en huiswerk."
+        title={t('plan_title')}
+        description={t('plan_description')}
         action={
           <button type="button" onClick={openCreate} className={primaryButtonClass}>
             <Plus className="mr-2 h-4 w-4" />
-            Nieuwe taak
+            {t('plan_new')}
           </button>
         }
       />
@@ -249,7 +257,7 @@ export default function PlannerPage() {
         {TASK_COLUMNS.map((status) => (
           <section key={status} className="rounded-xl border border-border bg-secondary/20 p-3">
             <div className="mb-3 flex items-center justify-between px-1">
-              <h2 className="font-display text-lg font-semibold">{TASK_LABELS[status]}</h2>
+              <h2 className="font-display text-lg font-semibold">{t(TASK_LABELS[status])}</h2>
               <span className="rounded-full bg-background px-2.5 py-1 text-xs font-medium text-muted-foreground">
                 {tasksByStatus[status].length}
               </span>
@@ -260,7 +268,7 @@ export default function PlannerPage() {
                 <div className="h-24 animate-pulse rounded-lg border border-border bg-card" />
               ) : tasksByStatus[status].length === 0 ? (
                 <div className="rounded-lg border border-dashed border-border bg-card/40 p-4 text-center text-xs text-muted-foreground">
-                  Geen taken
+                  {t('plan_empty')}
                 </div>
               ) : (
                 tasksByStatus[status].map((task) => (
@@ -272,7 +280,7 @@ export default function PlannerPage() {
                         type="button"
                         onClick={() => deleteTask(task.id)}
                         className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-destructive"
-                        aria-label="Taak verwijderen"
+                        aria-label={t('plan_delete_aria')}
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -286,7 +294,7 @@ export default function PlannerPage() {
                       <span
                         className={`rounded-full border px-2 py-0.5 font-medium ${PRIORITY_STYLES[task.priority]}`}
                       >
-                        {task.priority}
+                        {t(PRIORITY_LABEL_KEYS[task.priority])}
                       </span>
 
                       {task.estimate && (
@@ -319,7 +327,7 @@ export default function PlannerPage() {
                     >
                       {TASK_COLUMNS.map((column) => (
                         <option key={column} value={column}>
-                          {TASK_LABELS[column]}
+                          {t(TASK_LABELS[column])}
                         </option>
                       ))}
                     </select>
@@ -341,7 +349,7 @@ export default function PlannerPage() {
 
           <div className="relative z-10 w-full max-w-2xl rounded-xl border border-border bg-background p-6 shadow-xl">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="font-display text-2xl font-semibold">Nieuwe taak</h2>
+              <h2 className="font-display text-2xl font-semibold">{t('plan_new_title')}</h2>
 
               <button
                 type="button"
@@ -361,35 +369,35 @@ export default function PlannerPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="planner-title" className="mb-1 block text-sm font-medium">
-                  Titel
+                  {t('plan_field_title')}
                 </label>
                 <input
                   id="planner-title"
                   value={form.title}
                   onChange={(event) => setForm({ ...form, title: event.target.value })}
                   className={inputClass}
-                  placeholder="Bijv. Huiswerk wiskunde maken"
+                  placeholder={t('plan_title_placeholder')}
                   required
                 />
               </div>
 
               <div>
                 <label htmlFor="planner-description" className="mb-1 block text-sm font-medium">
-                  Beschrijving
+                  {t('plan_field_description')}
                 </label>
                 <textarea
                   id="planner-description"
                   value={form.description}
                   onChange={(event) => setForm({ ...form, description: event.target.value })}
                   className="min-h-20 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
-                  placeholder="Optionele details..."
+                  placeholder={t('plan_desc_placeholder')}
                 />
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="planner-status" className="mb-1 block text-sm font-medium">
-                    Status
+                    {t('plan_field_status')}
                   </label>
                   <select
                     id="planner-status"
@@ -401,7 +409,7 @@ export default function PlannerPage() {
                   >
                     {TASK_COLUMNS.map((column) => (
                       <option key={column} value={column}>
-                        {TASK_LABELS[column]}
+                        {t(TASK_LABELS[column])}
                       </option>
                     ))}
                   </select>
@@ -409,7 +417,7 @@ export default function PlannerPage() {
 
                 <div>
                   <label htmlFor="planner-priority" className="mb-1 block text-sm font-medium">
-                    Prioriteit
+                    {t('plan_field_priority')}
                   </label>
                   <select
                     id="planner-priority"
@@ -419,9 +427,9 @@ export default function PlannerPage() {
                     }
                     className={inputClass}
                   >
-                    <option value="laag">Laag</option>
-                    <option value="normaal">Normaal</option>
-                    <option value="hoog">Hoog</option>
+                    <option value="laag">{t('plan_prio_low')}</option>
+                    <option value="normaal">{t('plan_prio_normal')}</option>
+                    <option value="hoog">{t('plan_prio_high')}</option>
                   </select>
                 </div>
               </div>
@@ -429,20 +437,20 @@ export default function PlannerPage() {
               <div className="grid gap-4 sm:grid-cols-3">
                 <div>
                   <label htmlFor="planner-estimate" className="mb-1 block text-sm font-medium">
-                    Inschatting
+                    {t('plan_field_estimate')}
                   </label>
                   <input
                     id="planner-estimate"
                     value={form.estimate}
                     onChange={(event) => setForm({ ...form, estimate: event.target.value })}
                     className={inputClass}
-                    placeholder="Bijv. 20m"
+                    placeholder={t('plan_estimate_placeholder')}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="planner-due-date" className="mb-1 block text-sm font-medium">
-                    Deadline
+                    {t('plan_field_deadline')}
                   </label>
                   <input
                     id="planner-due-date"
@@ -455,25 +463,25 @@ export default function PlannerPage() {
 
                 <div>
                   <label htmlFor="planner-tags" className="mb-1 block text-sm font-medium">
-                    Tags
+                    {t('plan_field_tags')}
                   </label>
                   <input
                     id="planner-tags"
                     value={form.tags}
                     onChange={(event) => setForm({ ...form, tags: event.target.value })}
                     className={inputClass}
-                    placeholder="Bijv. woordjes"
+                    placeholder={t('plan_tags_placeholder')}
                   />
                 </div>
               </div>
 
               <div className="flex items-center justify-end gap-2 pt-2">
                 <button type="button" onClick={closeModal} className={outlineButtonClass}>
-                  Annuleren
+                  {t('cancel')}
                 </button>
 
                 <button type="submit" className={primaryButtonClass}>
-                  Taak toevoegen
+                  {t('plan_add_submit')}
                 </button>
               </div>
             </form>

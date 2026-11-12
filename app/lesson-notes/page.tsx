@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Plus, FileText, HelpCircle, Download, Trash2, Edit, CheckCircle2 } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface LessonNote {
   id: string;
@@ -18,6 +19,7 @@ interface LessonNote {
 }
 
 export default function LessonNotesPage() {
+  const { t, currentLanguage } = useTranslation();
   const [notes, setNotes] = useState<LessonNote[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -110,7 +112,7 @@ export default function LessonNotesPage() {
   };
 
   const addQuestion = (noteId: string) => {
-    const questionText = prompt('Voer je vraag in:');
+    const questionText = prompt(t('lesson_enter_question'));
     if (!questionText) return;
 
     const newQuestion = { id: `q_${Date.now()}`, text: questionText, status: 'pending' as const };
@@ -150,7 +152,7 @@ export default function LessonNotesPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${note.title}_vragen.txt`;
+    a.download = `${note.title}_${t('lesson_questions_filename')}.txt`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -160,12 +162,12 @@ export default function LessonNotesPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Les Notities"
-        description="Maak notities tijdens lessen en genereer vragen voor docenten"
+        title={t('lesson_notes_title')}
+        description={t('lesson_notes_desc')}
         action={
           <Button onClick={openCreate}>
             <Plus className="mr-2 h-4 w-4" />
-            Nieuwe notitie
+            {t('lesson_new_note')}
           </Button>
         }
         actionPosition="right"
@@ -175,13 +177,13 @@ export default function LessonNotesPage() {
         {sortedNotes.length === 0 ? (
           <div className="rounded-xl border border-dashed border-border p-12 text-center">
             <FileText className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-            <h2 className="font-display text-xl font-semibold mb-2">Geen notities</h2>
+            <h2 className="font-display text-xl font-semibold mb-2">{t('lesson_no_notes')}</h2>
             <p className="text-sm text-muted-foreground mb-4">
-              Maak je eerste lesnotitie om te beginnen.
+              {t('lesson_no_notes_desc')}
             </p>
             <Button onClick={openCreate}>
               <Plus className="mr-2 h-4 w-4" />
-              Nieuwe notitie
+              {t('lesson_new_note')}
             </Button>
           </div>
         ) : (
@@ -192,7 +194,7 @@ export default function LessonNotesPage() {
                   <div>
                     <h3 className="font-semibold text-lg">{note.title}</h3>
                     <p className="text-sm text-muted-foreground">
-                      {note.subject} · {new Date(note.date).toLocaleDateString('nl-NL')}
+                      {note.subject} · {new Date(note.date).toLocaleDateString(currentLanguage)}
                     </p>
                   </div>
                   <div className="flex gap-2">
@@ -215,7 +217,7 @@ export default function LessonNotesPage() {
                   <div className="flex items-center justify-between mb-2">
                     <h4 className="text-sm font-medium flex items-center gap-2">
                       <HelpCircle className="h-4 w-4" />
-                      Vragen ({note.questions.length})
+                      {t('lesson_questions_count', undefined, { count: note.questions.length })}
                     </h4>
                     <div className="flex gap-2">
                       <Button
@@ -225,7 +227,7 @@ export default function LessonNotesPage() {
                         onClick={() => addQuestion(note.id)}
                       >
                         <Plus className="h-3 w-3 mr-1" />
-                        Vraag toevoegen
+                        {t('lesson_add_question')}
                       </Button>
                       {note.questions.length > 0 && (
                         <Button
@@ -235,13 +237,13 @@ export default function LessonNotesPage() {
                           onClick={() => exportQuestions(note)}
                         >
                           <Download className="h-3 w-3 mr-1" />
-                          Exporteren
+                          {t('lesson_export')}
                         </Button>
                       )}
                     </div>
                   </div>
                   {note.questions.length === 0 ? (
-                    <p className="text-sm text-muted-foreground italic">Nog geen vragen</p>
+                    <p className="text-sm text-muted-foreground italic">{t('lesson_no_questions')}</p>
                   ) : (
                     <div className="space-y-2">
                       {note.questions.map((question) => (
@@ -277,11 +279,11 @@ export default function LessonNotesPage() {
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{editingId ? 'Bewerk notitie' : 'Nieuwe notitie'}</DialogTitle>
+            <DialogTitle>{editingId ? t('lesson_edit_note') : t('lesson_new_note')}</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="title">Titel</Label>
+              <Label htmlFor="title">{t('lesson_title_label')}</Label>
               <Input
                 id="title"
                 value={form.title}
@@ -290,7 +292,7 @@ export default function LessonNotesPage() {
               />
             </div>
             <div>
-              <Label htmlFor="subject">Vak</Label>
+              <Label htmlFor="subject">{t('lesson_subject_label')}</Label>
               <Input
                 id="subject"
                 value={form.subject}
@@ -299,7 +301,7 @@ export default function LessonNotesPage() {
               />
             </div>
             <div>
-              <Label htmlFor="date">Datum</Label>
+              <Label htmlFor="date">{t('lesson_date_label')}</Label>
               <Input
                 id="date"
                 type="date"
@@ -309,21 +311,21 @@ export default function LessonNotesPage() {
               />
             </div>
             <div>
-              <Label htmlFor="content">Notities</Label>
+              <Label htmlFor="content">{t('lesson_notes_label')}</Label>
               <textarea
                 id="content"
                 value={form.content}
                 onChange={(e) => setForm({ ...form, content: e.target.value })}
                 rows={6}
                 className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                placeholder="Typ je notities hier..."
+                placeholder={t('lesson_notes_placeholder')}
               />
             </div>
             <div className="flex justify-end gap-2">
               <Button type="button" variant="outline" onClick={() => setModalOpen(false)}>
-                Annuleren
+                {t('lesson_cancel')}
               </Button>
-              <Button type="submit">{editingId ? 'Opslaan' : 'Toevoegen'}</Button>
+              <Button type="submit">{editingId ? t('lesson_save') : t('lesson_add')}</Button>
             </div>
           </form>
         </DialogContent>

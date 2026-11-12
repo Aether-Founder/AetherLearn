@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AppShell } from '@/components/AppShell';
 import { BookOpen, Sparkles } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function MinimalDashboard() {
+  const { t } = useTranslation();
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -48,7 +50,7 @@ export default function MinimalDashboard() {
               className="inline-flex h-14 items-center justify-center rounded-xl bg-primary px-6 text-base font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
             >
               <BookOpen className="mr-2 h-5 w-5" />
-              Start leren
+              {t('comp_start_learning')}
             </Link>
 
             <Link
@@ -56,7 +58,7 @@ export default function MinimalDashboard() {
               className="inline-flex h-14 items-center justify-center rounded-xl border border-border bg-background px-6 text-base font-medium text-foreground shadow-sm transition-colors hover:bg-secondary"
             >
               <Sparkles className="mr-2 h-5 w-5" />
-              Dagelijkse quiz
+              {t('comp_daily_quiz')}
             </Link>
           </div>
         </section>

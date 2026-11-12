@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Clock, AlertTriangle, Briefcase, Heart, Zap, Plane, Settings } from 'lucide-react';
 import { StudyLoadManager } from '@/lib/study-load-manager';
+import { useTranslation } from '@/lib/useTranslation';
 
 type StudyMode = 'normal' | 'sick' | 'mvd' | 'catchup' | 'exam' | 'vacation' | 'custom';
 
@@ -29,6 +30,7 @@ interface StudyStats {
 }
 
 export default function StudyModesPage() {
+  const { t } = useTranslation();
   const [currentMode, setCurrentMode] = useState<StudyMode>('normal');
   const [dailyLimit, setDailyLimit] = useState(60);
   const [stats, setStats] = useState<StudyStats>({
@@ -43,8 +45,8 @@ export default function StudyModesPage() {
   const modeConfigs: Record<StudyMode, StudyModeConfig> = {
     normal: {
       mode: 'normal',
-      name: 'Normaal',
-      description: 'Standaard studeermodus met normale activiteiten',
+      name: t('mode_normal_name'),
+      description: t('mode_normal_desc'),
       icon: Settings,
       dailyLimitMinutes: 60,
       priorityFilter: 'all',
@@ -52,8 +54,8 @@ export default function StudyModesPage() {
     },
     sick: {
       mode: 'sick',
-      name: 'Ziekte Modus',
-      description: 'Minimale activiteiten om niet achter te raken',
+      name: t('mode_sick_name'),
+      description: t('mode_sick_desc'),
       icon: Heart,
       dailyLimitMinutes: 15,
       priorityFilter: 'urgent',
@@ -62,7 +64,7 @@ export default function StudyModesPage() {
     mvd: {
       mode: 'mvd',
       name: 'Minimum Viable Day',
-      description: 'Essentiële taken alleen',
+      description: t('mode_mvd_desc'),
       icon: Zap,
       dailyLimitMinutes: 30,
       priorityFilter: 'urgent',
@@ -70,8 +72,8 @@ export default function StudyModesPage() {
     },
     catchup: {
       mode: 'catchup',
-      name: 'Inhaal Modus',
-      description: 'Verhoogde activiteit om achterstand weg te werken',
+      name: t('mode_catchup_name'),
+      description: t('mode_catchup_desc'),
       icon: Briefcase,
       dailyLimitMinutes: 120,
       priorityFilter: 'important',
@@ -79,8 +81,8 @@ export default function StudyModesPage() {
     },
     exam: {
       mode: 'exam',
-      name: 'Examen Modus',
-      description: 'Focus op herhaling, minder nieuwe content',
+      name: t('mode_exam_name'),
+      description: t('mode_exam_desc'),
       icon: AlertTriangle,
       dailyLimitMinutes: 90,
       priorityFilter: 'important',
@@ -88,8 +90,8 @@ export default function StudyModesPage() {
     },
     vacation: {
       mode: 'vacation',
-      name: 'Vakantie Modus',
-      description: 'Lichte onderhoudsactiviteiten',
+      name: t('mode_vacation_name'),
+      description: t('mode_vacation_desc'),
       icon: Plane,
       dailyLimitMinutes: 20,
       priorityFilter: 'normal',
@@ -97,8 +99,8 @@ export default function StudyModesPage() {
     },
     custom: {
       mode: 'custom',
-      name: 'Aangepast',
-      description: 'Je eigen configuratie',
+      name: t('mode_custom_name'),
+      description: t('mode_custom_desc'),
       icon: Settings,
       dailyLimitMinutes: dailyLimit,
       priorityFilter: 'all',
@@ -182,25 +184,25 @@ export default function StudyModesPage() {
 
   const getBurnoutLabel = () => {
     switch (stats.burnoutRisk) {
-      case 'high': return 'Hoog risico';
-      case 'medium': return 'Middelmatig risico';
-      case 'low': return 'Laag risico';
+      case 'high': return t('mode_burnout_high');
+      case 'medium': return t('mode_burnout_medium');
+      case 'low': return t('mode_burnout_low');
     }
   };
 
   const getLoadLabel = () => {
     const percentage = getLoadPercentage();
-    if (percentage >= 90) return 'Overbelasting';
-    if (percentage >= 70) return 'Bijna vol';
-    if (percentage >= 50) return 'Normaal';
-    return 'Licht';
+    if (percentage >= 90) return t('mode_load_overload');
+    if (percentage >= 70) return t('mode_load_almost_full');
+    if (percentage >= 50) return t('mode_load_normal');
+    return t('mode_load_light');
   };
 
   return (
     <AppShell>
       <PageHeader
-        title="Studie Modi"
-        description="Kies een studiemodus om overbelasting te voorkomen en je studie aan te passen aan je situatie"
+        title={t('mode_title')}
+        description={t('mode_description')}
       />
 
       <div className="mt-10 space-y-6">
@@ -209,27 +211,27 @@ export default function StudyModesPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Clock className="h-5 w-5" />
-              Huidige Status
+              {t('mode_current_status')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div>
-                <p className="text-sm text-muted-foreground">Vandaag gestudeerd</p>
+                <p className="text-sm text-muted-foreground">{t('mode_today_studied')}</p>
                 <p className="text-2xl font-semibold">{stats.todayMinutes} min</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Daglimiet</p>
+                <p className="text-sm text-muted-foreground">{t('mode_daily_limit')}</p>
                 <p className="text-2xl font-semibold">{dailyLimit} min</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Belasting</p>
+                <p className="text-sm text-muted-foreground">{t('mode_load_label')}</p>
                 <span className={`inline-flex items-center px-2 py-1 rounded text-sm font-medium ${getLoadColor()}`}>
                   {getLoadLabel()}
                 </span>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Burnout risico</p>
+                <p className="text-sm text-muted-foreground">{t('mode_burnout_risk')}</p>
                 <span className={`inline-flex items-center px-2 py-1 rounded text-sm font-medium ${getBurnoutColor()}`}>
                   {getBurnoutLabel()}
                 </span>
@@ -239,7 +241,7 @@ export default function StudyModesPage() {
             {/* Progress Bar */}
             <div className="mt-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-muted-foreground">Dagelijkse voortgang</span>
+                <span className="text-sm text-muted-foreground">{t('mode_daily_progress')}</span>
                 <span className="text-sm font-medium">{Math.round(getLoadPercentage())}%</span>
               </div>
               <div className="h-3 bg-secondary rounded-full overflow-hidden">
@@ -255,10 +257,10 @@ export default function StudyModesPage() {
               <div className="mt-4 p-3 rounded bg-red-500/10 border border-red-500/30">
                 <div className="flex items-center gap-2 text-sm">
                   <AlertTriangle className="h-4 w-4 text-red-500" />
-                  <span className="font-medium text-red-500">Waarschuwing: Je bent bijna op je daglimiet</span>
+                  <span className="font-medium text-red-500">{t('mode_limit_warning')}</span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Overweeg om te stoppen of overschrijf limiet indien nodig.
+                  {t('mode_limit_warning_desc')}
                 </p>
               </div>
             )}
@@ -268,7 +270,7 @@ export default function StudyModesPage() {
         {/* Study Mode Selection */}
         <Card>
           <CardHeader>
-            <CardTitle>Kies een Studiemodus</CardTitle>
+            <CardTitle>{t('mode_select_title')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -293,7 +295,9 @@ export default function StudyModesPage() {
                     <p className="text-sm text-muted-foreground mb-2">{config.description}</p>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Clock className="h-3 w-3" />
-                      <span>{config.dailyLimitMinutes} min/dag</span>
+                      <span>
+                        {t('mode_minutes_per_day', undefined, { n: config.dailyLimitMinutes })}
+                      </span>
                     </div>
                   </button>
                 );
@@ -306,12 +310,12 @@ export default function StudyModesPage() {
         {currentMode === 'custom' && (
           <Card>
             <CardHeader>
-              <CardTitle>Aangepaste Configuratie</CardTitle>
+              <CardTitle>{t('mode_custom_config')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="customLimit">Daglimiet (minuten)</Label>
+                  <Label htmlFor="customLimit">{t('mode_custom_limit_label')}</Label>
                   <Input
                     id="customLimit"
                     type="number"
@@ -332,18 +336,18 @@ export default function StudyModesPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-red-500">
                 <AlertTriangle className="h-5 w-5" />
-                Burnout Waarschuwing
+                {t('mode_burnout_warning')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm mb-3">
-                Je hebt een hoog burnout risico op basis van je recente activiteit.
+                {t('mode_burnout_warning_desc')}
               </p>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Overweeg om over te schakelen naar Ziekte Modus of Vakantie Modus</li>
-                <li>• Verminder je dagelijkse studeertijd</li>
-                <li>• Neem een pauze en focus op herstel</li>
-                <li>• Prioriteer alleen essentiële taken</li>
+                <li>• {t('mode_tip1')}</li>
+                <li>• {t('mode_tip2')}</li>
+                <li>• {t('mode_tip3')}</li>
+                <li>• {t('mode_tip4')}</li>
               </ul>
             </CardContent>
           </Card>
@@ -352,12 +356,12 @@ export default function StudyModesPage() {
         {/* Manual Session Recording */}
         <Card>
           <CardHeader>
-            <CardTitle>Sessie Opnemen</CardTitle>
+            <CardTitle>{t('mode_record_session')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex gap-3 items-end">
               <div className="flex-1">
-                <Label htmlFor="sessionMinutes">Minuten</Label>
+                <Label htmlFor="sessionMinutes">{t('mode_minutes_label')}</Label>
                 <Input
                   id="sessionMinutes"
                   type="number"
@@ -367,7 +371,7 @@ export default function StudyModesPage() {
                 />
               </div>
               <div className="flex-1">
-                <Label htmlFor="sessionItems">Items voltooid</Label>
+                <Label htmlFor="sessionItems">{t('mode_items_done')}</Label>
                 <Input
                   id="sessionItems"
                   type="number"
@@ -386,7 +390,7 @@ export default function StudyModesPage() {
                   }
                 }}
               >
-                Opnemen
+                {t('mode_record')}
               </Button>
             </div>
           </CardContent>

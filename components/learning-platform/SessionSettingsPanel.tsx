@@ -21,19 +21,19 @@ interface SessionSettingsPanelProps {
   onStart: () => void;
 }
 
-const LEREN_ACTIVITIES: { id: LerenActivity; label: string }[] = [
-  { id: 'flashcard', label: 'Flashcards' },
-  { id: 'multiple-choice-only', label: 'Meerkeuze' },
-  { id: 'learn', label: 'Adaptief leren' },
-  { id: 'writing-only', label: 'Schrijven' },
+const LEREN_ACTIVITIES: { id: LerenActivity; labelKey: string }[] = [
+  { id: 'flashcard', labelKey: 'comp_flashcards' },
+  { id: 'multiple-choice-only', labelKey: 'comp_mcq' },
+  { id: 'learn', labelKey: 'comp_adaptive_learning' },
+  { id: 'writing-only', labelKey: 'comp_written' },
 ];
 
-const REVIEW_MODES: { id: ReviewMode; label: string }[] = [
-  { id: 'mix', label: 'Due + nieuw' },
-  { id: 'due', label: 'Alleen due' },
-  { id: 'new', label: 'Alleen nieuw' },
-  { id: 'mistakes', label: 'Foutenronde' },
-  { id: 'starred', label: 'Sterren' },
+const REVIEW_MODES: { id: ReviewMode; labelKey: string }[] = [
+  { id: 'mix', labelKey: 'comp_review_mix' },
+  { id: 'due', labelKey: 'comp_review_due_only' },
+  { id: 'new', labelKey: 'comp_review_new_only' },
+  { id: 'mistakes', labelKey: 'comp_review_mistakes' },
+  { id: 'starred', labelKey: 'comp_review_starred' },
 ];
 
 export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSettingsPanelProps) {
@@ -224,13 +224,13 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
                     : 'border-border bg-background text-muted-foreground hover:text-foreground'
                 }`}
               >
-                {mode.label}
+                {t(mode.labelKey)}
               </button>
             ))}
           </div>
           <div className="grid grid-cols-2 gap-3">
             <label className="text-sm text-muted-foreground">
-              Nieuwe kaarten/dag
+              {t('comp_new_cards_per_day')}
               <input
                 type="number"
                 min={0}
@@ -240,7 +240,7 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
               />
             </label>
             <label className="text-sm text-muted-foreground">
-              Reviews/dag
+              {t('comp_reviews_per_day')}
               <input
                 type="number"
                 min={0}
@@ -272,14 +272,14 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
             <div className="divide-y divide-border">
               {(
                 [
-                  ['multiple-choice', 'Meerkeuze'],
-                  ['written', 'Schrijven'],
-                  ['true-false', 'Waar / onwaar'],
+                  ['multiple-choice', 'comp_mcq'],
+                  ['written', 'comp_written'],
+                  ['true-false', 'comp_true_false'],
                 ] as [QuestionType, string][]
               ).map(([type, label]) => (
                 <Toggle
                   key={type}
-                  label={label}
+                  label={t(label)}
                   checked={settings.enabledQuestionTypes.includes(type)}
                   onChange={() => toggleQuestionType(type)}
                 />
@@ -290,13 +290,13 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
             </p>
             {(
               [
-                ['true-false', 'Waar / onwaar'],
-                ['multiple-choice', 'Meerkeuze'],
-                ['written', 'Schrijven'],
+                ['true-false', 'comp_true_false'],
+                ['multiple-choice', 'comp_mcq'],
+                ['written', 'comp_written'],
               ] as const
             ).map(([key, label]) => (
               <div key={key} className="flex items-center gap-3 text-sm">
-                <span className="w-28 text-muted-foreground">{label}</span>
+                <span className="w-28 text-muted-foreground">{t(label)}</span>
                 <input
                   type="number"
                   min={0}
@@ -326,7 +326,7 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
               {LEREN_ACTIVITIES.map((activity) => (
                 <Toggle
                   key={activity.id}
-                  label={activity.label}
+                  label={t(activity.labelKey)}
                   checked={selectedActivities.includes(activity.id)}
                   onChange={() => toggleActivity(activity.id)}
                 />
@@ -375,22 +375,22 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
             onChange={(value) => updateSettings({ retypeAnswers: value })}
           />
           <Toggle
-            label="Accenten negeren"
+            label={t('comp_ignore_accents')}
             checked={settings.gradingIgnoreAccents}
             onChange={(value) => updateSettings({ gradingIgnoreAccents: value })}
           />
           <Toggle
-            label="Hoofdletters negeren"
+            label={t('comp_ignore_case')}
             checked={settings.gradingIgnoreCase}
             onChange={(value) => updateSettings({ gradingIgnoreCase: value })}
           />
           <Toggle
-            label="Leestekens negeren"
+            label={t('comp_ignore_punctuation')}
             checked={settings.gradingIgnorePunctuation}
             onChange={(value) => updateSettings({ gradingIgnorePunctuation: value })}
           />
           <Toggle
-            label="Foute antwoorden opnieuw oefenen"
+            label={t('comp_retry_incorrect')}
             checked={settings.retryIncorrect}
             onChange={(value) => updateSettings({ retryIncorrect: value })}
           />
@@ -398,7 +398,7 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
 
         <div className="py-4 space-y-3">
           <label className="text-sm font-medium text-foreground">
-            Typfout tolerantie: {settings.gradingTypoTolerance}
+            {t('comp_typo_tolerance', undefined, { value: settings.gradingTypoTolerance })}
             <input
               type="range"
               min={0}
@@ -423,7 +423,7 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
                       : 'border-border bg-background text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  {mode === 'exam' ? 'Toetsmodus' : 'Directe feedback'}
+                  {mode === 'exam' ? t('comp_exam_mode') : t('comp_instant_feedback')}
                 </button>
               ))}
             </div>

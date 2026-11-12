@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Eye, Calendar, Tag, Lock, Globe } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface ContentPreviewProps {
   content: {
@@ -24,6 +25,7 @@ interface ContentPreviewProps {
 }
 
 export function ContentPreview({ content, onEdit, onDelete, currentUserId }: ContentPreviewProps) {
+  const { t } = useTranslation();
   const isOwner = currentUserId === content.userId;
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('nl-NL', {
@@ -119,7 +121,7 @@ export function ContentPreview({ content, onEdit, onDelete, currentUserId }: Con
         <div className="border rounded-md p-4 bg-muted/50">
           <div className="flex items-center gap-2 mb-2">
             <Eye className="w-4 h-4" />
-            <span className="font-medium text-sm">Voorbeeld van inhoud</span>
+            <span className="font-medium text-sm">{t('shell_content_preview')}</span>
           </div>
           <pre className="text-xs overflow-auto max-h-40 bg-background p-2 rounded">
             {JSON.stringify(content.data, null, 2)}

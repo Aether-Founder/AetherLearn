@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Languages, CheckCircle2, AlertTriangle, FileText } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface LanguageCoverage {
   language: string;
@@ -20,6 +21,7 @@ interface TranslationCoverageCheckerProps {
 }
 
 export function TranslationCoverageChecker({ onExportReport }: TranslationCoverageCheckerProps) {
+  const { t } = useTranslation();
   const [coverage, setCoverage] = useState<LanguageCoverage[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState<string>('all');
@@ -62,7 +64,7 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
           Gedeeltelijk
         </Badge>
       );
-    return <Badge variant="destructive">Onvolledig</Badge>;
+    return <Badge variant="destructive">{t('shell_incomplete')}</Badge>;
   };
 
   const filteredCoverage =
@@ -77,10 +79,10 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Vertalingsdekking</CardTitle>
+          <CardTitle>{t('shell_translation_coverage')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -89,7 +91,7 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Vertalingsdekking</h2>
+        <h2 className="text-2xl font-bold">{t('shell_translation_coverage')}</h2>
         <div className="flex items-center gap-2">
           <Badge variant="secondary">{coverage.length} talen</Badge>
           <Button onClick={onExportReport} variant="outline" size="sm">
@@ -109,7 +111,7 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium">Gemiddelde Dekking</span>
+              <span className="text-sm font-medium">{t('shell_avg_coverage')}</span>
               <span className={`text-2xl font-bold ${getCoverageColor(averageCoverage)}`}>
                 {averageCoverage}%
               </span>
@@ -119,8 +121,8 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
               {averageCoverage >= 90
                 ? 'Uitstekende vertalingsdekking'
                 : averageCoverage >= 70
-                  ? 'Goede vertalingsdekking met ruimte voor verbetering'
-                  : 'Vertalingsdekking moet worden verbeterd'}
+                  ? t('shell_coverage_good')
+                  : t('shell_coverage_needs_work')}
             </div>
           </div>
         </CardContent>
@@ -128,13 +130,13 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
 
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <label className="text-sm font-medium">Filter op Taal</label>
+          <label className="text-sm font-medium">{t('shell_filter_language')}</label>
           <select
             value={selectedLanguage}
             onChange={(e) => setSelectedLanguage(e.target.value)}
             className="px-3 py-1 border rounded-md text-sm"
           >
-            <option value="all">Alle Talen</option>
+            <option value="all">{t('shell_all_languages')}</option>
             {coverage.map((c) => (
               <option key={c.language} value={c.language}>
                 {c.language.toUpperCase()}
@@ -156,7 +158,7 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
             <CardContent className="space-y-4">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-muted-foreground">Dekking</span>
+                  <span className="text-sm text-muted-foreground">{t('shell_coverage')}</span>
                   <span className={`font-semibold ${getCoverageColor(lang.coverage)}`}>
                     {lang.coverage}%
                   </span>
@@ -165,7 +167,7 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
               </div>
 
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Vertaald</span>
+                <span className="text-muted-foreground">{t('shell_translated')}</span>
                 <span className="font-medium">
                   {lang.translatedKeys}/{lang.totalKeys}
                 </span>
@@ -195,7 +197,7 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
               {lang.missingKeys.length === 0 && (
                 <div className="flex items-center gap-2 text-sm text-green-500">
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>Volledig vertaald</span>
+                  <span>{t('shell_fully_translated')}</span>
                 </div>
               )}
             </CardContent>
@@ -207,7 +209,7 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
         <Card>
           <CardContent className="text-center py-12">
             <Languages className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-            <h3 className="text-lg font-semibold mb-2">Geen Vertalingen</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('shell_no_translations')}</h3>
             <p className="text-sm text-muted-foreground">
               Voeg vertalingen toe om de dekking te controleren
             </p>
@@ -220,7 +222,7 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
           <div className="flex items-start gap-4">
             <Languages className="w-8 h-8 text-blue-500 mt-1" />
             <div>
-              <h3 className="font-semibold mb-2">Over Vertalingsdekking</h3>
+              <h3 className="font-semibold mb-2">{t('shell_about_coverage')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• Volledige dekking (90%+): Alle belangrijke teksten zijn vertaald</li>
                 <li>

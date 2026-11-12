@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { motion } from 'framer-motion';
+import { useTranslation } from '@/lib/useTranslation';
 
 type AgendaView = 'month' | 'week' | 'workweek' | 'day' | 'agenda' | 'year';
 type AgendaEventType = 'les' | 'huiswerk' | 'examen' | 'other';
@@ -64,91 +65,91 @@ const STORAGE_KEY = 'aether_agenda_events';
 const EVENT_TYPES: AgendaEventType[] = ['les', 'huiswerk', 'examen', 'other'];
 
 const EVENT_TYPE_LABELS: Record<AgendaEventType, string> = {
-  les: 'Les',
-  huiswerk: 'Huiswerk',
-  examen: 'Toets',
-  other: 'Overig',
+  les: 'agenda_type_lesson',
+  huiswerk: 'agenda_type_homework',
+  examen: 'agenda_type_test',
+  other: 'agenda_type_other',
 };
 
 const RECURRENCE_OPTIONS: Array<{ id: Recurrence; label: string }> = [
-  { id: 'none', label: 'Geen herhaling' },
-  { id: 'daily', label: 'Elke dag' },
-  { id: 'weekly', label: 'Elke week' },
-  { id: 'biweekly', label: 'Elke 2 weken' },
-  { id: 'monthly', label: 'Elke maand' },
-  { id: 'yearly', label: 'Elk jaar' },
+  { id: 'none', label: 'agenda_rec_none' },
+  { id: 'daily', label: 'agenda_rec_daily' },
+  { id: 'weekly', label: 'agenda_rec_weekly' },
+  { id: 'biweekly', label: 'agenda_rec_biweekly' },
+  { id: 'monthly', label: 'agenda_rec_monthly' },
+  { id: 'yearly', label: 'agenda_rec_yearly' },
 ];
 
 const EVENT_COLOR_OPTIONS = [
   {
     id: 'blue',
-    label: 'Blauw',
+    label: 'agenda_color_blue',
     swatch: 'bg-blue-500',
     event: 'bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700',
   },
   {
     id: 'darkblue',
-    label: 'Donkerblauw',
+    label: 'agenda_color_darkblue',
     swatch: 'bg-blue-900',
     event: 'bg-blue-900 text-white hover:bg-blue-800 dark:bg-blue-950 dark:hover:bg-blue-900',
   },
   {
     id: 'red',
-    label: 'Rood',
+    label: 'agenda_color_red',
     swatch: 'bg-red-500',
     event: 'bg-red-500 text-white hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700',
   },
   {
     id: 'pink',
-    label: 'Roze',
+    label: 'agenda_color_pink',
     swatch: 'bg-pink-500',
     event: 'bg-pink-500 text-white hover:bg-pink-600 dark:bg-pink-600 dark:hover:bg-pink-700',
   },
   {
     id: 'purple',
-    label: 'Paars',
+    label: 'agenda_color_purple',
     swatch: 'bg-purple-500',
     event: 'bg-purple-500 text-white hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-700',
   },
   {
     id: 'green',
-    label: 'Groen',
+    label: 'agenda_color_green',
     swatch: 'bg-green-500',
     event: 'bg-green-500 text-white hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700',
   },
   {
     id: 'darkgreen',
-    label: 'Donkergroen',
+    label: 'agenda_color_darkgreen',
     swatch: 'bg-green-800',
     event: 'bg-green-800 text-white hover:bg-green-700 dark:bg-green-900 dark:hover:bg-green-800',
   },
   {
     id: 'lightgreen',
-    label: 'Lichtgroen',
+    label: 'agenda_color_lightgreen',
     swatch: 'bg-lime-400',
     event: 'bg-lime-400 text-gray-900 hover:bg-lime-500 dark:bg-lime-500 dark:hover:bg-lime-600',
   },
   {
     id: 'orange',
-    label: 'Oranje',
+    label: 'agenda_color_orange',
     swatch: 'bg-orange-500',
     event: 'bg-orange-500 text-white hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700',
   },
   {
     id: 'yellow',
-    label: 'Geel',
+    label: 'agenda_color_yellow',
     swatch: 'bg-yellow-400',
     event: 'bg-yellow-400 text-gray-900 hover:bg-yellow-500 dark:bg-yellow-500 dark:hover:bg-yellow-600',
   },
   {
     id: 'white',
-    label: 'Wit',
+    label: 'agenda_color_white',
     swatch: 'bg-white border border-gray-300',
     event: 'bg-white text-gray-900 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700',
   },
   {
     id: 'black',
-    label: 'Zwart',
+    label: 'agenda_color_black',
     swatch: 'bg-black',
     event: 'bg-gray-900 text-white hover:bg-gray-800 dark:bg-black dark:text-white dark:hover:bg-gray-900',
   },
@@ -191,9 +192,9 @@ function parseTimeToMinutes(time: string): number {
   return hours * 60 + minutes;
 }
 
-function computeDurationLabel(form: AgendaFormState): string {
+function computeDurationLabel(form: AgendaFormState, t: (id: string, fallback?: string, params?: Record<string, string | number>) => string): string {
   if (form.allDay) {
-    return '24 uur (hele dag)';
+    return t('agenda_duration_allday');
   }
 
   if (!form.startTime || !form.endTime) {
@@ -220,14 +221,14 @@ function computeDurationLabel(form: AgendaFormState): string {
   const minutes = totalMinutes % 60;
 
   if (hours === 0) {
-    return `${minutes} minuten`;
+    return t('agenda_duration_minutes', undefined, { n: minutes });
   }
 
   if (minutes === 0) {
-    return `${hours} uur`;
+    return t('agenda_duration_hours', undefined, { n: hours });
   }
 
-  return `${hours} uur en ${minutes} minuten`;
+  return t('agenda_duration_hours_minutes', undefined, { h: hours, m: minutes });
 }
 
 function buildEventDates(
@@ -457,6 +458,7 @@ function occursOn(event: AgendaEvent, date: Date): boolean {
 }
 
 export default function AgendaPage() {
+  const { t } = useTranslation();
   const [events, setEvents] = useState<AgendaEvent[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [view, setView] = useState<AgendaView>('month');
@@ -535,8 +537,8 @@ export default function AgendaPage() {
             .filter((test: any) => !test.completed)
             .map((test: any) => ({
               id: test.id,
-              title: `Toets: ${test.subject}`,
-              description: test.type === 'examen' ? 'Examen' : test.type === 'herkansing' ? 'Herkansing' : 'Toets',
+              title: t('agenda_test_title', undefined, { subject: test.subject }),
+              description: test.type === 'examen' ? t('agenda_type_exam') : test.type === 'herkansing' ? t('agenda_retake') : t('agenda_type_test'),
               location: undefined,
               startDate: new Date(test.date),
               endDate: new Date(test.date),
@@ -581,7 +583,7 @@ export default function AgendaPage() {
     [events]
   );
 
-  const durationLabel = useMemo(() => computeDurationLabel(form), [form]);
+  const durationLabel = useMemo(() => computeDurationLabel(form, t), [form, t]);
 
   const getEventsForDate = (date: Date) =>
     sortedEvents
@@ -630,14 +632,14 @@ export default function AgendaPage() {
     const title = form.title.trim();
 
     if (!title) {
-      setFormError('Titel is verplicht.');
+      setFormError(t('agenda_error_title'));
       return;
     }
 
     const dates = buildEventDates(form.date, form.startTime, form.endTime, form.allDay);
 
     if (!dates) {
-      setFormError('Ongeldige datum of tijd.');
+      setFormError(t('agenda_error_datetime'));
       return;
     }
 
@@ -742,7 +744,7 @@ export default function AgendaPage() {
     }
 
     if (view === 'agenda') {
-      return 'Agenda';
+      return t('agenda_title');
     }
 
     const weekStart = getWeekStartDate(currentDate);
@@ -756,7 +758,7 @@ export default function AgendaPage() {
       month: 'short',
       year: 'numeric',
     })}`;
-  }, [currentDate, view]);
+  }, [currentDate, view, t]);
 
   const getMonthCells = (monthDate: Date) => {
     const year = monthDate.getFullYear();
@@ -785,7 +787,15 @@ export default function AgendaPage() {
       transition={{ duration: 0.3, ease: 'easeIn' }}
     >
       <div className="grid grid-cols-7 border-b border-border bg-secondary/30">
-        {['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'].map((day) => (
+        {[
+          t('agenda_dow_mon'),
+          t('agenda_dow_tue'),
+          t('agenda_dow_wed'),
+          t('agenda_dow_thu'),
+          t('agenda_dow_fri'),
+          t('agenda_dow_sat'),
+          t('agenda_dow_sun'),
+        ].map((day) => (
           <div
             key={day}
             className="border-r border-border px-2 py-3 text-center text-xs font-semibold uppercase tracking-wide text-muted-foreground last:border-r-0"
@@ -828,14 +838,16 @@ export default function AgendaPage() {
                       }}
                       className={`block w-full truncate rounded-md border px-2 py-1 text-left text-xs font-medium ${colorOption.event}`}
                     >
-                      {event.allDay ? 'Hele dag' : formatTime(event.startDate)} · {event.title}
+                      {event.allDay
+                        ? t('agenda_allday')
+                        : `${formatTime(event.startDate)} · ${event.title}`}
                     </button>
                   );
                 })}
 
                 {dayEvents.length > 3 && (
                   <div className="px-2 text-xs text-muted-foreground">
-                    +{dayEvents.length - 3} meer
+                    {t('agenda_more', undefined, { n: dayEvents.length - 3 })}
                   </div>
                 )}
               </div>
@@ -892,7 +904,7 @@ export default function AgendaPage() {
             style={{ gridTemplateColumns: `80px repeat(${days.length}, minmax(0, 1fr))` }}
           >
             <div className="border-r border-border p-2 text-xs font-medium text-muted-foreground">
-              Hele dag
+              {t('agenda_allday')}
             </div>
 
             {days.map((day) => {
@@ -917,7 +929,7 @@ export default function AgendaPage() {
                         }}
                         className={`block w-full truncate rounded-md border px-2 py-1 text-left text-xs font-medium ${colorOption.event}`}
                       >
-                        Hele dag · {event.title}
+                        {t('agenda_allday')} · {event.title}
                       </button>
                     );
                   })}
@@ -1001,9 +1013,9 @@ export default function AgendaPage() {
           transition={{ duration: 0.3, ease: 'easeIn' }}
         >
           <CalendarDays className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
-          <h2 className="font-display text-2xl font-semibold">Nog geen afspraken</h2>
+          <h2 className="font-display text-2xl font-semibold">{t('agenda_empty')}</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Voeg je eerste afspraak toe met de knop hierboven.
+            {t('agenda_empty_desc')}
           </p>
           <button
             type="button"
@@ -1011,7 +1023,7 @@ export default function AgendaPage() {
             className={`${primaryButtonClass} mt-6`}
           >
             <Plus className="mr-2 h-4 w-4" />
-            Nieuwe afspraak
+            {t('agenda_new')}
           </button>
         </motion.section>
       );
@@ -1053,7 +1065,7 @@ export default function AgendaPage() {
                     <span className="inline-flex items-center gap-1">
                       <Clock3 className="h-4 w-4" />
                       {event.allDay
-                        ? 'Hele dag'
+                        ? t('agenda_allday')
                         : `${formatTime(event.startDate)} - ${formatTime(event.endDate)}`}
                     </span>
 
@@ -1067,7 +1079,7 @@ export default function AgendaPage() {
                     {event.recurrence !== 'none' && (
                       <span className="inline-flex items-center gap-1">
                         <Repeat className="h-4 w-4" />
-                        {RECURRENCE_OPTIONS.find((option) => option.id === event.recurrence)?.label}
+                        {t(RECURRENCE_OPTIONS.find((option) => option.id === event.recurrence)?.label ?? '')}
                       </span>
                     )}
                   </div>
@@ -1078,7 +1090,7 @@ export default function AgendaPage() {
                 </div>
 
                 <span className="inline-flex h-fit rounded-full bg-background/70 px-3 py-1 text-xs font-semibold">
-                  {EVENT_TYPE_LABELS[event.eventType]}
+                  {t(EVENT_TYPE_LABELS[event.eventType])}
                 </span>
               </div>
             </motion.button>
@@ -1119,7 +1131,15 @@ export default function AgendaPage() {
               </h3>
 
               <div className="grid grid-cols-7 gap-1 text-center text-xs text-muted-foreground">
-                {['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'].map((day) => (
+                {[
+                  t('agenda_dow_mon'),
+                  t('agenda_dow_tue'),
+                  t('agenda_dow_wed'),
+                  t('agenda_dow_thu'),
+                  t('agenda_dow_fri'),
+                  t('agenda_dow_sat'),
+                  t('agenda_dow_sun'),
+                ].map((day) => (
                   <div key={day} className="py-1 font-medium">
                     {day}
                   </div>
@@ -1161,8 +1181,8 @@ export default function AgendaPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Agenda"
-        description="Je persoonlijke afspraken, lessen, huiswerk en toetsen."
+        title={t('agenda_title')}
+        description={t('agenda_description')}
         action={
           <button
             type="button"
@@ -1170,7 +1190,7 @@ export default function AgendaPage() {
             className={primaryButtonClass}
           >
             <Plus className="mr-2 h-4 w-4" />
-            Nieuwe afspraak
+            {t('agenda_new')}
           </button>
         }
       />
@@ -1191,7 +1211,7 @@ export default function AgendaPage() {
               onClick={handleToday}
               className={outlineButtonClass}
             >
-              Vandaag
+              {t('agenda_today')}
             </button>
 
             <button
@@ -1216,18 +1236,18 @@ export default function AgendaPage() {
               }`}
             >
               <CalendarDays className="h-4 w-4" />
-              {isCalendarView ? 'Kalender' : 'Lijst'}
+              {isCalendarView ? t('agenda_calendar_view') : t('agenda_list')}
             </button>
 
             {isCalendarView && (
               <div className="flex flex-wrap items-center gap-1 rounded-lg border border-border bg-secondary/40 p-1">
                 {(
                   [
-                    { id: 'month', label: 'Maand' },
-                    { id: 'week', label: 'Week' },
-                    { id: 'workweek', label: 'Werkweek' },
-                    { id: 'day', label: 'Dag' },
-                    { id: 'year', label: 'Jaar' },
+                    { id: 'month', label: t('agenda_view_month') },
+                    { id: 'week', label: t('agenda_view_week') },
+                    { id: 'workweek', label: t('agenda_view_workweek') },
+                    { id: 'day', label: t('agenda_view_day') },
+                    { id: 'year', label: t('agenda_view_year') },
                   ] as Array<{ id: AgendaView; label: string }>
                 ).map((button) => (
                   <button
@@ -1291,7 +1311,7 @@ export default function AgendaPage() {
           <div className="relative z-10 max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl border border-border bg-background p-6 shadow-xl">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="font-display text-2xl font-semibold">
-                {editingId ? 'Afspraak bewerken' : 'Nieuwe afspraak'}
+                {editingId ? t('agenda_edit_title') : t('agenda_new_title')}
               </h2>
 
               <button
@@ -1312,13 +1332,13 @@ export default function AgendaPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="agenda-title" className="mb-1 block text-sm font-medium">
-                  Titel
+                  {t('agenda_field_title')}
                 </label>
                 <input
                   id="agenda-title"
                   value={form.title}
                   onChange={(event) => setForm({ ...form, title: event.target.value })}
-                  placeholder="Bijvoorbeeld: leersessie biologie"
+                  placeholder={t('agenda_title_placeholder')}
                   className={inputClass}
                   required
                 />
@@ -1327,7 +1347,7 @@ export default function AgendaPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="agenda-date" className="mb-1 block text-sm font-medium">
-                    Datum
+                    {t('agenda_field_date')}
                   </label>
                   <input
                     id="agenda-date"
@@ -1341,7 +1361,7 @@ export default function AgendaPage() {
 
                 <div>
                   <label htmlFor="agenda-type" className="mb-1 block text-sm font-medium">
-                    Type
+                    {t('agenda_field_type')}
                   </label>
                   <select
                     id="agenda-type"
@@ -1353,7 +1373,7 @@ export default function AgendaPage() {
                   >
                     {EVENT_TYPES.map((type) => (
                       <option key={type} value={type}>
-                        {EVENT_TYPE_LABELS[type]}
+                        {t(EVENT_TYPE_LABELS[type])}
                       </option>
                     ))}
                   </select>
@@ -1368,14 +1388,14 @@ export default function AgendaPage() {
                     onChange={(event) => setForm({ ...form, allDay: event.target.checked })}
                     className="h-4 w-4"
                   />
-                  Hele dag
+                  {t('agenda_allday')}
                 </label>
 
                 {!form.allDay && (
                   <div className="mt-4 grid gap-4 sm:grid-cols-2">
                     <div>
                       <label htmlFor="agenda-start-time" className="mb-1 block text-sm font-medium">
-                        Begintijd
+                        {t('agenda_field_start_time')}
                       </label>
                       <input
                         id="agenda-start-time"
@@ -1389,7 +1409,7 @@ export default function AgendaPage() {
 
                     <div>
                       <label htmlFor="agenda-end-time" className="mb-1 block text-sm font-medium">
-                        Eindtijd
+                        {t('agenda_field_end_time')}
                       </label>
                       <input
                         id="agenda-end-time"
@@ -1404,14 +1424,14 @@ export default function AgendaPage() {
                 )}
 
                 <p className="mt-3 text-sm text-muted-foreground">
-                  Duur: <span className="font-medium text-foreground">{durationLabel}</span>
+                  {t('agenda_field_duration')}: <span className="font-medium text-foreground">{durationLabel}</span>
                 </p>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="agenda-recurrence" className="mb-1 block text-sm font-medium">
-                    Herhaling
+                    {t('agenda_field_recurrence')}
                   </label>
                   <select
                     id="agenda-recurrence"
@@ -1423,7 +1443,7 @@ export default function AgendaPage() {
                   >
                     {RECURRENCE_OPTIONS.map((option) => (
                       <option key={option.id} value={option.id}>
-                        {option.label}
+                        {t(option.label)}
                       </option>
                     ))}
                   </select>
@@ -1431,20 +1451,20 @@ export default function AgendaPage() {
 
                 <div>
                   <label htmlFor="agenda-location" className="mb-1 block text-sm font-medium">
-                    Locatie
+                    {t('agenda_field_location')}
                   </label>
                   <input
                     id="agenda-location"
                     value={form.location}
                     onChange={(event) => setForm({ ...form, location: event.target.value })}
                     className={inputClass}
-                    placeholder="Bijv. lokaal 204"
+                    placeholder={t('agenda_location_placeholder')}
                   />
                 </div>
               </div>
 
               <div>
-                <span className="mb-2 block text-sm font-medium">Kleur</span>
+                <span className="mb-2 block text-sm font-medium">{t('agenda_field_color')}</span>
 
                 <div className="flex flex-wrap gap-2">
                   {EVENT_COLOR_OPTIONS.map((option) => (
@@ -1452,8 +1472,8 @@ export default function AgendaPage() {
                       key={option.id}
                       type="button"
                       onClick={() => setForm({ ...form, color: option.id })}
-                      aria-label={option.label}
-                      title={option.label}
+                      aria-label={t(option.label)}
+                      title={t(option.label)}
                       className={`h-8 w-8 rounded-full border border-border ${option.swatch} ${
                         form.color === option.id
                           ? 'ring-2 ring-primary ring-offset-2 ring-offset-background'
@@ -1466,13 +1486,13 @@ export default function AgendaPage() {
 
               <div>
                 <label htmlFor="agenda-notes" className="mb-1 block text-sm font-medium">
-                  Notities
+                  {t('agenda_field_notes')}
                 </label>
                 <textarea
                   id="agenda-notes"
                   value={form.notes}
                   onChange={(event) => setForm({ ...form, notes: event.target.value })}
-                  placeholder="Voeg optionele notities toe..."
+                  placeholder={t('agenda_notes_placeholder')}
                   className="min-h-24 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
                 />
               </div>
@@ -1485,7 +1505,7 @@ export default function AgendaPage() {
                     className="inline-flex h-9 items-center justify-center rounded-md bg-destructive px-4 text-sm font-medium text-destructive-foreground shadow transition-colors hover:bg-destructive/90"
                   >
                     <Trash2 className="mr-2 h-4 w-4" />
-                    Verwijderen
+                    {t('agenda_delete')}
                   </button>
                 ) : (
                   <span />
@@ -1493,11 +1513,11 @@ export default function AgendaPage() {
 
                 <div className="flex gap-2">
                   <button type="button" onClick={closeModal} className={outlineButtonClass}>
-                    Annuleren
+                    {t('cancel')}
                   </button>
 
                   <button type="submit" className={primaryButtonClass}>
-                    {editingId ? 'Opslaan' : 'Toevoegen'}
+                    {editingId ? t('save') : t('agenda_add')}
                   </button>
                 </div>
               </div>

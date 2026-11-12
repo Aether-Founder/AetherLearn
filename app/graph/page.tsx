@@ -8,51 +8,51 @@ import { useTranslation } from '@/lib/useTranslation';
 const NODES = [
   {
     id: 'energie',
-    label: 'Energiebehoud',
+    label: 'graph_node_energie_label',
     kind: 'concept',
     x: '50%',
     y: '38%',
-    detail: 'Natuurkunde · Mechanica',
+    detail: 'graph_node_energie_detail',
   },
   {
     id: 'arbeid',
-    label: 'Arbeid',
+    label: 'graph_node_arbeid_label',
     kind: 'set',
     x: '19%',
     y: '22%',
-    detail: '12 kaarten · 64% beheerst',
+    detail: 'graph_node_arbeid_detail',
   },
   {
     id: 'kinetisch',
-    label: 'Kinetische energie',
+    label: 'graph_node_kinetisch_label',
     kind: 'set',
     x: '79%',
     y: '22%',
-    detail: '18 kaarten · 41% beheerst',
+    detail: 'graph_node_kinetisch_detail',
   },
   {
     id: 'kracht',
-    label: 'Kracht & beweging',
+    label: 'graph_node_kracht_label',
     kind: 'concept',
     x: '20%',
     y: '72%',
-    detail: 'Natuurkunde · hoofdstuk 3',
+    detail: 'graph_node_kracht_detail',
   },
   {
     id: 'formules',
-    label: 'Formules',
+    label: 'graph_node_formules_label',
     kind: 'concept',
     x: '80%',
     y: '72%',
-    detail: '5 lessen · 2 openstaand',
+    detail: 'graph_node_formules_detail',
   },
   {
     id: 'wiskunde',
-    label: 'Wiskunde B',
+    label: 'graph_node_wiskunde_label',
     kind: 'subject',
     x: '50%',
     y: '84%',
-    detail: '6 onderwerpen',
+    detail: 'graph_node_wiskunde_detail',
   },
 ] as const;
 
@@ -118,7 +118,7 @@ export default function GraphPage() {
                 className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full border px-4 py-3 text-left shadow-sm transition-transform hover:scale-105 ${selected === node.id ? 'border-foreground bg-foreground text-background' : 'border-border bg-background'}`}
                 style={{ left: node.x, top: node.y }}
               >
-                <span className="block whitespace-nowrap text-sm font-semibold">{node.label}</span>
+                <span className="block whitespace-nowrap text-sm font-semibold">{t(node.label)}</span>
                 <span
                   className={`mt-1 block text-[10px] uppercase tracking-[0.12em] ${selected === node.id ? 'text-background/70' : 'text-muted-foreground'}`}
                 >
@@ -145,8 +145,8 @@ export default function GraphPage() {
             <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
               {t('graph_selected')}
             </p>
-            <h2 className="mt-2 font-display text-2xl font-semibold">{current.label}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{current.detail}</p>
+            <h2 className="mt-2 font-display text-2xl font-semibold">{t(current.label)}</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t(current.detail)}</p>
           </div>
           <div className="mt-7 space-y-3 border-t border-border pt-5">
             <div className="flex items-center gap-3 text-sm">

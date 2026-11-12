@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Search, BookOpen, Users, Star, Download, Filter } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface PublicStudySet {
   id: string;
@@ -35,6 +36,7 @@ interface PublicStudySetBrowserProps {
 }
 
 export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowserProps) {
+  const { t } = useTranslation();
   const [studySets, setStudySets] = useState<PublicStudySet[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -77,10 +79,10 @@ export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowser
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Publieke Studie Sets</CardTitle>
+          <CardTitle>{t('shell_public_study_sets')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -89,7 +91,7 @@ export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowser
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Publieke Studie Sets</h2>
+        <h2 className="text-2xl font-bold">{t('shell_public_study_sets')}</h2>
         <Badge variant="secondary">{studySets.length} sets</Badge>
       </div>
 
@@ -97,7 +99,7 @@ export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowser
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
-            placeholder="Zoek studie sets..."
+            placeholder={t('shell_search_sets')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
@@ -115,9 +117,9 @@ export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowser
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="popular">Populair</SelectItem>
-            <SelectItem value="recent">Recent</SelectItem>
-            <SelectItem value="rating">Hoogste Rating</SelectItem>
+            <SelectItem value="popular">{t('shell_popular')}</SelectItem>
+            <SelectItem value="recent">{t('shell_recent')}</SelectItem>
+            <SelectItem value="rating">{t('shell_highest_rating')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -125,13 +127,13 @@ export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowser
       {showFilters && (
         <div className="p-4 border rounded-lg space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Categorie</label>
+            <label className="text-sm font-medium">{t('shell_category')}</label>
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Alle Categorieën</SelectItem>
+                <SelectItem value="all">{t('shell_all_categories')}</SelectItem>
                 {categories.map((category) => (
                   <SelectItem key={category} value={category}>
                     {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -201,11 +203,11 @@ export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowser
         <Card>
           <CardContent className="text-center py-12">
             <BookOpen className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-            <h3 className="text-lg font-semibold mb-2">Geen Studie Sets</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('shell_no_study_sets')}</h3>
             <p className="text-sm text-muted-foreground">
               {searchQuery || categoryFilter !== 'all'
                 ? 'Probeer andere filters'
-                : 'Er zijn nog geen openbare studie sets beschikbaar'}
+                : t('shell_no_public_sets_desc')}
             </p>
           </CardContent>
         </Card>

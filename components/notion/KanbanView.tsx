@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { GripVertical, Loader2, Plus } from 'lucide-react';
 import { supabase } from '@/lib/supabase/client';
+import { useTranslation } from '@/lib/useTranslation';
 
 type Property = { id: string; name: string; type: string; config: unknown; order_index: number };
 type Entry = { id: string; sort_order: number; values: Record<string, unknown> };
@@ -26,6 +27,7 @@ function propertyOptions(property: Property, entries: Entry[]): string[] {
 }
 
 export default function KanbanView({ databaseId, groupByPropertyId }: KanbanViewProps) {
+  const { t } = useTranslation();
   const [properties, setProperties] = useState<Property[]>([]);
   const [entries, setEntries] = useState<Entry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -139,7 +141,7 @@ export default function KanbanView({ databaseId, groupByPropertyId }: KanbanView
               className={`w-64 shrink-0 rounded-lg border p-3 transition-colors ${draggedId ? 'border-dashed border-foreground/40' : 'border-border'} bg-secondary/30`}
             >
               <div className="flex items-center justify-between px-1">
-                <h3 className="text-sm font-semibold">{column}</h3>
+                <h3 className="text-sm font-semibold">{column === 'Geen waarde' ? t('comp_no_value') : column}</h3>
                 <span className="text-xs text-muted-foreground">{cards.length}</span>
               </div>
               <div className="mt-3 space-y-2">

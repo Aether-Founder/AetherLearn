@@ -16,6 +16,7 @@ import {
 import { nl } from 'date-fns/locale';
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase/client';
+import { useTranslation } from '@/lib/useTranslation';
 
 type Property = { id: string; name: string; type: string };
 type Entry = { id: string; values: Record<string, unknown> };
@@ -36,6 +37,7 @@ function dateValue(value: unknown): Date | null {
 }
 
 export default function CalendarView({ databaseId, datePropertyId }: CalendarViewProps) {
+  const { t } = useTranslation();
   const [properties, setProperties] = useState<Property[]>([]);
   const [entries, setEntries] = useState<Entry[]>([]);
   const [month, setMonth] = useState(() => new Date());
@@ -123,7 +125,7 @@ export default function CalendarView({ databaseId, datePropertyId }: CalendarVie
             type="button"
             onClick={() => setMonth((value) => subMonths(value, 1))}
             className="grid h-8 w-8 place-items-center rounded-md hover:bg-secondary"
-            aria-label="Vorige maand"
+            aria-label={t('comp_prev_month')}
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
@@ -132,25 +134,25 @@ export default function CalendarView({ databaseId, datePropertyId }: CalendarVie
             onClick={() => setMonth(new Date())}
             className="rounded-md px-3 py-1.5 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground"
           >
-            Vandaag
+            {t('comp_today')}
           </button>
           <button
             type="button"
             onClick={() => setMonth((value) => addMonths(value, 1))}
             className="grid h-8 w-8 place-items-center rounded-md hover:bg-secondary"
-            aria-label="Volgende maand"
+            aria-label={t('comp_next_month')}
           >
             <ChevronRight className="h-4 w-4" />
           </button>
         </div>
       </header>
       <div className="grid grid-cols-7 border-b border-border">
-        {['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'].map((day) => (
+        {['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'].map((day, index) => (
           <div
             key={day}
             className="px-2 py-2 text-center text-[11px] uppercase tracking-[0.12em] text-muted-foreground"
           >
-            {day}
+            {t(`comp_cal_day_${index}`)}
           </div>
         ))}
       </div>
@@ -183,7 +185,7 @@ export default function CalendarView({ databaseId, datePropertyId }: CalendarVie
                         titleProperty
                           ? entry.values[titleProperty.id]
                           : entry.values[properties[0]?.id]
-                      ) || 'Zonder titel'}
+                      ) || t('comp_no_title')}
                     </div>
                   ))}
                 </div>

@@ -24,6 +24,7 @@ import {
   Plus,
 } from 'lucide-react';
 import { supabase as browserClient } from '@/lib/supabase/client';
+import { useTranslation } from '@/lib/useTranslation';
 
 const supabase = browserClient as any;
 
@@ -45,6 +46,7 @@ const STANDARD_INTERVALS = [0, 1, 3, 7, 14, 30];
 const LANGUAGE_INTERVALS = [0, 1, 2, 4, 7, 14, 30];
 
 export default function SpacedRepetitionPage() {
+  const { t } = useTranslation();
   const [items, setItems] = useState<ReviewItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentItem, setCurrentItem] = useState<ReviewItem | null>(null);
@@ -223,8 +225,10 @@ export default function SpacedRepetitionPage() {
     return (
       <AppShell>
         <PageHeader
-          title="Review Sessie"
-          description={`${dueToday.filter((i) => i.next_review === today).length} items te herhalen`}
+          title={t('srs_review_session')}
+          description={t('srs_items_to_review', undefined, {
+            n: dueToday.filter((i) => i.next_review === today).length,
+          })}
         />
 
         <div className="mt-10">
@@ -234,7 +238,7 @@ export default function SpacedRepetitionPage() {
               <span>•</span>
               <span>{currentItem.onderwerp}</span>
               <span>•</span>
-              <span>Interval: {currentItem.interval} dagen</span>
+              <span>{t('srs_interval_days', undefined, { n: currentItem.interval })}</span>
             </div>
 
             <h2 className="text-2xl font-semibold mb-8">{currentItem.vraag}</h2>
@@ -242,12 +246,12 @@ export default function SpacedRepetitionPage() {
             {showAnswer ? (
               <div className="space-y-6">
                 <div className="p-6 rounded-lg bg-secondary/50">
-                  <p className="font-medium mb-2">Antwoord</p>
+                  <p className="font-medium mb-2">{t('answer')}</p>
                   <p className="text-lg">{currentItem.antwoord}</p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-muted-foreground mb-4">Hoe goed wist je dit?</p>
+                  <p className="text-sm text-muted-foreground mb-4">{t('srs_how_well')}</p>
                   <div className="grid grid-cols-4 gap-3">
                     <Button
                       variant="outline"
@@ -255,7 +259,7 @@ export default function SpacedRepetitionPage() {
                       className="h-auto py-4 flex flex-col gap-1"
                     >
                       <XCircle className="h-5 w-5 text-red-500" />
-                      <span className="text-xs">Niet geweten</span>
+                      <span className="text-xs">{t('srs_rating_unknown')}</span>
                     </Button>
                     <Button
                       variant="outline"
@@ -263,7 +267,7 @@ export default function SpacedRepetitionPage() {
                       className="h-auto py-4 flex flex-col gap-1"
                     >
                       <span className="text-lg">😕</span>
-                      <span className="text-xs">Deels geweten</span>
+                      <span className="text-xs">{t('srs_rating_partial')}</span>
                     </Button>
                     <Button
                       variant="outline"
@@ -271,28 +275,28 @@ export default function SpacedRepetitionPage() {
                       className="h-auto py-4 flex flex-col gap-1"
                     >
                       <span className="text-lg">🙂</span>
-                      <span className="text-xs">Goed, traag</span>
+                      <span className="text-xs">{t('srs_rating_slow')}</span>
                     </Button>
                     <Button
                       onClick={() => handleRating(3)}
                       className="h-auto py-4 flex flex-col gap-1"
                     >
                       <CheckCircle className="h-5 w-5" />
-                      <span className="text-xs">Goed, snel</span>
+                      <span className="text-xs">{t('srs_rating_fast')}</span>
                     </Button>
                   </div>
                 </div>
               </div>
             ) : (
               <Button onClick={() => setShowAnswer(true)} className="w-full" size="lg">
-                Toon antwoord
+                {t('srs_show_answer')}
               </Button>
             )}
           </div>
 
           <div className="mt-6 flex justify-center">
             <Button variant="ghost" onClick={() => setCurrentItem(null)}>
-              Sessie beëindigen
+              {t('srs_end_session')}
             </Button>
           </div>
         </div>
@@ -303,18 +307,18 @@ export default function SpacedRepetitionPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Herhaal Engine"
-        description="Automatische planning van herhalingen voor langdurig leren"
+        title={t('srs_title')}
+        description={t('srs_description')}
         action={
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => setShowAddDialog(true)}>
               <Plus className="mr-2 h-4 w-4" />
-              Nieuw item
+              {t('srs_new_item')}
             </Button>
             {dueToday.length > 0 && (
               <Button onClick={startReview}>
                 <Play className="mr-2 h-4 w-4" />
-                Start Review ({dueToday.length})
+                {t('srs_start_review', undefined, { n: dueToday.length })}
               </Button>
             )}
           </div>
@@ -334,21 +338,21 @@ export default function SpacedRepetitionPage() {
             <div className="rounded-xl border border-border bg-card p-5">
               <div className="flex items-center gap-3 mb-2">
                 <Clock className="h-5 w-5 text-primary" />
-                <span className="text-sm text-muted-foreground">Vandaag</span>
+                <span className="text-sm text-muted-foreground">{t('srs_today')}</span>
               </div>
               <p className="font-display text-2xl font-semibold">{dueToday.length}</p>
             </div>
             <div className="rounded-xl border border-border bg-card p-5">
               <div className="flex items-center gap-3 mb-2">
                 <Calendar className="h-5 w-5 text-blue-500" />
-                <span className="text-sm text-muted-foreground">Komende 7 dagen</span>
+                <span className="text-sm text-muted-foreground">{t('srs_upcoming_7')}</span>
               </div>
               <p className="font-display text-2xl font-semibold">{upcoming.length}</p>
             </div>
             <div className="rounded-xl border border-border bg-card p-5">
               <div className="flex items-center gap-3 mb-2">
                 <TrendingUp className="h-5 w-5 text-green-500" />
-                <span className="text-sm text-muted-foreground">Gemiddelde score</span>
+                <span className="text-sm text-muted-foreground">{t('srs_avg_score')}</span>
               </div>
               <p className="font-display text-2xl font-semibold">
                 {items.length > 0
@@ -367,7 +371,7 @@ export default function SpacedRepetitionPage() {
             <div className="rounded-xl border border-border bg-card p-5">
               <div className="flex items-center gap-3 mb-2">
                 <CheckCircle className="h-5 w-5 text-purple-500" />
-                <span className="text-sm text-muted-foreground">Totaal items</span>
+                <span className="text-sm text-muted-foreground">{t('srs_total_items')}</span>
               </div>
               <p className="font-display text-2xl font-semibold">{items.length}</p>
             </div>
@@ -376,24 +380,26 @@ export default function SpacedRepetitionPage() {
 
         {/* Interval Schedule Info */}
         <div className="rounded-xl border border-border bg-card p-6">
-          <h2 className="font-display text-xl font-semibold mb-4">Interval Schema</h2>
+          <h2 className="font-display text-xl font-semibold mb-4">{t('srs_interval_schema')}</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="p-4 rounded-lg bg-secondary/50">
-              <h3 className="font-medium mb-2">Standaard (exacte vakken)</h3>
+              <h3 className="font-medium mb-2">{t('srs_standard')}</h3>
               <div className="flex flex-wrap gap-2">
                 {STANDARD_INTERVALS.map((interval, i) => (
                   <span key={i} className="px-2 py-1 rounded bg-background text-xs">
-                    D{i}: {interval === 0 ? 'Eerste keer' : `${interval} dagen`}
+                    D{i}:{' '}
+                    {interval === 0 ? t('srs_first_time') : t('srs_days_count', undefined, { n: interval })}
                   </span>
                 ))}
               </div>
             </div>
             <div className="p-4 rounded-lg bg-secondary/50">
-              <h3 className="font-medium mb-2">Talen (kortere intervallen)</h3>
+              <h3 className="font-medium mb-2">{t('srs_languages')}</h3>
               <div className="flex flex-wrap gap-2">
                 {LANGUAGE_INTERVALS.map((interval, i) => (
                   <span key={i} className="px-2 py-1 rounded bg-background text-xs">
-                    D{i}: {interval === 0 ? 'Eerste keer' : `${interval} dagen`}
+                    D{i}:{' '}
+                    {interval === 0 ? t('srs_first_time') : t('srs_days_count', undefined, { n: interval })}
                   </span>
                 ))}
               </div>
@@ -408,21 +414,21 @@ export default function SpacedRepetitionPage() {
             size="sm"
             onClick={() => setFilter('today')}
           >
-            Vandaag ({dueToday.length})
+            {t('srs_filter_today', undefined, { n: dueToday.length })}
           </Button>
           <Button
             variant={filter === 'upcoming' ? 'default' : 'outline'}
             size="sm"
             onClick={() => setFilter('upcoming')}
           >
-            Komend ({upcoming.length})
+            {t('srs_filter_upcoming', undefined, { n: upcoming.length })}
           </Button>
           <Button
             variant={filter === 'all' ? 'default' : 'outline'}
             size="sm"
             onClick={() => setFilter('all')}
           >
-            Alle ({items.length})
+            {t('srs_filter_all', undefined, { n: items.length })}
           </Button>
         </div>
 
@@ -430,11 +436,9 @@ export default function SpacedRepetitionPage() {
         {filteredItems.length === 0 ? (
           <div className="rounded-xl border border-dashed border-border p-10 text-center">
             <Clock className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-            <h2 className="font-display text-xl font-semibold mb-2">Geen items gevonden</h2>
+            <h2 className="font-display text-xl font-semibold mb-2">{t('srs_empty')}</h2>
             <p className="text-sm text-muted-foreground">
-              {filter === 'today'
-                ? 'Je hebt geen items die vandaag herhaald moeten worden. Goed gedaan!'
-                : 'Geen items in deze categorie.'}
+              {filter === 'today' ? t('srs_empty_today') : t('srs_empty_category')}
             </p>
           </div>
         ) : (
@@ -450,7 +454,9 @@ export default function SpacedRepetitionPage() {
                     </div>
                     <p className="text-sm mb-3">{item.vraag}</p>
                     <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                      <span>Interval: {item.interval} dagen</span>
+                      <span>
+                        {t('srs_interval_days', undefined, { n: item.interval })}
+                      </span>
                       <span>•</span>
                       <span>Next: {item.next_review}</span>
                       <span>•</span>
@@ -469,7 +475,7 @@ export default function SpacedRepetitionPage() {
                     variant="ghost"
                     size="sm"
                     onClick={() => resetItem(item.id)}
-                    title="Reset naar begin"
+                    title={t('srs_reset_title')}
                   >
                     <RotateCcw className="h-4 w-4" />
                   </Button>
@@ -481,28 +487,25 @@ export default function SpacedRepetitionPage() {
 
         {/* Algorithm Info */}
         <div className="rounded-xl border border-border bg-card p-6">
-          <h2 className="font-display text-xl font-semibold mb-4">Over het Algoritme</h2>
+          <h2 className="font-display text-xl font-semibold mb-4">{t('srs_about_algorithm')}</h2>
           <div className="space-y-4 text-sm text-muted-foreground">
-            <p>
-              Dit systeem gebruikt een aangepaste SM-2 (SuperMemo 2) algoritme voor spaced
-              repetition. Het algoritme past de herhaalintervallen aan op basis van je prestaties.
-            </p>
+            <p>{t('srs_algorithm_text')}</p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="p-4 rounded-lg bg-secondary/50">
-                <h3 className="font-medium text-foreground mb-2">Score 0: Niet geweten</h3>
-                <p>Herhaal morgen. Ease factor verlaagd met 0.2.</p>
+                <h3 className="font-medium text-foreground mb-2">{t('srs_score0_title')}</h3>
+                <p>{t('srs_score0_desc')}</p>
               </div>
               <div className="p-4 rounded-lg bg-secondary/50">
-                <h3 className="font-medium text-foreground mb-2">Score 1: Deels geweten</h3>
-                <p>Interval × 1.2. Ease factor verlaagd met 0.15.</p>
+                <h3 className="font-medium text-foreground mb-2">{t('srs_score1_title')}</h3>
+                <p>{t('srs_score1_desc')}</p>
               </div>
               <div className="p-4 rounded-lg bg-secondary/50">
-                <h3 className="font-medium text-foreground mb-2">Score 2: Goed, traag</h3>
-                <p>Interval × ease factor. Houdt interval stabiel.</p>
+                <h3 className="font-medium text-foreground mb-2">{t('srs_score2_title')}</h3>
+                <p>{t('srs_score2_desc')}</p>
               </div>
               <div className="p-4 rounded-lg bg-secondary/50">
-                <h3 className="font-medium text-foreground mb-2">Score 3: Goed, snel</h3>
-                <p>Interval × ease × 1.3. Ease factor verhoogd met 0.1.</p>
+                <h3 className="font-medium text-foreground mb-2">{t('srs_score3_title')}</h3>
+                <p>{t('srs_score3_desc')}</p>
               </div>
             </div>
           </div>
@@ -513,53 +516,53 @@ export default function SpacedRepetitionPage() {
       <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Nieuw item toevoegen</DialogTitle>
+            <DialogTitle>{t('srs_add_item_title')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div>
-              <Label htmlFor="vak">Vak</Label>
+              <Label htmlFor="vak">{t('srs_subject_label')}</Label>
               <Input
                 id="vak"
                 value={formData.vak}
                 onChange={(e) => setFormData({ ...formData, vak: e.target.value })}
-                placeholder="Bijv. Wiskunde B"
+                placeholder={t('srs_subject_placeholder')}
               />
             </div>
             <div>
-              <Label htmlFor="onderwerp">Onderwerp</Label>
+              <Label htmlFor="onderwerp">{t('srs_topic_label')}</Label>
               <Input
                 id="onderwerp"
                 value={formData.onderwerp}
                 onChange={(e) => setFormData({ ...formData, onderwerp: e.target.value })}
-                placeholder="Bijv. Productregel"
+                placeholder={t('srs_topic_placeholder')}
               />
             </div>
             <div>
-              <Label htmlFor="vraag">Vraag</Label>
+              <Label htmlFor="vraag">{t('question')}</Label>
               <Textarea
                 id="vraag"
                 value={formData.vraag}
                 onChange={(e) => setFormData({ ...formData, vraag: e.target.value })}
-                placeholder="De vraag..."
+                placeholder={t('srs_question_placeholder')}
                 rows={3}
               />
             </div>
             <div>
-              <Label htmlFor="antwoord">Antwoord</Label>
+              <Label htmlFor="antwoord">{t('answer')}</Label>
               <Textarea
                 id="antwoord"
                 value={formData.antwoord}
                 onChange={(e) => setFormData({ ...formData, antwoord: e.target.value })}
-                placeholder="Het antwoord..."
+                placeholder={t('deck_answer_placeholder')}
                 rows={3}
               />
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowAddDialog(false)}>
-              Annuleren
+              {t('cancel')}
             </Button>
-            <Button onClick={handleAddItem}>Item toevoegen</Button>
+            <Button onClick={handleAddItem}>{t('srs_add_item')}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

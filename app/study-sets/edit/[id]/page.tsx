@@ -5,10 +5,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { StudySetEditorView, type StudyCardItem } from '@/components/StudySetEditorView';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { AppShell } from '@/components/AppShell';
+import { useTranslation } from '@/lib/useTranslation';
 
 const supabase = browserClient as any;
 
 export default function EditLeersetPage() {
+  const { t } = useTranslation();
   const params = useParams();
   const router = useRouter();
   const setId = params.id as string;
@@ -71,7 +73,7 @@ export default function EditLeersetPage() {
   if (loading) {
     return (
       <AppShell>
-        <div className="py-20 text-center text-sm text-muted-foreground">Leerset laden...</div>
+        <div className="py-20 text-center text-sm text-muted-foreground">{t('set_loading')}</div>
       </AppShell>
     );
   }

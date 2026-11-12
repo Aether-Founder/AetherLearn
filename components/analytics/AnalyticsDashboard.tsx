@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TrendingUp, TrendingDown, Minus, AlertTriangle, CheckCircle2, Clock, Target } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface AnalyticsDashboardProps {
   mastery: {
@@ -20,6 +21,7 @@ interface AnalyticsDashboardProps {
 }
 
 export function AnalyticsDashboard({ mastery, insights, performance }: AnalyticsDashboardProps) {
+  const { t } = useTranslation();
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'beheerst': return 'text-green-500 bg-green-500/10';
@@ -53,7 +55,7 @@ export function AnalyticsDashboard({ mastery, insights, performance }: Analytics
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Target className="h-5 w-5" />
-            Meesterschap Overzicht
+            {t('comp_mastery_overview')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -76,7 +78,7 @@ export function AnalyticsDashboard({ mastery, insights, performance }: Analytics
               </div>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Risico</p>
+              <p className="text-sm text-muted-foreground">{t('comp_risk')}</p>
               <p className={`text-sm font-medium ${getRiskColor(mastery.riskLevel)}`}>
                 {mastery.riskLevel.charAt(0).toUpperCase() + mastery.riskLevel.slice(1)}
               </p>
@@ -90,14 +92,14 @@ export function AnalyticsDashboard({ mastery, insights, performance }: Analytics
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <CheckCircle2 className="h-5 w-5" />
-            Voorspelde Toetsscore
+            {t('comp_predicted_score')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-4">
             <div className="text-4xl font-bold">{mastery.predictedScore}/10</div>
             <div className="text-sm text-muted-foreground">
-              Gebaseerd op huidige meesterschap en recente quizprestaties
+              {t('comp_predicted_score_desc')}
             </div>
           </div>
         </CardContent>
@@ -108,21 +110,21 @@ export function AnalyticsDashboard({ mastery, insights, performance }: Analytics
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Clock className="h-5 w-5" />
-            Prestatie Metrics
+            {t('comp_performance_metrics')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 sm:grid-cols-3">
             <div>
-              <p className="text-sm text-muted-foreground">Gemiddelde tijd per vraag</p>
+              <p className="text-sm text-muted-foreground">{t('comp_avg_time_per_question')}</p>
               <p className="text-2xl font-semibold">{Math.round(performance.averageTimePerQuestion / 1000)}s</p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Gemiddelde zekergheid</p>
+              <p className="text-sm text-muted-foreground">{t('comp_avg_confidence')}</p>
               <p className="text-2xl font-semibold">{performance.averageConfidence.toFixed(1)}/5</p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Hint gebruik</p>
+              <p className="text-sm text-muted-foreground">{t('comp_hint_usage')}</p>
               <p className="text-2xl font-semibold">{Math.round(performance.hintUsageRate * 100)}%</p>
             </div>
           </div>
@@ -135,7 +137,7 @@ export function AnalyticsDashboard({ mastery, insights, performance }: Analytics
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5" />
-              Prestatie Inzichten
+              {t('comp_performance_insights')}
             </CardTitle>
           </CardHeader>
           <CardContent>

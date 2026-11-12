@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Copy, Check, ChevronDown, ChevronRight, Braces } from "lucide-react";
+import { useTranslation } from "@/lib/useTranslation";
 
 interface JsonViewerProps {
   data: any;
@@ -70,6 +71,7 @@ function JsonNode({ data, level = 0 }: { data: any; level?: number }) {
 }
 
 export function JsonViewer({ data, filename }: JsonViewerProps) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [viewMode, setViewMode] = useState<"tree" | "raw">("tree");
 
@@ -124,12 +126,12 @@ export function JsonViewer({ data, filename }: JsonViewerProps) {
             {copied ? (
               <>
                 <Check className="h-3.5 w-3.5" />
-                Gekopieerd
+                {t('comp_copied')}
               </>
             ) : (
               <>
                 <Copy className="h-3.5 w-3.5" />
-                Kopiëren
+                {t('comp_copy')}
               </>
             )}
           </button>

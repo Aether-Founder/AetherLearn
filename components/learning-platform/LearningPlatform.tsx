@@ -348,7 +348,7 @@ export function LearningPlatform({
           </p>
           <HubButton
             label="Review"
-            description={`${dueCount} kaarten klaar voor Anki-herhaling`}
+            description={t('comp_due_for_review', undefined, { count: dueCount })}
             icon={<RotateCcw className="h-6 w-6" />}
             onClick={() => startMode('review', 'due')}
           />
@@ -360,13 +360,13 @@ export function LearningPlatform({
           />
           <HubButton
             label="Flashcards"
-            description="Draai kaarten om en beoordeel met Again, Hard, Good of Easy"
+            description={t('comp_flashcards_desc')}
             icon={<Layers className="h-6 w-6" />}
             onClick={() => startMode('flashcard', 'mix')}
           />
           <HubButton
-            label="Schrijven"
-            description="WRTS-training met typecontrole, foutenronde en slimme beoordeling"
+            label={t('comp_written')}
+            description={t('comp_writing_desc')}
             icon={<PenLine className="h-6 w-6" />}
             onClick={() => startMode('writing-only', 'mix')}
           />

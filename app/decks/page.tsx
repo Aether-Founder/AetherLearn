@@ -208,9 +208,7 @@ export default function DecksPage() {
 
   const handleDeleteSet = async (setId: string) => {
     if (
-      !confirm(
-        'Weet je zeker dat je deze leerset wilt verwijderen? Alle kaarten worden ook verwijderd.'
-      )
+      !confirm(t('deck_confirm_delete_set'))
     )
       return;
 
@@ -252,7 +250,7 @@ export default function DecksPage() {
   };
 
   const handleDeleteCard = async (cardId: string) => {
-    if (!confirm('Weet je zeker dat je deze kaart wilt verwijderen?')) return;
+    if (!confirm(t('deck_confirm_delete_card'))) return;
 
     const { error } = await supabase.from('flashcards').delete().eq('id', cardId);
     if (error) {
@@ -372,10 +370,10 @@ export default function DecksPage() {
       const { error } = await supabase.from('flashcards').insert(importedCards);
       if (error) {
         console.error('Failed to import cards:', error);
-        alert('Import mislukt');
+        alert(t('deck_import_failed'));
       } else {
         await fetchCards(selectedSet!.id);
-        alert(`${importedCards.length} kaarten geïmporteerd`);
+        alert(t('deck_imported', undefined, { n: importedCards.length }));
       }
     }
   };
@@ -388,9 +386,9 @@ export default function DecksPage() {
 
   const studyModes = [
     { id: 'flashcards', label: 'Flashcards', icon: Brain, color: 'bg-blue-500' },
-    { id: 'learn', label: 'Leren', icon: BookOpen, color: 'bg-green-500' },
-    { id: 'write', label: 'Schrijven', icon: FileText, color: 'bg-purple-500' },
-    { id: 'test', label: 'Toets', icon: Target, color: 'bg-red-500' },
+    { id: 'learn', label: t('deck_mode_learn'), icon: BookOpen, color: 'bg-green-500' },
+    { id: 'write', label: t('deck_mode_write'), icon: FileText, color: 'bg-purple-500' },
+    { id: 'test', label: t('deck_mode_test'), icon: Target, color: 'bg-red-500' },
     { id: 'match', label: 'Match', icon: LayoutGrid, color: 'bg-yellow-500' },
   ];
 
@@ -441,7 +439,7 @@ export default function DecksPage() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
               <Button variant="ghost" onClick={() => setSelectedSet(null)} className="mb-2">
-                ← Terug naar leersets
+                {t('deck_back_to_sets')}
               </Button>
               <h2 className="font-display text-xl sm:text-2xl font-semibold">
                 {selectedSet.title}
@@ -453,23 +451,23 @@ export default function DecksPage() {
             <div className="flex gap-2 flex-wrap">
               <Button onClick={openCreateCardDialog} size="sm">
                 <Plus className="mr-2 h-4 w-4" />
-                Kaart toevoegen
+                {t('deck_add_card')}
               </Button>
               {selectedSet.subject && (
                 <Link href={`/subjects/${selectedSet.subject.id}`}>
                   <Button variant="outline" size="sm">
                     <BookOpen className="mr-2 h-4 w-4" />
-                    Bekijk in Vakken
+                    {t('deck_view_subjects')}
                   </Button>
                 </Link>
               )}
               <Button onClick={() => openEditSetDialog(selectedSet)} variant="outline" size="sm">
                 <Edit2 className="mr-2 h-4 w-4" />
-                Leerset bewerken
+                {t('deck_edit_set')}
               </Button>
               <Button onClick={() => openExportDialog(selectedSet)} variant="outline" size="sm">
                 <Download className="mr-2 h-4 w-4" />
-                Exporteren
+                {t('deck_export')}
               </Button>
               <label className="inline-flex">
                 <Button variant="outline" size="sm" asChild>
@@ -494,19 +492,21 @@ export default function DecksPage() {
           {cards.length === 0 ? (
             <div className="text-center py-12 border-2 border-dashed border-border rounded-lg">
               <Brain className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-              <p className="text-lg font-medium mb-2">Nog geen kaarten</p>
+              <p className="text-lg font-medium mb-2">{t('deck_no_cards')}</p>
               <p className="text-sm text-muted-foreground mb-4">
-                Voeg je eerste kaart toe om te beginnen met leren.
+                {t('deck_no_cards_desc')}
               </p>
               <Button onClick={() => setShowCardDialog(true)}>
                 <Plus className="mr-2 h-4 w-4" />
-                Eerste kaart maken
+                {t('deck_create_first_card')}
               </Button>
             </div>
           ) : (
             <>
               <div className="mb-6">
-                <h3 className="text-sm font-medium mb-3">{cards.length} kaarten</h3>
+                <h3 className="text-sm font-medium mb-3">
+                  {t('subject_cards', undefined, { n: cards.length })}
+                </h3>
                 <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
                   {cards.map((card, index) => (
                     <div
@@ -538,7 +538,7 @@ export default function DecksPage() {
               </div>
 
               <div className="border-t border-border pt-6">
-                <h3 className="text-sm font-medium mb-4">Studeer modi</h3>
+                <h3 className="text-sm font-medium mb-4">{t('deck_study_modes')}</h3>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
                   {studyModes.map((mode) => {
                     const Icon = mode.icon;
@@ -555,7 +555,9 @@ export default function DecksPage() {
                         </div>
                         <div className="min-w-0 flex-1">
                           <p className="font-medium text-sm truncate">{mode.label}</p>
-                          <p className="text-xs text-muted-foreground">{cards.length} kaarten</p>
+                          <p className="text-xs text-muted-foreground">
+                            {t('subject_cards', undefined, { n: cards.length })}
+                          </p>
                         </div>
                         <Play className="ml-auto h-4 w-4 text-muted-foreground shrink-0" />
                       </Link>
@@ -628,7 +630,7 @@ export default function DecksPage() {
                   </p>
                 )}
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span>{set.view_count} keer bekeken</span>
+                  <span>{t('deck_views', undefined, { n: set.view_count })}</span>
                   <span>{new Date(set.updated_at).toLocaleDateString('nl-NL')}</span>
                 </div>
               </div>
@@ -641,27 +643,27 @@ export default function DecksPage() {
       <Dialog open={showSetDialog} onOpenChange={setShowSetDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{editingSet ? 'Leerset bewerken' : 'Nieuwe leerset'}</DialogTitle>
+            <DialogTitle>{editingSet ? t('deck_edit_set') : t('deck_new_set')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="set-title">Titel</Label>
+              <Label htmlFor="set-title">{t('deck_title_label')}</Label>
               <Input
                 id="set-title"
                 value={setFormData.title}
                 onChange={(e) => setSetFormData({ ...setFormData, title: e.target.value })}
-                placeholder="Bijv. Wiskunde H3"
+                placeholder={t('deck_title_placeholder')}
               />
             </div>
             <div>
-              <Label htmlFor="set-subject">Vak (optioneel)</Label>
+              <Label htmlFor="set-subject">{t('deck_subject_optional')}</Label>
               <select
                 id="set-subject"
                 value={setFormData.subject_id}
                 onChange={(e) => setSetFormData({ ...setFormData, subject_id: e.target.value })}
                 className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
               >
-                <option value="">Geen vak</option>
+                <option value="">{t('deck_no_subject')}</option>
                 {subjects.map((subject) => (
                   <option key={subject.id} value={subject.id}>
                     {subject.name}
@@ -670,22 +672,22 @@ export default function DecksPage() {
               </select>
             </div>
             <div>
-              <Label htmlFor="set-description">Beschrijving</Label>
+              <Label htmlFor="set-description">{t('deck_description_label')}</Label>
               <Textarea
                 id="set-description"
                 value={setFormData.description}
                 onChange={(e) => setSetFormData({ ...setFormData, description: e.target.value })}
-                placeholder="Wat leer je in deze set?"
+                placeholder={t('deck_description_placeholder')}
                 rows={3}
               />
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowSetDialog(false)}>
-              Annuleren
+              {t('cancel')}
             </Button>
             <Button onClick={editingSet ? handleUpdateSet : handleCreateSet}>
-              {editingSet ? 'Bijwerken' : 'Aanmaken'}
+              {editingSet ? t('deck_update') : t('deck_create')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -695,26 +697,26 @@ export default function DecksPage() {
       <Dialog open={showCardDialog} onOpenChange={setShowCardDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{editingCard ? 'Kaart bewerken' : 'Nieuwe kaart'}</DialogTitle>
+            <DialogTitle>{editingCard ? t('deck_edit_card') : t('deck_new_card')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="card-question">Vraag</Label>
+              <Label htmlFor="card-question">{t('question')}</Label>
               <Textarea
                 id="card-question"
                 value={cardFormData.question}
                 onChange={(e) => setCardFormData({ ...cardFormData, question: e.target.value })}
-                placeholder="Stel je vraag..."
+                placeholder={t('deck_question_placeholder')}
                 rows={3}
               />
             </div>
             <div>
-              <Label htmlFor="card-answer">Antwoord</Label>
+              <Label htmlFor="card-answer">{t('answer')}</Label>
               <Textarea
                 id="card-answer"
                 value={cardFormData.answer}
                 onChange={(e) => setCardFormData({ ...cardFormData, answer: e.target.value })}
-                placeholder="Het antwoord..."
+                placeholder={t('deck_answer_placeholder')}
                 rows={3}
               />
             </div>
@@ -728,10 +730,10 @@ export default function DecksPage() {
                 resetCardForm();
               }}
             >
-              Annuleren
+              {t('cancel')}
             </Button>
             <Button onClick={editingCard ? handleUpdateCard : handleCreateCard}>
-              {editingCard ? 'Bijwerken' : 'Toevoegen'}
+              {editingCard ? t('deck_update') : t('add')}
             </Button>
           </DialogFooter>
         </DialogContent>

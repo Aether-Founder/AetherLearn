@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar as CalendarIcon, Plus } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Event {
   id: string;
@@ -19,6 +20,7 @@ interface DragDropCalendarProps {
 }
 
 export function DragDropCalendar({ onEventCreate, existingEvents = [] }: DragDropCalendarProps) {
+  const { t } = useTranslation();
   const [isDragging, setIsDragging] = useState(false);
   const [dragStartTime, setDragStartTime] = useState<number | null>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
@@ -77,7 +79,7 @@ export function DragDropCalendar({ onEventCreate, existingEvents = [] }: DragDro
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Sleep & Drop Agenda</h2>
+        <h2 className="text-2xl font-bold">{t('shell_drag_drop_agenda')}</h2>
         <Button size="sm">
           <Plus className="w-4 h-4 mr-2" />
           Event Toevoegen
@@ -89,7 +91,7 @@ export function DragDropCalendar({ onEventCreate, existingEvents = [] }: DragDro
           <div ref={calendarRef} className="overflow-x-auto">
             <div className="min-w-[800px]">
               <div className="grid grid-cols-8 gap-2 mb-4">
-                <div className="text-sm font-medium text-muted-foreground">Tijd</div>
+                <div className="text-sm font-medium text-muted-foreground">{t('shell_time')}</div>
                 {weekDays.map((day) => (
                   <div key={day.toISOString()} className="text-center">
                     <div className="text-sm font-medium">
@@ -141,12 +143,12 @@ export function DragDropCalendar({ onEventCreate, existingEvents = [] }: DragDro
           <div className="flex items-start gap-3">
             <CalendarIcon className="w-5 h-5 text-blue-500 mt-0.5" />
             <div>
-              <h3 className="font-semibold text-sm mb-2">Sleep & Drop Instructies</h3>
+              <h3 className="font-semibold text-sm mb-2">{t('shell_drag_drop_instructions')}</h3>
               <ul className="text-xs text-muted-foreground space-y-1">
-                <li>• Klik en sleep op een tijdsblok om een event te maken</li>
-                <li>• De lengte van de sleep bepaalt de duur van het event</li>
-                <li>• Sleep horizontaal om de datum te wijzigen</li>
-                <li>• Sleep verticaal om de tijd te wijzigen</li>
+                <li>• {t('shell_tip_drag_create')}</li>
+                <li>• {t('shell_tip_drag_duration')}</li>
+                <li>• {t('shell_tip_drag_date')}</li>
+                <li>• {t('shell_tip_drag_time')}</li>
               </ul>
             </div>
           </div>

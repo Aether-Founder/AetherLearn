@@ -17,6 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Plus, Edit2, Trash2, ExternalLink } from 'lucide-react';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface ContentButton {
   id: string;
@@ -52,6 +53,7 @@ interface Topic {
 }
 
 export default function AdminButtonManagement() {
+  const { t } = useTranslation();
   const [buttons, setButtons] = useState<ContentButton[]>([]);
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
@@ -623,11 +625,11 @@ export default function AdminButtonManagement() {
       <ConfirmDialog
         open={showDeleteDialog}
         onOpenChange={setShowDeleteDialog}
-        title="Button verwijderen"
-        description={`Weet je zeker dat je de button "${buttonToDelete?.button_text}" wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.`}
+        title={t('admin_button_delete_title')}
+        description={t('admin_button_delete_desc', undefined, { name: buttonToDelete?.button_text ?? '' })}
         onConfirm={confirmDelete}
-        confirmText="Verwijderen"
-        cancelText="Annuleren"
+        confirmText={t('admin_delete_button_confirm')}
+        cancelText={t('cancel')}
         variant="destructive"
       />
     </AppShell>

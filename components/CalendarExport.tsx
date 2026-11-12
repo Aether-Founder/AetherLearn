@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Download, Calendar as CalendarIcon, FileText, ExternalLink } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Event {
   id: string;
@@ -20,6 +21,7 @@ interface CalendarExportProps {
 }
 
 export function CalendarExport({ events }: CalendarExportProps) {
+  const { t } = useTranslation();
   const [exporting, setExporting] = useState(false);
 
   const generateICal = () => {
@@ -102,7 +104,7 @@ END:VEVENT
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Agenda Export</h2>
+        <h2 className="text-2xl font-bold">{t('shell_agenda_export')}</h2>
         <Badge variant="secondary">{events.length} events</Badge>
       </div>
 
@@ -175,7 +177,7 @@ END:VEVENT
           {events.length === 0 && (
             <div className="text-center py-8 text-muted-foreground">
               <CalendarIcon className="w-12 h-12 mx-auto mb-4 opacity-50" />
-              <p className="text-sm">Geen events om te exporteren</p>
+              <p className="text-sm">{t('shell_no_events_export')}</p>
             </div>
           )}
         </CardContent>
@@ -186,9 +188,9 @@ END:VEVENT
           <div className="flex items-start gap-4">
             <Download className="w-8 h-8 text-blue-500 mt-1" />
             <div>
-              <h3 className="font-semibold mb-2">Over Agenda Export</h3>
+              <h3 className="font-semibold mb-2">{t('shell_about_agenda_export')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• iCal formaat werkt met Apple Calendar, Outlook, en meer</li>
+                <li>• {t('shell_tip_ical')}</li>
                 <li>• Google Calendar export opent direct in je browser</li>
                 <li>• Alle events worden geëxporteerd inclusief tijden en beschrijvingen</li>
                 <li>• Geëxporteerde events kunnen worden geïmporteerd in andere agenda-apps</li>

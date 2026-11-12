@@ -158,7 +158,7 @@ export default function LessenPage() {
                     </p>
                     {showAnswers && answer && (
                       <div className="mt-2 p-3 bg-secondary rounded-md">
-                        <p className="text-sm text-muted-foreground mb-1">Antwoord:</p>
+                        <p className="text-sm text-muted-foreground mb-1">{t('lessons_answer')}:</p>
                         <div className="prose prose-sm dark:prose-invert max-w-none">
                           <ReactMarkdown
                             remarkPlugins={[remarkGfm, remarkMath]}
@@ -202,7 +202,7 @@ export default function LessenPage() {
         return (
           <div className="bg-secondary rounded-lg p-8 flex items-center justify-center">
             <BookOpen className="h-12 w-12 text-muted-foreground" />
-            <p className="ml-4 text-muted-foreground">Afbeelding</p>
+            <p className="ml-4 text-muted-foreground">{t('lessons_image')}</p>
           </div>
         );
 
@@ -218,7 +218,7 @@ export default function LessenPage() {
           title={t('lessons_title')}
           description={t('lessons_description')}
         />
-        <div className="mt-10 text-center text-sm text-muted-foreground">Laden...</div>
+        <div className="mt-10 text-center text-sm text-muted-foreground">{t('lessons_loading')}</div>
       </AppShell>
     );
   }
@@ -232,7 +232,7 @@ export default function LessenPage() {
               onClick={() => setSelectedLesson(null)}
               className="text-sm text-muted-foreground hover:text-foreground mb-2"
             >
-              ← Terug naar lessen
+              ← {t('lessons_back')}
             </button>
             <h1 className="font-display text-2xl font-semibold">
               {selectedLesson.siteMetadata.title}
@@ -246,7 +246,7 @@ export default function LessenPage() {
         <div className="px-6 py-8">
           {/* View Mode Selector */}
           <div className="flex items-center gap-2 mb-6">
-            <span className="text-sm text-muted-foreground">Weergave:</span>
+            <span className="text-sm text-muted-foreground">{t('lessons_view_mode')}:</span>
             {selectedLesson.availableModes.map((mode) => (
               <button
                 key={mode}
@@ -257,7 +257,7 @@ export default function LessenPage() {
                     : 'bg-secondary text-muted-foreground hover:bg-secondary/80'
                 }`}
               >
-                {mode === 'simple' ? 'Eenvoudig' : mode === 'study' ? 'Studeren' : 'Gevorderd'}
+                {mode === 'simple' ? t('lessons_mode_simple') : mode === 'study' ? t('lessons_mode_study') : t('lessons_mode_advanced')}
               </button>
             ))}
             <button
@@ -268,7 +268,7 @@ export default function LessenPage() {
                   : 'bg-secondary text-muted-foreground hover:bg-secondary/80'
               }`}
             >
-              {showAnswers ? 'Antwoorden verbergen' : 'Antwoorden tonen'}
+              {showAnswers ? t('lessons_hide_answers') : t('lessons_show_answers')}
             </button>
           </div>
 
@@ -291,7 +291,9 @@ export default function LessenPage() {
                       <h2 className="font-semibold">{section.title}</h2>
                     </div>
                     <span className="text-xs text-muted-foreground">
-                      {section.blocks.length} {section.blocks.length === 1 ? 'blok' : 'blokken'}
+                      {section.blocks.length === 1
+                        ? t('lessons_block_singular', undefined, { count: section.blocks.length })
+                        : t('lessons_block_plural', undefined, { count: section.blocks.length })}
                     </span>
                   </button>
 
@@ -349,7 +351,7 @@ export default function LessenPage() {
                 {lesson.siteMetadata.description}
               </p>
               <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span>{lesson.sections.length} secties</span>
+                <span>{t('lessons_sections', undefined, { count: lesson.sections.length })}</span>
                 <span>{lesson.contentFormat}</span>
               </div>
             </div>

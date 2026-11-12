@@ -25,6 +25,7 @@ import {
   useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface DraftCard {
   id: string;
@@ -67,6 +68,7 @@ function SortableCard({
   cardsLength: number;
   isOver: boolean;
 }) {
+  const { t } = useTranslation();
   const {
     attributes,
     listeners,
@@ -101,7 +103,7 @@ function SortableCard({
           {...listeners}
         >
           <GripVertical className="h-5 w-5 text-muted-foreground" />
-          <p className="text-sm font-medium text-muted-foreground">Kaart {index + 1}</p>
+          <p className="text-sm font-medium text-muted-foreground">{t('comp_card_number', undefined, { index: index + 1 })}</p>
         </div>
 
         <button
@@ -109,7 +111,7 @@ function SortableCard({
           onClick={() => removeCard(card.id)}
           disabled={cardsLength === 1}
           className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-destructive disabled:pointer-events-none disabled:opacity-40"
-          aria-label={`Verwijder kaart ${index + 1}`}
+          aria-label={t('comp_remove_card_aria', undefined, { index: index + 1 })}
         >
           <Trash2 className="h-4 w-4" />
         </button>
@@ -117,21 +119,21 @@ function SortableCard({
 
       <div className="space-y-3">
         <div>
-          <label className="mb-1 block text-sm font-medium">Term</label>
+          <label className="mb-1 block text-sm font-medium">{t('comp_term')}</label>
           <textarea
             value={card.question}
             onChange={(event) => updateCard(card.id, 'question', event.target.value)}
-            placeholder="Wat is de term?"
+            placeholder={t('comp_term_placeholder')}
             className={textareaClass}
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium">Definitie</label>
+          <label className="mb-1 block text-sm font-medium">{t('comp_definition')}</label>
           <textarea
             value={card.answer}
             onChange={(event) => updateCard(card.id, 'answer', event.target.value)}
-            placeholder="Wat is de definitie?"
+            placeholder={t('comp_definition_placeholder')}
             className={textareaClass}
           />
         </div>
@@ -141,6 +143,7 @@ function SortableCard({
 }
 
 export default function CreateLearningSetForm() {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const [title, setTitle] = useState('');
@@ -325,7 +328,7 @@ export default function CreateLearningSetForm() {
       setImportText('');
       setShowImportDialog(false);
     } else {
-      setError('Geen geldige kaarten gevonden. Controleer het formaat.');
+      setError(t('comp_no_valid_cards'));
     }
   };
 
@@ -338,12 +341,12 @@ export default function CreateLearningSetForm() {
     );
 
     if (!cleanTitle) {
-      setError('Geef de leerset een titel.');
+      setError(t('comp_title_required'));
       return;
     }
 
     if (validCards.length === 0) {
-      setError('Voeg minimaal één kaart toe met een term en definitie.');
+      setError(t('comp_min_one_card'));
       return;
     }
 
@@ -362,7 +365,7 @@ export default function CreateLearningSetForm() {
 
       router.push('/study-sets');
     } catch {
-      setError('Opslaan mislukt. Probeer het opnieuw.');
+      setError(t('comp_save_failed_retry'));
     } finally {
       setSaving(false);
     }
@@ -374,13 +377,13 @@ export default function CreateLearningSetForm() {
       <div className="space-y-4">
         <div>
           <label htmlFor="set-title" className="mb-1 block text-2xl font-display font-semibold">
-            Titel
+            {t('comp_set_title')}
           </label>
           <input
             id="set-title"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
-            placeholder="Bijvoorbeeld: Biologie hoofdstuk 4"
+            placeholder={t('comp_set_title_placeholder')}
             className="h-12 w-full rounded-md border border-input bg-background px-4 text-lg shadow-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
             required
           />
@@ -388,13 +391,13 @@ export default function CreateLearningSetForm() {
 
         <div>
           <label htmlFor="set-description" className="mb-1 block text-sm font-medium text-muted-foreground">
-            Beschrijving (optioneel)
+            {t('comp_description_optional')}
           </label>
           <textarea
             id="set-description"
             value={description}
             onChange={(event) => setDescription(event.target.value)}
-            placeholder="Optionele beschrijving van deze leerset"
+            placeholder={t('comp_set_desc_placeholder')}
             className="min-h-20 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
           />
         </div>
@@ -406,7 +409,7 @@ export default function CreateLearningSetForm() {
           className={outlineButtonClass}
         >
           <Upload className="mr-2 h-4 w-4" />
-          Importeren
+          {t('comp_import')}
         </button>
       </div>
 
@@ -457,27 +460,27 @@ export default function CreateLearningSetForm() {
                     <div className="mb-3 flex items-center justify-between gap-3">
                       <div className="flex items-center gap-2 cursor-grabbing">
                         <GripVertical className="h-5 w-5 text-muted-foreground" />
-                        <p className="text-sm font-medium text-muted-foreground">Kaart {activeIndex + 1}</p>
+                        <p className="text-sm font-medium text-muted-foreground">{t('comp_card_number', undefined, { index: activeIndex + 1 })}</p>
                       </div>
                     </div>
 
                     <div className="space-y-3">
                       <div>
-                        <label className="mb-1 block text-sm font-medium">Term</label>
+                        <label className="mb-1 block text-sm font-medium">{t('comp_term')}</label>
                         <textarea
                           value={activeCard.question}
                           readOnly
-                          placeholder="Wat is de term?"
+                          placeholder={t('comp_term_placeholder')}
                           className={textareaClass}
                         />
                       </div>
 
                       <div>
-                        <label className="mb-1 block text-sm font-medium">Definitie</label>
+                        <label className="mb-1 block text-sm font-medium">{t('comp_definition')}</label>
                         <textarea
                           value={activeCard.answer}
                           readOnly
-                          placeholder="Wat is de definitie?"
+                          placeholder={t('comp_definition_placeholder')}
                           className={textareaClass}
                         />
                       </div>
@@ -493,7 +496,7 @@ export default function CreateLearningSetForm() {
       {/* Add button at bottom - full width */}
       <button type="button" onClick={addCard} className={fullWidthButtonClass}>
         <Plus className="mr-2 h-4 w-4" />
-        Kaart toevoegen
+        {t('comp_add_card')}
       </button>
 
       {error && (
@@ -504,7 +507,7 @@ export default function CreateLearningSetForm() {
 
       <div className="flex justify-end">
         <button type="submit" disabled={saving} className={`${primaryButtonClass} w-full`}>
-          {saving ? 'Opslaan...' : 'Leerset aanmaken'}
+          {saving ? t('comp_saving') : t('comp_create_set')}
         </button>
       </div>
 
@@ -645,14 +648,14 @@ export default function CreateLearningSetForm() {
                 onClick={() => setShowImportDialog(false)}
                 className={outlineButtonClass}
               >
-                Annuleren
+                {t('cancel')}
               </button>
               <button
                 type="button"
                 onClick={handleImport}
                 className={primaryButtonClass}
               >
-                Importeren
+                {t('comp_import')}
               </button>
             </div>
           </div>

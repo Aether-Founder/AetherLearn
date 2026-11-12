@@ -100,16 +100,28 @@ export default function ToetsweekPage() {
     switch (mode) {
       case 'daily-cap':
         return {
-          label: 'Dagelijkse limiet',
-          description: `Max ${dailyCap} minuten per dag`,
+          label: t('testw_mode_daily_cap'),
+          description: t('testw_mode_daily_cap_desc', undefined, { n: dailyCap }),
           icon: '⏱️',
         };
       case 'sick-mode':
-        return { label: 'Ziektemodus', description: 'Verlaagde studiebelasting', icon: '🏥' };
+        return {
+          label: t('testw_mode_sick'),
+          description: t('testw_mode_sick_desc'),
+          icon: '🏥',
+        };
       case 'intensive':
-        return { label: 'Intensief', description: 'Verhoogde studiebelasting', icon: '🔥' };
+        return {
+          label: t('testw_mode_intensive'),
+          description: t('testw_mode_intensive_desc'),
+          icon: '🔥',
+        };
       default:
-        return { label: 'Normaal', description: 'Standaard studiebelasting', icon: '📚' };
+        return {
+          label: t('testw_mode_normal'),
+          description: t('testw_mode_normal_desc'),
+          icon: '📚',
+        };
     }
   };
 
@@ -123,7 +135,10 @@ export default function ToetsweekPage() {
       return moments.filter((_, i) => i % 2 === 0);
     }
     if (mode === 'intensive') {
-      return moments.flatMap((m) => [m, { ...m, id: `${m.id}-extra`, task: `${m.task} (Extra)` }]);
+      return moments.flatMap((m) => [
+        m,
+        { ...m, id: `${m.id}-extra`, task: `${m.task} ${t('testw_extra')}` },
+      ]);
     }
     return moments;
   };
@@ -156,8 +171,10 @@ export default function ToetsweekPage() {
       <div className="mt-10">
         <section className="mb-10">
           <div className="mb-5">
-            <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Stof</p>
-            <h2 className="mt-2 font-display text-2xl font-semibold">Beschikbare Stof</h2>
+            <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+              {t('testw_material')}
+            </p>
+            <h2 className="mt-2 font-display text-2xl font-semibold">{t('testw_material_title')}</h2>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {CONTENT_FILES.map((file) => (
@@ -203,11 +220,11 @@ export default function ToetsweekPage() {
                   unknown: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
                 };
                 const readinessLabels = {
-                  ready: 'Klaar',
-                  progress: 'In orde',
-                  'needs-work': 'Nodig',
-                  critical: 'Kritiek',
-                  unknown: 'Onbekend',
+                  ready: t('testw_ready'),
+                  progress: t('testw_progress'),
+                  'needs-work': t('testw_needs_work'),
+                  critical: t('testw_critical'),
+                  unknown: t('testw_unknown'),
                 };
                 return (
                   <div key={exam.id} className="rounded-lg border border-border p-4">
@@ -255,7 +272,9 @@ export default function ToetsweekPage() {
                     </label>
                     <div className="mt-3 grid grid-cols-2 gap-2">
                       <div>
-                        <label className="block text-xs text-muted-foreground">Beheersing %</label>
+                        <label className="block text-xs text-muted-foreground">
+                          {t('testw_mastery')}
+                        </label>
                         <input
                           type="number"
                           min="0"
@@ -268,7 +287,9 @@ export default function ToetsweekPage() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs text-muted-foreground">Zekerheid %</label>
+                        <label className="block text-xs text-muted-foreground">
+                          {t('testw_confidence')}
+                        </label>
                         <input
                           type="number"
                           min="0"
@@ -309,7 +330,7 @@ export default function ToetsweekPage() {
 
             <div className="mb-6 rounded-xl border border-border bg-card p-4">
               <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground mb-3">
-                Studiemodus
+                {t('testw_study_mode')}
               </p>
               <div className="flex flex-wrap gap-2">
                 {(['normal', 'daily-cap', 'sick-mode', 'intensive'] as StudyMode[]).map((mode) => {
@@ -333,7 +354,7 @@ export default function ToetsweekPage() {
               {studyMode === 'daily-cap' && (
                 <div className="mt-3">
                   <label className="block text-xs text-muted-foreground mb-1">
-                    Dagelijkse limiet (minuten)
+                    {t('testw_daily_limit_minutes')}
                   </label>
                   <input
                     type="number"

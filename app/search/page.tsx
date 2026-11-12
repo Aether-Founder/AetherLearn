@@ -86,7 +86,7 @@ export default function ZoekenPage() {
           id: item.id,
           type: 'note',
           title: item.name,
-          description: item.type === 'map' ? 'Map' : 'Pagina',
+          description: item.type === 'map' ? t('search_type_map') : t('search_type_page'),
           link: '/notes',
           relevance: calculateRelevance(item.name, '', searchQuery),
         });
@@ -180,13 +180,13 @@ export default function ZoekenPage() {
   const getTypeLabel = (type: SearchResult['type']) => {
     switch (type) {
       case 'study_set':
-        return 'Studie Set';
+        return t('search_type_study_set');
       case 'note':
-        return 'Notitie';
+        return t('search_type_note');
       case 'task':
-        return 'Taak';
+        return t('search_type_task');
       case 'calendar_event':
-        return 'Afspraak';
+        return t('search_type_event');
     }
   };
 
@@ -207,14 +207,14 @@ export default function ZoekenPage() {
       </div>
 
       <div className="mt-8">
-        {loading && <div className="text-center text-sm text-muted-foreground">Zoeken...</div>}
+        {loading && <div className="text-center text-sm text-muted-foreground">{t('search_searching')}</div>}
 
         {!loading && !searched && (
           <div className="text-center py-12">
             <SearchIcon className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-            <p className="text-lg font-medium mb-2">Zoek door je content</p>
+            <p className="text-lg font-medium mb-2">{t('search_prompt_title')}</p>
             <p className="text-sm text-muted-foreground">
-              Typ hierboven om te zoeken in je studie sets, notities, taken en agenda.
+              {t('search_prompt_desc')}
             </p>
           </div>
         )}
@@ -222,14 +222,14 @@ export default function ZoekenPage() {
         {!loading && searched && results.length === 0 && (
           <div className="text-center py-12">
             <SearchIcon className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-            <p className="text-lg font-medium mb-2">Geen resultaten</p>
-            <p className="text-sm text-muted-foreground">Probeer een andere zoekterm.</p>
+            <p className="text-lg font-medium mb-2">{t('search_no_results')}</p>
+            <p className="text-sm text-muted-foreground">{t('search_no_results_desc')}</p>
           </div>
         )}
 
         {!loading && searched && results.length > 0 && (
           <div className="space-y-3">
-            <p className="text-sm text-muted-foreground">{results.length} resultaten gevonden</p>
+            <p className="text-sm text-muted-foreground">{t('search_results_count', undefined, { count: results.length })}</p>
             {results.map((result) => (
               <Link
                 key={result.id}

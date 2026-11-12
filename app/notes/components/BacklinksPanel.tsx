@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase/client';
 import { parseLinks } from '@/lib/ai/link-parser';
 import { useWorkspaceStore } from '@/store/useWorkspaceStore';
+import { useTranslation } from '@/lib/useTranslation';
 
 type PageRow = { id: string; name: string; content: unknown };
 type Backlink = { id: string; name: string; snippet: string };
@@ -32,6 +33,7 @@ function linkSnippet(source: string, target: string): string | null {
 }
 
 export default function BacklinksPanel({ currentPageId }: { currentPageId: string }) {
+  const { t } = useTranslation();
   const router = useRouter();
   const [backlinks, setBacklinks] = useState<Backlink[]>([]);
   const [loading, setLoading] = useState(true);
@@ -66,7 +68,7 @@ export default function BacklinksPanel({ currentPageId }: { currentPageId: strin
         .map(({ page, source }) => ({
           id: page.id,
           name: page.name,
-          snippet: linkSnippet(source, currentName) || `Link naar ${currentName}`,
+          snippet: linkSnippet(source, currentName) || t('notes_backlink_fallback', undefined, { name: currentName }),
         }));
       setBacklinks(matches);
       setLoading(false);
@@ -88,14 +90,14 @@ export default function BacklinksPanel({ currentPageId }: { currentPageId: strin
         <Link2 className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
         <h2 className="font-display text-lg font-semibold">Backlinks</h2>
       </div>
-      <p className="mt-1 text-xs text-muted-foreground">Pagina's die naar deze pagina verwijzen</p>
+      <p className="mt-1 text-xs text-muted-foreground">{t('notes_backlinks_desc')}</p>
       {loading ? (
         <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
-          <Loader2 className="h-3.5 w-3.5 animate-spin" /> Links zoeken…
+          <Loader2 className="h-3.5 w-3.5 animate-spin" /> {t('notes_searching_links')}
         </div>
       ) : backlinks.length === 0 ? (
         <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
-          Nog geen andere pagina's linken hiernaartoe.
+          {t('notes_no_backlinks')}
         </p>
       ) : (
         <ul className="mt-5 space-y-2">

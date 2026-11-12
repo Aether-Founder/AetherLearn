@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from '@/lib/useTranslation';
 
 // ============================================================
 // CONFIGURABLE LOGO SIZES (change these values to adjust logos)
@@ -45,6 +46,7 @@ export default function PlatformBanner() {
   });
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setHidden(loadHidden());
@@ -78,18 +80,19 @@ export default function PlatformBanner() {
         <div className="fixed bottom-28 right-4 z-50 w-[320px] rounded-2xl border border-border bg-secondary text-foreground shadow-2xl p-4 text-sm leading-6 transition-opacity duration-500">
           <div className="flex items-start gap-3">
             <div className="flex-1">
-              <p className="text-sm font-semibold text-foreground mb-2">Tip voor toetsweek</p>
+              <p className="text-sm font-semibold text-foreground mb-2">{t('shell_banner_tip_title')}</p>
               <p className="text-sm text-muted-foreground">
-                Klik op de <span className="font-semibold text-foreground">Quizlet</span> of{' '}
-                <span className="font-semibold text-foreground">StudyGo</span> knop om direct naar
-                de klas/groep te gaan met alle lijsten van termen en definities voor de komende
-                toetsweek.
+                {t('shell_banner_tip_a')}
+                <span className="font-semibold text-foreground">Quizlet</span>
+                {t('shell_banner_tip_b')}
+                <span className="font-semibold text-foreground">StudyGo</span>
+                {t('shell_banner_tip_c')}
               </p>
             </div>
             <button
               onClick={dismissOnboarding}
               className="text-muted-foreground hover:text-foreground text-lg leading-none flex-shrink-0"
-              aria-label="Sluit tip"
+              aria-label={t('shell_close_tip')}
             >
               ×
             </button>

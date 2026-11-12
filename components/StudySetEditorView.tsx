@@ -25,6 +25,7 @@ import {
   Keyboard,
   X,
 } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 const supabase = browserClient as any;
 
@@ -57,6 +58,7 @@ export function StudySetEditorView({
   onCancel,
 }: StudySetEditorViewProps) {
   const router = useRouter();
+  const { t } = useTranslation();
   const [title, setTitle] = useState(initialTitle);
   const [description, setDescription] = useState(initialDescription);
   const [isPublic, setIsPublic] = useState(initialIsPublic);
@@ -184,13 +186,13 @@ export function StudySetEditorView({
 
   const handleSave = async () => {
     if (!title.trim()) {
-      alert('Vul a.u.b. een titel in.');
+      alert(t('shell_set_title_required'));
       return;
     }
 
     const validCards = cards.filter((c) => c.term.trim() || c.definition.trim());
     if (validCards.length === 0) {
-      alert('Voeg ten minste 1 kaart toe met een term of definitie.');
+      alert(t('shell_set_min_cards'));
       return;
     }
 
@@ -201,7 +203,7 @@ export function StudySetEditorView({
       } = await supabase.auth.getUser();
 
       if (!user) {
-        alert('Je moet ingelogd zijn om een set op te slaan.');
+        alert(t('shell_set_login_required'));
         setSaving(false);
         return;
       }
@@ -230,7 +232,7 @@ export function StudySetEditorView({
       await OfflineStorage.saveStudySet(localStudySet);
 
       if (!isOnline) {
-        alert('Set opgeslagen offline. Wordt gesynchroniseerd wanneer je weer online bent.');
+        alert(t('shell_set_saved_offline'));
         setSaving(false);
         if (onSaved && localStudySet.id) {
           onSaved(localStudySet.id);
@@ -314,7 +316,7 @@ export function StudySetEditorView({
       }
     } catch (err: any) {
       console.error('Failed to save deck:', err);
-      alert('Opslaan mislukt: ' + (err.message || 'Onbekende fout'));
+      alert(t('shell_save_failed', undefined, { message: err.message || t('shell_unknown_error') }));
     } finally {
       setSaving(false);
     }
@@ -332,14 +334,14 @@ export function StudySetEditorView({
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/80 pb-5">
         <div className="space-y-1.5">
           <h1 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            {initialSetId ? 'Kaartenset bewerken' : 'Nieuwe kaartenset maken'}
+            {initialSetId ? t('shell_edit_set') : t('shell_new_set')}
           </h1>
         </div>
 
         <div className="flex items-center gap-3">
           {isModal && onCancel && (
             <Button variant="outline" onClick={onCancel} disabled={saving}>
-              Annuleren
+              {t('shell_cancel')}
             </Button>
           )}
           <Button
@@ -347,7 +349,7 @@ export function StudySetEditorView({
             disabled={saving || !title.trim()}
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-2 rounded-lg"
           >
-            {saving ? 'Opslaan...' : initialSetId ? 'Bijwerken' : 'Aanmaken'}
+            {saving ? t('shell_saving') : initialSetId ? t('shell_update') : t('shell_create')}
           </Button>
         </div>
       </div>
@@ -358,7 +360,7 @@ export function StudySetEditorView({
           <Input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Titel"
+            placeholder={t('shell_title')}
             className="border-none bg-transparent text-lg font-medium placeholder:text-muted-foreground/60 focus-visible:ring-0 focus-visible:ring-offset-0 px-1 py-1"
           />
         </div>
@@ -367,7 +369,7 @@ export function StudySetEditorView({
           <Textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Vul een beschrijving in.."
+            placeholder={t('shell_desc_placeholder')}
             rows={2}
             className="resize-none border-none bg-transparent text-sm placeholder:text-muted-foreground/60 focus-visible:ring-0 focus-visible:ring-offset-0 px-1 py-1"
           />
@@ -386,7 +388,7 @@ export function StudySetEditorView({
             className="gap-1.5 text-xs font-medium border-border/70 bg-card hover:bg-secondary"
           >
             <Plus className="h-3.5 w-3.5" />
-            Importeren
+            {t('shell_import')}
           </Button>
 
           <Button
@@ -397,14 +399,14 @@ export function StudySetEditorView({
             className="gap-1.5 text-xs font-medium border-border/70 bg-card hover:bg-secondary"
           >
             <Plus className="h-3.5 w-3.5" />
-            Diagram toevoegen
+            {t('shell_add_diagram')}
           </Button>
         </div>
 
         {/* Right tools */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-            <span>Suggesties</span>
+            <span>{t('shell_suggestions')}</span>
             <button
               type="button"
               role="switch"
@@ -430,7 +432,7 @@ export function StudySetEditorView({
                 <Input
                   value={cardSearchQuery}
                   onChange={(e) => setCardSearchQuery(e.target.value)}
-                  placeholder="Zoek in kaarten..."
+                  placeholder={t('shell_search_cards')}
                   className="h-8 w-40 text-xs pl-7 pr-7 border-border bg-card"
                   autoFocus
                 />
@@ -450,7 +452,7 @@ export function StudySetEditorView({
               <button
                 type="button"
                 onClick={() => setShowSearchInput(true)}
-                title="Zoeken"
+                title={t('nav_search')}
                 className="grid h-8 w-8 place-items-center rounded-full bg-card border border-border/70 text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
               >
                 <Search className="h-4 w-4" />
@@ -460,7 +462,7 @@ export function StudySetEditorView({
             <button
               type="button"
               onClick={handleSwapAll}
-              title="Termen en definities omwisselen"
+              title={t('shell_swap_terms')}
               className="grid h-8 w-8 place-items-center rounded-full bg-card border border-border/70 text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
             >
               <ArrowLeftRight className="h-4 w-4" />
@@ -469,7 +471,7 @@ export function StudySetEditorView({
             <button
               type="button"
               onClick={() => setShowShortcutsModal(true)}
-              title="Sneltoetsen"
+              title={t('shell_shortcuts')}
               className="grid h-8 w-8 place-items-center rounded-full bg-card border border-border/70 text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
             >
               <Keyboard className="h-4 w-4" />
@@ -478,7 +480,7 @@ export function StudySetEditorView({
             <button
               type="button"
               onClick={() => setShowClearConfirm(true)}
-              title="Alle kaarten wissen"
+              title={t('shell_clear_cards')}
               className="grid h-8 w-8 place-items-center rounded-full bg-muted text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors shadow-sm"
             >
               <Trash2 className="h-4 w-4" />
@@ -505,7 +507,7 @@ export function StudySetEditorView({
                   <button
                     type="button"
                     className="text-muted-foreground/50 hover:text-muted-foreground cursor-grab active:cursor-grabbing"
-                    title="Slepen"
+                    title={t('shell_drag')}
                   >
                     <GripVertical className="h-4 w-4" />
                   </button>
@@ -513,7 +515,7 @@ export function StudySetEditorView({
                     type="button"
                     onClick={() => removeCard(originalIndex)}
                     className="text-muted-foreground/50 hover:text-foreground transition-colors"
-                    title="Verwijderen"
+                    title={t('shell_remove')}
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -528,13 +530,13 @@ export function StudySetEditorView({
                     <Textarea
                       value={card.term}
                       onChange={(e) => updateCard(originalIndex, 'term', e.target.value)}
-                      placeholder="Vul term in"
+                      placeholder={t('shell_term_placeholder')}
                       rows={2}
                       className="w-full resize-none border-none bg-transparent p-0 text-sm placeholder:text-muted-foreground/50 focus-visible:ring-0 focus-visible:ring-offset-0"
                     />
                   </div>
                   <p className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase px-1">
-                    TERM
+                    {t('lp_term')}
                   </p>
                 </div>
 
@@ -544,13 +546,13 @@ export function StudySetEditorView({
                     <Textarea
                       value={card.definition}
                       onChange={(e) => updateCard(originalIndex, 'definition', e.target.value)}
-                      placeholder="Vul definitie in"
+                      placeholder={t('shell_def_placeholder')}
                       rows={2}
                       className="w-full resize-none border-none bg-transparent p-0 text-sm placeholder:text-muted-foreground/50 focus-visible:ring-0 focus-visible:ring-offset-0"
                     />
                   </div>
                   <p className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase px-1">
-                    DEFINITIE
+                    {t('lp_definition')}
                   </p>
                 </div>
 
@@ -588,7 +590,7 @@ export function StudySetEditorView({
                       className="flex h-[85px] w-[95px] flex-col items-center justify-center gap-1.5 rounded-lg border border-border bg-background text-muted-foreground hover:border-primary/50 hover:bg-background/80 hover:text-foreground transition-all"
                     >
                       <ImageIcon className="h-5 w-5 stroke-[1.5]" />
-                      <span className="text-[11px] font-medium">Afbeelding</span>
+                      <span className="text-[11px] font-medium">{t('shell_image')}</span>
                     </button>
                   )}
                 </div>
@@ -606,7 +608,7 @@ export function StudySetEditorView({
           className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card p-6 text-sm font-semibold text-foreground hover:border-primary/50 hover:bg-card transition-all shadow-sm group"
         >
           <Plus className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
-          <span>Kaart toevoegen</span>
+          <span>{t('shell_add_card')}</span>
         </button>
       </div>
 
@@ -614,12 +616,11 @@ export function StudySetEditorView({
       <Dialog open={showImportDialog} onOpenChange={setShowImportDialog}>
         <DialogContent className="max-w-xl" aria-describedby={undefined}>
           <DialogHeader>
-            <DialogTitle>Kaarten importeren</DialogTitle>
+            <DialogTitle>{t('shell_import_cards')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-3 py-2">
             <p className="text-xs text-muted-foreground">
-              Plak hier je tekst (bijv. gekopieerd uit Excel, Word of Quizlet). Gebruik tabs,
-              komma’s of puntkomma’s om termen en definities te scheiden.
+              {t('shell_import_desc')}
             </p>
             <Textarea
               value={importText}
@@ -631,10 +632,10 @@ export function StudySetEditorView({
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowImportDialog(false)}>
-              Annuleren
+              {t('shell_cancel')}
             </Button>
             <Button onClick={handleImportTextParse} disabled={!importText.trim()}>
-              Importeren
+              {t('shell_import')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -644,24 +645,24 @@ export function StudySetEditorView({
       <Dialog open={showDiagramModal} onOpenChange={setShowDiagramModal}>
         <DialogContent className="max-w-md" aria-describedby={undefined}>
           <DialogHeader>
-            <DialogTitle>Diagram toevoegen</DialogTitle>
+            <DialogTitle>{t('shell_add_diagram')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <p className="text-sm text-muted-foreground">
-              Upload een afbeelding om interactieve hotspots toe te voegen.
+              {t('shell_diagram_desc')}
             </p>
             <div className="flex items-center justify-center border-2 border-dashed border-border rounded-lg p-8">
               <div className="text-center">
                 <ImageIcon className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
-                <p className="text-sm text-muted-foreground">Klik om afbeelding te uploaden</p>
+                <p className="text-sm text-muted-foreground">{t('shell_upload_image_click')}</p>
               </div>
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowDiagramModal(false)}>
-              Annuleren
+              {t('shell_cancel')}
             </Button>
-            <Button onClick={() => setShowDiagramModal(false)}>Toevoegen</Button>
+            <Button onClick={() => setShowDiagramModal(false)}>{t('add')}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -670,24 +671,24 @@ export function StudySetEditorView({
       <Dialog open={showShortcutsModal} onOpenChange={setShowShortcutsModal}>
         <DialogContent className="max-w-md" aria-describedby={undefined}>
           <DialogHeader>
-            <DialogTitle>Handige sneltoetsen</DialogTitle>
+            <DialogTitle>{t('shell_shortcuts_title')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-2 py-3 text-xs">
             <div className="flex justify-between border-b border-border pb-2">
-              <span className="text-muted-foreground">Volgende veld</span>
+              <span className="text-muted-foreground">{t('shell_next_field')}</span>
               <kbd className="rounded bg-muted px-2 py-0.5 font-mono text-[10px]">Tab</kbd>
             </div>
             <div className="flex justify-between border-b border-border pb-2">
-              <span className="text-muted-foreground">Vorige veld</span>
+              <span className="text-muted-foreground">{t('shell_prev_field')}</span>
               <kbd className="rounded bg-muted px-2 py-0.5 font-mono text-[10px]">Shift + Tab</kbd>
             </div>
             <div className="flex justify-between border-b border-border pb-2">
-              <span className="text-muted-foreground">Term/Definitie omwisselen</span>
+              <span className="text-muted-foreground">{t('shell_swap_term_def')}</span>
               <kbd className="rounded bg-muted px-2 py-0.5 font-mono text-[10px]">Alt + S</kbd>
             </div>
           </div>
           <DialogFooter>
-            <Button onClick={() => setShowShortcutsModal(false)}>Sluiten</Button>
+            <Button onClick={() => setShowShortcutsModal(false)}>{t('shell_close')}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -696,18 +697,17 @@ export function StudySetEditorView({
       <Dialog open={showClearConfirm} onOpenChange={setShowClearConfirm}>
         <DialogContent className="max-w-md" aria-describedby={undefined}>
           <DialogHeader>
-            <DialogTitle>Alle kaarten wissen?</DialogTitle>
+            <DialogTitle>{t('shell_clear_cards_title')}</DialogTitle>
           </DialogHeader>
           <p className="text-xs text-muted-foreground py-2">
-            Weet je zeker dat je alle ingevulde kaarten wilt wissen? Dit kan niet ongedaan worden
-            gemaakt.
+            {t('shell_clear_cards_desc')}
           </p>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowClearConfirm(false)}>
-              Annuleren
+              {t('shell_cancel')}
             </Button>
             <Button variant="destructive" onClick={handleClearAll}>
-              Wissen
+              {t('shell_clear')}
             </Button>
           </DialogFooter>
         </DialogContent>

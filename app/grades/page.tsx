@@ -142,7 +142,7 @@ export default function CijfersPage() {
   };
 
   const handleDeleteGrade = async (gradeId: string) => {
-    if (!confirm('Weet je zeker dat je dit cijfer wilt verwijderen?')) return;
+    if (!confirm(t('grades_delete_confirm'))) return;
 
     const { error } = await supabase.from('grades').delete().eq('id', gradeId);
     if (error) {
@@ -245,7 +245,7 @@ export default function CijfersPage() {
           title={t('grades_title')}
           description={t('grades_description')}
         />
-        <div className="mt-10 text-center text-sm text-muted-foreground">Laden...</div>
+        <div className="mt-10 text-center text-sm text-muted-foreground">{t('loading')}</div>
       </AppShell>
     );
   }
@@ -307,7 +307,7 @@ export default function CijfersPage() {
           <p className="mt-1 text-xs text-muted-foreground">
             {stats.highest && parseFloat(stats.highest) >= 7 ? (
               <span className="flex items-center gap-1 text-green-600">
-                <TrendingUp className="h-3 w-3" /> Goed
+                <TrendingUp className="h-3 w-3" /> {t('grades_good')}
               </span>
             ) : (
               '-'
@@ -324,7 +324,7 @@ export default function CijfersPage() {
           <p className="mt-1 text-xs text-muted-foreground">
             {stats.lowest && parseFloat(stats.lowest) < 5.5 ? (
               <span className="flex items-center gap-1 text-red-600">
-                <TrendingDown className="h-3 w-3" /> Onvoldoende
+                <TrendingDown className="h-3 w-3" /> {t('grades_insufficient')}
               </span>
             ) : (
               '-'
@@ -440,7 +440,7 @@ export default function CijfersPage() {
                 <tr className="border-b border-border text-left text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
                   <th className="px-5 py-3 font-medium">{t('grades_col_subject')}</th>
                   <th className="px-5 py-3 font-medium">{t('grades_col_teacher')}</th>
-                  <th className="px-5 py-3 font-medium">{t('grades_col_test')}</th>
+                  <th className="px-5 py-3 font-medium">{t('grades_col_tests')}</th>
                   <th className="px-5 py-3 font-medium">{t('grades_col_date')}</th>
                   <th className="px-5 py-3 font-medium">{t('grades_col_period')}</th>
                   <th className="px-5 py-3 text-right font-medium">{t('grades_col_weight')}</th>
@@ -486,7 +486,7 @@ export default function CijfersPage() {
                                   : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                             }`}
                           >
-                            {grade.grade >= 7 ? 'Groen' : grade.grade >= 5.5 ? 'Oranje' : 'Rood'}
+                            {grade.grade >= 7 ? t('grades_color_green') : grade.grade >= 5.5 ? t('grades_color_orange') : t('grades_color_red')}
                           </span>
                           <span className={grade.grade < 5.5 ? 'text-red-600' : ''}>
                             {grade.grade.toFixed(1)}
@@ -555,7 +555,7 @@ export default function CijfersPage() {
                                   : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                             }`}
                           >
-                            {grade.grade >= 7 ? 'Groen' : grade.grade >= 5.5 ? 'Oranje' : 'Rood'}
+                            {grade.grade >= 7 ? t('grades_color_green') : grade.grade >= 5.5 ? t('grades_color_orange') : t('grades_color_red')}
                           </span>
                           <span
                             className={`font-medium ${grade.grade < 5.5 ? 'text-red-600' : ''}`}
@@ -594,39 +594,39 @@ export default function CijfersPage() {
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{editingGrade ? 'Cijfer bewerken' : 'Nieuw cijfer'}</DialogTitle>
+            <DialogTitle>{editingGrade ? t('grades_edit_title') : t('grades_new_title')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="grade-subject">Vak</Label>
+              <Label htmlFor="grade-subject">{t('grades_field_subject')}</Label>
               <Input
                 id="grade-subject"
                 value={formData.subject_name}
                 onChange={(e) => setFormData({ ...formData, subject_name: e.target.value })}
-                placeholder="Bijv. Wiskunde"
+                placeholder={t('grades_subject_placeholder')}
               />
             </div>
             <div>
-              <Label htmlFor="grade-teacher">Docent</Label>
+              <Label htmlFor="grade-teacher">{t('grades_field_teacher')}</Label>
               <Input
                 id="grade-teacher"
                 value={formData.teacher_name}
                 onChange={(e) => setFormData({ ...formData, teacher_name: e.target.value })}
-                placeholder="Bijv. mw. Jansen"
+                placeholder={t('grades_teacher_placeholder')}
               />
             </div>
             <div>
-              <Label htmlFor="grade-test">Toets</Label>
+              <Label htmlFor="grade-test">{t('grades_field_test')}</Label>
               <Input
                 id="grade-test"
                 value={formData.test_name}
                 onChange={(e) => setFormData({ ...formData, test_name: e.target.value })}
-                placeholder="Bijv. Hertoets Paragraaf 3"
+                placeholder={t('grades_test_placeholder')}
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="grade-value">Cijfer (1-10)</Label>
+                <Label htmlFor="grade-value">{t('grades_field_value')}</Label>
                 <Input
                   id="grade-value"
                   type="number"
@@ -639,7 +639,7 @@ export default function CijfersPage() {
                 />
               </div>
               <div>
-                <Label htmlFor="grade-weight">Weging</Label>
+                <Label htmlFor="grade-weight">{t('grades_col_weight')}</Label>
                 <Input
                   id="grade-weight"
                   type="number"
@@ -653,14 +653,14 @@ export default function CijfersPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="grade-period">Periode</Label>
+                <Label htmlFor="grade-period">{t('grades_period')}</Label>
                 <select
                   id="grade-period"
                   value={formData.period}
                   onChange={(e) => setFormData({ ...formData, period: e.target.value })}
                   className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
                 >
-                  <option value="">Selecteer...</option>
+                  <option value="">{t('grades_select')}</option>
                   <option value="1">P1</option>
                   <option value="2">P2</option>
                   <option value="3">P3</option>
@@ -668,7 +668,7 @@ export default function CijfersPage() {
                 </select>
               </div>
               <div>
-                <Label htmlFor="grade-date">Datum</Label>
+                <Label htmlFor="grade-date">{t('grades_col_date')}</Label>
                 <Input
                   id="grade-date"
                   type="date"
@@ -678,7 +678,7 @@ export default function CijfersPage() {
               </div>
             </div>
             <div>
-              <Label htmlFor="grade-target">Streefcijfer</Label>
+              <Label htmlFor="grade-target">{t('grades_field_target')}</Label>
               <Input
                 id="grade-target"
                 type="number"
@@ -693,10 +693,10 @@ export default function CijfersPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowDialog(false)}>
-              Annuleren
+              {t('cancel')}
             </Button>
             <Button onClick={editingGrade ? handleUpdateGrade : handleCreateGrade}>
-              {editingGrade ? 'Bijwerken' : 'Toevoegen'}
+              {editingGrade ? t('update') : t('add')}
             </Button>
           </DialogFooter>
         </DialogContent>

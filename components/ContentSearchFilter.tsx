@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Search, Filter, X, BookOpen, FileText, Calendar, Tag } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface ContentSearchFilterProps {
   onSearch: (query: string) => void;
@@ -28,6 +29,7 @@ export interface ContentFilters {
 }
 
 export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSearchFilterProps) {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<ContentFilters>({});
   const [showFilters, setShowFilters] = useState(false);
@@ -63,7 +65,7 @@ export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSear
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
-            placeholder="Zoek content..."
+            placeholder={t('shell_search_content')}
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
             className="pl-10"
@@ -103,11 +105,11 @@ export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSear
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Alle Types</SelectItem>
-                  <SelectItem value="studyset">Studie Sets</SelectItem>
-                  <SelectItem value="homework">Huiswerk</SelectItem>
-                  <SelectItem value="event">Evenementen</SelectItem>
-                  <SelectItem value="note">Notities</SelectItem>
+                  <SelectItem value="all">{t('shell_all_types')}</SelectItem>
+                  <SelectItem value="studyset">{t('shell_study_sets')}</SelectItem>
+                  <SelectItem value="homework">{t('shell_homework')}</SelectItem>
+                  <SelectItem value="event">{t('shell_events')}</SelectItem>
+                  <SelectItem value="note">{t('shell_notes')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -127,14 +129,14 @@ export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSear
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Alle Categorieën</SelectItem>
-                  <SelectItem value="math">Wiskunde</SelectItem>
-                  <SelectItem value="physics">Natuurkunde</SelectItem>
-                  <SelectItem value="chemistry">Scheikunde</SelectItem>
-                  <SelectItem value="biology">Biologie</SelectItem>
-                  <SelectItem value="history">Geschiedenis</SelectItem>
-                  <SelectItem value="language">Talen</SelectItem>
-                  <SelectItem value="other">Overig</SelectItem>
+                  <SelectItem value="all">{t('shell_all_categories')}</SelectItem>
+                  <SelectItem value="math">{t('shell_math')}</SelectItem>
+                  <SelectItem value="physics">{t('shell_physics')}</SelectItem>
+                  <SelectItem value="chemistry">{t('shell_chemistry')}</SelectItem>
+                  <SelectItem value="biology">{t('shell_biology')}</SelectItem>
+                  <SelectItem value="history">{t('shell_history')}</SelectItem>
+                  <SelectItem value="language">{t('shell_languages')}</SelectItem>
+                  <SelectItem value="other">{t('shell_other')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -154,11 +156,11 @@ export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSear
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Alle Tijden</SelectItem>
-                  <SelectItem value="today">Vandaag</SelectItem>
-                  <SelectItem value="week">Deze Week</SelectItem>
-                  <SelectItem value="month">Deze Maand</SelectItem>
-                  <SelectItem value="year">Dit Jaar</SelectItem>
+                  <SelectItem value="all">{t('shell_all_times')}</SelectItem>
+                  <SelectItem value="today">{t('shell_today')}</SelectItem>
+                  <SelectItem value="week">{t('shell_this_week')}</SelectItem>
+                  <SelectItem value="month">{t('shell_this_month')}</SelectItem>
+                  <SelectItem value="year">{t('shell_this_year')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>

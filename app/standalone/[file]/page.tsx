@@ -4,8 +4,10 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/useTranslation";
 
 export default function StandalonePage({ params }: { params: { file: string } }) {
+  const { t } = useTranslation();
   const router = useRouter();
   const [htmlContent, setHtmlContent] = useState<string>("");
   const [loading, setLoading] = useState(true);
@@ -55,7 +57,7 @@ export default function StandalonePage({ params }: { params: { file: string } })
         className="absolute top-4 left-4 z-50"
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
-        Terug
+        {t('misc_back')}
       </Button>
       <div
         dangerouslySetInnerHTML={{ __html: htmlContent }}

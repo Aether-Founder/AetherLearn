@@ -7,8 +7,10 @@ import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
 import type { Question, Term, TermResult } from '@/types/learning-platform';
 import { SessionSummary } from '../SessionSummary';
 import { WrittenQuestion } from '../questions/WrittenQuestion';
+import { useTranslation } from '@/lib/useTranslation';
 
 export function WritingOnlyMode() {
+  const { t } = useTranslation();
   const { playableTerms, settings, recordAnswer, beginSession, endSession } =
     useLearningPlatformStore();
   const [sessionTerms, setSessionTerms] = useState<Term[]>([]);
@@ -83,7 +85,7 @@ export function WritingOnlyMode() {
   }
 
   if (sessionTerms.length === 0) {
-    return <p className="text-center py-8 text-muted-foreground">Geen begrippen om te oefenen.</p>;
+    return <p className="text-center py-8 text-muted-foreground">{t('comp_no_terms_to_practice')}</p>;
   }
 
   if (!question) return null;

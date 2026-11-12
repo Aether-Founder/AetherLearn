@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { FilesystemNode } from '@/types/filesystem';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface FileOperationsMenuProps {
   node: FilesystemNode;
@@ -42,6 +43,7 @@ export default function FileOperationsMenu({
   onCreateShortcut,
   availableParents,
 }: FileOperationsMenuProps) {
+  const { t } = useTranslation();
   const [showMenu, setShowMenu] = useState(false);
   const [showMoveDialog, setShowMoveDialog] = useState(false);
   const [showRenameDialog, setShowRenameDialog] = useState(false);
@@ -264,11 +266,11 @@ export default function FileOperationsMenu({
       <ConfirmDialog
         open={showDeleteDialog}
         onOpenChange={setShowDeleteDialog}
-        title={`"${node.name}" verwijderen`}
-        description={`Weet je zeker dat je "${node.name}" wilt verwijderen? ${node.type === 'note_folder' ? 'Alle inhoud in deze map zal ook worden verwijderd.' : ''} Deze actie kan niet ongedaan worden gemaakt.`}
+        title={t('comp_delete_node_title', undefined, { name: node.name })}
+        description={t('comp_delete_node_desc', undefined, { name: node.name, folder: node.type === 'note_folder' ? t('comp_delete_node_folder_note') : '' })}
         onConfirm={confirmDelete}
-        confirmText="Verwijderen"
-        cancelText="Annuleren"
+        confirmText={t('delete')}
+        cancelText={t('cancel')}
         variant="destructive"
       />
 
@@ -276,11 +278,11 @@ export default function FileOperationsMenu({
       <ConfirmDialog
         open={showMoveConfirmDialog}
         onOpenChange={setShowMoveConfirmDialog}
-        title={`"${node.name}" verplaatsen`}
-        description={`Weet je zeker dat je "${node.name}" wilt verplaatsen naar een nieuwe locatie?`}
+        title={t('comp_move_node_title', undefined, { name: node.name })}
+        description={t('comp_move_node_desc', undefined, { name: node.name })}
         onConfirm={confirmMove}
-        confirmText="Verplaatsen"
-        cancelText="Annuleren"
+        confirmText={t('comp_move')}
+        cancelText={t('cancel')}
         variant="default"
       />
     </>

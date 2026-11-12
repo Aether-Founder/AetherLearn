@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Settings, Calendar as CalendarIcon } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 type CalendarView = 'day' | 'week' | 'workweek' | 'month' | 'agenda';
 type FirstDayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -21,6 +22,7 @@ interface CalendarSettingsProps {
 }
 
 export function CalendarSettings({ userId }: CalendarSettingsProps) {
+  const { t } = useTranslation();
   const [defaultView, setDefaultView] = useState<CalendarView>('month');
   const [firstDayOfWeek, setFirstDayOfWeek] = useState<FirstDayOfWeek>(1);
   const [showWeekends, setShowWeekends] = useState(true);
@@ -87,21 +89,21 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
   };
 
   const weekDays = [
-    { value: 0, label: 'Zondag' },
-    { value: 1, label: 'Maandag' },
-    { value: 2, label: 'Dinsdag' },
-    { value: 3, label: 'Woensdag' },
-    { value: 4, label: 'Donderdag' },
-    { value: 5, label: 'Vrijdag' },
-    { value: 6, label: 'Zaterdag' },
+    { value: 0, label: t('shell_day_sunday') },
+    { value: 1, label: t('shell_day_monday') },
+    { value: 2, label: t('shell_day_tuesday') },
+    { value: 3, label: t('shell_day_wednesday') },
+    { value: 4, label: t('shell_day_thursday') },
+    { value: 5, label: t('shell_day_friday') },
+    { value: 6, label: t('shell_day_saturday') },
   ];
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Agenda Instellingen</h2>
+        <h2 className="text-2xl font-bold">{t('shell_agenda_settings')}</h2>
         <Button onClick={saveSettings} disabled={saving}>
-          {saving ? 'Opslaan...' : 'Opslaan'}
+          {saving ? t('shell_saving') : t('save')}
         </Button>
       </div>
 
@@ -114,7 +116,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Standaard Weergave</label>
+            <label className="text-sm font-medium">{t('shell_default_view')}</label>
             <Select
               value={defaultView}
               onValueChange={(value: CalendarView) => setDefaultView(value)}
@@ -123,10 +125,10 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="day">Dag</SelectItem>
-                <SelectItem value="week">Week</SelectItem>
-                <SelectItem value="workweek">Werkweek</SelectItem>
-                <SelectItem value="month">Maand</SelectItem>
+                <SelectItem value="day">{t('shell_day')}</SelectItem>
+                <SelectItem value="week">{t('shell_week')}</SelectItem>
+                <SelectItem value="workweek">{t('shell_workweek')}</SelectItem>
+                <SelectItem value="month">{t('shell_month')}</SelectItem>
                 <SelectItem value="agenda">Agenda</SelectItem>
               </SelectContent>
             </Select>
@@ -136,7 +138,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Eerste Dag van de Week</label>
+            <label className="text-sm font-medium">{t('shell_first_day_week')}</label>
             <Select
               value={firstDayOfWeek.toString()}
               onValueChange={(value) => setFirstDayOfWeek(parseInt(value) as FirstDayOfWeek)}
@@ -159,7 +161,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
 
           <div className="flex items-center justify-between">
             <div>
-              <label className="text-sm font-medium">Toon Weekenddagen</label>
+              <label className="text-sm font-medium">{t('shell_show_weekend')}</label>
               <p className="text-xs text-muted-foreground">
                 Toon zaterdag en zondag in de weekweergave
               </p>
@@ -169,8 +171,8 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
 
           <div className="flex items-center justify-between">
             <div>
-              <label className="text-sm font-medium">Toon Weeknummers</label>
-              <p className="text-xs text-muted-foreground">Toon weeknummers in de maandweergave</p>
+              <label className="text-sm font-medium">{t('shell_show_week_numbers')}</label>
+              <p className="text-xs text-muted-foreground">{t('shell_week_numbers_desc')}</p>
             </div>
             <Switch checked={showWeekNumbers} onCheckedChange={setShowWeekNumbers} />
           </div>
@@ -186,7 +188,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Startuur</label>
+            <label className="text-sm font-medium">{t('shell_start_hour')}</label>
             <Select
               value={startHour.toString()}
               onValueChange={(value) => setStartHour(parseInt(value))}
@@ -202,11 +204,11 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
                 ))}
               </SelectContent>
             </Select>
-            <p className="text-xs text-muted-foreground">Het uur waarop de dagweergave begint</p>
+            <p className="text-xs text-muted-foreground">{t('shell_start_hour_desc')}</p>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Einduur</label>
+            <label className="text-sm font-medium">{t('shell_end_hour')}</label>
             <Select
               value={endHour.toString()}
               onValueChange={(value) => setEndHour(parseInt(value))}
@@ -222,7 +224,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
                 ))}
               </SelectContent>
             </Select>
-            <p className="text-xs text-muted-foreground">Het uur waarop de dagweergave eindigt</p>
+            <p className="text-xs text-muted-foreground">{t('shell_end_hour_desc')}</p>
           </div>
         </CardContent>
       </Card>
@@ -232,11 +234,11 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
           <div className="flex items-start gap-4">
             <Settings className="w-8 h-8 text-blue-500 mt-1" />
             <div>
-              <h3 className="font-semibold mb-2">Over Agenda Instellingen</h3>
+              <h3 className="font-semibold mb-2">{t('shell_about_agenda_settings')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• Standaard weergave wordt gebruikt bij het openen van de agenda</li>
-                <li>• Eerste dag van de week bepaalt de weekindeling</li>
-                <li>• Weekenddagen kunnen worden verborgen in de werkweekweergave</li>
+                <li>• {t('shell_tip_first_day')}</li>
+                <li>• {t('shell_tip_weekend')}</li>
                 <li>• Werkuren bepalen het zichtbare tijdsbereik in de dagweergave</li>
               </ul>
             </div>

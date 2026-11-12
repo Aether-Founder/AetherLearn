@@ -231,7 +231,7 @@ function toLocalSet(
     folderId?: string;
     cards: Array<{ id?: string; term: string; definition: string; image?: string }>;
   },
-  defaultTitle = 'Nieuwe studieset'
+  defaultTitle = 'New study set'
 ): LocalStudySet {
   const now = new Date().toISOString();
   return {

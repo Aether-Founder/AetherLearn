@@ -72,7 +72,7 @@ export function SearchField({
           href="/search"
           className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-primary hover:underline"
         >
-          Meer resultaten
+          {t('shell_more_results')}
         </Link>
       )}
     </div>
@@ -136,6 +136,7 @@ function BijhoudenMenu({ items }: { items: Array<{ href: string; label: string }
   const [mounted, setMounted] = useState(false);
   const ref = useOutside<HTMLDivElement>(() => {});
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setMounted(true);
@@ -151,7 +152,7 @@ function BijhoudenMenu({ items }: { items: Array<{ href: string; label: string }
         type="button"
         className="inline-flex items-center gap-1 px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
-        Bijhouden
+        {t('shell_nav_track')}
         <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
       </button>
       <div className="absolute left-0 top-full z-40 mt-2 w-48 rounded-md border border-border bg-background p-1 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
@@ -175,6 +176,7 @@ function QuickCreateMenu() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const ref = useOutside<HTMLDivElement>(() => setOpen(false));
+  const { t } = useTranslation();
 
   useEffect(() => {
     setMounted(true);
@@ -190,7 +192,7 @@ function QuickCreateMenu() {
         type="button"
         onClick={() => setOpen((o) => !o)}
         className="inline-flex items-center justify-center h-9 w-9 rounded-lg bg-secondary text-primary hover:bg-secondary/80 transition-colors"
-        aria-label="Snel maken"
+        aria-label={t('shell_quick_create')}
       >
         <Plus className="h-5 w-5" />
       </button>
@@ -201,7 +203,7 @@ function QuickCreateMenu() {
             onClick={() => setOpen(false)}
             className="flex items-center gap-2 rounded-[6px] px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground text-muted-foreground"
           >
-            <FilePlus2 className="h-4 w-4" />+ Voeg een leerlijst toe
+            <FilePlus2 className="h-4 w-4" />+ {t('shell_add_learning_list')}
           </Link>
           <button
             type="button"
@@ -214,7 +216,7 @@ function QuickCreateMenu() {
                 const workspace = useWorkspaceStore.getState();
                 const newId = workspace.createItemOptimistic({
                   user_id: user.id,
-                  name: 'Nieuwe notitie',
+                  name: t('canvas_new_note'),
                   type: 'page',
                   parent_id: null,
                   content: '',
@@ -229,7 +231,7 @@ function QuickCreateMenu() {
             className="flex items-center gap-2 rounded-[6px] px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground text-muted-foreground w-full text-left"
           >
             <FileText className="h-4 w-4" />
-            Maak notitie
+            {t('shell_create_note')}
           </button>
         </div>
       )}
@@ -272,7 +274,7 @@ function UserMenu() {
         type="button"
         onClick={() => setOpen((o) => !o)}
         className="grid h-9 w-9 place-items-center rounded-full border border-border text-sm font-medium transition-colors hover:border-foreground/40 overflow-hidden"
-        title="Profielmenu"
+        title={t('shell_profile_menu')}
       >
         {profile?.avatar_url ? (
           <img src={profile.avatar_url} alt="Avatar" className="h-full w-full object-cover" />
@@ -288,7 +290,7 @@ function UserMenu() {
             className="flex items-center gap-2 rounded-md px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground"
           >
             <Settings className="h-3.5 w-3.5" />
-            Instellingen
+            {t('nav_settings')}
           </Link>
           <Link
             href="/settings"
@@ -296,7 +298,7 @@ function UserMenu() {
             className="flex items-center gap-2 rounded-md px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground"
           >
             <User className="h-3.5 w-3.5" />
-            Profiel bewerken
+            {t('shell_edit_profile')}
           </Link>
           {supportsModeSwitching && (
             <button
@@ -519,7 +521,7 @@ export function AppShell({
                 Privacy
               </Link>
               <Link href="/terms" className="hover:text-foreground transition-colors">
-                Voorwaarden
+                {t('home_footer_terms')}
               </Link>
             </div>
           </div>

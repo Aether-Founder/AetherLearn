@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { Search, BookOpen, Copy, Star, TrendingUp, Loader2 } from 'lucide-react';
 import Fuse from 'fuse.js';
 import { AppShell, PageHeader } from '@/components/AppShell';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface StudySet {
   id: string;
@@ -31,6 +32,7 @@ interface StudySet {
 }
 
 export default function BibliotheekPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const router = useRouter();
   const supabase = createClient();
@@ -113,13 +115,13 @@ export default function BibliotheekPage() {
       if (error) throw error;
 
       // Show success message
-      alert('Deck gekopieerd naar je bibliotheek!');
+      alert(t('lib_clone_success'));
 
       // Redirect to the new deck
       router.push(`/study-sets/${data}`);
     } catch (error: any) {
       console.error('Clone error:', error);
-      alert(`Kopiëren mislukt: ${error.message}`);
+      alert(t('lib_clone_failed', undefined, { message: error.message }));
     } finally {
       setIsCloning(null);
     }
@@ -196,8 +198,8 @@ export default function BibliotheekPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Bibliotheek"
-        description="Ontdek en kopieer studiemateriaal van andere studenten"
+        title={t('lib_title')}
+        description={t('lib_description')}
       />
 
       <div className="px-6 py-8">
@@ -212,7 +214,7 @@ export default function BibliotheekPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Zoek op titel, onderwerp..."
+                placeholder={t('lib_search_placeholder')}
                 className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
               />
             </div>
@@ -223,7 +225,7 @@ export default function BibliotheekPage() {
               onChange={(e) => setSelectedSubject(e.target.value)}
               className="px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
             >
-              <option value="all">Alle vakken</option>
+              <option value="all">{t('lib_all_subjects')}</option>
               {subjects.map((subject) => (
                 <option key={subject.id} value={subject.id}>
                   {subject.name}
@@ -237,16 +239,16 @@ export default function BibliotheekPage() {
               onChange={(e) => setSortBy(e.target.value as any)}
               className="px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
             >
-              <option value="popular">Meest gekopieerd</option>
-              <option value="newest">Nieuwste</option>
-              <option value="rating">Best beoordeeld</option>
+              <option value="popular">{t('lib_sort_popular')}</option>
+              <option value="newest">{t('lib_sort_newest')}</option>
+              <option value="rating">{t('lib_sort_rating')}</option>
             </select>
           </div>
         </div>
 
         {/* Results Count */}
         <div className="mb-6 text-sm text-gray-600 dark:text-gray-400">
-          {filteredDecks.length} {filteredDecks.length === 1 ? 'deck' : 'decks'} gevonden
+          {t('lib_results', undefined, { n: filteredDecks.length })}
         </div>
 
         {/* Deck Grid */}
@@ -265,12 +267,12 @@ export default function BibliotheekPage() {
                   className="px-3 py-1 rounded-full text-xs font-medium text-white"
                   style={{ backgroundColor: deck.subjects?.color || '#6b7280' }}
                 >
-                  {deck.subjects?.name || 'Onbekend'}
+                  {deck.subjects?.name || t('lib_unknown')}
                 </span>
                 {deck.clone_count > 100 && (
                   <div className="flex items-center space-x-1 text-orange-600">
                     <TrendingUp className="w-4 h-4" />
-                    <span className="text-xs font-medium">Populair</span>
+                    <span className="text-xs font-medium">{t('lib_popular')}</span>
                   </div>
                 )}
               </div>
@@ -290,22 +292,25 @@ export default function BibliotheekPage() {
               {/* Stats */}
               <div className="space-y-2 mb-4">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">Kaarten</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('lib_cards')}</span>
                   <span className="font-medium text-gray-900 dark:text-white">
                     {deck.flashcards[0]?.count || 0}
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">Gekopieerd</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('lib_cloned')}</span>
                   <span className="font-medium text-gray-900 dark:text-white">
-                    {deck.clone_count >= 1000
-                      ? `${(deck.clone_count / 1000).toFixed(1)}k`
-                      : deck.clone_count} keer
+                    {t('lib_times', undefined, {
+                      count:
+                        deck.clone_count >= 1000
+                          ? `${(deck.clone_count / 1000).toFixed(1)}k`
+                          : deck.clone_count,
+                    })}
                   </span>
                 </div>
                 {deck.rating_count > 0 && (
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Beoordeling</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">{t('lib_rating')}</span>
                     {renderStars(deck.rating_avg)}
                   </div>
                 )}
@@ -320,7 +325,7 @@ export default function BibliotheekPage() {
                     </span>
                   </div>
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                    {deck.profiles?.username || 'Anoniem'}
+                    {deck.profiles?.username || t('lib_anonymous')}
                   </span>
                 </div>
 
@@ -333,12 +338,12 @@ export default function BibliotheekPage() {
                   {isCloning === deck.id ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Kopiëren...</span>
+                      <span>{t('lib_copying')}</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-4 h-4" />
-                      <span>Kopieer</span>
+                      <span>{t('lib_copy')}</span>
                     </>
                   )}
                 </button>
@@ -351,7 +356,7 @@ export default function BibliotheekPage() {
           <div className="text-center py-16">
             <BookOpen className="w-16 h-16 mx-auto text-gray-400 mb-4" />
             <p className="text-gray-600 dark:text-gray-400">
-              Geen decks gevonden. Probeer een andere zoekopdracht.
+              {t('lib_empty')}
             </p>
           </div>
         )}

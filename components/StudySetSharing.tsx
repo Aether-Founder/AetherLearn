@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Share2, Link, Copy, Check, Users, Lock, Globe, Download, QrCode } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface StudySetSharingProps {
   studySetId: string;
@@ -25,6 +26,7 @@ export function StudySetSharing({
   isPublic,
   onTogglePublic,
 }: StudySetSharingProps) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [showShareDialog, setShowShareDialog] = useState(false);
 
@@ -84,7 +86,7 @@ export function StudySetSharing({
         </DialogHeader>
         <div className="space-y-6">
           <div>
-            <h3 className="font-semibold mb-3">Zichtbaarheid</h3>
+            <h3 className="font-semibold mb-3">{t('shell_visibility')}</h3>
             <div className="flex items-center justify-between p-4 rounded-lg border">
               <div className="flex items-center gap-3">
                 {isPublic ? (
@@ -96,7 +98,7 @@ export function StudySetSharing({
                   <div className="font-medium">{isPublic ? 'Openbaar' : 'Privé'}</div>
                   <div className="text-sm text-muted-foreground">
                     {isPublic
-                      ? 'Iedereen kan deze studie set bekijken'
+                      ? t('shell_everyone_can_view')
                       : 'Alleen jij kunt deze studie set zien'}
                   </div>
                 </div>
@@ -110,7 +112,7 @@ export function StudySetSharing({
           {isPublic && (
             <>
               <div>
-                <h3 className="font-semibold mb-3">Deel Link</h3>
+                <h3 className="font-semibold mb-3">{t('shell_share_link')}</h3>
                 <div className="flex gap-2">
                   <Input value={shareUrl} readOnly className="flex-1" />
                   <Button onClick={handleCopyLink} variant="outline">
@@ -120,7 +122,7 @@ export function StudySetSharing({
               </div>
 
               <div>
-                <h3 className="font-semibold mb-3">Embed Code</h3>
+                <h3 className="font-semibold mb-3">{t('shell_embed_code')}</h3>
                 <div className="flex gap-2">
                   <Input value={embedCode} readOnly className="flex-1 font-mono text-xs" />
                   <Button onClick={handleCopyEmbed} variant="outline">
@@ -130,34 +132,34 @@ export function StudySetSharing({
               </div>
 
               <div>
-                <h3 className="font-semibold mb-3">Deel Opties</h3>
+                <h3 className="font-semibold mb-3">{t('shell_share_options')}</h3>
                 <div className="grid grid-cols-2 gap-3">
                   <Button onClick={handleShare} variant="outline" className="h-auto py-4">
                     <Share2 className="w-5 h-5 mr-2" />
                     <div className="text-left">
-                      <div className="font-medium">Delen</div>
-                      <div className="text-xs text-muted-foreground">Via systeem share</div>
+                      <div className="font-medium">{t('shell_share')}</div>
+                      <div className="text-xs text-muted-foreground">{t('shell_via_system_share')}</div>
                     </div>
                   </Button>
                   <Button variant="outline" className="h-auto py-4">
                     <QrCode className="w-5 h-5 mr-2" />
                     <div className="text-left">
-                      <div className="font-medium">QR Code</div>
-                      <div className="text-xs text-muted-foreground">Genereer QR code</div>
+                      <div className="font-medium">{t('shell_qr_code')}</div>
+                      <div className="text-xs text-muted-foreground">{t('shell_generate_qr')}</div>
                     </div>
                   </Button>
                   <Button variant="outline" className="h-auto py-4">
                     <Download className="w-5 h-5 mr-2" />
                     <div className="text-left">
                       <div className="font-medium">Download</div>
-                      <div className="text-xs text-muted-foreground">Als PDF/CSV</div>
+                      <div className="text-xs text-muted-foreground">{t('shell_as_pdf_csv')}</div>
                     </div>
                   </Button>
                   <Button variant="outline" className="h-auto py-4">
                     <Users className="w-5 h-5 mr-2" />
                     <div className="text-left">
-                      <div className="font-medium">Klas</div>
-                      <div className="text-xs text-muted-foreground">Deel met klas</div>
+                      <div className="font-medium">{t('shell_class')}</div>
+                      <div className="text-xs text-muted-foreground">{t('shell_share_with_class')}</div>
                     </div>
                   </Button>
                 </div>
@@ -167,7 +169,7 @@ export function StudySetSharing({
                 <div className="flex items-start gap-3">
                   <Link className="w-5 h-5 text-muted-foreground mt-0.5" />
                   <div className="text-sm">
-                    <div className="font-medium mb-1">Over Delen</div>
+                    <div className="font-medium mb-1">{t('shell_about_sharing')}</div>
                     <ul className="text-muted-foreground space-y-1">
                       <li>• Openbare sets kunnen door iedereen worden gevonden en bekeken</li>
                       <li>• Gebruikers kunnen openbare sets kopiëren naar hun eigen account</li>
@@ -175,7 +177,7 @@ export function StudySetSharing({
                         • Privé sets zijn alleen zichtbaar voor jou en mensen met wie je ze
                         expliciet deelt
                       </li>
-                      <li>• Je kunt de zichtbaarheid op elk moment wijzigen</li>
+                      <li>• {t('shell_tip_visibility')}</li>
                     </ul>
                   </div>
                 </div>
@@ -188,7 +190,7 @@ export function StudySetSharing({
               <div className="flex items-start gap-3">
                 <Lock className="w-5 h-5 text-muted-foreground mt-0.5" />
                 <div className="text-sm">
-                  <div className="font-medium mb-1">Deel deze studie set</div>
+                  <div className="font-medium mb-1">{t('shell_share_this_set')}</div>
                   <p className="text-muted-foreground">
                     Maak de studie set openbaar om deze met anderen te delen via een link of embed
                     code.

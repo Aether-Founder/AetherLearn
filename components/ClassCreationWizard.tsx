@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ChevronLeft, ChevronRight, Users, Settings, Check } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface ClassCreationWizardProps {
   userId: string;
@@ -23,6 +24,7 @@ interface ClassCreationWizardProps {
 }
 
 export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizardProps) {
+  const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -38,9 +40,9 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
   });
 
   const steps = [
-    { number: 1, title: 'Basis Info', icon: Users },
-    { number: 2, title: 'Instellingen', icon: Settings },
-    { number: 3, title: 'Overzicht', icon: Check },
+    { number: 1, title: t('shell_step_basic_info'), icon: Users },
+    { number: 2, title: t('nav_settings'), icon: Settings },
+    { number: 3, title: t('shell_overview'), icon: Check },
   ];
 
   const handleNext = () => {
@@ -91,61 +93,61 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
   const renderStep1 = () => (
     <div className="space-y-6">
       <div>
-        <Label htmlFor="name">Klas Naam *</Label>
+        <Label htmlFor="name">{t('shell_class_name')}</Label>
         <Input
           id="name"
           value={classData.name}
           onChange={(e) => setClassData({ ...classData, name: e.target.value })}
-          placeholder="Bijv. Wiskunde 5VWO"
+          placeholder={t('shell_class_name_placeholder')}
         />
       </div>
 
       <div>
-        <Label htmlFor="description">Beschrijving</Label>
+        <Label htmlFor="description">{t('shell_description')}</Label>
         <Textarea
           id="description"
           value={classData.description}
           onChange={(e) => setClassData({ ...classData, description: e.target.value })}
-          placeholder="Beschrijf de klas..."
+          placeholder={t('shell_desc_class_placeholder')}
           rows={3}
         />
       </div>
 
       <div>
-        <Label htmlFor="subject">Vak *</Label>
+        <Label htmlFor="subject">{t('shell_subject_required')}</Label>
         <Select
           value={classData.subject}
           onValueChange={(value) => setClassData({ ...classData, subject: value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Selecteer een vak" />
+            <SelectValue placeholder={t('shell_select_subject')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="wiskunde">Wiskunde</SelectItem>
-            <SelectItem value="natuurkunde">Natuurkunde</SelectItem>
-            <SelectItem value="scheikunde">Scheikunde</SelectItem>
-            <SelectItem value="biologie">Biologie</SelectItem>
-            <SelectItem value="geschiedenis">Geschiedenis</SelectItem>
-            <SelectItem value="aardrijkskunde">Aardrijkskunde</SelectItem>
-            <SelectItem value="nederlands">Nederlands</SelectItem>
-            <SelectItem value="engels">Engels</SelectItem>
-            <SelectItem value="frans">Frans</SelectItem>
-            <SelectItem value="duits">Duits</SelectItem>
-            <SelectItem value="economie">Economie</SelectItem>
-            <SelectItem value="overig">Overig</SelectItem>
+            <SelectItem value="wiskunde">{t('shell_math')}</SelectItem>
+            <SelectItem value="natuurkunde">{t('shell_physics')}</SelectItem>
+            <SelectItem value="scheikunde">{t('shell_chemistry')}</SelectItem>
+            <SelectItem value="biologie">{t('shell_biology')}</SelectItem>
+            <SelectItem value="geschiedenis">{t('shell_history')}</SelectItem>
+            <SelectItem value="aardrijkskunde">{t('shell_geography')}</SelectItem>
+            <SelectItem value="nederlands">{t('shell_dutch_lang')}</SelectItem>
+            <SelectItem value="engels">{t('shell_english')}</SelectItem>
+            <SelectItem value="frans">{t('shell_french')}</SelectItem>
+            <SelectItem value="duits">{t('shell_german')}</SelectItem>
+            <SelectItem value="economie">{t('shell_economics')}</SelectItem>
+            <SelectItem value="overig">{t('shell_other')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <Label htmlFor="grade">Klas</Label>
+          <Label htmlFor="grade">{t('shell_class')}</Label>
           <Select
             value={classData.grade}
             onValueChange={(value) => setClassData({ ...classData, grade: value })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Selecteer klas" />
+              <SelectValue placeholder={t('shell_select_class')} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="1">1e Jaar</SelectItem>
@@ -158,13 +160,13 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
           </Select>
         </div>
         <div>
-          <Label htmlFor="schoolYear">Schooljaar</Label>
+          <Label htmlFor="schoolYear">{t('shell_school_year')}</Label>
           <Select
             value={classData.schoolYear}
             onValueChange={(value) => setClassData({ ...classData, schoolYear: value })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Schooljaar" />
+              <SelectValue placeholder={t('shell_school_year')} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="2024-2025">2024-2025</SelectItem>
@@ -222,11 +224,11 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
       </div>
 
       <div className="bg-muted/50 p-4 rounded-lg">
-        <h4 className="font-medium mb-2">Informatie over instellingen</h4>
+        <h4 className="font-medium mb-2">{t('shell_settings_info')}</h4>
         <ul className="text-sm text-muted-foreground space-y-1">
-          <li>• Openbare klassen kunnen door iedereen worden gezocht</li>
-          <li>• Leerlingen kunnen zich aanmelden als dit is toegestaan</li>
-          <li>• Met goedkeuring moet u elke aanmelding accepteren</li>
+          <li>• {t('shell_tip_public_classes')}</li>
+          <li>• {t('shell_tip_students_join')}</li>
+          <li>• {t('shell_tip_approval')}</li>
         </ul>
       </div>
     </div>
@@ -235,34 +237,34 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
   const renderStep3 = () => (
     <div className="space-y-6">
       <div className="bg-muted/50 p-4 rounded-lg">
-        <h3 className="font-semibold mb-3">Overzicht</h3>
+        <h3 className="font-semibold mb-3">{t('shell_overview')}</h3>
         <div className="space-y-2 text-sm">
           <div>
-            <span className="font-medium">Naam:</span> {classData.name}
+            <span className="font-medium">{t('shell_name_colon')}</span> {classData.name}
           </div>
           <div>
-            <span className="font-medium">Beschrijving:</span> {classData.description || 'Geen'}
+            <span className="font-medium">{t('shell_description_colon')}</span> {classData.description || t('shell_none')}
           </div>
           <div>
-            <span className="font-medium">Vak:</span> {classData.subject}
+            <span className="font-medium">{t('shell_subject_colon')}</span> {classData.subject}
           </div>
           <div>
-            <span className="font-medium">Klas:</span> {classData.grade || 'Niet geselecteerd'}
+            <span className="font-medium">{t('shell_class_colon')}</span> {classData.grade || t('shell_not_selected')}
           </div>
           <div>
-            <span className="font-medium">Schooljaar:</span>{' '}
-            {classData.schoolYear || 'Niet geselecteerd'}
+            <span className="font-medium">{t('shell_school_year_colon')}</span>{' '}
+            {classData.schoolYear || t('shell_not_selected')}
           </div>
           <div>
-            <span className="font-medium">Openbaar:</span> {classData.isPublic ? 'Ja' : 'Nee'}
+            <span className="font-medium">{t('shell_public_colon')}</span> {classData.isPublic ? t('shell_yes') : t('shell_no')}
           </div>
           <div>
-            <span className="font-medium">Leerlingen toegestaan:</span>{' '}
-            {classData.allowStudentJoin ? 'Ja' : 'Nee'}
+            <span className="font-medium">{t('shell_students_allowed_colon')}</span>{' '}
+            {classData.allowStudentJoin ? t('shell_yes') : t('shell_no')}
           </div>
           <div>
-            <span className="font-medium">Goedkeuring vereist:</span>{' '}
-            {classData.requireApproval ? 'Ja' : 'Nee'}
+            <span className="font-medium">{t('shell_approval_required_colon')}</span>{' '}
+            {classData.requireApproval ? t('shell_yes') : t('shell_no')}
           </div>
         </div>
       </div>
@@ -272,7 +274,7 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
   return (
     <Card className="w-full max-w-2xl">
       <CardHeader>
-        <CardTitle>Klas Aanmaak Wizard</CardTitle>
+        <CardTitle>{t('shell_class_wizard')}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="mb-8">
@@ -328,12 +330,12 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
 
           {step < steps.length ? (
             <Button onClick={handleNext} disabled={!classData.name || !classData.subject}>
-              Volgende
+              {t('next')}
               <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
           ) : (
             <Button onClick={handleSubmit} disabled={loading}>
-              {loading ? 'Maken...' : 'Klas Maken'}
+              {loading ? t('shell_creating') : t('shell_create_class')}
               <Check className="w-4 h-4 ml-2" />
             </Button>
           )}

@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface User {
   id: string;
@@ -45,6 +46,7 @@ export function AuthModal({
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isOpen) {
@@ -59,9 +61,9 @@ export function AuthModal({
     setLoading(true);
 
     try {
-      if (password.length < 6) throw new Error('Wachtwoord moet minimaal 6 tekens bevatten.');
+      if (password.length < 6) throw new Error(t('auth_error_password_min'));
       if (mode === 'register' && password !== confirmPassword) {
-        throw new Error('Wachtwoorden komen niet overeen.');
+        throw new Error(t('shell_pw_mismatch'));
       }
       const username = (name.trim() || email.split('@')[0])
         .toLowerCase()
@@ -73,7 +75,7 @@ export function AuthModal({
 
       if (result.error) throw result.error;
       if (!result.data.session || !result.data.user) {
-        setError('Controleer je e-mail om je account te bevestigen en log daarna in.');
+        setError(t('auth_error_confirm_email'));
         return;
       }
 
@@ -90,7 +92,7 @@ export function AuthModal({
       );
       onClose();
     } catch (authError) {
-      setError(authError instanceof Error ? authError.message : 'Er is een fout opgetreden.');
+      setError(authError instanceof Error ? authError.message : t('auth_error_generic'));
     } finally {
       setLoading(false);
     }
@@ -101,11 +103,9 @@ export function AuthModal({
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Aether</p>
-          <DialogTitle>{mode === 'login' ? 'Inloggen' : 'Account maken'}</DialogTitle>
+          <DialogTitle>{mode === 'login' ? t('auth_login_title') : t('auth_register_title')}</DialogTitle>
           <DialogDescription>
-            {mode === 'login'
-              ? 'Ga verder met je persoonlijke leeromgeving.'
-              : 'Maak een lege, persoonlijke werkruimte aan.'}
+            {mode === 'login' ? t('auth_login_desc') : t('auth_register_desc')}
           </DialogDescription>
         </DialogHeader>
 
@@ -113,21 +113,21 @@ export function AuthModal({
           {mode === 'register' && (
             <div>
               <label htmlFor="modal-name" className="mb-2 block text-sm font-medium">
-                Naam
+                {t('auth_name')}
               </label>
               <input
                 id="modal-name"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
                 className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
-                placeholder="Je naam"
+                placeholder={t('auth_name_placeholder')}
                 required
               />
             </div>
           )}
           <div>
             <label htmlFor="modal-email" className="mb-2 block text-sm font-medium">
-              E-mailadres
+              {t('auth_email')}
             </label>
             <input
               id="modal-email"
@@ -135,14 +135,14 @@ export function AuthModal({
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
-              placeholder="naam@voorbeeld.nl"
+              placeholder={t('auth_email_placeholder')}
               autoComplete="email"
               required
             />
           </div>
           <div>
             <label htmlFor="modal-password" className="mb-2 block text-sm font-medium">
-              Wachtwoord
+              {t('auth_password')}
             </label>
             <input
               id="modal-password"
@@ -150,7 +150,7 @@ export function AuthModal({
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
-              placeholder="Minimaal 6 tekens"
+              placeholder={t('auth_password_placeholder')}
               autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
               minLength={6}
               required
@@ -159,7 +159,7 @@ export function AuthModal({
           {mode === 'register' && (
             <div>
               <label htmlFor="modal-confirm-password" className="mb-2 block text-sm font-medium">
-                Bevestig wachtwoord
+                {t('shell_confirm_password')}
               </label>
               <input
                 id="modal-confirm-password"
@@ -167,7 +167,7 @@ export function AuthModal({
                 value={confirmPassword}
                 onChange={(event) => setConfirmPassword(event.target.value)}
                 className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
-                placeholder="Herhaal je wachtwoord"
+                placeholder={t('shell_repeat_password_placeholder')}
                 autoComplete="new-password"
                 minLength={6}
                 required
@@ -188,7 +188,7 @@ export function AuthModal({
             className="flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
           >
             {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-            {loading ? 'Even geduld…' : mode === 'login' ? 'Inloggen' : 'Account maken'}
+            {loading ? t('auth_submitting') : mode === 'login' ? t('auth_login_submit') : t('auth_register_submit')}
           </button>
 
           <div className="relative my-4">
@@ -196,7 +196,7 @@ export function AuthModal({
               <span className="w-full border-t border-border"></span>
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">Of</span>
+              <span className="bg-background px-2 text-muted-foreground">{t('login_or')}</span>
             </div>
           </div>
 
@@ -215,7 +215,7 @@ export function AuthModal({
                 setError(
                   oauthError instanceof Error
                     ? oauthError.message
-                    : 'Er is een fout opgetreden bij Google login.'
+                    : t('shell_google_error')
                 );
               } finally {
                 setLoading(false);
@@ -242,7 +242,7 @@ export function AuthModal({
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
               />
             </svg>
-            Doorgaan met Google
+            {t('shell_continue_google')}
           </button>
 
           <button
@@ -253,7 +253,7 @@ export function AuthModal({
             }}
             className="w-full text-center text-sm text-primary hover:underline"
           >
-            {mode === 'login' ? 'Nog geen account? Registreren' : 'Al een account? Inloggen'}
+            {mode === 'login' ? t('auth_toggle_register') : t('auth_toggle_login')}
           </button>
         </form>
       </DialogContent>

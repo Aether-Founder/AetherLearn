@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Target, TrendingUp, Calendar, Clock, CheckCircle2, Circle } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Goal {
   id: string;
@@ -32,6 +33,7 @@ interface GoalProgressTrackingProps {
 }
 
 export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
+  const { t } = useTranslation();
   const [goals, setGoals] = useState<Goal[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'active' | 'completed' | 'expired'>('all');
@@ -145,10 +147,10 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Doel Voortgang</CardTitle>
+          <CardTitle>{t('shell_goal_progress')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -157,7 +159,7 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Doel Voortgang</h2>
+        <h2 className="text-2xl font-bold">{t('shell_goal_progress')}</h2>
         <div className="flex items-center gap-2">
           <Select
             value={filter}
@@ -167,10 +169,10 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Alle</SelectItem>
-              <SelectItem value="active">Actief</SelectItem>
-              <SelectItem value="completed">Voltooid</SelectItem>
-              <SelectItem value="expired">Verlopen</SelectItem>
+              <SelectItem value="all">{t('shell_all')}</SelectItem>
+              <SelectItem value="active">{t('shell_active')}</SelectItem>
+              <SelectItem value="completed">{t('shell_completed')}</SelectItem>
+              <SelectItem value="expired">{t('shell_expired')}</SelectItem>
             </SelectContent>
           </Select>
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
@@ -178,7 +180,7 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Alle Categorieën</SelectItem>
+              <SelectItem value="all">{t('shell_all_categories')}</SelectItem>
               {categories.map((category) => (
                 <SelectItem key={category} value={category}>
                   {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -192,34 +194,34 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Actieve Doelen</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_active_goals')}</CardTitle>
             <Target className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{activeGoals.length}</div>
-            <p className="text-xs text-muted-foreground">in uitvoering</p>
+            <p className="text-xs text-muted-foreground">{t('shell_in_progress')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Voltooid</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_completed')}</CardTitle>
             <CheckCircle2 className="w-4 h-4 text-green-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{completedGoals.length}</div>
-            <p className="text-xs text-muted-foreground">doelen behaald</p>
+            <p className="text-xs text-muted-foreground">{t('shell_goals_achieved')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Gemiddelde Voortgang</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_avg_progress')}</CardTitle>
             <TrendingUp className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{totalProgress}%</div>
-            <p className="text-xs text-muted-foreground">van alle doelen</p>
+            <p className="text-xs text-muted-foreground">{t('shell_of_all_goals')}</p>
           </CardContent>
         </Card>
       </div>
@@ -269,7 +271,7 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
                 <div className="space-y-3">
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">Voortgang</span>
+                      <span className="text-sm font-medium">{t('shell_progress')}</span>
                       <span className="text-sm font-bold">{progress}%</span>
                     </div>
                     <Progress value={progress} className="h-2" />
@@ -301,11 +303,11 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
         <Card>
           <CardContent className="text-center py-12">
             <Target className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-            <h3 className="text-lg font-semibold mb-2">Geen Doelen</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('shell_no_goals')}</h3>
             <p className="text-sm text-muted-foreground">
               {filter !== 'all' || categoryFilter !== 'all'
                 ? 'Probeer andere filters'
-                : 'Maak je eerste doel om te beginnen met het bijhouden van je voortgang!'}
+                : t('shell_no_goals_desc')}
             </p>
           </CardContent>
         </Card>

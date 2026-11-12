@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Award, X, Sparkles } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Achievement {
   id: string;
@@ -24,6 +25,7 @@ function AchievementNotification({
   onDismiss,
   onShare,
 }: AchievementNotificationProps) {
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -51,7 +53,7 @@ function AchievementNotification({
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
-              <h4 className="font-semibold text-sm">Prestatie Ontgrendeld!</h4>
+              <h4 className="font-semibold text-sm">{t('shell_achievement_unlocked')}</h4>
             </div>
             <p className="font-medium text-sm">{achievement.name}</p>
             <p className="text-xs text-muted-foreground mt-1">{achievement.description}</p>
@@ -62,7 +64,7 @@ function AchievementNotification({
         </div>
         {onShare && (
           <Button size="sm" variant="outline" className="w-full mt-3" onClick={onShare}>
-            Deel Prestatie
+            {t('shell_share_achievement')}
           </Button>
         )}
       </CardContent>
@@ -75,6 +77,7 @@ interface AchievementNotificationsProps {
 }
 
 export function AchievementNotifications({ userId }: AchievementNotificationsProps) {
+  const { t } = useTranslation();
   const [notifications, setNotifications] = useState<Achievement[]>([]);
   const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set());
 
@@ -117,7 +120,7 @@ export function AchievementNotifications({ userId }: AchievementNotificationsPro
   const handleShare = (achievement: Achievement) => {
     if (navigator.share) {
       navigator.share({
-        title: `Ik heb een prestatie behaald: ${achievement.name}!`,
+        title: t('shell_achievement_share_title', undefined, { name: achievement.name }),
         text: achievement.description,
         url: window.location.href,
       });

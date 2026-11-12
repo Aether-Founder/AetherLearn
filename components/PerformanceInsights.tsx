@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Brain, TrendingDown, AlertTriangle, CheckCircle2, Target } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Insight {
   id: string;
@@ -28,6 +29,7 @@ interface PerformanceInsightsProps {
 }
 
 export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
+  const { t } = useTranslation();
   const [insights, setInsights] = useState<Insight[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'strength' | 'weakness' | 'opportunity' | 'warning'>(
@@ -98,7 +100,7 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
           </Badge>
         );
       case 'weakness':
-        return <Badge variant="destructive">Zwakte</Badge>;
+        return <Badge variant="destructive">{t('shell_weakness')}</Badge>;
       case 'opportunity':
         return (
           <Badge variant="secondary" className="bg-blue-500 text-white">
@@ -127,10 +129,10 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Prestatie Inzichten</CardTitle>
+          <CardTitle>{t('shell_performance_insights')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -139,7 +141,7 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Prestatie Inzichten</h2>
+        <h2 className="text-2xl font-bold">{t('shell_performance_insights')}</h2>
         <Select
           value={filter}
           onValueChange={(value: 'all' | 'strength' | 'weakness' | 'opportunity' | 'warning') =>
@@ -150,11 +152,11 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Alle</SelectItem>
-            <SelectItem value="strength">Sterktes</SelectItem>
-            <SelectItem value="weakness">Zwaktes</SelectItem>
-            <SelectItem value="opportunity">Kansen</SelectItem>
-            <SelectItem value="warning">Waarschuwingen</SelectItem>
+            <SelectItem value="all">{t('shell_all')}</SelectItem>
+            <SelectItem value="strength">{t('shell_strengths')}</SelectItem>
+            <SelectItem value="weakness">{t('shell_weaknesses')}</SelectItem>
+            <SelectItem value="opportunity">{t('shell_opportunities')}</SelectItem>
+            <SelectItem value="warning">{t('shell_warnings')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -162,7 +164,7 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Sterktes</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_strengths')}</CardTitle>
             <CheckCircle2 className="w-4 h-4 text-green-500" />
           </CardHeader>
           <CardContent>
@@ -172,7 +174,7 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Zwaktes</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_weaknesses')}</CardTitle>
             <TrendingDown className="w-4 h-4 text-red-500" />
           </CardHeader>
           <CardContent>
@@ -182,7 +184,7 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Kansen</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_opportunities')}</CardTitle>
             <Target className="w-4 h-4 text-blue-500" />
           </CardHeader>
           <CardContent>
@@ -192,7 +194,7 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Waarschuwingen</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_warnings')}</CardTitle>
             <AlertTriangle className="w-4 h-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
@@ -222,7 +224,7 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
                     <Badge variant="outline">{insight.subject}</Badge>
                     {insight.confidence && (
                       <div className="flex items-center gap-2">
-                        <span className="text-muted-foreground">Zelfvertrouwen:</span>
+                        <span className="text-muted-foreground">{t('shell_confidence_colon')}</span>
                         <Progress value={insight.confidence} className="w-24 h-2" />
                         <span className="font-medium">{insight.confidence}%</span>
                       </div>
@@ -232,7 +234,7 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
                   {insight.actionable && (
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Target className="w-3 h-3" />
-                      <span>Actie aanbevolen</span>
+                      <span>{t('shell_action_recommended')}</span>
                     </div>
                   )}
                 </div>
@@ -246,7 +248,7 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
         <Card>
           <CardContent className="text-center py-12">
             <Brain className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-            <h3 className="text-lg font-semibold mb-2">Geen Inzichten</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('shell_no_insights')}</h3>
             <p className="text-sm text-muted-foreground">
               Voltooi meer sessies om AI-inzichten te ontvangen
             </p>
@@ -259,12 +261,12 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
           <div className="flex items-start gap-4">
             <Brain className="w-8 h-8 text-purple-500 mt-1" />
             <div>
-              <h3 className="font-semibold mb-2">Hoe AI-Inzichten Werken</h3>
+              <h3 className="font-semibold mb-2">{t('shell_how_insights_work')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• Sterktes: Onderwerpen waar je goed in presteert</li>
-                <li>• Zwaktes: Onderwerpen die extra aandacht nodig hebben</li>
+                <li>• {t('shell_tip_weaknesses')}</li>
                 <li>• Kansen: Gebieden waar je snel vooruitgang kunt maken</li>
-                <li>• Waarschuwingen: Potentiële problemen die je moet vermijden</li>
+                <li>• {t('shell_tip_warnings')}</li>
               </ul>
             </div>
           </div>

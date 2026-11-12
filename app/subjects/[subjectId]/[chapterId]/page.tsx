@@ -11,6 +11,7 @@ import { findContentPage, normalizeSubjectId } from '@/lib/json-content-pages';
 import JsonLessonPage from '@/app/[page]/page';
 import ButtonSection from '@/components/ButtonSection';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
+import { getServerT } from '@/lib/i18n-server';
 
 export default async function ChapterDetailPage({
   params,
@@ -19,6 +20,7 @@ export default async function ChapterDetailPage({
 }) {
   const { subjectId, chapterId } = params;
   const decodedSubjectId = decodeURIComponent(subjectId);
+  const t = await getServerT();
   const jsonLesson = findContentPage(chapterId);
   if (jsonLesson && normalizeSubjectId(jsonLesson.subjectId) === normalizeSubjectId(decodedSubjectId)) {
     return <JsonLessonPage params={{ page: chapterId }} />;
@@ -34,12 +36,12 @@ export default async function ChapterDetailPage({
     return (
       <AppShell>
         <div className="text-center py-20">
-          <p>Hoofdstuk niet gevonden</p>
+          <p>{t('subject_chapter_not_found')}</p>
           <Link
             href={`/subjects/${decodedSubjectId}`}
             className="mt-4 inline-block text-primary hover:underline"
           >
-            Terug naar vak
+            {t('subject_back_to_subject')}
           </Link>
         </div>
       </AppShell>
@@ -58,8 +60,8 @@ export default async function ChapterDetailPage({
             <Link
               href={`/subjects/${decodedSubjectId}`}
               className="mt-2 p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0 inline-flex items-center justify-center"
-              title="Terug naar vak"
-              aria-label="Terug naar vak"
+              title={t('subject_back_to_subject')}
+              aria-label={t('subject_back_to_subject')}
             >
               <ArrowLeft className="w-4 h-4" />
             </Link>
@@ -75,7 +77,9 @@ export default async function ChapterDetailPage({
           <div className="border border-border rounded-lg overflow-hidden mt-8">
             <div className="bg-muted/50 px-4 py-3 border-b border-border">
               <span className="text-sm text-muted-foreground">
-                {paragraphs.length} {paragraphs.length === 1 ? 'paragraaf' : 'paragrafen'}
+                {paragraphs.length === 1
+                  ? t('subject_paragraph_singular', undefined, { count: paragraphs.length })
+                  : t('subject_paragraph_plural', undefined, { count: paragraphs.length })}
               </span>
             </div>
 
@@ -114,8 +118,8 @@ export default async function ChapterDetailPage({
           <Link
             href={`/subjects/${decodedSubjectId}`}
             className="mt-2 p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0 inline-flex items-center justify-center"
-            title="Terug naar vak"
-            aria-label="Terug naar vak"
+            title={t('subject_back_to_subject')}
+            aria-label={t('subject_back_to_subject')}
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
@@ -132,7 +136,9 @@ export default async function ChapterDetailPage({
         <div className="border border-border rounded-lg overflow-hidden mt-8">
           <div className="bg-muted/50 px-4 py-3 border-b border-border">
             <span className="text-sm text-muted-foreground">
-              {paragraphs.length} {paragraphs.length === 1 ? 'paragraaf' : 'paragrafen'}
+              {paragraphs.length === 1
+                ? t('subject_paragraph_singular', undefined, { count: paragraphs.length })
+                : t('subject_paragraph_plural', undefined, { count: paragraphs.length })}
             </span>
           </div>
 
@@ -155,9 +161,9 @@ export default async function ChapterDetailPage({
             ) : (
               <div className="text-center py-12">
                 <Folder className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-                <p className="text-lg font-medium mb-2">Nog geen inhoud</p>
+                <p className="text-lg font-medium mb-2">{t('subject_no_content')}</p>
                 <p className="text-sm text-muted-foreground">
-                  Voeg paragrafen toe aan dit hoofdstuk.
+                  {t('subject_no_content_desc')}
                 </p>
               </div>
             )}

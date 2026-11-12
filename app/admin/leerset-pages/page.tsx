@@ -20,6 +20,7 @@ import { supabase as browserClient } from '@/lib/supabase/client';
 import { useFilesystem } from '@/hooks/useFilesystem';
 import { ButtonConfig } from '@/types/filesystem';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { useTranslation } from '@/lib/useTranslation';
 
 const supabase = browserClient as any;
 
@@ -34,6 +35,7 @@ interface LeersetPage {
 }
 
 export default function AdminLeersetPages() {
+  const { t } = useTranslation();
   const [pages, setPages] = useState<LeersetPage[]>([]);
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
@@ -299,7 +301,7 @@ export default function AdminLeersetPages() {
                 id="title"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                placeholder="Bijv. Biologie H1"
+                placeholder={t('admin_leerset_title_placeholder')}
               />
             </div>
 
@@ -309,7 +311,7 @@ export default function AdminLeersetPages() {
                 id="description"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                placeholder="Wat leer je in deze leerset?"
+                placeholder={t('admin_leerset_desc_placeholder')}
                 rows={3}
               />
             </div>
@@ -346,7 +348,7 @@ export default function AdminLeersetPages() {
                     id="buttonIcon"
                     value={formData.buttonIcon}
                     onChange={(e) => setFormData({ ...formData, buttonIcon: e.target.value })}
-                    placeholder="Bijv. book-open"
+                    placeholder={t('admin_button_icon_placeholder')}
                   />
                 </div>
 
@@ -442,11 +444,11 @@ export default function AdminLeersetPages() {
       <ConfirmDialog
         open={showDeleteDialog}
         onOpenChange={setShowDeleteDialog}
-        title="Leerset pagina verwijderen"
-        description={`Weet je zeker dat je "${pageToDelete?.title}" wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.`}
+        title={t('admin_leerset_delete_title')}
+        description={t('admin_leerset_delete_desc', undefined, { name: pageToDelete?.title ?? '' })}
         onConfirm={confirmDelete}
-        confirmText="Verwijderen"
-        cancelText="Annuleren"
+        confirmText={t('admin_delete_button_confirm')}
+        cancelText={t('cancel')}
         variant="destructive"
       />
     </AppShell>

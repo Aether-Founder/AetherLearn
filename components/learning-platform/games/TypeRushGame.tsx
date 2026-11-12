@@ -6,10 +6,12 @@ import { evaluateAnswer } from '@/lib/learning-platform/grading';
 import { fisherYatesShuffle, getPromptAndAnswer } from '@/lib/learning-platform/term-filters';
 import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
 import type { Term } from '@/types/learning-platform';
+import { useTranslation } from '@/lib/useTranslation';
 import { MarkdownContent } from '../shared/MarkdownContent';
 import { GameShell } from '../GameShell';
 
 export function TypeRushGame({ onQuit }: GameShellProps) {
+  const { t } = useTranslation();
   const { playableTerms, settings, recordAnswer, beginSession, endSession } =
     useLearningPlatformStore();
   const [terms, setTerms] = useState<Term[]>([]);
@@ -70,7 +72,7 @@ export function TypeRushGame({ onQuit }: GameShellProps) {
         if (complete) {
           return (
             <div className="rounded-2xl border border-border bg-card p-8 text-center">
-              <p className="text-sm text-muted-foreground">Type rush voltooid</p>
+              <p className="text-sm text-muted-foreground">{t('comp_type_rush_done')}</p>
               <h3 className="mt-2 text-3xl font-serif font-medium">
                 {score}/{terms.length}
               </h3>
@@ -90,7 +92,7 @@ export function TypeRushGame({ onQuit }: GameShellProps) {
             </div>
             <div className="rounded-xl border border-border bg-background p-6 min-h-[160px]">
               <p className="mb-3 text-xs uppercase tracking-wide text-muted-foreground">
-                Typ het antwoord
+                {t('comp_type_the_answer')}
               </p>
               <MarkdownContent className="text-lg">{promptAndAnswer?.prompt ?? ''}</MarkdownContent>
             </div>
@@ -105,12 +107,12 @@ export function TypeRushGame({ onQuit }: GameShellProps) {
                       ? 'border-red-500 bg-red-500/10'
                       : 'border-border'
                 }`}
-                placeholder="Typ je antwoord..."
+                placeholder={t('comp_type_your_answer')}
                 autoFocus
               />
               {feedback === 'wrong' && (
                 <p className="text-sm text-red-600 dark:text-red-300">
-                  Goed antwoord: {promptAndAnswer?.answer}
+                  {t('comp_correct_answer')}: {promptAndAnswer?.answer}
                 </p>
               )}
               <button

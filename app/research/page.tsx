@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { AppShell, SectionTitle } from "@/components/AppShell";
 import { Search, Calendar, Clock } from "lucide-react";
+import { useTranslation } from "@/lib/useTranslation";
 
 interface ResearchPost {
   id: string;
@@ -33,6 +34,7 @@ interface ResearchIndex {
 }
 
 function PostCard({ post }: { post: ResearchPost }) {
+  const { t } = useTranslation();
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("nl-NL", {
       day: "numeric",
@@ -64,14 +66,14 @@ function PostCard({ post }: { post: ResearchPost }) {
       <div className="mb-3 flex items-center gap-2">
         {post.isFeatured && (
           <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary dark:bg-primary/20">
-            Uitgelicht
+            {t('res_featured')}
           </span>
         )}
         <span className="rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-muted-foreground">
           {post.category.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())}
         </span>
         <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${getImpactColor(post.impactLevel)}`}>
-          {post.impactLevel.charAt(0).toUpperCase() + post.impactLevel.slice(1)} Impact
+          {t('res_impact', undefined, { level: post.impactLevel.charAt(0).toUpperCase() + post.impactLevel.slice(1) })}
         </span>
       </div>
 
@@ -96,7 +98,7 @@ function PostCard({ post }: { post: ResearchPost }) {
         </div>
         <div className="flex items-center gap-1">
           <Clock className="h-3 w-3" />
-          <span>{post.readingTime} min leestijd</span>
+          <span>{t('res_reading_time', undefined, { n: post.readingTime })}</span>
         </div>
       </div>
     </Link>
@@ -104,6 +106,7 @@ function PostCard({ post }: { post: ResearchPost }) {
 }
 
 export default function ResearchPage() {
+  const { t } = useTranslation();
   const [data, setData] = useState<ResearchIndex | null>(null);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -204,8 +207,7 @@ export default function ResearchPage() {
       <div className="mb-8">
         <h1 className="font-display text-4xl font-semibold mb-3">Research Hub</h1>
         <p className="text-muted-foreground max-w-2xl">
-          Een verzameling van technische onderzoeken, documentatie en security-analyses over
-          educatieve platforms en systemen.
+          {t('res_description')}
         </p>
       </div>
 
@@ -215,7 +217,7 @@ export default function ResearchPage() {
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
             type="text"
-            placeholder="Zoek in research posts..."
+            placeholder={t('res_search_placeholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="h-10 w-full rounded-md border border-border bg-background pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus:border-foreground/40"
@@ -228,7 +230,7 @@ export default function ResearchPage() {
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="h-9 rounded-md border border-border bg-background px-3 text-sm outline-none focus:border-foreground/40"
           >
-            <option value="all">Alle categorieën</option>
+            <option value="all">{t('res_all_categories')}</option>
             {data?.categories.map((cat) => (
               <option key={cat.id} value={cat.id}>
                 {cat.name}
@@ -241,7 +243,7 @@ export default function ResearchPage() {
             onChange={(e) => setSelectedPlatform(e.target.value)}
             className="h-9 rounded-md border border-border bg-background px-3 text-sm outline-none focus:border-foreground/40"
           >
-            <option value="all">Alle platforms</option>
+            <option value="all">{t('res_all_platforms')}</option>
             {data?.platforms.map((plat) => (
               <option key={plat.id} value={plat.id}>
                 {plat.name}
@@ -254,7 +256,7 @@ export default function ResearchPage() {
             onChange={(e) => setSelectedTopic(e.target.value)}
             className="h-9 rounded-md border border-border bg-background px-3 text-sm outline-none focus:border-foreground/40"
           >
-            <option value="all">Alle topics</option>
+            <option value="all">{t('res_all_topics')}</option>
             {data?.topics.map((topic) => (
               <option key={topic.id} value={topic.id}>
                 {topic.name}
@@ -267,7 +269,7 @@ export default function ResearchPage() {
             onChange={(e) => setSelectedMethod(e.target.value)}
             className="h-9 rounded-md border border-border bg-background px-3 text-sm outline-none focus:border-foreground/40"
           >
-            <option value="all">Alle methoden</option>
+            <option value="all">{t('res_all_methods')}</option>
             {data?.methods.map((method) => (
               <option key={method.id} value={method.id}>
                 {method.name}
@@ -280,23 +282,23 @@ export default function ResearchPage() {
             onChange={(e) => setSortBy(e.target.value)}
             className="h-9 rounded-md border border-border bg-background px-3 text-sm outline-none focus:border-foreground/40"
           >
-            <option value="newest">Nieuwste eerst</option>
-            <option value="updated">Onlangs bijgewerkt</option>
-            <option value="alphabetical">Alfabetisch</option>
-            <option value="featured">Uitgelicht eerst</option>
+            <option value="newest">{t('res_sort_newest')}</option>
+            <option value="updated">{t('res_sort_updated')}</option>
+            <option value="alphabetical">{t('res_sort_alpha')}</option>
+            <option value="featured">{t('res_sort_featured')}</option>
           </select>
         </div>
       </div>
 
       {/* Results */}
-      <SectionTitle action={<span className="text-xs text-muted-foreground">{filteredPosts.length} posts</span>}>
-        Research Posts
+      <SectionTitle action={<span className="text-xs text-muted-foreground">{t('res_posts_count', undefined, { n: filteredPosts.length })}</span>}>
+        {t('res_posts_title')}
       </SectionTitle>
 
       {filteredPosts.length === 0 ? (
         <div className="rounded-lg border border-dashed border-border p-10 text-center">
           <p className="text-sm text-muted-foreground">
-            Geen research posts gevonden die aan je filters voldoen.
+            {t('res_empty')}
           </p>
         </div>
       ) : (

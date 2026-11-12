@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { ChevronLeft, ChevronRight, RotateCcw, CheckCircle, XCircle } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface StudyCard {
   id: string;
@@ -19,6 +20,7 @@ interface LearnModeProps {
 }
 
 export function LearnMode({ cards, onComplete, onExit }: LearnModeProps) {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showDefinition, setShowDefinition] = useState(false);
   const [correct, setCorrect] = useState(0);
@@ -70,8 +72,8 @@ export function LearnMode({ cards, onComplete, onExit }: LearnModeProps) {
   if (cards.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground mb-4">Geen kaarten om te leren</p>
-        <Button onClick={onExit}>Terug</Button>
+        <p className="text-muted-foreground mb-4">{t('shell_no_cards_learn')}</p>
+        <Button onClick={onExit}>{t('shell_back')}</Button>
       </div>
     );
   }
@@ -81,14 +83,14 @@ export function LearnMode({ cards, onComplete, onExit }: LearnModeProps) {
       <div className="flex items-center justify-between mb-6">
         <Button variant="ghost" size="sm" onClick={onExit}>
           <ChevronLeft className="w-4 h-4 mr-2" />
-          Verlaten
+          {t('shell_exit')}
         </Button>
         <div className="text-sm text-muted-foreground">
           {currentIndex + 1} / {cards.length}
         </div>
         <Button variant="ghost" size="sm" onClick={handleRestart}>
           <RotateCcw className="w-4 h-4 mr-2" />
-          Herstart
+          {t('shell_restart')}
         </Button>
       </div>
 
@@ -96,7 +98,7 @@ export function LearnMode({ cards, onComplete, onExit }: LearnModeProps) {
 
       <div className="bg-card border border-border rounded-lg p-8 mb-6">
         <div className="text-center mb-6">
-          <p className="text-sm text-muted-foreground mb-2">Term</p>
+          <p className="text-sm text-muted-foreground mb-2">{t('lp_term')}</p>
           <h2 className="text-2xl font-semibold">{currentCard.term}</h2>
         </div>
 
@@ -112,23 +114,23 @@ export function LearnMode({ cards, onComplete, onExit }: LearnModeProps) {
 
         {!showDefinition ? (
           <Button onClick={handleShowDefinition} className="w-full">
-            Toon definitie
+            {t('shell_show_definition')}
           </Button>
         ) : (
           <div className="space-y-6">
             <div className="text-center">
-              <p className="text-sm text-muted-foreground mb-2">Definitie</p>
+              <p className="text-sm text-muted-foreground mb-2">{t('lp_definition')}</p>
               <p className="text-xl">{currentCard.definition}</p>
             </div>
 
             <div className="flex gap-4">
               <Button onClick={handleIncorrect} variant="destructive" className="flex-1">
                 <XCircle className="w-4 h-4 mr-2" />
-                Fout
+                {t('shell_wrong')}
               </Button>
               <Button onClick={handleCorrect} variant="default" className="flex-1">
                 <CheckCircle className="w-4 h-4 mr-2" />
-                Goed
+                {t('advanced_quality_good')}
               </Button>
             </div>
           </div>
@@ -138,7 +140,7 @@ export function LearnMode({ cards, onComplete, onExit }: LearnModeProps) {
       <div className="flex items-center justify-between text-sm text-muted-foreground">
         <Button variant="ghost" size="sm" onClick={handlePrevious} disabled={currentIndex === 0}>
           <ChevronLeft className="w-4 h-4 mr-2" />
-          Vorige
+          {t('previous')}
         </Button>
 
         <div className="flex gap-4">
@@ -158,7 +160,7 @@ export function LearnMode({ cards, onComplete, onExit }: LearnModeProps) {
           onClick={nextCard}
           disabled={currentIndex === cards.length - 1}
         >
-          Volgende
+          {t('next')}
           <ChevronRight className="w-4 h-4 ml-2" />
         </Button>
       </div>

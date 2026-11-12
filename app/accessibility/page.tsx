@@ -113,8 +113,8 @@ export default function AccessibilityPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Toegankelijkheid"
-        description="Pas de toegankelijkheidsinstellingen aan aan jouw behoeften"
+        title={t('a11y_title')}
+        description={t('a11y_description')}
       />
 
       <div className="mt-10">

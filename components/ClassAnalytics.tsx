@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { Users, TrendingUp, TrendingDown, BookOpen, Clock, Target } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface ClassAnalytics {
   classId: string;
@@ -51,6 +52,7 @@ interface ClassAnalyticsProps {
 }
 
 export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
+  const { t } = useTranslation();
   const [analytics, setAnalytics] = useState<ClassAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<'week' | 'month' | 'all'>('week');
@@ -84,10 +86,10 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Klas Analyse</CardTitle>
+          <CardTitle>{t('shell_class_analysis')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -97,10 +99,10 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Klas Analyse</CardTitle>
+          <CardTitle>{t('shell_class_analysis')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Geen analyse beschikbaar</div>
+          <div className="text-center text-muted-foreground">{t('shell_no_analysis')}</div>
         </CardContent>
       </Card>
     );
@@ -133,9 +135,9 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="week">Deze Week</SelectItem>
-            <SelectItem value="month">Deze Maand</SelectItem>
-            <SelectItem value="all">Alles</SelectItem>
+            <SelectItem value="week">{t('shell_this_week')}</SelectItem>
+            <SelectItem value="month">{t('shell_this_month')}</SelectItem>
+            <SelectItem value="all">{t('shell_all')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -143,7 +145,7 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Studenten</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_students')}</CardTitle>
             <Users className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -154,34 +156,34 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Gemiddelde Score</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_avg_score')}</CardTitle>
             <Target className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{Math.round(analytics.averageScore)}%</div>
-            <p className="text-xs text-muted-foreground">klas gemiddelde</p>
+            <p className="text-xs text-muted-foreground">{t('shell_class_average')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Studietijd</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_study_time')}</CardTitle>
             <Clock className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{formatTime(analytics.averageStudyTime)}</div>
-            <p className="text-xs text-muted-foreground">per student</p>
+            <p className="text-xs text-muted-foreground">{t('shell_per_student')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Voltooiing</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_completion')}</CardTitle>
             <BookOpen className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{Math.round(analytics.completionRate)}%</div>
-            <p className="text-xs text-muted-foreground">gemiddeld</p>
+            <p className="text-xs text-muted-foreground">{t('shell_average_lower')}</p>
           </CardContent>
         </Card>
       </div>
@@ -189,7 +191,7 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Vak Overzicht</CardTitle>
+            <CardTitle>{t('shell_subject_overview')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {analytics.subjectBreakdown.map((subject) => (
@@ -209,26 +211,26 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
 
         <Card>
           <CardHeader>
-            <CardTitle>Opdracht Statistieken</CardTitle>
+            <CardTitle>{t('shell_assignment_stats')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm">Totale Opdrachten</span>
+              <span className="text-sm">{t('shell_total_assignments')}</span>
               <Badge variant="secondary">{analytics.assignmentStats.totalAssignments}</Badge>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm">Voltooid</span>
+              <span className="text-sm">{t('shell_completed')}</span>
               <Badge variant="default">{analytics.assignmentStats.completedAssignments}</Badge>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm">Gemiddelde Voltooiingstijd</span>
+              <span className="text-sm">{t('shell_avg_completion_time')}</span>
               <Badge variant="outline">
                 {formatTime(analytics.assignmentStats.averageCompletionTime)}
               </Badge>
             </div>
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium">Voltooiingspercentage</span>
+                <span className="text-sm font-medium">{t('shell_completion_rate')}</span>
                 <span className="text-sm font-bold">
                   {Math.round(
                     (analytics.assignmentStats.completedAssignments /
@@ -253,7 +255,7 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
 
       <Card>
         <CardHeader>
-          <CardTitle>Top Performers</CardTitle>
+          <CardTitle>{t('shell_top_performers')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
@@ -284,7 +286,7 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
 
       <Card>
         <CardHeader>
-          <CardTitle>Wekelijkse Voortgang</CardTitle>
+          <CardTitle>{t('shell_weekly_progress')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">

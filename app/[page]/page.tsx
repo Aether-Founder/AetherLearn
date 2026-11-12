@@ -438,7 +438,7 @@ export default function Page({ params }: { params: { page: string } }) {
           className="absolute top-4 left-4 inline-flex h-10 items-center justify-center rounded-md border border-border bg-secondary px-4 text-sm font-medium transition-colors hover:bg-secondary/80 gap-2"
         >
           <ArrowLeft className="h-4 w-4" />
-          Terug
+          {t('misc_back')}
         </button>
         <div className="flex items-center justify-center h-screen">
           <p className="text-muted-foreground">Page not found.</p>
@@ -461,7 +461,7 @@ export default function Page({ params }: { params: { page: string } }) {
               {/* Reading time */}
               {estimatedReadingTime > 0 && (
                 <div className="px-2 py-1 rounded border border-border/50 bg-secondary/30 text-xs text-muted-foreground">
-                  {estimatedReadingTime} min leestijd
+                  {t('misc_reading_time', undefined, { n: estimatedReadingTime })}
                 </div>
               )}
 
@@ -471,7 +471,7 @@ export default function Page({ params }: { params: { page: string } }) {
                   type="button"
                   onClick={() => handleFontSizeChange(Math.max(12, fontSize - 2))}
                   className="p-1 rounded hover:bg-secondary transition-colors"
-                  title="Verklein lettergrootte"
+                  title={t('misc_font_decrease')}
                 >
                   <Minus className="h-3.5 w-3.5" />
                 </button>
@@ -480,7 +480,7 @@ export default function Page({ params }: { params: { page: string } }) {
                   type="button"
                   onClick={() => handleFontSizeChange(Math.min(72, fontSize + 2))}
                   className="p-1 rounded hover:bg-secondary transition-colors"
-                  title="Vergroot lettergrootte"
+                  title={t('misc_font_increase')}
                 >
                   <Plus className="h-3.5 w-3.5" />
                 </button>
@@ -491,7 +491,7 @@ export default function Page({ params }: { params: { page: string } }) {
                 type="button"
                 onClick={() => setFocusMode(!focusMode)}
                 className="p-1.5 rounded border border-border/50 bg-secondary/30 hover:bg-secondary transition-all duration-300"
-                title="Focus modus"
+                title={t('misc_focus_mode')}
               >
                 <Maximize2 className="h-3.5 w-3.5" />
               </button>
@@ -499,9 +499,9 @@ export default function Page({ params }: { params: { page: string } }) {
               {/* Bookmark */}
               <button
                 type="button"
-                onClick={() => toggleBookmark(params.page, data?.siteMetadata?.title || 'Pagina')}
+                onClick={() => toggleBookmark(params.page, data?.siteMetadata?.title || t('misc_page'))}
                 className="p-1.5 rounded border border-border/50 bg-secondary/30 hover:bg-secondary transition-colors"
-                title="Bladwijzer"
+                title={t('misc_bookmark')}
               >
                 <Bookmark className={`h-3.5 w-3.5 ${bookmarks.has(params.page) ? 'fill-primary text-primary' : ''}`} />
               </button>

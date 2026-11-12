@@ -9,6 +9,7 @@ import { ArrowLeft, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import ButtonSection from '@/components/ButtonSection';
+import { getServerT } from '@/lib/i18n-server';
 
 export default async function ParagraphDetailPage({
   params,
@@ -17,6 +18,7 @@ export default async function ParagraphDetailPage({
 }) {
   const { subjectId, chapterId, paragraphId } = params;
   const decodedSubjectId = decodeURIComponent(subjectId);
+  const t = await getServerT();
 
   // Load subject and chapters from JSON
   const subject = await loadSubject(decodedSubjectId);
@@ -29,12 +31,12 @@ export default async function ParagraphDetailPage({
     return (
       <AppShell>
         <div className="text-center py-20">
-          <p>Paragraaf niet gevonden</p>
+          <p>{t('subject_paragraph_not_found')}</p>
           <Link
             href={`/subjects/${decodedSubjectId}/${chapterId}`}
             className="mt-4 inline-block text-primary hover:underline"
           >
-            Terug naar hoofdstuk
+            {t('subject_back_to_chapter')}
           </Link>
         </div>
       </AppShell>
@@ -55,8 +57,8 @@ export default async function ParagraphDetailPage({
           <Link
             href={`/subjects/${decodedSubjectId}/${chapterId}`}
             className="mt-2 p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0 inline-flex items-center justify-center"
-            title="Terug naar hoofdstuk"
-            aria-label="Terug naar hoofdstuk"
+            title={t('subject_back_to_chapter')}
+            aria-label={t('subject_back_to_chapter')}
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
@@ -72,7 +74,9 @@ export default async function ParagraphDetailPage({
         <div className="border border-border rounded-lg overflow-hidden mt-8">
           <div className="bg-muted/50 px-4 py-3 border-b border-border">
             <span className="text-sm text-muted-foreground">
-              {paragraphs.length} {paragraphs.length === 1 ? 'paragraaf' : 'paragrafen'}
+              {paragraphs.length === 1
+                ? t('subject_paragraph_singular', undefined, { count: paragraphs.length })
+                : t('subject_paragraph_plural', undefined, { count: paragraphs.length })}
             </span>
           </div>
 

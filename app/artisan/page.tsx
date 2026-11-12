@@ -6,6 +6,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, CheckCircle, XCircle, AlertCircle, FileText, Image as ImageIcon, File, RefreshCw } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface QueueItem {
   id: string;
@@ -41,6 +42,7 @@ const FILE_TYPE_LABELS: Record<string, string> = {
 };
 
 export default function ArtisanPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const supabase = createClient();
   const [dragActive, setDragActive] = useState(false);
@@ -107,7 +109,7 @@ export default function ArtisanPage() {
                 setUploadState({
                   progress: 100,
                   status: 'error',
-                  errorMessage: payload.new.error_message || 'Verwerking mislukt',
+                  errorMessage: payload.new.error_message || t('artisan_processing_failed'),
                   queueItemId: payload.new.id,
                 });
               }
@@ -128,11 +130,11 @@ export default function ArtisanPage() {
 
   const validateFile = (file: File): string | null => {
     if (!ALLOWED_TYPES.includes(file.type)) {
-      return 'Dit bestandstype wordt niet ondersteund. Toegestane formaten: PDF, JPEG, PNG, Word document.';
+      return t('artisan_error_filetype');
     }
 
     if (file.size > MAX_FILE_SIZE) {
-      return 'Bestand is te groot. Maximale grootte is 50MB.';
+      return t('artisan_error_filesize');
     }
 
     return null;
@@ -169,16 +171,16 @@ export default function ArtisanPage() {
           if (xhr.status >= 200 && xhr.status < 300) {
             resolve({ data: {}, error: null });
           } else {
-            reject(new Error(`Upload mislukt met status ${xhr.status}`));
+            reject(new Error(t('artisan_error_status', undefined, { status: xhr.status })));
           }
         });
 
         xhr.addEventListener('error', () => {
-          reject(new Error('Upload mislukt door netwerkfout'));
+          reject(new Error(t('artisan_error_network')));
         });
 
         xhr.addEventListener('abort', () => {
-          reject(new Error('Upload geannuleerd'));
+          reject(new Error(t('artisan_error_cancelled')));
         });
 
         xhr.open('POST', `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/${storagePath}`);
@@ -226,7 +228,7 @@ export default function ArtisanPage() {
         setUploadState({
           progress: 100,
           status: 'error',
-          errorMessage: error.message || 'Upload mislukt na 3 pogingen',
+          errorMessage: error.message || t('artisan_error_retries'),
         });
         setRetryCount(0);
       }
@@ -296,15 +298,15 @@ export default function ArtisanPage() {
   const getStatusLabel = (status: QueueItem['status']) => {
     switch (status) {
       case 'pending':
-        return 'In de werkplaats';
+        return t('artisan_status_in_workshop');
       case 'downloaded':
-        return 'Gedownload';
+        return t('artisan_status_downloaded');
       case 'processing':
-        return 'Wordt verwerkt';
+        return t('artisan_status_processing');
       case 'completed':
-        return 'Voltooid';
+        return t('artisan_status_completed');
       case 'failed':
-        return 'Mislukt';
+        return t('artisan_status_failed');
       default:
         return status;
     }
@@ -313,8 +315,8 @@ export default function ArtisanPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Artisan Werkplaats"
-        description="Upload je studiemateriaal en wij maken er leersets van"
+        title={t('artisan_workshop_title')}
+        description={t('artisan_workshop_desc')}
       />
       <div className="min-h-screen bg-background px-6 py-12">
         {/* Dropzone */}
@@ -349,21 +351,21 @@ export default function ArtisanPage() {
                 <Upload className="w-16 h-16 mx-auto text-muted-foreground" />
                 <div>
                   <p className="text-lg font-semibold text-foreground mb-2">
-                    Sleep je bestand hierheen
+                    {t('artisan_drop_here')}
                   </p>
                   <p className="text-sm text-muted-foreground mb-4">
-                    of klik om te selecteren
+                    {t('artisan_or_click')}
                   </p>
                 </div>
                 <button
                   onClick={() => fileInputRef.current?.click()}
                   className="h-10 px-6 py-3 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
                 >
-                  Bestand kiezen
+                  {t('artisan_choose_file')}
                 </button>
                 <div className="text-xs text-muted-foreground mt-4">
-                  <p>Toegestane formaten: PDF, JPEG, PNG, Word document</p>
-                  <p>Maximale grootte: 50MB</p>
+                  <p>{t('artisan_allowed_formats')}</p>
+                  <p>{t('artisan_max_size')}</p>
                 </div>
               </motion.div>
             )}
@@ -385,11 +387,11 @@ export default function ArtisanPage() {
                   />
                 </div>
                 <p className="text-lg font-semibold text-foreground">
-                  Uploaden... {uploadState.progress}%
+                  {t('artisan_uploading_progress', undefined, { n: uploadState.progress })}
                 </p>
                 {retryCount > 0 && (
                   <p className="text-sm text-warning">
-                    Poging {retryCount + 1} van 4
+                    {t('artisan_attempt', undefined, { n: retryCount + 1 })}
                   </p>
                 )}
               </motion.div>
@@ -420,10 +422,10 @@ export default function ArtisanPage() {
                 </motion.div>
                 <div>
                   <p className="text-xl font-bold text-foreground mb-2">
-                    Onze ambachten zijn aan het werk...
+                    {t('artisan_crafting')}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Dit kan even duren. Je bestand wordt zorgvuldig verwerkt.
+                    {t('artisan_crafting_desc')}
                   </p>
                 </div>
                 <div className="flex justify-center space-x-2">
@@ -456,12 +458,12 @@ export default function ArtisanPage() {
                 <CheckCircle className="w-16 h-16 mx-auto text-success" />
                 <div>
                   <p className="text-xl font-bold text-foreground mb-2">
-                    {uploadState.resultDeckId ? 'Voltooid!' : 'In de werkplaats'}
+                    {uploadState.resultDeckId ? t('artisan_done') : t('artisan_in_workshop')}
                   </p>
                   <p className="text-muted-foreground">
                     {uploadState.resultDeckId
-                      ? 'Je leerset is klaar!'
-                      : 'Je bestand wordt verwerkt. Je ontvangt een melding zodra het klaar is.'}
+                      ? t('artisan_set_ready')
+                      : t('artisan_processing_msg')}
                   </p>
                 </div>
                 {uploadState.resultDeckId && (
@@ -469,7 +471,7 @@ export default function ArtisanPage() {
                     href={`/study-sets/${uploadState.resultDeckId}`}
                     className="inline-block h-10 px-6 py-3 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
                   >
-                    Bekijk leerset
+                    {t('artisan_view_set')}
                   </a>
                 )}
                 <button
@@ -479,7 +481,7 @@ export default function ArtisanPage() {
                   }}
                   className="block mx-auto text-sm text-primary hover:opacity-80"
                 >
-                  Nog een bestand uploaden
+                  {t('artisan_upload_another')}
                 </button>
               </motion.div>
             )}
@@ -495,10 +497,10 @@ export default function ArtisanPage() {
                 <XCircle className="w-16 h-16 mx-auto text-destructive" />
                 <div>
                   <p className="text-xl font-bold text-foreground mb-2">
-                    Upload mislukt
+                    {t('artisan_upload_failed')}
                   </p>
                   <p className="text-destructive">
-                    {uploadState.errorMessage || 'Er is een fout opgetreden'}
+                    {uploadState.errorMessage || t('artisan_error_generic')}
                   </p>
                 </div>
                 <div className="flex justify-center space-x-3">
@@ -506,7 +508,7 @@ export default function ArtisanPage() {
                     onClick={handleRetry}
                     className="h-10 px-6 py-3 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
                   >
-                    Opnieuw proberen
+                    {t('artisan_retry')}
                   </button>
                   <button
                     onClick={() => {
@@ -515,7 +517,7 @@ export default function ArtisanPage() {
                     }}
                     className="h-10 px-6 py-3 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80 transition-colors"
                   >
-                    Annuleren
+                    {t('cancel')}
                   </button>
                 </div>
               </motion.div>
@@ -527,7 +529,7 @@ export default function ArtisanPage() {
         {queueItems.length > 0 && (
           <div className="mt-12">
             <h2 className="font-display text-2xl font-semibold mb-4 text-foreground">
-              Je uploads
+              {t('artisan_your_uploads')}
             </h2>
             <div className="space-y-3">
               {queueItems.map((item) => (
@@ -558,7 +560,7 @@ export default function ArtisanPage() {
                         href={`/study-sets/${item.result_deck_id}`}
                         className="h-8 px-4 py-2 bg-primary text-primary-foreground text-sm rounded-md hover:opacity-90 transition-opacity"
                       >
-                        Bekijk
+                        {t('artisan_view')}
                       </a>
                     )}
                   </div>

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Check, Inbox as InboxIcon, Plus, Trash2 } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 type InboxItem = {
   id: string;
@@ -70,14 +71,14 @@ function saveLocalItems(items: InboxItem[]) {
   }
 }
 
-function formatDate(value: string): string {
+function formatDate(value: string, locale: string): string {
   const date = new Date(value);
 
   if (Number.isNaN(date.getTime())) {
     return '';
   }
 
-  return date.toLocaleString('nl-NL', {
+  return date.toLocaleString(locale, {
     day: 'numeric',
     month: 'short',
     hour: '2-digit',
@@ -86,6 +87,8 @@ function formatDate(value: string): string {
 }
 
 export default function InboxPage() {
+  const { t, currentLanguage } = useTranslation();
+  const dateLocale = currentLanguage === 'nl' ? 'nl-NL' : 'en-US';
   const [items, setItems] = useState<InboxItem[]>([]);
   const [newItem, setNewItem] = useState('');
   const [isMounted, setIsMounted] = useState(false);
@@ -154,7 +157,7 @@ export default function InboxPage() {
     <AppShell>
       <PageHeader
         title="Inbox"
-        description="Snel notities, taken en herinneringen"
+        description={t('inbox_description')}
       />
 
       <div className="mt-10">
@@ -163,7 +166,7 @@ export default function InboxPage() {
             value={newItem}
             onChange={(event) => setNewItem(event.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Nieuwe taak, notitie of herinnering..."
+            placeholder={t('inbox_placeholder')}
             autoComplete="off"
             className="h-10 flex-1 rounded-md border border-input bg-background px-3 text-sm shadow-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
           />
@@ -175,7 +178,7 @@ export default function InboxPage() {
             className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
           >
             <Plus className="mr-2 h-4 w-4" />
-            Toevoegen
+            {t('inbox_add')}
           </button>
         </div>
 
@@ -191,9 +194,9 @@ export default function InboxPage() {
         ) : items.length === 0 ? (
           <div className="rounded-xl border border-dashed border-border bg-card/40 p-10 text-center">
             <InboxIcon className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
-            <h2 className="font-display text-xl font-semibold">Inbox is leeg</h2>
+            <h2 className="font-display text-xl font-semibold">{t('inbox_empty_title')}</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Typ hierboven iets en klik op Toevoegen of druk op Enter.
+              {t('inbox_empty_desc')}
             </p>
           </div>
         ) : (
@@ -201,7 +204,7 @@ export default function InboxPage() {
             {activeItems.length > 0 && (
               <section>
                 <h2 className="mb-4 font-display text-lg font-semibold">
-                  Actief ({activeItems.length})
+                  {t('inbox_active', undefined, { count: activeItems.length })}
                 </h2>
 
                 <div className="space-y-3">
@@ -213,7 +216,7 @@ export default function InboxPage() {
                       <button
                         type="button"
                         onClick={() => toggleComplete(item.id)}
-                        aria-label={item.completed ? 'Markeer als niet afgerond' : 'Markeer als afgerond'}
+                        aria-label={item.completed ? t('inbox_mark_incomplete') : t('inbox_mark_complete')}
                         className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-foreground/25 transition-colors hover:border-foreground/50"
                       >
                         {item.completed && <Check className="h-3.5 w-3.5" />}
@@ -222,14 +225,14 @@ export default function InboxPage() {
                       <div className="min-w-0 flex-1">
                         <p className="break-words text-sm text-foreground">{item.content}</p>
                         <p className="mt-1 text-xs text-muted-foreground">
-                          {formatDate(item.created_at)}
+                          {formatDate(item.created_at, dateLocale)}
                         </p>
                       </div>
 
                       <button
                         type="button"
                         onClick={() => deleteItem(item.id)}
-                        aria-label="Verwijderen"
+                        aria-label={t('inbox_delete')}
                         className="rounded-md p-2 text-muted-foreground opacity-0 transition-opacity hover:bg-secondary hover:text-destructive group-hover:opacity-100"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -244,7 +247,7 @@ export default function InboxPage() {
               <section>
                 <div className="mb-4 flex items-center justify-between gap-4">
                   <h2 className="font-display text-lg font-semibold">
-                    Afgerond ({completedItems.length})
+                    {t('inbox_completed', undefined, { count: completedItems.length })}
                   </h2>
 
                   <button
@@ -252,7 +255,7 @@ export default function InboxPage() {
                     onClick={clearCompleted}
                     className="text-xs font-medium text-muted-foreground transition-colors hover:text-destructive"
                   >
-                    Afgeronde items wissen
+                    {t('inbox_clear_completed')}
                   </button>
                 </div>
 
@@ -265,7 +268,7 @@ export default function InboxPage() {
                       <button
                         type="button"
                         onClick={() => toggleComplete(item.id)}
-                        aria-label={item.completed ? 'Markeer als niet afgerond' : 'Markeer als afgerond'}
+                        aria-label={item.completed ? t('inbox_mark_incomplete') : t('inbox_mark_complete')}
                         className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-foreground/25 bg-background transition-colors hover:border-foreground/50"
                       >
                         {item.completed && <Check className="h-3.5 w-3.5" />}
@@ -276,14 +279,14 @@ export default function InboxPage() {
                           {item.content}
                         </p>
                         <p className="mt-1 text-xs text-muted-foreground">
-                          {formatDate(item.updated_at)}
+                          {formatDate(item.updated_at, dateLocale)}
                         </p>
                       </div>
 
                       <button
                         type="button"
                         onClick={() => deleteItem(item.id)}
-                        aria-label="Verwijderen"
+                        aria-label={t('inbox_delete')}
                         className="rounded-md p-2 text-muted-foreground opacity-0 transition-opacity hover:bg-secondary hover:text-destructive group-hover:opacity-100"
                       >
                         <Trash2 className="h-4 w-4" />

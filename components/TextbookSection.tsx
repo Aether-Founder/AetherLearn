@@ -124,13 +124,14 @@ const ResourcesPanel = memo(function ResourcesPanel({
 }: {
   resources?: ContentResource[];
 }) {
+  const { t } = useTranslation();
   const items =
     resources?.filter((resource) => resource.title && (resource.url || resource.text)) ?? [];
   if (items.length === 0) return null;
 
   return (
     <div className="mt-10 rounded-lg border border-border bg-card p-4 space-y-4">
-      <h3 className="text-lg font-serif font-medium text-foreground">Bronnen</h3>
+      <h3 className="text-lg font-serif font-medium text-foreground">{t('shell_sources')}</h3>
       <div className="space-y-4">
         {items.map((resource, index) => {
           const key = resource.id || `${resource.title}-${index}`;
@@ -528,7 +529,7 @@ export const TextbookSection = memo(function TextbookSection({
   bookmarks,
   onToggleBookmark,
 }: TextbookSectionProps) {
-  useTranslation();
+  const { t } = useTranslation();
   const sectionTitles = getSectionTitles(section);
   const [mainTitle, ...extraTitles] = sectionTitles.length
     ? sectionTitles

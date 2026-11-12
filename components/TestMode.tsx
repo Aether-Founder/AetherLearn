@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { ChevronLeft, RotateCcw, CheckCircle, XCircle } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface StudyCard {
   id: string;
@@ -30,6 +31,7 @@ interface TestModeProps {
 }
 
 export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
+  const { t } = useTranslation();
   const [config, setConfig] = useState<TestConfig>({
     questionType: 'term',
     answerType: 'multipleChoice',
@@ -122,35 +124,35 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
         <div className="flex items-center justify-between mb-6">
           <Button variant="ghost" size="sm" onClick={onExit}>
             <ChevronLeft className="w-4 h-4 mr-2" />
-            Terug
+            {t('shell_back')}
           </Button>
-          <h2 className="text-2xl font-bold">Test Configuratie</h2>
+          <h2 className="text-2xl font-bold">{t('shell_test_config')}</h2>
           <div className="w-20" />
         </div>
 
         <div className="bg-card border border-border rounded-lg p-6 space-y-6">
           <div>
-            <label className="block text-sm font-medium mb-2">Vraag type</label>
+            <label className="block text-sm font-medium mb-2">{t('shell_question_type')}</label>
             <select
               value={config.questionType}
               onChange={(e) => setConfig({ ...config, questionType: e.target.value as any })}
               className="w-full p-2 border border-border rounded-md"
             >
-              <option value="term">Toon term, raad definitie</option>
-              <option value="definition">Toon definitie, raad term</option>
-              <option value="both">Willekeurig</option>
+              <option value="term">{t('shell_qtype_term')}</option>
+              <option value="definition">{t('shell_qtype_definition')}</option>
+              <option value="both">{t('shell_qtype_both')}</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Antwoord type</label>
+            <label className="block text-sm font-medium mb-2">{t('shell_answer_type')}</label>
             <select
               value={config.answerType}
               onChange={(e) => setConfig({ ...config, answerType: e.target.value as any })}
               className="w-full p-2 border border-border rounded-md"
             >
-              <option value="multipleChoice">Meerkeuze</option>
-              <option value="written">Geschreven</option>
+              <option value="multipleChoice">{t('shell_atype_mc')}</option>
+              <option value="written">{t('shell_atype_written')}</option>
             </select>
           </div>
 
@@ -163,12 +165,12 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
               className="w-4 h-4"
             />
             <label htmlFor="shuffle" className="text-sm">
-              Shuffle kaarten
+              {t('shell_shuffle_cards')}
             </label>
           </div>
 
           <Button onClick={handleStart} className="w-full" size="lg">
-            Start Test
+            {t('shell_start_test')}
           </Button>
         </div>
       </div>
@@ -178,8 +180,8 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
   if (cards.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground mb-4">Geen kaarten om te testen</p>
-        <Button onClick={onExit}>Terug</Button>
+        <p className="text-muted-foreground mb-4">{t('shell_no_cards_test')}</p>
+        <Button onClick={onExit}>{t('shell_back')}</Button>
       </div>
     );
   }
@@ -200,14 +202,14 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
       <div className="flex items-center justify-between mb-6">
         <Button variant="ghost" size="sm" onClick={onExit}>
           <ChevronLeft className="w-4 h-4 mr-2" />
-          Verlaten
+          {t('shell_exit')}
         </Button>
         <div className="text-sm text-muted-foreground">
           {currentIndex + 1} / {shuffledCards.length}
         </div>
         <Button variant="ghost" size="sm" onClick={handleRestart}>
           <RotateCcw className="w-4 h-4 mr-2" />
-          Herstart
+          {t('shell_restart')}
         </Button>
       </div>
 
@@ -215,7 +217,7 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
 
       <div className="bg-card border border-border rounded-lg p-8 mb-6">
         <div className="text-center mb-8">
-          <p className="text-sm text-muted-foreground mb-2">Vraag</p>
+          <p className="text-sm text-muted-foreground mb-2">{t('question')}</p>
           <h2 className="text-2xl font-semibold">{question}</h2>
         </div>
 
@@ -257,7 +259,7 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
           <div className="space-y-4">
             <input
               type="text"
-              placeholder="Typ je antwoord..."
+              placeholder={t('shell_type_answer')}
               className="w-full p-3 border border-border rounded-md"
               disabled={showResult}
               value={selectedAnswer || ''}
@@ -277,20 +279,20 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
               {selectedAnswer === correctAnswer ? (
                 <span className="text-green-600 flex items-center">
                   <CheckCircle className="w-4 h-4 mr-2" />
-                  Correct!
+                  {t('shell_correct_exclaim')}
                 </span>
               ) : (
                 <span className="text-red-600 flex items-center">
                   <XCircle className="w-4 h-4 mr-2" />
-                  Fout
+                  {t('shell_wrong')}
                 </span>
               )}
             </p>
             {selectedAnswer !== correctAnswer && (
-              <p className="text-sm text-muted-foreground">Juist antwoord: {correctAnswer}</p>
+              <p className="text-sm text-muted-foreground">{t('shell_correct_answer')}: {correctAnswer}</p>
             )}
             <Button onClick={handleNext} className="w-full mt-4">
-              {currentIndex < shuffledCards.length - 1 ? 'Volgende' : 'Bekijk resultaten'}
+              {currentIndex < shuffledCards.length - 1 ? t('next') : t('shell_view_results')}
             </Button>
           </div>
         )}

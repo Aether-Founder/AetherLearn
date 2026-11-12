@@ -105,6 +105,7 @@ function SubjectTile({
   onHide: () => void;
   onPrioritize: () => void;
 }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const mastery = subject.mastery_percentage || 0;
   const topicsDone = subject.topics_done || 0;
@@ -127,13 +128,13 @@ function SubjectTile({
       >
         <h2 className="font-display text-2xl font-semibold">{subject.name}</h2>
         <p className="mt-1 text-xs text-muted-foreground">
-          {chapterCount} hoofdstukken · {setCount} sets{subject.teacher ? ` · ${subject.teacher}` : ''}
+          {t('subject_chapters_sets', undefined, { chapters: chapterCount, sets: setCount })}{subject.teacher ? ` · ${subject.teacher}` : ''}
         </p>
 
         <div className="mt-5">
           <div className="mb-1.5 flex items-baseline justify-between text-xs text-muted-foreground">
             <span>
-              {topicsDone} van {topicsTotal} leerdoelen
+              {t('subject_topics_progress', undefined, { done: topicsDone, total: topicsTotal })}
             </span>
             <span className="tabular-nums">{mastery}%</span>
           </div>
@@ -142,7 +143,7 @@ function SubjectTile({
 
         {dueCards > 0 && (
           <p className="mt-4 text-xs text-muted-foreground">
-            {dueCards} kaarten te herhalen
+            {t('subject_due', undefined, { due: dueCards })}
           </p>
         )}
       </Link>
@@ -162,7 +163,7 @@ function SubjectTile({
             }}
             className="w-full rounded px-2 py-1.5 text-left hover:bg-secondary"
           >
-            Bovenaan tonen
+            {t('subject_show_on_top')}
           </button>
           <button
             type="button"
@@ -174,7 +175,7 @@ function SubjectTile({
             }}
             className="w-full rounded px-2 py-1.5 text-left hover:bg-secondary"
           >
-            Verbergen
+            {t('subject_hide')}
           </button>
         </div>
       )}
@@ -499,7 +500,7 @@ export default function VakkenIndex() {
           console.error('Error creating access request:', accessError);
         }
 
-        alert('Code geverifieerd! Wacht op goedkeuring van de beheerder.');
+        alert(t('subject_secret_code_verified'));
         setCreateOpen(false);
         setForm({
           name: '',
@@ -556,18 +557,18 @@ export default function VakkenIndex() {
   return (
     <AppShell>
       <PageHeader
-        title="Vakken"
-        description="Elk vak is een map. Open een vak om de hoofdstukken te zien en klik door naar een studieset."
+        title={t('subject_index_title')}
+        description={t('subject_index_desc')}
         action={
           user && (
             <div className="flex gap-2">
               <Button onClick={() => setCreateOpen(true)}>
                 <Plus className="mr-2 h-4 w-4" />
-                Nieuw vak
+                {t('subject_new')}
               </Button>
               <Button onClick={() => setSetupOpen(true)} variant="outline">
                 <BookOpen className="mr-2 h-4 w-4" />
-                Selecteer je vakken
+                {t('subject_select_subjects')}
               </Button>
             </div>
           )
@@ -584,13 +585,13 @@ export default function VakkenIndex() {
           {display.length === 0 ? (
             <div className="mt-10 rounded-xl border border-dashed border-border p-10 text-center">
               <BookOpen className="mx-auto h-9 w-9 text-muted-foreground" />
-              <h2 className="mt-4 font-display text-2xl font-semibold">Geen vakken</h2>
+              <h2 className="mt-4 font-display text-2xl font-semibold">{t('subject_none')}</h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                Voeg je eerste vak toe om te beginnen.
+                {t('subject_empty_hint')}
               </p>
               <Button className="mt-6" onClick={() => setCreateOpen(true)}>
                 <Plus className="mr-2 h-4 w-4" />
-                Nieuw vak
+                {t('subject_new')}
               </Button>
             </div>
           ) : (
@@ -613,12 +614,12 @@ export default function VakkenIndex() {
               onClick={() => setShowAll(true)}
               className="mt-8 w-full rounded-lg border border-border px-5 py-3 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground"
             >
-              Alle vakken tonen
+              {t('subject_show_all')}
             </button>
           )}
           {hidden.length > 0 && (
             <div className="mt-12 border-t border-border pt-8">
-              <h3 className="text-sm font-semibold text-muted-foreground mb-4">Verborgen vakken</h3>
+              <h3 className="text-sm font-semibold text-muted-foreground mb-4">{t('subject_hidden')}</h3>
               <div className="grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-3" style={{ gridAutoRows: '1fr' }}>
                 {subjects.filter((subject) => hidden.includes(subject.name)).map((subject) => (
                   <SubjectTile
@@ -637,7 +638,7 @@ export default function VakkenIndex() {
                   onClick={() => setHidden([])}
                   className="mt-4 text-sm text-muted-foreground hover:text-foreground"
                 >
-                  Alle verborgen vakken herstellen
+                  {t('subject_unhide_all')}
                 </button>
               )}
             </div>
@@ -648,7 +649,7 @@ export default function VakkenIndex() {
             <div className="mt-12 border-t border-border pt-8">
               <div className="flex items-center gap-2 mb-4">
                 <Lock className="h-4 w-4 text-muted-foreground" />
-                <h3 className="text-sm font-semibold text-muted-foreground">Speciale vakken</h3>
+                <h3 className="text-sm font-semibold text-muted-foreground">{t('subject_special')}</h3>
               </div>
               <div className="grid gap-px overflow-hidden rounded-lg border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-3" style={{ gridAutoRows: '1fr' }}>
                 {secretSubjects.map((subject) => (
@@ -662,7 +663,7 @@ export default function VakkenIndex() {
                       <h2 className="font-display text-lg font-semibold">{subject.name}</h2>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      {subject.description || 'Speciaal vak met extra content'}
+                      {subject.description || t('subject_special_default_desc')}
                     </p>
                   </Link>
                 ))}
@@ -687,43 +688,43 @@ export default function VakkenIndex() {
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
         <DialogContent aria-describedby={undefined}>
           <DialogHeader>
-            <DialogTitle>Nieuw vak toevoegen</DialogTitle>
+            <DialogTitle>{t('subject_add_title')}</DialogTitle>
           </DialogHeader>
           <form onSubmit={createSubject} className="space-y-4">
             <div>
-              <Label htmlFor="subject-name">Vaknaam of geheime code *</Label>
+              <Label htmlFor="subject-name">{t('subject_name_or_code')} *</Label>
               <Input
                 id="subject-name"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
-                placeholder="bijv. Wiskunde B"
+                placeholder={t('subject_name_placeholder')}
                 disabled={verifyingCode}
               />
               <p className="text-xs text-muted-foreground mt-1">
-                Voer een vaknaam in om een nieuw vak te maken, of voer een geheime code in om toegang te vragen tot een speciaal vak.
+                {t('subject_name_or_code_hint')}
               </p>
             </div>
             <div>
-              <Label htmlFor="subject-teacher">Docent</Label>
+              <Label htmlFor="subject-teacher">{t('subject_teacher_label')}</Label>
               <Input
                 id="subject-teacher"
                 value={form.teacher}
                 onChange={(e) => setForm({ ...form, teacher: e.target.value })}
-                placeholder="Naam van docent"
+                placeholder={t('subject_teacher_placeholder')}
               />
             </div>
             <div>
-              <Label htmlFor="subject-description">Beschrijving</Label>
+              <Label htmlFor="subject-description">{t('subject_desc_label')}</Label>
               <Input
                 id="subject-description"
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
-                placeholder="Optionele beschrijving"
+                placeholder={t('subject_desc_placeholder')}
               />
             </div>
             <Button type="submit" disabled={saving || verifyingCode} className="w-full">
-              {verifyingCode ? 'Controleren...' : saving ? 'Opslaan...' : 'Vak toevoegen'}
+              {verifyingCode ? t('subject_verifying') : saving ? t('subject_saving') : t('subject_add_submit')}
             </Button>
           </form>
         </DialogContent>

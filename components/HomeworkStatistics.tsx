@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { CheckCircle2, Clock, TrendingUp, TrendingDown, Calendar, BookOpen } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface HomeworkStats {
   totalHomework: number;
@@ -39,6 +40,7 @@ interface HomeworkStatisticsProps {
 }
 
 export function HomeworkStatistics({ userId: _userId, testWeekId }: HomeworkStatisticsProps) {
+  const { t } = useTranslation();
   const [stats, setStats] = useState<HomeworkStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<'week' | 'month' | 'all'>('week');
@@ -76,10 +78,10 @@ export function HomeworkStatistics({ userId: _userId, testWeekId }: HomeworkStat
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Huiswerk Statistieken</CardTitle>
+          <CardTitle>{t('shell_homework_stats')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -89,10 +91,10 @@ export function HomeworkStatistics({ userId: _userId, testWeekId }: HomeworkStat
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Huiswerk Statistieken</CardTitle>
+          <CardTitle>{t('shell_homework_stats')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Geen statistieken beschikbaar</div>
+          <div className="text-center text-muted-foreground">{t('shell_no_stats')}</div>
         </CardContent>
       </Card>
     );
@@ -107,7 +109,7 @@ export function HomeworkStatistics({ userId: _userId, testWeekId }: HomeworkStat
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Huiswerk Statistieken</h2>
+        <h2 className="text-2xl font-bold">{t('shell_homework_stats')}</h2>
         <Select
           value={timeRange}
           onValueChange={(value: 'week' | 'month' | 'all') => setTimeRange(value)}
@@ -116,9 +118,9 @@ export function HomeworkStatistics({ userId: _userId, testWeekId }: HomeworkStat
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="week">Deze Week</SelectItem>
-            <SelectItem value="month">Deze Maand</SelectItem>
-            <SelectItem value="all">Alles</SelectItem>
+            <SelectItem value="week">{t('shell_this_week')}</SelectItem>
+            <SelectItem value="month">{t('shell_this_month')}</SelectItem>
+            <SelectItem value="all">{t('shell_all')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -126,18 +128,18 @@ export function HomeworkStatistics({ userId: _userId, testWeekId }: HomeworkStat
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Totaal</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_total')}</CardTitle>
             <BookOpen className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.totalHomework}</div>
-            <p className="text-xs text-muted-foreground">huiswerkopdrachten</p>
+            <p className="text-xs text-muted-foreground">{t('shell_homework_assignments')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Voltooid</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_completed')}</CardTitle>
             <CheckCircle2 className="w-4 h-4 text-green-500" />
           </CardHeader>
           <CardContent>
@@ -150,23 +152,23 @@ export function HomeworkStatistics({ userId: _userId, testWeekId }: HomeworkStat
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Openstaand</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_outstanding')}</CardTitle>
             <Clock className="w-4 h-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.pendingHomework}</div>
-            <p className="text-xs text-muted-foreground">nog te doen</p>
+            <p className="text-xs text-muted-foreground">{t('shell_todo')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Overtijd</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_overdue')}</CardTitle>
             <Calendar className="w-4 h-4 text-red-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.overdueHomework}</div>
-            <p className="text-xs text-muted-foreground">deadline gemist</p>
+            <p className="text-xs text-muted-foreground">{t('shell_deadline_missed')}</p>
           </CardContent>
         </Card>
       </div>
@@ -174,12 +176,12 @@ export function HomeworkStatistics({ userId: _userId, testWeekId }: HomeworkStat
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Voltooiingspercentage</CardTitle>
+            <CardTitle>{t('shell_completion_rate')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium">Algemeen</span>
+                <span className="text-sm font-medium">{t('shell_general')}</span>
                 <span className="text-sm font-bold">{stats.completionRate}%</span>
               </div>
               <Progress value={stats.completionRate} className="h-2" />
@@ -202,7 +204,7 @@ export function HomeworkStatistics({ userId: _userId, testWeekId }: HomeworkStat
 
         <Card>
           <CardHeader>
-            <CardTitle>Wekelijkse Trend</CardTitle>
+            <CardTitle>{t('shell_weekly_trend')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -242,7 +244,7 @@ export function HomeworkStatistics({ userId: _userId, testWeekId }: HomeworkStat
 
       <Card>
         <CardHeader>
-          <CardTitle>Gemiddelde Voltooiingstijd</CardTitle>
+          <CardTitle>{t('shell_avg_completion_time')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-4xl font-bold">

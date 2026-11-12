@@ -12,12 +12,14 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Download, FileText, BarChart3, Calendar, TrendingUp } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface ExportableReportsProps {
   userId: string;
 }
 
 export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
+  const { t } = useTranslation();
   const [reportType, setReportType] = useState<
     'analytics' | 'progress' | 'achievements' | 'homework'
   >('analytics');
@@ -58,10 +60,10 @@ export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
 
   const reportDescriptions = {
     analytics:
-      'Volledige overzicht van je studie statistieken, inclusief tijd besteed, kaarten bestudeerd, en prestaties',
-    progress: 'Gedetailleerde voortgangsrapport per vak en onderwerp',
-    achievements: 'Overzicht van alle behaalde prestaties en mijlpalen',
-    homework: 'Huiswerk statistieken en voltooiingspercentages',
+      t('shell_report_desc_analytics'),
+    progress: t('shell_report_desc_progress'),
+    achievements: t('shell_report_desc_achievements'),
+    homework: t('shell_report_desc_homework'),
   };
 
   return (
@@ -75,7 +77,7 @@ export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
       <CardContent className="space-y-6">
         <div className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Rapport Type</label>
+            <label className="text-sm font-medium">{t('shell_report_type')}</label>
             <Select
               value={reportType}
               onValueChange={(value: 'analytics' | 'progress' | 'achievements' | 'homework') =>
@@ -95,19 +97,19 @@ export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
                 <SelectItem value="progress">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="w-4 h-4" />
-                    <span>Voortgang</span>
+                    <span>{t('shell_progress')}</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="achievements">
                   <div className="flex items-center gap-2">
                     <FileText className="w-4 h-4" />
-                    <span>Prestaties</span>
+                    <span>{t('shell_achievements')}</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="homework">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
-                    <span>Huiswerk</span>
+                    <span>{t('shell_homework')}</span>
                   </div>
                 </SelectItem>
               </SelectContent>
@@ -116,7 +118,7 @@ export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Tijdperiode</label>
+            <label className="text-sm font-medium">{t('shell_time_period')}</label>
             <Select
               value={timeRange}
               onValueChange={(value: 'week' | 'month' | 'all') => setTimeRange(value)}
@@ -125,15 +127,15 @@ export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="week">Deze Week</SelectItem>
-                <SelectItem value="month">Deze Maand</SelectItem>
-                <SelectItem value="all">Alles</SelectItem>
+                <SelectItem value="week">{t('shell_this_week')}</SelectItem>
+                <SelectItem value="month">{t('shell_this_month')}</SelectItem>
+                <SelectItem value="all">{t('shell_all')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Formaat</label>
+            <label className="text-sm font-medium">{t('shell_format')}</label>
             <Select
               value={format}
               onValueChange={(value: 'pdf' | 'csv' | 'json') => setFormat(value)}
@@ -142,9 +144,9 @@ export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="pdf">PDF (Leesbaar)</SelectItem>
-                <SelectItem value="csv">CSV (Data)</SelectItem>
-                <SelectItem value="json">JSON (API)</SelectItem>
+                <SelectItem value="pdf">{t('shell_pdf_readable')}</SelectItem>
+                <SelectItem value="csv">{t('shell_csv_data')}</SelectItem>
+                <SelectItem value="json">{t('shell_json_api')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -165,7 +167,7 @@ export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
         </Button>
 
         <div className="p-4 rounded-lg bg-muted/50 space-y-3">
-          <h4 className="font-semibold text-sm">Beschikbare Rapporten</h4>
+          <h4 className="font-semibold text-sm">{t('shell_available_reports')}</h4>
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-2">
@@ -177,21 +179,21 @@ export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-muted-foreground" />
-                <span>Voortgang</span>
+                <span>{t('shell_progress')}</span>
               </div>
               <Badge variant="outline">PDF, CSV, JSON</Badge>
             </div>
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-2">
                 <FileText className="w-4 h-4 text-muted-foreground" />
-                <span>Prestaties</span>
+                <span>{t('shell_achievements')}</span>
               </div>
               <Badge variant="outline">PDF, CSV, JSON</Badge>
             </div>
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-muted-foreground" />
-                <span>Huiswerk</span>
+                <span>{t('shell_homework')}</span>
               </div>
               <Badge variant="outline">PDF, CSV, JSON</Badge>
             </div>
@@ -199,11 +201,11 @@ export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
         </div>
 
         <div className="p-4 rounded-lg border">
-          <h4 className="font-semibold text-sm mb-2">Tips</h4>
+          <h4 className="font-semibold text-sm mb-2">{t('shell_tips')}</h4>
           <ul className="text-xs text-muted-foreground space-y-1">
-            <li>• PDF is ideaal voor afdrukken en delen met leraren</li>
-            <li>• CSV is handig voor data-analyse in spreadsheets</li>
-            <li>• JSON is perfect voor integratie met andere applicaties</li>
+            <li>• {t('shell_tip_pdf')}</li>
+            <li>• {t('shell_tip_csv')}</li>
+            <li>• {t('shell_tip_json')}</li>
           </ul>
         </div>
       </CardContent>

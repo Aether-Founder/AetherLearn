@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Lightbulb, RotateCcw, CheckCircle, XCircle } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface QuizQuestion {
   id: number;
@@ -22,6 +23,7 @@ interface QuizModeProps {
 }
 
 export function QuizMode({ quiz }: QuizModeProps) {
+  const { t } = useTranslation();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<Map<number, string>>(new Map());
   const [showHint, setShowHint] = useState(false);
@@ -33,7 +35,7 @@ export function QuizMode({ quiz }: QuizModeProps) {
   if (!quiz || !quiz.questions || quiz.questions.length === 0) {
     return (
       <div className="max-w-3xl mx-auto py-12 text-center">
-        <p className="text-muted-foreground">Geen quiz beschikbaar.</p>
+        <p className="text-muted-foreground">{t('shell_no_quiz')}</p>
       </div>
     );
   }
@@ -101,12 +103,12 @@ export function QuizMode({ quiz }: QuizModeProps) {
             <div className="text-center">
               <p className="text-6xl font-bold text-foreground mb-2">{percentage}%</p>
               <p className="text-muted-foreground">
-                {score} van {total} vragen correct
+                {t('shell_quiz_score', undefined, { score, total })}
               </p>
             </div>
           </div>
 
-          <h2 className="text-2xl font-semibold text-foreground mb-4">Resultaten</h2>
+          <h2 className="text-2xl font-semibold text-foreground mb-4">{t('shell_results')}</h2>
           <div className="space-y-4">
             {quiz.questions.map((question, index) => {
               const userAnswer = userAnswers.get(question.id);
@@ -133,11 +135,11 @@ export function QuizMode({ quiz }: QuizModeProps) {
                       </p>
                       <div className="space-y-1 text-sm">
                         <p className="text-muted-foreground">
-                          Jouw antwoord: {userAnswer || 'Geen antwoord'}
+                          {t('shell_your_answer')} {userAnswer || t('shell_no_answer')}
                         </p>
                         {!isCorrect && (
                           <p className="text-green-600 dark:text-green-400">
-                            Correct antwoord: {question.answer}
+                            {t('shell_correct_answer')}: {question.answer}
                           </p>
                         )}
                         {question.rationale && (
@@ -156,7 +158,7 @@ export function QuizMode({ quiz }: QuizModeProps) {
             className="mt-8 flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
           >
             <RotateCcw className="w-4 h-4" />
-            Opnieuw starten
+            {t('shell_restart_quiz')}
           </button>
         </div>
       </div>
@@ -169,7 +171,7 @@ export function QuizMode({ quiz }: QuizModeProps) {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-foreground">{quiz.title}</h1>
           <p className="text-muted-foreground">
-            Vraag {currentQuestionIndex + 1} van {quiz.questions.length}
+            {t('shell_question_of', undefined, { current: currentQuestionIndex + 1, total: quiz.questions.length })}
           </p>
         </div>
 
@@ -218,7 +220,7 @@ export function QuizMode({ quiz }: QuizModeProps) {
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-2"
             >
               <Lightbulb className="w-4 h-4" />
-              {showHint ? 'Hint verbergen' : 'Hint tonen'}
+              {showHint ? t('shell_hide_hint') : t('shell_show_hint')}
             </button>
             {showHint && (
               <div className="bg-secondary/50 border border-border rounded-lg p-4 text-sm text-foreground">
@@ -230,7 +232,7 @@ export function QuizMode({ quiz }: QuizModeProps) {
 
         <div className="flex justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            Voortgang: {Math.round(((currentQuestionIndex + 1) / quiz.questions.length) * 100)}%
+            {t('shell_progress_pct', undefined, { percent: Math.round(((currentQuestionIndex + 1) / quiz.questions.length) * 100) })}
           </p>
         </div>
       </div>

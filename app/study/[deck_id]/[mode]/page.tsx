@@ -108,7 +108,7 @@ export default function StudyModePage() {
   const askForTerm = learnTerm && (!learnDefinition || Math.random() < 0.5);
   const question = askForTerm ? card.definition : card.term;
   const correctAnswer = askForTerm ? card.term : card.definition;
-  const questionType = askForTerm ? 'Wat is de term?' : 'Wat is de definitie?';
+  const questionType = askForTerm ? t('study_ask_term') : t('study_ask_definition');
 
   // Calculate Dutch grade (1-10)
   const calculateDutchGrade = (correct: number, total: number): number => {
@@ -192,7 +192,8 @@ export default function StudyModePage() {
 
   // MCQ mode: generate real distractors from other cards
   const getMCQOptions = () => {
-    if (!card || cards.length < 4) return ['Optie 1', 'Optie 2', 'Optie 3'];
+    if (!card || cards.length < 4)
+      return [1, 2, 3].map((n) => t('study_option', undefined, { n }));
 
     const otherCards = cards.filter((c, i) => i !== index);
     const shuffled = [...otherCards].sort(() => Math.random() - 0.5);
@@ -219,7 +220,11 @@ export default function StudyModePage() {
   const handleWriteSubmit = () => {
     const correct = userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase();
     setWriteCorrect(correct);
-    setWriteFeedback(correct ? 'Correct!' : `Niet correct. Het juiste antwoord is: ${correctAnswer}`);
+    setWriteFeedback(
+      correct
+        ? t('study_answer_correct')
+        : t('study_incorrect_answer', undefined, { answer: correctAnswer })
+    );
     if (correct) {
       setCorrectCount((prev) => prev + 1);
     } else {
@@ -285,11 +290,11 @@ export default function StudyModePage() {
 
   const modeTitles: Record<string, string> = {
     flashcards: 'Flashcards',
-    mcq: 'Meerkeuze',
-    write: 'Schrijven',
-    test: 'Toets',
+    mcq: t('study_mode_mcq'),
+    write: t('study_mode_write'),
+    test: t('study_mode_test'),
   };
-  const modeTitle = modeTitles[mode] || 'Studeren';
+  const modeTitle = modeTitles[mode] || t('study_mode_default');
 
   return (
     <AppShell>
@@ -300,7 +305,7 @@ export default function StudyModePage() {
             onClick={() => router.push('/study-sets')}
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
-            <ArrowLeft className="h-4 w-4" /> Terug naar sets
+            <ArrowLeft className="h-4 w-4" /> {t('study_back_to_sets')}
           </button>
           <span className="text-xs text-muted-foreground">
             {title} • {modeTitle}
@@ -329,7 +334,7 @@ export default function StudyModePage() {
         {/* Settings Panel */}
         {showSettings && (
           <div className="mt-4 p-4 rounded-lg border border-border bg-card">
-            <h3 className="font-medium mb-3">Instellingen</h3>
+            <h3 className="font-medium mb-3">{t('study_settings')}</h3>
             <div className="space-y-2">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
@@ -341,7 +346,7 @@ export default function StudyModePage() {
                   }}
                   className="rounded"
                 />
-                <span className="text-sm">Leer termen</span>
+                <span className="text-sm">{t('study_learn_terms')}</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
@@ -353,7 +358,7 @@ export default function StudyModePage() {
                   }}
                   className="rounded"
                 />
-                <span className="text-sm">Leer definities</span>
+                <span className="text-sm">{t('study_learn_definitions')}</span>
               </label>
             </div>
           </div>
@@ -386,7 +391,7 @@ export default function StudyModePage() {
                 <p className="text-2xl font-semibold text-rose-600">{incorrectCount}</p>
               </div>
               <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
-                <p className="text-sm text-muted-foreground">Cijfer</p>
+                <p className="text-sm text-muted-foreground">{t('study_grade')}</p>
                 <p className="text-2xl font-semibold text-blue-600">
                   {calculateDutchGrade(correctCount, cards.length)}/10
                 </p>
@@ -397,7 +402,9 @@ export default function StudyModePage() {
               <div className="mt-4 flex items-center justify-center gap-2 text-sm text-muted-foreground">
                 <Clock className="h-4 w-4" />
                 <span>
-                  Duur: {formatDuration(sessionEndTime.getTime() - sessionStartTime.getTime())}
+                  {t('study_duration', undefined, {
+                    time: formatDuration(sessionEndTime.getTime() - sessionStartTime.getTime()),
+                  })}
                 </span>
               </div>
             )}
@@ -411,7 +418,7 @@ export default function StudyModePage() {
                 <div className="flex items-center gap-2 text-orange-500">
                   <Flame className="h-5 w-5" />
                   <span className="font-semibold">
-                    {gamificationState.currentStreak} dag streak
+                    {t('study_streak_days', undefined, { n: gamificationState.currentStreak })}
                   </span>
                 </div>
               </div>
@@ -479,7 +486,7 @@ export default function StudyModePage() {
             {mode === 'mcq' && (
               <div className="mt-10 rounded-2xl border border-border bg-card p-10 text-center shadow-sm">
                 <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                  Meerkeuze
+                  {t('study_mode_mcq')}
                 </span>
                 <p className="mt-2 text-sm text-muted-foreground">{questionType}</p>
                 <h2 className="mx-auto mt-6 font-display text-3xl font-semibold leading-tight">
@@ -514,8 +521,8 @@ export default function StudyModePage() {
                     className={`mt-6 p-4 rounded-lg ${isCorrect ? 'bg-emerald-500/10 text-emerald-700' : 'bg-rose-500/10 text-rose-700'}`}
                   >
                     {isCorrect
-                      ? 'Correct!'
-                      : `Niet correct. Het juiste antwoord is: ${correctAnswer}`}
+                      ? t('study_answer_correct')
+                      : t('study_incorrect_answer', undefined, { answer: correctAnswer })}
                   </div>
                 )}
                 <button
@@ -523,7 +530,7 @@ export default function StudyModePage() {
                   disabled={!showFeedback}
                   className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
                 >
-                  Volgende
+                  {t('next')}
                 </button>
               </div>
             )}
@@ -531,7 +538,7 @@ export default function StudyModePage() {
             {mode === 'write' && (
               <div className="mt-10 rounded-2xl border border-border bg-card p-10 text-center shadow-sm">
                 <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                  Typ je antwoord
+                  {t('study_write_prompt')}
                 </span>
                 <p className="mt-2 text-sm text-muted-foreground">{questionType}</p>
                 <h2 className="mx-auto mt-6 font-display text-3xl font-semibold leading-tight">
@@ -541,7 +548,7 @@ export default function StudyModePage() {
                   value={userAnswer}
                   onChange={(e) => setUserAnswer(e.target.value)}
                   className="mt-8 w-full max-w-md mx-auto p-4 rounded-lg border border-border bg-background min-h-[100px]"
-                  placeholder="Typ je antwoord hier..."
+                  placeholder={t('study_answer_placeholder')}
                 />
                 {writeFeedback && (
                   <div
@@ -554,7 +561,7 @@ export default function StudyModePage() {
                   onClick={writeFeedback ? handleNext : handleWriteSubmit}
                   className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
                 >
-                  {writeFeedback ? 'Volgende' : 'Controleer'}
+                  {writeFeedback ? t('next') : t('study_check')}
                 </button>
               </div>
             )}
@@ -565,7 +572,7 @@ export default function StudyModePage() {
                   <>
                     <div className="rounded-2xl border border-border bg-card p-10 text-center shadow-sm">
                       <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                        Toets modus - Beantwoord alle vragen
+                        {t('study_test_mode_header')}
                       </span>
                       <p className="mt-2 text-sm text-muted-foreground">{questionType}</p>
                       <h2 className="mx-auto mt-6 font-display text-3xl font-semibold leading-tight">
@@ -577,7 +584,7 @@ export default function StudyModePage() {
                           setTestAnswers({ ...testAnswers, [card.id]: e.target.value })
                         }
                         className="mt-8 w-full max-w-md mx-auto p-4 rounded-lg border border-border bg-background min-h-[100px]"
-                        placeholder="Typ je antwoord hier..."
+                        placeholder={t('study_answer_placeholder')}
                       />
                     </div>
                     <div className="mt-8 flex justify-between">
@@ -586,28 +593,28 @@ export default function StudyModePage() {
                         disabled={index === 0}
                         className="inline-flex items-center gap-2 rounded-md border border-border px-6 py-2 text-sm font-medium hover:bg-secondary disabled:opacity-50"
                       >
-                        Vorige
+                        {t('previous')}
                       </button>
                       {index === cards.length - 1 ? (
                         <button
                           onClick={handleTestSubmit}
                           className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
                         >
-                          Inleveren
+                          {t('study_submit')}
                         </button>
                       ) : (
                         <button
                           onClick={handleNext}
                           className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
                         >
-                          Volgende
+                          {t('next')}
                         </button>
                       )}
                     </div>
                   </>
                 ) : (
                   <div className="rounded-2xl border border-border bg-card p-10">
-                    <h2 className="font-display text-2xl font-semibold">Test Resultaten</h2>
+                    <h2 className="font-display text-2xl font-semibold">{t('study_test_results')}</h2>
                     <div className="mt-6 space-y-4">
                       {cards.map((c, i) => {
                         const result = testResults[c.id];
@@ -621,10 +628,12 @@ export default function StudyModePage() {
                               {i + 1}. {c.term}
                             </p>
                             <p className="mt-2 text-sm text-muted-foreground">
-                              Jouw antwoord: {answer || '(geen antwoord)'}
+                              {t('study_your_answer_label')}{' '}
+                              {answer || t('study_no_answer')}
                             </p>
                             <p className="mt-1 text-sm text-muted-foreground">
-                              Juiste antwoord: {c.definition}
+                              {t('study_correct_answer_label')}{' '}
+                              {c.definition}
                             </p>
                           </div>
                         );
@@ -638,7 +647,7 @@ export default function StudyModePage() {
                       }}
                       className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
                     >
-                      Afronden
+                      {t('study_finish')}
                     </button>
                   </div>
                 )}

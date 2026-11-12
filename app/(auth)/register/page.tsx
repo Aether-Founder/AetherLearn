@@ -66,7 +66,7 @@ export default function RegisterPage() {
     setLoading(true);
 
     if (!formData.name.trim()) {
-      setError('Naam is verplicht');
+      setError(t('error_name_required'));
       setLoading(false);
       return;
     }
@@ -161,7 +161,7 @@ export default function RegisterPage() {
 
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-foreground">
-                Naam <span className="text-foreground">*</span>
+                {t('auth_name')} <span className="text-foreground">*</span>
               </label>
               <input
                 id="name"
@@ -172,7 +172,7 @@ export default function RegisterPage() {
                 required
                 autoComplete="name"
                 className="mt-1 block w-full rounded-md border border-border bg-background px-3 py-2 text-foreground shadow-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                placeholder="Je naam"
+                placeholder={t('auth_name_placeholder')}
               />
             </div>
 

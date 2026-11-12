@@ -5,6 +5,7 @@ import type { FormEvent } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { CheckCircle2, Clock3, Filter, Plus, Trash2, X } from 'lucide-react';
 import { logActivity } from '@/lib/activity';
+import { useTranslation } from '@/lib/useTranslation';
 
 type FoutStatus = 'nieuw' | 'leren' | 'herhalen' | 'beheerst';
 
@@ -41,10 +42,10 @@ const STORAGE_KEY = 'aether_foutenlogboek';
 const STATUS_OPTIONS: FoutStatus[] = ['leren', 'herhalen', 'beheerst'];
 
 const STATUS_LABELS: Record<FoutStatus, string> = {
-  nieuw: 'Nieuw',
-  leren: 'Leren',
-  herhalen: 'Herhalen',
-  beheerst: 'Beheerst',
+  nieuw: 'errlog_status_new',
+  leren: 'errlog_status_learn',
+  herhalen: 'errlog_status_repeat',
+  beheerst: 'errlog_status_mastered',
 };
 
 const STATUS_STYLES: Record<FoutStatus, string> = {
@@ -57,11 +58,11 @@ const STATUS_STYLES: Record<FoutStatus, string> = {
 };
 
 const FILTERS: Array<{ id: 'all' | FoutStatus; label: string }> = [
-  { id: 'all', label: 'Alles' },
-  { id: 'nieuw', label: 'Nieuw' },
-  { id: 'leren', label: 'Leren' },
-  { id: 'herhalen', label: 'Herhalen' },
-  { id: 'beheerst', label: 'Beheerst' },
+  { id: 'all', label: 'errlog_filter_all' },
+  { id: 'nieuw', label: 'errlog_status_new' },
+  { id: 'leren', label: 'errlog_status_learn' },
+  { id: 'herhalen', label: 'errlog_status_repeat' },
+  { id: 'beheerst', label: 'errlog_status_mastered' },
 ];
 
 const inputClass =
@@ -159,6 +160,7 @@ const emptyForm: ErrorFormState = {
 };
 
 export default function FoutenlogboekPage() {
+  const { t } = useTranslation();
   const [entries, setEntries] = useState<ErrorEntry[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [filter, setFilter] = useState<'all' | FoutStatus>('all');
@@ -199,7 +201,7 @@ export default function FoutenlogboekPage() {
     const onderwerp = form.onderwerp.trim();
 
     if (!vraag && !onderwerp) {
-      setFormError('Vul minimaal een vraag of onderwerp in.');
+      setFormError(t('errlog_error_required'));
       return;
     }
 
@@ -224,7 +226,7 @@ export default function FoutenlogboekPage() {
     setEntries((previous) => [entry, ...previous]);
     logActivity({
       type: 'foutenlogboek_nieuw',
-      label: entry.vraag || entry.onderwerp || 'Nieuwe fout',
+      label: entry.vraag || entry.onderwerp || t('errlog_new_error_label'),
     });
     closeModal();
   };
@@ -246,7 +248,7 @@ export default function FoutenlogboekPage() {
 
     logActivity({
       type: `foutenlogboek_${status}`,
-      label: entry?.vraag || entry?.onderwerp || 'Foutstatus aangepast',
+      label: entry?.vraag || entry?.onderwerp || t('errlog_status_updated_label'),
     });
   };
 
@@ -257,12 +259,12 @@ export default function FoutenlogboekPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Foutenlogboek"
-        description="Registreer fouten en markeer ze als leren, herhalen of beheerst."
+        title={t('errlog_title')}
+        description={t('errlog_description')}
         action={
           <button type="button" onClick={openCreate} className={primaryButtonClass}>
             <Plus className="mr-2 h-4 w-4" />
-            Nieuwe fout
+            {t('errlog_new')}
           </button>
         }
       />
@@ -282,7 +284,7 @@ export default function FoutenlogboekPage() {
                   : 'border-border bg-background text-muted-foreground hover:bg-secondary'
               }`}
             >
-              {item.label}
+              {t(item.label)}
             </button>
           ))}
         </div>
@@ -299,13 +301,13 @@ export default function FoutenlogboekPage() {
         ) : filteredEntries.length === 0 ? (
           <section className="rounded-xl border border-dashed border-border bg-card/40 p-10 text-center">
             <CheckCircle2 className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
-            <h2 className="font-display text-2xl font-semibold">Geen fouten gevonden</h2>
+            <h2 className="font-display text-2xl font-semibold">{t('errlog_empty')}</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Voeg een fout toe om te starten met analyseren en herhalen.
+              {t('errlog_empty_desc')}
             </p>
             <button type="button" onClick={openCreate} className={`${primaryButtonClass} mt-6`}>
               <Plus className="mr-2 h-4 w-4" />
-              Nieuwe fout
+              {t('errlog_new')}
             </button>
           </section>
         ) : (
@@ -337,7 +339,7 @@ export default function FoutenlogboekPage() {
                       )}
 
                       <span className={`rounded-full border px-2.5 py-1 font-medium ${STATUS_STYLES[entry.status]}`}>
-                        {STATUS_LABELS[entry.status]}
+                        {t(STATUS_LABELS[entry.status])}
                       </span>
                     </div>
 
@@ -347,27 +349,27 @@ export default function FoutenlogboekPage() {
 
                     {entry.mijn_antwoord && (
                       <p className="text-sm text-muted-foreground">
-                        <span className="font-medium text-foreground">Mijn antwoord:</span>{' '}
+                        <span className="font-medium text-foreground">{t('errlog_my_answer')}</span>{' '}
                         {entry.mijn_antwoord}
                       </p>
                     )}
 
                     {entry.correct_antwoord && (
                       <p className="text-sm text-muted-foreground">
-                        <span className="font-medium text-foreground">Correct antwoord:</span>{' '}
+                        <span className="font-medium text-foreground">{t('errlog_correct_answer')}</span>{' '}
                         {entry.correct_antwoord}
                       </p>
                     )}
 
                     {entry.oorzaak && (
                       <p className="text-sm text-muted-foreground">
-                        <span className="font-medium text-foreground">Oorzaak:</span> {entry.oorzaak}
+                        <span className="font-medium text-foreground">{t('errlog_cause')}</span> {entry.oorzaak}
                       </p>
                     )}
 
                     {entry.nieuwe_regel && (
                       <p className="text-sm text-muted-foreground">
-                        <span className="font-medium text-foreground">Nieuwe regel:</span>{' '}
+                        <span className="font-medium text-foreground">{t('errlog_new_rule')}</span>{' '}
                         {entry.nieuwe_regel}
                       </p>
                     )}
@@ -386,7 +388,7 @@ export default function FoutenlogboekPage() {
                               : 'border-border bg-background text-muted-foreground hover:bg-secondary'
                           }`}
                         >
-                          {STATUS_LABELS[status]}
+                          {t(STATUS_LABELS[status])}
                         </button>
                       ))}
                     </div>
@@ -406,7 +408,7 @@ export default function FoutenlogboekPage() {
                         className="inline-flex items-center gap-1 rounded-md px-2 py-1 transition-colors hover:bg-secondary hover:text-destructive"
                       >
                         <Trash2 className="h-3.5 w-3.5" />
-                        Verwijderen
+                        {t('delete')}
                       </button>
                     </div>
                   </div>
@@ -427,7 +429,7 @@ export default function FoutenlogboekPage() {
 
           <div className="relative z-10 max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-xl border border-border bg-background p-6 shadow-xl">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="font-display text-2xl font-semibold">Nieuwe fout</h2>
+              <h2 className="font-display text-2xl font-semibold">{t('errlog_new_title')}</h2>
 
               <button
                 type="button"
@@ -448,81 +450,81 @@ export default function FoutenlogboekPage() {
               <div className="grid gap-4 sm:grid-cols-3">
                 <div>
                   <label htmlFor="fout-vak" className="mb-1 block text-sm font-medium">
-                    Vak
+                    {t('errlog_field_subject')}
                   </label>
                   <input
                     id="fout-vak"
                     value={form.vak}
                     onChange={(event) => setForm({ ...form, vak: event.target.value })}
                     className={inputClass}
-                    placeholder="Bijv. Wiskunde"
+                    placeholder={t('errlog_subject_placeholder')}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="fout-hoofdstuk" className="mb-1 block text-sm font-medium">
-                    Hoofdstuk
+                    {t('errlog_field_chapter')}
                   </label>
                   <input
                     id="fout-hoofdstuk"
                     value={form.hoofdstuk}
                     onChange={(event) => setForm({ ...form, hoofdstuk: event.target.value })}
                     className={inputClass}
-                    placeholder="Bijv. H4"
+                    placeholder={t('errlog_chapter_placeholder')}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="fout-onderwerp" className="mb-1 block text-sm font-medium">
-                    Onderwerp
+                    {t('errlog_field_topic')}
                   </label>
                   <input
                     id="fout-onderwerp"
                     value={form.onderwerp}
                     onChange={(event) => setForm({ ...form, onderwerp: event.target.value })}
                     className={inputClass}
-                    placeholder="Bijv. Breuken"
+                    placeholder={t('errlog_topic_placeholder')}
                   />
                 </div>
               </div>
 
               <div>
                 <label htmlFor="fout-vraag" className="mb-1 block text-sm font-medium">
-                  Vraag of opgave
+                  {t('errlog_field_question')}
                 </label>
                 <textarea
                   id="fout-vraag"
                   value={form.vraag}
                   onChange={(event) => setForm({ ...form, vraag: event.target.value })}
                   className={textareaClass}
-                  placeholder="De vraag of opgave waar je de fout maakte..."
+                  placeholder={t('errlog_question_placeholder')}
                 />
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="fout-mijn-antwoord" className="mb-1 block text-sm font-medium">
-                    Mijn antwoord
+                    {t('errlog_field_my_answer')}
                   </label>
                   <textarea
                     id="fout-mijn-antwoord"
                     value={form.mijn_antwoord}
                     onChange={(event) => setForm({ ...form, mijn_antwoord: event.target.value })}
                     className={textareaClass}
-                    placeholder="Wat had jij ingevuld?"
+                    placeholder={t('errlog_my_answer_placeholder')}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="fout-correct-antwoord" className="mb-1 block text-sm font-medium">
-                    Correct antwoord
+                    {t('errlog_field_correct_answer')}
                   </label>
                   <textarea
                     id="fout-correct-antwoord"
                     value={form.correct_antwoord}
                     onChange={(event) => setForm({ ...form, correct_antwoord: event.target.value })}
                     className={textareaClass}
-                    placeholder="Wat is het juiste antwoord?"
+                    placeholder={t('errlog_correct_answer_placeholder')}
                   />
                 </div>
               </div>
@@ -530,51 +532,51 @@ export default function FoutenlogboekPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="fout-type" className="mb-1 block text-sm font-medium">
-                    Fouttype
+                    {t('errlog_field_type')}
                   </label>
                   <input
                     id="fout-type"
                     value={form.fouttype}
                     onChange={(event) => setForm({ ...form, fouttype: event.target.value })}
                     className={inputClass}
-                    placeholder="Bijv. rekenfout"
+                    placeholder={t('errlog_type_placeholder')}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="fout-oorzaak" className="mb-1 block text-sm font-medium">
-                    Oorzaak
+                    {t('errlog_field_cause')}
                   </label>
                   <input
                     id="fout-oorzaak"
                     value={form.oorzaak}
                     onChange={(event) => setForm({ ...form, oorzaak: event.target.value })}
                     className={inputClass}
-                    placeholder="Bijv. te snel gelezen"
+                    placeholder={t('errlog_cause_placeholder')}
                   />
                 </div>
               </div>
 
               <div>
                 <label htmlFor="fout-nieuwe-regel" className="mb-1 block text-sm font-medium">
-                  Nieuwe regel
+                  {t('errlog_field_new_rule')}
                 </label>
                 <textarea
                   id="fout-nieuwe-regel"
                   value={form.nieuwe_regel}
                   onChange={(event) => setForm({ ...form, nieuwe_regel: event.target.value })}
                   className={textareaClass}
-                  placeholder="Wat doe je de volgende keer anders?"
+                  placeholder={t('errlog_new_rule_placeholder')}
                 />
               </div>
 
               <div className="flex items-center justify-end gap-2 pt-2">
                 <button type="button" onClick={closeModal} className={outlineButtonClass}>
-                  Annuleren
+                  {t('cancel')}
                 </button>
 
                 <button type="submit" className={primaryButtonClass}>
-                  Fout registreren
+                  {t('errlog_submit')}
                 </button>
               </div>
             </form>

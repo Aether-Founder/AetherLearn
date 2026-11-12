@@ -93,7 +93,7 @@ export default function AdminLessonsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Weet je zeker dat je deze les wilt verwijderen?')) return;
+    if (!confirm(t('admin_delete_lesson_confirm'))) return;
 
     try {
       const { error } = await supabase.from('lessons').delete().eq('id', id);
@@ -129,7 +129,7 @@ export default function AdminLessonsPage() {
       await loadLessons();
     } catch (error) {
       console.error('Failed to save lesson:', error);
-      alert('Opslaan mislukt. Controleer of de content geldige JSON is.');
+      alert(t('admin_save_failed_json'));
     }
   };
 
@@ -140,24 +140,24 @@ export default function AdminLessonsPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Lessen Beheer"
-        description="Beheer lesinhoud en structuur"
+        title={t('admin_lessons_manage')}
+        description={t('admin_lessons_manage_desc')}
         action={
           <Button onClick={handleCreate}>
             <Plus className="mr-2 h-4 w-4" />
-            Nieuwe Les
+            {t('admin_new_lesson')}
           </Button>
         }
       />
 
       <div className="mt-10">
         {loading ? (
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         ) : lessons.length === 0 ? (
           <div className="rounded-lg border border-dashed border-border px-6 py-14 text-center">
-            <p className="font-display text-xl font-semibold">Geen lessen</p>
+            <p className="font-display text-xl font-semibold">{t('admin_no_lessons')}</p>
             <p className="mt-2 text-xs text-muted-foreground">
-              Maak je eerste les aan om te beginnen.
+              {t('admin_no_lessons_desc')}
             </p>
           </div>
         ) : (
@@ -169,9 +169,9 @@ export default function AdminLessonsPage() {
                     <h3 className="font-display text-lg font-semibold">{lesson.title}</h3>
                     <p className="mt-1 text-sm text-muted-foreground">{lesson.description}</p>
                     <div className="mt-2 flex gap-2 text-xs text-muted-foreground">
-                      <span>Vak: {lesson.subject}</span>
+                      <span>{t('admin_subject')}: {lesson.subject}</span>
                       <span>•</span>
-                      <span>Hoofdstuk: {lesson.chapter}</span>
+                      <span>{t('admin_chapter')}: {lesson.chapter}</span>
                     </div>
                   </div>
                   <div className="flex gap-2">
@@ -192,41 +192,41 @@ export default function AdminLessonsPage() {
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{editingLesson ? 'Les Bewerken' : 'Nieuwe Les'}</DialogTitle>
+            <DialogTitle>{editingLesson ? t('admin_edit_lesson') : t('admin_new_lesson')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div>
-              <label className="text-sm font-medium">Titel</label>
+              <label className="text-sm font-medium">{t('admin_lesson_title')}</label>
               <Input
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                placeholder="Les titel"
+                placeholder={t('admin_lesson_title_placeholder')}
               />
             </div>
             <div>
-              <label className="text-sm font-medium">Beschrijving</label>
+              <label className="text-sm font-medium">{t('admin_description')}</label>
               <Textarea
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                placeholder="Korte beschrijving van de les"
+                placeholder={t('admin_lesson_desc_placeholder')}
                 rows={3}
               />
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               <div>
-                <label className="text-sm font-medium">Vak</label>
+                <label className="text-sm font-medium">{t('admin_subject')}</label>
                 <Input
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  placeholder="Bijv. wiskunde-a"
+                  placeholder={t('admin_lesson_subject_placeholder')}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">Hoofdstuk</label>
+                <label className="text-sm font-medium">{t('admin_chapter')}</label>
                 <Input
                   value={formData.chapter}
                   onChange={(e) => setFormData({ ...formData, chapter: e.target.value })}
-                  placeholder="Bijv. chapter-1"
+                  placeholder={t('admin_chapter_placeholder')}
                 />
               </div>
             </div>
@@ -240,18 +240,18 @@ export default function AdminLessonsPage() {
                 className="font-mono text-xs"
               />
               <p className="mt-1 text-xs text-muted-foreground">
-                Voer de lesinhoud in als JSON formaat
+                {t('admin_json_hint')}
               </p>
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowDialog(false)}>
               <X className="mr-2 h-4 w-4" />
-              Annuleren
+              {t('cancel')}
             </Button>
             <Button onClick={handleSave}>
               <Save className="mr-2 h-4 w-4" />
-              Opslaan
+              {t('save')}
             </Button>
           </DialogFooter>
         </DialogContent>

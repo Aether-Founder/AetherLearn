@@ -96,7 +96,7 @@ export default function GroepenPage() {
           title={t('groups_title')}
           description={t('groups_description')}
         />
-        <div className="mt-10 text-center text-sm text-muted-foreground">Laden...</div>
+        <div className="mt-10 text-center text-sm text-muted-foreground">{t('loading')}</div>
       </AppShell>
     );
   }
@@ -121,7 +121,7 @@ export default function GroepenPage() {
             <Users className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
             <p className="text-lg font-medium mb-2">{t('groups_empty')}</p>
             <p className="text-sm text-muted-foreground">
-              Maak je eerste groep om samen te studeren met klasgenoten
+              {t('groups_empty_desc')}
             </p>
           </div>
         ) : (
@@ -139,7 +139,7 @@ export default function GroepenPage() {
                       <Lock className="h-4 w-4 text-muted-foreground" />
                     )}
                     <span className="text-xs text-muted-foreground">
-                      {group.is_public ? 'Openbaar' : 'Privé'}
+                      {group.is_public ? t('groups_public') : t('groups_private')}
                     </span>
                   </div>
                 </div>
@@ -151,7 +151,7 @@ export default function GroepenPage() {
                 )}
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Users className="h-3.5 w-3.5" />
-                  <span>{group.member_count} leden</span>
+                  <span>{t('groups_members', undefined, { n: group.member_count })}</span>
                 </div>
               </div>
             ))}
@@ -162,25 +162,25 @@ export default function GroepenPage() {
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Nieuwe groep maken</DialogTitle>
+            <DialogTitle>{t('groups_new_title')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="group-name">Groepsnaam</Label>
+              <Label htmlFor="group-name">{t('groups_field_name')}</Label>
               <Input
                 id="group-name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="Bijv. Wiskunde H5"
+                placeholder={t('groups_name_placeholder')}
               />
             </div>
             <div>
-              <Label htmlFor="group-description">Beschrijving (optioneel)</Label>
+              <Label htmlFor="group-description">{t('groups_field_description')}</Label>
               <Input
                 id="group-description"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                placeholder="Beschrijf het doel van deze groep"
+                placeholder={t('groups_desc_placeholder')}
               />
             </div>
             <div className="flex items-center gap-2">
@@ -192,16 +192,16 @@ export default function GroepenPage() {
                 className="h-4 w-4 rounded border-border"
               />
               <Label htmlFor="group-public" className="text-sm">
-                Openbare groep (iedereen kan zoeken en deelnemen)
+                {t('groups_public_label')}
               </Label>
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowDialog(false)}>
-              Annuleren
+              {t('cancel')}
             </Button>
             <Button onClick={handleCreateGroup} disabled={!formData.name.trim()}>
-              Groep maken
+              {t('groups_create_submit')}
             </Button>
           </DialogFooter>
         </DialogContent>

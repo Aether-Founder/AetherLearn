@@ -12,6 +12,7 @@ import {
   Music,
   Image as ImageIcon,
 } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface StoredFile {
   name: string;
@@ -47,6 +48,7 @@ function formatSize(bytes: number) {
 }
 
 export function BronnenPanel({ subjectId }: { subjectId: string }) {
+  const { t } = useTranslation();
   const supabase = createClient();
   const [files, setFiles] = useState<StoredFile[]>([]);
   const [loading, setLoading] = useState(true);
@@ -94,7 +96,7 @@ export function BronnenPanel({ subjectId }: { subjectId: string }) {
           const res = await fetch(file.url);
           setTextContent(await res.text());
         } catch {
-          setTextContent('(Kon het bestand niet laden)');
+          setTextContent(t('comp_file_load_failed'));
         }
         setTextLoading(false);
       }
@@ -106,7 +108,7 @@ export function BronnenPanel({ subjectId }: { subjectId: string }) {
     return (
       <div className="flex items-center justify-center py-16 text-muted-foreground">
         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-        Bronnen laden…
+        {t('comp_bronnen_loading')}
       </div>
     );
   }
@@ -116,9 +118,9 @@ export function BronnenPanel({ subjectId }: { subjectId: string }) {
       {files.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border bg-card p-12 text-center">
           <File className="mx-auto h-12 w-12 text-muted-foreground" />
-          <h2 className="mt-4 font-display text-xl font-semibold">Nog geen bronnen</h2>
+          <h2 className="mt-4 font-display text-xl font-semibold">{t('comp_no_bronnen')}</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Er zijn nog geen bestanden voor dit vak toegevoegd.
+            {t('comp_no_bronnen_desc')}
           </p>
         </div>
       ) : (
@@ -144,8 +146,8 @@ export function BronnenPanel({ subjectId }: { subjectId: string }) {
                       type="button"
                       onClick={() => void openPreview(file)}
                       className="rounded-md p-2 text-muted-foreground hover:bg-secondary hover:text-foreground"
-                      title="Voorbeeld"
-                      aria-label={`Voorbeeld van ${file.name}`}
+                      title={t('comp_preview')}
+                      aria-label={t('comp_preview_aria', undefined, { name: file.name })}
                     >
                       <Eye className="h-4 w-4" />
                     </button>
@@ -154,8 +156,8 @@ export function BronnenPanel({ subjectId }: { subjectId: string }) {
                     href={file.url}
                     download={file.name}
                     className="rounded-md p-2 text-muted-foreground hover:bg-secondary hover:text-foreground"
-                    title="Downloaden"
-                    aria-label={`Download ${file.name}`}
+                    title={t('download')}
+                    aria-label={t('comp_download_aria', undefined, { name: file.name })}
                   >
                     <Download className="h-4 w-4" />
                   </a>
@@ -185,8 +187,8 @@ export function BronnenPanel({ subjectId }: { subjectId: string }) {
                   href={preview.url}
                   download={preview.name}
                   className="rounded-md p-2 text-muted-foreground hover:bg-secondary hover:text-foreground"
-                  title="Downloaden"
-                  aria-label="Downloaden"
+                  title={t('download')}
+                  aria-label={t('download')}
                 >
                   <Download className="h-4 w-4" />
                 </a>
@@ -195,7 +197,7 @@ export function BronnenPanel({ subjectId }: { subjectId: string }) {
                   onClick={() => setPreview(null)}
                   className="rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:bg-secondary"
                 >
-                  Sluiten
+                  {t('close')}
                 </button>
               </div>
             </div>
@@ -225,19 +227,19 @@ export function BronnenPanel({ subjectId }: { subjectId: string }) {
               )}
               {previewKind(preview.name, preview.type) === 'text' && (
                 <pre className="max-h-[75vh] overflow-auto whitespace-pre-wrap rounded-lg bg-secondary/50 p-4 text-sm">
-                  {textLoading ? 'Laden…' : textContent}
+                  {textLoading ? t('loading') : textContent}
                 </pre>
               )}
               {previewKind(preview.name, preview.type) === 'none' && (
                 <div className="flex h-[30vh] flex-col items-center justify-center gap-3 text-muted-foreground">
                   <File className="h-10 w-10" />
-                  <p className="text-sm">Geen voorbeeld beschikbaar voor dit bestandstype.</p>
+                  <p className="text-sm">{t('comp_no_preview')}</p>
                   <a
                     href={preview.url}
                     download={preview.name}
                     className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
                   >
-                    Downloaden
+                    {t('download')}
                   </a>
                 </div>
               )}

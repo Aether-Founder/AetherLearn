@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Bell, Clock, Plus, Trash2, CheckCircle2 } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Reminder {
   id: string;
@@ -28,6 +29,7 @@ interface EventRemindersProps {
 }
 
 export function EventReminders({ userId }: EventRemindersProps) {
+  const { t } = useTranslation();
   const [reminders, setReminders] = useState<Reminder[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddDialog, setShowAddDialog] = useState(false);
@@ -117,7 +119,7 @@ export function EventReminders({ userId }: EventRemindersProps) {
       case 'in-app':
         return <Badge variant="secondary">In-App</Badge>;
       default:
-        return <Badge variant="secondary">Onbekend</Badge>;
+        return <Badge variant="secondary">{t('shell_unknown')}</Badge>;
     }
   };
 
@@ -125,10 +127,10 @@ export function EventReminders({ userId }: EventRemindersProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Herinneringen</CardTitle>
+          <CardTitle>{t('shell_reminders')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -137,7 +139,7 @@ export function EventReminders({ userId }: EventRemindersProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Event Herinneringen</h2>
+        <h2 className="text-2xl font-bold">{t('shell_event_reminders')}</h2>
         <Button onClick={() => setShowAddDialog(true)}>
           <Plus className="w-4 h-4 mr-2" />
           Herinnering Toevoegen
@@ -155,8 +157,8 @@ export function EventReminders({ userId }: EventRemindersProps) {
           {reminders.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
               <Bell className="w-12 h-12 mx-auto mb-4 opacity-50" />
-              <p className="text-sm">Geen herinneringen ingesteld</p>
-              <p className="text-xs mt-1">Voeg herinneringen toe om nooit een event te missen</p>
+              <p className="text-sm">{t('shell_no_reminders')}</p>
+              <p className="text-xs mt-1">{t('shell_reminders_desc')}</p>
             </div>
           ) : (
             reminders.map((reminder) => (
@@ -197,12 +199,12 @@ export function EventReminders({ userId }: EventRemindersProps) {
           <div className="flex items-start gap-4">
             <Bell className="w-8 h-8 text-blue-500 mt-1" />
             <div>
-              <h3 className="font-semibold mb-2">Over Herinneringen</h3>
+              <h3 className="font-semibold mb-2">{t('shell_about_reminders')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• Email: Ontvang herinneringen via e-mail</li>
-                <li>• Push: Ontvang push notificaties op je apparaat</li>
-                <li>• In-App: Ontwaar herinneringen in de applicatie</li>
-                <li>• Schakel herinneringen aan/uit per event</li>
+                <li>• {t('shell_tip_push')}</li>
+                <li>• {t('shell_tip_inapp')}</li>
+                <li>• {t('shell_tip_toggle_reminders')}</li>
               </ul>
             </div>
           </div>
@@ -213,28 +215,28 @@ export function EventReminders({ userId }: EventRemindersProps) {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <Card className="w-full max-w-md">
             <CardHeader>
-              <CardTitle>Nieuwe Herinnering</CardTitle>
+              <CardTitle>{t('shell_new_reminder')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Event</label>
                 <Select>
                   <SelectTrigger>
-                    <SelectValue placeholder="Selecteer event" />
+                    <SelectValue placeholder={t('shell_select_event')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="1">Wiskunde Toets</SelectItem>
-                    <SelectItem value="2">Huiswerk Deadline</SelectItem>
-                    <SelectItem value="3">Studie Sessie</SelectItem>
+                    <SelectItem value="1">{t('shell_math_test')}</SelectItem>
+                    <SelectItem value="2">{t('shell_homework_deadline')}</SelectItem>
+                    <SelectItem value="3">{t('shell_study_session')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Herinnering Type</label>
+                <label className="text-sm font-medium">{t('shell_reminder_type')}</label>
                 <Select>
                   <SelectTrigger>
-                    <SelectValue placeholder="Selecteer type" />
+                    <SelectValue placeholder={t('shell_select_type')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="email">Email</SelectItem>
@@ -245,17 +247,17 @@ export function EventReminders({ userId }: EventRemindersProps) {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Tijd voor Event</label>
+                <label className="text-sm font-medium">{t('shell_time_before_event')}</label>
                 <Select>
                   <SelectTrigger>
-                    <SelectValue placeholder="Selecteer tijd" />
+                    <SelectValue placeholder={t('shell_select_time')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="5min">5 minuten</SelectItem>
-                    <SelectItem value="15min">15 minuten</SelectItem>
-                    <SelectItem value="30min">30 minuten</SelectItem>
-                    <SelectItem value="1hour">1 uur</SelectItem>
-                    <SelectItem value="1day">1 dag</SelectItem>
+                    <SelectItem value="5min">{t('shell_5_minutes')}</SelectItem>
+                    <SelectItem value="15min">{t('shell_15_minutes')}</SelectItem>
+                    <SelectItem value="30min">{t('shell_30_minutes')}</SelectItem>
+                    <SelectItem value="1hour">{t('shell_1_hour')}</SelectItem>
+                    <SelectItem value="1day">{t('shell_1_day')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

@@ -6,6 +6,7 @@ import { AppShell, PageHeader } from '@/components/AppShell';
 import { Clock, Loader2, Play } from 'lucide-react';
 import { loadAllLearningSets } from '@/lib/learning-sets';
 import type { LearningSet as BaseLearningSet } from '@/lib/learning-sets';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface LearningSet extends BaseLearningSet {
   cardCount: number;
@@ -15,6 +16,7 @@ interface LearningSet extends BaseLearningSet {
 type PageState = 'loading' | 'empty' | 'list';
 
 export default function DailyQuizPage() {
+  const { t } = useTranslation();
   const [state, setState] = useState<PageState>('loading');
   const [sets, setSets] = useState<LearningSet[]>([]);
 
@@ -63,7 +65,7 @@ export default function DailyQuizPage() {
     <AppShell>
       <PageHeader
         title="Daily quiz"
-        description="Alle leersets, gesorteerd op laatst bestudeerd."
+        description={t('quiz_sets_description')}
       />
 
       <div className="mt-8">
@@ -75,16 +77,16 @@ export default function DailyQuizPage() {
 
         {state === 'empty' && (
           <section className="rounded-xl border border-dashed border-border bg-card/40 p-10 text-center">
-            <h2 className="font-display text-2xl font-semibold">Geen leersets beschikbaar</h2>
+            <h2 className="font-display text-2xl font-semibold">{t('quiz_no_sets')}</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Maak eerst een leerset met kaarten om te beginnen.
+              {t('quiz_no_sets_desc')}
             </p>
 
             <Link
               href="/create/learning-list"
               className="mt-6 inline-flex h-10 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
             >
-              Nieuwe leerset
+              {t('set_new')}
             </Link>
           </section>
         )}
@@ -103,7 +105,7 @@ export default function DailyQuizPage() {
                       {set.title}
                     </h3>
                     <p className="mt-1 text-sm text-muted-foreground">
-                      {set.cardCount} kaarten
+                      {t('subject_cards', undefined, { n: set.cardCount })}
                     </p>
                   </div>
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
@@ -115,10 +117,12 @@ export default function DailyQuizPage() {
                   <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
                     <Clock className="h-3.5 w-3.5" />
                     <span>
-                      Laatst bestudeerd: {new Date(set.lastStudied).toLocaleDateString('nl-NL', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric',
+                      {t('quiz_last_studied', undefined, {
+                        date: new Date(set.lastStudied).toLocaleDateString('nl-NL', {
+                          day: 'numeric',
+                          month: 'short',
+                          year: 'numeric',
+                        }),
                       })}
                     </span>
                   </div>

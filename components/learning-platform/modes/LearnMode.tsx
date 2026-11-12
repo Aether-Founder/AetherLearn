@@ -89,7 +89,7 @@ export function LearnMode({ useImages = false }: LearnModeProps = {}) {
     id: createId('q'),
     term,
     type: 'multiple-choice',
-    prompt: 'Welk begrip hoort bij deze afbeelding?',
+    prompt: t('comp_image_mcq_prompt'),
     correctAnswer: term.term,
     options: fisherYatesShuffle([
       term.term,
@@ -240,7 +240,7 @@ export function LearnMode({ useImages = false }: LearnModeProps = {}) {
             >
               <img
                 src={current.term.image}
-                alt="Afbeelding"
+                alt={t('comp_image_alt')}
                 className="max-w-full max-h-80 object-contain"
               />
             </div>
@@ -260,14 +260,14 @@ export function LearnMode({ useImages = false }: LearnModeProps = {}) {
               onClick={() => handleAnswer(false, 'still-learning', 'flashcard')}
               className="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm font-medium text-red-700 dark:text-red-300"
             >
-              Nog oefenen
+              {t('comp_practice_more')}
             </button>
             <button
               type="button"
               onClick={() => handleAnswer(true, 'know-it', 'flashcard')}
               className="rounded-xl border border-green-500/40 bg-green-500/10 px-4 py-3 text-sm font-medium text-green-700 dark:text-green-300"
             >
-              Weet ik
+              {t('comp_i_know')}
             </button>
           </div>
         </div>
@@ -280,7 +280,7 @@ export function LearnMode({ useImages = false }: LearnModeProps = {}) {
             >
               <img
                 src={current.term.image}
-                alt="Afbeelding"
+                alt={t('comp_image_alt')}
                 className="max-w-full max-h-80 object-contain"
               />
             </div>
@@ -309,7 +309,7 @@ export function LearnMode({ useImages = false }: LearnModeProps = {}) {
             >
               <img
                 src={current.term.image}
-                alt="Afbeelding"
+                alt={t('comp_image_alt')}
                 className="max-w-full max-h-80 object-contain"
               />
             </div>

@@ -22,6 +22,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Target, Plus, CheckCircle2, Calendar, Clock } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface StudyGoal {
   id: string;
@@ -41,6 +42,7 @@ interface StudyGoalTrackingProps {
 }
 
 export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
+  const { t } = useTranslation();
   const [goals, setGoals] = useState<StudyGoal[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddDialog, setShowAddDialog] = useState(false);
@@ -177,10 +179,10 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Studie Doelen</CardTitle>
+          <CardTitle>{t('shell_study_goals')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -189,7 +191,7 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Studie Doelen</h2>
+        <h2 className="text-2xl font-bold">{t('shell_study_goals')}</h2>
         <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
           <DialogTrigger asChild>
             <Button>
@@ -199,25 +201,25 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Nieuw Studie Doel</DialogTitle>
+              <DialogTitle>{t('shell_new_study_goal')}</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div>
-                <Label htmlFor="title">Titel *</Label>
+                <Label htmlFor="title">{t('shell_title')} *</Label>
                 <Input
                   id="title"
                   value={newGoal.title}
                   onChange={(e) => setNewGoal({ ...newGoal, title: e.target.value })}
-                  placeholder="Bijv. 30 minuten per dag studeren"
+                  placeholder={t('shell_goal_example')}
                 />
               </div>
               <div>
-                <Label htmlFor="description">Beschrijving</Label>
+                <Label htmlFor="description">{t('shell_description')}</Label>
                 <Input
                   id="description"
                   value={newGoal.description}
                   onChange={(e) => setNewGoal({ ...newGoal, description: e.target.value })}
-                  placeholder="Beschrijf je doel..."
+                  placeholder={t('shell_goal_desc_placeholder')}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -233,15 +235,15 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="daily">Dagelijks</SelectItem>
-                      <SelectItem value="weekly">Wekelijks</SelectItem>
-                      <SelectItem value="monthly">Maandelijks</SelectItem>
-                      <SelectItem value="custom">Aangepast</SelectItem>
+                      <SelectItem value="daily">{t('shell_daily')}</SelectItem>
+                      <SelectItem value="weekly">{t('shell_weekly')}</SelectItem>
+                      <SelectItem value="monthly">{t('shell_monthly')}</SelectItem>
+                      <SelectItem value="custom">{t('shell_custom')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="unit">Eenheid</Label>
+                  <Label htmlFor="unit">{t('shell_unit')}</Label>
                   <Select
                     value={newGoal.unit}
                     onValueChange={(value) => setNewGoal({ ...newGoal, unit: value })}
@@ -250,18 +252,18 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="minuten">Minuten</SelectItem>
-                      <SelectItem value="uren">Uren</SelectItem>
-                      <SelectItem value="kaarten">Kaarten</SelectItem>
+                      <SelectItem value="minuten">{t('shell_minutes')}</SelectItem>
+                      <SelectItem value="uren">{t('shell_hours')}</SelectItem>
+                      <SelectItem value="kaarten">{t('shell_cards')}</SelectItem>
                       <SelectItem value="sets">Sets</SelectItem>
-                      <SelectItem value="testen">Testen</SelectItem>
+                      <SelectItem value="testen">{t('shell_tests')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="targetValue">Doelwaarde *</Label>
+                  <Label htmlFor="targetValue">{t('shell_target_value')}</Label>
                   <Input
                     id="targetValue"
                     type="number"
@@ -294,7 +296,7 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
         <Card>
           <CardContent className="text-center py-12">
             <Target className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-            <h3 className="text-lg font-semibold mb-2">Nog geen studie doelen</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('shell_no_study_goals')}</h3>
             <p className="text-sm text-muted-foreground mb-4">
               Maak je eerste studie doel om je voortgang bij te houden
             </p>
@@ -344,7 +346,7 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
                 <CardContent className="space-y-4">
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">Voortgang</span>
+                      <span className="text-sm font-medium">{t('shell_progress')}</span>
                       <span className="text-sm font-bold">{progress}%</span>
                     </div>
                     <Progress value={progress} className="h-2" />

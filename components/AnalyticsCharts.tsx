@@ -14,6 +14,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from 'recharts';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface WeeklyActivity {
   date: string;
@@ -34,6 +35,7 @@ interface AnalyticsChartsProps {
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D'];
 
 export function AnalyticsCharts({ weeklyActivity, subjectBreakdown }: AnalyticsChartsProps) {
+  const { t } = useTranslation();
   const formatActivityData = () => {
     return weeklyActivity.map((day) => ({
       day: new Date(day.date).toLocaleDateString('nl-NL', { weekday: 'short' }),
@@ -57,7 +59,7 @@ export function AnalyticsCharts({ weeklyActivity, subjectBreakdown }: AnalyticsC
       {/* Weekly Activity Bar Chart */}
       <Card>
         <CardHeader>
-          <CardTitle>Wekelijkse Activiteit</CardTitle>
+          <CardTitle>{t('shell_weekly_activity')}</CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
@@ -76,7 +78,7 @@ export function AnalyticsCharts({ weeklyActivity, subjectBreakdown }: AnalyticsC
       {/* Subject Breakdown Pie Chart */}
       <Card>
         <CardHeader>
-          <CardTitle>Verdeling per Studie Set</CardTitle>
+          <CardTitle>{t('shell_breakdown_per_set')}</CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
@@ -104,7 +106,7 @@ export function AnalyticsCharts({ weeklyActivity, subjectBreakdown }: AnalyticsC
       {/* Subject Time Spent Bar Chart */}
       <Card className="lg:col-span-2">
         <CardHeader>
-          <CardTitle>Tijd per Studie Set</CardTitle>
+          <CardTitle>{t('shell_time_per_set')}</CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>

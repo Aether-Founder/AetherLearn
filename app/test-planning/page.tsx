@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Plus, Calendar, Clock, Target, AlertTriangle, CheckCircle2, Trash2, Edit } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Test {
   id: string;
@@ -27,6 +28,7 @@ interface StudyPlan {
 }
 
 export default function TestPlanningPage() {
+  const { t } = useTranslation();
   const [tests, setTests] = useState<Test[]>([]);
   const [studyPlans, setStudyPlans] = useState<StudyPlan[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -195,9 +197,9 @@ export default function TestPlanningPage() {
   };
 
   const getReadinessLabel = (score: number) => {
-    if (score >= 80) return 'Klaar';
-    if (score >= 50) return 'Op weg';
-    return 'Niet klaar';
+    if (score >= 80) return t('exam_status_ready');
+    if (score >= 50) return t('exam_status_progress');
+    return t('exam_status_not_ready');
   };
 
   const getTestTypeColor = (type: string) => {
@@ -230,12 +232,12 @@ export default function TestPlanningPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Toets Planning"
-        description="Plan je toetsen, genereer studeerplannen en volg je examenvoorbereiding"
+        title={t('exam_title')}
+        description={t('exam_description')}
         action={
           <Button onClick={openCreate}>
             <Plus className="mr-2 h-4 w-4" />
-            Nieuwe toets
+            {t('exam_new')}
           </Button>
         }
         actionPosition="right"
@@ -245,13 +247,13 @@ export default function TestPlanningPage() {
         {sortedTests.length === 0 ? (
           <div className="rounded-xl border border-dashed border-border p-12 text-center">
             <Calendar className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-            <h2 className="font-display text-xl font-semibold mb-2">Geen toetsen gepland</h2>
+            <h2 className="font-display text-xl font-semibold mb-2">{t('exam_empty')}</h2>
             <p className="text-sm text-muted-foreground mb-4">
-              Voeg je eerste toets toe om te beginnen met planning.
+              {t('exam_empty_desc')}
             </p>
             <Button onClick={openCreate}>
               <Plus className="mr-2 h-4 w-4" />
-              Nieuwe toets
+              {t('exam_new')}
             </Button>
           </div>
         ) : (
@@ -280,11 +282,15 @@ export default function TestPlanningPage() {
                           {test.subject}
                         </h3>
                         <span className={`px-2 py-0.5 rounded text-xs font-medium ${getTestTypeColor(test.type)}`}>
-                          {test.type.charAt(0).toUpperCase() + test.type.slice(1)}
+                          {test.type === 'herkansing'
+                            ? t('exam_type_retake')
+                            : test.type === 'examen'
+                              ? t('exam_type_exam')
+                              : t('exam_type_normal')}
                         </span>
                         {test.requiredGrade && (
                           <span className="text-xs text-muted-foreground">
-                            Doel: {test.requiredGrade}/10
+                            {t('exam_target', undefined, { grade: test.requiredGrade })}
                           </span>
                         )}
                       </div>
@@ -296,7 +302,7 @@ export default function TestPlanningPage() {
                         {daysUntil >= 0 && (
                           <div className="flex items-center gap-1">
                             <Clock className="h-3 w-3" />
-                            {daysUntil} dagen
+                            {t('exam_days_until', undefined, { n: daysUntil })}
                           </div>
                         )}
                         {test.completed && test.actualGrade && (
@@ -311,7 +317,7 @@ export default function TestPlanningPage() {
                       {!test.completed && (
                         <div className="mb-3">
                           <div className="flex items-center justify-between mb-1">
-                            <span className="text-sm font-medium">Voorbereiding</span>
+                            <span className="text-sm font-medium">{t('exam_preparation')}</span>
                             <span className={`text-sm font-medium ${getReadinessColor(readiness)}`}>
                               {getReadinessLabel(readiness)}
                             </span>
@@ -329,13 +335,16 @@ export default function TestPlanningPage() {
                       {plan && !test.completed && (
                         <div className="mb-3 p-3 rounded bg-secondary/50">
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm font-medium">Studeerplan</span>
+                            <span className="text-sm font-medium">{t('exam_study_plan')}</span>
                             <span className="text-xs text-muted-foreground">
-                              {plan.completedDays}/{plan.totalDays} dagen
+                              {t('exam_days_count', undefined, {
+                                completed: plan.completedDays,
+                                total: plan.totalDays,
+                              })}
                             </span>
                           </div>
                           <div className="text-sm text-muted-foreground">
-                            {plan.dailyMinutes} min/dag · {plan.prioritySubjects.join(', ')}
+                            {t('exam_minutes_per_day', undefined, { n: plan.dailyMinutes })} · {plan.prioritySubjects.join(', ')}
                           </div>
                         </div>
                       )}
@@ -352,7 +361,7 @@ export default function TestPlanningPage() {
                             {riskLevel === 'medium' && <AlertTriangle className="h-4 w-4 text-yellow-500" />}
                             {riskLevel === 'low' && <CheckCircle2 className="h-4 w-4 text-green-500" />}
                             <span className="font-medium">
-                              {riskLevel === 'high' ? 'Hoog risico' : riskLevel === 'medium' ? 'Middelmatig risico' : 'Laag risico'}
+                              {riskLevel === 'high' ? t('exam_risk_high') : riskLevel === 'medium' ? t('exam_risk_medium') : t('exam_risk_low')}
                             </span>
                           </div>
                         </div>
@@ -387,11 +396,11 @@ export default function TestPlanningPage() {
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{editingId ? 'Bewerk toets' : 'Nieuwe toets'}</DialogTitle>
+            <DialogTitle>{editingId ? t('exam_edit_title') : t('exam_new_title')}</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="subject">Vak</Label>
+              <Label htmlFor="subject">{t('exam_field_subject')}</Label>
               <Input
                 id="subject"
                 value={form.subject}
@@ -400,7 +409,7 @@ export default function TestPlanningPage() {
               />
             </div>
             <div>
-              <Label htmlFor="date">Toetsdatum</Label>
+              <Label htmlFor="date">{t('exam_field_date')}</Label>
               <Input
                 id="date"
                 type="date"
@@ -410,20 +419,20 @@ export default function TestPlanningPage() {
               />
             </div>
             <div>
-              <Label htmlFor="type">Type</Label>
+              <Label htmlFor="type">{t('exam_field_type')}</Label>
               <select
                 id="type"
                 value={form.type}
                 onChange={(e) => setForm({ ...form, type: e.target.value as 'normal' | 'herkansing' | 'examen' })}
                 className="w-full h-10 rounded-md border border-input bg-background px-3"
               >
-                <option value="normal">Normaal</option>
-                <option value="herkansing">Herkansing</option>
-                <option value="examen">Examen</option>
+                <option value="normal">{t('exam_type_normal')}</option>
+                <option value="herkansing">{t('exam_type_retake')}</option>
+                <option value="examen">{t('exam_type_exam')}</option>
               </select>
             </div>
             <div>
-              <Label htmlFor="requiredGrade">Gewenst cijfer (optioneel)</Label>
+              <Label htmlFor="requiredGrade">{t('exam_field_target')}</Label>
               <Input
                 id="requiredGrade"
                 type="number"
@@ -436,9 +445,9 @@ export default function TestPlanningPage() {
             </div>
             <div className="flex justify-end gap-2">
               <Button type="button" variant="outline" onClick={() => setModalOpen(false)}>
-                Annuleren
+                {t('cancel')}
               </Button>
-              <Button type="submit">{editingId ? 'Opslaan' : 'Toevoegen'}</Button>
+              <Button type="submit">{editingId ? t('save') : t('add')}</Button>
             </div>
           </form>
         </DialogContent>

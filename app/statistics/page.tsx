@@ -168,11 +168,18 @@ export default function StatistiekenPage() {
   const formatMinutes = (minutes: number) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
-    return hours > 0 ? `${hours}u ${mins}m` : `${mins}m`;
+    return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
   };
-
-  const days = ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'];
   const maxWeeklyMinutes = Math.max(...stats.weeklyMinutes, 1);
+  const days = [
+    t('stats_day_sun'),
+    t('stats_day_mon'),
+    t('stats_day_tue'),
+    t('stats_day_wed'),
+    t('stats_day_thu'),
+    t('stats_day_fri'),
+    t('stats_day_sat'),
+  ];
 
   if (loading) {
     return (
@@ -214,7 +221,7 @@ export default function StatistiekenPage() {
 
       <div className="mt-10 space-y-6">
         {/* Quick Actions from Vandaag */}
-        <Panel title="Snel Acties">
+        <Panel title={t('stats_quick_actions')}>
           <div className="grid gap-3 sm:grid-cols-3">
             <Link
               href="/quiz/daily"
@@ -225,7 +232,9 @@ export default function StatistiekenPage() {
               </div>
               <div>
                 <p className="font-medium">Start Daily Quiz</p>
-                <p className="text-xs text-muted-foreground">{stats.dueReviews} herhalingen</p>
+                <p className="text-xs text-muted-foreground">
+                  {t('stats_reviews_count', undefined, { n: stats.dueReviews })}
+                </p>
               </div>
             </Link>
             <Link
@@ -237,7 +246,9 @@ export default function StatistiekenPage() {
               </div>
               <div>
                 <p className="font-medium">Spaced Repetition</p>
-                <p className="text-xs text-muted-foreground">{stats.dueReviews} items</p>
+                <p className="text-xs text-muted-foreground">
+                  {t('stats_items_count', undefined, { n: stats.dueReviews })}
+                </p>
               </div>
             </Link>
             <Link
@@ -248,34 +259,36 @@ export default function StatistiekenPage() {
                 <AlertTriangle className="h-5 w-5 text-muted-foreground" />
               </div>
               <div>
-                <p className="font-medium">Foutenreview</p>
-                <p className="text-xs text-muted-foreground">{stats.dueErrors} fouten</p>
+                <p className="font-medium">{t('stats_error_review')}</p>
+                <p className="text-xs text-muted-foreground">
+                  {t('stats_errors_count', undefined, { n: stats.dueErrors })}
+                </p>
               </div>
             </Link>
           </div>
         </Panel>
 
         {/* Today's Overview */}
-        <Panel title="Vandaag">
+        <Panel title={t('stats_today')}>
           <div className="space-y-3">
             <div className="flex items-center justify-between py-2 border-b border-border">
               <div className="flex items-center gap-3">
                 <BookOpen className="h-5 w-5 text-primary" />
-                <span>Herhalingen</span>
+                <span>{t('stats_reviews')}</span>
               </div>
               <span className="font-semibold">{stats.dueReviews}</span>
             </div>
             <div className="flex items-center justify-between py-2 border-b border-border">
               <div className="flex items-center gap-3">
                 <AlertTriangle className="h-5 w-5 text-orange-500" />
-                <span>Fouten opnieuw maken</span>
+                <span>{t('stats_redo_errors')}</span>
               </div>
               <span className="font-semibold">{stats.dueErrors}</span>
             </div>
             <div className="flex items-center justify-between py-2">
               <div className="flex items-center gap-3">
                 <Target className="h-5 w-5 text-blue-500" />
-                <span>Geschatte tijd</span>
+                <span>{t('stats_estimated_time')}</span>
               </div>
               <span className="font-semibold">
                 {formatMinutes(stats.dueReviews * 2 + stats.dueErrors * 3)}
@@ -317,7 +330,9 @@ export default function StatistiekenPage() {
                 <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
                   {t('stats_streak')}
                 </p>
-                <p className="mt-1 font-display text-2xl font-semibold">{stats.streak} dagen</p>
+                <p className="mt-1 font-display text-2xl font-semibold">
+                  {t('stats_streak_value', undefined, { n: stats.streak })}
+                </p>
               </div>
             </div>
           </Panel>
@@ -357,17 +372,19 @@ export default function StatistiekenPage() {
             </div>
             <p className="text-sm text-muted-foreground text-center">
               {stats.totalMinutes > 0
-                ? `Totaal deze week: ${formatMinutes(stats.weeklyMinutes.reduce((a, b) => a + b, 0))}`
-                : 'Nog geen studieactiviteiten deze week'}
+                ? t('stats_week_total', undefined, {
+                    time: formatMinutes(stats.weeklyMinutes.reduce((a, b) => a + b, 0)),
+                  })
+                : t('stats_no_activity')}
             </p>
           </div>
         </Panel>
 
         {/* Subject Progress */}
-        <Panel title="Voortgang per vak">
+        <Panel title={t('stats_subject_progress')}>
           {stats.subjectProgress.length === 0 ? (
             <p className="text-sm text-muted-foreground text-center py-8">
-              Nog geen vakken toegevoegd.
+              {t('stats_no_subjects')}
             </p>
           ) : (
             <div className="space-y-4">
@@ -377,8 +394,10 @@ export default function StatistiekenPage() {
                     <span className="font-medium">{subject.name}</span>
                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                       <span>{formatMinutes(subject.minutes)}</span>
-                      <span>{subject.cards} kaarten</span>
-                      <span>{subject.mastery}% beheersing</span>
+                      <span>{t('stats_cards_count', undefined, { n: subject.cards })}</span>
+                      <span>
+                        {t('stats_mastery', undefined, { n: subject.mastery })}
+                      </span>
                     </div>
                   </div>
                   <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
@@ -394,10 +413,10 @@ export default function StatistiekenPage() {
         </Panel>
 
         {/* Recent Sessions */}
-        <Panel title="Recente sessies">
+        <Panel title={t('stats_recent_sessions')}>
           {stats.recentSessions.length === 0 ? (
             <p className="text-sm text-muted-foreground text-center py-8">
-              Nog geen sessies geregistreerd.
+              {t('stats_no_sessions')}
             </p>
           ) : (
             <div className="space-y-3">
@@ -417,7 +436,7 @@ export default function StatistiekenPage() {
                         })}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {session.cards_studied} kaarten bekeken
+                        {t('stats_cards_viewed', undefined, { n: session.cards_studied })}
                       </p>
                     </div>
                   </div>
@@ -426,7 +445,10 @@ export default function StatistiekenPage() {
                       {formatMinutes(session.duration_minutes || 0)}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {session.cards_correct || 0}/{session.cards_studied || 0} correct
+                      {t('stats_correct_score', undefined, {
+                        correct: session.cards_correct || 0,
+                        total: session.cards_studied || 0,
+                      })}
                     </p>
                   </div>
                 </div>

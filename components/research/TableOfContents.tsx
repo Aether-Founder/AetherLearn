@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { List, Menu } from "lucide-react";
+import { useTranslation } from "@/lib/useTranslation";
 
 interface TOCItem {
   id: string;
@@ -14,6 +15,7 @@ interface TableOfContentsProps {
 }
 
 export function TableOfContents({ items }: TableOfContentsProps) {
+  const { t } = useTranslation();
   const [activeId, setActiveId] = useState<string>("");
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -65,7 +67,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
       <button
         onClick={() => setIsMobileOpen(!isMobileOpen)}
         className="lg:hidden fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg"
-        aria-label="Table of contents"
+        aria-label={t('comp_toc')}
       >
         <Menu className="h-5 w-5" />
       </button>
@@ -75,7 +77,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
         <div className="lg:hidden fixed inset-0 z-50 bg-background/80 backdrop-blur-sm">
           <div className="fixed right-0 top-0 h-full w-80 border-l border-border bg-card p-6 overflow-y-auto">
             <div className="mb-4 flex items-center justify-between">
-              <h3 className="font-display text-lg font-semibold">Inhoudsopgave</h3>
+              <h3 className="font-display text-lg font-semibold">{t('comp_toc')}</h3>
               <button
                 onClick={() => setIsMobileOpen(false)}
                 className="rounded p-2 hover:bg-secondary"
@@ -107,7 +109,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
       <aside className="hidden lg:block sticky top-24 self-start">
         <div className="mb-4 flex items-center gap-2">
           <List className="h-5 w-5 text-muted-foreground" />
-          <h3 className="font-display text-lg font-semibold">Inhoudsopgave</h3>
+          <h3 className="font-display text-lg font-semibold">{t('comp_toc')}</h3>
         </div>
         <nav className="space-y-2">
           {items.map((item) => (

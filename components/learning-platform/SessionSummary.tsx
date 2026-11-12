@@ -2,6 +2,7 @@
 
 import type { Term, TermResult } from '@/types/learning-platform';
 import { MarkdownContent } from './shared/MarkdownContent';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface SessionSummaryProps {
   terms: Term[];
@@ -12,8 +13,9 @@ interface SessionSummaryProps {
 export function SessionSummary({
   terms,
   results,
-  title = 'Sessie overzicht',
+  title,
 }: SessionSummaryProps) {
+  const { t } = useTranslation();
   const correct = results.filter((r) => r.isCorrect);
   const wrong = results.filter((r) => !r.isCorrect);
   const byId = new Map(terms.map((term) => [term.id, term]));
@@ -24,9 +26,9 @@ export function SessionSummary({
   return (
     <div className="space-y-6">
       <div className="text-center space-y-2">
-        <h3 className="text-2xl font-serif font-medium text-foreground">{title}</h3>
+        <h3 className="text-2xl font-serif font-medium text-foreground">{title ?? t('comp_session_overview')}</h3>
         <p className="text-sm text-muted-foreground">
-          {correct.length} goed, {wrong.length} fout van {results.length} antwoorden
+          {t('comp_session_score', undefined, { correct: correct.length, wrong: wrong.length, total: results.length })}
         </p>
       </div>
 
@@ -35,23 +37,23 @@ export function SessionSummary({
           <p className="text-2xl font-semibold text-green-700 dark:text-green-300">
             {mastered.length}
           </p>
-          <p className="text-sm text-muted-foreground">Beheerst</p>
+          <p className="text-sm text-muted-foreground">{t('comp_mastered')}</p>
         </div>
         <div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-4">
           <p className="text-2xl font-semibold text-yellow-700 dark:text-yellow-300">
             {learning.length}
           </p>
-          <p className="text-sm text-muted-foreground">Bezig</p>
+          <p className="text-sm text-muted-foreground">{t('comp_learning_status')}</p>
         </div>
         <div className="rounded-lg border border-border bg-card p-4">
           <p className="text-2xl font-semibold text-foreground">{unstudied.length}</p>
-          <p className="text-sm text-muted-foreground">Niet geleerd</p>
+          <p className="text-sm text-muted-foreground">{t('comp_unlearned')}</p>
         </div>
       </div>
 
       {wrong.length > 0 && (
         <div className="space-y-3">
-          <h4 className="text-lg font-medium text-foreground">Nog oefenen</h4>
+          <h4 className="text-lg font-medium text-foreground">{t('comp_practice_more')}</h4>
           <div className="space-y-2">
             {wrong.map((result, index) => {
               const term = byId.get(result.termId);
@@ -64,10 +66,10 @@ export function SessionSummary({
                     {term?.term ?? result.termId}
                   </MarkdownContent>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Jouw antwoord: {result.userAnswer || '-'}
+                    {t('comp_your_answer')} {result.userAnswer || '-'}
                   </p>
                   <div className="mt-1 text-sm">
-                    <span className="text-muted-foreground">Goed antwoord: </span>
+                    <span className="text-muted-foreground">{t('comp_correct_answer')}</span>
                     <MarkdownContent className="inline">{result.correctAnswer}</MarkdownContent>
                   </div>
                 </div>
@@ -79,7 +81,7 @@ export function SessionSummary({
 
       {correct.length > 0 && (
         <div className="space-y-3">
-          <h4 className="text-lg font-medium text-foreground">Goed gedaan</h4>
+          <h4 className="text-lg font-medium text-foreground">{t('comp_well_done')}</h4>
           <div className="grid gap-2 sm:grid-cols-2">
             {correct.slice(0, 12).map((result, index) => {
               const term = byId.get(result.termId);

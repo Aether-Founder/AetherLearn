@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Copy, Check, ChevronDown, ChevronUp } from "lucide-react";
+import { useTranslation } from "@/lib/useTranslation";
 
 interface CodeBlockProps {
   code: string;
@@ -8,6 +9,7 @@ interface CodeBlockProps {
 }
 
 export function CodeBlock({ code, language = "text", filename }: CodeBlockProps) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
@@ -41,12 +43,12 @@ export function CodeBlock({ code, language = "text", filename }: CodeBlockProps)
             {copied ? (
               <>
                 <Check className="h-3.5 w-3.5" />
-                Gekopieerd
+                {t('comp_copied')}
               </>
             ) : (
               <>
                 <Copy className="h-3.5 w-3.5" />
-                Kopiëren
+                {t('comp_copy')}
               </>
             )}
           </button>
@@ -63,12 +65,12 @@ export function CodeBlock({ code, language = "text", filename }: CodeBlockProps)
           {expanded ? (
             <>
               <ChevronUp className="h-3.5 w-3.5" />
-              Inklappen
+              {t('comp_collapse')}
             </>
           ) : (
             <>
               <ChevronDown className="h-3.5 w-3.5" />
-              Uitklappen
+              {t('comp_expand')}
             </>
           )}
         </button>

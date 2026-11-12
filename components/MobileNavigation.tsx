@@ -6,23 +6,25 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Home, Calendar, BookOpen, BarChart3, User, Settings, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTranslation } from '@/lib/useTranslation';
 
 export function MobileNavigation() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   const navItems = [
     { href: '/', icon: Home, label: 'Home' },
-    { href: '/study-sets', icon: BookOpen, label: 'Leersets' },
-    { href: '/calendar', icon: Calendar, label: 'Kalender' },
+    { href: '/study-sets', icon: BookOpen, label: t('dashboard_study_sets') },
+    { href: '/calendar', icon: Calendar, label: t('calendar_title') },
     { href: '/agenda', icon: Calendar, label: 'Agenda' },
-    { href: '/study', icon: BookOpen, label: 'Studeren' },
+    { href: '/study', icon: BookOpen, label: t('shell_nav_study') },
     { href: '/analytics', icon: BarChart3, label: 'Analytics' },
-    { href: '/statistics', icon: BarChart3, label: 'Statistieken' },
-    { href: '/profile', icon: User, label: 'Profiel' },
-    { href: '/settings', icon: Settings, label: 'Instellingen' },
-    { href: '/subjects', icon: BookOpen, label: 'Vakken' },
-    { href: '/notes', icon: FileText, label: 'Notities' },
+    { href: '/statistics', icon: BarChart3, label: t('nav_statistics') },
+    { href: '/profile', icon: User, label: t('profile_title') },
+    { href: '/settings', icon: Settings, label: t('nav_settings') },
+    { href: '/subjects', icon: BookOpen, label: t('nav_subjects') },
+    { href: '/notes', icon: FileText, label: t('nav_notes') },
   ];
 
   return (

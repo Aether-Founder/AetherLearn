@@ -5,6 +5,7 @@ import { Check, Sparkles } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useColorTheme } from '@/components/ColorThemeProvider';
 import { allThemes } from '@/lib/themes';
+import { useTranslation } from '@/lib/useTranslation';
 
 const THEME_SELECTION_COMPLETED_KEY = 'aether-theme-selection-completed';
 const THEME_SELECTION_SKIPPED_KEY = 'aether-theme-selection-skipped';
@@ -19,6 +20,7 @@ export function openThemePicker() {
 
 export function ThemeSelectionModal() {
   const { selectedTheme, setSelectedTheme } = useColorTheme();
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [neverShowAgain, setNeverShowAgain] = useState(false);
@@ -76,17 +78,17 @@ export function ThemeSelectionModal() {
         <DialogHeader className="px-6 py-4 border-b border-border flex-shrink-0">
           <div className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-primary" />
-            <DialogTitle className="text-2xl">Kies je thema</DialogTitle>
+            <DialogTitle className="text-2xl">{t('shell_theme_title')}</DialogTitle>
           </div>
           <DialogDescription className="text-base">
-            Personaliseer je AetherLearn ervaring door een kleurenpalet te kiezen die bij jou past.
+            {t('shell_theme_desc')}
           </DialogDescription>
         </DialogHeader>
 
         <div className="px-6 py-4 border-b border-border flex-shrink-0">
           <input
             type="text"
-            placeholder="Zoek thema op naam..."
+            placeholder={t('shell_theme_search_placeholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full px-4 py-2 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
@@ -154,7 +156,7 @@ export function ThemeSelectionModal() {
             ))}
             {filteredThemes.length === 0 && (
               <div className="col-span-full text-center py-8 text-muted-foreground">
-                Geen thema's gevonden met "{searchQuery}"
+                {t('shell_theme_no_results', undefined, { query: searchQuery })}
               </div>
             )}
           </div>
@@ -169,20 +171,20 @@ export function ThemeSelectionModal() {
                 onChange={(e) => setNeverShowAgain(e.target.checked)}
                 className="w-4 h-4 rounded border-border bg-background text-primary focus:ring-primary"
               />
-              <span className="text-sm text-muted-foreground">Niet meer tonen</span>
+              <span className="text-sm text-muted-foreground">{t('shell_theme_never_show')}</span>
             </label>
             <div className="flex gap-2">
               <button
                 onClick={handleSkip}
                 className="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
               >
-                Later kiezen
+                {t('shell_theme_choose_later')}
               </button>
               <button
                 onClick={handleContinue}
                 className="px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
               >
-                Doorgaan
+                {t('advanced_continue')}
               </button>
             </div>
           </div>

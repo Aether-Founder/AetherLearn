@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Search, UserCheck, Clock, Users } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface ClassJoinProps {
   userId: string;
@@ -27,6 +28,7 @@ interface Class {
 }
 
 export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('code');
   const [joinCode, setJoinCode] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -36,7 +38,7 @@ export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
 
   const handleJoinByCode = async () => {
     if (!joinCode.trim()) {
-      setError('Voer een klascode in');
+      setError(t('shell_enter_class_code'));
       return;
     }
 
@@ -62,7 +64,7 @@ export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
       }
     } catch (error) {
       console.error('Failed to join class:', error);
-      setError('Er is een fout opgetreden');
+      setError(t('shell_generic_error'));
     } finally {
       setLoading(false);
     }
@@ -111,7 +113,7 @@ export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
       }
     } catch (error) {
       console.error('Failed to join class:', error);
-      setError('Er is een fout opgetreden');
+      setError(t('shell_generic_error'));
     } finally {
       setLoading(false);
     }
@@ -120,23 +122,23 @@ export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
   return (
     <Card className="w-full max-w-2xl">
       <CardHeader>
-        <CardTitle>Deelnemen aan een Klas</CardTitle>
+        <CardTitle>{t('shell_join_class')}</CardTitle>
       </CardHeader>
       <CardContent>
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="code">Klascode</TabsTrigger>
-            <TabsTrigger value="search">Zoeken</TabsTrigger>
+            <TabsTrigger value="code">{t('shell_class_code')}</TabsTrigger>
+            <TabsTrigger value="search">{t('shell_search')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="code" className="space-y-4">
             <div>
-              <Label htmlFor="joinCode">Klascode</Label>
+              <Label htmlFor="joinCode">{t('shell_class_code')}</Label>
               <Input
                 id="joinCode"
                 value={joinCode}
                 onChange={(e) => setJoinCode(e.target.value)}
-                placeholder="Voer de klascode in"
+                placeholder={t('shell_class_code_placeholder')}
                 className="mt-2"
               />
             </div>
@@ -144,7 +146,7 @@ export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
             {error && <div className="text-sm text-red-500">{error}</div>}
 
             <Button onClick={handleJoinByCode} disabled={loading} className="w-full">
-              {loading ? 'Laden...' : 'Deelnemen'}
+              {loading ? t('loading') : t('shell_join')}
             </Button>
 
             <div className="text-sm text-muted-foreground">
@@ -157,7 +159,7 @@ export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
               <Input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Zoek op vak, docent, of klasnaam"
+                placeholder={t('shell_search_classes_placeholder')}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearchClasses()}
               />
               <Button onClick={handleSearchClasses} disabled={loading}>
@@ -167,7 +169,7 @@ export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
 
             <div className="space-y-3">
               {classes.length === 0 && searchQuery && !loading && (
-                <div className="text-center text-muted-foreground py-8">Geen klassen gevonden</div>
+                <div className="text-center text-muted-foreground py-8">{t('shell_no_classes')}</div>
               )}
 
               {classes.map((cls) => (
@@ -192,7 +194,7 @@ export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
                     {cls.requiresApproval && (
                       <div className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
-                        <span>Goedkeuring vereist</span>
+                        <span>{t('shell_approval_required')}</span>
                       </div>
                     )}
                   </div>
@@ -203,7 +205,7 @@ export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
                     variant="outline"
                     className="w-full"
                   >
-                    {cls.requiresApproval ? 'Aanvraag versturen' : 'Deelnemen'}
+                    {cls.requiresApproval ? t('shell_send_request') : t('shell_join')}
                   </Button>
                 </div>
               ))}

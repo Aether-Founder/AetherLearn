@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from '@/lib/useTranslation';
 
 export function InstallPrompt() {
   const [showPrompt, setShowPrompt] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     // Check if already dismissed in last 7 days
@@ -74,10 +76,10 @@ export function InstallPrompt() {
 
             <div className="flex-1">
               <h3 className="font-bold text-foreground mb-1">
-                Installeer AetherLearn
+                {t('shell_install_title')}
               </h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Voor de beste ervaring, inclusief offline leren
+                {t('shell_install_desc')}
               </p>
 
               <div className="flex space-x-2">
@@ -85,13 +87,13 @@ export function InstallPrompt() {
                   onClick={handleInstall}
                   className="flex-1 h-10 px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-md hover:opacity-90 transition-opacity"
                 >
-                  Installeren
+                  {t('shell_install_button')}
                 </button>
                 <button
                   onClick={handleDismiss}
                   className="h-10 px-4 py-2 bg-secondary text-secondary-foreground text-sm font-medium rounded-md hover:bg-secondary/80 transition-colors"
                 >
-                  Niet nu
+                  {t('shell_install_later')}
                 </button>
               </div>
             </div>

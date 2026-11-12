@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { TrendingUp, TrendingDown, Eye, Download, FileText, Users } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface ContentAnalytics {
   totalContent: number;
@@ -44,6 +45,7 @@ interface ContentAnalyticsProps {
 }
 
 export function ContentAnalytics({ userId: _userId }: ContentAnalyticsProps) {
+  const { t } = useTranslation();
   const [analytics, setAnalytics] = useState<ContentAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<'week' | 'month' | 'all'>('all');
@@ -83,10 +85,10 @@ export function ContentAnalytics({ userId: _userId }: ContentAnalyticsProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Content Analyse</CardTitle>
+          <CardTitle>{t('shell_content_analysis')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -96,10 +98,10 @@ export function ContentAnalytics({ userId: _userId }: ContentAnalyticsProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Content Analyse</CardTitle>
+          <CardTitle>{t('shell_content_analysis')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Geen analyse beschikbaar</div>
+          <div className="text-center text-muted-foreground">{t('shell_no_analysis')}</div>
         </CardContent>
       </Card>
     );
@@ -108,7 +110,7 @@ export function ContentAnalytics({ userId: _userId }: ContentAnalyticsProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Content Analyse</h2>
+        <h2 className="text-2xl font-bold">{t('shell_content_analysis')}</h2>
         <Select
           value={timeRange}
           onValueChange={(value: 'week' | 'month' | 'all') => setTimeRange(value)}
@@ -117,9 +119,9 @@ export function ContentAnalytics({ userId: _userId }: ContentAnalyticsProps) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="week">Deze Week</SelectItem>
-            <SelectItem value="month">Deze Maand</SelectItem>
-            <SelectItem value="all">Alles</SelectItem>
+            <SelectItem value="week">{t('shell_this_week')}</SelectItem>
+            <SelectItem value="month">{t('shell_this_month')}</SelectItem>
+            <SelectItem value="all">{t('shell_all')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -127,47 +129,47 @@ export function ContentAnalytics({ userId: _userId }: ContentAnalyticsProps) {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Totaal Content</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_total_content')}</CardTitle>
             <FileText className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{analytics.totalContent}</div>
-            <p className="text-xs text-muted-foreground">items geüpload</p>
+            <p className="text-xs text-muted-foreground">{t('shell_items_uploaded')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Totale Weergaven</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_total_views')}</CardTitle>
             <Eye className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{analytics.totalViews}</div>
-            <p className="text-xs text-muted-foreground">totaal bekeken</p>
+            <p className="text-xs text-muted-foreground">{t('shell_total_viewed')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Downloads</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_downloads')}</CardTitle>
             <Download className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{analytics.totalDownloads}</div>
-            <p className="text-xs text-muted-foreground">totaal gedownload</p>
+            <p className="text-xs text-muted-foreground">{t('shell_total_downloaded')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Gemiddelde Rating</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_avg_rating')}</CardTitle>
             <Users className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
               {Math.round(analytics.averageRating * 10) / 10}
             </div>
-            <p className="text-xs text-muted-foreground">van 5 sterren</p>
+            <p className="text-xs text-muted-foreground">{t('shell_out_of_5')}</p>
           </CardContent>
         </Card>
       </div>
@@ -175,7 +177,7 @@ export function ContentAnalytics({ userId: _userId }: ContentAnalyticsProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Categorie Overzicht</CardTitle>
+            <CardTitle>{t('shell_category_overview')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {analytics.categoryBreakdown.map((category) => (
@@ -193,28 +195,28 @@ export function ContentAnalytics({ userId: _userId }: ContentAnalyticsProps) {
 
         <Card>
           <CardHeader>
-            <CardTitle>Engagement Statistieken</CardTitle>
+            <CardTitle>{t('shell_engagement_stats')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm">Totaal Shares</span>
+              <span className="text-sm">{t('shell_total_shares')}</span>
               <Badge variant="secondary">{analytics.totalShares}</Badge>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm">Views per Item</span>
+              <span className="text-sm">{t('shell_views_per_item')}</span>
               <Badge variant="default">
                 {Math.round(analytics.totalViews / analytics.totalContent)}
               </Badge>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm">Downloads per Item</span>
+              <span className="text-sm">{t('shell_downloads_per_item')}</span>
               <Badge variant="outline">
                 {Math.round(analytics.totalDownloads / analytics.totalContent)}
               </Badge>
             </div>
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium">Engagement Rate</span>
+                <span className="text-sm font-medium">{t('shell_engagement_rate')}</span>
                 <span className="text-sm font-bold">
                   {Math.round(
                     ((analytics.totalDownloads + analytics.totalShares) / analytics.totalViews) *
@@ -236,7 +238,7 @@ export function ContentAnalytics({ userId: _userId }: ContentAnalyticsProps) {
 
       <Card>
         <CardHeader>
-          <CardTitle>Top Content</CardTitle>
+          <CardTitle>{t('shell_top_content')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
@@ -273,7 +275,7 @@ export function ContentAnalytics({ userId: _userId }: ContentAnalyticsProps) {
 
       <Card>
         <CardHeader>
-          <CardTitle>Wekelijkse Trends</CardTitle>
+          <CardTitle>{t('shell_weekly_trends')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">

@@ -13,6 +13,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Folder, FolderOpen, Plus, Edit, Trash2, ChevronRight, ChevronDown } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface StudySet {
   id: string;
@@ -35,6 +36,7 @@ interface FolderSystemProps {
 }
 
 export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
+  const { t } = useTranslation();
   const [folders, setFolders] = useState<Folder[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
@@ -228,15 +230,15 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Nieuwe Submap</DialogTitle>
+                  <DialogTitle>{t('shell_new_subfolder')}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4">
                   <Input
-                    placeholder="Map naam..."
+                    placeholder={t('shell_folder_name_placeholder')}
                     value={newFolderName}
                     onChange={(e) => setNewFolderName(e.target.value)}
                   />
-                  <Button onClick={handleCreateFolder}>Aanmaken</Button>
+                  <Button onClick={handleCreateFolder}>{t('shell_create')}</Button>
                 </div>
               </DialogContent>
             </Dialog>
@@ -279,10 +281,10 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Mappen</CardTitle>
+          <CardTitle>{t('shell_folders')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -308,15 +310,15 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Nieuwe Map</DialogTitle>
+                  <DialogTitle>{t('shell_new_folder')}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4">
                   <Input
-                    placeholder="Map naam..."
+                    placeholder={t('shell_folder_name_placeholder')}
                     value={newFolderName}
                     onChange={(e) => setNewFolderName(e.target.value)}
                   />
-                  <Button onClick={handleCreateFolder}>Aanmaken</Button>
+                  <Button onClick={handleCreateFolder}>{t('shell_create')}</Button>
                 </div>
               </DialogContent>
             </Dialog>
@@ -327,8 +329,8 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
         {rootFolders.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
             <Folder className="w-12 h-12 mx-auto mb-4 opacity-50" />
-            <p>Geen mappen</p>
-            <p className="text-sm">Maak je eerste map om je studie sets te organiseren</p>
+            <p>{t('shell_no_folders')}</p>
+            <p className="text-sm">{t('shell_no_folders_desc')}</p>
           </div>
         ) : (
           <div className="space-y-1">{rootFolders.map((folder) => renderFolder(folder))}</div>

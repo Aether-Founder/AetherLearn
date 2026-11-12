@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Flame, Calendar, Award } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface HomeworkStreak {
   currentStreak: number;
@@ -27,6 +28,7 @@ interface HomeworkStreaksProps {
 }
 
 export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
+  const { t } = useTranslation();
   const [streak, setStreak] = useState<HomeworkStreak | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -59,10 +61,10 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Huiswerk Streaks</CardTitle>
+          <CardTitle>{t('shell_homework_streaks')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -72,10 +74,10 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Huiswerk Streaks</CardTitle>
+          <CardTitle>{t('shell_homework_streaks')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Geen streaks beschikbaar</div>
+          <div className="text-center text-muted-foreground">{t('shell_no_streaks')}</div>
         </CardContent>
       </Card>
     );
@@ -97,48 +99,48 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold">Huiswerk Streaks</h2>
+      <h2 className="text-2xl font-bold">{t('shell_homework_streaks')}</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Huidige Streak</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_current_streak')}</CardTitle>
             <Flame className={`w-4 h-4 ${getStreakColor(streak.currentStreak)}`} />
           </CardHeader>
           <CardContent>
             <div className={`text-3xl font-bold ${getStreakColor(streak.currentStreak)}`}>
               {streak.currentStreak}
             </div>
-            <p className="text-xs text-muted-foreground">dagen op rij</p>
+            <p className="text-xs text-muted-foreground">{t('shell_days_in_a_row')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Langste Streak</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_longest_streak')}</CardTitle>
             <Award className="w-4 h-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-yellow-500">{streak.longestStreak}</div>
-            <p className="text-xs text-muted-foreground">dagen record</p>
+            <p className="text-xs text-muted-foreground">{t('shell_days_record')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Totaal Dagen</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_total_days')}</CardTitle>
             <Calendar className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{streak.totalDays}</div>
-            <p className="text-xs text-muted-foreground">met voltooid huiswerk</p>
+            <p className="text-xs text-muted-foreground">{t('shell_with_completed')}</p>
           </CardContent>
         </Card>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Streak Geschiedenis</CardTitle>
+          <CardTitle>{t('shell_streak_history')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-7 gap-2">
@@ -173,15 +175,15 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
           <div className="flex items-center gap-4 mt-4 text-xs text-muted-foreground">
             <div className="flex items-center gap-1">
               <div className="w-3 h-3 rounded-full bg-green-500" />
-              <span>Op tijd</span>
+              <span>{t('shell_on_time')}</span>
             </div>
             <div className="flex items-center gap-1">
               <div className="w-3 h-3 rounded-full bg-yellow-500" />
-              <span>Te laat</span>
+              <span>{t('shell_too_late')}</span>
             </div>
             <div className="flex items-center gap-1">
               <div className="w-3 h-3 rounded-full bg-muted" />
-              <span>Niet voltooid</span>
+              <span>{t('shell_not_completed')}</span>
             </div>
           </div>
         </CardContent>
@@ -190,7 +192,7 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
       {streak.achievements.length > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle>Behaalde Prestaties</CardTitle>
+            <CardTitle>{t('shell_achievements_unlocked')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -226,7 +228,7 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
                 <p className="text-sm text-muted-foreground">
                   {streak.longestStreak - streak.currentStreak > 0
                     ? `Nog ${streak.longestStreak - streak.currentStreak} dagen om je record te breken`
-                    : 'Je hebt je record al gebroken!'}
+                    : t('shell_record_broken')}
                 </p>
               </div>
             </div>

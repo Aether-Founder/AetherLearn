@@ -8,8 +8,10 @@ import {
   parseCardsFromText,
 } from '@/lib/learning-platform/import-export';
 import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import { useTranslation } from '@/lib/useTranslation';
 
 export function StudySetTools() {
+  const { t } = useTranslation();
   const studySet = useLearningPlatformStore((state) => state.studySet);
   const addImportedTerms = useLearningPlatformStore((state) => state.addImportedTerms);
   const [text, setText] = useState('');
@@ -26,14 +28,19 @@ export function StudySetTools() {
   const importCards = () => {
     const parsed =
       format === 'json'
-        ? parseCardsFromJson(text, 'imported', 'Geimporteerd')
-        : parseCardsFromText(text, 'imported', 'Geimporteerd');
+        ? parseCardsFromJson(text, 'imported', t('comp_imported'))
+        : parseCardsFromText(text, 'imported', t('comp_imported'));
     if (parsed.terms.length > 0) {
       addImportedTerms(parsed.terms);
       setText('');
     }
     setMessage(
-      `${parsed.terms.length} kaarten toegevoegd${parsed.warnings.length ? `, ${parsed.warnings.length} waarschuwingen` : ''}.`
+      t('comp_import_result', undefined, {
+        count: parsed.terms.length,
+        warnings: parsed.warnings.length
+          ? t('comp_import_warnings', undefined, { count: parsed.warnings.length })
+          : '',
+      })
     );
   };
 
@@ -43,7 +50,7 @@ export function StudySetTools() {
         <div>
           <h4 className="text-sm font-medium text-foreground">Import / export</h4>
           <p className="text-xs text-muted-foreground">
-            Plak TSV, CSV of Anki-vriendelijke JSON kaarten.
+            {t('comp_import_export_desc')}
           </p>
         </div>
         <select
@@ -60,7 +67,7 @@ export function StudySetTools() {
         value={text}
         onChange={(event) => setText(event.target.value)}
         placeholder={
-          format === 'json' ? '{"cards":[{"front":"Vraag","back":"Antwoord"}]}' : 'Vraag\tAntwoord'
+          format === 'json' ? t('comp_import_placeholder_json') : t('comp_import_placeholder_tsv')
         }
         className="min-h-28 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm"
       />
@@ -72,17 +79,17 @@ export function StudySetTools() {
           className="inline-flex items-center gap-2 rounded-lg bg-foreground px-3 py-2 text-sm font-medium text-background disabled:opacity-50"
         >
           <Upload className="h-4 w-4" />
-          Importeren
+          {t('comp_import')}
         </button>
         <button
           type="button"
           onClick={() =>
-            navigator.clipboard?.writeText(exportText).then(() => setMessage('Export gekopieerd.'))
+            navigator.clipboard?.writeText(exportText).then(() => setMessage(t('comp_export_copied')))
           }
           className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-medium hover:bg-secondary"
         >
           <Download className="h-4 w-4" />
-          Kopieer export
+          {t('comp_copy_export')}
         </button>
       </div>
       {message && <p className="text-xs text-muted-foreground">{message}</p>}

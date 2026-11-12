@@ -8,8 +8,10 @@ import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
 import type { Question, Term } from '@/types/learning-platform';
 import { McqQuestion } from '../questions/McqQuestion';
 import { GameShell } from '../GameShell';
+import { useTranslation } from '@/lib/useTranslation';
 
 export function QuizSprintGame({ onQuit }: GameShellProps) {
+  const { t } = useTranslation();
   const { playableTerms, studySet, settings, recordAnswer, beginSession, endSession } =
     useLearningPlatformStore();
   const [index, setIndex] = useState(0);
@@ -65,12 +67,12 @@ export function QuizSprintGame({ onQuit }: GameShellProps) {
         if (complete) {
           return (
             <div className="rounded-2xl border border-border bg-card p-8 text-center">
-              <p className="text-sm text-muted-foreground">Sprint voltooid</p>
+              <p className="text-sm text-muted-foreground">{t('comp_sprint_done')}</p>
               <h3 className="mt-2 text-3xl font-serif font-medium">
                 {correct}/{terms.length}
               </h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Probeer opnieuw voor een hogere score.
+                {t('comp_try_again_higher_score')}
               </p>
             </div>
           );

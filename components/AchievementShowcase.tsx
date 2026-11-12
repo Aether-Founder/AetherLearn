@@ -22,6 +22,7 @@ import {
   Calendar,
   Clock,
 } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Achievement {
   id: string;
@@ -40,6 +41,7 @@ interface AchievementShowcaseProps {
 }
 
 export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
+  const { t } = useTranslation();
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'unlocked' | 'locked'>('all');
@@ -140,10 +142,10 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Prestaties</CardTitle>
+          <CardTitle>{t('shell_achievements')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -152,7 +154,7 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Prestaties</h2>
+        <h2 className="text-2xl font-bold">{t('shell_achievements')}</h2>
         <Badge variant="secondary" className="text-lg px-4 py-2">
           <Trophy className="w-4 h-4 mr-2" />
           {unlockedCount}/{totalCount}
@@ -165,7 +167,7 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
             <div className="flex items-center gap-4">
               <Award className="w-12 h-12 text-yellow-500" />
               <div>
-                <div className="text-lg font-semibold">Prestatie Voortgang</div>
+                <div className="text-lg font-semibold">{t('shell_achievement_progress')}</div>
                 <div className="text-sm text-muted-foreground">
                   Je hebt {completionRate}% van alle prestaties ontgrendeld
                 </div>
@@ -180,7 +182,7 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
-            placeholder="Zoek prestaties..."
+            placeholder={t('shell_search_achievements')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
@@ -194,9 +196,9 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Alle</SelectItem>
-            <SelectItem value="unlocked">Ontgrendeld</SelectItem>
-            <SelectItem value="locked">Vergrendeld</SelectItem>
+            <SelectItem value="all">{t('shell_all')}</SelectItem>
+            <SelectItem value="unlocked">{t('shell_unlocked')}</SelectItem>
+            <SelectItem value="locked">{t('shell_locked')}</SelectItem>
           </SelectContent>
         </Select>
         <Select value={categoryFilter} onValueChange={setCategoryFilter}>
@@ -204,7 +206,7 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Alle Categorieën</SelectItem>
+            <SelectItem value="all">{t('shell_all_categories')}</SelectItem>
             {categories.map((category) => (
               <SelectItem key={category} value={category}>
                 {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -246,7 +248,7 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
                 {!isUnlocked && progress > 0 && (
                   <div className="space-y-1">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-muted-foreground">Voortgang</span>
+                      <span className="text-muted-foreground">{t('shell_progress')}</span>
                       <span className="font-medium">{progress}%</span>
                     </div>
                     <div className="w-full bg-muted rounded-full h-1.5">
@@ -273,11 +275,11 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
         <Card>
           <CardContent className="text-center py-12">
             <Award className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-            <h3 className="text-lg font-semibold mb-2">Geen Prestaties</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('shell_no_achievements')}</h3>
             <p className="text-sm text-muted-foreground">
               {searchQuery || categoryFilter !== 'all' || filter !== 'all'
-                ? 'Probeer andere filters'
-                : 'Begin met studeren om prestaties te ontgrendelen!'}
+                ? t('shell_try_other_filters')
+                : t('shell_start_studying_achievements')}
             </p>
           </CardContent>
         </Card>

@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
 import BinasViewer from '@/components/binas/BinasViewer';
+import { getServerT } from '@/lib/i18n-server';
 
-export const metadata: Metadata = {
-  title: 'Binas — Interactieve inhoud',
-  description:
-    'De volledige Binas (Zesde editie) met doorzoekbare inhoudsopgave en PDF-lezer.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getServerT();
+  return {
+    title: t('subject_binas_title'),
+    description: t('subject_binas_desc'),
+  };
+}
 
 /**
  * De Binas is een Next.js pagina (geen losse HTML): de lezer draait als

@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Flame, BookOpen, Trophy, Clock, Target, TrendingUp, Calendar } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface UserAnalytics {
   userId: string;
@@ -28,6 +29,7 @@ interface AnalyticsDashboardProps {
 }
 
 export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps) {
+  const { t } = useTranslation();
   const [analytics, setAnalytics] = useState<UserAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<'day' | 'week' | 'month' | 'year'>('week');
@@ -56,7 +58,7 @@ export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps)
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="text-muted-foreground">Laden...</div>
+        <div className="text-muted-foreground">{t('loading')}</div>
       </div>
     );
   }
@@ -64,7 +66,7 @@ export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps)
   if (!analytics) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="text-muted-foreground">Geen analytics gegevens beschikbaar</div>
+        <div className="text-muted-foreground">{t('shell_no_analytics_data')}</div>
       </div>
     );
   }
@@ -83,7 +85,7 @@ export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps)
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Analytics Dashboard</h1>
+        <h1 className="text-3xl font-bold">{t('shell_analytics_dashboard')}</h1>
         <div className="flex gap-2">
           {(['day', 'week', 'month', 'year'] as const).map((range) => (
             <Button
@@ -93,12 +95,12 @@ export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps)
               size="sm"
             >
               {range === 'day'
-                ? 'Dag'
+                ? t('shell_day')
                 : range === 'week'
-                  ? 'Week'
+                  ? t('shell_week')
                   : range === 'month'
-                    ? 'Maand'
-                    : 'Jaar'}
+                    ? t('shell_month')
+                    : t('shell_year')}
             </Button>
           ))}
         </div>
@@ -108,38 +110,40 @@ export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps)
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Totale Studietijd</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_total_study_time')}</CardTitle>
             <Clock className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{formatTime(analytics.totalStudyTime)}</div>
             <p className="text-xs text-muted-foreground">
-              Deze{' '}
-              {timeRange === 'day'
-                ? 'dag'
-                : timeRange === 'week'
-                  ? 'week'
-                  : timeRange === 'month'
-                    ? 'maand'
-                    : 'jaar'}
+              {t('shell_this_period', undefined, {
+                period:
+                  timeRange === 'day'
+                    ? t('shell_day_lower')
+                    : timeRange === 'week'
+                      ? t('shell_week_lower')
+                      : timeRange === 'month'
+                        ? t('shell_month_lower')
+                        : t('shell_year_lower'),
+              })}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Kaarten Gestudeerd</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_cards_studied')}</CardTitle>
             <BookOpen className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{analytics.totalCardsStudied}</div>
-            <p className="text-xs text-muted-foreground">Totaal aantal kaarten</p>
+            <p className="text-xs text-muted-foreground">{t('shell_total_cards')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Huidige Streak</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_current_streak')}</CardTitle>
             <Flame className="w-4 h-4 text-orange-500" />
           </CardHeader>
           <CardContent>
@@ -152,12 +156,12 @@ export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps)
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Prestaties</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_achievements')}</CardTitle>
             <Trophy className="w-4 h-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{analytics.achievementsUnlocked}</div>
-            <p className="text-xs text-muted-foreground">Ontgrendelde prestaties</p>
+            <p className="text-xs text-muted-foreground">{t('shell_unlocked_achievements')}</p>
           </CardContent>
         </Card>
       </div>
@@ -231,18 +235,18 @@ export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps)
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Studie Sets</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_study_sets')}</CardTitle>
             <BookOpen className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{analytics.totalStudySets}</div>
-            <p className="text-xs text-muted-foreground">Totaal aantal sets</p>
+            <p className="text-xs text-muted-foreground">{t('shell_total_sets')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Huiswerk</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_homework')}</CardTitle>
             <Target className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -255,12 +259,12 @@ export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps)
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Studie Plannen</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('shell_study_plans')}</CardTitle>
             <Calendar className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{analytics.totalStudyPlans}</div>
-            <p className="text-xs text-muted-foreground">Actieve plannen</p>
+            <p className="text-xs text-muted-foreground">{t('shell_active_plans')}</p>
           </CardContent>
         </Card>
       </div>
@@ -278,11 +282,11 @@ export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps)
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <div className="text-2xl font-bold">{analytics.totalTestsCompleted}</div>
-                <p className="text-sm text-muted-foreground">Tests voltooid</p>
+                <p className="text-sm text-muted-foreground">{t('shell_tests_completed')}</p>
               </div>
               <div>
                 <div className="text-2xl font-bold">{analytics.averageScore}%</div>
-                <p className="text-sm text-muted-foreground">Gemiddelde score</p>
+                <p className="text-sm text-muted-foreground">{t('shell_avg_score')}</p>
               </div>
             </div>
           </CardContent>

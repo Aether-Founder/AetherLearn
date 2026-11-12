@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Send, MessageSquare, Pin, Search, MoreHorizontal } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface DiscussionMessage {
   id: string;
@@ -32,6 +33,7 @@ interface ClassDiscussionProps {
 }
 
 export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionProps) {
+  const { t, currentLanguage } = useTranslation();
   const [messages, setMessages] = useState<DiscussionMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [newMessage, setNewMessage] = useState('');
@@ -153,21 +155,21 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
     const diffHours = Math.floor(diffMs / 3600000);
     const diffDays = Math.floor(diffMs / 86400000);
 
-    if (diffMins < 1) return 'Nu';
-    if (diffMins < 60) return `${diffMins}m geleden`;
-    if (diffHours < 24) return `${diffHours}u geleden`;
-    if (diffDays < 7) return `${diffDays}d geleden`;
-    return date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' });
+    if (diffMins < 1) return t('shell_now');
+    if (diffMins < 60) return t('shell_minutes_ago', undefined, { count: diffMins });
+    if (diffHours < 24) return t('shell_hours_ago', undefined, { count: diffHours });
+    if (diffDays < 7) return t('shell_days_ago', undefined, { count: diffDays });
+    return date.toLocaleDateString(currentLanguage, { day: 'numeric', month: 'short' });
   };
 
   if (loading) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Klas Discussie</CardTitle>
+          <CardTitle>{t('shell_class_discussion')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -180,16 +182,16 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <MessageSquare className="w-5 h-5" />
-              Klas Discussie
+              {t('shell_class_discussion')}
             </CardTitle>
-            <Badge variant="secondary">{messages.length} berichten</Badge>
+            <Badge variant="secondary">{t('shell_message_count', undefined, { count: messages.length })}</Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="Zoek berichten..."
+              placeholder={t('shell_search_messages')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -203,7 +205,7 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
               <Pin className="w-4 h-4" />
-              Vastgepinde Berichten
+              {t('shell_pinned_messages')}
             </div>
             {pinnedMessages.map((message) => (
               <MessageCard
@@ -245,9 +247,9 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
         <Card className="bg-muted/50">
           <CardContent className="p-3">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium">Reageert op {replyTo.authorName}</span>
+              <span className="text-sm font-medium">{t('shell_replying_to', undefined, { name: replyTo.authorName })}</span>
               <Button size="sm" variant="ghost" onClick={() => setReplyTo(null)}>
-                Annuleren
+                {t('cancel')}
               </Button>
             </div>
             <div className="text-sm text-muted-foreground p-2 rounded bg-background">
@@ -261,7 +263,7 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
         <CardContent className="p-4">
           <div className="flex gap-2">
             <Textarea
-              placeholder="Typ je bericht..."
+              placeholder={t('shell_type_message')}
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyDown={(e) => {
@@ -301,6 +303,7 @@ function MessageCard({
   onDelete,
   formatTime,
 }: MessageCardProps) {
+  const { t } = useTranslation();
   const isOwnMessage = message.authorId === userId;
   const canModerate = isTeacher;
 
@@ -317,7 +320,7 @@ function MessageCard({
               <span className="font-medium">{message.authorName}</span>
               {message.isTeacher && (
                 <Badge variant="secondary" className="text-xs">
-                  Docent
+                  {t('shell_teacher')}
                 </Badge>
               )}
               {message.isPinned && <Pin className="w-3 h-3 text-muted-foreground" />}
@@ -352,7 +355,7 @@ function MessageCard({
                 className="h-6 text-xs"
                 onClick={() => onReply(message)}
               >
-                Reageren
+                {t('shell_reply')}
               </Button>
             </div>
           </div>

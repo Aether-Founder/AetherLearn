@@ -12,6 +12,7 @@ import { JsonViewer } from "@/components/research/JsonViewer";
 import { Callout } from "@/components/research/Callout";
 import { Calendar, Clock, Share2, Download } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { useTranslation } from "@/lib/useTranslation";
 
 interface ResearchPost {
   id: string;
@@ -58,6 +59,7 @@ interface ResearchPost {
 }
 
 export default function ResearchPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { t } = useTranslation();
   const [post, setPost] = useState<ResearchPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [slug, setSlug] = useState<string>("");
@@ -150,9 +152,9 @@ export default function ResearchPostPage({ params }: { params: Promise<{ slug: s
     return (
       <AppShell>
         <div className="rounded-lg border border-dashed border-border p-10 text-center">
-          <p className="text-sm text-muted-foreground">Research post niet gevonden.</p>
+          <p className="text-sm text-muted-foreground">{t('res_not_found')}</p>
           <Link href="/research" className="mt-4 inline-block text-sm text-primary hover:underline">
-            Terug naar Research Hub
+            {t('res_back_to_hub')}
           </Link>
         </div>
       </AppShell>
@@ -181,7 +183,7 @@ export default function ResearchPostPage({ params }: { params: Promise<{ slug: s
           </span>
           {post.isFeatured && (
             <span className="rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-600 dark:bg-amber-500/20 dark:text-amber-400">
-              Uitgelicht
+              {t('res_featured')}
             </span>
           )}
         </div>
@@ -193,14 +195,14 @@ export default function ResearchPostPage({ params }: { params: Promise<{ slug: s
         <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4" />
-            <span>Gepubliceerd: {formatDate(post.publishedAt)}</span>
+            <span>{t('res_published', undefined, { date: formatDate(post.publishedAt) })}</span>
           </div>
           <div className="flex items-center gap-2">
             <Clock className="h-4 w-4" />
-            <span>{post.readingTime} min leestijd</span>
+            <span>{t('res_reading_time', undefined, { n: post.readingTime })}</span>
           </div>
           {post.updatedAt !== post.publishedAt && (
-            <div>Bijgewerkt: {formatDate(post.updatedAt)}</div>
+            <div>{t('res_updated', undefined, { date: formatDate(post.updatedAt) })}</div>
           )}
         </div>
 
@@ -240,7 +242,7 @@ export default function ResearchPostPage({ params }: { params: Promise<{ slug: s
           {/* References */}
           {post.references.length > 0 && (
             <div className="mt-12 border-t border-border pt-8">
-              <h2 className="font-display text-2xl font-semibold mb-4">Referenties</h2>
+              <h2 className="font-display text-2xl font-semibold mb-4">{t('res_references')}</h2>
               <ul className="space-y-2">
                 {post.references.map((ref, index) => (
                   <li key={index}>
@@ -261,7 +263,7 @@ export default function ResearchPostPage({ params }: { params: Promise<{ slug: s
           {/* Related Posts */}
           {post.relatedPosts.length > 0 && (
             <div className="mt-12 border-t border-border pt-8">
-              <h2 className="font-display text-2xl font-semibold mb-4">Gerelateerde Posts</h2>
+              <h2 className="font-display text-2xl font-semibold mb-4">{t('res_related')}</h2>
               <div className="space-y-4">
                 {post.relatedPosts.map((relatedId) => (
                   <div key={relatedId} className="rounded-lg border border-border p-4">
@@ -283,15 +285,15 @@ export default function ResearchPostPage({ params }: { params: Promise<{ slug: s
 
           {/* Actions */}
           <div className="rounded-lg border border-border bg-card p-5">
-            <h3 className="font-display text-lg font-semibold mb-4">Acties</h3>
+            <h3 className="font-display text-lg font-semibold mb-4">{t('res_actions')}</h3>
             <div className="space-y-2">
               <button className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-left hover:bg-secondary transition-colors">
                 <Share2 className="h-4 w-4" />
-                Link kopiëren
+                {t('res_copy_link')}
               </button>
               <button className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-left hover:bg-secondary transition-colors">
                 <Download className="h-4 w-4" />
-                Download als PDF
+                {t('res_download_pdf')}
               </button>
             </div>
           </div>

@@ -1,4 +1,7 @@
+'use client';
+
 import { useEffect, useState, type ReactNode } from 'react';
+import { useTranslation } from '@/lib/useTranslation';
 
 /* Small presentational primitives shared across the Aether Student OS.
    Styling stays inside the existing token palette. */
@@ -180,6 +183,7 @@ export function Modal({
   children?: ReactNode;
   footer?: ReactNode;
 }) {
+  const { t } = useTranslation();
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -192,7 +196,7 @@ export function Modal({
     <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 sm:p-8">
       <button
         type="button"
-        aria-label="Sluiten"
+        aria-label={t('shell_close')}
         onClick={onClose}
         className="fixed inset-0 bg-foreground/25 backdrop-blur-[2px]"
       />

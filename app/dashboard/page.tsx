@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import MinimalDashboard from '@/components/dashboard/MinimalDashboard';
 import DashboardOverview from '@/components/dashboard/DashboardOverview';
 import { Monitor, Layout } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 export const dynamic = 'force-dynamic';
 
 export default function DashboardPage() {
+  const { t } = useTranslation();
   const [view, setView] = useState<'full' | 'minimal'>('full');
   const [mounted, setMounted] = useState(false);
 
@@ -35,7 +37,7 @@ export default function DashboardPage() {
         <button
           onClick={toggleView}
           className="absolute top-4 right-4 z-10 p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
-          title="Wissel naar volledig dashboard"
+          title={t('dash_switch_full')}
         >
           <Layout className="h-5 w-5 text-muted-foreground" />
         </button>
@@ -49,7 +51,7 @@ export default function DashboardPage() {
       <button
         onClick={toggleView}
         className="absolute top-4 right-4 z-10 p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
-        title="Wissel naar minimaal dashboard"
+        title={t('dash_switch_minimal')}
       >
         <Monitor className="h-5 w-5 text-muted-foreground" />
       </button>

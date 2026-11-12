@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Trophy, Lock, Flame, BookOpen, Users, Target } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Achievement {
   id: string;
@@ -30,6 +31,7 @@ interface AchievementsProps {
 }
 
 export function Achievements({ userId }: AchievementsProps) {
+  const { t } = useTranslation();
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [definitions, setDefinitions] = useState<AchievementDefinition[]>([]);
   const [filter, setFilter] = useState<'all' | 'unlocked' | 'locked'>('all');
@@ -107,7 +109,7 @@ export function Achievements({ userId }: AchievementsProps) {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="text-muted-foreground">Laden...</div>
+        <div className="text-muted-foreground">{t('loading')}</div>
       </div>
     );
   }
@@ -126,7 +128,7 @@ export function Achievements({ userId }: AchievementsProps) {
 
       <div className="mb-6 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-950 dark:to-orange-950 rounded-lg border border-yellow-200 dark:border-yellow-800">
         <div className="flex items-center justify-between mb-2">
-          <span className="font-semibold">Voortgang</span>
+          <span className="font-semibold">{t('shell_progress')}</span>
           <span className="text-sm text-muted-foreground">{completionPercentage}% voltooid</span>
         </div>
         <Progress value={completionPercentage} className="h-2" />
@@ -246,7 +248,7 @@ export function Achievements({ userId }: AchievementsProps) {
 
               <div className="mt-3">
                 <div className="flex items-center justify-between text-xs mb-1">
-                  <span className="text-muted-foreground">Voortgang</span>
+                  <span className="text-muted-foreground">{t('shell_progress')}</span>
                   <span className="font-medium">
                     {achievement.progress}/{achievement.maxProgress}
                   </span>
@@ -267,7 +269,7 @@ export function Achievements({ userId }: AchievementsProps) {
       {filteredAchievements.length === 0 && (
         <div className="text-center py-12">
           <Trophy className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-          <p className="text-muted-foreground">Geen prestaties gevonden</p>
+          <p className="text-muted-foreground">{t('shell_no_achievements_found')}</p>
         </div>
       )}
     </div>

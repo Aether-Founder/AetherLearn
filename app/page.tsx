@@ -10,6 +10,7 @@ import { updateUserProfile } from "@/lib/supabase/auth";
 import { GradeOnboardingModal } from "@/components/GradeOnboardingModal";
 import { supabase } from "@/lib/supabase/client";
 import { useActivityTracking } from "@/hooks/useActivityTracking";
+import { useTranslation } from "@/lib/useTranslation";
 
 function Stat({ value, label }: { value: string; label: string }) {
   return (
@@ -57,6 +58,7 @@ export default function Home() {
   const { profile, loading: profileLoading } = useUserProfile();
   const { user, loading: userLoading } = useUser();
   const router = useRouter();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setMounted(true);
@@ -132,21 +134,21 @@ export default function Home() {
 
     // Time-based greetings
     if (hour >= 6 && hour < 12) {
-      return 'Goedemorgen';
+      return t('lp_greeting_morning');
     } else if (hour >= 12 && hour < 18) {
-      return 'Goedemiddag';
+      return t('lp_greeting_afternoon');
     } else {
-      return 'Goedenavond';
+      return t('lp_greeting_evening');
     }
   };
 
   const greeting = useMemo(() => {
     const timeGreeting = getGreeting();
-    const options = ['Hallo', 'Hoi'];
+    const options = [t('home_greeting_hello'), t('home_greeting_hi')];
     const randomOption = options[Math.floor(Math.random() * options.length)];
     // 70% chance for time-based greeting, 30% for Hallo/Hoi
     return Math.random() < 0.7 ? timeGreeting : randomOption;
-  }, []);
+  }, [t]);
   const showName = true; // Always show name
 
   // Track if interactive greeting was shown today
@@ -441,8 +443,8 @@ export default function Home() {
               )}
               <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
                 {totalDue > 0
-                  ? `Je hebt ${totalDue} kaarten klaarstaan om te herhalen.`
-                  : 'Je hebt geen kaarten die herhaald hoeven te worden.'}
+                  ? t('home_due_cards', undefined, { count: totalDue })
+                  : t('home_no_due_cards')}
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
@@ -456,15 +458,15 @@ export default function Home() {
 
             <dl className="grid grid-cols-3 gap-6 md:border-l md:border-border md:pl-8">
               <Stat value={String(totalSets)} label="Sets" />
-              <Stat value={String(visibleSubjectCount)} label="Vakken" />
-              <Stat value={String(totalDue)} label="Te herhalen" />
+              <Stat value={String(visibleSubjectCount)} label={t('home_stat_subjects')} />
+              <Stat value={String(totalDue)} label={t('home_stat_due')} />
             </dl>
           </section>
 
           <div className="flex flex-wrap items-center gap-2 py-6">
-            <span className="mr-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Vak</span>
+            <span className="mr-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{t('home_subject_short')}</span>
             <Chip active={subject === "Alle vakken"} onClick={() => setSubject("Alle vakken")}>
-              Alle vakken
+              {t('home_all_subjects')}
             </Chip>
             {sortedSubjects.filter((s) => !hidden.includes(s.name)).slice(0, showAllProgressSubjects ? undefined : 10).map((s) => (
               <Chip key={s.id} active={subject === s.name} onClick={() => setSubject(s.name)}>
@@ -487,16 +489,16 @@ export default function Home() {
               <SectionTitle
                 action={
                   <span className="text-xs text-muted-foreground">
-                    {filtered.length} {filtered.length === 1 ? "vak" : "vakken"}
+                    {t(filtered.length === 1 ? 'home_subject_count_one' : 'home_subject_count_other', undefined, { count: filtered.length })}
                   </span>
                 }
               >
-                Voortgang per vak
+                {t('home_progress_by_subject')}
               </SectionTitle>
               {sortedSubjects.length === 0 ? (
                 <div className="rounded-lg border border-dashed border-border p-10 text-center">
                   <p className="text-sm text-muted-foreground">
-                    Geen vakken beschikbaar.
+                    {t('home_no_subjects')}
                   </p>
                 </div>
               ) : (
@@ -520,7 +522,7 @@ export default function Home() {
                         <div className="hidden sm:block">
                           <div className="mb-1.5 flex items-baseline justify-between text-xs text-muted-foreground">
                             <span>
-                              Voortgang
+                              {t('home_progress')}
                             </span>
                             <span className="tabular-nums">{Math.round(s.mastery || 0)}%</span>
                           </div>
@@ -528,13 +530,13 @@ export default function Home() {
                         </div>
                         <div className="flex items-center justify-end gap-3">
                           <span className="text-xs text-muted-foreground hidden sm:inline">
-                            {s.dueCount || 0} te herhalen
+                            {t('home_due_count', undefined, { count: s.dueCount || 0 })}
                           </span>
                           <Link
                             href={`/subjects/${s.id}`}
                             className="inline-flex h-8 items-center rounded-md border border-border px-3 text-xs font-medium transition-colors hover:bg-secondary"
                           >
-                            Openen
+                            {t('home_open')}
                           </Link>
                         </div>
                       </li>
@@ -545,7 +547,7 @@ export default function Home() {
                       onClick={() => setShowAllProgressSubjects(!showAllProgressSubjects)}
                       className="mt-4 text-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
-                      {showAllProgressSubjects ? 'Toon minder' : `Toon meer (${sortedSubjects.length - 5} meer)`}
+                      {showAllProgressSubjects ? t('home_show_less') : t('home_show_more', undefined, { count: sortedSubjects.length - 5 })}
                     </button>
                   )}
                 </>
@@ -558,22 +560,22 @@ export default function Home() {
                       href="/lessons"
                       className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
                     >
-                      Alle lessen
+                      {t('home_all_lessons')}
                     </Link>
                   }
                 >
-                  Aanbevolen lessen
+                  {t('home_recommended_lessons')}
                 </SectionTitle>
                 {dbSubjects.length === 0 ? (
                   <div className="rounded-lg border border-dashed border-border p-10 text-center">
                     <p className="text-sm text-muted-foreground">
-                      Maak eerst vakken aan om lessen te kunnen bekijken.
+                      {t('home_no_subjects_lessons_hint')}
                     </p>
                   </div>
                 ) : (
                   <div className="grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2">
                     <div className="bg-background p-5 text-center text-sm text-muted-foreground">
-                      Nog geen lessen beschikbaar
+                      {t('home_no_lessons')}
                     </div>
                   </div>
                 )}
@@ -583,7 +585,7 @@ export default function Home() {
             <aside className="space-y-10 lg:sticky lg:top-24 lg:self-start">
               <div>
                 <div className="mb-4 flex items-end justify-between border-b border-border pb-3">
-                  <h2 className="font-display text-lg font-semibold">Deze week</h2>
+                  <h2 className="font-display text-lg font-semibold">{t('home_this_week')}</h2>
                   <Link
                     href="/agenda"
                     className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
@@ -593,7 +595,7 @@ export default function Home() {
                 </div>
                 {upcoming.length === 0 ? (
                   <p className="text-sm text-muted-foreground">
-                    Geen geplande evenementen deze week.
+                    {t('home_no_events_week')}
                   </p>
                 ) : (
                   <ul className="space-y-4">
@@ -623,7 +625,7 @@ export default function Home() {
 
               <div>
                 <h2 className="mb-4 border-b border-border pb-3 font-display text-lg font-semibold">
-                  Studieritme
+                  {t('home_study_rhythm')}
                 </h2>
                 {(() => {
                   const last7Days = getActivityForLastDays(7);
@@ -632,7 +634,7 @@ export default function Home() {
 
                   return !hasActivity ? (
                     <p className="text-sm text-muted-foreground">
-                      Nog geen studie-activiteit geregistreerd. Houd dit tabblad open om je studietijd bij te houden.
+                      {t('home_no_activity')}
                     </p>
                   ) : (
                     <>
@@ -653,14 +655,14 @@ export default function Home() {
                                 />
                               </div>
                               <span className="text-[10px] text-muted-foreground">
-                                {["m", "d", "w", "d", "v", "z", "z"][i]}
+                                {[t('home_dow_mon'), t('home_dow_tue'), t('home_dow_wed'), t('home_dow_thu'), t('home_dow_fri'), t('home_dow_sat'), t('home_dow_sun')][i]}
                               </span>
                             </div>
                           );
                         })}
                       </div>
                       <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-                        Vandaag: {studyTimeDisplay}
+                        {t('home_today', undefined, { time: studyTimeDisplay })}
                       </p>
                     </>
                   );
@@ -668,16 +670,16 @@ export default function Home() {
               </div>
 
               <div className="rounded-lg border border-border p-5">
-                <h2 className="font-display text-lg font-semibold">Maak iets nieuws</h2>
+                <h2 className="font-display text-lg font-semibold">{t('home_create_new')}</h2>
                 <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                  Zet aantekeningen om in een studieset en oefen er direct mee.
+                  {t('home_create_new_desc')}
                 </p>
                 <Link
                   href="/create/learning-list"
                   className="mt-4 h-9 w-full rounded-md bg-primary text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 inline-flex items-center justify-center gap-2"
                 >
                   <Plus className="h-4 w-4" />
-                  Nieuwe leerset
+                  {t('home_new_set')}
                 </Link>
               </div>
             </aside>
@@ -695,7 +697,7 @@ export default function Home() {
             onClick={() => handleHideSubject(contextMenu.subjectName)}
             className="w-full rounded px-3 py-2 text-left text-sm hover:bg-secondary"
           >
-            Verbergen van homepage
+            {t('home_hide_from_home')}
           </button>
         </div>
       )}

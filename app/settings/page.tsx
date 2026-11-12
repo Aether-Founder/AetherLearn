@@ -46,6 +46,7 @@ const supabase = browserClient as any;
 type SettingsSection = 'profile' | 'appearance' | 'navigation' | 'statistics' | 'account' | 'ai' | 'accessibility' | 'language';
 
 function ActivityGraph() {
+  const { t } = useTranslation();
   const { user } = useUser();
   const { getYearlyActivity } = useActivityTracking(user?.id);
   const [activityData, setActivityData] = useState<any[]>([]);
@@ -123,8 +124,7 @@ function ActivityGraph() {
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        GitHub-achtige activiteitsgrafiek van het afgelopen jaar. Elke cel vertegenwoordigt een dag,
-        gekleurd op basis van de studietijd en je emoji-reactie.
+        {t('settings_activity_desc')}
       </p>
       <div className="overflow-x-auto">
         <div className="flex gap-1">
@@ -134,7 +134,7 @@ function ActivityGraph() {
                 <div
                   key={day.date}
                   className={`w-3 h-3 rounded-sm ${getColor(day.totalSeconds, day.emoji)} relative`}
-                  title={`${day.date}: ${Math.floor(day.totalSeconds / 60)} minuten ${day.emoji ? getEmojiIcon(day.emoji) : ''}`}
+                  title={`${day.date}: ${Math.floor(day.totalSeconds / 60)} ${t('settings_minutes')} ${day.emoji ? getEmojiIcon(day.emoji) : ''}`}
                 >
                   {day.emoji && (
                     <span className="absolute inset-0 flex items-center justify-center text-[8px]">
@@ -149,11 +149,11 @@ function ActivityGraph() {
       </div>
       <div className="space-y-2">
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span>Geen activiteit</span>
+          <span>{t('settings_no_activity')}</span>
           <div className="w-3 h-3 rounded-sm bg-secondary" />
         </div>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span>Blij 😊</span>
+          <span>{t('settings_emoji_happy')}</span>
           <div className="flex gap-1">
             <div className="w-3 h-3 rounded-sm bg-green-100 dark:bg-green-900" />
             <div className="w-3 h-3 rounded-sm bg-green-200 dark:bg-green-800" />
@@ -161,10 +161,10 @@ function ActivityGraph() {
             <div className="w-3 h-3 rounded-sm bg-green-400 dark:bg-green-600" />
             <div className="w-3 h-3 rounded-sm bg-green-500 dark:bg-green-500" />
           </div>
-          <span>Meer tijd</span>
+          <span>{t('settings_more_time')}</span>
         </div>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span>Neutraal 😐</span>
+          <span>{t('settings_emoji_neutral')}</span>
           <div className="flex gap-1">
             <div className="w-3 h-3 rounded-sm bg-yellow-100 dark:bg-yellow-900" />
             <div className="w-3 h-3 rounded-sm bg-yellow-200 dark:bg-yellow-800" />
@@ -172,10 +172,10 @@ function ActivityGraph() {
             <div className="w-3 h-3 rounded-sm bg-yellow-400 dark:bg-yellow-600" />
             <div className="w-3 h-3 rounded-sm bg-yellow-500 dark:bg-yellow-500" />
           </div>
-          <span>Meer tijd</span>
+          <span>{t('settings_more_time')}</span>
         </div>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span>Tevreden 😢</span>
+          <span>{t('settings_emoji_sad')}</span>
           <div className="flex gap-1">
             <div className="w-3 h-3 rounded-sm bg-red-100 dark:bg-red-900" />
             <div className="w-3 h-3 rounded-sm bg-red-200 dark:bg-red-800" />
@@ -183,7 +183,7 @@ function ActivityGraph() {
             <div className="w-3 h-3 rounded-sm bg-red-400 dark:bg-red-600" />
             <div className="w-3 h-3 rounded-sm bg-red-500 dark:bg-red-500" />
           </div>
-          <span>Meer tijd</span>
+          <span>{t('settings_more_time')}</span>
         </div>
       </div>
     </div>
@@ -315,7 +315,7 @@ export default function InstellingenPage() {
       setAvatarFile(null);
     } catch (error) {
       console.error('Avatar upload failed:', error);
-      setSaveMessage({ type: 'error', text: 'Avatar upload mislukt' });
+      setSaveMessage({ type: 'error', text: t('settings_avatar_upload_failed') });
     } finally {
       setUploading(false);
     }
@@ -359,7 +359,7 @@ export default function InstellingenPage() {
 
       if (error) throw error;
 
-      setSaveMessage({ type: 'success', text: 'Instellingen opgeslagen!' });
+      setSaveMessage({ type: 'success', text: t('settings_saved_success') });
 
       // Update local state
       setProfile({
@@ -375,7 +375,7 @@ export default function InstellingenPage() {
       });
     } catch (error) {
       console.error('Failed to save settings:', error);
-      setSaveMessage({ type: 'error', text: 'Opslaan mislukt' });
+      setSaveMessage({ type: 'error', text: t('settings_save_failed') });
     } finally {
       setLoading(false);
     }
@@ -395,12 +395,12 @@ export default function InstellingenPage() {
 
   const handlePasswordChange = async () => {
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-      setSaveMessage({ type: 'error', text: 'Wachtwoorden komen niet overeen' });
+      setSaveMessage({ type: 'error', text: t('settings_passwords_mismatch') });
       return;
     }
 
     if (passwordForm.newPassword.length < 6) {
-      setSaveMessage({ type: 'error', text: 'Wachtwoord moet minimaal 6 tekens zijn' });
+      setSaveMessage({ type: 'error', text: t('settings_password_too_short') });
       return;
     }
 
@@ -412,12 +412,12 @@ export default function InstellingenPage() {
 
       if (error) throw error;
 
-      setSaveMessage({ type: 'success', text: 'Wachtwoord gewijzigd!' });
+      setSaveMessage({ type: 'success', text: t('settings_password_changed') });
       setShowPasswordDialog(false);
       setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
     } catch (error: any) {
       console.error('Password change error:', error);
-      setSaveMessage({ type: 'error', text: 'Wachtwoord wijzigen mislukt' });
+      setSaveMessage({ type: 'error', text: t('settings_password_change_failed') });
     } finally {
       setLoading(false);
     }
@@ -481,7 +481,7 @@ export default function InstellingenPage() {
 
       if (error) throw error;
 
-      setAiTestResult({ success: true, message: 'Instellingen opgeslagen!' });
+      setAiTestResult({ success: true, message: t('settings_saved_success') });
 
       const { getUsageSummary } = await import('@/lib/ai/rate-limiter');
       const summary = await getUsageSummary(authUser.id, supabase);
@@ -495,7 +495,7 @@ export default function InstellingenPage() {
 
   const handleAITestConnection = async () => {
     if (!openrouterKey) {
-      setAiTestResult({ success: false, message: 'Voer eerst een API-key in' });
+      setAiTestResult({ success: false, message: t('settings_api_key_required') });
       return;
     }
 
@@ -517,7 +517,7 @@ export default function InstellingenPage() {
       });
 
       if (!response.ok) {
-        throw new Error(`API fout: ${response.status}`);
+        throw new Error(t('settings_api_error', undefined, { status: response.status }));
       }
 
       const data = await response.json();
@@ -525,15 +525,15 @@ export default function InstellingenPage() {
       if (data.choices && data.choices.length > 0) {
         setAiTestResult({
           success: true,
-          message: 'Verbinding succesvol! Je API-key werkt.',
+          message: t('settings_connection_success'),
         });
       } else {
-        throw new Error('Ongeldig antwoord van API');
+        throw new Error(t('settings_invalid_api_response'));
       }
     } catch (error: any) {
       setAiTestResult({
         success: false,
-        message: `Verbinding mislukt: ${error.message}`,
+        message: t('settings_connection_failed', undefined, { message: error.message }),
       });
     } finally {
       setAiTesting(false);
@@ -568,10 +568,10 @@ export default function InstellingenPage() {
       // Update the translation system
       changeLanguage(languageCode);
 
-      setSaveMessage({ type: 'success', text: 'Voorkeuren opgeslagen!' });
+      setSaveMessage({ type: 'success', text: t('settings_preferences_saved') });
     } catch (error: any) {
       console.error('Failed to save preferences:', error);
-      setSaveMessage({ type: 'error', text: 'Opslaan mislukt' });
+      setSaveMessage({ type: 'error', text: t('settings_save_failed') });
     } finally {
       setPreferencesSaving(false);
     }
@@ -637,7 +637,7 @@ export default function InstellingenPage() {
               }`}
             >
               <User className="h-4 w-4" />
-              Profiel
+              {t('settings_profile')}
             </button>
             <button
               onClick={() => {
@@ -651,7 +651,7 @@ export default function InstellingenPage() {
               }`}
             >
               <Palette className="h-4 w-4" />
-              Uiterlijk
+              {t('settings_appearance')}
             </button>
             <button
               onClick={() => setActiveSection('navigation')}
@@ -662,7 +662,7 @@ export default function InstellingenPage() {
               }`}
             >
               <Layout className="h-4 w-4" />
-              Navigatie
+              {t('settings_navigation')}
             </button>
             <button
               onClick={() => setActiveSection('statistics')}
@@ -673,7 +673,7 @@ export default function InstellingenPage() {
               }`}
             >
               <BarChart3 className="h-4 w-4" />
-              Statistieken
+              {t('settings_statistics')}
             </button>
             <button
               onClick={() => setActiveSection('account')}
@@ -684,7 +684,7 @@ export default function InstellingenPage() {
               }`}
             >
               <Shield className="h-4 w-4" />
-              Account
+              {t('settings_account')}
             </button>
             <button
               onClick={() => setActiveSection('ai')}
@@ -706,7 +706,7 @@ export default function InstellingenPage() {
               }`}
             >
               <Accessibility className="h-4 w-4" />
-              Toegankelijkheid
+              {t('settings_accessibility')}
             </button>
             <button
               onClick={() => setActiveSection('language')}
@@ -717,7 +717,7 @@ export default function InstellingenPage() {
               }`}
             >
               <Globe className="h-4 w-4" />
-              Taal en Niveau
+              {t('settings_language_level')}
             </button>
           </nav>
         </aside>
@@ -752,7 +752,7 @@ export default function InstellingenPage() {
                   </div>
                   <div className="flex-1 space-y-3">
                     <div>
-                      <Label htmlFor="avatar-upload">Profielfoto</Label>
+                      <Label htmlFor="avatar-upload">{t('settings_profile_photo')}</Label>
                       <Input
                         id="avatar-upload"
                         type="file"
@@ -765,7 +765,7 @@ export default function InstellingenPage() {
                       <div className="flex gap-2">
                         <Button onClick={handleAvatarUpload} disabled={uploading} size="sm">
                           <Upload className="mr-2 h-4 w-4" />
-                          {uploading ? 'Uploaden...' : 'Uploaden'}
+                          {uploading ? t('settings_uploading') : t('settings_upload')}
                         </Button>
                         <Button
                           onClick={() => {
@@ -775,11 +775,11 @@ export default function InstellingenPage() {
                           variant="outline"
                           size="sm"
                         >
-                          Annuleren
+                          {t('cancel')}
                         </Button>
                       </div>
                     )}
-                    <p className="text-xs text-muted-foreground">PNG, JPG of GIF. Max 2MB.</p>
+                    <p className="text-xs text-muted-foreground">{t('settings_avatar_hint')}</p>
                   </div>
                 </div>
 
@@ -789,23 +789,23 @@ export default function InstellingenPage() {
                     <Input
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Je volledige naam"
+                      placeholder={t('settings_full_name_placeholder')}
                     />
                   </Field>
-                  <Field label="Gebruikersnaam">
+                  <Field label={t('settings_username')}>
                     <Input
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                      placeholder="Gebruikersnaam"
+                      placeholder={t('settings_username')}
                     />
                   </Field>
                 </div>
 
-                <Field label="Bio">
+                <Field label={t('settings_bio')}>
                   <Textarea
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
-                    placeholder="Vertel iets over jezelf..."
+                    placeholder={t('settings_bio_placeholder')}
                     rows={3}
                   />
                 </Field>
@@ -816,7 +816,7 @@ export default function InstellingenPage() {
                     <Input
                       value={classLevel}
                       onChange={(e) => setClassLevel(e.target.value)}
-                      placeholder="Bijv. VWO 4"
+                      placeholder={t('settings_class_placeholder')}
                     />
                   </Field>
                   <Field label={t('settings_profile')}>
@@ -825,7 +825,7 @@ export default function InstellingenPage() {
                       value={track}
                       onChange={(e) => setTrack(e.target.value)}
                     >
-                      <option value="">Kies een profiel</option>
+                      <option value="">{t('settings_choose_profile')}</option>
                       <option value="nt">{t('settings_track_nt')}</option>
                       <option value="ng">{t('settings_track_ng')}</option>
                       <option value="em">{t('settings_track_em')}</option>
@@ -834,11 +834,11 @@ export default function InstellingenPage() {
                   </Field>
                 </div>
 
-                <Field label="Schooljaar">
+                <Field label={t('settings_school_year')}>
                   <Input
                     value={gradeYear}
                     onChange={(e) => setGradeYear(e.target.value)}
-                    placeholder="Bijv. 2024-2025"
+                    placeholder={t('settings_school_year_placeholder')}
                   />
                 </Field>
               </div>
@@ -848,13 +848,13 @@ export default function InstellingenPage() {
           {activeSection === 'appearance' && (
             <Panel title={t('settings_preferences')}>
               <div className="space-y-4">
-                <Field label="Kleurenthema">
+                <Field label={t('settings_color_theme')}>
                   <Button variant="outline" size="sm" onClick={openThemePicker}>
                     <Palette className="h-4 w-4 mr-2" />
-                    Thema kiezen
+                    {t('settings_choose_theme')}
                   </Button>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Kies een kleurenpalet dat bij jou past.
+                    {t('settings_theme_desc')}
                   </p>
                 </Field>
                 <Field label={t('settings_theme')}>
@@ -906,12 +906,11 @@ export default function InstellingenPage() {
                       className="w-5 h-5 rounded border-zinc-700 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-zinc-900"
                     />
                     <label htmlFor="gamification-toggle" className="text-sm text-zinc-400">
-                      XP & Streak systeem inschakelen
+                      {t('settings_gamification_toggle')}
                     </label>
                   </div>
                   <p className="text-xs text-zinc-600 mt-1">
-                    Verdiene punten voor studeren en behoud een leer-streak. Kan op elk moment
-                    worden uitgeschakeld.
+                    {t('settings_gamification_desc')}
                   </p>
                 </Field>
               </div>
@@ -919,11 +918,10 @@ export default function InstellingenPage() {
           )}
 
           {activeSection === 'navigation' && (
-            <Panel title="Navigatiebalk">
+            <Panel title={t('settings_navbar')}>
               <div className="space-y-4">
                 <p className="text-sm text-muted-foreground">
-                  Kies welke pagina's in de navigatiebalk worden weergegeven. Verborgen pagina's
-                  zijn nog steeds toegankelijk via andere routes.
+                  {t('settings_navbar_desc')}
                 </p>
                 <div className="grid gap-3 md:grid-cols-2">
                   {Object.entries(PAGE_LABELS).map(([key, label]) => (
@@ -940,50 +938,50 @@ export default function InstellingenPage() {
                 </div>
                 <Button variant="outline" size="sm" onClick={resetToDefaults} className="mt-2">
                   <RotateCcw className="mr-2 h-4 w-4" />
-                  Standaard instellingen herstellen
+                  {t('settings_reset_defaults')}
                 </Button>
               </div>
             </Panel>
           )}
 
           {activeSection === 'statistics' && (
-            <Panel title="Studie-activiteit">
+            <Panel title={t('settings_study_activity')}>
               <ActivityGraph />
             </Panel>
           )}
 
           {activeSection === 'account' && (
-            <Panel title="Account">
+            <Panel title={t('settings_account')}>
               <div className="space-y-4">
-                <Field label="E-mail">
+                <Field label={t('settings_email')}>
                   <Input type="email" value={user?.email || ''} disabled className="bg-muted" />
                   <p className="text-xs text-muted-foreground mt-1">
-                    E-mail kan niet worden gewijzigd.
+                    {t('settings_email_immutable')}
                   </p>
                 </Field>
                 <Button variant="outline" size="sm" onClick={() => setShowPasswordDialog(true)}>
-                  Wachtwoord wijzigen
+                  {t('settings_change_password')}
                 </Button>
               </div>
             </Panel>
           )}
 
           {activeSection === 'ai' && (
-            <Panel title="AI Instellingen">
+            <Panel title={t('settings_ai_title')}>
               <div className="space-y-4">
                 {aiLoading ? (
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Loader2 className="h-4 w-4 animate-spin" /> Laden...
+                    <Loader2 className="h-4 w-4 animate-spin" /> {t('settings_loading')}
                   </div>
                 ) : (
                   <>
                     {/* Usage Summary */}
                     {usageSummary && !usageSummary.isBYOK && (
                       <div className="p-4 bg-secondary rounded-lg border border-border">
-                        <h3 className="font-semibold mb-3">Vandaag gebruikt</h3>
+                        <h3 className="font-semibold mb-3">{t('settings_used_today')}</h3>
                         <div className="space-y-2">
                           <div className="flex justify-between text-sm">
-                            <span className="text-muted-foreground">AI-acties</span>
+                            <span className="text-muted-foreground">{t('settings_ai_actions')}</span>
                             <span className="font-medium">
                               {usageSummary.actions.used}/{usageSummary.actions.limit}
                             </span>
@@ -995,7 +993,7 @@ export default function InstellingenPage() {
                             />
                           </div>
                           <div className="flex justify-between text-sm mt-3">
-                            <span className="text-muted-foreground">Chat berichten</span>
+                            <span className="text-muted-foreground">{t('settings_chat_messages')}</span>
                             <span className="font-medium">
                               {usageSummary.chat.used}/{usageSummary.chat.limit}
                             </span>
@@ -1022,12 +1020,12 @@ export default function InstellingenPage() {
                         />
                         <div>
                           <label htmlFor="byok-toggle" className="font-medium cursor-pointer">
-                            Gebruik eigen API-key
+                            {t('settings_use_own_key')}
                           </label>
                           <p className="text-xs text-muted-foreground">
                             {useBYOK
-                              ? 'Onbeperkt gebruik met je eigen key'
-                              : 'Aether AI (gratis, gelimiteerd: 5 acties + 20 chat/dag)'}
+                              ? t('settings_byok_unlimited')
+                              : t('settings_aether_ai_limited')}
                           </p>
                         </div>
                       </div>
@@ -1048,7 +1046,7 @@ export default function InstellingenPage() {
                             />
                           </div>
                           <p className="text-xs text-muted-foreground mt-1">
-                            Verkrijg een key op{' '}
+                            {t('settings_get_key_at')}{' '}
                             <a
                               href="https://openrouter.ai/keys"
                               target="_blank"
@@ -1060,7 +1058,7 @@ export default function InstellingenPage() {
                           </p>
                         </Field>
 
-                        <Field label="DeepSeek API Key (optioneel)">
+                        <Field label={t('settings_deepseek_key')}>
                           <div className="relative">
                             <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                             <Input
@@ -1073,15 +1071,15 @@ export default function InstellingenPage() {
                           </div>
                         </Field>
 
-                        <Field label="Voorkeursprovider">
+                        <Field label={t('settings_preferred_provider')}>
                           <select
                             value={preferredProvider}
                             onChange={(e) => setPreferredProvider(e.target.value as any)}
                             className={inputClass}
                           >
-                            <option value="qwen">Qwen 2.5 72B (aanbevolen)</option>
+                            <option value="qwen">{t('settings_provider_qwen')}</option>
                             <option value="deepseek">DeepSeek V3</option>
-                            <option value="openrouter-free">Llama 3.1 8B (gratis)</option>
+                            <option value="openrouter-free">{t('settings_provider_llama_free')}</option>
                           </select>
                         </Field>
 
@@ -1094,12 +1092,12 @@ export default function InstellingenPage() {
                           {aiTesting ? (
                             <>
                               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              Verbinding testen...
+                              {t('settings_testing_connection')}
                             </>
                           ) : (
                             <>
                               <Zap className="mr-2 h-4 w-4" />
-                              Test verbinding
+                              {t('settings_test_connection')}
                             </>
                           )}
                         </Button>
@@ -1128,12 +1126,12 @@ export default function InstellingenPage() {
                       {aiSaving ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Opslaan...
+                          {t('settings_saving')}
                         </>
                       ) : (
                         <>
                           <Check className="mr-2 h-4 w-4" />
-                          Instellingen opslaan
+                          {t('settings_save_settings')}
                         </>
                       )}
                     </Button>
@@ -1144,15 +1142,15 @@ export default function InstellingenPage() {
           )}
 
           {activeSection === 'language' && (
-            <Panel title="Taal en onderwijsniveau">
+            <Panel title={t('settings_language_level')}>
               <div className="space-y-6">
                 <p className="text-sm text-muted-foreground">
-                  Pas je taalvoorkeuren en onderwijsniveau aan voor een gepersonaliseerde leerervaring.
+                  {t('settings_language_level_desc')}
                 </p>
 
                 {/* Language Selection */}
                 <div>
-                  <Label htmlFor="language-select">Taal</Label>
+                  <Label htmlFor="language-select">{t('settings_language')}</Label>
                   <select
                     id="language-select"
                     value={languageCode}
@@ -1180,69 +1178,69 @@ export default function InstellingenPage() {
                     <option value="uk">Українська</option>
                   </select>
                   <p className="text-xs text-muted-foreground mt-1">
-                    De taal van de interface en aanbevolingen.
+                    {t('settings_language_desc')}
                   </p>
                 </div>
 
                 {/* Educational Level Selection */}
                 <div>
-                  <Label htmlFor="educational-level-select">Onderwijsniveau</Label>
+                  <Label htmlFor="educational-level-select">{t('settings_education_level')}</Label>
                   <select
                     id="educational-level-select"
                     value={educationalLevel}
                     onChange={(e) => setEducationalLevel(e.target.value as any)}
                     className={inputClass}
                   >
-                    <option value="middle-school">Middle School (12-15 jaar)</option>
-                    <option value="high-school">High School (15-18 jaar)</option>
-                    <option value="university">University (18+ jaar)</option>
-                    <option value="professional">Professional (werkend)</option>
+                    <option value="middle-school">{t('settings_level_middle_school')}</option>
+                    <option value="high-school">{t('settings_level_high_school')}</option>
+                    <option value="university">{t('settings_level_university')}</option>
+                    <option value="professional">{t('settings_level_professional')}</option>
                   </select>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Hiermee passen we de inhoud en aanbevelingen aan jouw niveau.
+                    {t('settings_education_level_desc')}
                   </p>
                 </div>
 
                 {/* Country Selection (Optional) */}
                 <div>
-                  <Label htmlFor="country-select">Land (optioneel)</Label>
+                  <Label htmlFor="country-select">{t('settings_country')}</Label>
                   <select
                     id="country-select"
                     value={countryCode}
                     onChange={(e) => setCountryCode(e.target.value)}
                     className={inputClass}
                   >
-                    <option value="">Niet geselecteerd</option>
-                    <option value="NL">Nederland</option>
-                    <option value="BE">België</option>
-                    <option value="DE">Duitsland</option>
-                    <option value="FR">Frankrijk</option>
-                    <option value="ES">Spanje</option>
-                    <option value="IT">Italië</option>
-                    <option value="PT">Portugal</option>
-                    <option value="GB">Verenigd Koninkrijk</option>
-                    <option value="US">Verenigde Staten</option>
-                    <option value="CA">Canada</option>
-                    <option value="AU">Australië</option>
-                    <option value="IN">India</option>
-                    <option value="CN">China</option>
-                    <option value="JP">Japan</option>
-                    <option value="KR">Zuid-Korea</option>
-                    <option value="BR">Brazilië</option>
-                    <option value="RU">Rusland</option>
-                    <option value="UA">Oekraïne</option>
-                    <option value="TR">Turkije</option>
-                    <option value="SA">Saoedi-Arabië</option>
-                    <option value="AE">Verenigde Arabische Emiraten</option>
-                    <option value="EG">Egypte</option>
-                    <option value="ZA">Zuid-Afrika</option>
-                    <option value="ID">Indonesië</option>
-                    <option value="VN">Vietnam</option>
-                    <option value="TH">Thailand</option>
-                    <option value="PL">Polen</option>
+                    <option value="">{t('settings_not_selected')}</option>
+                    <option value="NL">{t('settings_country_nl')}</option>
+                    <option value="BE">{t('settings_country_be')}</option>
+                    <option value="DE">{t('settings_country_de')}</option>
+                    <option value="FR">{t('settings_country_fr')}</option>
+                    <option value="ES">{t('settings_country_es')}</option>
+                    <option value="IT">{t('settings_country_it')}</option>
+                    <option value="PT">{t('settings_country_pt')}</option>
+                    <option value="GB">{t('settings_country_gb')}</option>
+                    <option value="US">{t('settings_country_us')}</option>
+                    <option value="CA">{t('settings_country_ca')}</option>
+                    <option value="AU">{t('settings_country_au')}</option>
+                    <option value="IN">{t('settings_country_in')}</option>
+                    <option value="CN">{t('settings_country_cn')}</option>
+                    <option value="JP">{t('settings_country_jp')}</option>
+                    <option value="KR">{t('settings_country_kr')}</option>
+                    <option value="BR">{t('settings_country_br')}</option>
+                    <option value="RU">{t('settings_country_ru')}</option>
+                    <option value="UA">{t('settings_country_ua')}</option>
+                    <option value="TR">{t('settings_country_tr')}</option>
+                    <option value="SA">{t('settings_country_sa')}</option>
+                    <option value="AE">{t('settings_country_ae')}</option>
+                    <option value="EG">{t('settings_country_eg')}</option>
+                    <option value="ZA">{t('settings_country_za')}</option>
+                    <option value="ID">{t('settings_country_id')}</option>
+                    <option value="VN">{t('settings_country_vn')}</option>
+                    <option value="TH">{t('settings_country_th')}</option>
+                    <option value="PL">{t('settings_country_pl')}</option>
                   </select>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Voor curriculum-specifieke aanbevelingen (optioneel).
+                    {t('settings_country_desc')}
                   </p>
                 </div>
 
@@ -1254,12 +1252,12 @@ export default function InstellingenPage() {
                   {preferencesSaving ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Opslaan...
+                      {t('settings_saving')}
                     </>
                   ) : (
                     <>
                       <Save className="mr-2 h-4 w-4" />
-                      Voorkeuren opslaan
+                      {t('settings_save_preferences')}
                     </>
                   )}
                 </Button>
@@ -1268,15 +1266,15 @@ export default function InstellingenPage() {
           )}
 
           {activeSection === 'accessibility' && (
-            <Panel title="Toegankelijkheid">
+            <Panel title={t('settings_accessibility')}>
               <div className="space-y-4">
                 <p className="text-sm text-muted-foreground">
-                  Pas de toegankelijkheidsinstellingen aan aan jouw behoeften.
+                  {t('settings_accessibility_desc')}
                 </p>
                 <div className="pt-4">
                   <Link href="/accessibility">
                     <Button className="w-full">
-                      Ga naar Toegankelijkheid
+                      {t('settings_go_to_accessibility')}
                       <Accessibility className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
@@ -1304,7 +1302,7 @@ export default function InstellingenPage() {
               )}
               <Button onClick={handleSave} disabled={loading} className="ml-auto">
                 <Save className="mr-2 h-4 w-4" />
-                {loading ? 'Opslaan...' : t('settings_save')}
+                {loading ? t('settings_saving') : t('settings_save')}
               </Button>
             </div>
           )}
@@ -1315,21 +1313,21 @@ export default function InstellingenPage() {
       <Dialog open={showPasswordDialog} onOpenChange={setShowPasswordDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Wachtwoord wijzigen</DialogTitle>
+            <DialogTitle>{t('settings_change_password')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="new-password">Nieuw wachtwoord</Label>
+              <Label htmlFor="new-password">{t('settings_new_password')}</Label>
               <Input
                 id="new-password"
                 type="password"
                 value={passwordForm.newPassword}
                 onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
-                placeholder="Minimaal 6 tekens"
+                placeholder={t('settings_min_6_chars')}
               />
             </div>
             <div>
-              <Label htmlFor="confirm-password">Bevestig wachtwoord</Label>
+              <Label htmlFor="confirm-password">{t('settings_confirm_password')}</Label>
               <Input
                 id="confirm-password"
                 type="password"
@@ -1337,16 +1335,16 @@ export default function InstellingenPage() {
                 onChange={(e) =>
                   setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })
                 }
-                placeholder="Typ opnieuw"
+                placeholder={t('settings_type_again')}
               />
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowPasswordDialog(false)}>
-              Annuleren
+              {t('cancel')}
             </Button>
             <Button onClick={handlePasswordChange} disabled={loading}>
-              {loading ? 'Wijzigen...' : 'Wijzigen'}
+              {loading ? t('settings_changing') : t('settings_change')}
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -18,6 +18,7 @@ import {
   Sparkles,
   TrendingUp,
 } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 type Recurrence = 'none' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'yearly';
 
@@ -451,6 +452,7 @@ function getActivityChart(entries: ActivityEntry[], now: Date) {
 }
 
 export default function DashboardOverview() {
+  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [now, setNow] = useState(() => new Date());
@@ -668,12 +670,12 @@ export default function DashboardOverview() {
 
   const greeting =
     now.getHours() >= 18
-      ? 'Goedenavond'
+      ? t('comp_good_evening')
       : now.getHours() >= 12
-        ? 'Goedemiddag'
+        ? t('comp_good_afternoon')
         : now.getHours() >= 6
-          ? 'Goedemorgen'
-          : 'Hallo';
+          ? t('comp_good_morning')
+          : t('comp_hello');
 
   if (!mounted || !dataLoaded || !subjectsLoaded) {
     return (
@@ -734,17 +736,17 @@ export default function DashboardOverview() {
               <div className="flex flex-wrap gap-2 pt-2">
                 <Link href="/agenda?nieuw=1" className={primaryActionClass}>
                   <CalendarPlus className="mr-2 h-4 w-4" />
-                  Nieuwe afspraak
+                  {t('comp_new_appointment')}
                 </Link>
 
                 <Link href="/planner" className={outlineActionClass}>
                   <Plus className="mr-2 h-4 w-4" />
-                  Nieuwe taak
+                  {t('comp_new_task')}
                 </Link>
 
                 <Link href="/decks/create" className={outlineActionClass}>
                   <FilePlus2 className="mr-2 h-4 w-4" />
-                  Nieuwe leerset
+                  {t('comp_new_set')}
                 </Link>
 
                 <Link href="/artisan" className={outlineActionClass}>
@@ -777,7 +779,7 @@ export default function DashboardOverview() {
           <Link href="#studie-trend" className={`${cardClass} transition-colors hover:bg-secondary/20`}>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-muted-foreground">
-                Activiteiten deze week
+                {t('comp_activities_this_week')}
               </span>
               <TrendingUp className="h-5 w-5 text-muted-foreground" />
             </div>
@@ -792,14 +794,14 @@ export default function DashboardOverview() {
                 />
               </div>
               <p className="mt-2 text-xs text-muted-foreground">
-                {Math.min(stats.activitiesThisWeek * 10, 100)}% van weekdoel
+                {t('comp_pct_of_weekly_goal', undefined, { pct: Math.min(stats.activitiesThisWeek * 10, 100) })}
               </p>
             </div>
           </Link>
 
           <Link href="#studie-trend" className={`${cardClass} transition-colors hover:bg-secondary/20`}>
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-muted-foreground">Gemiddelde score</span>
+              <span className="text-sm font-medium text-muted-foreground">{t('comp_average_score')}</span>
               <CheckCircle2 className="h-5 w-5 text-muted-foreground" />
             </div>
 
@@ -820,7 +822,7 @@ export default function DashboardOverview() {
                   style={{ width: `${stats.averageScore ?? 0}%` }}
                 />
               </div>
-              <p className="mt-2 text-xs text-muted-foreground">Gebaseerd op beschikbare scores</p>
+              <p className="mt-2 text-xs text-muted-foreground">{t('comp_based_on_scores')}</p>
             </div>
           </Link>
 
@@ -830,7 +832,7 @@ export default function DashboardOverview() {
               <Flame className="h-5 w-5 text-muted-foreground" />
             </div>
 
-            <div className="mt-4 text-3xl font-semibold">{stats.streakDays} dagen</div>
+            <div className="mt-4 text-3xl font-semibold">{t('comp_days', undefined, { days: stats.streakDays })}</div>
 
             <div className="mt-3">
               <div className="h-2 w-full rounded-full bg-secondary">
@@ -840,14 +842,14 @@ export default function DashboardOverview() {
                 />
               </div>
               <p className="mt-2 text-xs text-muted-foreground">
-                {stats.streakDays >= 30 ? 'Maandelijks doel behaald!' : `${30 - stats.streakDays} dagen tot doel`}
+                {stats.streakDays >= 30 ? t('comp_monthly_goal_reached') : t('comp_days_to_goal', undefined, { days: 30 - stats.streakDays })}
               </p>
             </div>
           </Link>
 
           <Link href="/planner" className={`${cardClass} transition-colors hover:bg-secondary/20`}>
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-muted-foreground">Actieve taken</span>
+              <span className="text-sm font-medium text-muted-foreground">{t('comp_active_tasks')}</span>
               <ClipboardList className="h-5 w-5 text-muted-foreground" />
             </div>
 
@@ -862,8 +864,8 @@ export default function DashboardOverview() {
               </div>
               <p className="mt-2 text-xs text-muted-foreground">
                 {tasks.length === 0
-                  ? 'Geen taken'
-                  : `${Math.round(((tasks.length - activeTasks.length) / tasks.length) * 100)}% voltooid`}
+                  ? t('comp_no_tasks')
+                  : t('comp_pct_completed', undefined, { pct: Math.round(((tasks.length - activeTasks.length) / tasks.length) * 100) })}
               </p>
             </div>
           </Link>
@@ -874,25 +876,25 @@ export default function DashboardOverview() {
             <div className="mb-6 flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <CalendarDays className="h-5 w-5 text-muted-foreground" />
-                <h2 className="font-display text-lg font-semibold">Afspraken</h2>
+                <h2 className="font-display text-lg font-semibold">{t('comp_appointments')}</h2>
               </div>
 
               <Link
                 href="/agenda"
                 className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
-                Bekijk agenda
+                {t('comp_view_agenda')}
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2">
               <div className="space-y-3">
-                <h3 className="text-sm font-semibold text-muted-foreground">Vandaag</h3>
+                <h3 className="text-sm font-semibold text-muted-foreground">{t('comp_today')}</h3>
 
                 {todayEvents.length === 0 ? (
                   <div className="rounded-lg border border-dashed border-border bg-background/50 p-4 text-sm text-muted-foreground">
-                    Geen afspraken vandaag.
+                    {t('comp_no_appointments_today')}
                   </div>
                 ) : (
                   todayEvents.map((event) => (
@@ -911,7 +913,7 @@ export default function DashboardOverview() {
 
                         <div className="mt-1 text-xs text-muted-foreground">
                           {event.allDay
-                            ? 'Hele dag'
+                            ? t('comp_all_day')
                             : `${formatTime(event.startDate)} - ${formatTime(event.endDate)}`}
 
                           {event.location ? ` · ${event.location}` : ''}
@@ -923,11 +925,11 @@ export default function DashboardOverview() {
               </div>
 
               <div className="space-y-3">
-                <h3 className="text-sm font-semibold text-muted-foreground">Binnenkort</h3>
+                <h3 className="text-sm font-semibold text-muted-foreground">{t('comp_soon')}</h3>
 
                 {upcomingEvents.length === 0 ? (
                   <div className="rounded-lg border border-dashed border-border bg-background/50 p-4 text-sm text-muted-foreground">
-                    Geen aankomende afspraken.
+                    {t('comp_no_upcoming_appointments')}
                   </div>
                 ) : (
                   upcomingEvents.map((item, index) => {
@@ -950,14 +952,14 @@ export default function DashboardOverview() {
 
                           <div className="mt-1 text-xs text-muted-foreground">
                             {isToday
-                              ? 'Vandaag'
+                              ? t('comp_today')
                               : occurrence.toLocaleDateString('nl-NL', {
                                   weekday: 'short',
                                   day: 'numeric',
                                   month: 'short',
                                 })}
                             {item.event.allDay
-                              ? ' · Hele dag'
+                              ? ` · ${t('comp_all_day')}`
                               : ` · ${formatTime(item.event.startDate)} - ${formatTime(item.event.endDate)}`}
                           </div>
                         </div>
@@ -973,10 +975,10 @@ export default function DashboardOverview() {
             <div className="mb-6 flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-muted-foreground" />
-                <h2 className="font-display text-lg font-semibold">Studie trend</h2>
+                <h2 className="font-display text-lg font-semibold">{t('comp_study_trend')}</h2>
               </div>
 
-              <span className="text-xs text-muted-foreground">Laatste 7 dagen</span>
+              <span className="text-xs text-muted-foreground">{t('comp_last_7_days')}</span>
             </div>
 
             <div className="flex h-40 items-end gap-2">
@@ -987,7 +989,7 @@ export default function DashboardOverview() {
                     style={{
                       height: `${Math.max(6, (day.count / maxChartCount) * 100)}%`,
                     }}
-                    title={`${day.count} activiteiten`}
+                    title={t('comp_activities_count', undefined, { count: day.count })}
                   />
                   <div className="text-[10px] text-muted-foreground text-center">
                     {day.count}
@@ -1006,14 +1008,14 @@ export default function DashboardOverview() {
 
             <div className="mt-6 space-y-3">
               <div className="flex items-center justify-between rounded-lg bg-secondary/40 px-4 py-3">
-                <span className="text-sm text-muted-foreground">Deze week</span>
+                <span className="text-sm text-muted-foreground">{t('comp_this_week')}</span>
                 <span className="text-sm font-semibold">
-                  {stats.activitiesThisWeek} activiteiten
+                  {t('comp_activities_count', undefined, { count: stats.activitiesThisWeek })}
                 </span>
               </div>
 
               <div className="flex items-center justify-between rounded-lg bg-secondary/40 px-4 py-3">
-                <span className="text-sm text-muted-foreground">Gemiddelde score</span>
+                <span className="text-sm text-muted-foreground">{t('comp_average_score')}</span>
                 <span className="text-sm font-semibold">
                   {stats.averageScore === null ? '—' : `${stats.averageScore}%`}
                 </span>
@@ -1021,7 +1023,7 @@ export default function DashboardOverview() {
 
               <div className="flex items-center justify-between rounded-lg bg-secondary/40 px-4 py-3">
                 <span className="text-sm text-muted-foreground">Streak</span>
-                <span className="text-sm font-semibold">{stats.streakDays} dagen</span>
+                <span className="text-sm font-semibold">{t('comp_days', undefined, { days: stats.streakDays })}</span>
               </div>
             </div>
           </section>
@@ -1032,7 +1034,7 @@ export default function DashboardOverview() {
             <div className="mb-6 flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <ClipboardList className="h-5 w-5 text-muted-foreground" />
-                <h2 className="font-display text-lg font-semibold">Taken</h2>
+                <h2 className="font-display text-lg font-semibold">{t('comp_tasks')}</h2>
               </div>
 
               <Link
@@ -1046,7 +1048,7 @@ export default function DashboardOverview() {
 
             {activeTasks.length === 0 ? (
               <div className="rounded-lg border border-dashed border-border bg-background/50 p-4 text-sm text-muted-foreground">
-                Geen actieve taken.
+                {t('comp_no_active_tasks')}
               </div>
             ) : (
               <div className="space-y-3">
@@ -1059,11 +1061,11 @@ export default function DashboardOverview() {
 
                     <div className="mt-1 text-xs text-muted-foreground">
                       {task.due_date
-                        ? `Deadline: ${new Date(task.due_date).toLocaleDateString('nl-NL', {
+                        ? t('comp_deadline_date', undefined, { date: new Date(task.due_date).toLocaleDateString('nl-NL', {
                             day: 'numeric',
                             month: 'short',
-                          })}`
-                        : 'Geen deadline'}
+                          })})
+                        : t('comp_no_deadline')}
                     </div>
                   </div>
                 ))}
@@ -1075,7 +1077,7 @@ export default function DashboardOverview() {
             <div className="mb-6 flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <AlertCircle className="h-5 w-5 text-muted-foreground" />
-                <h2 className="font-display text-lg font-semibold">Foutenlogboek</h2>
+                <h2 className="font-display text-lg font-semibold">{t('comp_error_log')}</h2>
               </div>
 
               <Link
@@ -1089,22 +1091,22 @@ export default function DashboardOverview() {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="rounded-lg bg-secondary/40 px-4 py-3">
-                <div className="text-xs text-muted-foreground">Nieuw</div>
+                <div className="text-xs text-muted-foreground">{t('comp_new')}</div>
                 <div className="mt-1 text-lg font-semibold">{errorCounts.nieuw}</div>
               </div>
 
               <div className="rounded-lg bg-secondary/40 px-4 py-3">
-                <div className="text-xs text-muted-foreground">Leren</div>
+                <div className="text-xs text-muted-foreground">{t('comp_learn')}</div>
                 <div className="mt-1 text-lg font-semibold">{errorCounts.leren}</div>
               </div>
 
               <div className="rounded-lg bg-secondary/40 px-4 py-3">
-                <div className="text-xs text-muted-foreground">Herhalen</div>
+                <div className="text-xs text-muted-foreground">{t('comp_review')}</div>
                 <div className="mt-1 text-lg font-semibold">{errorCounts.herhalen}</div>
               </div>
 
               <div className="rounded-lg bg-secondary/40 px-4 py-3">
-                <div className="text-xs text-muted-foreground">Beheerst</div>
+                <div className="text-xs text-muted-foreground">{t('comp_mastered')}</div>
                 <div className="mt-1 text-lg font-semibold">{errorCounts.beheerst}</div>
               </div>
             </div>
@@ -1112,7 +1114,7 @@ export default function DashboardOverview() {
             <div className="mt-5 space-y-3">
               {reviewErrors.length === 0 ? (
                 <div className="rounded-lg border border-dashed border-border bg-background/50 p-4 text-sm text-muted-foreground">
-                  Geen fouten om te leren of herhalen.
+                  {t('comp_no_errors_to_review')}
                 </div>
               ) : (
                 reviewErrors.slice(0, 3).map((entry) => (
@@ -1121,12 +1123,12 @@ export default function DashboardOverview() {
                     className="rounded-lg border border-border bg-background/70 p-3"
                   >
                     <div className="truncate text-sm font-semibold">
-                      {entry.vraag || entry.onderwerp || 'Fout'}
+                      {entry.vraag || entry.onderwerp || t('comp_error')}
                     </div>
 
                     <div className="mt-1 text-xs text-muted-foreground">
                       {entry.vak ? `${entry.vak} · ` : ''}
-                      {entry.status === 'leren' ? 'Leren' : 'Herhalen'}
+                      {entry.status === 'leren' ? t('comp_learn') : t('comp_review')}
                     </div>
                   </div>
                 ))
@@ -1137,7 +1139,7 @@ export default function DashboardOverview() {
           <section className={cardClass}>
             <div className="mb-6 flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-muted-foreground" />
-              <h2 className="font-display text-lg font-semibold">Snelle acties</h2>
+              <h2 className="font-display text-lg font-semibold">{t('comp_quick_actions')}</h2>
             </div>
 
             <div className="space-y-3">
@@ -1145,7 +1147,7 @@ export default function DashboardOverview() {
                 href="/agenda?nieuw=1"
                 className="flex items-center justify-between rounded-lg border border-border bg-background/70 p-4 transition-colors hover:bg-secondary/30"
               >
-                <span className="text-sm font-medium">Plan een afspraak</span>
+                <span className="text-sm font-medium">{t('comp_plan_appointment')}</span>
                 <ArrowRight className="h-4 w-4 text-muted-foreground" />
               </Link>
 
@@ -1153,7 +1155,7 @@ export default function DashboardOverview() {
                 href="/planner"
                 className="flex items-center justify-between rounded-lg border border-border bg-background/70 p-4 transition-colors hover:bg-secondary/30"
               >
-                <span className="text-sm font-medium">Voeg een taak toe</span>
+                <span className="text-sm font-medium">{t('comp_add_task')}</span>
                 <ArrowRight className="h-4 w-4 text-muted-foreground" />
               </Link>
 
@@ -1161,7 +1163,7 @@ export default function DashboardOverview() {
                 href="/decks/create"
                 className="flex items-center justify-between rounded-lg border border-border bg-background/70 p-4 transition-colors hover:bg-secondary/30"
               >
-                <span className="text-sm font-medium">Maak een leerset</span>
+                <span className="text-sm font-medium">{t('comp_create_set')}</span>
                 <ArrowRight className="h-4 w-4 text-muted-foreground" />
               </Link>
 
@@ -1169,7 +1171,7 @@ export default function DashboardOverview() {
                 href="/artisan"
                 className="flex items-center justify-between rounded-lg border border-border bg-background/70 p-4 transition-colors hover:bg-secondary/30"
               >
-                <span className="text-sm font-medium">Upload materiaal naar Artisan</span>
+                <span className="text-sm font-medium">{t('comp_upload_material')}</span>
                 <ArrowRight className="h-4 w-4 text-muted-foreground" />
               </Link>
 
@@ -1177,7 +1179,7 @@ export default function DashboardOverview() {
                 href="/notes"
                 className="flex items-center justify-between rounded-lg border border-border bg-background/70 p-4 transition-colors hover:bg-secondary/30"
               >
-                <span className="text-sm font-medium">Open notities</span>
+                <span className="text-sm font-medium">{t('comp_open_notes')}</span>
                 <ArrowRight className="h-4 w-4 text-muted-foreground" />
               </Link>
             </div>
@@ -1188,14 +1190,14 @@ export default function DashboardOverview() {
           <div className="mb-6 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-muted-foreground" />
-              <h2 className="font-display text-lg font-semibold">Vakken</h2>
+              <h2 className="font-display text-lg font-semibold">{t('comp_subjects')}</h2>
             </div>
 
             <Link
               href="/subjects"
               className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
-              Alle vakken
+              {t('comp_all_subjects')}
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -1211,7 +1213,7 @@ export default function DashboardOverview() {
             </div>
           ) : subjects.length === 0 ? (
             <div className="rounded-lg border border-dashed border-border bg-background/50 p-4 text-sm text-muted-foreground">
-              Geen vakken gevonden.
+              {t('comp_no_subjects_found')}
             </div>
           ) : (
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

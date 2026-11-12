@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { supabase as browserClient } from '@/lib/supabase/client';
+import { useTranslation } from '@/lib/useTranslation';
 
 const supabase = browserClient as any;
 
@@ -51,6 +52,7 @@ type Recommendation = {
 };
 
 export default function VandaagPage() {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<DashboardStats>({
     totalMinutes: 0,
@@ -163,7 +165,7 @@ export default function VandaagPage() {
 
           return {
             id: e.id,
-            vak: e.subject_id || 'Algemeen',
+            vak: e.subject_id || t('today_general'),
             titel: e.title,
             datum: e.event_date,
             status,
@@ -176,24 +178,24 @@ export default function VandaagPage() {
         recs.push({
           id: '1',
           type: 'error',
-          title: `${dangerSubjects[0].name} herhalen`,
-          description: `Je meesterschap in ${dangerSubjects[0].name} is ${dangerSubjects[0].mastery}%. Focus hierop vandaag.`,
+          title: t('today_review_subject', undefined, { name: dangerSubjects[0].name }),
+          description: t('today_mastery_desc', undefined, { subject: dangerSubjects[0].name, mastery: dangerSubjects[0].mastery }),
         });
       }
       if (spacedItems && spacedItems.length > 0) {
         recs.push({
           id: '2',
           type: 'study',
-          title: 'Herhalingen uitvoeren',
-          description: `Je hebt ${spacedItems.length} items die vandaag herhaald moeten worden.`,
+          title: t('today_run_reviews'),
+          description: t('today_due_items', undefined, { count: spacedItems.length }),
         });
       }
       if (errorItems && errorItems.length > 0) {
         recs.push({
           id: '3',
           type: 'error',
-          title: 'Foutenreview',
-          description: `Je hebt ${errorItems.length} fouten die herhaald moeten worden.`,
+          title: t('today_error_review'),
+          description: t('today_due_errors', undefined, { count: errorItems.length }),
         });
       }
 
@@ -266,15 +268,15 @@ export default function VandaagPage() {
   const formatMinutes = (minutes: number) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
-    return hours > 0 ? `${hours}u ${mins}m` : `${mins}m`;
+    return hours > 0 ? `${hours}${t('today_hours')} ${mins}${t('today_minutes')}` : `${mins}${t('today_minutes')}`;
   };
 
   if (loading) {
     return (
       <AppShell>
         <PageHeader
-          title="Vandaag"
-          description="Je dagelijkse leeroverzicht en actiepunten"
+          title={t('today_title')}
+          description={t('today_description')}
         />
         <div className="mt-10 space-y-6">
           <div className="grid gap-4 sm:grid-cols-3">
@@ -295,8 +297,8 @@ export default function VandaagPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Vandaag"
-        description="Je dagelijkse leeroverzicht en actiepunten"
+        title={t('today_title')}
+        description={t('today_description')}
       />
 
       <div className="mt-10 grid gap-6 lg:grid-cols-4">
@@ -311,7 +313,7 @@ export default function VandaagPage() {
               <Button className="w-full h-auto py-6 flex flex-col gap-2">
                 <Brain className="h-6 w-6" />
                 <span>Start Daily Quiz</span>
-                <span className="text-xs opacity-70">{stats.dueReviews} herhalingen</span>
+                <span className="text-xs opacity-70">{stats.dueReviews} {t('today_reviews')}</span>
               </Button>
             </Link>
             <Link href="/spaced-repetition">
@@ -324,34 +326,34 @@ export default function VandaagPage() {
             <Link href="/error-log">
               <Button variant="outline" className="w-full h-auto py-6 flex flex-col gap-2">
                 <AlertTriangle className="h-6 w-6" />
-                <span>Foutenreview</span>
-                <span className="text-xs opacity-70">{stats.dueErrors} fouten</span>
+                <span>{t('today_error_review')}</span>
+                <span className="text-xs opacity-70">{stats.dueErrors} {t('today_errors')}</span>
               </Button>
             </Link>
           </div>
 
           {/* Today's Overview */}
           <div className="rounded-xl border border-border bg-card p-6">
-            <h2 className="font-display text-xl font-semibold mb-4">Vandaag</h2>
+            <h2 className="font-display text-xl font-semibold mb-4">{t('today_title')}</h2>
             <div className="space-y-3">
               <div className="flex items-center justify-between py-2 border-b border-border">
                 <div className="flex items-center gap-3">
                   <BookOpen className="h-5 w-5 text-primary" />
-                  <span>Herhalingen</span>
+                  <span>{t('today_reviews')}</span>
                 </div>
                 <span className="font-semibold">{stats.dueReviews}</span>
               </div>
               <div className="flex items-center justify-between py-2 border-b border-border">
                 <div className="flex items-center gap-3">
                   <AlertTriangle className="h-5 w-5 text-orange-500" />
-                  <span>Fouten opnieuw maken</span>
+                  <span>{t('today_redo_errors')}</span>
                 </div>
                 <span className="font-semibold">{stats.dueErrors}</span>
               </div>
               <div className="flex items-center justify-between py-2">
                 <div className="flex items-center gap-3">
                   <Target className="h-5 w-5 text-blue-500" />
-                  <span>Geschatte tijd</span>
+                  <span>{t('today_estimated_time')}</span>
                 </div>
                 <span className="font-semibold">
                   {formatMinutes(stats.dueReviews * 2 + stats.dueErrors * 3)}
@@ -363,7 +365,7 @@ export default function VandaagPage() {
           {/* Upcoming Tests */}
           {upcomingTests.length > 0 && (
             <div className="rounded-xl border border-border bg-card p-6">
-              <h2 className="font-display text-xl font-semibold mb-4">Aanstaande toetsen</h2>
+              <h2 className="font-display text-xl font-semibold mb-4">{t('today_upcoming_tests')}</h2>
               <div className="space-y-3">
                 {upcomingTests.map((test) => {
                   const daysUntil = Math.ceil(
@@ -376,7 +378,7 @@ export default function VandaagPage() {
                     >
                       <div>
                         <p className="font-medium">{test.titel}</p>
-                        <p className="text-sm text-muted-foreground">Over {daysUntil} dagen</p>
+                        <p className="text-sm text-muted-foreground">{t('today_in_days', undefined, { count: daysUntil })}</p>
                       </div>
                       <span
                         className={`rounded-full px-3 py-1 text-xs font-medium ${
@@ -388,10 +390,10 @@ export default function VandaagPage() {
                         }`}
                       >
                         {test.status === 'danger'
-                          ? 'Gevaar'
+                          ? t('today_danger')
                           : test.status === 'warning'
-                            ? 'Let op'
-                            : 'Veilig'}
+                            ? t('today_warning')
+                            : t('today_safe')}
                       </span>
                     </div>
                   );
@@ -403,7 +405,7 @@ export default function VandaagPage() {
           {/* Subjects in Danger Zone */}
           {subjectsInDanger.length > 0 && (
             <div className="rounded-xl border border-border bg-card p-6">
-              <h2 className="font-display text-xl font-semibold mb-4">Vakken in gevarenzone</h2>
+              <h2 className="font-display text-xl font-semibold mb-4">{t('today_danger_zone')}</h2>
               <div className="space-y-3">
                 {subjectsInDanger.map((subject) => (
                   <div
@@ -413,7 +415,7 @@ export default function VandaagPage() {
                     <div>
                       <p className="font-medium">{subject.name}</p>
                       <p className="text-sm text-muted-foreground">
-                        Meesterschap: {subject.mastery}%
+                        {t('today_mastery_label', undefined, { mastery: subject.mastery })}
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -424,7 +426,7 @@ export default function VandaagPage() {
                         />
                       </div>
                       <span className="text-xs text-muted-foreground">
-                        {subject.errorCount} fouten
+                        {subject.errorCount} {t('today_errors')}
                       </span>
                     </div>
                   </div>
@@ -436,7 +438,7 @@ export default function VandaagPage() {
           {/* Recommendations */}
           {recommendations.length > 0 && (
             <div className="rounded-xl border border-border bg-card p-6">
-              <h2 className="font-display text-xl font-semibold mb-4">Aanbevelingen</h2>
+              <h2 className="font-display text-xl font-semibold mb-4">{t('today_recommendations')}</h2>
               <div className="space-y-3">
                 {recommendations.map((rec) => (
                   <div
@@ -470,7 +472,7 @@ export default function VandaagPage() {
             <div className="rounded-xl border border-border bg-card p-5">
               <div className="flex items-center gap-3 mb-2">
                 <Clock className="h-5 w-5 text-primary" />
-                <span className="text-sm text-muted-foreground">Totale tijd</span>
+                <span className="text-sm text-muted-foreground">{t('today_total_time')}</span>
               </div>
               <p className="font-display text-2xl font-semibold">
                 {formatMinutes(stats.totalMinutes)}
@@ -481,19 +483,19 @@ export default function VandaagPage() {
                 <Flame className="h-5 w-5 text-orange-500" />
                 <span className="text-sm text-muted-foreground">Streak</span>
               </div>
-              <p className="font-display text-2xl font-semibold">{stats.streak} dagen</p>
+              <p className="font-display text-2xl font-semibold">{stats.streak} {t('today_days', undefined, { count: stats.streak })}</p>
             </div>
             <div className="rounded-xl border border-border bg-card p-5">
               <div className="flex items-center gap-3 mb-2">
                 <TrendingUp className="h-5 w-5 text-green-500" />
-                <span className="text-sm text-muted-foreground">Meesterschap</span>
+                <span className="text-sm text-muted-foreground">{t('today_mastery_label_short')}</span>
               </div>
               <p className="font-display text-2xl font-semibold">{stats.averageMastery}%</p>
             </div>
             <div className="rounded-xl border border-border bg-card p-5">
               <div className="flex items-center gap-3 mb-2">
                 <Target className="h-5 w-5 text-blue-500" />
-                <span className="text-sm text-muted-foreground">Herhalingen</span>
+                <span className="text-sm text-muted-foreground">{t('today_reviews')}</span>
               </div>
               <p className="font-display text-2xl font-semibold">{stats.dueReviews}</p>
             </div>

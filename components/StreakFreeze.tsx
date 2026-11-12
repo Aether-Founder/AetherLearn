@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Snowflake, Flame, Clock, Shield } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface StreakFreezeProps {
   currentStreak: number;
@@ -19,6 +20,7 @@ export function StreakFreeze({
   freezeCount,
   onActivateFreeze,
 }: StreakFreezeProps) {
+  const { t } = useTranslation();
   const [timeUntilFreeze, setTimeUntilFreeze] = useState<number | null>(null);
   const [freezeActive, setFreezeActive] = useState(false);
 
@@ -76,9 +78,9 @@ export function StreakFreeze({
     const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
 
     if (hours > 0) {
-      return `${hours}u ${minutes}m ${seconds}s`;
+      return `${hours}${t('shell_unit_h')} ${minutes}${t('shell_unit_m')} ${seconds}${t('shell_unit_s')}`;
     }
-    return `${minutes}m ${seconds}s`;
+    return `${minutes}${t('shell_unit_m')} ${seconds}${t('shell_unit_s')}`;
   };
 
   const getStreakColor = (days: number) => {
@@ -93,7 +95,7 @@ export function StreakFreeze({
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Snowflake className="w-5 h-5 text-blue-500" />
-          Streak Bevriezing
+          {t('shell_streak_freeze_title')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -101,12 +103,12 @@ export function StreakFreeze({
           <div className="flex items-center gap-2">
             <Flame className={`w-6 h-6 ${getStreakColor(currentStreak)}`} />
             <span className="text-2xl font-bold">{currentStreak}</span>
-            <span className="text-sm text-muted-foreground">dagen streak</span>
+            <span className="text-sm text-muted-foreground">{t('shell_streak_days', undefined, { count: currentStreak })}</span>
           </div>
           {hasFreeze && !freezeActive && (
             <Badge variant="secondary" className="bg-blue-500 text-white">
               <Shield className="w-3 h-3 mr-1" />
-              {freezeCount} beschikbaar
+              {t('shell_freezes_available', undefined, { count: freezeCount })}
             </Badge>
           )}
         </div>
@@ -115,34 +117,32 @@ export function StreakFreeze({
           <div className="p-4 rounded-lg bg-blue-500/20 border border-blue-500/30">
             <div className="flex items-center gap-2 mb-2">
               <Clock className="w-4 h-4 text-blue-500" />
-              <span className="font-medium text-blue-500">Bevriezing Actief</span>
+              <span className="font-medium text-blue-500">{t('shell_freeze_active')}</span>
             </div>
-            <p className="text-sm text-muted-foreground mb-2">Je streak is beschermd voor:</p>
+            <p className="text-sm text-muted-foreground mb-2">{t('shell_streak_protected_for')}</p>
             <div className="text-2xl font-bold text-blue-500">{formatTime(timeUntilFreeze)}</div>
             <p className="text-xs text-muted-foreground mt-2">
-              Je streak wordt niet gereset als je vandaag niet studeert.
+              {t('shell_streak_not_reset')}
             </p>
           </div>
         ) : hasFreeze ? (
           <div className="space-y-3">
             <p className="text-sm text-muted-foreground">
-              Activeer een streak bevriezing om je streak te beschermen voor 24 uur. Dit is handig
-              als je weet dat je niet kunt studeren.
+              {t('shell_freeze_desc')}
             </p>
             <Button onClick={handleActivateFreeze} className="w-full" disabled={freezeActive}>
               <Snowflake className="w-4 h-4 mr-2" />
-              Activeer Bevriezing
+              {t('shell_activate_freeze')}
             </Button>
           </div>
         ) : (
           <div className="p-4 rounded-lg bg-muted/50">
             <div className="flex items-center gap-2 mb-2">
               <Shield className="w-4 h-4 text-muted-foreground" />
-              <span className="font-medium text-muted-foreground">Geen Bevriezingen</span>
+              <span className="font-medium text-muted-foreground">{t('shell_no_freezes')}</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Je hebt geen streak bevriezingen beschikbaar. Verdien meer door je streak te
-              verlengen!
+              {t('shell_no_freezes_desc')}
             </p>
           </div>
         )}
@@ -150,7 +150,7 @@ export function StreakFreeze({
         <div className="text-xs text-muted-foreground">
           <div className="flex items-center gap-1">
             <Shield className="w-3 h-3" />
-            <span>Bevriezingen beschermen je streak voor 24 uur</span>
+            <span>{t('shell_freeze_protects')}</span>
           </div>
         </div>
       </CardContent>

@@ -11,8 +11,10 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function LandingPage() {
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDemo, setActiveDemo] = useState('flashcards');
@@ -132,12 +134,12 @@ export default function LandingPage() {
 
   const demoOptions = [
     { id: 'flashcards', label: 'Flashcards' },
-    { id: 'notities', label: 'Notities' },
+    { id: 'notities', label: t('landing_demo_notities') },
     { id: 'mind-maps', label: 'Mind Maps' },
     { id: 'artisan', label: 'Artisan' },
-    { id: 'leersets', label: 'Leersets' },
-    { id: 'tekeningen', label: 'Tekeningen' },
-    { id: 'spelletjes', label: 'Spelletjes' },
+    { id: 'leersets', label: t('landing_demo_leersets') },
+    { id: 'tekeningen', label: t('landing_demo_tekeningen') },
+    { id: 'spelletjes', label: t('landing_demo_spelletjes') },
   ];
 
   const handleDemoChange = (id: string) => {
@@ -250,11 +252,11 @@ export default function LandingPage() {
                 Demo
               </Link>
               <Link href="/login" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Inloggen
+                {t('home_login')}
               </Link>
               <Button asChild size="sm">
                 <Link href="/register">
-                  Aanmelden
+                  {t('landing_nav_signup')}
                 </Link>
               </Button>
             </div>
@@ -276,11 +278,11 @@ export default function LandingPage() {
                 Demo
               </Link>
               <Link href="/login" className="text-sm text-muted-foreground hover:text-foreground">
-                Inloggen
+                {t('home_login')}
               </Link>
               <Button asChild size="sm" className="w-full">
                 <Link href="/register">
-                  Aanmelden
+                  {t('landing_nav_signup')}
                 </Link>
               </Button>
             </div>
@@ -297,15 +299,15 @@ export default function LandingPage() {
         >
           <div className="reveal inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm text-muted-foreground mb-6" style={{ transitionDelay: '0.1s' }}>
             <img src="/icons/aetherlearn/icon-96x96.png" alt="AetherLearn" className="h-4 w-4" />
-            <span>Slimmer leren</span>
+            <span>{t('landing_badge')}</span>
           </div>
           <h1 className="reveal font-display text-5xl font-semibold leading-tight md:text-7xl" style={{ transitionDelay: '0.2s' }}>
-            Leer slimmer,
+            {t('landing_hero_title_1')}
             <br />
-            leer beter
+            {t('landing_hero_title_2')}
           </h1>
           <p className="reveal mt-6 text-lg text-muted-foreground md:text-xl" style={{ transitionDelay: '0.35s' }}>
-            AetherLearn helpt je om slimmer te leren. Je oefent met flashcards, maakt notities en houdt al je vakken op één plek bij.
+            {t('landing_hero_subtitle')}
           </p>
           <div className="reveal mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center" style={{ transitionDelay: '0.5s' }}>
             <Button 
@@ -314,7 +316,7 @@ export default function LandingPage() {
               className="text-base hover:scale-102 active:scale-100 transition-transform duration-150"
             >
               <Link href="/register">
-                Account aanmaken
+                {t('register_submit')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
@@ -325,7 +327,7 @@ export default function LandingPage() {
               className="text-base hover:scale-102 active:scale-100 transition-transform duration-150"
             >
               <Link href="#demo">
-                Bekijk demo
+                {t('landing_cta_demo')}
               </Link>
             </Button>
           </div>
@@ -336,10 +338,10 @@ export default function LandingPage() {
       <section id="demo" className="border-t border-border px-4 py-20 md:py-32">
         <div className="mx-auto max-w-6xl">
           <h2 className="font-display text-3xl font-semibold text-center md:text-4xl mb-4">
-            Bekijk in actie
+            {t('landing_demo_title')}
           </h2>
           <p className="text-center text-muted-foreground mb-16">
-            Kies een onderdeel om te zien hoe het werkt.
+            {t('landing_demo_subtitle')}
           </p>
 
           <div className="flex gap-8 items-start">
@@ -385,7 +387,7 @@ export default function LandingPage() {
                   demoAnimating ? 'opacity-0 translate-y-1' : 'opacity-100 translate-y-0'
                 }`}
               >
-                Voorbeeld: {activeDemoLabel}
+                {t('landing_demo_preview', undefined, { label: activeDemoLabel })}
               </div>
             </div>
           </div>
@@ -396,50 +398,50 @@ export default function LandingPage() {
       <section className="border-t border-border bg-secondary/20 px-4 py-20 md:py-32">
         <div className="mx-auto max-w-4xl">
           <h2 className="font-display text-3xl font-semibold text-center md:text-4xl mb-16">
-            Waarom AetherLearn?
+            {t('landing_features_title')}
           </h2>
           
           <div className="space-y-6 max-w-2xl mx-auto">
             <div className="reveal flex gap-4" style={{ transitionDelay: '0ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                Je herhaalt op de momenten die voor jou het beste werken
+                {t('landing_feature_1')}
               </p>
             </div>
             <div className="reveal flex gap-4" style={{ transitionDelay: '70ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                Al je vakken, hoofdstukken en oefensets op één plek
+                {t('landing_feature_2')}
               </p>
             </div>
             <div className="reveal flex gap-4" style={{ transitionDelay: '140ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                AetherLearn plant je herhalingen automatisch voor je in
+                {t('landing_feature_3')}
               </p>
             </div>
             <div className="reveal flex gap-4" style={{ transitionDelay: '210ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                Altijd zicht op je vakken, toetsen en voortgang
+                {t('landing_feature_4')}
               </p>
             </div>
             <div className="reveal flex gap-4" style={{ transitionDelay: '280ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                Maak notities met tekst, tekeningen en mind maps
+                {t('landing_feature_5')}
               </p>
             </div>
             <div className="reveal flex gap-4" style={{ transitionDelay: '350ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                Laat Artisan flashcards en oefenvragen voor je maken
+                {t('landing_feature_6')}
               </p>
             </div>
             <div className="reveal flex gap-4" style={{ transitionDelay: '420ms' }}>
               <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
               <p className="text-muted-foreground">
-                Werkt ook offline en synchroniseert vanzelf
+                {t('landing_feature_7')}
               </p>
             </div>
           </div>
@@ -455,10 +457,10 @@ export default function LandingPage() {
             className="h-10 w-10 mx-auto mb-6"
           />
           <h2 className="font-display text-3xl font-semibold md:text-4xl">
-            Klaar om te beginnen?
+            {t('landing_cta_title')}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Maak een account en begin met leren.
+            {t('landing_cta_subtitle')}
           </p>
           <Button 
             asChild 
@@ -466,7 +468,7 @@ export default function LandingPage() {
             className="mt-8 text-base hover:scale-102 active:scale-100 transition-transform duration-150"
           >
             <Link href="/register">
-              Account aanmaken
+              {t('register_submit')}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
@@ -484,10 +486,10 @@ export default function LandingPage() {
             />
             <span className="font-display font-semibold">AetherLearn</span>
           </div>
-          <p>© 2026 AetherLearn. Alle rechten voorbehouden.</p>
+          <p>{t('landing_footer_rights')}</p>
           <div className="flex gap-6">
             <Link href="/terms" className="hover:text-foreground">
-              Voorwaarden
+              {t('home_footer_terms')}
             </Link>
             <Link href="/privacy" className="hover:text-foreground">
               Privacy

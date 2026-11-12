@@ -6,12 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Bell, BellOff, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface PushNotificationSettingsProps {
   userId: string;
 }
 
 export function PushNotificationSettings({ userId: _userId }: PushNotificationSettingsProps) {
+  const { t } = useTranslation();
   const [permission, setPermission] = useState<NotificationPermission>('default');
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [studyReminders, setStudyReminders] = useState(true);
@@ -37,7 +39,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
   const sendTestNotification = () => {
     if (notificationsEnabled) {
       new Notification('Test Notificatie', {
-        body: 'Dit is een test notificatie van het leerplatform',
+        body: t('shell_test_notification'),
         icon: '/icon-192.png',
       });
     }
@@ -72,7 +74,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Push Notificaties</h2>
+        <h2 className="text-2xl font-bold">{t('shell_push_notifications')}</h2>
         {getPermissionStatus()}
       </div>
 
@@ -87,7 +89,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
           {permission === 'default' && (
             <div className="flex items-center justify-between p-4 rounded-lg bg-muted/50">
               <div>
-                <p className="font-medium">Schakel notificaties in</p>
+                <p className="font-medium">{t('shell_enable_notifications')}</p>
                 <p className="text-sm text-muted-foreground">
                   Ontwaar notificaties voor herinneringen, prestaties en meer
                 </p>
@@ -105,7 +107,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
                 <div className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-green-500" />
                   <div>
-                    <p className="font-medium">Notificaties ingeschakeld</p>
+                    <p className="font-medium">{t('shell_notifications_enabled')}</p>
                     <p className="text-sm text-muted-foreground">
                       Je ontvangt nu push notificaties
                     </p>
@@ -117,11 +119,11 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
               </div>
 
               <div className="space-y-3">
-                <h3 className="font-semibold">Notificatie Types</h3>
+                <h3 className="font-semibold">{t('shell_notification_types')}</h3>
 
                 <div className="flex items-center justify-between p-3 rounded-lg border">
                   <div>
-                    <p className="font-medium">Studie Herinneringen</p>
+                    <p className="font-medium">{t('shell_study_reminders')}</p>
                     <p className="text-xs text-muted-foreground">
                       Herinneringen voor studie sessies en deadlines
                     </p>
@@ -131,7 +133,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
 
                 <div className="flex items-center justify-between p-3 rounded-lg border">
                   <div>
-                    <p className="font-medium">Prestatie Alerts</p>
+                    <p className="font-medium">{t('shell_achievement_alerts')}</p>
                     <p className="text-xs text-muted-foreground">
                       Notificaties bij behaalde prestaties
                     </p>
@@ -141,7 +143,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
 
                 <div className="flex items-center justify-between p-3 rounded-lg border">
                   <div>
-                    <p className="font-medium">Huiswerk Alerts</p>
+                    <p className="font-medium">{t('shell_homework_alerts')}</p>
                     <p className="text-xs text-muted-foreground">
                       Herinneringen voor huiswerk deadlines
                     </p>
@@ -151,7 +153,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
 
                 <div className="flex items-center justify-between p-3 rounded-lg border">
                   <div>
-                    <p className="font-medium">Klas Updates</p>
+                    <p className="font-medium">{t('shell_class_updates')}</p>
                     <p className="text-xs text-muted-foreground">
                       Notificaties voor klas activiteiten
                     </p>
@@ -167,7 +169,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
               <div className="flex items-start gap-3">
                 <BellOff className="w-5 h-5 text-red-500 mt-0.5" />
                 <div>
-                  <p className="font-medium">Notificaties geblokkeerd</p>
+                  <p className="font-medium">{t('shell_notifications_blocked')}</p>
                   <p className="text-sm text-muted-foreground">
                     Je hebt notificaties geblokkeerd in je browser instellingen. Ga naar je browser
                     instellingen om dit te wijzigen.
@@ -184,12 +186,12 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
           <div className="flex items-start gap-4">
             <Bell className="w-8 h-8 text-blue-500 mt-1" />
             <div>
-              <h3 className="font-semibold mb-2">Over Push Notificaties</h3>
+              <h3 className="font-semibold mb-2">{t('shell_about_push')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Ontvang herinneringen voor studie sessies en deadlines</li>
-                <li>• Weet direct wanneer je een prestatie behaalt</li>
-                <li>• Blijf op de hoogte van klas activiteiten</li>
-                <li>• Pas aan welke notificaties je wilt ontvangen</li>
+                <li>• {t('shell_tip_push_study')}</li>
+                <li>• {t('shell_tip_push_achievement')}</li>
+                <li>• {t('shell_tip_push_class')}</li>
+                <li>• {t('shell_tip_push_customize')}</li>
               </ul>
             </div>
           </div>

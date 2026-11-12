@@ -2,10 +2,12 @@
 
 import { useEffect } from 'react';
 import { toast } from 'sonner';
+import { useTranslation } from '@/lib/useTranslation';
 
 const delays = [250, 750, 1750];
 
 export function NetworkErrorMonitor() {
+  const { t } = useTranslation();
   useEffect(() => {
     const originalFetch = window.fetch.bind(window);
     window.fetch = async (input, init) => {
@@ -20,10 +22,10 @@ export function NetworkErrorMonitor() {
         }
         await new Promise((resolve) => window.setTimeout(resolve, delays[attempt]));
       }
-      toast.error('Verbinding mislukt. Controleer je internetverbinding en probeer opnieuw.');
+      toast.error(t('shell_network_error'));
       throw lastError;
     };
     return () => { window.fetch = originalFetch; };
-  }, []);
+  }, [t]);
   return null;
 }

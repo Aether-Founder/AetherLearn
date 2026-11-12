@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Copy, Check, Terminal } from "lucide-react";
+import { useTranslation } from "@/lib/useTranslation";
 
 interface TerminalBlockProps {
   command: string;
@@ -9,6 +10,7 @@ interface TerminalBlockProps {
 }
 
 export function TerminalBlock({ command, output, os = "Linux", warning }: TerminalBlockProps) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -36,12 +38,12 @@ export function TerminalBlock({ command, output, os = "Linux", warning }: Termin
           {copied ? (
             <>
               <Check className="h-3.5 w-3.5" />
-              Gekopieerd
+              {t('comp_copied')}
             </>
           ) : (
             <>
               <Copy className="h-3.5 w-3.5" />
-              Kopiëren
+              {t('comp_copy')}
             </>
           )}
         </button>

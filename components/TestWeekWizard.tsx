@@ -16,6 +16,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { CalendarIcon, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { nl } from 'date-fns/locale';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface TestWeekWizardProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ interface TestWeekWizardProps {
 }
 
 export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardProps) {
+  const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -53,19 +55,19 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
 
     if (step === 1) {
       if (!name.trim()) {
-        setError('Naam is verplicht');
+        setError(t('shell_name_required'));
         return;
       }
       if (!startDate) {
-        setError('Startdatum is verplicht');
+        setError(t('shell_start_date_required'));
         return;
       }
       if (!endDate) {
-        setError('Einddatum is verplicht');
+        setError(t('shell_end_date_required'));
         return;
       }
       if (endDate < startDate) {
-        setError('Einddatum moet na startdatum zijn');
+        setError(t('shell_end_after_start'));
         return;
       }
       setStep(2);
@@ -85,7 +87,7 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
     try {
       const token = localStorage.getItem('access_token');
       if (!token) {
-        throw new Error('Niet ingelogd');
+        throw new Error(t('shell_not_logged_in'));
       }
 
       const response = await fetch('/api/testweeks', {
@@ -104,7 +106,7 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Aanmaken mislukt');
+        throw new Error(data.error || t('shell_create_failed'));
       }
 
       // Add selected subjects
@@ -126,7 +128,7 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
       onClose();
       resetForm();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Er is een fout opgetreden');
+      setError(err instanceof Error ? err.message : t('shell_generic_error'));
     } finally {
       setLoading(false);
     }
@@ -153,33 +155,33 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{step === 1 ? 'Nieuwe toetsweek' : 'Selecteer vakken'}</DialogTitle>
+          <DialogTitle>{step === 1 ? t('shell_new_testweek') : t('shell_select_subjects')}</DialogTitle>
           <DialogDescription>
             {step === 1
-              ? 'Voer de details van uw toetsweek in'
-              : 'Selecteer de vakken voor deze toetsweek'}
+              ? t('shell_testweek_desc')
+              : t('shell_select_subjects_testweek')}
           </DialogDescription>
         </DialogHeader>
 
         {step === 1 ? (
           <div className="space-y-4">
             <div>
-              <Label htmlFor="name">Naam</Label>
+              <Label htmlFor="name">{t('shell_name')}</Label>
               <Input
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Bijv. Toetsweek januari 2025"
+                placeholder={t('shell_testweek_example')}
               />
             </div>
 
             <div>
-              <Label>Startdatum</Label>
+              <Label>{t('shell_start_date')}</Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button variant="outline" className="w-full justify-start text-left font-normal">
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {startDate ? format(startDate, 'PPP', { locale: nl }) : 'Kies een datum'}
+                    {startDate ? format(startDate, 'PPP', { locale: nl }) : t('shell_choose_date')}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
@@ -195,12 +197,12 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
             </div>
 
             <div>
-              <Label>Einddatum</Label>
+              <Label>{t('shell_end_date')}</Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button variant="outline" className="w-full justify-start text-left font-normal">
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {endDate ? format(endDate, 'PPP', { locale: nl }) : 'Kies een datum'}
+                    {endDate ? format(endDate, 'PPP', { locale: nl }) : t('shell_choose_date')}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
@@ -220,9 +222,9 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
 
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={onClose}>
-                Annuleren
+                {t('cancel')}
               </Button>
-              <Button onClick={handleNext}>Volgende</Button>
+              <Button onClick={handleNext}>{t('next')}</Button>
             </div>
           </div>
         ) : (
@@ -244,16 +246,16 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
 
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={handleBack} disabled={loading}>
-                Terug
+                {t('previous')}
               </Button>
               <Button onClick={handleCreate} disabled={loading}>
                 {loading ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Aanmaken...
+                    {t('shell_creating')}
                   </>
                 ) : (
-                  'Aanmaken'
+                  t('shell_create')
                 )}
               </Button>
             </div>

@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Bot, User, Sparkles, BookOpen, AlertCircle, Loader2 } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Message {
   id: string;
@@ -21,6 +22,7 @@ interface Message {
 }
 
 export default function TutorPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const supabase = createClient();
   const [messages, setMessages] = useState<Message[]>([]);
@@ -45,7 +47,7 @@ export default function TutorPage() {
         {
           id: 'welcome',
           role: 'assistant',
-          content: 'Hallo! Ik ben Aether Tutor, je persoonlijke studiebegeleider. Stel me een vraag over je studiemateriaal en ik zal je helpen het te begrijpen.',
+          content: t('tutor_welcome'),
           timestamp: new Date(),
         },
       ]);
@@ -76,7 +78,7 @@ export default function TutorPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Er is een fout opgetreden');
+        throw new Error(data.error || t('tutor_error_generic'));
       }
 
       const assistantMessage: Message = {
@@ -135,7 +137,10 @@ export default function TutorPage() {
           
           {usageInfo && !usageInfo.isBYOK && (
             <div className="text-sm text-gray-600 dark:text-gray-400">
-              Vandaag: {usageInfo.limit - usageInfo.remaining}/{usageInfo.limit} berichten
+              {t('tutor_usage_today', undefined, {
+                used: usageInfo.limit - usageInfo.remaining,
+                limit: usageInfo.limit,
+              })}
             </div>
           )}
         </div>
@@ -187,7 +192,7 @@ export default function TutorPage() {
                     {message.sources && message.sources.length > 0 && (
                       <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
                         <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2">
-                          Bronnen:
+                          {t('tutor_sources')}:
                         </p>
                         <div className="flex flex-wrap gap-2">
                           {message.sources.map((source, idx) => (
@@ -224,7 +229,7 @@ export default function TutorPage() {
                   <div className="flex items-center space-x-2">
                     <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
                     <span className="text-sm text-gray-600 dark:text-gray-400">
-                      AI is aan het denken...
+                      {t('tutor_thinking')}
                     </span>
                   </div>
                 </div>
@@ -245,7 +250,7 @@ export default function TutorPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="Stel een vraag over je studiemateriaal..."
+              placeholder={t('tutor_input_placeholder')}
               disabled={isLoading}
               className="flex-1 px-4 py-3 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 text-gray-900 dark:text-white"
             />
@@ -262,7 +267,7 @@ export default function TutorPage() {
             <div className="mt-2 flex items-center space-x-2 text-xs text-yellow-600 dark:text-yellow-500">
               <AlertCircle className="w-4 h-4" />
               <span>
-                Nog {usageInfo.remaining} berichten over vandaag. Voeg je eigen API-key toe voor onbeperkt gebruik.
+                {t('tutor_usage_warning', undefined, { n: usageInfo.remaining })}
               </span>
             </div>
           )}

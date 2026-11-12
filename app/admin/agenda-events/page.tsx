@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Textarea } from '@/components/ui/textarea';
 import { Plus, Trash2, Edit2, Save, X } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Event {
   id: string;
@@ -26,6 +27,7 @@ interface EventsData {
 }
 
 export default function AdminAgendaEventsPage() {
+  const { t } = useTranslation();
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -184,9 +186,9 @@ export default function AdminAgendaEventsPage() {
   if (loading) {
     return (
       <AppShell>
-        <PageHeader title="Agenda Evenementen" description="Beheer evenementen voor alle gebruikers" />
+        <PageHeader title={t('admin_agenda_events')} description={t('admin_agenda_events_desc')} />
         <div className="flex items-center justify-center py-20">
-          <div className="text-muted-foreground">Laden...</div>
+          <div className="text-muted-foreground">{t('loading')}</div>
         </div>
       </AppShell>
     );
@@ -195,12 +197,12 @@ export default function AdminAgendaEventsPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Agenda Evenementen"
-        description="Beheer evenementen voor alle gebruikers"
+        title={t('admin_agenda_events')}
+        description={t('admin_agenda_events_desc')}
         action={
           <Button onClick={() => setShowForm(true)}>
             <Plus className="h-4 w-4 mr-2" />
-            Nieuw Evenement
+            {t('admin_new_event')}
           </Button>
         }
       />
@@ -209,41 +211,41 @@ export default function AdminAgendaEventsPage() {
         {showForm && (
           <Card>
             <CardHeader>
-              <CardTitle>{editingId ? 'Evenement Bewerken' : 'Nieuw Evenement'}</CardTitle>
+              <CardTitle>{editingId ? t('admin_edit_event') : t('admin_new_event')}</CardTitle>
               <CardDescription>
-                Vul de details in voor het evenement
+                {t('admin_event_form_desc')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="title">Titel *</Label>
+                  <Label htmlFor="title">{t('admin_title')}</Label>
                   <Input
                     id="title"
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    placeholder="Bijv. Toetsweek"
+                    placeholder={t('admin_title_placeholder')}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="type">Type</Label>
+                  <Label htmlFor="type">{t('admin_type')}</Label>
                   <select
                     id="type"
                     value={formData.type}
                     onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                     className="w-full h-10 rounded-md border border-border bg-background px-3 py-2 text-sm"
                   >
-                    <option value="exam">Examen</option>
-                    <option value="school">School</option>
-                    <option value="holiday">Vakantie</option>
-                    <option value="other">Overig</option>
+                    <option value="exam">{t('admin_exam')}</option>
+                    <option value="school">{t('admin_school_event')}</option>
+                    <option value="holiday">{t('admin_holiday')}</option>
+                    <option value="other">{t('admin_other')}</option>
                   </select>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="startDate">Startdatum *</Label>
+                  <Label htmlFor="startDate">{t('admin_start_date')}</Label>
                   <Input
                     id="startDate"
                     type="date"
@@ -252,7 +254,7 @@ export default function AdminAgendaEventsPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="endDate">Einddatum *</Label>
+                  <Label htmlFor="endDate">{t('admin_end_date')}</Label>
                   <Input
                     id="endDate"
                     type="date"
@@ -264,7 +266,7 @@ export default function AdminAgendaEventsPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="time">Tijd (optioneel)</Label>
+                  <Label htmlFor="time">{t('admin_time_optional')}</Label>
                   <Input
                     id="time"
                     type="time"
@@ -273,33 +275,33 @@ export default function AdminAgendaEventsPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="location">Locatie (optioneel)</Label>
+                  <Label htmlFor="location">{t('admin_location_optional')}</Label>
                   <Input
                     id="location"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    placeholder="Bijv. School"
+                    placeholder={t('admin_location_placeholder')}
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="location">Locatie</Label>
+                <Label htmlFor="location">{t('admin_location')}</Label>
                 <Input
                   id="location"
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  placeholder="Bijv. Schoolplein"
+                  placeholder={t('admin_location_placeholder2')}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description">Beschrijving</Label>
+                <Label htmlFor="description">{t('admin_description')}</Label>
                 <Textarea
                   id="description"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Beschrijving van het evenement"
+                  placeholder={t('admin_event_desc_placeholder')}
                   rows={3}
                 />
               </div>
@@ -309,22 +311,22 @@ export default function AdminAgendaEventsPage() {
                   <>
                     <Button onClick={handleUpdate}>
                       <Save className="h-4 w-4 mr-2" />
-                      Opslaan
+                      {t('save')}
                     </Button>
                     <Button variant="outline" onClick={cancelEdit}>
                       <X className="h-4 w-4 mr-2" />
-                      Annuleren
+                      {t('cancel')}
                     </Button>
                   </>
                 ) : (
                   <>
                     <Button onClick={handleAdd}>
                       <Plus className="h-4 w-4 mr-2" />
-                      Toevoegen
+                      {t('add')}
                     </Button>
                     <Button variant="outline" onClick={cancelEdit}>
                       <X className="h-4 w-4 mr-2" />
-                      Annuleren
+                      {t('cancel')}
                     </Button>
                   </>
                 )}
@@ -351,7 +353,7 @@ export default function AdminAgendaEventsPage() {
                         month: 'long',
                         year: 'numeric',
                       })}`}
-                      {event.time && ` om ${event.time}`}
+                      {event.time && ` ${t('admin_at_time', undefined, { time: event.time })}`}
                     </CardDescription>
                   </div>
                   <div className="flex gap-1">
@@ -375,12 +377,12 @@ export default function AdminAgendaEventsPage() {
               <CardContent>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-sm">
-                    <span className="font-medium">Type:</span>
+                    <span className="font-medium">{t('admin_type')}:</span>
                     <span className="text-muted-foreground capitalize">{event.type}</span>
                   </div>
                   {event.location && (
                     <div className="flex items-center gap-2 text-sm">
-                      <span className="font-medium">Locatie:</span>
+                      <span className="font-medium">{t('admin_location')}:</span>
                       <span className="text-muted-foreground">{event.location}</span>
                     </div>
                   )}
@@ -394,7 +396,7 @@ export default function AdminAgendaEventsPage() {
 
           {events.length === 0 && !showForm && (
             <div className="col-span-full text-center py-12">
-              <p className="text-muted-foreground">Geen evenementen gevonden</p>
+              <p className="text-muted-foreground">{t('admin_no_events')}</p>
             </div>
           )}
         </div>

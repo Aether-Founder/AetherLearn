@@ -176,13 +176,13 @@ function TreeItem({
       .getState()
       .createItemOptimistic({
         ...copy,
-        name: `${item.name} kopie`,
+        name: `${item.name} ${t('notes_copy')}`,
         order_index: item.order_index + 1,
       });
     try {
       const { data } = await supabase
         .from('workspace_items')
-        .insert({ ...copy, id, name: `${item.name} kopie`, order_index: item.order_index + 1 })
+        .insert({ ...copy, id, name: `${item.name} ${t('notes_copy')}`, order_index: item.order_index + 1 })
         .select()
         .single();
       if (data) useWorkspaceStore.getState().updateItemOptimistic(id, data);
@@ -285,21 +285,21 @@ function TreeItem({
               }}
               className="w-full rounded px-2 py-1.5 text-left hover:bg-secondary"
             >
-              Hernoemen
+              {t('notes_rename')}
             </button>
             <button
               type="button"
               onClick={duplicate}
               className="w-full rounded px-2 py-1.5 text-left hover:bg-secondary"
             >
-              Dupliceren
+              {t('notes_duplicate')}
             </button>
             <button
               type="button"
               onClick={remove}
               className="w-full rounded px-2 py-1.5 text-left hover:bg-secondary"
             >
-              Verwijderen
+              {t('notes_delete')}
             </button>
             <div className="border-t border-border my-1" />
             <FileOperationsMenu
@@ -344,9 +344,9 @@ function TreeItem({
                 void rename();
               }}
             >
-              <h2 className="font-display text-xl font-semibold">Hernoemen</h2>
+              <h2 className="font-display text-xl font-semibold">{t('notes_rename')}</h2>
               <label className="mt-4 block text-sm text-muted-foreground">
-                Naam
+                {t('settings_name')}
                 <input
                   value={name}
                   onChange={(event) => setName(event.target.value)}
@@ -360,14 +360,14 @@ function TreeItem({
                   onClick={() => setRenameOpen(false)}
                   className="rounded-md border border-border px-3 py-2 text-sm hover:bg-secondary"
                 >
-                  Annuleren
+                  {t('cancel')}
                 </button>
                 <button
                   type="submit"
                   disabled={!name.trim()}
                   className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground disabled:opacity-50"
                 >
-                  Opslaan
+                  {t('settings_save')}
                 </button>
               </div>
             </form>
@@ -408,7 +408,7 @@ function WorkspaceSidebar() {
   // Initialize default workspace if none exists
   useEffect(() => {
     if (workspaces.length === 0) {
-      const defaultId = createWorkspace('Werkruimte 1');
+      const defaultId = createWorkspace(t('notes_workspace_default'));
       setCurrentWorkspaceId(defaultId);
     }
   }, [workspaces.length, createWorkspace, setCurrentWorkspaceId]);
@@ -475,7 +475,7 @@ function WorkspaceSidebar() {
   const handleCreateWorkspace = () => {
     if (!newWorkspaceName.trim()) return;
     if (workspaces.some(w => w.name.toLowerCase() === newWorkspaceName.toLowerCase())) {
-      alert('Er bestaat al een werkruimte met deze naam.');
+      alert(t('notes_workspace_name_exists'));
       return;
     }
     const newId = createWorkspace(newWorkspaceName);
@@ -528,7 +528,7 @@ function WorkspaceSidebar() {
     return (
       <aside className="flex w-72 shrink-0 flex-col border-r border-border bg-background">
         <div className="flex items-center justify-between px-5 py-4">
-          <h1 className="text-sm font-semibold tracking-wide text-foreground">Werkruimte</h1>
+          <h1 className="text-sm font-semibold tracking-wide text-foreground">{t('notes_sidebar')}</h1>
           <div className="flex items-center gap-1">
             <div className="skeleton-line h-8 w-8 rounded"></div>
             <div className="skeleton-line h-8 w-8 rounded"></div>
@@ -552,9 +552,9 @@ function WorkspaceSidebar() {
           <h1 
             className="text-sm font-semibold tracking-wide text-foreground cursor-pointer hover:text-foreground/80"
             onDoubleClick={handleWorkspaceDoubleClick}
-            title="Dubbelklik om te hernoemen"
+            title={t('notes_double_click_rename')}
           >
-            {workspaces.find(w => w.id === currentWorkspaceId)?.name || 'Werkruimte'}
+            {workspaces.find(w => w.id === currentWorkspaceId)?.name || t('notes_sidebar')}
           </h1>
           {/* Workspace dots navigation */}
           <div className="flex items-center gap-2">
@@ -573,7 +573,7 @@ function WorkspaceSidebar() {
               type="button"
               onClick={() => setShowCreateWorkspace(true)}
               className="rounded p-1 text-muted-foreground hover:bg-secondary hover:text-foreground"
-              title="Nieuwe werkruimte"
+              title={t('notes_new_workspace')}
             >
               <Plus className="h-4 w-4" />
             </button>
@@ -620,15 +620,15 @@ function WorkspaceSidebar() {
               handleCreateWorkspace();
             }}
           >
-            <h2 className="font-display text-xl font-semibold">Nieuwe werkruimte</h2>
+            <h2 className="font-display text-xl font-semibold">{t('notes_new_workspace')}</h2>
             <label className="mt-4 block text-sm text-muted-foreground">
-              Naam
+              {t('settings_name')}
               <input
                 value={newWorkspaceName}
                 onChange={(event) => setNewWorkspaceName(event.target.value)}
                 className="mt-1.5 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-foreground/50"
                 autoFocus
-                placeholder="Bijv. School"
+                placeholder={t('notes_workspace_placeholder')}
               />
             </label>
             <div className="mt-5 flex justify-end gap-2">
@@ -637,14 +637,14 @@ function WorkspaceSidebar() {
                 onClick={() => setShowCreateWorkspace(false)}
                 className="rounded-md border border-border px-3 py-2 text-sm hover:bg-secondary"
               >
-                Annuleren
+                {t('cancel')}
               </button>
               <button
                 type="submit"
                 disabled={!newWorkspaceName.trim()}
                 className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground disabled:opacity-50"
               >
-                Maken
+                {t('notes_create')}
               </button>
             </div>
           </form>
@@ -664,9 +664,9 @@ function WorkspaceSidebar() {
               handleRenameWorkspace();
             }}
           >
-            <h2 className="font-display text-xl font-semibold">Werkruimte hernoemen</h2>
+            <h2 className="font-display text-xl font-semibold">{t('notes_rename_workspace')}</h2>
             <label className="mt-4 block text-sm text-muted-foreground">
-              Naam
+              {t('settings_name')}
               <input
                 value={renameWorkspaceName}
                 onChange={(event) => setRenameWorkspaceName(event.target.value)}
@@ -680,14 +680,14 @@ function WorkspaceSidebar() {
                 onClick={() => setShowRenameWorkspace(false)}
                 className="rounded-md border border-border px-3 py-2 text-sm hover:bg-secondary"
               >
-                Annuleren
+                {t('cancel')}
               </button>
               <button
                 type="submit"
                 disabled={!renameWorkspaceName.trim()}
                 className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground disabled:opacity-50"
               >
-                Opslaan
+                {t('settings_save')}
               </button>
             </div>
           </form>
@@ -968,7 +968,7 @@ function EditorPanel() {
 
     const content = editorRef.current.innerText || '';
     if (content.length < 100) {
-      alert('Voeg meer inhoud toe om vragen te genereren (minimaal 100 tekens).');
+      alert(t('notes_questions_min_content'));
       return;
     }
 
@@ -987,7 +987,7 @@ function EditorPanel() {
       setShowQuestionDialog(true);
     } catch (error) {
       console.error('Error generating questions:', error);
-      alert('Er is een fout opgetreden bij het genereren van vragen.');
+      alert(t('notes_questions_error'));
     } finally {
       setIsGenerating(false);
     }
@@ -998,8 +998,8 @@ function EditorPanel() {
 
     const questionHtml = `
       <div class="generated-question" style="margin: 16px 0; padding: 12px; border-left: 3px solid #3b82f6; background: #f1f5f9;">
-        <p style="font-weight: 600; margin: 0 0 8px 0;">Vraag: ${question.question}</p>
-        <p style="margin: 0; color: #64748b;">Antwoord: ${question.answer}</p>
+        <p style="font-weight: 600; margin: 0 0 8px 0;">${t('notes_question')}: ${question.question}</p>
+        <p style="margin: 0; color: #64748b;">${t('notes_answer')}: ${question.answer}</p>
       </div>
     `;
 
@@ -1108,7 +1108,7 @@ function EditorPanel() {
             type="button"
             onClick={() => setIsEditing(!isEditing)}
             className="rounded p-1.5 text-muted-foreground hover:bg-secondary hover:text-foreground"
-            title={isEditing ? 'Leesmodus' : 'Bewerkmodus'}
+            title={isEditing ? t('notes_read_mode') : t('notes_edit_mode')}
           >
             {isEditing ? <Eye className="h-4 w-4" /> : <Edit className="h-4 w-4" />}
           </button>
@@ -1117,9 +1117,9 @@ function EditorPanel() {
             onClick={generateQuestions}
             disabled={isGenerating}
             className="flex items-center gap-1.5 rounded px-2 py-1 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground disabled:opacity-50"
-            title="Genereer vragen van inhoud"
+            title={t('notes_generate_questions_title')}
           >
-            {isGenerating ? '...' : 'Vragen genereren'}
+            {isGenerating ? '...' : t('notes_generate_questions')}
           </button>
           <button
             type="button"
@@ -1129,7 +1129,7 @@ function EditorPanel() {
               localStorage.setItem('aether-workspace-spellcheck', String(enabled));
             }}
             className="rounded p-1.5 text-muted-foreground hover:bg-secondary hover:text-foreground"
-            title={showSpelling ? 'Rode onderstreping verbergen' : 'Rode onderstreping tonen'}
+            title={showSpelling ? t('notes_hide_spelling') : t('notes_show_spelling')}
           >
             <SpellCheck className="h-4 w-4" />
           </button>
@@ -1220,10 +1220,10 @@ function EditorPanel() {
             className="w-full max-w-2xl rounded-xl border border-border bg-background p-6 shadow-2xl"
             onMouseDown={(event) => event.stopPropagation()}
           >
-            <h2 className="font-display text-xl font-semibold mb-4">Gegenereerde Vragen</h2>
+            <h2 className="font-display text-xl font-semibold mb-4">{t('notes_generated_questions')}</h2>
             <div className="max-h-96 overflow-y-auto space-y-3 mb-4">
               {generatedQuestions.length === 0 ? (
-                <p className="text-sm text-muted-foreground">Geen vragen gegenereerd.</p>
+                <p className="text-sm text-muted-foreground">{t('notes_no_questions')}</p>
               ) : (
                 generatedQuestions.map((q, i) => (
                   <div key={i} className="p-4 rounded-lg border border-border bg-secondary/30">
@@ -1233,7 +1233,7 @@ function EditorPanel() {
                       onClick={() => insertQuestion(q)}
                       className="mt-2 text-xs text-primary hover:underline"
                     >
-                      Invoegen
+                      {t('notes_insert')}
                     </button>
                   </div>
                 ))
@@ -1244,7 +1244,7 @@ function EditorPanel() {
                 onClick={() => setShowQuestionDialog(false)}
                 className="rounded-md border border-border px-4 py-2 text-sm hover:bg-secondary"
               >
-                Sluiten
+                {t('close')}
               </button>
             </div>
           </div>

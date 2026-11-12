@@ -385,9 +385,9 @@ export default function BookDetailPage() {
         {/* About the Author */}
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">
-            {currentLanguage === 'nl'
-              ? (book.author.includes(',') || book.author.includes(' en ') ? 'Over de auteurs' : 'Over de auteur')
-              : `About the ${book.author.includes(',') || book.author.includes(' en ') ? 'Authors' : 'Author'}`
+            {book.author.includes(',') || book.author.includes(' en ')
+              ? t('books.about_authors')
+              : t('books.about_author')
             }
           </h2>
           <div className="max-w-2xl">

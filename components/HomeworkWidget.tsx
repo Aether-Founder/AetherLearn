@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Calendar, AlertCircle, CheckCircle2, ArrowUpDown } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Homework {
   id: string;
@@ -29,6 +30,7 @@ interface HomeworkWidgetProps {
 }
 
 export function HomeworkWidget({ userId: _userId, testWeekId }: HomeworkWidgetProps) {
+  const { t } = useTranslation();
   const [homework, setHomework] = useState<Homework[]>([]);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState<'priority' | 'dueDate' | 'subject'>('priority');
@@ -144,10 +146,10 @@ export function HomeworkWidget({ userId: _userId, testWeekId }: HomeworkWidgetPr
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Huiswerk</CardTitle>
+          <CardTitle>{t('shell_homework')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-muted-foreground">Laden...</div>
+          <div className="text-center text-muted-foreground">{t('loading')}</div>
         </CardContent>
       </Card>
     );
@@ -157,7 +159,7 @@ export function HomeworkWidget({ userId: _userId, testWeekId }: HomeworkWidgetPr
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>Huiswerk</CardTitle>
+          <CardTitle>{t('shell_homework')}</CardTitle>
           <div className="flex items-center gap-2">
             <Badge variant="secondary">{pendingHomework.length} openstaand</Badge>
             <Select
@@ -169,9 +171,9 @@ export function HomeworkWidget({ userId: _userId, testWeekId }: HomeworkWidgetPr
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="priority">Prioriteit</SelectItem>
-                <SelectItem value="dueDate">Datum</SelectItem>
-                <SelectItem value="subject">Vak</SelectItem>
+                <SelectItem value="priority">{t('shell_priority')}</SelectItem>
+                <SelectItem value="dueDate">{t('shell_date')}</SelectItem>
+                <SelectItem value="subject">{t('shell_subject')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -179,7 +181,7 @@ export function HomeworkWidget({ userId: _userId, testWeekId }: HomeworkWidgetPr
       </CardHeader>
       <CardContent>
         {homework.length === 0 ? (
-          <div className="text-center text-muted-foreground py-8">Geen huiswerk gevonden</div>
+          <div className="text-center text-muted-foreground py-8">{t('shell_no_homework')}</div>
         ) : (
           <div className="space-y-3">
             {pendingHomework.map((hw) => (
@@ -207,7 +209,7 @@ export function HomeworkWidget({ userId: _userId, testWeekId }: HomeworkWidgetPr
                     {isOverdue(hw.dueDate) && (
                       <div className="flex items-center gap-1 text-red-500">
                         <AlertCircle className="w-3 h-3" />
-                        <span>Overtijd</span>
+                        <span>{t('shell_overdue')}</span>
                       </div>
                     )}
                   </div>

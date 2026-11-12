@@ -23,6 +23,7 @@ import {
   Plus,
 } from 'lucide-react';
 import { supabase as browserClient } from '@/lib/supabase/client';
+import { useTranslation } from '@/lib/useTranslation';
 
 const supabase = browserClient as any;
 
@@ -49,20 +50,21 @@ type Question = {
   uitleg?: string;
 };
 
-const QUESTION_TYPES: { id: QuestionType; label: string; icon: any }[] = [
-  { id: 'open', label: 'Open vraag', icon: MessageSquare },
+const QUESTION_TYPES: { id: QuestionType; label: string; labelKey?: string; icon: any }[] = [
+  { id: 'open', label: 'Open vraag', labelKey: 'quiz_type_open', icon: MessageSquare },
   { id: 'multiple-choice', label: 'Multiple choice', icon: CheckCircle },
-  { id: 'cloze', label: 'Invulvraag', icon: MessageSquare },
+  { id: 'cloze', label: 'Invulvraag', labelKey: 'quiz_type_cloze', icon: MessageSquare },
   { id: 'flashcard', label: 'Flashcard', icon: Brain },
-  { id: 'step-by-step', label: 'Stap-voor-stap', icon: ArrowRight },
-  { id: 'diagram', label: 'Diagramvraag', icon: Brain },
-  { id: 'translate', label: 'Vertaalvraag', icon: MessageSquare },
-  { id: 'code', label: 'Codevraag', icon: Brain },
-  { id: 'error-detection', label: 'Foutdetectie', icon: XCircle },
-  { id: 'method-choice', label: 'Methodekeuze', icon: CheckCircle },
+  { id: 'step-by-step', label: 'Stap-voor-stap', labelKey: 'quiz_type_step', icon: ArrowRight },
+  { id: 'diagram', label: 'Diagramvraag', labelKey: 'quiz_type_diagram', icon: Brain },
+  { id: 'translate', label: 'Vertaalvraag', labelKey: 'quiz_type_translate', icon: MessageSquare },
+  { id: 'code', label: 'Codevraag', labelKey: 'quiz_type_code', icon: Brain },
+  { id: 'error-detection', label: 'Foutdetectie', labelKey: 'quiz_type_error', icon: XCircle },
+  { id: 'method-choice', label: 'Methodekeuze', labelKey: 'quiz_type_method', icon: CheckCircle },
 ];
 
 export default function ActiveRecallPage() {
+  const { t } = useTranslation();
   const [selectedType, setSelectedType] = useState<QuestionType | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [userAnswer, setUserAnswer] = useState('');
@@ -195,11 +197,11 @@ export default function ActiveRecallPage() {
       <AppShell>
         <PageHeader
           title="Active Recall Engine"
-          description="Kies een vraagtype om actief je kennis te testen"
+          description={t('quiz_pick_type')}
           action={
             <Button onClick={() => setShowAddDialog(true)}>
               <Plus className="mr-2 h-4 w-4" />
-              Nieuwe vraag
+              {t('quiz_new_question')}
             </Button>
           }
         />
@@ -226,9 +228,13 @@ export default function ActiveRecallPage() {
                         <Icon className="h-6 w-6" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="font-medium">{type.label}</p>
+                        <p className="font-medium">
+                          {type.labelKey ? t(type.labelKey) : type.label}
+                        </p>
                         <p className="text-xs text-muted-foreground mt-1">
-                          {questions.filter((q) => q.type === type.id).length} vragen
+                          {t('quiz_question_count', undefined, {
+                            n: questions.filter((q) => q.type === type.id).length,
+                          })}
                         </p>
                       </div>
                       <ArrowRight className="h-4 w-4 text-muted-foreground shrink-0" />
@@ -240,13 +246,13 @@ export default function ActiveRecallPage() {
               {questions.length === 0 && (
                 <div className="mt-8 rounded-xl border border-dashed border-border p-10 text-center">
                   <Brain className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-                  <h2 className="font-display text-xl font-semibold mb-2">Geen vragen gevonden</h2>
+                  <h2 className="font-display text-xl font-semibold mb-2">{t('quiz_none_found')}</h2>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Je hebt nog geen vragen toegevoegd. Begin met het toevoegen van je eerste vraag.
+                    {t('quiz_empty_desc')}
                   </p>
                   <Button onClick={() => setShowAddDialog(true)}>
                     <Plus className="mr-2 h-4 w-4" />
-                    Eerste vraag toevoegen
+                    {t('quiz_add_first')}
                   </Button>
                 </div>
               )}
@@ -256,30 +262,26 @@ export default function ActiveRecallPage() {
 
         {/* Info Section */}
         <div className="mt-10 rounded-xl border border-border bg-card p-6">
-          <h2 className="font-display text-xl font-semibold mb-4">Over Active Recall</h2>
+          <h2 className="font-display text-xl font-semibold mb-4">{t('quiz_about_title')}</h2>
           <div className="space-y-4 text-sm text-muted-foreground">
-            <p>
-              Active recall is een leertechniek waarbij je actief informatie uit je geheugen haalt
-              zonder deze eerst te herlezen. Dit is veel effectiever dan passief herlezen omdat het
-              je hersenen dwingt om de informatie actief op te halen en te versterken.
-            </p>
+            <p>{t('quiz_about_text')}</p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="p-4 rounded-lg bg-secondary/50">
-                <h3 className="font-medium text-foreground mb-2">Waarom werkt het?</h3>
+                <h3 className="font-medium text-foreground mb-2">{t('quiz_why_title')}</h3>
                 <ul className="space-y-1">
-                  <li>• Versterkt neurale verbindingen</li>
-                  <li>• Identificeert kennishiaten</li>
-                  <li>• Verbetert langetermijngeheugen</li>
-                  <li>• Is efficiënter dan herlezen</li>
+                  <li>• {t('quiz_why_1')}</li>
+                  <li>• {t('quiz_why_2')}</li>
+                  <li>• {t('quiz_why_3')}</li>
+                  <li>• {t('quiz_why_4')}</li>
                 </ul>
               </div>
               <div className="p-4 rounded-lg bg-secondary/50">
-                <h3 className="font-medium text-foreground mb-2">Tips voor gebruik</h3>
+                <h3 className="font-medium text-foreground mb-2">{t('quiz_tips_title')}</h3>
                 <ul className="space-y-1">
-                  <li>• Begin met het antwoord proberen</li>
-                  <li>• Wacht niet te lang met checken</li>
-                  <li>• Herhaal fouten direct</li>
-                  <li>• Gebruik verschillende vraagtypes</li>
+                  <li>• {t('quiz_tip_1')}</li>
+                  <li>• {t('quiz_tip_2')}</li>
+                  <li>• {t('quiz_tip_3')}</li>
+                  <li>• {t('quiz_tip_4')}</li>
                 </ul>
               </div>
             </div>
@@ -302,11 +304,16 @@ export default function ActiveRecallPage() {
     <AppShell>
       <PageHeader
         title="Active Recall"
-        description={`Vraagtype: ${QUESTION_TYPES.find((t) => t.id === selectedType)?.label}`}
+        description={t('quiz_question_type', undefined, {
+          type: (() => {
+            const found = QUESTION_TYPES.find((qt) => qt.id === selectedType);
+            return found?.labelKey ? t(found.labelKey) : found?.label;
+          })(),
+        })}
         action={
           <Button variant="outline" onClick={resetSession}>
             <RefreshCw className="mr-2 h-4 w-4" />
-            Nieuwe sessie
+            {t('quiz_new_session')}
           </Button>
         }
       />
@@ -326,7 +333,7 @@ export default function ActiveRecallPage() {
             </div>
           </div>
           <Button variant="ghost" size="sm" onClick={() => setSelectedType(null)}>
-            Terug naar overzicht
+            {t('quiz_back_overview')}
           </Button>
         </div>
 
@@ -366,7 +373,7 @@ export default function ActiveRecallPage() {
                 <textarea
                   value={userAnswer}
                   onChange={(e) => setUserAnswer(e.target.value)}
-                  placeholder="Typ je antwoord hier..."
+                  placeholder={t('study_answer_placeholder')}
                   className="w-full h-32 rounded-lg border border-border bg-background p-4 text-sm resize-none focus:border-foreground/40 outline-none"
                   disabled={showAnswer}
                 />
@@ -388,45 +395,45 @@ export default function ActiveRecallPage() {
                     {userAnswer
                       .toLowerCase()
                       .includes(currentQuestion.correct_antwoord.toLowerCase())
-                      ? '✓ Correct!'
-                      : '✗ Niet helemaal correct'}
+                      ? `✓ ${t('study_answer_correct')}`
+                      : `✗ ${t('quiz_not_quite_correct')}`}
                   </p>
                   <p className="text-sm">
-                    <span className="font-medium">Jouw antwoord:</span>{' '}
-                    {userAnswer || '(geen antwoord)'}
+                    <span className="font-medium">{t('study_your_answer_label')}</span>{' '}
+                    {userAnswer || t('study_no_answer')}
                   </p>
                   <p className="text-sm">
-                    <span className="font-medium">Correct antwoord:</span>{' '}
+                    <span className="font-medium">{t('study_correct_answer_label')}</span>{' '}
                     {currentQuestion.correct_antwoord}
                   </p>
                 </div>
 
                 {currentQuestion.uitleg && (
                   <div className="p-4 rounded-lg bg-secondary/50">
-                    <p className="font-medium mb-2">Uitleg</p>
+                    <p className="font-medium mb-2">{t('quiz_explanation')}</p>
                     <p className="text-sm text-muted-foreground">{currentQuestion.uitleg}</p>
                   </div>
                 )}
 
                 <Button onClick={nextQuestion} className="w-full">
-                  Volgende vraag
+                  {t('next_question')}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             ) : (
               <Button onClick={checkAnswer} className="w-full" disabled={!userAnswer.trim()}>
-                Controleer antwoord
+                {t('advanced_check_answer')}
               </Button>
             )}
           </div>
         ) : (
           <div className="rounded-xl border border-dashed border-border p-10 text-center">
             <Brain className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-            <h2 className="font-display text-xl font-semibold mb-2">Geen vragen beschikbaar</h2>
+            <h2 className="font-display text-xl font-semibold mb-2">{t('quiz_no_questions')}</h2>
             <p className="text-sm text-muted-foreground mb-4">
-              Er zijn geen vragen van dit type beschikbaar. Voeg nieuwe vragen toe om te beginnen.
+              {t('quiz_no_questions_type')}
             </p>
-            <Button onClick={() => setSelectedType(null)}>Terug naar overzicht</Button>
+            <Button onClick={() => setSelectedType(null)}>{t('quiz_back_overview')}</Button>
           </div>
         )}
       </div>
@@ -457,94 +464,95 @@ function AddQuestionDialog({
   formData: any;
   setFormData: (data: any) => void;
 }) {
+  const { t } = useTranslation();
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Nieuwe vraag toevoegen</DialogTitle>
+          <DialogTitle>{t('quiz_add_question_title')}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <Label htmlFor="vak">Vak</Label>
+              <Label htmlFor="vak">{t('srs_subject_label')}</Label>
               <Input
                 id="vak"
                 value={formData.vak}
                 onChange={(e) => setFormData({ ...formData, vak: e.target.value })}
-                placeholder="Bijv. Wiskunde B"
+                placeholder={t('srs_subject_placeholder')}
               />
             </div>
             <div>
-              <Label htmlFor="onderwerp">Onderwerp</Label>
+              <Label htmlFor="onderwerp">{t('srs_topic_label')}</Label>
               <Input
                 id="onderwerp"
                 value={formData.onderwerp}
                 onChange={(e) => setFormData({ ...formData, onderwerp: e.target.value })}
-                placeholder="Bijv. Differentiëren"
+                placeholder={t('quiz_topic_placeholder')}
               />
             </div>
           </div>
           <div>
-            <Label htmlFor="type">Vraagtype</Label>
+            <Label htmlFor="type">{t('quiz_question_type_label')}</Label>
             <select
               id="type"
               value={formData.type}
               onChange={(e) => setFormData({ ...formData, type: e.target.value })}
               className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
             >
-              <option value="open">Open vraag</option>
+              <option value="open">{t('quiz_type_open')}</option>
               <option value="multiple-choice">Multiple choice</option>
-              <option value="cloze">Invulvraag</option>
-              <option value="method-choice">Methodekeuze</option>
+              <option value="cloze">{t('quiz_type_cloze')}</option>
+              <option value="method-choice">{t('quiz_type_method')}</option>
             </select>
           </div>
           <div>
-            <Label htmlFor="vraag">Vraag</Label>
+            <Label htmlFor="vraag">{t('question')}</Label>
             <Textarea
               id="vraag"
               value={formData.vraag}
               onChange={(e) => setFormData({ ...formData, vraag: e.target.value })}
-              placeholder="De vraag..."
+              placeholder={t('srs_question_placeholder')}
               rows={3}
             />
           </div>
           {(formData.type === 'multiple-choice' || formData.type === 'method-choice') && (
             <div>
-              <Label htmlFor="opties">Opties (gescheiden door komma's)</Label>
+              <Label htmlFor="opties">{t('quiz_options_label')}</Label>
               <Input
                 id="opties"
                 value={formData.opties}
                 onChange={(e) => setFormData({ ...formData, opties: e.target.value })}
-                placeholder="Optie A, Optie B, Optie C, Optie D"
+                placeholder={t('quiz_options_placeholder')}
               />
             </div>
           )}
           <div>
-            <Label htmlFor="correct_antwoord">Correct antwoord</Label>
+            <Label htmlFor="correct_antwoord">{t('quiz_correct_answer_field')}</Label>
             <Textarea
               id="correct_antwoord"
               value={formData.correct_antwoord}
               onChange={(e) => setFormData({ ...formData, correct_antwoord: e.target.value })}
-              placeholder="Het juiste antwoord..."
+              placeholder={t('quiz_correct_placeholder')}
               rows={2}
             />
           </div>
           <div>
-            <Label htmlFor="uitleg">Uitleg (optioneel)</Label>
+            <Label htmlFor="uitleg">{t('quiz_explanation_optional')}</Label>
             <Textarea
               id="uitleg"
               value={formData.uitleg}
               onChange={(e) => setFormData({ ...formData, uitleg: e.target.value })}
-              placeholder="Extra uitleg voor het antwoord..."
+              placeholder={t('quiz_explanation_placeholder')}
               rows={2}
             />
           </div>
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Annuleren
+            {t('cancel')}
           </Button>
-          <Button onClick={onAdd}>Vraag toevoegen</Button>
+          <Button onClick={onAdd}>{t('quiz_add_question')}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

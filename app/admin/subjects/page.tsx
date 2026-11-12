@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Textarea } from '@/components/ui/textarea';
 import { Plus, Trash2, Edit2, Save, X, BookOpen } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Subject {
   id: string;
@@ -23,6 +24,7 @@ interface SubjectsData {
 }
 
 export default function AdminSubjectsPage() {
+  const { t } = useTranslation();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -169,9 +171,9 @@ export default function AdminSubjectsPage() {
   if (loading) {
     return (
       <AppShell>
-        <PageHeader title="Vakken Beheren" description="Beheer vakken voor de hele applicatie" />
+        <PageHeader title={t('admin_manage_subjects')} description={t('admin_manage_subjects_desc')} />
         <div className="flex items-center justify-center py-20">
-          <div className="text-muted-foreground">Laden...</div>
+          <div className="text-muted-foreground">{t('loading')}</div>
         </div>
       </AppShell>
     );
@@ -180,12 +182,12 @@ export default function AdminSubjectsPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Vakken Beheren"
-        description="Beheer vakken voor de hele applicatie"
+        title={t('admin_manage_subjects')}
+        description={t('admin_manage_subjects_desc')}
         action={
           <Button onClick={() => setShowForm(true)}>
             <Plus className="h-4 w-4 mr-2" />
-            Nieuw Vak
+            {t('admin_new_subject')}
           </Button>
         }
       />
@@ -194,19 +196,19 @@ export default function AdminSubjectsPage() {
         {showForm && (
           <Card>
             <CardHeader>
-              <CardTitle>{editingId ? 'Vak Bewerken' : 'Nieuw Vak'}</CardTitle>
+              <CardTitle>{editingId ? t('admin_edit_subject') : t('admin_new_subject')}</CardTitle>
               <CardDescription>
-                Vul de details in voor het vak
+                {t('admin_subject_form_desc')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Vaknaam *</Label>
+                <Label htmlFor="name">{t('admin_subject_name')}</Label>
                 <Input
                   id="name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="Bijv. Natuurkunde"
+                  placeholder={t('admin_subject_name_placeholder')}
                 />
               </div>
 
@@ -216,20 +218,20 @@ export default function AdminSubjectsPage() {
                   id="slug"
                   value={formData.slug}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                  placeholder="natuurkunde"
+                  placeholder={t('admin_slug_placeholder')}
                 />
                 <p className="text-xs text-muted-foreground">
-                  Wordt automatisch gegenereerd indien leeg gelaten
+                  {t('admin_slug_auto')}
                 </p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description">Beschrijving</Label>
+                <Label htmlFor="description">{t('admin_description')}</Label>
                 <Textarea
                   id="description"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Beschrijving van het vak"
+                  placeholder={t('admin_subject_desc_placeholder')}
                   rows={3}
                 />
               </div>
@@ -239,22 +241,22 @@ export default function AdminSubjectsPage() {
                   <>
                     <Button onClick={handleUpdate}>
                       <Save className="h-4 w-4 mr-2" />
-                      Opslaan
+                      {t('save')}
                     </Button>
                     <Button variant="outline" onClick={cancelEdit}>
                       <X className="h-4 w-4 mr-2" />
-                      Annuleren
+                      {t('cancel')}
                     </Button>
                   </>
                 ) : (
                   <>
                     <Button onClick={handleAdd}>
                       <Plus className="h-4 w-4 mr-2" />
-                      Toevoegen
+                      {t('add')}
                     </Button>
                     <Button variant="outline" onClick={cancelEdit}>
                       <X className="h-4 w-4 mr-2" />
-                      Annuleren
+                      {t('cancel')}
                     </Button>
                   </>
                 )}
@@ -298,7 +300,7 @@ export default function AdminSubjectsPage() {
                     <p className="text-sm text-muted-foreground">{subject.description}</p>
                   )}
                   <p className="text-xs text-muted-foreground">
-                    Aangemaakt: {new Date(subject.createdAt).toLocaleDateString('nl-NL')}
+                    {t('admin_created_at', undefined, { date: new Date(subject.createdAt).toLocaleDateString('nl-NL') })}
                   </p>
                 </div>
               </CardContent>
@@ -308,7 +310,7 @@ export default function AdminSubjectsPage() {
           {subjects.length === 0 && !showForm && (
             <div className="col-span-full text-center py-12">
               <BookOpen className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">Geen vakken gevonden</p>
+              <p className="text-muted-foreground">{t('admin_no_subjects')}</p>
             </div>
           )}
         </div>

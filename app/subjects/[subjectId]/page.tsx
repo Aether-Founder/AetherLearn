@@ -10,9 +10,11 @@ import fs from 'fs';
 import path from 'path';
 import ButtonSection from '@/components/ButtonSection';
 import { ArrowLeft, BookOpen, Calendar, Award, Target } from 'lucide-react';
+import { getServerT } from '@/lib/i18n-server';
 
 export default async function SubjectDetailPage({ params }: { params: { subjectId: string } }) {
   const subjectId = decodeURIComponent(params.subjectId);
+  const t = await getServerT();
 
   // Try to load from old JSON format first (e.g., aardrijkskunde-h5.json)
   let oldJsonContent = null;
@@ -44,10 +46,10 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
 
   // Determine status based on mastery
   const getStatus = (mastery: number) => {
-    if (mastery >= 85) return { label: 'Beheerst', color: 'text-green-500 bg-green-500/10' };
-    if (mastery >= 65) return { label: 'Redelijk', color: 'text-yellow-500 bg-yellow-500/10' };
-    if (mastery >= 40) return { label: 'Let op', color: 'text-orange-500 bg-orange-500/10' };
-    return { label: 'Gevaar', color: 'text-red-500 bg-red-500/10' };
+    if (mastery >= 85) return { label: t('subject_status_mastered'), color: 'text-green-500 bg-green-500/10' };
+    if (mastery >= 65) return { label: t('subject_status_reasonable'), color: 'text-yellow-500 bg-yellow-500/10' };
+    if (mastery >= 40) return { label: t('subject_status_watch'), color: 'text-orange-500 bg-orange-500/10' };
+    return { label: t('subject_status_risk'), color: 'text-red-500 bg-red-500/10' };
   };
 
   const status = getStatus(masteryPercentage);
@@ -71,8 +73,8 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
           <Link
             href="/subjects"
             className="p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0 inline-flex items-center justify-center"
-            title="Terug naar vakken"
-            aria-label="Terug naar vakken"
+            title={t('subject_back')}
+            aria-label={t('subject_back')}
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
@@ -87,31 +89,31 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
             href={`/subjects/${encodedSubjectId}`}
             className="px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground"
           >
-            Overzicht
+            {t('subject_nav_overview')}
           </Link>
           <Link
             href={`/subjects/${encodedSubjectId}/bronnen`}
             className="px-4 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:bg-secondary transition-colors"
           >
-            Bronnen
+            {t('subject_nav_sources')}
           </Link>
           <Link
             href={`/subjects/${encodedSubjectId}/concept-cards`}
             className="px-4 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:bg-secondary transition-colors"
           >
-            Begripskaarten
+            {t('subject_nav_concept_cards')}
           </Link>
           <Link
             href={`/subjects/${encodedSubjectId}/formula-cards`}
             className="px-4 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:bg-secondary transition-colors"
           >
-            Formulekaarten
+            {t('subject_nav_formula_cards')}
           </Link>
           <Link
             href={`/subjects/${encodedSubjectId}/quizzes`}
             className="px-4 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:bg-secondary transition-colors"
           >
-            Toetsen
+            {t('subject_nav_tests')}
           </Link>
           {subject?.customButtons?.map((button) => (
             <Link
@@ -131,7 +133,7 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mt-4">
           <div className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-muted-foreground">Meesterschap</span>
+              <span className="text-xs font-medium text-muted-foreground">{t('subject_mastery_title')}</span>
               <Target className="h-4 w-4 text-muted-foreground" />
             </div>
             <div className="mt-2 text-2xl font-semibold">{masteryPercentage}%</div>
@@ -144,37 +146,37 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
 
           <div className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-muted-foreground">Leerdoelen</span>
+              <span className="text-xs font-medium text-muted-foreground">{t('subject_learning_goals')}</span>
               <BookOpen className="h-4 w-4 text-muted-foreground" />
             </div>
             <div className="mt-2 text-2xl font-semibold">{actualTopicsDone}/{topicsTotal}</div>
-            <div className="mt-1 text-xs text-muted-foreground">Voltooid</div>
+            <div className="mt-1 text-xs text-muted-foreground">{t('subject_done')}</div>
           </div>
 
           <div className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-muted-foreground">Gemiddelde cijfer</span>
+              <span className="text-xs font-medium text-muted-foreground">{t('subject_avg_grade')}</span>
               <Award className="h-4 w-4 text-muted-foreground" />
             </div>
             <div className="mt-2 text-2xl font-semibold">{displayAverageGrade}</div>
-            <div className="mt-1 text-xs text-muted-foreground">Laatste toetsen</div>
+            <div className="mt-1 text-xs text-muted-foreground">{t('subject_recent_tests')}</div>
           </div>
 
           <div className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-muted-foreground">Aankomende toetsen</span>
+              <span className="text-xs font-medium text-muted-foreground">{t('subject_upcoming_tests')}</span>
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </div>
             <div className="mt-2 text-2xl font-semibold">{upcomingTests}</div>
-            <div className="mt-1 text-xs text-muted-foreground">Komende periode</div>
+            <div className="mt-1 text-xs text-muted-foreground">{t('subject_upcoming_period')}</div>
           </div>
         </div>
 
         {/* Progress Bar */}
         <div className="mt-4 rounded-xl border border-border bg-card p-4">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold">Voortgang</h3>
-            <span className="text-xs text-muted-foreground">{masteryPercentage}% voltooid</span>
+            <h3 className="text-sm font-semibold">{t('subject_progress')}</h3>
+            <span className="text-xs text-muted-foreground">{t('subject_completed_pct', undefined, { pct: masteryPercentage })}</span>
           </div>
           <SubjectProgressBar value={masteryPercentage} />
         </div>
@@ -182,7 +184,7 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
         {/* Chapters and Content */}
         <div className="space-y-4 mt-6">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">{itemCount} onderdelen</p>
+            <p className="text-sm text-muted-foreground">{t('subject_items_count', undefined, { count: itemCount })}</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {chapters.map((chapter) => (
@@ -222,7 +224,7 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
                   <div className="min-w-0">
                     <div className="font-semibold truncate">{page.title}</div>
                     <div className="mt-1 text-sm text-muted-foreground">
-                      Leerpagina
+                      {t('subject_learn_page')}
                     </div>
                   </div>
                 </Link>

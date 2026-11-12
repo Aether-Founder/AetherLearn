@@ -15,6 +15,7 @@ import { Download, Trash2, CheckCircle, Clock, AlertCircle, Hammer } from 'lucid
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { useTranslation } from '@/lib/useTranslation';
 
 const supabase = browserClient as any;
 
@@ -41,6 +42,7 @@ type QueueItem = {
 };
 
 export default function AdminArtisanPage() {
+  const { t } = useTranslation();
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [showResultModal, setShowResultModal] = useState(false);
@@ -76,7 +78,7 @@ export default function AdminArtisanPage() {
 
     if (error) {
       console.error('Failed to fetch queue:', error);
-      toast.error('Kon wachtrij niet laden');
+      toast.error(t('admin_queue_load_failed'));
     } else if (data) {
       setQueue(
         data.map((item: any) => ({
@@ -94,7 +96,7 @@ export default function AdminArtisanPage() {
       .createSignedUrl(item.storage_path, 60);
 
     if (error) {
-      toast.error('Kon download link niet maken');
+      toast.error(t('admin_download_link_failed'));
       return;
     }
 
@@ -105,7 +107,7 @@ export default function AdminArtisanPage() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      toast.success('Download gestart');
+      toast.success(t('admin_download_started'));
     }
   };
 
@@ -117,7 +119,7 @@ export default function AdminArtisanPage() {
       .remove([item.storage_path]);
 
     if (deleteError) {
-      toast.error('Kon bestand niet vernietigen');
+      toast.error(t('admin_file_destroy_failed'));
       setProcessing(false);
       return;
     }
@@ -128,9 +130,9 @@ export default function AdminArtisanPage() {
       .eq('id', item.id);
 
     if (updateError) {
-      toast.error('Kon status niet bijwerken');
+      toast.error(t('admin_status_update_failed'));
     } else {
-      toast.success('Origineel vernietigd');
+      toast.success(t('admin_original_destroyed'));
       await fetchQueue();
     }
 
@@ -158,13 +160,13 @@ export default function AdminArtisanPage() {
         .insert({
           user_id: selectedItem.user_id,
           name: `Artisan: ${selectedItem.file_name}`,
-          description: 'Automatisch gegenereerd door Artisan',
+          description: t('admin_deck_auto_desc'),
         })
         .select()
         .single();
 
       if (deckError) {
-        toast.error('Kon deck niet aanmaken');
+        toast.error(t('admin_deck_create_failed'));
         setProcessing(false);
         return;
       }
@@ -180,7 +182,7 @@ export default function AdminArtisanPage() {
       const { error: cardsError } = await supabase.from('cards').insert(cards);
 
       if (cardsError) {
-        toast.error('Kon kaarten niet toevoegen');
+        toast.error(t('admin_cards_add_failed'));
         setProcessing(false);
         return;
       }
@@ -196,14 +198,14 @@ export default function AdminArtisanPage() {
         .eq('id', selectedItem.id);
 
       if (updateError) {
-        toast.error('Kon wachtrij niet bijwerken');
+        toast.error(t('admin_queue_update_failed'));
       } else {
-        toast.success('Resultaat geleverd!');
+        toast.success(t('admin_result_delivered'));
         setShowResultModal(false);
         await fetchQueue();
       }
     } catch (error) {
-      toast.error('Ongeldig JSON formaat. Controleer de structuur.');
+      toast.error(t('admin_invalid_json'));
     }
 
     setProcessing(false);
@@ -218,9 +220,9 @@ export default function AdminArtisanPage() {
       .eq('id', item.id);
 
     if (error) {
-      toast.error('Kon status niet bijwerken');
+      toast.error(t('admin_status_update_failed'));
     } else {
-      toast.success('Gemarkeerd als mislukt');
+      toast.success(t('admin_marked_failed'));
       await fetchQueue();
     }
 
@@ -237,13 +239,13 @@ export default function AdminArtisanPage() {
     const diff = Date.now() - new Date(createdAt).getTime();
     const hours = Math.floor(diff / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    if (hours > 0) return `${hours}u ${minutes}m`;
-    return `${minutes}m`;
+    if (hours > 0) return `${hours}${t('admin_hours_abbr')} ${minutes}${t('admin_minutes_abbr')}`;
+    return `${minutes}${t('admin_minutes_abbr')}`;
   };
 
   return (
     <AppShell>
-      <PageHeader title="De Werkplaats" description="Artisan wachtrij beheer" />
+      <PageHeader title={t('admin_workshop')} description={t('admin_artisan_queue_desc')} />
 
       <div className="mt-10 space-y-6">
         {/* Stats */}
@@ -251,21 +253,21 @@ export default function AdminArtisanPage() {
           <div className="rounded-xl border border-border bg-card p-5">
             <div className="flex items-center gap-3 mb-2">
               <Clock className="h-5 w-5 text-yellow-500" />
-              <span className="text-sm text-muted-foreground">In Wachtrij</span>
+              <span className="text-sm text-muted-foreground">{t('admin_in_queue')}</span>
             </div>
             <p className="font-display text-2xl font-semibold">{stats.pending}</p>
           </div>
           <div className="rounded-xl border border-border bg-card p-5">
             <div className="flex items-center gap-3 mb-2">
               <Hammer className="h-5 w-5 text-blue-500" />
-              <span className="text-sm text-muted-foreground">In Behandeling</span>
+              <span className="text-sm text-muted-foreground">{t('admin_in_progress')}</span>
             </div>
             <p className="font-display text-2xl font-semibold">{stats.processing}</p>
           </div>
           <div className="rounded-xl border border-border bg-card p-5">
             <div className="flex items-center gap-3 mb-2">
               <CheckCircle className="h-5 w-5 text-green-500" />
-              <span className="text-sm text-muted-foreground">Vandaag Voltooid</span>
+              <span className="text-sm text-muted-foreground">{t('admin_completed_today')}</span>
             </div>
             <p className="font-display text-2xl font-semibold">{stats.completedToday}</p>
           </div>
@@ -281,27 +283,27 @@ export default function AdminArtisanPage() {
         ) : queue.length === 0 ? (
           <div className="rounded-xl border border-dashed border-border p-10 text-center">
             <Clock className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-            <h2 className="font-display text-xl font-semibold mb-2">Wachtrij is leeg</h2>
-            <p className="text-sm text-muted-foreground">Geen items om te verwerken.</p>
+            <h2 className="font-display text-xl font-semibold mb-2">{t('admin_queue_empty')}</h2>
+            <p className="text-sm text-muted-foreground">{t('admin_queue_empty_desc')}</p>
           </div>
         ) : (
           <div className="rounded-xl border border-border bg-card overflow-hidden">
             <table className="w-full">
               <thead className="bg-secondary/50">
                 <tr>
-                  <th className="text-left p-4 text-sm font-medium">Gebruiker</th>
-                  <th className="text-left p-4 text-sm font-medium">Bestand</th>
-                  <th className="text-left p-4 text-sm font-medium">Grootte</th>
-                  <th className="text-left p-4 text-sm font-medium">Tijd</th>
-                  <th className="text-left p-4 text-sm font-medium">Status</th>
-                  <th className="text-right p-4 text-sm font-medium">Acties</th>
+                  <th className="text-left p-4 text-sm font-medium">{t('admin_user')}</th>
+                  <th className="text-left p-4 text-sm font-medium">{t('admin_file')}</th>
+                  <th className="text-left p-4 text-sm font-medium">{t('admin_size')}</th>
+                  <th className="text-left p-4 text-sm font-medium">{t('admin_time')}</th>
+                  <th className="text-left p-4 text-sm font-medium">{t('admin_status')}</th>
+                  <th className="text-right p-4 text-sm font-medium">{t('admin_actions')}</th>
                 </tr>
               </thead>
               <tbody>
                 {queue.map((item) => (
                   <tr key={item.id} className="border-t border-border">
                     <td className="p-4">
-                      <div className="text-sm font-medium">{item.user_email || 'Onbekend'}</div>
+                      <div className="text-sm font-medium">{item.user_email || t('admin_unknown')}</div>
                     </td>
                     <td className="p-4">
                       <div className="text-sm">{item.file_name}</div>
@@ -327,9 +329,9 @@ export default function AdminArtisanPage() {
                         }`}
                       >
                         {item.status === 'pending'
-                          ? 'Wachtend'
+                          ? t('admin_pending')
                           : item.status === 'processing'
-                            ? 'In Behandeling'
+                            ? t('admin_in_progress')
                             : item.status}
                       </span>
                     </td>
@@ -339,7 +341,7 @@ export default function AdminArtisanPage() {
                           variant="outline"
                           size="sm"
                           onClick={() => downloadFile(item)}
-                          title="Download lokaal"
+                          title={t('admin_download_local')}
                         >
                           <Download className="h-4 w-4" />
                         </Button>
@@ -348,7 +350,7 @@ export default function AdminArtisanPage() {
                           size="sm"
                           onClick={() => destroyOriginal(item)}
                           disabled={processing}
-                          title="Vernietig origineel"
+                          title={t('admin_destroy_original')}
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -356,7 +358,7 @@ export default function AdminArtisanPage() {
                           variant="default"
                           size="sm"
                           onClick={() => openResultModal(item)}
-                          title="Lever resultaat"
+                          title={t('admin_deliver_result')}
                         >
                           <CheckCircle className="h-4 w-4" />
                         </Button>
@@ -365,7 +367,7 @@ export default function AdminArtisanPage() {
                           size="sm"
                           onClick={() => markAsFailed(item)}
                           disabled={processing}
-                          title="Markeer als mislukt"
+                          title={t('admin_mark_failed')}
                         >
                           <AlertCircle className="h-4 w-4" />
                         </Button>
@@ -383,42 +385,31 @@ export default function AdminArtisanPage() {
       <Dialog open={showResultModal} onOpenChange={setShowResultModal}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Resultaat Leveren</DialogTitle>
+            <DialogTitle>{t('admin_result_title')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div>
               <p className="text-sm text-muted-foreground mb-2">
-                Plaatst JSON met flashcards of upload een .json bestand:
+                {t('admin_result_desc')}
               </p>
               <Textarea
                 value={resultJson}
                 onChange={(e) => setResultJson(e.target.value)}
-                placeholder={`[
-  {
-    "front": "Vraag 1",
-    "back": "Antwoord 1",
-    "source_text": "Optionele bron"
-  },
-  {
-    "front": "Vraag 2",
-    "back": "Antwoord 2"
-  }
-]`}
+                placeholder={t('admin_json_placeholder')}
                 rows={12}
                 className="font-mono text-sm"
               />
             </div>
             <p className="text-xs text-muted-foreground">
-              JSON moet een array zijn van objecten met "front", "back", en optioneel "source_text"
-              velden.
+              {t('admin_json_format_note')}
             </p>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowResultModal(false)}>
-              Annuleren
+              {t('cancel')}
             </Button>
             <Button onClick={deliverResult} disabled={processing || !resultJson.trim()}>
-              {processing ? 'Leveren...' : 'Leveren'}
+              {processing ? t('admin_delivering') : t('admin_deliver')}
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -3,9 +3,11 @@
 import { useState, useEffect } from 'react';
 import { WifiOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from '@/lib/useTranslation';
 
 export function OfflineIndicator() {
   const [isOffline, setIsOffline] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleOnline = () => setIsOffline(false);
@@ -32,7 +34,7 @@ export function OfflineIndicator() {
           className="fixed top-0 left-0 right-0 bg-yellow-500 text-white px-4 py-2 text-center text-sm font-medium z-50 flex items-center justify-center space-x-2"
         >
           <WifiOff className="w-4 h-4" />
-          <span>Je bent offline. Kaarten worden lokaal opgeslagen.</span>
+          <span>{t('shell_offline_notice')}</span>
         </motion.div>
       )}
     </AnimatePresence>
