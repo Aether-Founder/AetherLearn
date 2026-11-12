@@ -60,7 +60,7 @@ export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
       if (response.ok) {
         onJoinSuccess?.(data.class.id);
       } else {
-        setError(data.error || 'Kon niet deelnemen aan de klas');
+        setError(data.error || t('class_join_failed'));
       }
     } catch (error) {
       console.error('Failed to join class:', error);
@@ -109,7 +109,7 @@ export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
       if (response.ok) {
         onJoinSuccess?.(classId);
       } else {
-        setError(data.error || 'Kon niet deelnemen aan de klas');
+        setError(data.error || t('class_join_failed'));
       }
     } catch (error) {
       console.error('Failed to join class:', error);
@@ -150,7 +150,7 @@ export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
             </Button>
 
             <div className="text-sm text-muted-foreground">
-              Vraag je docent om de klascode als je deze niet hebt.
+              {t('class_join_hint')}
             </div>
           </TabsContent>
 

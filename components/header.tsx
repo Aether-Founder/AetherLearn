@@ -104,7 +104,7 @@ export function Header({
     sections.forEach((section) => {
       section.questions.forEach((question: any) => {
         const front = question.text;
-        const back = question.answer || t('answer_not_provided', 'Answer not provided');
+        const back = question.answer || t('answer_not_provided', "Answer not available");
         ankiContent += `${front}\t${back}\n`;
       });
     });
@@ -120,7 +120,7 @@ export function Header({
       flashcardContent += `## ${getSectionTitle(section)}\n\n`;
       section.questions.forEach((question: any, index: number) => {
         flashcardContent += `### Q${index + 1}: ${question.text}\n\n`;
-        flashcardContent += `**${t('answer')}:** ${question.answer || t('not_provided', 'Not provided')}\n\n---\n\n`;
+        flashcardContent += `**${t('answer')}:** ${question.answer || t('not_provided', "Not available")}\n\n---\n\n`;
       });
     });
 

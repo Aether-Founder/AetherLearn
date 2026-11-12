@@ -69,7 +69,7 @@ export function LearnMode({ useImages = false }: LearnModeProps = {}) {
         id: createId('flash'),
         term,
         type: 'flashcard',
-        prompt: `Welk begrip hoort bij deze afbeelding?`,
+        prompt: t('learn_image_prompt'),
         correctAnswer: term.term,
         startTime: new Date(),
       };
@@ -120,7 +120,7 @@ export function LearnMode({ useImages = false }: LearnModeProps = {}) {
       if (useImages && term.image) {
         return {
           ...q,
-          prompt: `Welk begrip hoort bij deze afbeelding?`,
+          prompt: t('learn_image_prompt'),
           correctAnswer: term.term,
         };
       }
@@ -131,7 +131,7 @@ export function LearnMode({ useImages = false }: LearnModeProps = {}) {
     if (useImages && term.image) {
       return {
         ...q,
-        prompt: `Welk begrip hoort bij deze afbeelding?`,
+        prompt: t('learn_image_prompt'),
         correctAnswer: term.term,
       };
     }
@@ -214,14 +214,14 @@ export function LearnMode({ useImages = false }: LearnModeProps = {}) {
         <SessionSummary
           terms={studySet?.terms ?? playableTerms}
           results={results}
-          title={t('study_round_done', 'Ronde voltooid!')}
+          title={t('study_round_done', "Round complete!")}
         />
       </div>
     );
   }
 
   if (!current) {
-    return <p className="text-center py-8 text-muted-foreground">{t('study_loading', 'Laden…')}</p>;
+    return <p className="text-center py-8 text-muted-foreground">{t('study_loading', "Loading cards…")}</p>;
   }
 
   const left = queue.filter((t) => t.sessionCorrect < 2).length;
@@ -229,7 +229,7 @@ export function LearnMode({ useImages = false }: LearnModeProps = {}) {
   return (
     <div className="max-w-2xl mx-auto">
       <p className="text-sm text-muted-foreground mb-4 text-center">
-        {left} {t('study_terms_remaining', 'begrippen te gaan')}
+        {left} {t('study_terms_remaining', "terms remaining")}
       </p>
       {current.type === 'flashcard' ? (
         <div className="space-y-5">

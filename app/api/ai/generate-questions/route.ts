@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
         if (words.length > 0) {
           const keyword = words[Math.floor(Math.random() * words.length)];
           questions.push({
-            question: `Wat is de betekenis van "${keyword}" in de context van ${subject || 'dit onderwerp'}?`,
+            question: `What is the meaning of "${keyword}" in the context of ${subject || 'this subject'}?`,
             answer: sentence.substring(0, 150) + (sentence.length > 150 ? '...' : ''),
           });
         }
@@ -38,9 +38,9 @@ export async function POST(request: NextRequest) {
     // If we couldn't generate enough questions, add generic ones
     while (questions.length < 3) {
       questions.push({
-        question: `Wat is het belangrijkste concept in ${subject || 'deze tekst'}?`,
+        question: `What is the most important concept in ${subject || 'this text'}?`,
         answer:
-          'Dit is een gegenereerd antwoord. In productie zou een AI service een relevant antwoord genereren op basis van de inhoud.',
+          'This is a generated answer. In production an AI service would generate a relevant answer based on the content.',
       });
     }
 

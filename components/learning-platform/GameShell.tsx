@@ -59,16 +59,16 @@ export function GameShell({
           onClick={onQuit}
           className="text-sm text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-md border border-border"
         >
-          {t('study_quit_game', 'Stop spel')}
+          {t('study_quit_game', "Quit game")}
         </button>
         <div className="flex gap-4 text-sm">
           <span className="font-medium text-foreground">
-            {showHighScoreLabel ? t('study_highscore', 'Highscore!') : t('study_score', 'Score')}:{' '}
+            {showHighScoreLabel ? t('study_highscore', "High score!") : t('study_score', 'Score')}:{' '}
             {score}
           </span>
           {best !== null && (
             <span className="text-muted-foreground">
-              {t('study_best', 'Beste')}: {best}
+              {t('study_best', "Best")}: {best}
               {lowerIsBetter ? 's' : ''}
             </span>
           )}

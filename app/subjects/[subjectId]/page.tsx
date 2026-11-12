@@ -92,7 +92,7 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
             {t('subject_nav_overview')}
           </Link>
           <Link
-            href={`/subjects/${encodedSubjectId}/bronnen`}
+            href={`/subjects/${encodedSubjectId}/sources`}
             className="px-4 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:bg-secondary transition-colors"
           >
             {t('subject_nav_sources')}

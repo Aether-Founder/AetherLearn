@@ -26,7 +26,7 @@ export default async function RawContentPage({ params }: { params: { page: strin
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-foreground mb-2">
-            {t('content_not_found', 'Content Not Found')}
+            {t('content_not_found', "Content not found")}
           </h1>
           <p className="text-muted-foreground">
             {t('content_file_missing', 'The content file "{page}.json" does not exist.', { page })}
@@ -46,7 +46,7 @@ export default async function RawContentPage({ params }: { params: { page: strin
       <div className="max-w-6xl mx-auto">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-foreground mb-2">
-            {t('raw_title', 'Raw Content: {page}', { page })}
+            {t('raw_title', "Raw content: {page}", { page })}
           </h1>
           <p className="text-muted-foreground">
             {t(

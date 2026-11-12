@@ -36,7 +36,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
       document.documentElement.lang = currentLanguage;
       document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
       setDateFormatLocale(currentLanguage);
-      document.title = i18nInstance.t('meta_title', 'Aether');
+      document.title = i18nInstance.t('meta_title', "Aether - Personal Learning Environment");
     }
   }, [mounted, i18nReady, i18nInstance]);
 

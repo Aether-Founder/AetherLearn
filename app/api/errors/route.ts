@@ -20,6 +20,6 @@ export async function POST(request: NextRequest) {
     return apiSuccess({}, 202);
   } catch (error) {
     console.error('Unable to record client error', error);
-    return apiError('Foutmelding kon niet worden opgeslagen.');
+    return apiError('The error report could not be saved.');
   }
 }

@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.json({ error: 'Niet geauthenticeerd' }, { status: 401 });
+      return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
     }
 
     const { deckId, rating } = await request.json();
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   } catch (error: any) {
     console.error('Rating error:', error);
     return NextResponse.json(
-      { error: error.message || 'Er is een fout opgetreden' },
+      { error: error.message || 'An error occurred' },
       { status: 500 }
     );
   }

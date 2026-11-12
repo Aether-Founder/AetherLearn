@@ -221,8 +221,8 @@ export function GravityGame({ onQuit }: GameShellProps) {
                 <Trophy className="w-8 h-8 text-yellow-500" />
                 <h3 className="text-2xl font-serif">
                   {lives <= 0
-                    ? t('study_game_over', 'Spel voorbij!')
-                    : t('study_time_up', 'Tijd om!')}
+                    ? t('study_game_over', "Game over!")
+                    : t('study_time_up', "Time's up!")}
                 </h3>
               </div>
               <div className="flex justify-center gap-4">
@@ -237,7 +237,7 @@ export function GravityGame({ onQuit }: GameShellProps) {
               </div>
               <div className="text-sm text-muted-foreground space-y-1">
                 <p>
-                  {t('study_time', 'Tijd')}: {formatTime(60 - timeRemaining)}
+                  {t('study_time', "Time")}: {formatTime(60 - timeRemaining)}
                 </p>
                 <p>
                   {t('study_score', 'Score')}: {score}
@@ -245,16 +245,16 @@ export function GravityGame({ onQuit }: GameShellProps) {
               </div>
               <div className="flex justify-center gap-2">
                 <Button onClick={resetGame} variant="outline">
-                  {t('study_play_again', 'Speel opnieuw')}
+                  {t('study_play_again', "Play again")}
                 </Button>
                 <Button onClick={() => setDifficulty('easy')} variant="ghost" size="sm">
-                  {t('study_difficulty_easy', 'Makkelijk')}
+                  {t('study_difficulty_easy', "Easy")}
                 </Button>
                 <Button onClick={() => setDifficulty('medium')} variant="ghost" size="sm">
-                  {t('study_difficulty_medium', 'Middel')}
+                  {t('study_difficulty_medium', "Medium")}
                 </Button>
                 <Button onClick={() => setDifficulty('hard')} variant="ghost" size="sm">
-                  {t('study_difficulty_hard', 'Moeilijk')}
+                  {t('study_difficulty_hard', "Hard")}
                 </Button>
               </div>
             </div>
@@ -293,10 +293,10 @@ export function GravityGame({ onQuit }: GameShellProps) {
             {!started && (
               <div className="text-center py-4">
                 <p className="text-sm text-muted-foreground mb-4">
-                  {t('study_gravity_hint', 'Vang de vallende termen die bij de definitie passen')}
+                  {t('study_gravity_hint', "Catch the falling terms that match the definition")}
                 </p>
                 <Button onClick={resetGame} size="lg">
-                  {t('study_start_game', 'Start Spel')}
+                  {t('study_start_game', "Start Game")}
                 </Button>
               </div>
             )}
@@ -305,10 +305,10 @@ export function GravityGame({ onQuit }: GameShellProps) {
               <>
                 <div className="text-center py-3 px-4 bg-muted/50 rounded-lg">
                   <p className="text-sm font-medium mb-1">
-                    {t('study_match_definition', 'Match de definitie')}:
+                    {t('study_match_definition', "Match the definition")}:
                   </p>
                   <p className="text-lg font-semibold">
-                    {currentDefinition || t('study_waiting', 'Wachten op item...')}
+                    {currentDefinition || t('study_waiting', "Waiting for item...")}
                   </p>
                 </div>
 

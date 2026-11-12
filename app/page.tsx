@@ -47,7 +47,7 @@ function Chip({
 }
 
 export default function Home() {
-  const [subject, setSubject] = useState("Alle vakken");
+  const [subject, setSubject] = useState("All subjects");
   const [query, setQuery] = useState("");
   const [hidden, setHidden] = useState<string[]>([]);
   const [mounted, setMounted] = useState(false);
@@ -274,7 +274,7 @@ export default function Home() {
   }, [sortedSubjects, showAllProgressSubjects]);
 
   const matches = (subjectName: string, text: string) =>
-    (subject === "Alle vakken" || subjectName === subject) &&
+    (subject === "All subjects" || subjectName === subject) &&
     (query.trim() === "" ||
       `${text} ${subjectName}`.toLowerCase().includes(query.trim().toLowerCase()));
 
@@ -465,7 +465,7 @@ export default function Home() {
 
           <div className="flex flex-wrap items-center gap-2 py-6">
             <span className="mr-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{t('home_subject_short')}</span>
-            <Chip active={subject === "Alle vakken"} onClick={() => setSubject("Alle vakken")}>
+            <Chip active={subject === "All subjects"} onClick={() => setSubject("All subjects")}>
               {t('home_all_subjects')}
             </Chip>
             {sortedSubjects.filter((s) => !hidden.includes(s.name)).slice(0, showAllProgressSubjects ? undefined : 10).map((s) => (

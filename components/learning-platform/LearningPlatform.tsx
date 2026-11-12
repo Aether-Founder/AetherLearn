@@ -227,7 +227,7 @@ export function LearningPlatform({
   if (!studySet) {
     return (
       <p className="text-center py-12 text-muted-foreground">
-        {t('study_no_terms', 'Geen studiemateriaal gevonden op deze pagina.')}
+        {t('study_no_terms', "No study material found on this page.")}
       </p>
     );
   }
@@ -247,7 +247,7 @@ export function LearningPlatform({
       <div className="text-center space-y-1">
         <h2 className="text-2xl font-serif font-medium text-foreground">{studySet.title}</h2>
         <p className="text-sm text-muted-foreground">
-          {termCount} {t('study_terms_count', 'begrippen')}
+          {termCount} {t('study_terms_count', "terms")}
         </p>
       </div>
 
@@ -279,7 +279,7 @@ export function LearningPlatform({
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
               >
                 <ArrowLeft className="h-4 w-4" />
-                {t('study_back', 'Terug')}
+                {t('study_back', "Answer")}
               </button>
               <StudyModeView key={activeMode} mode={activeMode} />
             </>
@@ -301,10 +301,10 @@ export function LearningPlatform({
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
-            {t('study_back_home', 'Terug naar menu')}
+            {t('study_back_home', "Back to menu")}
           </button>
           <h3 className="text-lg font-medium text-center">
-            {t('study_begrippenlijst', 'Begrippenlijst')}
+            {t('study_begrippenlijst', "Term list")}
           </h3>
           <StudySetTools />
           <TermList terms={studySet.terms} />
@@ -317,9 +317,9 @@ export function LearningPlatform({
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
-            {t('study_back_home', 'Terug naar menu')}
+            {t('study_back_home', "Back to menu")}
           </button>
-          <h3 className="text-lg font-medium text-center">{t('study_spelletjes', 'Spelletjes')}</h3>
+          <h3 className="text-lg font-medium text-center">{t('study_spelletjes', "Games")}</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {STUDY_GAMES.map((game) => {
               const Icon = game.icon;
@@ -344,7 +344,7 @@ export function LearningPlatform({
       ) : (
         <div className="space-y-3">
           <p className="text-sm text-muted-foreground text-center mb-4">
-            {t('study_choose_activity', 'Kies wat je wilt doen')}
+            {t('study_choose_activity', "Choose what you want to do")}
           </p>
           <HubButton
             label="Review"
@@ -353,8 +353,8 @@ export function LearningPlatform({
             onClick={() => startMode('review', 'due')}
           />
           <HubButton
-            label={t('study_leren', 'Leren')}
-            description={t('study_leren_desc', 'Kies hoe je oefent en start meteen')}
+            label={t('study_leren', "Learn")}
+            description={t('study_leren_desc', "Choose how you want to practice and start right away")}
             icon={<Brain className="h-6 w-6" />}
             onClick={() => setScreen('leren-setup')}
           />
@@ -372,30 +372,30 @@ export function LearningPlatform({
           />
           {enableImageLearning && (
             <HubButton
-              label={t('study_leren_images', 'Leren (met afbeeldingen)')}
+              label={t('study_leren_images', "Learn (with images)")}
               description={t(
                 'study_leren_images_desc',
-                'Oefen met afbeeldingen en kies het juiste begrip'
+                "Practice with images and choose the right term"
               )}
               icon={<ImageIcon className="h-6 w-6" />}
               onClick={startLerenMetAfbeeldingen}
             />
           )}
           <HubButton
-            label={t('study_oefentoets', 'Oefentoets')}
-            description={t('study_oefentoets_desc', 'Stel je toets in en ontvang een score')}
+            label={t('study_oefentoets', "Practice test")}
+            description={t('study_oefentoets_desc', "Set up your test and get a score")}
             icon={<ClipboardList className="h-6 w-6" />}
             onClick={() => setScreen('test-setup')}
           />
           <HubButton
-            label={t('study_spelletjes', 'Spelletjes')}
-            description={t('study_spelletjes_desc', 'Leer spelenderwijs met minigames')}
+            label={t('study_spelletjes', "Games")}
+            description={t('study_spelletjes_desc', "Learn playfully with minigames")}
             icon={<Gamepad2 className="h-6 w-6" />}
             onClick={() => setScreen('games')}
           />
           <HubButton
-            label={t('study_begrippenlijst', 'Begrippenlijst')}
-            description={`${t('study_begrippenlijst_desc', 'Bekijk begrippen en markeer met een ster')} · ${forecast.map((day) => day.count).join('/')}`}
+            label={t('study_begrippenlijst', "Term list")}
+            description={`${t('study_begrippenlijst_desc', "Browse terms and mark with a star")} · ${forecast.map((day) => day.count).join('/')}`}
             icon={<List className="h-6 w-6" />}
             onClick={() => setScreen('terms')}
           />

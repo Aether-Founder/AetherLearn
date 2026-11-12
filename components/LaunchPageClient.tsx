@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import type { ContentFileSummary } from '@/lib/content-index';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface LaunchPageClientProps {
   contentFiles: ContentFileSummary[];
@@ -10,35 +11,34 @@ interface LaunchPageClientProps {
 
 const collectionCards = [
   {
-    title: 'Aether',
-    description:
-      'Maak eigen studiesets, importeer JSON en leer met een Quizlet-achtige lokale omgeving.',
+    titleKey: 'launch_card_aether',
+    descKey: 'launch_card_aether_desc',
     href: '/learning-platform',
   },
   {
-    title: 'Toetsweekvoorbereiding',
-    description:
-      'Open alle vakken, begrippenlijsten, leerstanden, oefentoetsen en spelletjes voor de toetsweek.',
+    titleKey: 'launch_card_testprep',
+    descKey: 'launch_card_testprep_desc',
     href: '/test-prep',
   },
   {
-    title: 'Toetsweekplanning',
-    description: 'Bekijk toetsen, deadlines en welke stof bij ieder moment hoort.',
+    titleKey: 'launch_card_testweekplanning',
+    descKey: 'launch_card_testweekplanning_desc',
     href: '/toetsweekplanning',
   },
   {
-    title: 'Kalender',
-    description: 'Plan huiswerk, toetsen en leersessies in een ruimer weekoverzicht.',
+    titleKey: 'launch_card_calendar',
+    descKey: 'launch_card_calendar_desc',
     href: '/calendar',
   },
   {
-    title: 'Profiel en voortgang',
-    description: 'Bekijk je profiel, voorkeuren en persoonlijke voortgang.',
+    titleKey: 'launch_card_profile',
+    descKey: 'launch_card_profile_desc',
     href: '/profile',
   },
 ];
 
 export function LaunchPageClient({ contentFiles }: LaunchPageClientProps) {
+  const { t } = useTranslation();
   const subjectCount = contentFiles.filter(
     (content) => content.pageName !== 'toetsweekplanning'
   ).length;
@@ -61,8 +61,7 @@ export function LaunchPageClient({ contentFiles }: LaunchPageClientProps) {
             </h1>
           </div>
           <p className="mx-auto max-w-3xl text-center text-lg text-muted-foreground">
-            Kies hieronder een onderdeel om mee te starten. Toetsweekvoorbereiding bevat{' '}
-            {subjectCount} vakken.
+            {t('launch_intro', undefined, { count: subjectCount })}
           </p>
         </header>
 
@@ -76,11 +75,11 @@ export function LaunchPageClient({ contentFiles }: LaunchPageClientProps) {
               >
                 <div className="mb-3 flex items-start justify-between">
                   <h2 className="mb-2 font-serif text-xl font-semibold text-foreground">
-                    {card.title}
+                    {t(card.titleKey)}
                   </h2>
                   <ChevronRight className="mt-1 h-5 w-5 text-muted-foreground" />
                 </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">{card.description}</p>
+                <p className="text-sm leading-relaxed text-muted-foreground">{t(card.descKey)}</p>
               </Link>
             );
           })}

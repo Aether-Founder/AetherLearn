@@ -45,18 +45,18 @@ export async function POST(request: NextRequest) {
     const jsonPath = normalizeJsonPath(String(body.jsonPath || ''));
 
     if (!id || !subjectId || !subjectDatabaseId || !title || !jsonPath) {
-      return NextResponse.json({ error: 'Vul een pagina-id, vak, titel en JSON-pad in.' }, { status: 400 });
+      return NextResponse.json({ error: 'Please provide a page id, subject, title and JSON path.' }, { status: 400 });
     }
 
     const page: JsonContentPage = { id, subjectId, title, description, jsonPath };
     const filePath = getJsonPath(page);
     if (!filePath || !fs.existsSync(filePath)) {
-      return NextResponse.json({ error: 'Het JSON-bestand bestaat niet binnen de map content.' }, { status: 400 });
+      return NextResponse.json({ error: 'The JSON file does not exist inside the content directory.' }, { status: 400 });
     }
     try {
       JSON.parse(fs.readFileSync(filePath, 'utf-8'));
     } catch {
-      return NextResponse.json({ error: 'Het opgegeven bestand bevat geen geldige JSON.' }, { status: 400 });
+      return NextResponse.json({ error: 'The provided file does not contain valid JSON.' }, { status: 400 });
     }
 
     const registry = loadContentPageRegistry();
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
     }
     return NextResponse.json({ page }, { status: 201 });
   } catch {
-    return NextResponse.json({ error: 'De contentpagina kon niet worden opgeslagen.' }, { status: 500 });
+    return NextResponse.json({ error: 'The content page could not be saved.' }, { status: 500 });
   }
 }
 
@@ -95,7 +95,7 @@ export async function DELETE(request: NextRequest) {
   registry.pages = registry.pages.filter((page) => page.id !== id);
 
   if (registry.pages.length === pageCount) {
-    return NextResponse.json({ error: 'Pagina niet gevonden.' }, { status: 404 });
+    return NextResponse.json({ error: 'Page not found.' }, { status: 404 });
   }
 
   saveContentPageRegistry(registry);

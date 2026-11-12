@@ -111,7 +111,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Settings className="w-5 h-5" />
-            Weergave Instellingen
+            {t('cal_view_settings')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -133,7 +133,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">
-              Kies de standaard weergave wanneer je de agenda opent
+              {t('cal_view_desc')}
             </p>
           </div>
 
@@ -155,7 +155,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">
-              Kies welke dag als eerste dag van de week wordt getoond
+              {t('cal_first_day_desc')}
             </p>
           </div>
 
@@ -163,7 +163,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
             <div>
               <label className="text-sm font-medium">{t('shell_show_weekend')}</label>
               <p className="text-xs text-muted-foreground">
-                Toon zaterdag en zondag in de weekweergave
+                {t('cal_show_weekend_desc')}
               </p>
             </div>
             <Switch checked={showWeekends} onCheckedChange={setShowWeekends} />
@@ -183,7 +183,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <CalendarIcon className="w-5 h-5" />
-            Werkuren
+            {t('cal_work_hours')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -236,10 +236,10 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
             <div>
               <h3 className="font-semibold mb-2">{t('shell_about_agenda_settings')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Standaard weergave wordt gebruikt bij het openen van de agenda</li>
+                <li>• {t('calendar_setting_default_view')}</li>
                 <li>• {t('shell_tip_first_day')}</li>
                 <li>• {t('shell_tip_weekend')}</li>
-                <li>• Werkuren bepalen het zichtbare tijdsbereik in de dagweergave</li>
+                <li>• {t('calendar_setting_workhours')}</li>
               </ul>
             </div>
           </div>

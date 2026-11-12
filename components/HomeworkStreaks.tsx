@@ -156,7 +156,7 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
                         ? 'bg-yellow-500/20 border-yellow-500'
                         : 'bg-muted/30 border-muted'
                   } ${isToday ? 'ring-2 ring-primary' : ''}`}
-                  title={`${formatDate(day.date)}: ${day.completed ? (day.onTime ? 'Op tijd' : 'Te laat') : 'Niet voltooid'}`}
+                  title={`${formatDate(day.date)}: ${day.completed ? (day.onTime ? t('homework_on_time') : t('homework_late')) : t('homework_not_completed')}`}
                 >
                   <span className="text-xs font-medium">{new Date(day.date).getDate()}</span>
                   <div className="w-2 h-2 rounded-full mt-1">

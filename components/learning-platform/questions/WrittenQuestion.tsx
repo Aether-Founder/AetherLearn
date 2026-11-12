@@ -73,8 +73,8 @@ export function WrittenQuestion({
           }}
           continueLabel={
             needsRetype
-              ? t('written_retype_continue', 'Typ juiste antwoord')
-              : t('grade_continue', 'Verder')
+              ? t('written_retype_continue', "Type the correct answer")
+              : t('grade_continue', "Continue")
           }
         />
       </div>
@@ -95,8 +95,8 @@ export function WrittenQuestion({
           onChange={(e) => setInput(e.target.value)}
           placeholder={
             phase === 'retype'
-              ? t('written_retype_placeholder', 'Typ het juiste antwoord…')
-              : t('written_answer_placeholder', 'Jouw antwoord…')
+              ? t('written_retype_placeholder', "Type the correct answer…")
+              : t('written_answer_placeholder', "Your answer…")
           }
           className="w-full rounded-lg border border-border bg-background px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-foreground/20"
           autoFocus
@@ -107,8 +107,8 @@ export function WrittenQuestion({
           className="w-full rounded-lg bg-foreground text-background py-3 font-medium disabled:opacity-50"
         >
           {phase === 'retype'
-            ? t('written_confirm', 'Bevestigen')
-            : t('written_check', 'Controleer')}
+            ? t('written_confirm', "Confirm")
+            : t('written_check', "Check")}
         </button>
       </form>
       {phase === 'retype' && (

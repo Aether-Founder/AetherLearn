@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
         event: {
           id: mockId,
           userId,
-          title: requestBody.title || 'Nieuwe afspraak',
+          title: requestBody.title || 'New appointment',
           description: requestBody.description || '',
           startDate: requestBody.startDate || new Date().toISOString(),
           endDate: requestBody.endDate || new Date(Date.now() + 3600000).toISOString(),
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
       event: {
         id: mockId,
         userId,
-        title: requestBody.title || 'Nieuwe afspraak',
+        title: requestBody.title || 'New appointment',
         description: requestBody.description || '',
         startDate: requestBody.startDate || new Date().toISOString(),
         endDate: requestBody.endDate || new Date(Date.now() + 3600000).toISOString(),

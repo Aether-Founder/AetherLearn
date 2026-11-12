@@ -20,6 +20,7 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { AppShell, PageHeader } from '@/components/AppShell';
+import { useTranslation } from '@/lib/useTranslation';
 import {
   buildTocTree,
   flattenToc,
@@ -146,7 +147,7 @@ function createViewerState(): ViewerState {
 function loadPdfJs(): Promise<PdfJsLib> {
   return new Promise((resolve, reject) => {
     if (typeof window === 'undefined') {
-      reject(new Error('pdf.js kan alleen in de browser geladen worden.'));
+      reject(new Error('pdf.js can only be loaded in the browser.'));
       return;
     }
     if (window.pdfjsLib) {
@@ -160,10 +161,10 @@ function loadPdfJs(): Promise<PdfJsLib> {
     if (existing) {
       existing.addEventListener('load', () => {
         if (window.pdfjsLib) resolve(window.pdfjsLib);
-        else reject(new Error('pdf.js kon niet geladen worden.'));
+        else reject(new Error('pdf.js could not be loaded.'));
       });
       existing.addEventListener('error', () =>
-        reject(new Error('pdf.js kon niet geladen worden.'))
+        reject(new Error('pdf.js could not be loaded.'))
       );
       return;
     }
@@ -174,9 +175,9 @@ function loadPdfJs(): Promise<PdfJsLib> {
     script.dataset.aetherPdfjs = 'true';
     script.onload = () => {
       if (window.pdfjsLib) resolve(window.pdfjsLib);
-      else reject(new Error('pdf.js kon niet geladen worden.'));
+      else reject(new Error('pdf.js could not be loaded.'));
     };
-    script.onerror = () => reject(new Error('pdf.js kon niet geladen worden.'));
+    script.onerror = () => reject(new Error('pdf.js could not be loaded.'));
     document.head.appendChild(script);
   });
 }
@@ -186,6 +187,7 @@ function loadPdfJs(): Promise<PdfJsLib> {
 /* ------------------------------------------------------------------ */
 
 export default function BinasViewer() {
+  const { t } = useTranslation();
   const tocTree = useMemo(() => buildTocTree(), []);
   const flatEntries = useMemo(() => flattenToc(tocTree), [tocTree]);
 
@@ -217,7 +219,7 @@ export default function BinasViewer() {
     const st = stateRef.current;
     const cached = st.chunkDocs.get(chunk.url);
     if (cached) return cached;
-    if (!st.pdfjs) throw new Error('pdf.js is niet beschikbaar.');
+    if (!st.pdfjs) throw new Error('pdf.js is not available.');
 
     const promise = st.pdfjs.getDocument(chunk.url).promise;
     st.chunkDocs.set(chunk.url, promise);
@@ -344,7 +346,7 @@ export default function BinasViewer() {
     if (!item.rendered) return;
     item.rendered = false;
     item.el.innerHTML =
-      '<div class="placeholder">Pagina ' + item.pageNum + '</div>';
+      '<div class="placeholder">Page ' + item.pageNum + '</div>';
   }, []);
 
   const reRenderVisible = useCallback(() => {
@@ -360,7 +362,7 @@ export default function BinasViewer() {
       if (item.rendered) {
         item.rendered = false;
         item.el.innerHTML =
-          '<div class="placeholder">Pagina ' + item.pageNum + '</div>';
+          '<div class="placeholder">Page ' + item.pageNum + '</div>';
       }
       const top = item.el.offsetTop;
       const bottom = top + item.el.offsetHeight;
@@ -434,7 +436,7 @@ export default function BinasViewer() {
       div.dataset.pageNum = String(i);
       div.style.width = widthCss + 'px';
       div.style.height = heightCss + 'px';
-      div.innerHTML = '<div class="placeholder">Pagina ' + i + '</div>';
+      div.innerHTML = '<div class="placeholder">Page ' + i + '</div>';
       container.appendChild(div);
       st.pages.push({ pageNum: i, el: div, rendered: false });
     }
@@ -550,7 +552,7 @@ export default function BinasViewer() {
       item.el.style.width = width + 'px';
       item.el.style.height = height + 'px';
       item.el.innerHTML =
-        '<div class="placeholder">Pagina ' + item.pageNum + '</div>';
+        '<div class="placeholder">Page ' + item.pageNum + '</div>';
       item.rendered = false;
     }
 
@@ -586,7 +588,7 @@ export default function BinasViewer() {
 
         try {
           const response = await fetch(MANIFEST_URL, { cache: 'force-cache' });
-          if (!response.ok) throw new Error('manifest niet beschikbaar');
+          if (!response.ok) throw new Error('manifest not available');
           const manifest = (await response.json()) as {
             totalPages: number;
             chunks: Array<{
@@ -814,13 +816,13 @@ export default function BinasViewer() {
     <AppShell hideFooter>
       <PageHeader
         title="Binas"
-        description="De volledige Binas (Zesde editie)."
+        description={t('binas_description')}
         action={
           <Link
             href="/subjects/scheikunde"
             className="mt-2 p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0 inline-flex items-center justify-center"
-            title="Terug naar scheikunde"
-            aria-label="Terug naar scheikunde"
+            title={t('binas_back_to_subject')}
+            aria-label={t('binas_back_to_subject')}
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
@@ -838,12 +840,12 @@ export default function BinasViewer() {
           <div className="tw-sidebar-inner">
             <div className="tw-sidebar-title">
               <div className="tw-sidebar-title-row">
-                <h2>Inhoudsopgave</h2>
+                <h2>{t('binas_toc')}</h2>
                 <button
                   type="button"
                   className="tw-fold-all"
-                  title={allFolded ? 'Alles uitvouwen' : 'Alles invouwen'}
-                  aria-label={allFolded ? 'Alles uitvouwen' : 'Alles invouwen'}
+                  title={allFolded ? t('binas_expand_all') : t('binas_collapse_all')}
+                  aria-label={allFolded ? t('binas_expand_all') : t('binas_collapse_all')}
                   onClick={handleFoldAll}
                 >
                   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -861,7 +863,7 @@ export default function BinasViewer() {
                 id="search"
                 className="tw-sidebar-search"
                 type="search"
-                placeholder="Zoek tabel of onderwerp…"
+                placeholder={t('binas_search_placeholder')}
                 autoComplete="off"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
@@ -943,8 +945,8 @@ export default function BinasViewer() {
             <button
               type="button"
               className="btn-icon"
-              title="Vorige pagina"
-              aria-label="Vorige pagina"
+              title={t('binas_prev_page')}
+              aria-label={t('binas_prev_page')}
               onClick={() => gotoPage(stateRef.current.currentPage - 1)}
             >
               ◀
@@ -957,8 +959,8 @@ export default function BinasViewer() {
             <button
               type="button"
               className="btn-icon"
-              title="Volgende pagina"
-              aria-label="Volgende pagina"
+              title={t('binas_next_page')}
+              aria-label={t('binas_next_page')}
               onClick={() => gotoPage(stateRef.current.currentPage + 1)}
             >
               ▶
@@ -968,7 +970,7 @@ export default function BinasViewer() {
               type="number"
               min={1}
               max={pageInfo.total || undefined}
-              placeholder={pageInfo.total ? `1 – ${pageInfo.total}` : 'pagina'}
+              placeholder={pageInfo.total ? `1 – ${pageInfo.total}` : t('binas_page')}
               value={pageInput}
               onChange={(event) => setPageInput(event.target.value)}
               onKeyDown={handlePageInputKey}
@@ -979,7 +981,7 @@ export default function BinasViewer() {
               style={{ padding: '.4rem .7rem' }}
               onClick={handleGo}
             >
-              Ga
+              {t('binas_go')}
             </button>
 
             <span className="spacer" />
@@ -987,8 +989,8 @@ export default function BinasViewer() {
             <button
               type="button"
               className="btn-icon"
-              title="Thema wisselen"
-              aria-label="Thema wisselen"
+              title={t('binas_toggle_theme')}
+              aria-label={t('binas_toggle_theme')}
               onClick={toggleTheme}
             >
               {isDark ? (
@@ -1012,8 +1014,8 @@ export default function BinasViewer() {
             <button
               type="button"
               className="btn-icon"
-              title="Uitzoomen"
-              aria-label="Uitzoomen"
+              title={t('binas_zoom_out')}
+              aria-label={t('binas_zoom_out')}
               onClick={() => zoomBy(1 / 1.2)}
             >
               <svg
@@ -1030,8 +1032,8 @@ export default function BinasViewer() {
             <button
               type="button"
               className="btn-icon"
-              title="Inzoomen"
-              aria-label="Inzoomen"
+              title={t('binas_zoom_in')}
+              aria-label={t('binas_zoom_in')}
               onClick={() => zoomBy(1.2)}
             >
               <svg
@@ -1050,8 +1052,8 @@ export default function BinasViewer() {
             <button
               type="button"
               className="btn-icon"
-              title="Draaien"
-              aria-label="Draaien"
+              title={t('binas_rotate')}
+              aria-label={t('binas_rotate')}
               onClick={() => void rotate()}
             >
               <svg
@@ -1073,7 +1075,7 @@ export default function BinasViewer() {
             <div className="pdf-container" ref={pdfContRef} />
             {status === 'error' ? (
               <div className="pdf-error">
-                Het document kon niet worden geladen.
+                {t('binas_load_error')}
               </div>
             ) : null}
           </div>
@@ -1081,8 +1083,8 @@ export default function BinasViewer() {
           <button
             type="button"
             className={'scroll-top-fab' + (showFab ? ' show' : '')}
-            title="Naar boven"
-            aria-label="Naar boven"
+            title={t('binas_scroll_top')}
+            aria-label={t('binas_scroll_top')}
             onClick={handleScrollTop}
           >
             <svg

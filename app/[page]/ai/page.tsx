@@ -57,7 +57,7 @@ export default async function AIContentPage({ params }: { params: { page: string
   } catch {
     return (
       <div>
-        <h1>{t('content_not_found', 'Content Not Found')}</h1>
+        <h1>{t('content_not_found', "Content not found")}</h1>
         <p>
           {t('content_file_missing', 'The content file "{page}.json" does not exist.', { page })}
         </p>
@@ -74,7 +74,7 @@ export default async function AIContentPage({ params }: { params: { page: string
     <div>
       <h1>{t('ai_title', 'AI Content')}</h1>
       <p>
-        {t('ai_ingested', 'The content file "{page}.json" is ingested into the text below.', {
+        {t('ai_ingested', "The content file \"{page}.json\" has been processed into the text below.", {
           page,
         })}
       </p>

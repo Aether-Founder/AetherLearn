@@ -129,14 +129,13 @@ END:VEVENT
                   <div className="flex-1">
                     <h3 className="font-semibold mb-1">iCal (.ics)</h3>
                     <p className="text-sm text-muted-foreground mb-3">
-                      Exporteer naar iCal formaat voor Apple Calendar, Outlook, en andere
-                      agenda-apps
+                      {t('cal_export_ical_desc')}
                     </p>
                     <Button disabled={exporting} size="sm">
                       {exporting ? (
                         <>
                           <Download className="w-4 h-4 mr-2 animate-spin" />
-                          Exporteren...
+                          {t('cal_exporting')}
                         </>
                       ) : (
                         <>
@@ -162,11 +161,11 @@ END:VEVENT
                   <div className="flex-1">
                     <h3 className="font-semibold mb-1">Google Calendar</h3>
                     <p className="text-sm text-muted-foreground mb-3">
-                      Voeg events direct toe aan je Google Calendar
+                      {t('cal_google_desc')}
                     </p>
                     <Button size="sm" variant="outline">
                       <ExternalLink className="w-4 h-4 mr-2" />
-                      Openen
+                      {t('cal_open')}
                     </Button>
                   </div>
                 </div>
@@ -191,9 +190,9 @@ END:VEVENT
               <h3 className="font-semibold mb-2">{t('shell_about_agenda_export')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• {t('shell_tip_ical')}</li>
-                <li>• Google Calendar export opent direct in je browser</li>
-                <li>• Alle events worden geëxporteerd inclusief tijden en beschrijvingen</li>
-                <li>• Geëxporteerde events kunnen worden geïmporteerd in andere agenda-apps</li>
+                <li>• {t('calendar_export_google')}</li>
+                <li>• {t('calendar_export_all')}</li>
+                <li>• {t('calendar_export_import')}</li>
               </ul>
             </div>
           </div>

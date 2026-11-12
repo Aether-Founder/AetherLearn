@@ -58,7 +58,7 @@ export function StudySetSharing({
       try {
         await navigator.share({
           title: studySetTitle,
-          text: `Bekijk mijn studie set: ${studySetTitle}`,
+          text: t('share_study_set_text', undefined, { title: studySetTitle }),
           url: shareUrl,
         });
       } catch (error) {
@@ -74,7 +74,7 @@ export function StudySetSharing({
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
           <Share2 className="w-4 h-4 mr-2" />
-          Delen
+          {t('share')}
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl">
@@ -95,16 +95,16 @@ export function StudySetSharing({
                   <Lock className="w-5 h-5 text-muted-foreground" />
                 )}
                 <div>
-                  <div className="font-medium">{isPublic ? 'Openbaar' : 'Privé'}</div>
+                  <div className="font-medium">{isPublic ? t('share_open_public') : t('share_private')}</div>
                   <div className="text-sm text-muted-foreground">
                     {isPublic
                       ? t('shell_everyone_can_view')
-                      : 'Alleen jij kunt deze studie set zien'}
+                      : t('share_only_you')}
                   </div>
                 </div>
               </div>
               <Button onClick={onTogglePublic} variant="outline">
-                {isPublic ? 'Maak Privé' : 'Maak Openbaar'}
+                {isPublic ? t('share_public_private') : t('share_make_public')}
               </Button>
             </div>
           </div>
@@ -171,11 +171,10 @@ export function StudySetSharing({
                   <div className="text-sm">
                     <div className="font-medium mb-1">{t('shell_about_sharing')}</div>
                     <ul className="text-muted-foreground space-y-1">
-                      <li>• Openbare sets kunnen door iedereen worden gevonden en bekeken</li>
-                      <li>• Gebruikers kunnen openbare sets kopiëren naar hun eigen account</li>
+                      <li>• {t('share_public_desc')}</li>
+                      <li>• {t('share_copy_desc')}</li>
                       <li>
-                        • Privé sets zijn alleen zichtbaar voor jou en mensen met wie je ze
-                        expliciet deelt
+                        • {t('share_private_bullet')}
                       </li>
                       <li>• {t('shell_tip_visibility')}</li>
                     </ul>
@@ -192,8 +191,7 @@ export function StudySetSharing({
                 <div className="text-sm">
                   <div className="font-medium mb-1">{t('shell_share_this_set')}</div>
                   <p className="text-muted-foreground">
-                    Maak de studie set openbaar om deze met anderen te delen via een link of embed
-                    code.
+                    {t('share_public_hint')}
                   </p>
                 </div>
               </div>

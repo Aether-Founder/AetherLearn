@@ -1,15 +1,17 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
+import { useTranslation } from '@/lib/useTranslation';
 
-function statusFor(pct: number) {
-  if (pct >= 85) return { label: 'Beheerst', color: 'text-green-500' };
-  if (pct >= 65) return { label: 'Redelijk', color: 'text-yellow-500' };
-  if (pct >= 40) return { label: 'Let op', color: 'text-orange-500' };
-  return { label: 'Gevaar', color: 'text-red-500' };
+function statusFor(pct: number, t: (k: string) => string) {
+  if (pct >= 85) return { label: t('subject_status_mastered'), color: 'text-green-500' };
+  if (pct >= 65) return { label: t('subject_status_reasonable'), color: 'text-yellow-500' };
+  if (pct >= 40) return { label: t('subject_status_watch'), color: 'text-orange-500' };
+  return { label: t('subject_status_risk'), color: 'text-red-500' };
 }
 
 export function SubjectProgressBar({ value }: { value: number }) {
+  const { t } = useTranslation();
   const pct = Math.min(Math.max(value || 0, 0), 100);
   const barRef = useRef<HTMLDivElement>(null);
   const [hover, setHover] = useState<{ x: number; pct: number } | null>(null);
@@ -22,8 +24,8 @@ export function SubjectProgressBar({ value }: { value: number }) {
     setHover({ x: e.clientX - rect.left, pct: Math.round(p) });
   }, []);
 
-  const currentStatus = statusFor(pct);
-  const hoverStatus = hover ? statusFor(hover.pct) : null;
+  const currentStatus = statusFor(pct, t);
+  const hoverStatus = hover ? statusFor(hover.pct, t) : null;
 
   return (
     <div>

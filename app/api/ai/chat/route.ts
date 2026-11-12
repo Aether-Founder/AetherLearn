@@ -11,13 +11,13 @@ export async function POST(request: Request) {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.json({ error: 'Niet geauthenticeerd' }, { status: 401 });
+      return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
     }
 
     const { message, deckId, subjectId } = await request.json();
 
     if (!message) {
-      return NextResponse.json({ error: 'Bericht is verplicht' }, { status: 400 });
+      return NextResponse.json({ error: 'Message is required' }, { status: 400 });
     }
 
     // Check rate limit
@@ -108,7 +108,7 @@ export async function POST(request: Request) {
   } catch (error: any) {
     console.error('AI chat error:', error);
     return NextResponse.json(
-      { error: error.message || 'Er is een fout opgetreden' },
+      { error: error.message || 'An error occurred' },
       { status: 500 }
     );
   }

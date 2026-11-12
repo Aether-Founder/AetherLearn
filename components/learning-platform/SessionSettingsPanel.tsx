@@ -93,17 +93,17 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
         className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
-        {t('study_back_home', 'Terug naar menu')}
+        {t('study_back_home', "Back to menu")}
       </button>
 
       <div className="text-center">
         <h3 className="text-xl font-serif font-medium text-foreground">
           {isTest
-            ? t('study_settings_test_title', 'Instellingen oefentoets')
-            : t('study_settings_leren_title', 'Instellingen leersessie')}
+            ? t('study_settings_test_title', "Practice test settings")
+            : t('study_settings_leren_title', "Study session settings")}
         </h3>
         <p className="mt-1 text-sm text-muted-foreground">
-          {t('study_settings_subtitle', 'Kies wat je wilt oefenen en druk op Starten')}
+          {t('study_settings_subtitle', "Choose what you want to practice and press Start")}
         </p>
       </div>
 
@@ -112,14 +112,14 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
           <div className="py-4">
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-medium text-foreground">
-                {t('study_learning_sets', 'Kies hoofdstukken')}
+                {t('study_learning_sets', "Choose chapters")}
               </p>
               <button
                 type="button"
                 onClick={() => updateSettings({ selectedLearningSetIds: [] })}
                 className="rounded-md border border-border px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
               >
-                {t('study_all_sets', 'Alles oefenen')}
+                {t('study_all_sets', "Practice everything")}
               </button>
             </div>
             <div className="mt-3 max-h-56 overflow-y-auto rounded-lg border border-border bg-background px-3 divide-y divide-border">
@@ -137,7 +137,7 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
                     <span className="min-w-0 flex-1">
                       <span className="block text-sm font-medium">{set.title}</span>
                       <span className="block text-xs text-muted-foreground">
-                        {set.termCount} {t('study_terms_count', 'begrippen')}
+                        {set.termCount} {t('study_terms_count', "terms")}
                       </span>
                     </span>
                     <span
@@ -163,7 +163,7 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
         {isTest && (
           <div className="py-4 space-y-2">
             <label className="text-sm font-medium text-foreground">
-              {t('study_exam_date', 'Examendatum')}
+              {t('study_exam_date', "Exam date")}
             </label>
             <input
               type="date"
@@ -179,9 +179,9 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
             />
             {daysLeft !== null && (
               <p className="text-xs text-muted-foreground">
-                {daysLeft} {t('study_days_left', 'dagen resterend')}
+                {daysLeft} {t('study_days_left', "days left")}
                 {daysLeft < 3 &&
-                  ` - ${t('study_exam_priority', 'prioriteit voor niet-beheerste begrippen')}`}
+                  ` - ${t('study_exam_priority', "priority for unmastered terms")}`}
               </p>
             )}
           </div>
@@ -190,10 +190,10 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
         <div className="py-4 space-y-2">
           <div className="flex justify-between text-sm">
             <span className="font-medium text-foreground">
-              {t('study_round_length', 'Aantal begrippen per ronde')}
+              {t('study_round_length', "Round length")}
             </span>
             <span className="text-muted-foreground">
-              {settings.roundLength === 'all' ? t('study_all_terms', 'Alle') : settings.roundLength}
+              {settings.roundLength === 'all' ? t('study_all_terms', "All terms") : settings.roundLength}
             </span>
           </div>
           <input
@@ -267,7 +267,7 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
         {isTest && (
           <div className="py-4 space-y-3">
             <p className="text-sm font-medium text-foreground">
-              {t('study_question_types', 'Vraagtypen')}
+              {t('study_question_types', "Question types")}
             </p>
             <div className="divide-y divide-border">
               {(
@@ -286,7 +286,7 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
               ))}
             </div>
             <p className="pt-2 text-sm font-medium text-foreground">
-              {t('study_test_mix', 'Verdeling oefentoets (%)')}
+              {t('study_test_mix', "Practice test mix (%)")}
             </p>
             {(
               [
@@ -320,7 +320,7 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
         {!isTest && (
           <div className="py-4">
             <p className="mb-1 text-sm font-medium text-foreground">
-              {t('study_choose_practice', 'Kies hoe je wilt oefenen')}
+              {t('study_choose_practice', "Choose how you want to practice")}
             </p>
             <div className="divide-y divide-border">
               {LEREN_ACTIVITIES.map((activity) => (
@@ -337,16 +337,16 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
 
         <div className="py-4">
           <p className="mb-1 text-sm font-medium text-foreground">
-            {t('study_answer_direction', 'Kies wat je moet antwoorden')}
+            {t('study_answer_direction', "Choose what you must answer")}
           </p>
           <div className="divide-y divide-border">
             <Toggle
-              label={t('study_answer_with_term', 'Antwoord met term')}
+              label={t('study_answer_with_term', "Answer with term")}
               checked={settings.questionFormat === 'definition-to-term'}
               onChange={(checked) => setQuestionFormat('definition-to-term', checked)}
             />
             <Toggle
-              label={t('study_answer_with_definition', 'Antwoord met definitie')}
+              label={t('study_answer_with_definition', "Answer with definition")}
               checked={settings.questionFormat === 'term-to-definition'}
               onChange={(checked) => setQuestionFormat('term-to-definition', checked)}
             />
@@ -355,22 +355,22 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
 
         <div className="py-2 divide-y divide-border">
           <Toggle
-            label={t('study_starred_only', 'Alleen gemarkeerde begrippen')}
+            label={t('study_starred_only', "Starred only")}
             checked={settings.studyStarredOnly}
             onChange={(value) => updateSettings({ studyStarredOnly: value })}
           />
           <Toggle
-            label={t('study_shuffle', 'Begrippen shufflen')}
+            label={t('study_shuffle', "Shuffle")}
             checked={settings.shuffleTerms}
             onChange={(value) => updateSettings({ shuffleTerms: value })}
           />
           <Toggle
-            label={t('study_smart_grading', 'Slimme beoordeling (typfouten tolereren)')}
+            label={t('study_smart_grading', "Smart grading")}
             checked={settings.smartGrading}
             onChange={(value) => updateSettings({ smartGrading: value })}
           />
           <Toggle
-            label={t('study_retype', 'Juiste antwoord overtypen bij fout')}
+            label={t('study_retype', "Retype correct answer on mistake")}
             checked={settings.retypeAnswers}
             onChange={(value) => updateSettings({ retypeAnswers: value })}
           />
@@ -436,7 +436,7 @@ export function SessionSettingsPanel({ preset, onBack, onStart }: SessionSetting
         onClick={handleStart}
         className="w-full rounded-xl bg-foreground py-3.5 text-base font-medium text-background transition-opacity hover:opacity-90"
       >
-        {t('study_start_session', 'Starten')}
+        {t('study_start_session', "Start session")}
       </button>
     </div>
   );

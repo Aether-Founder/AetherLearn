@@ -257,7 +257,7 @@ export function AdaptiveScheduling({
             <Brain className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
             <h3 className="text-lg font-semibold mb-2">{t('shell_no_recommendations')}</h3>
             <p className="text-sm text-muted-foreground">
-              Voltooi meer sessies om AI-aanbevelingen te ontvangen
+              {t('adaptive_need_sessions')}
             </p>
           </CardContent>
         </Card>
@@ -271,9 +271,9 @@ export function AdaptiveScheduling({
               <h3 className="font-semibold mb-2">{t('shell_how_adaptive_works')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• {t('shell_tip_ai_analysis')}</li>
-                <li>• Moeilijke onderwerpen met laag zelfvertrouwen krijgen prioriteit</li>
-                <li>• Planning wordt automatisch aangepast op basis van je voortgang</li>
-                <li>• Studietijd wordt geoptimaliseerd voor maximale effectiviteit</li>
+                <li>• {t('tip_priority_hard')}</li>
+                <li>• {t('tip_auto_adjust')}</li>
+                <li>• {t('tip_time_optimize')}</li>
               </ul>
             </div>
           </div>

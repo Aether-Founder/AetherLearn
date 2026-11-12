@@ -64,9 +64,9 @@ export function MatchGame({ onQuit }: GameShellProps) {
 
   const difficultyOptions = useMemo(
     () => [
-      { id: 'easy' as const, label: t('study_difficulty_easy', 'Makkelijk') },
-      { id: 'medium' as const, label: t('study_difficulty_medium', 'Middel') },
-      { id: 'hard' as const, label: t('study_difficulty_hard', 'Moeilijk') },
+      { id: 'easy' as const, label: t('study_difficulty_easy', "Easy") },
+      { id: 'medium' as const, label: t('study_difficulty_medium', "Medium") },
+      { id: 'hard' as const, label: t('study_difficulty_hard', "Hard") },
     ],
     [t]
   );
@@ -206,8 +206,8 @@ export function MatchGame({ onQuit }: GameShellProps) {
                 <Trophy className="w-8 h-8 text-yellow-500" />
                 <h3 className="text-2xl font-serif">
                   {gameOver
-                    ? t('study_time_up', 'Tijd om!')
-                    : t('study_match_done', 'Alles gekoppeld!')}
+                    ? t('study_time_up', "Time's up!")
+                    : t('study_match_done', "All matched!")}
                 </h3>
               </div>
               <div className="flex justify-center gap-4 flex-wrap">
@@ -222,7 +222,7 @@ export function MatchGame({ onQuit }: GameShellProps) {
               </div>
               <div className="text-sm text-muted-foreground space-y-1">
                 <p>
-                  {t('study_time', 'Tijd')}: {formatTime(elapsed)}
+                  {t('study_time', "Time")}: {formatTime(elapsed)}
                 </p>
                 <p>
                   {t('study_matches', 'Matches')}: {matches}/{pairs.length}
@@ -233,7 +233,7 @@ export function MatchGame({ onQuit }: GameShellProps) {
               </div>
               <div className="flex justify-center gap-2 flex-wrap">
                 <Button onClick={() => resetGame()} variant="outline">
-                  {t('study_play_again', 'Speel opnieuw')}
+                  {t('study_play_again', "Play again")}
                 </Button>
                 {difficultyOptions.map((option) => (
                   <Button
@@ -293,13 +293,13 @@ export function MatchGame({ onQuit }: GameShellProps) {
             </div>
             {!started && (
               <p className="text-center py-2 text-sm text-muted-foreground">
-                {t('study_match_hint', 'Klik een begrip en bijpassende definitie')}
+                {t('study_match_hint', "Click a term and its matching definition")}
               </p>
             )}
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <h4 className="text-sm font-medium text-center">
-                  {t('study_terms_column', 'Begrippen')}
+                  {t('study_terms_column', "Terms")}
                 </h4>
                 {terms.map((row) => (
                   <button
@@ -328,7 +328,7 @@ export function MatchGame({ onQuit }: GameShellProps) {
               </div>
               <div className="space-y-2">
                 <h4 className="text-sm font-medium text-center">
-                  {t('study_defs_column', 'Definities')}
+                  {t('study_defs_column', "Definitions")}
                 </h4>
                 {defs.map((row) => (
                   <button

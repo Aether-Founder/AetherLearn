@@ -146,7 +146,7 @@ export function EnhancedFlashcardMode() {
           onClick={() => setFlipped((f) => !f)}
           className="px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium"
         >
-          {flipped ? t('flash_show_prompt', 'Toon vraag') : t('flash_flip', 'Draai om')}
+          {flipped ? t('flash_show_prompt', "Show prompt") : t('flash_flip', "Flip")}
         </button>
         <button
           type="button"
@@ -163,18 +163,18 @@ export function EnhancedFlashcardMode() {
             [
               [
                 'again',
-                'Opnieuw',
+                t('flash_again'),
                 'border-red-500/50 bg-red-500/10 text-red-700 dark:text-red-300',
               ],
               [
                 'hard',
-                'Moeilijk',
+                t('flash_hard'),
                 'border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300',
               ],
-              ['good', 'Goed', 'border-sky-500/50 bg-sky-500/10 text-sky-700 dark:text-sky-300'],
+              ['good', t('flash_good'), 'border-sky-500/50 bg-sky-500/10 text-sky-700 dark:text-sky-300'],
               [
                 'easy',
-                'Makkelijk',
+                t('flash_easy'),
                 'border-green-500/50 bg-green-500/10 text-green-700 dark:text-green-300',
               ],
             ] as [ReviewGrade, string, string][]

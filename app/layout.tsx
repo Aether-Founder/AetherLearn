@@ -21,7 +21,7 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata = {
   title: 'AetherLearn',
-  description: 'Leer slimmer met flashcards, spaced repetition en AI-ondersteuning',
+  description: 'Learn smarter with flashcards, spaced repetition and AI support',
   manifest: '/manifest.json',
   icons: {
     icon: '/icons/aetherlearn/favicon.png',

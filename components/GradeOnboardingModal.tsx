@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { updateUserProfile } from '@/lib/supabase/auth';
+import { useTranslation } from '@/lib/useTranslation';
 import { ALL_SUBJECTS } from '@/components/learning-platform/StandaloneLearningPlatform';
 
 export function getCurrentSchoolYear(): string {
@@ -54,6 +55,7 @@ export function GradeOnboardingModal({
   onComplete: (grade: string, track: string | null, subjects: string[]) => void;
   onSkip?: () => void;
 }) {
+  const { t } = useTranslation();
   const schoolYear = getCurrentSchoolYear();
   const needsOnboarding = !currentGrade;
 
@@ -115,8 +117,8 @@ export function GradeOnboardingModal({
       await onComplete(grade, track, subjects);
     } catch (e: any) {
       console.error('Failed to save grade onboarding:', e);
-      const errorMessage = e?.message || 'Onbekende fout';
-      alert(`Er ging iets mis bij het opslaan: ${errorMessage}`);
+      const errorMessage = e?.message || t('onboarding_unknown_error');
+      alert(t('onboarding_save_error', undefined, { error: errorMessage }));
     } finally {
       setLoading(false);
     }
@@ -127,21 +129,21 @@ export function GradeOnboardingModal({
       <div className="w-full max-w-lg rounded-xl border border-border bg-background p-6 shadow-2xl">
         <div className="mb-4 text-center">
           <span className="inline-block rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-muted-foreground">
-            Schooljaar {schoolYear}
+            {t('onboarding_school_year', undefined, { year: schoolYear })}
           </span>
           <h2 className="mt-2 font-display text-2xl font-semibold">
             {step === 1
-              ? 'In welke klas zit je?'
+              ? t('onboarding_step1_title')
               : step === 2
-                ? 'Welk profiel heb je gekozen?'
-                : 'Welke vakken heb je?'}
+                ? t('onboarding_step2_title')
+                : t('onboarding_step3_title')}
           </h2>
           <p className="mt-1 text-xs text-muted-foreground">
             {step === 1
-              ? 'Selecteer je huidige leerjaar om je vakken en Toetsweekvoorbereiding in te stellen.'
+              ? t('onboarding_step1_desc')
               : step === 2
-                ? 'Kies je profiel voor de bovenbouw.'
-                : 'Selecteer de vakken die je dit jaar volgt.'}
+                ? t('onboarding_step2_desc')
+                : t('onboarding_step3_desc')}
           </p>
         </div>
 
@@ -183,14 +185,14 @@ export function GradeOnboardingModal({
           <div className="my-6">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-medium text-muted-foreground">
-                {selectedSubjects.length} vakken geselecteerd
+                {t('onboarding_subjects_selected', undefined, { count: selectedSubjects.length })}
               </span>
               <button
                 type="button"
                 onClick={() => setSelectedSubjects([...ALL_SUBJECTS])}
                 className="text-xs font-medium text-muted-foreground hover:text-foreground"
               >
-                Alles selecteren
+                {t('select_all')}
               </button>
             </div>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 max-h-60 overflow-y-auto p-1 border border-border rounded-lg bg-background">
@@ -235,7 +237,7 @@ export function GradeOnboardingModal({
               onClick={() => setStep(Math.max(1, step - 1) as 1 | 2 | 3)}
               className="rounded-md border border-border px-4 py-2 text-xs font-medium transition-colors hover:bg-secondary"
             >
-              Terug
+              {t('back')}
             </button>
           ) : onSkip ? (
             <button
@@ -244,7 +246,7 @@ export function GradeOnboardingModal({
               disabled={loading}
               className="rounded-md px-3 py-2 text-xs font-medium text-muted-foreground hover:bg-secondary hover:text-foreground"
             >
-              Overslaan
+              {t('skip')}
             </button>
           ) : (
             <div />
@@ -263,7 +265,7 @@ export function GradeOnboardingModal({
             onClick={handleNextOrSave}
             className="rounded-md bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
           >
-            {loading ? 'Opslaan...' : step === 3 ? 'Opslaan' : 'Volgende'}
+            {loading ? t('saving') : step === 3 ? t('save') : t('next')}
           </button>
         </div>
       </div>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus, BookOpen, Calendar, MessageSquare, X } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface QuickActionFABProps {
   onCreateStudySet?: () => void;
@@ -18,28 +19,29 @@ export function QuickActionFAB({
   onCreateDiscussion,
 }: QuickActionFABProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
 
   const actions = [
     {
-      label: 'Studie Set',
+      label: t('fab_study_set'),
       icon: BookOpen,
       onClick: onCreateStudySet,
       color: 'bg-blue-500',
     },
     {
-      label: 'Evenement',
+      label: t('fab_event'),
       icon: Calendar,
       onClick: onCreateEvent,
       color: 'bg-green-500',
     },
     {
-      label: 'Huiswerk',
+      label: t('fab_homework'),
       icon: BookOpen,
       onClick: onCreateHomework,
       color: 'bg-orange-500',
     },
     {
-      label: 'Discussie',
+      label: t('fab_discussion'),
       icon: MessageSquare,
       onClick: onCreateDiscussion,
       color: 'bg-purple-500',

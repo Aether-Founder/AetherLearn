@@ -299,7 +299,7 @@ function StudySession({
   if (sessionCards.length === 0) {
     return (
       <div className="rounded-md border border-border bg-card p-6 text-sm text-muted-foreground">
-        {t('advanced_no_cards_due', 'No cards are due right now.')}
+        {t('advanced_no_cards_due', "There are no cards to review right now.")}
       </div>
     );
   }
@@ -419,7 +419,7 @@ function StudySession({
           ) : (
             <p className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
               <Keyboard className="h-3.5 w-3.5" />
-              {t('advanced_flashcard_keys', 'Space flips, 1-4 records after reveal.')}
+              {t('advanced_flashcard_keys', "Space flips, 1-4 grades after flipping.")}
             </p>
           )}
         </section>
@@ -637,7 +637,7 @@ export const AdvancedLearningSystem = memo(function AdvancedLearningSystem({
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-sm font-medium text-muted-foreground">
-              {t('advanced_label', 'Advanced study')}
+              {t('advanced_label', "Advanced studying")}
             </p>
             <h2 className="mt-1 text-2xl font-semibold text-foreground">
               {t('advanced_title', 'Study dashboard')}
@@ -646,12 +646,12 @@ export const AdvancedLearningSystem = memo(function AdvancedLearningSystem({
           <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[520px]">
             <StatPill
               icon={<BookOpenCheck className="h-4 w-4" />}
-              label={t('advanced_due', 'Due')}
+              label={t('advanced_due', "Today")}
               value={dueCount}
             />
             <StatPill
               icon={<ListChecks className="h-4 w-4" />}
-              label={t('advanced_reviewed', 'Reviewed')}
+              label={t('advanced_reviewed', "Done")}
               value={state.stats.cardsReviewed}
             />
             <StatPill
@@ -708,7 +708,7 @@ export const AdvancedLearningSystem = memo(function AdvancedLearningSystem({
           </div>
           <div>
             <h3 className="mb-3 font-semibold text-foreground">
-              {t('advanced_forecast', '7 day forecast')}
+              {t('advanced_forecast', "7-day forecast")}
             </h3>
             <div className="grid grid-cols-7 gap-2">
               {forecast.map((day) => (
@@ -725,7 +725,7 @@ export const AdvancedLearningSystem = memo(function AdvancedLearningSystem({
       {tab === 'settings' && (
         <section className="grid gap-4 rounded-md border border-border bg-card p-5 sm:grid-cols-2">
           <label className="text-sm font-medium text-foreground">
-            {t('advanced_card_limit', 'Card limit')}
+            {t('advanced_card_limit', "Number of cards")}
             <input
               type="number"
               min={1}
@@ -790,9 +790,9 @@ export const AdvancedLearningSystem = memo(function AdvancedLearningSystem({
               }
               className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 font-normal"
             >
-              <option value="mix">{t('advanced_review_mix_all', 'Due and new')}</option>
-              <option value="due">{t('advanced_review_mix_due', 'Due only')}</option>
-              <option value="new">{t('advanced_review_mix_new', 'New only')}</option>
+              <option value="mix">{t('advanced_review_mix_all', "Today and new")}</option>
+              <option value="due">{t('advanced_review_mix_due', "Only due")}</option>
+              <option value="new">{t('advanced_review_mix_new', "Only new")}</option>
             </select>
           </label>
         </section>

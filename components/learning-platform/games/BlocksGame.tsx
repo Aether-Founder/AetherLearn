@@ -284,7 +284,7 @@ export function BlocksGame({ onQuit }: GameShellProps) {
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
               <div className="bg-card border border-border rounded-xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
                 <h3 className="font-medium mb-4 text-foreground">
-                  {t('study_blocks_question', 'Beantwoord om nieuwe blokken te verdienen')}
+                  {t('study_blocks_question', "Answer to earn new blocks")}
                 </h3>
                 {question.type === 'multiple-choice' ? (
                   <McqQuestion question={question} onAnswer={(a, c) => onQuestionDone(c, a)} />
@@ -301,7 +301,7 @@ export function BlocksGame({ onQuit }: GameShellProps) {
                   onClick={skipQuestion}
                   className="mt-4 w-full py-2.5 rounded-lg border border-border text-sm text-muted-foreground hover:bg-secondary"
                 >
-                  {t('study_skip_question', 'Sla over (andere vraag)')}
+                  {t('study_skip_question', "Skip (another question)")}
                 </button>
               </div>
             </div>

@@ -242,7 +242,7 @@ const QuestionRow = memo(function QuestionRow({
             </MarkdownRenderer>
           ) : (
             <p className="text-sm text-muted-foreground italic">
-              {t('answer_not_provided_hint', 'Geen uitwerking beschikbaar.')}
+              {t('answer_not_provided_hint', "Answer not available. Use this as a practice question.")}
             </p>
           )}
         </div>
@@ -262,7 +262,7 @@ const QuestionsPanel = memo(function QuestionsPanel({ section }: { section: Text
   if (questionBlocks.length === 0) return null;
 
   // Use the first block's title if available, otherwise use translation
-  const questionsTitle = questionBlocks[0]?.title || t('questions', 'Opdrachten');
+  const questionsTitle = questionBlocks[0]?.title || t('questions', "Questions");
 
   return (
     <div id={questionBlocks[0]?.id || `${section.id}-questions`} className="mt-8 scroll-mt-24">

@@ -4,16 +4,18 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Home, Calendar, BookOpen, BarChart3, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/useTranslation';
 
 export function MobileBottomNav() {
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   const navItems = [
-    { href: '/', icon: Home, label: 'Home' },
-    { href: '/calendar', icon: Calendar, label: 'Kalender' },
-    { href: '/study', icon: BookOpen, label: 'Studeren' },
-    { href: '/analytics', icon: BarChart3, label: 'Analytics' },
-    { href: '/profile', icon: User, label: 'Profiel' },
+    { href: '/', icon: Home, label: t('nav_home') },
+    { href: '/calendar', icon: Calendar, label: t('nav_calendar') },
+    { href: '/study', icon: BookOpen, label: t('nav_study') },
+    { href: '/analytics', icon: BarChart3, label: t('nav_analytics') },
+    { href: '/profile', icon: User, label: t('nav_profile') },
   ];
 
   return (

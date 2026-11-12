@@ -110,11 +110,11 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
       case 'warning':
         return (
           <Badge variant="outline" className="border-yellow-500 text-yellow-500">
-            Waarschuwing
+            {t('perf_warning')}
           </Badge>
         );
       default:
-        return <Badge variant="secondary">Info</Badge>;
+        return <Badge variant="secondary">{t('perf_info')}</Badge>;
     }
   };
 
@@ -250,7 +250,7 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
             <Brain className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
             <h3 className="text-lg font-semibold mb-2">{t('shell_no_insights')}</h3>
             <p className="text-sm text-muted-foreground">
-              Voltooi meer sessies om AI-inzichten te ontvangen
+              {t('insights_need_sessions')}
             </p>
           </CardContent>
         </Card>

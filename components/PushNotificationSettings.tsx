@@ -38,7 +38,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
 
   const sendTestNotification = () => {
     if (notificationsEnabled) {
-      new Notification('Test Notificatie', {
+      new Notification(t('notif_test'), {
         body: t('shell_test_notification'),
         icon: '/icon-192.png',
       });
@@ -51,21 +51,21 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
         return (
           <Badge variant="default" className="bg-green-500">
             <CheckCircle2 className="w-3 h-3 mr-1" />
-            Ingeschakeld
+            {t('notif_enabled')}
           </Badge>
         );
       case 'denied':
         return (
           <Badge variant="destructive">
             <BellOff className="w-3 h-3 mr-1" />
-            Geblokkeerd
+            {t('notif_blocked')}
           </Badge>
         );
       default:
         return (
           <Badge variant="secondary">
             <AlertTriangle className="w-3 h-3 mr-1" />
-            Niet Ingesteld
+            {t('notif_not_set')}
           </Badge>
         );
     }
@@ -82,7 +82,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Bell className="w-5 h-5" />
-            Notificatie Toestemming
+            {t('notif_permission')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -91,12 +91,12 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
               <div>
                 <p className="font-medium">{t('shell_enable_notifications')}</p>
                 <p className="text-sm text-muted-foreground">
-                  Ontwaar notificaties voor herinneringen, prestaties en meer
+                  {t('notif_enable_desc')}
                 </p>
               </div>
               <Button onClick={requestPermission}>
                 <Bell className="w-4 h-4 mr-2" />
-                Inschakelen
+                {t('notif_enable_btn')}
               </Button>
             </div>
           )}
@@ -109,12 +109,12 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
                   <div>
                     <p className="font-medium">{t('shell_notifications_enabled')}</p>
                     <p className="text-sm text-muted-foreground">
-                      Je ontvangt nu push notificaties
+                      {t('notif_receiving')}
                     </p>
                   </div>
                 </div>
                 <Button variant="outline" onClick={sendTestNotification}>
-                  Test Notificatie
+                  {t('notif_test')}
                 </Button>
               </div>
 
@@ -125,7 +125,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
                   <div>
                     <p className="font-medium">{t('shell_study_reminders')}</p>
                     <p className="text-xs text-muted-foreground">
-                      Herinneringen voor studie sessies en deadlines
+                      {t('notif_session_reminders')}
                     </p>
                   </div>
                   <Switch checked={studyReminders} onCheckedChange={setStudyReminders} />
@@ -135,7 +135,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
                   <div>
                     <p className="font-medium">{t('shell_achievement_alerts')}</p>
                     <p className="text-xs text-muted-foreground">
-                      Notificaties bij behaalde prestaties
+                      {t('notif_achievement_desc')}
                     </p>
                   </div>
                   <Switch checked={achievementAlerts} onCheckedChange={setAchievementAlerts} />
@@ -145,7 +145,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
                   <div>
                     <p className="font-medium">{t('shell_homework_alerts')}</p>
                     <p className="text-xs text-muted-foreground">
-                      Herinneringen voor huiswerk deadlines
+                      {t('notif_homework_reminders')}
                     </p>
                   </div>
                   <Switch checked={homeworkAlerts} onCheckedChange={setHomeworkAlerts} />
@@ -155,7 +155,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
                   <div>
                     <p className="font-medium">{t('shell_class_updates')}</p>
                     <p className="text-xs text-muted-foreground">
-                      Notificaties voor klas activiteiten
+                      {t('notif_class_desc')}
                     </p>
                   </div>
                   <Switch checked={classUpdates} onCheckedChange={setClassUpdates} />
@@ -171,8 +171,7 @@ export function PushNotificationSettings({ userId: _userId }: PushNotificationSe
                 <div>
                   <p className="font-medium">{t('shell_notifications_blocked')}</p>
                   <p className="text-sm text-muted-foreground">
-                    Je hebt notificaties geblokkeerd in je browser instellingen. Ga naar je browser
-                    instellingen om dit te wijzigen.
+                    {t('notif_blocked_desc')}
                   </p>
                 </div>
               </div>

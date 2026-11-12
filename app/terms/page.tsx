@@ -3,84 +3,84 @@
 import { AppShell, PageHeader } from '@/components/AppShell';
 import Link from 'next/link';
 
-export default function TermsPage() {
+export default function TermsPageEN() {
   return (
     <AppShell>
-      <PageHeader
-        title="Algemene Voorwaarden"
-        description="Lees onze algemene voorwaarden en gebruiksaanwijzingen"
+      <PageHeader 
+        title="Terms of Service" 
+        description="Read our terms of service and usage guidelines" 
       />
 
-      <div className="mt-10 max-w-3xl mx-auto space-y-8">
-        <section id="acceptatie">
-          <h2 className="text-2xl font-semibold mb-4">Acceptatie van Voorwaarden</h2>
+      <div className="mt-10 space-y-8">
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Acceptance of Terms</h2>
           <p className="text-muted-foreground">
-            Door gebruik te maken van AetherLearn ga je akkoord met deze algemene voorwaarden.
-            Als je niet akkoord gaat met deze voorwaarden, mag je de dienst niet gebruiken.
+            By using AetherLearn, you agree to these terms of service. 
+            If you do not agree to these terms, please do not use the service.
           </p>
         </section>
 
-        <section id="accounts">
-          <h2 className="text-2xl font-semibold mb-4">Gebruikersaccounts</h2>
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">User Accounts</h2>
           <p className="text-muted-foreground">
-            Om bepaalde functies van AetherLearn te gebruiken, moet je een account aanmaken.
-            Je bent verantwoordelijk voor het bewaren van de vertrouwelijkheid van je account en wachtwoord,
-            en voor alle activiteiten die plaatsvinden onder je account.
+            To use certain features of AetherLearn, you must create an account. 
+            You are responsible for maintaining the confidentiality of your account and password, 
+            and for all activities that occur under your account.
           </p>
         </section>
 
-        <section id="inhoud">
-          <h2 className="text-2xl font-semibold mb-4">Gebruikersinhoud</h2>
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">User Content</h2>
           <p className="text-muted-foreground">
-            Je behoudt alle rechten op inhoud die je uploadt, deelt of opslaat in AetherLearn.
-            Door inhoud te uploaden, geef je AetherLearn een licentie om de inhoud te gebruiken,
-            te reproduceren en weer te geven voor het leveren van de dienst.
+            You retain all rights to content you upload, share, or store in AetherLearn. 
+            By uploading content, you grant AetherLearn a license to use, reproduce, and display 
+            the content for the purpose of providing the service.
           </p>
         </section>
 
-        <section id="verboden">
-          <h2 className="text-2xl font-semibold mb-4">Verboden Gebruik</h2>
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Prohibited Uses</h2>
           <p className="text-muted-foreground">
-            Het is verboden om AetherLearn te gebruiken voor illegale doeleinden,
-            om inbreuk te maken op intellectuele eigendomsrechten van anderen,
-            of om malware of schadelijke code te verspreiden.
+            It is prohibited to use AetherLearn for illegal purposes, 
+            to infringe on the intellectual property rights of others, 
+            or to distribute malware or harmful code.
           </p>
         </section>
 
-        <section id="beindiging">
-          <h2 className="text-2xl font-semibold mb-4">Beëindiging</h2>
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Termination</h2>
           <p className="text-muted-foreground">
-            AetherLearn behoudt zich het recht voor om jouw account en toegang tot de dienst
-            te beëindigen zonder voorafgaande kennisgeving, om welke reden dan ook.
+            AetherLearn reserves the right to terminate your account and access to the service 
+            without prior notice, for any reason.
           </p>
         </section>
 
-        <section id="wijzigingen">
-          <h2 className="text-2xl font-semibold mb-4">Wijzigingen</h2>
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Changes</h2>
           <p className="text-muted-foreground">
-            AetherLearn behoudt zich het recht voor om deze voorwaarden op elk moment te wijzigen.
-            Je wordt geacht deze pagina regelmatig te controleren op wijzigingen.
+            AetherLearn reserves the right to modify these terms at any time. 
+            You are advised to review this page periodically for changes.
           </p>
         </section>
 
-        <section id="contact">
+        <section>
           <h2 className="text-2xl font-semibold mb-4">Contact</h2>
           <p className="text-muted-foreground mb-4">
-            Heb je vragen over deze voorwaarden of zakelijke vragen? Neem contact met ons op.
+            Have questions about these terms or business inquiries? Contact us.
           </p>
-          <Link
-            href="https://docs.google.com/forms/d/PLACEHOLDER_DUTCH_FORM"
-            target="_blank"
+          <Link 
+            href="https://docs.google.com/forms/d/PLACEHOLDER_ENGLISH_FORM" 
+            target="_blank" 
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
           >
-            Zakelijke Vragen
+            Business Inquiries
           </Link>
         </section>
 
         <section>
           <p className="text-sm text-muted-foreground">
-            Laatst bijgewerkt: {new Date().toLocaleDateString('nl-NL')}
+            Last updated: {new Date().toLocaleDateString('en-US')}
           </p>
         </section>
       </div>

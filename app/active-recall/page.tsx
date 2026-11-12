@@ -51,16 +51,16 @@ type Question = {
 };
 
 const QUESTION_TYPES: { id: QuestionType; label: string; labelKey?: string; icon: any }[] = [
-  { id: 'open', label: 'Open vraag', labelKey: 'quiz_type_open', icon: MessageSquare },
+  { id: 'open', label: 'Open question', labelKey: 'quiz_type_open', icon: MessageSquare },
   { id: 'multiple-choice', label: 'Multiple choice', icon: CheckCircle },
-  { id: 'cloze', label: 'Invulvraag', labelKey: 'quiz_type_cloze', icon: MessageSquare },
+  { id: 'cloze', label: 'Fill-in-the-blank', labelKey: 'quiz_type_cloze', icon: MessageSquare },
   { id: 'flashcard', label: 'Flashcard', icon: Brain },
-  { id: 'step-by-step', label: 'Stap-voor-stap', labelKey: 'quiz_type_step', icon: ArrowRight },
-  { id: 'diagram', label: 'Diagramvraag', labelKey: 'quiz_type_diagram', icon: Brain },
-  { id: 'translate', label: 'Vertaalvraag', labelKey: 'quiz_type_translate', icon: MessageSquare },
-  { id: 'code', label: 'Codevraag', labelKey: 'quiz_type_code', icon: Brain },
-  { id: 'error-detection', label: 'Foutdetectie', labelKey: 'quiz_type_error', icon: XCircle },
-  { id: 'method-choice', label: 'Methodekeuze', labelKey: 'quiz_type_method', icon: CheckCircle },
+  { id: 'step-by-step', label: 'Step-by-step', labelKey: 'quiz_type_step', icon: ArrowRight },
+  { id: 'diagram', label: 'Diagram question', labelKey: 'quiz_type_diagram', icon: Brain },
+  { id: 'translate', label: 'Translation question', labelKey: 'quiz_type_translate', icon: MessageSquare },
+  { id: 'code', label: 'Code question', labelKey: 'quiz_type_code', icon: Brain },
+  { id: 'error-detection', label: 'Error detection', labelKey: 'quiz_type_error', icon: XCircle },
+  { id: 'method-choice', label: 'Method choice', labelKey: 'quiz_type_method', icon: CheckCircle },
 ];
 
 export default function ActiveRecallPage() {

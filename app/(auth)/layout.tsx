@@ -9,7 +9,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Authenticatie | Aether',
-  description: 'Log in of maak een account aan voor Aether Study Platform',
+  description: 'Log in or create an account for the Aether Study Platform',
 };
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {

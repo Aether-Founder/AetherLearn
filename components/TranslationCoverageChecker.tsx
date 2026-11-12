@@ -93,10 +93,10 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">{t('shell_translation_coverage')}</h2>
         <div className="flex items-center gap-2">
-          <Badge variant="secondary">{coverage.length} talen</Badge>
+          <Badge variant="secondary">{coverage.length} {t('coverage_languages')}</Badge>
           <Button onClick={onExportReport} variant="outline" size="sm">
             <FileText className="w-4 h-4 mr-2" />
-            Exporteer Rapport
+            {t('coverage_export_report')}
           </Button>
         </div>
       </div>
@@ -224,14 +224,14 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
             <div>
               <h3 className="font-semibold mb-2">{t('shell_about_coverage')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Volledige dekking (90%+): Alle belangrijke teksten zijn vertaald</li>
+                <li>• {t('coverage_tip_full')}</li>
                 <li>
-                  • Gedeeltelijke dekking (70-89%): Meeste teksten zijn vertaald, enkele ontbreken
+                  • {t('coverage_tip_partial')}
                 </li>
                 <li>
-                  • Onvolledige dekking (&lt;70%): Veel ontbrekende vertalingen, actie vereist
+                  • {t('coverage_tip_incomplete')}
                 </li>
-                <li>• Gebruik het export rapport om ontbrekende sleutels te identificeren</li>
+                <li>• {t('coverage_tip_export')}</li>
               </ul>
             </div>
           </div>

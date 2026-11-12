@@ -91,7 +91,9 @@ const nextConfig = {
       { source: '/create/leerlijst/:path*', destination: '/create/learning-list/:path*', permanent: true },
       { source: '/edit/leerlijst/:path*', destination: '/edit/learning-list/:path*', permanent: true },
       { source: '/subjects/:subjectId/begripskaarten/:path*', destination: '/subjects/:subjectId/concept-cards/:path*', permanent: true },
-      { source: '/subjects/:subjectId/formulekaarten/:path*', destination: '/subjects/:subjectId/formula-cards/:path*', permanent: true }
+      { source: '/subjects/:subjectId/formulekaarten/:path*', destination: '/subjects/:subjectId/formula-cards/:path*', permanent: true },
+      { source: '/subjects/:subjectId/bronnen', destination: '/subjects/:subjectId/sources', permanent: true },
+      { source: '/admin/bronnen', destination: '/admin/sources', permanent: true }
     );
     return redirects;
   },

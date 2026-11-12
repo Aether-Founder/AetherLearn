@@ -17,7 +17,7 @@ export function MobileNavigation() {
     { href: '/', icon: Home, label: 'Home' },
     { href: '/study-sets', icon: BookOpen, label: t('dashboard_study_sets') },
     { href: '/calendar', icon: Calendar, label: t('calendar_title') },
-    { href: '/agenda', icon: Calendar, label: 'Agenda' },
+    { href: '/agenda', icon: Calendar, label: t('nav_agenda') },
     { href: '/study', icon: BookOpen, label: t('shell_nav_study') },
     { href: '/analytics', icon: BarChart3, label: 'Analytics' },
     { href: '/statistics', icon: BarChart3, label: t('nav_statistics') },

@@ -1,7 +1,7 @@
 import { AppShell, PageHeader } from '@/components/AppShell';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import { BronnenPanel } from '@/components/bronnen/BronnenPanel';
+import { BronnenPanel } from '@/components/sources/BronnenPanel';
 import { getServerT } from '@/lib/i18n-server';
 
 export default async function BronnenPage({ params }: { params: { subjectId: string } }) {

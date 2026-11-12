@@ -168,7 +168,7 @@ export function BlastGame({ onQuit }: GameShellProps) {
           <div className="space-y-4 rounded-2xl border border-border bg-gradient-to-br from-card to-secondary/40 p-5">
             <div className="flex justify-end text-sm text-muted-foreground">
               <span>
-                {t('study_lives', 'Levens')}: {lives}
+                {t('study_lives', "Lives")}: {lives}
               </span>
             </div>
             <canvas
@@ -176,14 +176,14 @@ export function BlastGame({ onQuit }: GameShellProps) {
               className="w-full h-72 rounded-xl border border-border bg-background shadow-inner"
             />
             <p className="text-xs text-center text-muted-foreground">
-              {t('study_blast_hint', 'Typ het begrip dat bij de vallende definitie hoort')}
+              {t('study_blast_hint', "Type the term that matches the falling definition")}
             </p>
             <form onSubmit={(e) => submit(e, setScore)}>
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 className="w-full rounded-lg border border-border px-4 py-3 bg-background text-foreground"
-                placeholder={t('study_type_answer', 'Typ je antwoord…')}
+                placeholder={t('study_type_answer', "Type your answer…")}
                 autoFocus
               />
             </form>

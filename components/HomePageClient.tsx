@@ -109,12 +109,12 @@ export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }
       <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
         <header className="mb-12">
           <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium text-center mb-4">
-            {mounted ? t('home_title', 'Toetsweekvoorbereiding') : 'Toetsweekvoorbereiding'}
+            {mounted ? t('home_title', "Exam week prep") : 'Toetsweekvoorbereiding'}
           </h1>
           <p className="text-muted-foreground text-center text-lg max-w-3xl mx-auto">
             {mounted
-              ? t('home_subtitle', 'Kies hieronder een vak om te oefenen voor de toetsweek.')
-              : 'Kies hieronder een vak om te oefenen voor de toetsweek.'}
+              ? t('home_subtitle', "Choose a subject below to practice for exam week.")
+              : t('home_unmounted_subtitle')}
           </p>
         </header>
 

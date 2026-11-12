@@ -615,7 +615,7 @@ export default function AdminButtonManagement() {
               Cancel
             </Button>
             <Button onClick={handleSave}>
-              {editingButton ? 'Update' : 'Create'}
+              {editingButton ? t('update') : t('create')}
             </Button>
           </DialogFooter>
         </DialogContent>

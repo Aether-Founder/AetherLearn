@@ -511,7 +511,7 @@ export default function InstellingenPage() {
         },
         body: JSON.stringify({
           model: 'meta-llama/llama-3.1-8b-instruct:free',
-          messages: [{ role: 'user', content: 'Zeg "Verbinding succesvol" in het Nederlands' }],
+          messages: [{ role: 'user', content: 'Reply with exactly: Connection successful' }],
           max_tokens: 50,
         }),
       });

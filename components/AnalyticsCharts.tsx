@@ -116,7 +116,7 @@ export function AnalyticsCharts({ weeklyActivity, subjectBreakdown }: AnalyticsC
               <YAxis dataKey="name" type="category" width={150} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="time" fill="#82ca9d" name="Tijd (minuten)" />
+              <Bar dataKey="time" fill="#82ca9d" name={t('chart_time_minutes')} />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>

@@ -7,8 +7,8 @@ export default function CreateDeckPage() {
   return (
     <AppShell>
       <PageHeader
-        title="Nieuwe leerset"
-        description="Maak een nieuwe leerset met vragen en antwoorden."
+        title="New study set"
+        description="Create a new study set with questions and answers."
       />
 
       <div className="mt-8">

@@ -39,14 +39,14 @@ export function GradingFeedback({
         <span>
           {isCorrect
             ? isTypo
-              ? t('grade_typo_ok', 'Goed (typfout geaccepteerd)')
-              : t('grade_correct', 'Goed!')
-            : t('grade_incorrect', 'Fout')}
+              ? t('grade_typo_ok', "Small typo OK")
+              : t('grade_correct', "Correct")
+            : t('grade_incorrect', "Incorrect")}
         </span>
       </div>
       {!isCorrect && correctAnswer && (
         <p className="mt-2 text-sm text-muted-foreground">
-          {t('grade_correct_answer', 'Juiste antwoord')}:{' '}
+          {t('grade_correct_answer', "Correct answer")}:{' '}
           <span className="text-foreground font-medium">{correctAnswer}</span>
         </p>
       )}
@@ -57,7 +57,7 @@ export function GradingFeedback({
             onClick={onOverride}
             className="px-4 py-2 rounded-md text-sm border border-border bg-background hover:bg-secondary"
           >
-            {t('grade_override', 'Ik had het goed')}
+            {t('grade_override', "Override grade")}
           </button>
         )}
         <button
@@ -65,7 +65,7 @@ export function GradingFeedback({
           onClick={onContinue}
           className="px-4 py-2 rounded-md text-sm bg-foreground text-background font-medium"
         >
-          {continueLabel ?? t('grade_continue', 'Verder')}
+          {continueLabel ?? t('grade_continue', "Continue")}
         </button>
       </div>
     </div>

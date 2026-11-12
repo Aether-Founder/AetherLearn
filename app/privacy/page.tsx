@@ -2,60 +2,60 @@
 
 import { AppShell, PageHeader } from '@/components/AppShell';
 
-export default function PrivacyPage() {
+export default function PrivacyPageEN() {
   return (
     <AppShell>
       <PageHeader
-        title="Privacybeleid"
-        description="Lees hoe wij omgaan met je gegevens"
+        title="Privacy Policy"
+        description="Learn how we handle your data"
       />
 
-      <div className="mt-10 max-w-3xl mx-auto space-y-8">
-        <section id="informatie">
-          <h2 className="text-2xl font-semibold mb-4">Informatie die wij verzamelen</h2>
+      <div className="mt-10 space-y-8">
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Information We Collect</h2>
           <p className="text-muted-foreground">
-            Wij verzamelen informatie die je ons verstrekt bij het aanmaken van een account,
-            zoals je e-mailadres en gebruikersnaam. Wij verzamelen ook informatie over je gebruik
-            van de dienst, zoals studievoortgang en leerstatistieken.
+            We collect information you provide to us when creating an account, 
+            such as your email address and username. We also collect information about your use 
+            of the service, such as study progress and learning statistics.
           </p>
         </section>
 
-        <section id="gebruik">
-          <h2 className="text-2xl font-semibold mb-4">Hoe wij deze informatie gebruiken</h2>
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">How We Use This Information</h2>
           <p className="text-muted-foreground">
-            Wij gebruiken deze informatie om de dienst te leveren, te verbeteren en te personaliseren.
-            Wij gebruiken de informatie ook om je voortgang bij te houden en aanbevelingen te doen
-            op basis van je leerpatronen.
+            We use this information to provide, improve, and personalize the service. 
+            We also use the information to track your progress and make recommendations 
+            based on your learning patterns.
           </p>
         </section>
 
-        <section id="beveiliging">
-          <h2 className="text-2xl font-semibold mb-4">Gegevensbeveiliging</h2>
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Data Security</h2>
           <p className="text-muted-foreground">
-            Wij nemen redelijke maatregelen om je gegevens te beschermen tegen ongeautoriseerde toegang,
-            wijziging of vernietiging. Jouw gegevens worden opgeslagen op beveiligde servers en worden
-            versleuteld tijdens de overdracht.
+            We take reasonable measures to protect your data from unauthorized access, 
+            alteration, or destruction. Your data is stored on secure servers and is 
+            encrypted during transmission.
           </p>
         </section>
 
-        <section id="rechten">
-          <h2 className="text-2xl font-semibold mb-4">Jouw rechten</h2>
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Your Rights</h2>
           <p className="text-muted-foreground">
-            Je hebt het recht om toegang te krijgen tot, te corrigeren of te verwijderen van je persoonlijke
-            gegevens. Je kunt ook kiezen om marketingcommunicatie te ontvangen of niet te ontvangen.
+            You have the right to access, correct, or delete your personal data. 
+            You can also choose to receive or not receive marketing communications.
           </p>
         </section>
 
-        <section id="contact">
+        <section>
           <h2 className="text-2xl font-semibold mb-4">Contact</h2>
           <p className="text-muted-foreground">
-            Heb je vragen over ons privacybeleid? Neem contact met ons op via support@aetherlearn.com.
+            Have questions about our privacy policy? Contact us at support@aetherlearn.com.
           </p>
         </section>
 
         <section>
           <p className="text-sm text-muted-foreground">
-            Laatst bijgewerkt: {new Date().toLocaleDateString('nl-NL')}
+            Last updated: {new Date().toLocaleDateString('en-US')}
           </p>
         </section>
       </div>
