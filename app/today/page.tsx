@@ -31,9 +31,9 @@ type DashboardStats = {
 
 type UpcomingTest = {
   id: string;
-  vak: string;
-  titel: string;
-  datum: string;
+  subject: string;
+  title: string;
+  log_date: string;
   status: 'safe' | 'warning' | 'danger';
 };
 
@@ -102,14 +102,14 @@ export default function VandaagPage() {
         .from('error_log')
         .select('*')
         .eq('user_id', user.id)
-        .lte('volgende_herhaling', today);
+        .lte('next_review', today);
 
       // Fetch calendar events for upcoming tests
       const { data: events } = await supabase
         .from('calendar_events')
         .select('*')
         .eq('user_id', user.id)
-        .in('event_type', ['toets', 'examen'])
+        .in('event_type', ['test', 'exam'])
         .gte('event_date', today)
         .order('event_date', { ascending: true })
         .limit(5);
@@ -150,7 +150,7 @@ export default function VandaagPage() {
             id: s.id,
             name: s.name,
             mastery: s.mastery,
-            errorCount: errorItems?.filter((e: any) => e.vak === s.name).length || 0,
+            errorCount: errorItems?.filter((e: any) => e.subject === s.name).length || 0,
           })) || [];
 
       // Get upcoming tests
@@ -165,9 +165,9 @@ export default function VandaagPage() {
 
           return {
             id: e.id,
-            vak: e.subject_id || t('today_general'),
-            titel: e.title,
-            datum: e.event_date,
+            subject: e.subject_id || t('today_general'),
+            title: e.title,
+            log_date: e.event_date,
             status,
           };
         }) || [];
@@ -369,7 +369,7 @@ export default function VandaagPage() {
               <div className="space-y-3">
                 {upcomingTests.map((test) => {
                   const daysUntil = Math.ceil(
-                    (new Date(test.datum).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+                    (new Date(test.log_date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
                   );
                   return (
                     <div
@@ -377,7 +377,7 @@ export default function VandaagPage() {
                       className="flex items-center justify-between py-3 border-b border-border last:border-0"
                     >
                       <div>
-                        <p className="font-medium">{test.titel}</p>
+                        <p className="font-medium">{test.title}</p>
                         <p className="text-sm text-muted-foreground">{t('today_in_days', undefined, { count: daysUntil })}</p>
                       </div>
                       <span

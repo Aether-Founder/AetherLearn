@@ -6,7 +6,7 @@ const SIMPLE_WORDS: Array<[RegExp, string]> = [
   [/\bdesalniettemin\b/gi, 'toch'],
   [/\bimplementeren\b/gi, 'uitvoeren'],
   [/\bbenutten\b/gi, 'gebruiken'],
-  [/\bcomplexiteit\b/gi, 'moeilijkheid'],
+  [/\bcomplexiteit\b/gi, 'difficulty'],
   [/\bconstitueert\b/gi, 'is'],
   [/\bapproximately\b/gi, 'about'],
   [/\bconsequently\b/gi, 'so'],

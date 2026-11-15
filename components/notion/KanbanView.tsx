@@ -14,7 +14,7 @@ function valueLabel(value: unknown): string {
   if (Array.isArray(value)) return value.map(valueLabel).join(', ');
   if (value && typeof value === 'object' && 'name' in value)
     return String((value as { name: unknown }).name);
-  return value === null || value === undefined || value === '' ? 'Geen waarde' : String(value);
+  return value === null || value === undefined || value === '' ? 'No value' : String(value);
 }
 
 function propertyOptions(property: Property, entries: Entry[]): string[] {
@@ -22,8 +22,8 @@ function propertyOptions(property: Property, entries: Entry[]): string[] {
   const configured = config?.options?.map(valueLabel).filter(Boolean) || [];
   const used = entries
     .map((entry) => valueLabel(entry.values[property.id]))
-    .filter((value) => value !== 'Geen waarde');
-  return Array.from(new Set([...configured, ...used, 'Geen waarde']));
+    .filter((value) => value !== 'No value');
+  return Array.from(new Set([...configured, ...used, 'No value']));
 }
 
 export default function KanbanView({ databaseId, groupByPropertyId }: KanbanViewProps) {
@@ -89,7 +89,7 @@ export default function KanbanView({ databaseId, groupByPropertyId }: KanbanView
               ...entry,
               values: {
                 ...entry.values,
-                [groupProperty.id]: column === 'Geen waarde' ? null : column,
+                [groupProperty.id]: column === 'No value' ? null : column,
               },
             }
           : entry
@@ -102,7 +102,7 @@ export default function KanbanView({ databaseId, groupByPropertyId }: KanbanView
         {
           entry_id: entryId,
           property_id: groupProperty.id,
-          value: column === 'Geen waarde' ? null : column,
+          value: column === 'No value' ? null : column,
         },
         { onConflict: 'entry_id,property_id' }
       );
@@ -141,7 +141,7 @@ export default function KanbanView({ databaseId, groupByPropertyId }: KanbanView
               className={`w-64 shrink-0 rounded-lg border p-3 transition-colors ${draggedId ? 'border-dashed border-foreground/40' : 'border-border'} bg-secondary/30`}
             >
               <div className="flex items-center justify-between px-1">
-                <h3 className="text-sm font-semibold">{column === 'Geen waarde' ? t('comp_no_value') : column}</h3>
+                <h3 className="text-sm font-semibold">{column === 'No value' ? t('comp_no_value') : column}</h3>
                 <span className="text-xs text-muted-foreground">{cards.length}</span>
               </div>
               <div className="mt-3 space-y-2">
@@ -171,7 +171,7 @@ export default function KanbanView({ databaseId, groupByPropertyId }: KanbanView
                             .filter(
                               (property) =>
                                 property.id !== groupProperty.id &&
-                                valueLabel(entry.values[property.id]) !== 'Geen waarde'
+                                valueLabel(entry.values[property.id]) !== 'No value'
                             )
                             .slice(0, 2)
                             .map((property) => (

@@ -73,7 +73,7 @@ function LoginPageContent() {
     }
 
     // Check if user needs setup (no grade level set)
-    // We'll let the dashboard handle this check and redirect to vakken if needed
+    // We'll let the dashboard handle this check and redirect to subjects if needed
     // Redirect to dashboard initially
     router.push(redirectTo);
   };

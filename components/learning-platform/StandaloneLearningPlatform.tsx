@@ -1409,7 +1409,7 @@ function SimpleFlashcard({ cards }: { cards: LocalCard[] }) {
 
 // ─── StudySetDetailPage ────────────────────────────────────────────────────────
 
-type StudyTab = 'flashcards' | 'leren' | 'schrijven' | 'meerkeuze' | 'toets';
+type StudyTab = 'flashcards' | 'learning' | 'writing' | 'multiple-choice' | 'test';
 
 interface StudySetDetailPageProps {
   set: LocalStudySet;
@@ -1470,10 +1470,10 @@ function StudySetDetailPage({ set, onBack, onDelete, onDuplicate }: StudySetDeta
       return;
     }
     const modeMap: Record<StudyTab, string> = {
-      leren: 'learn',
-      schrijven: 'writing-only',
-      meerkeuze: 'multiple-choice-only',
-      toets: 'test',
+      learning: 'learn',
+      writing: 'writing-only',
+      'multiple-choice': 'multiple-choice-only',
+      test: 'test',
       flashcards: 'flashcard',
     };
     refreshPlayableTerms();
@@ -1483,10 +1483,10 @@ function StudySetDetailPage({ set, onBack, onDelete, onDuplicate }: StudySetDeta
 
   const tabs: { id: StudyTab; label: string; hint: string }[] = [
     { id: 'flashcards', label: t('lp_mode_flashcards'), hint: t('lp_mode_flashcards_hint') },
-    { id: 'leren', label: t('lp_mode_learn'), hint: t('lp_mode_learn_hint') },
-    { id: 'meerkeuze', label: t('lp_mode_mcq'), hint: t('lp_mode_mcq_hint') },
-    { id: 'schrijven', label: t('lp_mode_write'), hint: t('lp_mode_write_hint') },
-    { id: 'toets', label: t('lp_mode_test'), hint: t('lp_mode_test_hint') },
+    { id: 'learning', label: t('lp_mode_learn'), hint: t('lp_mode_learn_hint') },
+    { id: 'multiple-choice', label: t('lp_mode_mcq'), hint: t('lp_mode_mcq_hint') },
+    { id: 'writing', label: t('lp_mode_write'), hint: t('lp_mode_write_hint') },
+    { id: 'test', label: t('lp_mode_test'), hint: t('lp_mode_test_hint') },
   ];
 
   const masteredCount =
@@ -1552,14 +1552,14 @@ function StudySetDetailPage({ set, onBack, onDelete, onDuplicate }: StudySetDeta
                 <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
               </div>
             )}
-            {activeTab !== 'flashcards' && storeReady && activeTab === 'leren' && <LearnMode />}
-            {activeTab !== 'flashcards' && storeReady && activeTab === 'meerkeuze' && (
+            {activeTab !== 'flashcards' && storeReady && activeTab === 'learning' && <LearnMode />}
+            {activeTab !== 'flashcards' && storeReady && activeTab === 'multiple-choice' && (
               <McqOnlyMode />
             )}
-            {activeTab !== 'flashcards' && storeReady && activeTab === 'schrijven' && (
+            {activeTab !== 'flashcards' && storeReady && activeTab === 'writing' && (
               <WritingOnlyMode />
             )}
-            {activeTab !== 'flashcards' && storeReady && activeTab === 'toets' && <TestMode />}
+            {activeTab !== 'flashcards' && storeReady && activeTab === 'test' && <TestMode />}
           </div>
 
           {/* Term list (only for flashcards) */}

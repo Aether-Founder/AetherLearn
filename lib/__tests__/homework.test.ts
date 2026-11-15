@@ -99,7 +99,7 @@ describe('homework', () => {
     );
     const updated = await updateHomework(
       hw.id,
-      'Nieuwe titel',
+      'Nieuwe title',
       undefined,
       'Natuurkunde',
       undefined,
@@ -107,7 +107,7 @@ describe('homework', () => {
       'completed',
       undefined
     );
-    expect(updated?.title).toBe('Nieuwe titel');
+    expect(updated?.title).toBe('Nieuwe title');
     expect(updated?.subject).toBe('Natuurkunde');
     expect(updated?.status).toBe('completed');
     expect(updated?.completedAt).toBeInstanceOf(Date);

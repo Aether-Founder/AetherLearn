@@ -90,7 +90,7 @@ export const schoolOsTemplate = {
         ],
       },
       {
-        id: 'vakken',
+        id: 'subjects',
         name: 'Vakken',
         type: 'page',
         icon: '📚',
@@ -102,14 +102,14 @@ export const schoolOsTemplate = {
             icon: '📐',
             children: [
               { id: 'wb-lopende', name: 'Lopende stof', type: 'page' },
-              { id: 'wb-huiswerk', name: 'Huiswerk', type: 'page' },
-              { id: 'wb-toetsen', name: 'Toetsen', type: 'page' },
+              { id: 'wb-homework', name: 'Huiswerk', type: 'page' },
+              { id: 'wb-tests', name: 'Toetsen', type: 'page' },
               { id: 'wb-formules', name: 'Belangrijke formules/begrippen', type: 'page' },
-              { id: 'wb-active-recall', name: 'Active recall vragen', type: 'page' },
+              { id: 'wb-active-recall', name: 'Active recall questions', type: 'page' },
               { id: 'wb-fouten', name: 'Foutenlogboek', type: 'page' },
-              { id: 'wb-moeilijk', name: 'Moeilijke onderwerpen', type: 'page' },
+              { id: 'wb-hard', name: 'Moeilijke topics', type: 'page' },
               { id: 'wb-analyse', name: 'Laatste toetsanalyse', type: 'page' },
-              { id: 'wb-vragen', name: 'Wat moet ik vragen aan docent?', type: 'page' },
+              { id: 'wb-questions', name: 'Wat moet ik questions aan docent?', type: 'page' },
             ],
           },
           {
@@ -385,7 +385,7 @@ export const schoolOsTemplate = {
         ],
       },
       {
-        id: 'toetsen-deadlines',
+        id: 'tests-deadlines',
         name: 'Toetsen & Deadlines',
         type: 'page',
         icon: '📅',
@@ -412,7 +412,7 @@ export const schoolOsTemplate = {
             ],
             views: [
               { name: 'Komende week', type: 'calendar' },
-              { name: 'Alle toetsen', type: 'table' },
+              { name: 'Alle tests', type: 'table' },
             ],
           },
         ],
@@ -443,7 +443,7 @@ export const schoolOsTemplate = {
         ],
       },
       {
-        id: 'archief',
+        id: 'archive',
         name: 'Archief',
         type: 'page',
         icon: '🗄️',

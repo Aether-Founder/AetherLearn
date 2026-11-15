@@ -190,7 +190,7 @@ export function Header({
             onClick={() => {
               // Try to extract subjectId from current URL and go back to subject page
               const pathParts = window.location.pathname.split('/');
-              if (pathParts.length >= 3 && (pathParts[1] === 'leer' || pathParts[1] === 'vakken')) {
+              if (pathParts.length >= 3 && (pathParts[1] === 'leer' || pathParts[1] === 'subjects')) {
                 const subjectId = pathParts[2];
                 window.location.href = `/subjects/${encodeURIComponent(subjectId)}`;
               } else {

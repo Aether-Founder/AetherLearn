@@ -9,27 +9,27 @@
 CREATE TABLE public.error_log (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
-  vak TEXT NOT NULL,
-  hoofdstuk TEXT,
-  onderwerp TEXT NOT NULL,
-  vraag TEXT NOT NULL,
-  mijn_antwoord TEXT NOT NULL,
-  correct_antwoord TEXT NOT NULL,
-  fouttype TEXT NOT NULL,
-  oorzaak TEXT,
-  nieuwe_regel TEXT,
-  herhaalstatus TEXT DEFAULT 'nieuw' CHECK (herhaalstatus IN ('nieuw', 'leren', 'herhalen', 'beheerst')),
-  volgende_herhaling DATE,
-  datum DATE DEFAULT CURRENT_DATE,
+  subject TEXT NOT NULL,
+  chapter TEXT,
+  topic TEXT NOT NULL,
+  question TEXT NOT NULL,
+  my_answer TEXT NOT NULL,
+  correct_answer TEXT NOT NULL,
+  error_type TEXT NOT NULL,
+  cause TEXT,
+  new_rule TEXT,
+  review_status TEXT DEFAULT 'new' CHECK (review_status IN ('new', 'learning', 'reviewing', 'mastered')),
+  next_review DATE,
+  log_date DATE DEFAULT CURRENT_DATE,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Indexes
 CREATE INDEX idx_error_log_user_id ON public.error_log(user_id);
-CREATE INDEX idx_error_log_herhaalstatus ON public.error_log(herhaalstatus);
-CREATE INDEX idx_error_log_volgende_herhaling ON public.error_log(volgende_herhaling);
-CREATE INDEX idx_error_log_vak ON public.error_log(vak);
+CREATE INDEX idx_error_log_review_status ON public.error_log(review_status);
+CREATE INDEX idx_error_log_next_review ON public.error_log(next_review);
+CREATE INDEX idx_error_log_subject ON public.error_log(subject);
 
 -- Enable RLS
 ALTER TABLE public.error_log ENABLE ROW LEVEL SECURITY;
@@ -61,14 +61,14 @@ CREATE TRIGGER update_error_log_updated_at BEFORE UPDATE ON public.error_log
 CREATE TABLE public.active_recall_questions (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
-  vak TEXT NOT NULL,
-  onderwerp TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  topic TEXT NOT NULL,
   type TEXT NOT NULL CHECK (type IN ('open', 'multiple-choice', 'cloze', 'flashcard', 'step-by-step', 'diagram', 'translate', 'code', 'error-detection', 'method-choice')),
-  vraag TEXT NOT NULL,
+  question TEXT NOT NULL,
   opties TEXT[],
-  correct_antwoord TEXT NOT NULL,
-  uitleg TEXT,
-  difficulty TEXT DEFAULT 'gemiddeld' CHECK (difficulty IN ('makkelijk', 'gemiddeld', 'moeilijk')),
+  correct_answer TEXT NOT NULL,
+  explanation TEXT,
+  difficulty TEXT DEFAULT 'medium' CHECK (difficulty IN ('easy', 'medium', 'hard')),
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -76,7 +76,7 @@ CREATE TABLE public.active_recall_questions (
 -- Indexes
 CREATE INDEX idx_active_recall_questions_user_id ON public.active_recall_questions(user_id);
 CREATE INDEX idx_active_recall_questions_type ON public.active_recall_questions(type);
-CREATE INDEX idx_active_recall_questions_vak ON public.active_recall_questions(vak);
+CREATE INDEX idx_active_recall_questions_subject ON public.active_recall_questions(subject);
 
 -- Enable RLS
 ALTER TABLE public.active_recall_questions ENABLE ROW LEVEL SECURITY;
@@ -108,10 +108,10 @@ CREATE TRIGGER update_active_recall_questions_updated_at BEFORE UPDATE ON public
 CREATE TABLE public.spaced_repetition_items (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
-  vak TEXT NOT NULL,
-  onderwerp TEXT NOT NULL,
-  vraag TEXT NOT NULL,
-  antwoord TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  topic TEXT NOT NULL,
+  question TEXT NOT NULL,
+  answer TEXT NOT NULL,
   interval INTEGER DEFAULT 0,
   ease NUMERIC DEFAULT 2.5,
   next_review DATE DEFAULT CURRENT_DATE,
@@ -125,7 +125,7 @@ CREATE TABLE public.spaced_repetition_items (
 -- Indexes
 CREATE INDEX idx_spaced_repetition_items_user_id ON public.spaced_repetition_items(user_id);
 CREATE INDEX idx_spaced_repetition_items_next_review ON public.spaced_repetition_items(next_review);
-CREATE INDEX idx_spaced_repetition_items_vak ON public.spaced_repetition_items(vak);
+CREATE INDEX idx_spaced_repetition_items_subject ON public.spaced_repetition_items(subject);
 
 -- Enable RLS
 ALTER TABLE public.spaced_repetition_items ENABLE ROW LEVEL SECURITY;
@@ -194,19 +194,19 @@ CREATE POLICY "Users can update own daily_quiz_sessions"
 -- ============================================================================
 CREATE TABLE public.daily_quiz_questions (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  vak TEXT NOT NULL,
-  onderwerp TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  topic TEXT NOT NULL,
   type TEXT NOT NULL CHECK (type IN ('multiple-choice', 'open', 'cloze', 'true-false')),
-  vraag TEXT NOT NULL,
+  question TEXT NOT NULL,
   opties TEXT[],
-  correct_antwoord TEXT NOT NULL,
-  uitleg TEXT,
-  moeilijkheid TEXT DEFAULT 'gemiddeld' CHECK (moeilijkheid IN ('makkelijk', 'gemiddeld', 'moeilijk')),
+  correct_answer TEXT NOT NULL,
+  explanation TEXT,
+  difficulty TEXT DEFAULT 'medium' CHECK (difficulty IN ('easy', 'medium', 'hard')),
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Indexes
-CREATE INDEX idx_daily_quiz_questions_vak ON public.daily_quiz_questions(vak);
+CREATE INDEX idx_daily_quiz_questions_subject ON public.daily_quiz_questions(subject);
 CREATE INDEX idx_daily_quiz_questions_type ON public.daily_quiz_questions(type);
 
 -- Enable RLS

@@ -7,62 +7,62 @@ import { CheckCircle2, Clock3, Filter, Plus, Trash2, X } from 'lucide-react';
 import { logActivity } from '@/lib/activity';
 import { useTranslation } from '@/lib/useTranslation';
 
-type FoutStatus = 'nieuw' | 'leren' | 'herhalen' | 'beheerst';
+type FoutStatus = 'new' | 'learning' | 'reviewing' | 'mastered';
 
 interface ErrorEntry {
   id: string;
-  vak: string;
-  hoofdstuk: string;
-  onderwerp: string;
-  vraag: string;
-  mijn_antwoord: string;
-  correct_antwoord: string;
-  fouttype: string;
-  oorzaak: string;
-  nieuwe_regel: string;
+  subject: string;
+  chapter: string;
+  topic: string;
+  question: string;
+  my_answer: string;
+  correct_answer: string;
+  error_type: string;
+  cause: string;
+  new_rule: string;
   status: FoutStatus;
   created_at: string;
   updated_at: string;
 }
 
 interface ErrorFormState {
-  vak: string;
-  hoofdstuk: string;
-  onderwerp: string;
-  vraag: string;
-  mijn_antwoord: string;
-  correct_antwoord: string;
-  fouttype: string;
-  oorzaak: string;
-  nieuwe_regel: string;
+  subject: string;
+  chapter: string;
+  topic: string;
+  question: string;
+  my_answer: string;
+  correct_answer: string;
+  error_type: string;
+  cause: string;
+  new_rule: string;
 }
 
 const STORAGE_KEY = 'aether_foutenlogboek';
 
-const STATUS_OPTIONS: FoutStatus[] = ['leren', 'herhalen', 'beheerst'];
+const STATUS_OPTIONS: FoutStatus[] = ['learning', 'reviewing', 'mastered'];
 
 const STATUS_LABELS: Record<FoutStatus, string> = {
-  nieuw: 'errlog_status_new',
-  leren: 'errlog_status_learn',
-  herhalen: 'errlog_status_repeat',
-  beheerst: 'errlog_status_mastered',
+  new: 'errlog_status_new',
+  learning: 'errlog_status_learn',
+  reviewing: 'errlog_status_repeat',
+  mastered: 'errlog_status_mastered',
 };
 
 const STATUS_STYLES: Record<FoutStatus, string> = {
-  nieuw: 'border-slate-200 bg-slate-50 text-slate-800 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-200',
-  leren: 'border-blue-200 bg-blue-50 text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200',
-  herhalen:
+  new: 'border-slate-200 bg-slate-50 text-slate-800 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-200',
+  learning: 'border-blue-200 bg-blue-50 text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200',
+  reviewing:
     'border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200',
-  beheerst:
+  mastered:
     'border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-200',
 };
 
 const FILTERS: Array<{ id: 'all' | FoutStatus; label: string }> = [
   { id: 'all', label: 'errlog_filter_all' },
-  { id: 'nieuw', label: 'errlog_status_new' },
-  { id: 'leren', label: 'errlog_status_learn' },
-  { id: 'herhalen', label: 'errlog_status_repeat' },
-  { id: 'beheerst', label: 'errlog_status_mastered' },
+  { id: 'new', label: 'errlog_status_new' },
+  { id: 'learning', label: 'errlog_status_learn' },
+  { id: 'reviewing', label: 'errlog_status_repeat' },
+  { id: 'mastered', label: 'errlog_status_mastered' },
 ];
 
 const inputClass =
@@ -89,29 +89,29 @@ function normalizeEntry(raw: unknown): ErrorEntry | null {
   if (!raw || typeof raw !== 'object') return null;
 
   const record = raw as Record<string, unknown>;
-  const vraag = typeof record.vraag === 'string' ? record.vraag.trim() : '';
-  const onderwerp = typeof record.onderwerp === 'string' ? record.onderwerp.trim() : '';
+  const question = typeof record.question === 'string' ? record.question.trim() : '';
+  const topic = typeof record.topic === 'string' ? record.topic.trim() : '';
 
-  if (!vraag && !onderwerp) return null;
+  if (!question && !topic) return null;
 
   const now = new Date().toISOString();
   const rawStatus = record.status;
   const status: FoutStatus =
-    rawStatus === 'leren' || rawStatus === 'herhalen' || rawStatus === 'beheerst'
+    rawStatus === 'learning' || rawStatus === 'reviewing' || rawStatus === 'mastered'
       ? rawStatus
-      : 'nieuw';
+      : 'new';
 
   return {
     id: typeof record.id === 'string' && record.id ? record.id : createId(),
-    vak: typeof record.vak === 'string' ? record.vak : '',
-    hoofdstuk: typeof record.hoofdstuk === 'string' ? record.hoofdstuk : '',
-    onderwerp,
-    vraag,
-    mijn_antwoord: typeof record.mijn_antwoord === 'string' ? record.mijn_antwoord : '',
-    correct_antwoord: typeof record.correct_antwoord === 'string' ? record.correct_antwoord : '',
-    fouttype: typeof record.fouttype === 'string' ? record.fouttype : '',
-    oorzaak: typeof record.oorzaak === 'string' ? record.oorzaak : '',
-    nieuwe_regel: typeof record.nieuwe_regel === 'string' ? record.nieuwe_regel : '',
+    subject: typeof record.subject === 'string' ? record.subject : '',
+    chapter: typeof record.chapter === 'string' ? record.chapter : '',
+    topic,
+    question,
+    my_answer: typeof record.my_answer === 'string' ? record.my_answer : '',
+    correct_answer: typeof record.correct_answer === 'string' ? record.correct_answer : '',
+    error_type: typeof record.error_type === 'string' ? record.error_type : '',
+    cause: typeof record.cause === 'string' ? record.cause : '',
+    new_rule: typeof record.new_rule === 'string' ? record.new_rule : '',
     status,
     created_at: typeof record.created_at === 'string' ? record.created_at : now,
     updated_at: typeof record.updated_at === 'string' ? record.updated_at : now,
@@ -148,15 +148,15 @@ function saveEntries(entries: ErrorEntry[]) {
 }
 
 const emptyForm: ErrorFormState = {
-  vak: '',
-  hoofdstuk: '',
-  onderwerp: '',
-  vraag: '',
-  mijn_antwoord: '',
-  correct_antwoord: '',
-  fouttype: '',
-  oorzaak: '',
-  nieuwe_regel: '',
+  subject: '',
+  chapter: '',
+  topic: '',
+  question: '',
+  my_answer: '',
+  correct_answer: '',
+  error_type: '',
+  cause: '',
+  new_rule: '',
 };
 
 export default function FoutenlogboekPage() {
@@ -197,10 +197,10 @@ export default function FoutenlogboekPage() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const vraag = form.vraag.trim();
-    const onderwerp = form.onderwerp.trim();
+    const question = form.question.trim();
+    const topic = form.topic.trim();
 
-    if (!vraag && !onderwerp) {
+    if (!question && !topic) {
       setFormError(t('errlog_error_required'));
       return;
     }
@@ -209,16 +209,16 @@ export default function FoutenlogboekPage() {
 
     const entry: ErrorEntry = {
       id: createId(),
-      vak: form.vak.trim(),
-      hoofdstuk: form.hoofdstuk.trim(),
-      onderwerp,
-      vraag,
-      mijn_antwoord: form.mijn_antwoord.trim(),
-      correct_antwoord: form.correct_antwoord.trim(),
-      fouttype: form.fouttype.trim(),
-      oorzaak: form.oorzaak.trim(),
-      nieuwe_regel: form.nieuwe_regel.trim(),
-      status: 'nieuw',
+      subject: form.subject.trim(),
+      chapter: form.chapter.trim(),
+      topic,
+      question,
+      my_answer: form.my_answer.trim(),
+      correct_answer: form.correct_answer.trim(),
+      error_type: form.error_type.trim(),
+      cause: form.cause.trim(),
+      new_rule: form.new_rule.trim(),
+      status: 'new',
       created_at: now,
       updated_at: now,
     };
@@ -226,7 +226,7 @@ export default function FoutenlogboekPage() {
     setEntries((previous) => [entry, ...previous]);
     logActivity({
       type: 'foutenlogboek_nieuw',
-      label: entry.vraag || entry.onderwerp || t('errlog_new_error_label'),
+      label: entry.question || entry.topic || t('errlog_new_error_label'),
     });
     closeModal();
   };
@@ -248,7 +248,7 @@ export default function FoutenlogboekPage() {
 
     logActivity({
       type: `foutenlogboek_${status}`,
-      label: entry?.vraag || entry?.onderwerp || t('errlog_status_updated_label'),
+      label: entry?.question || entry?.topic || t('errlog_status_updated_label'),
     });
   };
 
@@ -320,21 +320,21 @@ export default function FoutenlogboekPage() {
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                   <div className="min-w-0 space-y-2">
                     <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                      {entry.vak && (
+                      {entry.subject && (
                         <span className="rounded-full bg-secondary px-2.5 py-1 font-medium">
-                          {entry.vak}
+                          {entry.subject}
                         </span>
                       )}
 
-                      {entry.hoofdstuk && (
+                      {entry.chapter && (
                         <span className="rounded-full bg-secondary px-2.5 py-1 font-medium">
-                          {entry.hoofdstuk}
+                          {entry.chapter}
                         </span>
                       )}
 
-                      {entry.onderwerp && (
+                      {entry.topic && (
                         <span className="rounded-full bg-secondary px-2.5 py-1 font-medium">
-                          {entry.onderwerp}
+                          {entry.topic}
                         </span>
                       )}
 
@@ -344,33 +344,33 @@ export default function FoutenlogboekPage() {
                     </div>
 
                     <h3 className="font-display text-xl font-semibold">
-                      {entry.vraag || entry.onderwerp}
+                      {entry.question || entry.topic}
                     </h3>
 
-                    {entry.mijn_antwoord && (
+                    {entry.my_answer && (
                       <p className="text-sm text-muted-foreground">
                         <span className="font-medium text-foreground">{t('errlog_my_answer')}</span>{' '}
-                        {entry.mijn_antwoord}
+                        {entry.my_answer}
                       </p>
                     )}
 
-                    {entry.correct_antwoord && (
+                    {entry.correct_answer && (
                       <p className="text-sm text-muted-foreground">
                         <span className="font-medium text-foreground">{t('errlog_correct_answer')}</span>{' '}
-                        {entry.correct_antwoord}
+                        {entry.correct_answer}
                       </p>
                     )}
 
-                    {entry.oorzaak && (
+                    {entry.cause && (
                       <p className="text-sm text-muted-foreground">
-                        <span className="font-medium text-foreground">{t('errlog_cause')}</span> {entry.oorzaak}
+                        <span className="font-medium text-foreground">{t('errlog_cause')}</span> {entry.cause}
                       </p>
                     )}
 
-                    {entry.nieuwe_regel && (
+                    {entry.new_rule && (
                       <p className="text-sm text-muted-foreground">
                         <span className="font-medium text-foreground">{t('errlog_new_rule')}</span>{' '}
-                        {entry.nieuwe_regel}
+                        {entry.new_rule}
                       </p>
                     )}
                   </div>
@@ -449,39 +449,39 @@ export default function FoutenlogboekPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-3">
                 <div>
-                  <label htmlFor="fout-vak" className="mb-1 block text-sm font-medium">
+                  <label htmlFor="fout-subject" className="mb-1 block text-sm font-medium">
                     {t('errlog_field_subject')}
                   </label>
                   <input
-                    id="fout-vak"
-                    value={form.vak}
-                    onChange={(event) => setForm({ ...form, vak: event.target.value })}
+                    id="fout-subject"
+                    value={form.subject}
+                    onChange={(event) => setForm({ ...form, subject: event.target.value })}
                     className={inputClass}
                     placeholder={t('errlog_subject_placeholder')}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="fout-hoofdstuk" className="mb-1 block text-sm font-medium">
+                  <label htmlFor="fout-chapter" className="mb-1 block text-sm font-medium">
                     {t('errlog_field_chapter')}
                   </label>
                   <input
-                    id="fout-hoofdstuk"
-                    value={form.hoofdstuk}
-                    onChange={(event) => setForm({ ...form, hoofdstuk: event.target.value })}
+                    id="fout-chapter"
+                    value={form.chapter}
+                    onChange={(event) => setForm({ ...form, chapter: event.target.value })}
                     className={inputClass}
                     placeholder={t('errlog_chapter_placeholder')}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="fout-onderwerp" className="mb-1 block text-sm font-medium">
+                  <label htmlFor="fout-topic" className="mb-1 block text-sm font-medium">
                     {t('errlog_field_topic')}
                   </label>
                   <input
-                    id="fout-onderwerp"
-                    value={form.onderwerp}
-                    onChange={(event) => setForm({ ...form, onderwerp: event.target.value })}
+                    id="fout-topic"
+                    value={form.topic}
+                    onChange={(event) => setForm({ ...form, topic: event.target.value })}
                     className={inputClass}
                     placeholder={t('errlog_topic_placeholder')}
                   />
@@ -489,13 +489,13 @@ export default function FoutenlogboekPage() {
               </div>
 
               <div>
-                <label htmlFor="fout-vraag" className="mb-1 block text-sm font-medium">
+                <label htmlFor="fout-question" className="mb-1 block text-sm font-medium">
                   {t('errlog_field_question')}
                 </label>
                 <textarea
-                  id="fout-vraag"
-                  value={form.vraag}
-                  onChange={(event) => setForm({ ...form, vraag: event.target.value })}
+                  id="fout-question"
+                  value={form.question}
+                  onChange={(event) => setForm({ ...form, question: event.target.value })}
                   className={textareaClass}
                   placeholder={t('errlog_question_placeholder')}
                 />
@@ -503,26 +503,26 @@ export default function FoutenlogboekPage() {
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="fout-mijn-antwoord" className="mb-1 block text-sm font-medium">
+                  <label htmlFor="fout-mijn-answer" className="mb-1 block text-sm font-medium">
                     {t('errlog_field_my_answer')}
                   </label>
                   <textarea
-                    id="fout-mijn-antwoord"
-                    value={form.mijn_antwoord}
-                    onChange={(event) => setForm({ ...form, mijn_antwoord: event.target.value })}
+                    id="fout-mijn-answer"
+                    value={form.my_answer}
+                    onChange={(event) => setForm({ ...form, my_answer: event.target.value })}
                     className={textareaClass}
                     placeholder={t('errlog_my_answer_placeholder')}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="fout-correct-antwoord" className="mb-1 block text-sm font-medium">
+                  <label htmlFor="fout-correct-answer" className="mb-1 block text-sm font-medium">
                     {t('errlog_field_correct_answer')}
                   </label>
                   <textarea
-                    id="fout-correct-antwoord"
-                    value={form.correct_antwoord}
-                    onChange={(event) => setForm({ ...form, correct_antwoord: event.target.value })}
+                    id="fout-correct-answer"
+                    value={form.correct_answer}
+                    onChange={(event) => setForm({ ...form, correct_answer: event.target.value })}
                     className={textareaClass}
                     placeholder={t('errlog_correct_answer_placeholder')}
                   />
@@ -536,21 +536,21 @@ export default function FoutenlogboekPage() {
                   </label>
                   <input
                     id="fout-type"
-                    value={form.fouttype}
-                    onChange={(event) => setForm({ ...form, fouttype: event.target.value })}
+                    value={form.error_type}
+                    onChange={(event) => setForm({ ...form, error_type: event.target.value })}
                     className={inputClass}
                     placeholder={t('errlog_type_placeholder')}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="fout-oorzaak" className="mb-1 block text-sm font-medium">
+                  <label htmlFor="fout-cause" className="mb-1 block text-sm font-medium">
                     {t('errlog_field_cause')}
                   </label>
                   <input
-                    id="fout-oorzaak"
-                    value={form.oorzaak}
-                    onChange={(event) => setForm({ ...form, oorzaak: event.target.value })}
+                    id="fout-cause"
+                    value={form.cause}
+                    onChange={(event) => setForm({ ...form, cause: event.target.value })}
                     className={inputClass}
                     placeholder={t('errlog_cause_placeholder')}
                   />
@@ -563,8 +563,8 @@ export default function FoutenlogboekPage() {
                 </label>
                 <textarea
                   id="fout-nieuwe-regel"
-                  value={form.nieuwe_regel}
-                  onChange={(event) => setForm({ ...form, nieuwe_regel: event.target.value })}
+                  value={form.new_rule}
+                  onChange={(event) => setForm({ ...form, new_rule: event.target.value })}
                   className={textareaClass}
                   placeholder={t('errlog_new_rule_placeholder')}
                 />

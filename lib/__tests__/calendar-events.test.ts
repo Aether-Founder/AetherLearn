@@ -91,10 +91,10 @@ describe('calendar-events', () => {
       allDay: true,
     });
     const updated = updateCalendarEvent(event.id, {
-      title: 'Nieuwe titel',
+      title: 'Nieuwe title',
       reminderMinutes: 30,
     });
-    expect(updated?.title).toBe('Nieuwe titel');
+    expect(updated?.title).toBe('Nieuwe title');
     expect(updated?.reminderMinutes).toBe(30);
   });
 

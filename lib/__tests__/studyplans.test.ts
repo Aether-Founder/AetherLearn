@@ -72,11 +72,11 @@ describe('studyplans', () => {
       'subj-1',
       new Date('2026-01-02T10:00:00Z'),
       30,
-      ['onderwerp']
+      ['topic']
     );
     expect(session.completed).toBe(false);
     expect(session.duration).toBe(30);
-    expect(session.topics).toEqual(['onderwerp']);
+    expect(session.topics).toEqual(['topic']);
 
     const sessions = await getStudySessionsByPlan(plan.id);
     expect(sessions).toHaveLength(1);

@@ -38,7 +38,7 @@ export const GRADEBOOK: SubjectGrades[] = [
     target: 7.5,
     grades: [
       g('nl1', 'SO stijlfiguren', 'SO', '2026-09-12', 1, 6.8),
-      g('nl2', 'Betoog schrijven', 'PO', '2026-10-03', 2, 7.4),
+      g('nl2', 'Betoog writing', 'PO', '2026-10-03', 2, 7.4),
       g('nl3', 'PW literatuurgeschiedenis', 'PW', '2026-11-18', 3, 5.9, 2),
     ],
   },
@@ -114,8 +114,8 @@ export type Task = {
   title: string;
   subject: string;
   due: string;
-  status: 'todo' | 'bezig' | 'review' | 'klaar';
-  priority: 'laag' | 'normaal' | 'hoog';
+  status: 'todo' | 'in_progress' | 'review' | 'done';
+  priority: 'low' | 'normal' | 'high';
   estimate: string;
   tags: string[];
 };
@@ -123,13 +123,13 @@ export type Task = {
 export const TASKS: Task[] = [
   {
     id: 't1',
-    title: 'Samenvatting hoofdstuk 4 maken',
+    title: 'Samenvatting chapter 4 maken',
     subject: 'Wiskunde B',
     due: '2026-08-05',
-    status: 'bezig',
-    priority: 'hoog',
+    status: 'in_progress',
+    priority: 'high',
     estimate: '1u 30m',
-    tags: ['samenvatting'],
+    tags: ['summary'],
   },
   {
     id: 't2',
@@ -137,9 +137,9 @@ export const TASKS: Task[] = [
     subject: 'Nederlands',
     due: '2026-08-06',
     status: 'review',
-    priority: 'hoog',
+    priority: 'high',
     estimate: '45m',
-    tags: ['schrijven', 'deadline'],
+    tags: ['writing', 'deadline'],
   },
   {
     id: 't3',
@@ -147,18 +147,18 @@ export const TASKS: Task[] = [
     subject: 'Engels',
     due: '2026-08-07',
     status: 'todo',
-    priority: 'normaal',
+    priority: 'normal',
     estimate: '20m',
     tags: ['woordjes'],
   },
 ];
 
-export const TASK_COLUMNS: Task['status'][] = ['todo', 'bezig', 'review', 'klaar'];
+export const TASK_COLUMNS: Task['status'][] = ['todo', 'in_progress', 'review', 'done'];
 export const TASK_LABELS: Record<Task['status'], string> = {
   todo: 'Te doen',
-  bezig: 'Bezig',
+  in_progress: 'Bezig',
   review: 'Nakijken',
-  klaar: 'Klaar',
+  done: 'Klaar',
 };
 
 /* -------------------------------- analytics ------------------------------- */
@@ -184,8 +184,8 @@ export const NOTIFICATIONS = [
     unread: true,
   },
   {
-    title: 'Herhaling klaar',
-    body: '63 kaarten staan klaar in VWO 4',
+    title: 'Herhaling done',
+    body: '63 kaarten staan done in VWO 4',
     time: '3 uur',
     unread: true,
   },

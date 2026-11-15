@@ -19,7 +19,7 @@ export function getSectionTitles(section: SectionTitleLike): string[] {
   return rawTitles.map((title) => title.trim()).filter(Boolean);
 }
 
-export function getSectionTitle(section: SectionTitleLike, fallback = 'Zonder titel'): string {
+export function getSectionTitle(section: SectionTitleLike, fallback = 'Zonder title'): string {
   const titles = getSectionTitles(section);
   return titles.length ? titles.join(' + ') : fallback;
 }

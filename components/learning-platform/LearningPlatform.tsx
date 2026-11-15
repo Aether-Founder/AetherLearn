@@ -65,7 +65,7 @@ interface LearningPlatformProps {
   };
 }
 
-type HubScreen = 'home' | 'leren-setup' | 'test-setup' | 'games' | 'terms' | 'playing';
+type HubScreen = 'home' | 'learning-setup' | 'test-setup' | 'games' | 'terms' | 'playing';
 
 function HubButton({
   label,
@@ -285,9 +285,9 @@ export function LearningPlatform({
             </>
           )}
         </div>
-      ) : screen === 'leren-setup' ? (
+      ) : screen === 'learning-setup' ? (
         <SessionSettingsPanel
-          preset="leren"
+          preset="learning"
           onBack={() => setScreen('home')}
           onStart={startLeren}
         />
@@ -356,7 +356,7 @@ export function LearningPlatform({
             label={t('study_leren', "Learn")}
             description={t('study_leren_desc', "Choose how you want to practice and start right away")}
             icon={<Brain className="h-6 w-6" />}
-            onClick={() => setScreen('leren-setup')}
+            onClick={() => setScreen('learning-setup')}
           />
           <HubButton
             label="Flashcards"

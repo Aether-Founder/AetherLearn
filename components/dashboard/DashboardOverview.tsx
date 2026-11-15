@@ -44,9 +44,9 @@ interface PlannerTask {
 
 interface ErrorEntry {
   id: string;
-  vraag?: string;
-  onderwerp?: string;
-  vak?: string;
+  question?: string;
+  topic?: string;
+  subject?: string;
   status: string;
 }
 
@@ -208,10 +208,10 @@ function normalizeError(raw: unknown): ErrorEntry | null {
       typeof record.id === 'string' && record.id
         ? record.id
         : String(record.created_at ?? Date.now()),
-    vraag: typeof record.vraag === 'string' ? record.vraag : undefined,
-    onderwerp: typeof record.onderwerp === 'string' ? record.onderwerp : undefined,
-    vak: typeof record.vak === 'string' ? record.vak : undefined,
-    status: typeof record.status === 'string' ? record.status : 'nieuw',
+    question: typeof record.question === 'string' ? record.question : undefined,
+    topic: typeof record.topic === 'string' ? record.topic : undefined,
+    subject: typeof record.subject === 'string' ? record.subject : undefined,
+    status: typeof record.status === 'string' ? record.status : 'new',
   };
 }
 
@@ -249,8 +249,8 @@ function normalizeSubject(raw: unknown): Subject | null {
       ? record.name.trim()
       : typeof record.title === 'string'
         ? record.title.trim()
-        : typeof record.vak === 'string'
-          ? record.vak.trim()
+        : typeof record.subject === 'string'
+          ? record.subject.trim()
           : '';
 
   if (!name) return null;
@@ -615,7 +615,7 @@ export default function DashboardOverview() {
   const activeTasks = useMemo(
     () =>
       tasks
-        .filter((task) => task.status !== 'klaar')
+        .filter((task) => task.status !== 'done')
         .sort((a, b) => {
           if (a.due_date && b.due_date) {
             return a.due_date.localeCompare(b.due_date);
@@ -631,17 +631,17 @@ export default function DashboardOverview() {
 
   const errorCounts = useMemo(() => {
     const counts = {
-      nieuw: 0,
-      leren: 0,
-      herhalen: 0,
-      beheerst: 0,
+      new: 0,
+      learning: 0,
+      reviewing: 0,
+      mastered: 0,
     };
 
     for (const entry of errorEntries) {
-      if (entry.status === 'leren' || entry.status === 'herhalen' || entry.status === 'beheerst') {
+      if (entry.status === 'learning' || entry.status === 'reviewing' || entry.status === 'mastered') {
         counts[entry.status] += 1;
       } else {
-        counts.nieuw += 1;
+        counts.new += 1;
       }
     }
 
@@ -649,7 +649,7 @@ export default function DashboardOverview() {
   }, [errorEntries]);
 
   const reviewErrors = useMemo(
-    () => errorEntries.filter((entry) => entry.status === 'leren' || entry.status === 'herhalen'),
+    () => errorEntries.filter((entry) => entry.status === 'learning' || entry.status === 'reviewing'),
     [errorEntries]
   );
 
@@ -734,7 +734,7 @@ export default function DashboardOverview() {
               <p className="text-muted-foreground capitalize">{dateString}</p>
 
               <div className="flex flex-wrap gap-2 pt-2">
-                <Link href="/agenda?nieuw=1" className={primaryActionClass}>
+                <Link href="/agenda?new=1" className={primaryActionClass}>
                   <CalendarPlus className="mr-2 h-4 w-4" />
                   {t('comp_new_appointment')}
                 </Link>
@@ -1092,22 +1092,22 @@ export default function DashboardOverview() {
             <div className="grid grid-cols-2 gap-3">
               <div className="rounded-lg bg-secondary/40 px-4 py-3">
                 <div className="text-xs text-muted-foreground">{t('comp_new')}</div>
-                <div className="mt-1 text-lg font-semibold">{errorCounts.nieuw}</div>
+                <div className="mt-1 text-lg font-semibold">{errorCounts.new}</div>
               </div>
 
               <div className="rounded-lg bg-secondary/40 px-4 py-3">
                 <div className="text-xs text-muted-foreground">{t('comp_learn')}</div>
-                <div className="mt-1 text-lg font-semibold">{errorCounts.leren}</div>
+                <div className="mt-1 text-lg font-semibold">{errorCounts.learning}</div>
               </div>
 
               <div className="rounded-lg bg-secondary/40 px-4 py-3">
                 <div className="text-xs text-muted-foreground">{t('comp_review')}</div>
-                <div className="mt-1 text-lg font-semibold">{errorCounts.herhalen}</div>
+                <div className="mt-1 text-lg font-semibold">{errorCounts.reviewing}</div>
               </div>
 
               <div className="rounded-lg bg-secondary/40 px-4 py-3">
                 <div className="text-xs text-muted-foreground">{t('comp_mastered')}</div>
-                <div className="mt-1 text-lg font-semibold">{errorCounts.beheerst}</div>
+                <div className="mt-1 text-lg font-semibold">{errorCounts.mastered}</div>
               </div>
             </div>
 
@@ -1123,12 +1123,12 @@ export default function DashboardOverview() {
                     className="rounded-lg border border-border bg-background/70 p-3"
                   >
                     <div className="truncate text-sm font-semibold">
-                      {entry.vraag || entry.onderwerp || t('comp_error')}
+                      {entry.question || entry.topic || t('comp_error')}
                     </div>
 
                     <div className="mt-1 text-xs text-muted-foreground">
-                      {entry.vak ? `${entry.vak} · ` : ''}
-                      {entry.status === 'leren' ? t('comp_learn') : t('comp_review')}
+                      {entry.subject ? `${entry.subject} · ` : ''}
+                      {entry.status === 'learning' ? t('comp_learn') : t('comp_review')}
                     </div>
                   </div>
                 ))
@@ -1144,7 +1144,7 @@ export default function DashboardOverview() {
 
             <div className="space-y-3">
               <Link
-                href="/agenda?nieuw=1"
+                href="/agenda?new=1"
                 className="flex items-center justify-between rounded-lg border border-border bg-background/70 p-4 transition-colors hover:bg-secondary/30"
               >
                 <span className="text-sm font-medium">{t('comp_plan_appointment')}</span>

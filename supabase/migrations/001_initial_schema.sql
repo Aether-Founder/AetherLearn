@@ -282,7 +282,7 @@ CREATE TABLE public.calendar_events (
   subject_id UUID REFERENCES public.subjects(id) ON DELETE SET NULL,
   title TEXT NOT NULL,
   description TEXT,
-  event_type TEXT NOT NULL CHECK (event_type IN ('toets', 'examen', 'huiswerk', 'les', 'project', 'other')),
+  event_type TEXT NOT NULL CHECK (event_type IN ('test', 'exam', 'homework', 'lesson', 'project', 'other')),
   event_date DATE NOT NULL,
   event_time TIME,
   end_time TIME,

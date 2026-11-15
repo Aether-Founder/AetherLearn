@@ -18,7 +18,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from '@/lib/useTranslation';
 
 type AgendaView = 'month' | 'week' | 'workweek' | 'day' | 'agenda' | 'year';
-type AgendaEventType = 'les' | 'huiswerk' | 'examen' | 'other';
+type AgendaEventType = 'lesson' | 'homework' | 'exam' | 'other';
 type Recurrence = 'none' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'yearly';
 
 interface AgendaEvent {
@@ -62,12 +62,12 @@ interface AgendaFormState {
 
 const STORAGE_KEY = 'aether_agenda_events';
 
-const EVENT_TYPES: AgendaEventType[] = ['les', 'huiswerk', 'examen', 'other'];
+const EVENT_TYPES: AgendaEventType[] = ['lesson', 'homework', 'exam', 'other'];
 
 const EVENT_TYPE_LABELS: Record<AgendaEventType, string> = {
-  les: 'agenda_type_lesson',
-  huiswerk: 'agenda_type_homework',
-  examen: 'agenda_type_test',
+  lesson: 'agenda_type_lesson',
+  homework: 'agenda_type_homework',
+  exam: 'agenda_type_test',
   other: 'agenda_type_other',
 };
 
@@ -327,7 +327,7 @@ function normalizeStoredEvent(raw: unknown): AgendaEvent | null {
 
   const rawType = record.eventType;
   const eventType: AgendaEventType =
-    rawType === 'les' || rawType === 'huiswerk' || rawType === 'examen' || rawType === 'other'
+    rawType === 'lesson' || rawType === 'homework' || rawType === 'exam' || rawType === 'other'
       ? rawType
       : 'other';
 
@@ -515,8 +515,8 @@ export default function AgendaPage() {
             startDate: new Date(`${adminEvent.startDate}T${adminEvent.time || '00:00'}`),
             endDate: new Date(`${adminEvent.endDate}T${adminEvent.time || '00:00'}`),
             allDay: !adminEvent.time,
-            eventType: adminEvent.type === 'exam' ? 'examen' :
-                      adminEvent.type === 'school' ? 'les' : 'other',
+            eventType: adminEvent.type === 'exam' ? 'exam' :
+                      adminEvent.type === 'school' ? 'lesson' : 'other',
             color: adminEvent.type === 'exam' ? 'red' :
                    adminEvent.type === 'school' ? 'green' : 'orange',
             recurrence: 'none' as const
@@ -538,13 +538,13 @@ export default function AgendaPage() {
             .map((test: any) => ({
               id: test.id,
               title: t('agenda_test_title', undefined, { subject: test.subject }),
-              description: test.type === 'examen' ? t('agenda_type_exam') : test.type === 'herkansing' ? t('agenda_retake') : t('agenda_type_test'),
+              description: test.type === 'exam' ? t('agenda_type_exam') : test.type === 'retake' ? t('agenda_retake') : t('agenda_type_test'),
               location: undefined,
               startDate: new Date(test.date),
               endDate: new Date(test.date),
               allDay: true,
               eventType: 'other' as const,
-              color: test.type === 'examen' ? 'red' : test.type === 'herkansing' ? 'orange' : 'purple',
+              color: test.type === 'exam' ? 'red' : test.type === 'retake' ? 'orange' : 'purple',
               recurrence: 'none' as const
             }));
           setEvents((prev) => [...prev, ...testEvents]);
@@ -715,7 +715,7 @@ export default function AgendaPage() {
 
     const params = new URLSearchParams(window.location.search);
 
-    if (params.get('nieuw') === '1') {
+    if (params.get('new') === '1') {
       openCreate(new Date());
       window.history.replaceState({}, '', window.location.pathname);
     }

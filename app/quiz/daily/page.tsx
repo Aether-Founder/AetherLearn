@@ -18,22 +18,22 @@ const supabase = browserClient as any;
 
 type QuizQuestion = {
   id: string;
-  vak: string;
-  onderwerp: string;
+  subject: string;
+  topic: string;
   type: 'multiple-choice' | 'open' | 'cloze' | 'true-false' | 'matching' | 'ordering' | 'numeric' | 'essay';
-  vraag: string;
+  question: string;
   opties?: string[];
-  correct_antwoord: string | string[] | number[];
-  uitleg?: string;
-  moeilijkheid: 'makkelijk' | 'gemiddeld' | 'moeilijk';
+  correct_answer: string | string[] | number[];
+  explanation?: string;
+  difficulty: 'easy' | 'medium' | 'hard';
   matching_pairs?: { left: string; right: string }[];
   order_items?: string[];
 };
 
 type QuizSession = {
-  vragen: QuizQuestion[];
+  questions: QuizQuestion[];
   currentIndex: number;
-  antwoorden: Map<string, string>;
+  answers: Map<string, string>;
   scores: Map<string, boolean>;
   startTime: Date;
   endTime?: Date;
@@ -121,9 +121,9 @@ export default function DailyQuizPage() {
     const shuffledQuestions = [...questions].sort(() => Math.random() - 0.5).slice(0, 10);
 
     setSession({
-      vragen: shuffledQuestions,
+      questions: shuffledQuestions,
       currentIndex: 0,
-      antwoorden: new Map(),
+      answers: new Map(),
       scores: new Map(),
       startTime: new Date(),
       granularScores: new Map(),
@@ -149,15 +149,15 @@ export default function DailyQuizPage() {
   const checkAnswer = () => {
     if (!session) return;
 
-    const currentQuestion = session.vragen[session.currentIndex];
+    const currentQuestion = session.questions[session.currentIndex];
     let isCorrect = false;
     let granularScore: 'good' | 'partial' | 'wrong' | 'not_done' = 'wrong';
 
     if (currentQuestion.type === 'multiple-choice' || currentQuestion.type === 'true-false') {
-      isCorrect = userAnswer === currentQuestion.correct_antwoord;
+      isCorrect = userAnswer === currentQuestion.correct_answer;
       granularScore = isCorrect ? 'good' : 'wrong';
     } else if (currentQuestion.type === 'numeric') {
-      isCorrect = parseFloat(userAnswer) === parseFloat(currentQuestion.correct_antwoord as string);
+      isCorrect = parseFloat(userAnswer) === parseFloat(currentQuestion.correct_answer as string);
       granularScore = isCorrect ? 'good' : 'wrong';
     } else if (currentQuestion.type === 'essay') {
       // Essay questions are manually graded - mark as pending
@@ -168,7 +168,7 @@ export default function DailyQuizPage() {
       isCorrect = false;
       granularScore = 'not_done';
     } else {
-      const correctAnswer = currentQuestion.correct_antwoord;
+      const correctAnswer = currentQuestion.correct_answer;
       if (typeof correctAnswer === 'string') {
         const similarity = userAnswer.toLowerCase().includes(correctAnswer.toLowerCase());
         isCorrect = similarity;
@@ -184,7 +184,7 @@ export default function DailyQuizPage() {
     const newScores = new Map(session.scores);
     newScores.set(currentQuestion.id, isCorrect);
 
-    const newAntwoorden = new Map(session.antwoorden);
+    const newAntwoorden = new Map(session.answers);
     newAntwoorden.set(currentQuestion.id, userAnswer);
 
     const newGranularScores = new Map(session.granularScores);
@@ -202,7 +202,7 @@ export default function DailyQuizPage() {
     setSession({
       ...session,
       scores: newScores,
-      antwoorden: newAntwoorden,
+      answers: newAntwoorden,
       granularScores: newGranularScores,
       confidenceScores: newConfidenceScores,
       hintUsage: newHintUsage,
@@ -214,7 +214,7 @@ export default function DailyQuizPage() {
   const nextQuestion = () => {
     if (!session) return;
 
-    if (session.currentIndex < session.vragen.length - 1) {
+    if (session.currentIndex < session.questions.length - 1) {
       setSession({
         ...session,
         currentIndex: session.currentIndex + 1,
@@ -244,11 +244,11 @@ export default function DailyQuizPage() {
     const { error } = await supabase.from('daily_quiz_sessions').insert({
       user_id: user.id,
       quiz_date: new Date().toISOString().split('T')[0],
-      questions: session.vragen,
-      answers: Object.fromEntries(session.antwoorden),
+      questions: session.questions,
+      answers: Object.fromEntries(session.answers),
       scores: Object.fromEntries(session.scores),
       correct_count: correctCount,
-      total_questions: session.vragen.length,
+      total_questions: session.questions.length,
       started_at: session.startTime,
       ended_at: endTime,
       duration_seconds: durationSeconds,
@@ -260,11 +260,11 @@ export default function DailyQuizPage() {
     }
 
     // Automatically log errors from quizzes
-    session.vragen.forEach((vraag, index) => {
-      const isCorrect = session.scores.get(vraag.id);
+    session.questions.forEach((question, index) => {
+      const isCorrect = session.scores.get(question.id);
       if (!isCorrect) {
-        const userAnswer = session.antwoorden.get(vraag.id) || '';
-        logError(vraag, userAnswer);
+        const userAnswer = session.answers.get(question.id) || '';
+        logError(question, userAnswer);
       }
     });
 
@@ -286,10 +286,10 @@ export default function DailyQuizPage() {
     try {
       await supabase.from('foutenlogboek').insert({
         user_id: user.id,
-        vraag: question.vraag,
-        onderwerp: question.onderwerp,
-        vak: question.vak,
-        status: 'nieuw',
+        question: question.question,
+        topic: question.topic,
+        subject: question.subject,
+        status: 'new',
         created_at: new Date().toISOString(),
       });
     } catch (error) {
@@ -307,13 +307,13 @@ export default function DailyQuizPage() {
     setUsedHint(false);
   };
 
-  const getDifficultyColor = (moeilijkheid: string) => {
-    switch (moeilijkheid) {
-      case 'makkelijk':
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'easy':
         return 'bg-green-500/10 text-green-600';
-      case 'gemiddeld':
+      case 'medium':
         return 'bg-yellow-500/10 text-yellow-600';
-      case 'moeilijk':
+      case 'hard':
         return 'bg-red-500/10 text-red-600';
       default:
         return 'bg-gray-500/10 text-gray-600';
@@ -473,25 +473,25 @@ export default function DailyQuizPage() {
               {t('quiz_detailed_results')}
             </h3>
             <div className="space-y-3">
-              {session.vragen.map((vraag, index) => {
-                const isCorrect = session.scores.get(vraag.id);
-                const userAnswer = session.antwoorden.get(vraag.id) || t('study_no_answer');
-                const granularScore = session.granularScores?.get(vraag.id);
-                const confidence = session.confidenceScores?.get(vraag.id);
-                const hintUsed = session.hintUsage?.get(vraag.id);
-                const timeSpent = session.questionTimes?.get(vraag.id);
+              {session.questions.map((question, index) => {
+                const isCorrect = session.scores.get(question.id);
+                const userAnswer = session.answers.get(question.id) || t('study_no_answer');
+                const granularScore = session.granularScores?.get(question.id);
+                const confidence = session.confidenceScores?.get(question.id);
+                const hintUsed = session.hintUsage?.get(question.id);
+                const timeSpent = session.questionTimes?.get(question.id);
                 return (
-                  <div key={vraag.id} className="p-4 rounded-lg border border-border">
+                  <div key={question.id} className="p-4 rounded-lg border border-border">
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium">
                           {t('quiz_question_number', undefined, { n: index + 1 })}
                         </span>
-                        <span className="text-xs text-muted-foreground">{vraag.vak}</span>
+                        <span className="text-xs text-muted-foreground">{question.subject}</span>
                         <span
-                          className={`px-2 py-0.5 rounded text-xs ${getDifficultyColor(vraag.moeilijkheid)}`}
+                          className={`px-2 py-0.5 rounded text-xs ${getDifficultyColor(question.difficulty)}`}
                         >
-                          {vraag.moeilijkheid}
+                          {question.difficulty}
                         </span>
                         {granularScore && (
                           <span className={`px-2 py-0.5 rounded text-xs ${
@@ -510,7 +510,7 @@ export default function DailyQuizPage() {
                         <XCircle className="h-5 w-5 text-red-500" />
                       )}
                     </div>
-                    <p className="text-sm mb-3">{vraag.vraag}</p>
+                    <p className="text-sm mb-3">{question.question}</p>
                     <div className="grid gap-2 sm:grid-cols-2 text-sm">
                       <div>
                         <p className="text-muted-foreground mb-1">{t('study_your_answer_label')}</p>
@@ -523,9 +523,9 @@ export default function DailyQuizPage() {
                           {t('study_correct_answer_label')}
                         </p>
                         <p className="text-green-600">
-                          {typeof vraag.correct_antwoord === 'string'
-                            ? vraag.correct_antwoord
-                            : JSON.stringify(vraag.correct_antwoord)}
+                          {typeof question.correct_answer === 'string'
+                            ? question.correct_answer
+                            : JSON.stringify(question.correct_answer)}
                         </p>
                       </div>
                     </div>
@@ -549,10 +549,10 @@ export default function DailyQuizPage() {
                         </div>
                       )}
                     </div>
-                    {vraag.uitleg && (
+                    {question.explanation && (
                       <div className="mt-3 p-3 rounded bg-secondary/50 text-sm">
                         <p className="font-medium mb-1">{t('quiz_explanation')}</p>
-                        <p className="text-muted-foreground">{vraag.uitleg}</p>
+                        <p className="text-muted-foreground">{question.explanation}</p>
                       </div>
                     )}
                   </div>
@@ -565,17 +565,17 @@ export default function DailyQuizPage() {
     );
   }
 
-  const currentQuestion = session.vragen[session.currentIndex];
-  const progress = ((session.currentIndex + 1) / session.vragen.length) * 100;
+  const currentQuestion = session.questions[session.currentIndex];
+  const progress = ((session.currentIndex + 1) / session.questions.length) * 100;
 
   return (
     <AppShell>
       <PageHeader
         title={t('quiz_question_progress', undefined, {
           n: session.currentIndex + 1,
-          total: session.vragen.length,
+          total: session.questions.length,
         })}
-        description={`${currentQuestion.vak} • ${currentQuestion.onderwerp}`}
+        description={`${currentQuestion.subject} • ${currentQuestion.topic}`}
       />
 
       <div className="mt-10">
@@ -611,14 +611,14 @@ export default function DailyQuizPage() {
         <div className="rounded-xl border border-border bg-card p-8">
           <div className="mb-4 flex items-center gap-2">
             <span
-              className={`px-2 py-1 rounded text-xs ${getDifficultyColor(currentQuestion.moeilijkheid)}`}
+              className={`px-2 py-1 rounded text-xs ${getDifficultyColor(currentQuestion.difficulty)}`}
             >
-              {currentQuestion.moeilijkheid}
+              {currentQuestion.difficulty}
             </span>
             <span className="text-sm text-muted-foreground">{currentQuestion.type}</span>
           </div>
 
-          <h2 className="text-xl font-semibold mb-6">{currentQuestion.vraag}</h2>
+          <h2 className="text-xl font-semibold mb-6">{currentQuestion.question}</h2>
 
           {/* Confidence Rating */}
           {!showAnswer && !examMode && (
@@ -670,7 +670,7 @@ export default function DailyQuizPage() {
                     userAnswer === optie
                       ? 'border-primary bg-primary/10'
                       : 'border-border hover:border-foreground/30 hover:bg-secondary/50'
-                  } ${showAnswer && optie === currentQuestion.correct_antwoord ? 'border-green-500 bg-green-500/10' : ''}`}
+                  } ${showAnswer && optie === currentQuestion.correct_answer ? 'border-green-500 bg-green-500/10' : ''}`}
                   disabled={showAnswer}
                 >
                   <span className="font-medium mr-2">{String.fromCharCode(65 + index)}.</span>
@@ -738,7 +738,7 @@ export default function DailyQuizPage() {
               <div
                 className={`p-4 rounded-lg ${
                   (() => {
-                    const correctAnswer = currentQuestion.correct_antwoord;
+                    const correctAnswer = currentQuestion.correct_answer;
                     if (typeof correctAnswer === 'string') {
                       return userAnswer.toLowerCase().includes(correctAnswer.toLowerCase())
                         ? 'bg-green-500/10 border border-green-500/30'
@@ -750,7 +750,7 @@ export default function DailyQuizPage() {
               >
                 <p className="font-medium mb-2">
                   {(() => {
-                    const correctAnswer = currentQuestion.correct_antwoord;
+                    const correctAnswer = currentQuestion.correct_answer;
                     if (typeof correctAnswer === 'string') {
                       return userAnswer.toLowerCase().includes(correctAnswer.toLowerCase())
                         ? `✓ ${t('study_answer_correct')}`
@@ -765,21 +765,21 @@ export default function DailyQuizPage() {
                 </p>
                 <p className="text-sm">
                   <span className="font-medium">{t('study_correct_answer_label')}</span>{' '}
-                  {typeof currentQuestion.correct_antwoord === 'string'
-                    ? currentQuestion.correct_antwoord
-                    : JSON.stringify(currentQuestion.correct_antwoord)}
+                  {typeof currentQuestion.correct_answer === 'string'
+                    ? currentQuestion.correct_answer
+                    : JSON.stringify(currentQuestion.correct_answer)}
                 </p>
               </div>
 
-              {currentQuestion.uitleg && (
+              {currentQuestion.explanation && (
                 <div className="p-4 rounded-lg bg-secondary/50">
                   <p className="font-medium mb-2">{t('quiz_explanation')}</p>
-                  <p className="text-sm text-muted-foreground">{currentQuestion.uitleg}</p>
+                  <p className="text-sm text-muted-foreground">{currentQuestion.explanation}</p>
                 </div>
               )}
 
               <Button onClick={nextQuestion} className="w-full">
-                {session.currentIndex < session.vragen.length - 1
+                {session.currentIndex < session.questions.length - 1
                   ? t('next_question')
                   : t('quiz_view_results')}
                 <Target className="ml-2 h-4 w-4" />

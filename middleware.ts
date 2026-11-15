@@ -3,7 +3,7 @@
  *
  * This middleware runs on every request and:
  * 1. Refreshes the user's session if needed
- * 2. Protects authenticated routes (dashboard, vakken, etc.)
+ * 2. Protects authenticated routes (dashboard, subjects, etc.)
  * 3. Redirects unauthenticated users to login
  * 4. Redirects authenticated users away from login/register pages
  */

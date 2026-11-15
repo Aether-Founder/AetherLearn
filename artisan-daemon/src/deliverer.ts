@@ -124,7 +124,7 @@ export async function deliverDeck(filePath: string): Promise<void> {
       const notifier = require('node-notifier');
       notifier.notify({
         title: 'Artisan Werkplaats',
-        message: `Deck '${deckData.deck_title}' is klaar!`,
+        message: `Deck '${deckData.deck_title}' is done!`,
         sound: true,
       });
     }

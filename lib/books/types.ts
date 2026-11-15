@@ -32,9 +32,9 @@ export interface Book {
   position?: number;
   authorInfo?: string;
   learningModes?: {
-    uitleg?: boolean;
-    leren?: boolean;
-    samenvatting?: boolean;
+    explanation?: boolean;
+    learning?: boolean;
+    summary?: boolean;
     quiz?: boolean;
   };
   chapters?: Chapter[];

@@ -35,12 +35,12 @@ type Grade = {
   updated_at: string;
 };
 
-const VIEWS = ['vakken', 'matrix', 'periodes'] as const;
+const VIEWS = ['subjects', 'matrix', 'periodes'] as const;
 type View = (typeof VIEWS)[number];
 
 export default function CijfersPage() {
   const { t } = useTranslation();
-  const [view, setView] = useState<View>('vakken');
+  const [view, setView] = useState<View>('subjects');
   const [period, setPeriod] = useState<0 | 1 | 2 | 3 | 4>(0);
   const [grades, setGrades] = useState<Grade[]>([]);
   const [loading, setLoading] = useState(true);
@@ -232,7 +232,7 @@ export default function CijfersPage() {
   );
 
   const viewLabels: Record<View, string> = {
-    vakken: t('grades_tab_subjects'),
+    subjects: t('grades_tab_subjects'),
     matrix: t('grades_tab_all'),
     periodes: t('grades_tab_periods'),
   };
@@ -341,7 +341,7 @@ export default function CijfersPage() {
       </div>
 
       <div className="pt-8">
-        {view === 'vakken' && (
+        {view === 'subjects' && (
           <div className="overflow-x-auto rounded-lg border border-border">
             <table className="w-full min-w-[760px] text-sm">
               <thead>

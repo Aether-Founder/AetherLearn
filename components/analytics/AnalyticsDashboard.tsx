@@ -7,7 +7,7 @@ import { useTranslation } from '@/lib/useTranslation';
 interface AnalyticsDashboardProps {
   mastery: {
     percentage: number;
-    status: 'beheerst' | 'redelijk' | 'let_op' | 'gevaar';
+    status: 'mastered' | 'redelijk' | 'let_op' | 'gevaar';
     trend: 'up' | 'stable' | 'down';
     predictedScore: number;
     riskLevel: 'low' | 'medium' | 'high';
@@ -24,7 +24,7 @@ export function AnalyticsDashboard({ mastery, insights, performance }: Analytics
   const { t } = useTranslation();
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'beheerst': return 'text-green-500 bg-green-500/10';
+      case 'mastered': return 'text-green-500 bg-green-500/10';
       case 'redelijk': return 'text-yellow-500 bg-yellow-500/10';
       case 'let op': return 'text-orange-500 bg-orange-500/10';
       case 'gevaar': return 'text-red-500 bg-red-500/10';

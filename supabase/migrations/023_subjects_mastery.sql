@@ -13,12 +13,12 @@ CREATE TABLE IF NOT EXISTS public.subjects (
   icon TEXT DEFAULT 'BookOpen',
   description TEXT,
   teacher TEXT,
-  exam_relevance TEXT DEFAULT 'normaal', -- normaal, hoog, laag
+  exam_relevance TEXT DEFAULT 'normal', -- normaal, hoog, laag
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Chapters table (hoofdstukken)
+-- Chapters table (chapters)
 CREATE TABLE IF NOT EXISTS public.subject_chapters (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   subject_id UUID REFERENCES public.subjects(id) ON DELETE CASCADE NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS public.subject_chapters (
   UNIQUE(subject_id, number)
 );
 
--- Topics table (onderwerpen)
+-- Topics table (topics)
 CREATE TABLE IF NOT EXISTS public.subject_topics (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   chapter_id UUID REFERENCES public.subject_chapters(id) ON DELETE CASCADE NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS public.mastery_tracking (
   user_id UUID REFERENCES public.users(id) ON DELETE CASCADE NOT NULL,
   topic_id UUID REFERENCES public.subject_topics(id) ON DELETE CASCADE NOT NULL,
   mastery_percentage INTEGER DEFAULT 0 CHECK (mastery_percentage >= 0 AND mastery_percentage <= 100),
-  status TEXT DEFAULT 'nieuw' CHECK (status IN ('nieuw', 'leren', 'herhalen', 'beheerst')),
+  status TEXT DEFAULT 'new' CHECK (status IN ('new', 'learning', 'reviewing', 'mastered')),
   last_reviewed_at TIMESTAMPTZ,
   next_review_at TIMESTAMPTZ,
   total_reviews INTEGER DEFAULT 0,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS public.subject_tests (
   weight_factor INTEGER DEFAULT 1, -- Weegfactor
   required_grade NUMERIC(3,1) DEFAULT 5.5,
   current_mastery INTEGER DEFAULT 0,
-  risk_level TEXT DEFAULT 'laag' CHECK (risk_level IN ('laag', 'gemiddeld', 'hoog')),
+  risk_level TEXT DEFAULT 'low' CHECK (risk_level IN ('low', 'medium', 'high')),
   notes TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()

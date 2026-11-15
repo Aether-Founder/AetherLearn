@@ -13,7 +13,7 @@ interface QuizPerformance {
 
 interface MasteryResult {
   percentage: number;
-  status: 'beheerst' | 'redelijk' | 'let_op' | 'gevaar';
+  status: 'mastered' | 'redelijk' | 'let_op' | 'gevaar';
   trend: 'up' | 'stable' | 'down';
   predictedScore: number;
   riskLevel: 'low' | 'medium' | 'high';
@@ -40,8 +40,8 @@ export function calculateMastery(performance: QuizPerformance, previousMastery?:
   const percentage = Math.round(finalScore * 100);
 
   // Determine status
-  let status: 'beheerst' | 'redelijk' | 'let_op' | 'gevaar';
-  if (percentage >= 85) status = 'beheerst';
+  let status: 'mastered' | 'redelijk' | 'let_op' | 'gevaar';
+  if (percentage >= 85) status = 'mastered';
   else if (percentage >= 65) status = 'redelijk';
   else if (percentage >= 40) status = 'let_op';
   else status = 'gevaar';
@@ -64,7 +64,7 @@ export function calculateMastery(performance: QuizPerformance, previousMastery?:
 
   // Risk level based on mastery and trend
   let riskLevel: 'low' | 'medium' | 'high';
-  if (status === 'beheerst' && trend !== 'down') {
+  if (status === 'mastered' && trend !== 'down') {
     riskLevel = 'low';
   } else if (status === 'gevaar' || trend === 'down') {
     riskLevel = 'high';
@@ -86,33 +86,33 @@ export function generatePerformanceInsights(performance: QuizPerformance, master
 
   // Confidence insights
   if (performance.averageConfidence < 2) {
-    insights.push('Je zekergheid is laag. Probeer om meer zeker te zijn van je antwoorden.');
+    insights.push('Je zekergheid is low. Probeer om meer zeker te zijn van je answers.');
   } else if (performance.averageConfidence > 4) {
     insights.push('Je hebt hoge zekergheid, maar let op: te zeker kunnen zijn overdreven.');
   }
 
   // Time insights
   if (performance.averageTimePerQuestion > 45) {
-    insights.push('Je neemt meer tijd dan gemiddeld. Oefen met sneller beantwoorden.');
+    insights.push('Je neemt meer tijd dan medium. Oefen met sneller beantwoorden.');
   } else if (performance.averageTimePerQuestion < 15) {
     insights.push('Je antwoordt erg snel. Let op dat je niet overhaalt.');
   }
 
   // Hint usage insights
   if (performance.hintUsageRate > 0.5) {
-    insights.push('Je gebruikt vaak hints. Probeer vragen eerst zelf op te lossen.');
+    insights.push('Je gebruikt vaak hints. Probeer questions eerst zelf op te lossen.');
   }
 
   // Mastery-specific insights
   if (mastery.status === 'gevaar') {
-    insights.push('Je meesterschap is laag. Overweeg om dit onderwerp opnieuw te bestuderen.');
-  } else if (mastery.status === 'beheerst' && mastery.trend === 'up') {
-    insights.push('Uitstekend! Je maakt snelle vooruitgang in dit onderwerp.');
+    insights.push('Je meesterschap is low. Overweeg om dit topic opnieuw te bestuderen.');
+  } else if (mastery.status === 'mastered' && mastery.trend === 'up') {
+    insights.push('Uitstekend! Je maakt snelle vooruitgang in dit topic.');
   }
 
   // Risk insights
   if (mastery.riskLevel === 'high') {
-    insights.push('Waarschuwing: Het risico op een laag toetscijfer is hoog.');
+    insights.push('Waarschuwing: Het risico op een low toetscijfer is high.');
   }
 
   return insights;

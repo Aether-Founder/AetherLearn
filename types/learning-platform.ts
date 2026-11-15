@@ -18,7 +18,7 @@ export type LearningMode =
   | 'sprint'
   | 'type-rush'
   | 'gravity'
-  | 'samenvatting';
+  | 'summary';
 
 /** Learning activity chosen in session settings (Leren flow) */
 export type LerenActivity = 'flashcard' | 'learn' | 'multiple-choice-only' | 'writing-only';
@@ -170,9 +170,9 @@ export interface StudySettings {
     'multiple-choice': number;
     written: number;
   };
-  /** Which leren mode to run (set in session settings before start) */
+  /** Which learning mode to run (set in session settings before start) */
   lerenActivity?: LerenActivity;
-  /** Multiple activities enabled for the leren flow. */
+  /** Multiple activities enabled for the learning flow. */
   lerenActivities?: LerenActivity[];
   /** Selected paragraph/section learning sets. Empty means all sets. */
   selectedLearningSetIds?: string[];

@@ -42,12 +42,12 @@ type QuestionType =
 type Question = {
   id: string;
   type: QuestionType;
-  vak: string;
-  onderwerp: string;
-  vraag: string;
+  subject: string;
+  topic: string;
+  question: string;
   opties?: string[];
-  correct_antwoord: string;
-  uitleg?: string;
+  correct_answer: string;
+  explanation?: string;
 };
 
 const QUESTION_TYPES: { id: QuestionType; label: string; labelKey?: string; icon: any }[] = [
@@ -75,13 +75,13 @@ export default function ActiveRecallPage() {
   const [loading, setLoading] = useState(true);
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [formData, setFormData] = useState({
-    vak: '',
-    onderwerp: '',
+    subject: '',
+    topic: '',
     type: 'open' as QuestionType,
-    vraag: '',
+    question: '',
     opties: '',
-    correct_antwoord: '',
-    uitleg: '',
+    correct_answer: '',
+    explanation: '',
   });
 
   useEffect(() => {
@@ -122,13 +122,13 @@ export default function ActiveRecallPage() {
       .from('active_recall_questions')
       .insert({
         user_id: user.id,
-        vak: formData.vak,
-        onderwerp: formData.onderwerp,
+        subject: formData.subject,
+        topic: formData.topic,
         type: formData.type,
-        vraag: formData.vraag,
+        question: formData.question,
         opties: optiesArray,
-        correct_antwoord: formData.correct_antwoord,
-        uitleg: formData.uitleg,
+        correct_answer: formData.correct_answer,
+        explanation: formData.explanation,
       })
       .select()
       .single();
@@ -139,13 +139,13 @@ export default function ActiveRecallPage() {
       setQuestions([data, ...questions]);
       setShowAddDialog(false);
       setFormData({
-        vak: '',
-        onderwerp: '',
+        subject: '',
+        topic: '',
         type: 'open',
-        vraag: '',
+        question: '',
         opties: '',
-        correct_antwoord: '',
-        uitleg: '',
+        correct_answer: '',
+        explanation: '',
       });
     }
   };
@@ -164,9 +164,9 @@ export default function ActiveRecallPage() {
 
     let isCorrect = false;
     if (currentQuestion.type === 'multiple-choice' || currentQuestion.type === 'method-choice') {
-      isCorrect = userAnswer === currentQuestion.correct_antwoord;
+      isCorrect = userAnswer === currentQuestion.correct_answer;
     } else {
-      isCorrect = userAnswer.toLowerCase().includes(currentQuestion.correct_antwoord.toLowerCase());
+      isCorrect = userAnswer.toLowerCase().includes(currentQuestion.correct_answer.toLowerCase());
     }
 
     setShowAnswer(true);
@@ -341,12 +341,12 @@ export default function ActiveRecallPage() {
         {currentQuestion ? (
           <div className="rounded-xl border border-border bg-card p-8">
             <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
-              <span className="font-medium">{currentQuestion.vak}</span>
+              <span className="font-medium">{currentQuestion.subject}</span>
               <span>•</span>
-              <span>{currentQuestion.onderwerp}</span>
+              <span>{currentQuestion.topic}</span>
             </div>
 
-            <h2 className="text-xl font-semibold mb-6">{currentQuestion.vraag}</h2>
+            <h2 className="text-xl font-semibold mb-6">{currentQuestion.question}</h2>
 
             {(currentQuestion.type === 'multiple-choice' ||
               currentQuestion.type === 'method-choice') &&
@@ -360,7 +360,7 @@ export default function ActiveRecallPage() {
                       userAnswer === optie
                         ? 'border-primary bg-primary/10'
                         : 'border-border hover:border-foreground/30 hover:bg-secondary/50'
-                    } ${showAnswer && optie === currentQuestion.correct_antwoord ? 'border-green-500 bg-green-500/10' : ''}`}
+                    } ${showAnswer && optie === currentQuestion.correct_answer ? 'border-green-500 bg-green-500/10' : ''}`}
                     disabled={showAnswer}
                   >
                     <span className="font-medium mr-2">{String.fromCharCode(65 + index)}.</span>
@@ -386,7 +386,7 @@ export default function ActiveRecallPage() {
                   className={`p-4 rounded-lg ${
                     userAnswer
                       .toLowerCase()
-                      .includes(currentQuestion.correct_antwoord.toLowerCase())
+                      .includes(currentQuestion.correct_answer.toLowerCase())
                       ? 'bg-green-500/10 border border-green-500/30'
                       : 'bg-red-500/10 border border-red-500/30'
                   }`}
@@ -394,7 +394,7 @@ export default function ActiveRecallPage() {
                   <p className="font-medium mb-2">
                     {userAnswer
                       .toLowerCase()
-                      .includes(currentQuestion.correct_antwoord.toLowerCase())
+                      .includes(currentQuestion.correct_answer.toLowerCase())
                       ? `✓ ${t('study_answer_correct')}`
                       : `✗ ${t('quiz_not_quite_correct')}`}
                   </p>
@@ -404,14 +404,14 @@ export default function ActiveRecallPage() {
                   </p>
                   <p className="text-sm">
                     <span className="font-medium">{t('study_correct_answer_label')}</span>{' '}
-                    {currentQuestion.correct_antwoord}
+                    {currentQuestion.correct_answer}
                   </p>
                 </div>
 
-                {currentQuestion.uitleg && (
+                {currentQuestion.explanation && (
                   <div className="p-4 rounded-lg bg-secondary/50">
                     <p className="font-medium mb-2">{t('quiz_explanation')}</p>
-                    <p className="text-sm text-muted-foreground">{currentQuestion.uitleg}</p>
+                    <p className="text-sm text-muted-foreground">{currentQuestion.explanation}</p>
                   </div>
                 )}
 
@@ -474,20 +474,20 @@ function AddQuestionDialog({
         <div className="space-y-4 py-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <Label htmlFor="vak">{t('srs_subject_label')}</Label>
+              <Label htmlFor="subject">{t('srs_subject_label')}</Label>
               <Input
-                id="vak"
-                value={formData.vak}
-                onChange={(e) => setFormData({ ...formData, vak: e.target.value })}
+                id="subject"
+                value={formData.subject}
+                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                 placeholder={t('srs_subject_placeholder')}
               />
             </div>
             <div>
-              <Label htmlFor="onderwerp">{t('srs_topic_label')}</Label>
+              <Label htmlFor="topic">{t('srs_topic_label')}</Label>
               <Input
-                id="onderwerp"
-                value={formData.onderwerp}
-                onChange={(e) => setFormData({ ...formData, onderwerp: e.target.value })}
+                id="topic"
+                value={formData.topic}
+                onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
                 placeholder={t('quiz_topic_placeholder')}
               />
             </div>
@@ -507,11 +507,11 @@ function AddQuestionDialog({
             </select>
           </div>
           <div>
-            <Label htmlFor="vraag">{t('question')}</Label>
+            <Label htmlFor="question">{t('question')}</Label>
             <Textarea
-              id="vraag"
-              value={formData.vraag}
-              onChange={(e) => setFormData({ ...formData, vraag: e.target.value })}
+              id="question"
+              value={formData.question}
+              onChange={(e) => setFormData({ ...formData, question: e.target.value })}
               placeholder={t('srs_question_placeholder')}
               rows={3}
             />
@@ -528,21 +528,21 @@ function AddQuestionDialog({
             </div>
           )}
           <div>
-            <Label htmlFor="correct_antwoord">{t('quiz_correct_answer_field')}</Label>
+            <Label htmlFor="correct_answer">{t('quiz_correct_answer_field')}</Label>
             <Textarea
-              id="correct_antwoord"
-              value={formData.correct_antwoord}
-              onChange={(e) => setFormData({ ...formData, correct_antwoord: e.target.value })}
+              id="correct_answer"
+              value={formData.correct_answer}
+              onChange={(e) => setFormData({ ...formData, correct_answer: e.target.value })}
               placeholder={t('quiz_correct_placeholder')}
               rows={2}
             />
           </div>
           <div>
-            <Label htmlFor="uitleg">{t('quiz_explanation_optional')}</Label>
+            <Label htmlFor="explanation">{t('quiz_explanation_optional')}</Label>
             <Textarea
-              id="uitleg"
-              value={formData.uitleg}
-              onChange={(e) => setFormData({ ...formData, uitleg: e.target.value })}
+              id="explanation"
+              value={formData.explanation}
+              onChange={(e) => setFormData({ ...formData, explanation: e.target.value })}
               placeholder={t('quiz_explanation_placeholder')}
               rows={2}
             />

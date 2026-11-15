@@ -16,7 +16,7 @@ import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { useTranslation } from '@/lib/useTranslation';
 import { Minus, Plus, Maximize2, Bookmark, ChevronRight, ArrowLeft, Book, ChevronLeft, XCircle } from 'lucide-react';
 
-const SUPPORTED_MODES: ViewMode[] = ['simple', 'study', 'samenvatting', 'quiz'];
+const SUPPORTED_MODES: ViewMode[] = ['simple', 'study', 'summary', 'quiz'];
 
 // Custom hook for book-specific bookmarks
 function useBookSlugBookmark(slug: string, title: string) {
@@ -104,12 +104,12 @@ function getPageContent(chapter: Chapter, pageIndex: number): string {
 function getVisibleModes(book: BookData | null): ViewMode[] {
   if (!book?.learningModes) {
     // Default: all modes visible
-    return ['simple', 'study', 'samenvatting', 'quiz'];
+    return ['simple', 'study', 'summary', 'quiz'];
   }
 
   const modes: ViewMode[] = ['simple', 'study']; // Uitleg and Leren are always available.
-  if (book.learningModes.samenvatting !== false) {
-    modes.push('samenvatting');
+  if (book.learningModes.summary !== false) {
+    modes.push('summary');
   }
   if (book.learningModes.quiz !== false) {
     modes.push('quiz');
@@ -173,7 +173,7 @@ export default function BookReaderPage() {
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('simple');
-  const [availableModes, setAvailableModes] = useState<ViewMode[]>(['simple', 'study', 'samenvatting', 'quiz']);
+  const [availableModes, setAvailableModes] = useState<ViewMode[]>(['simple', 'study', 'summary', 'quiz']);
   const [visibleSections, setVisibleSections] = useState<number>(CHUNK_SIZE);
   const [loadError, setLoadError] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('en');

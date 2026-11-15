@@ -56,8 +56,8 @@ describe('content', () => {
 
   it('updates content and enforces ownership', () => {
     const content = createContent(userId, 'T', 'notes', {});
-    const updated = updateContent(content.id, userId, { title: 'Nieuwe titel', isPublic: true });
-    expect(updated?.title).toBe('Nieuwe titel');
+    const updated = updateContent(content.id, userId, { title: 'Nieuwe title', isPublic: true });
+    expect(updated?.title).toBe('Nieuwe title');
     expect(updated?.isPublic).toBe(true);
     expect(updateContent(content.id, otherUserId, { title: 'Stolen' })).toBeNull();
   });

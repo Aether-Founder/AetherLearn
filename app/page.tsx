@@ -605,7 +605,7 @@ export default function Home() {
                         <span
                           className={
                             "text-xs " +
-                            (a.type === "toets" || a.type === "examen"
+                            (a.type === "test" || a.type === "exam"
                               ? "text-warning"
                               : "text-muted-foreground")
                           }

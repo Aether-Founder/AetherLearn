@@ -13,7 +13,7 @@ import type {
 import { useTranslation } from '@/lib/useTranslation';
 import { Toggle } from './ui/Toggle';
 
-export type SessionPreset = 'leren' | 'test';
+export type SessionPreset = 'learning' | 'test';
 
 interface SessionSettingsPanelProps {
   preset: SessionPreset;

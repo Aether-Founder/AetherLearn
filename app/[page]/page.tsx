@@ -27,9 +27,9 @@ export type ViewMode =
   | 'book'
   | 'study'
   | 'simple'
-  | 'samenvatting'
+  | 'summary'
   | 'quiz'
-  | 'alles-leren-2-dagen'
+  | 'alles-learning-2-dagen'
   | 'complete-oefentoets'
   | 'alle-leerdoelen-opdrachten'
   | 'vragenlijst';
@@ -38,9 +38,9 @@ const SUPPORTED_MODES: ViewMode[] = [
   'book',
   'study',
   'simple',
-  'samenvatting',
+  'summary',
   'quiz',
-  'alles-leren-2-dagen',
+  'alles-learning-2-dagen',
   'complete-oefentoets',
   'alle-leerdoelen-opdrachten',
   'vragenlijst',
@@ -48,9 +48,9 @@ const SUPPORTED_MODES: ViewMode[] = [
 const VISIBLE_MODES: ViewMode[] = [
   'simple',
   'study',
-  'samenvatting',
+  'summary',
   'quiz',
-  'alles-leren-2-dagen',
+  'alles-learning-2-dagen',
   'complete-oefentoets',
   'alle-leerdoelen-opdrachten',
   'vragenlijst',
@@ -565,16 +565,16 @@ export default function Page({ params }: { params: { page: string } }) {
               {showSkeleton ? (
                 <ContentSkeleton />
               ) : isCustomContent ? (
-                data.customComponent === 'Toetsweekplanning' && data.toetsen ? (
-                  <Toetsweekplanning toetsen={data.toetsen} />
+                data.customComponent === 'Toetsweekplanning' && data.tests ? (
+                  <Toetsweekplanning tests={data.tests} />
                 ) : null
               ) : viewMode === 'quiz' ? (
                 <QuizMode quiz={data.quiz} />
-              ) : viewMode === 'samenvatting' ? (
+              ) : viewMode === 'summary' ? (
                 <SummaryMode summary={data.summary} />
               ) : data.modeContent &&
                 [
-                  'alles-leren-2-dagen',
+                  'alles-learning-2-dagen',
                   'complete-oefentoets',
                   'alle-leerdoelen-opdrachten',
                   'vragenlijst',

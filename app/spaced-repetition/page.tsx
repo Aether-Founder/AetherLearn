@@ -30,10 +30,10 @@ const supabase = browserClient as any;
 
 type ReviewItem = {
   id: string;
-  vak: string;
-  onderwerp: string;
-  vraag: string;
-  antwoord: string;
+  subject: string;
+  topic: string;
+  question: string;
+  answer: string;
   interval: number;
   ease: number;
   next_review: string;
@@ -55,10 +55,10 @@ export default function SpacedRepetitionPage() {
   const [filter, setFilter] = useState<'today' | 'upcoming' | 'all'>('today');
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [formData, setFormData] = useState({
-    vak: '',
-    onderwerp: '',
-    vraag: '',
-    antwoord: '',
+    subject: '',
+    topic: '',
+    question: '',
+    answer: '',
   });
 
   useEffect(() => {
@@ -95,10 +95,10 @@ export default function SpacedRepetitionPage() {
       .from('spaced_repetition_items')
       .insert({
         user_id: user.id,
-        vak: formData.vak,
-        onderwerp: formData.onderwerp,
-        vraag: formData.vraag,
-        antwoord: formData.antwoord,
+        subject: formData.subject,
+        topic: formData.topic,
+        question: formData.question,
+        answer: formData.answer,
         interval: 0,
         ease: 2.5,
         next_review: new Date().toISOString().split('T')[0],
@@ -115,10 +115,10 @@ export default function SpacedRepetitionPage() {
       setItems([data, ...items]);
       setShowAddDialog(false);
       setFormData({
-        vak: '',
-        onderwerp: '',
-        vraag: '',
-        antwoord: '',
+        subject: '',
+        topic: '',
+        question: '',
+        answer: '',
       });
     }
   };
@@ -234,20 +234,20 @@ export default function SpacedRepetitionPage() {
         <div className="mt-10">
           <div className="rounded-xl border border-border bg-card p-8">
             <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
-              <span className="font-medium">{currentItem.vak}</span>
+              <span className="font-medium">{currentItem.subject}</span>
               <span>•</span>
-              <span>{currentItem.onderwerp}</span>
+              <span>{currentItem.topic}</span>
               <span>•</span>
               <span>{t('srs_interval_days', undefined, { n: currentItem.interval })}</span>
             </div>
 
-            <h2 className="text-2xl font-semibold mb-8">{currentItem.vraag}</h2>
+            <h2 className="text-2xl font-semibold mb-8">{currentItem.question}</h2>
 
             {showAnswer ? (
               <div className="space-y-6">
                 <div className="p-6 rounded-lg bg-secondary/50">
                   <p className="font-medium mb-2">{t('answer')}</p>
-                  <p className="text-lg">{currentItem.antwoord}</p>
+                  <p className="text-lg">{currentItem.answer}</p>
                 </div>
 
                 <div>
@@ -448,11 +448,11 @@ export default function SpacedRepetitionPage() {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="font-medium">{item.vak}</span>
+                      <span className="font-medium">{item.subject}</span>
                       <span className="text-muted-foreground">•</span>
-                      <span className="text-sm text-muted-foreground">{item.onderwerp}</span>
+                      <span className="text-sm text-muted-foreground">{item.topic}</span>
                     </div>
-                    <p className="text-sm mb-3">{item.vraag}</p>
+                    <p className="text-sm mb-3">{item.question}</p>
                     <div className="flex items-center gap-4 text-xs text-muted-foreground">
                       <span>
                         {t('srs_interval_days', undefined, { n: item.interval })}
@@ -520,39 +520,39 @@ export default function SpacedRepetitionPage() {
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div>
-              <Label htmlFor="vak">{t('srs_subject_label')}</Label>
+              <Label htmlFor="subject">{t('srs_subject_label')}</Label>
               <Input
-                id="vak"
-                value={formData.vak}
-                onChange={(e) => setFormData({ ...formData, vak: e.target.value })}
+                id="subject"
+                value={formData.subject}
+                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                 placeholder={t('srs_subject_placeholder')}
               />
             </div>
             <div>
-              <Label htmlFor="onderwerp">{t('srs_topic_label')}</Label>
+              <Label htmlFor="topic">{t('srs_topic_label')}</Label>
               <Input
-                id="onderwerp"
-                value={formData.onderwerp}
-                onChange={(e) => setFormData({ ...formData, onderwerp: e.target.value })}
+                id="topic"
+                value={formData.topic}
+                onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
                 placeholder={t('srs_topic_placeholder')}
               />
             </div>
             <div>
-              <Label htmlFor="vraag">{t('question')}</Label>
+              <Label htmlFor="question">{t('question')}</Label>
               <Textarea
-                id="vraag"
-                value={formData.vraag}
-                onChange={(e) => setFormData({ ...formData, vraag: e.target.value })}
+                id="question"
+                value={formData.question}
+                onChange={(e) => setFormData({ ...formData, question: e.target.value })}
                 placeholder={t('srs_question_placeholder')}
                 rows={3}
               />
             </div>
             <div>
-              <Label htmlFor="antwoord">{t('answer')}</Label>
+              <Label htmlFor="answer">{t('answer')}</Label>
               <Textarea
-                id="antwoord"
-                value={formData.antwoord}
-                onChange={(e) => setFormData({ ...formData, antwoord: e.target.value })}
+                id="answer"
+                value={formData.answer}
+                onChange={(e) => setFormData({ ...formData, answer: e.target.value })}
                 placeholder={t('deck_answer_placeholder')}
                 rows={3}
               />

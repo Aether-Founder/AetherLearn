@@ -77,7 +77,7 @@ export default function LessenPage() {
       // Load lesson JSON files from content directory
       const lessonFiles = [
         'wiskunde-vergelijkingen-ongelijkheden.json',
-        'biologie-hoofdstuk-4-5.json',
+        'biologie-chapter-4-5.json',
         'geschiedenis-h4.json',
         'natuurkunde-elektriciteit.json',
         'scheikunde.json',

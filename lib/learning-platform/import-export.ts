@@ -43,7 +43,7 @@ export function parseCardsFromText(
     const [front, ...rest] = trimmed.split(delimiter);
     const back = rest.join(delimiter);
     if (!front?.trim() || !back?.trim()) {
-      warnings.push(`Regel ${index + 1} overgeslagen: verwacht vraag en antwoord.`);
+      warnings.push(`Regel ${index + 1} overgeslagen: verwacht question en answer.`);
       return;
     }
     const tags = front.includes('#')
@@ -82,7 +82,7 @@ export function parseCardsFromJson(
         const term = card.term || card.front || card.question;
         const definition = card.definition || card.back || card.answer;
         if (!term || !definition) {
-          warnings.push(`Kaart ${index + 1} overgeslagen: ontbrekende vraag of antwoord.`);
+          warnings.push(`Kaart ${index + 1} overgeslagen: ontbrekende question of answer.`);
           return null;
         }
         return newTerm(

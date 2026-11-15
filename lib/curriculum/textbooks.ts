@@ -93,7 +93,7 @@ export const DUTCH_TEXTBOOKS: Textbook[] = [
     chapters: [
       { id: 'gl-1', title: 'Se présenter', topics: ['être', 'avoir', 'persoonlijke gegevens'] },
       { id: 'gl-2', title: 'La vie quotidienne', topics: ['regelmatige werkwoorden', 'tijd'] },
-      { id: 'gl-3', title: 'Voyager', topics: ['de weg vragen', 'futur proche'] },
+      { id: 'gl-3', title: 'Voyager', topics: ['de weg questions', 'futur proche'] },
     ],
   },
   {

@@ -38,7 +38,7 @@ export interface LocalTask {
   user_id: string;
   title: string;
   description: string;
-  status: 'todo' | 'bezig' | 'review' | 'klaar';
+  status: 'todo' | 'in_progress' | 'review' | 'done';
   subject?: string;
   due_date?: string;
   priority?: 'low' | 'medium' | 'high';

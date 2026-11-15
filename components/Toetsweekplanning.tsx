@@ -5,14 +5,14 @@ import { Calendar, Clock, LayoutGrid, List } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
 
 interface Toets {
-  vak: string;
-  datum: string;
+  subject: string;
+  log_date: string;
   tijd: string;
   stof: string;
 }
 
 interface ToetsweekplanningProps {
-  toetsen: Toets[];
+  tests: Toets[];
 }
 
 type ViewMode = 'table' | 'agenda' | 'timeline' | 'compact';
@@ -38,7 +38,7 @@ const formatShortDate = (date: string) =>
     month: 'short',
   });
 
-export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
+export function Toetsweekplanning({ tests }: ToetsweekplanningProps) {
   const { t } = useTranslation();
   const [viewMode, setViewMode] = useState<ViewMode>('table');
   const [countdown, setCountdown] = useState({
@@ -49,10 +49,10 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
     seconds: 0,
   });
 
-  const firstToets = toetsen[0];
+  const firstToets = tests[0];
   const firstToetsDate = useMemo(
-    () => new Date(`${firstToets.datum}T${firstToets.tijd.split('-')[0]}`),
-    [firstToets.datum, firstToets.tijd]
+    () => new Date(`${firstToets.log_date}T${firstToets.tijd.split('-')[0]}`),
+    [firstToets.log_date, firstToets.tijd]
   );
 
   useEffect(() => {
@@ -79,11 +79,11 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
     return () => clearInterval(interval);
   }, [firstToetsDate]);
 
-  const groupedToetsen = toetsen.reduce(
-    (acc, toets) => {
-      const date = toets.datum;
+  const groupedToetsen = tests.reduce(
+    (acc, test) => {
+      const date = test.log_date;
       if (!acc[date]) acc[date] = [];
-      acc[date].push(toets);
+      acc[date].push(test);
       return acc;
     },
     {} as Record<string, Toets[]>
@@ -93,7 +93,7 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
     <div className="rounded-xl border border-border bg-gradient-to-br from-card to-secondary/40 p-5 shadow-sm sm:p-6">
       <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold text-foreground sm:text-2xl">
         <Clock className="h-6 w-6 text-muted-foreground" />
-        {t('shell_time_until_first_test', undefined, { subject: firstToets.vak })}
+        {t('shell_time_until_first_test', undefined, { subject: firstToets.subject })}
       </h2>
       <div className="grid grid-cols-2 gap-3 text-center sm:grid-cols-5 sm:gap-4">
         {[
@@ -145,12 +145,12 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {dayTests.map((toets, idx) => (
+                {dayTests.map((test, idx) => (
                   <tr key={idx} className="transition-colors hover:bg-secondary/30">
-                    <td className="px-4 py-3 font-medium text-foreground">{toets.vak}</td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{toets.tijd}</td>
+                    <td className="px-4 py-3 font-medium text-foreground">{test.subject}</td>
+                    <td className="px-4 py-3 text-sm text-muted-foreground">{test.tijd}</td>
                     <td className="px-4 py-3 text-sm leading-relaxed text-muted-foreground">
-                      {toets.stof}
+                      {test.stof}
                     </td>
                   </tr>
                 ))}
@@ -171,16 +171,16 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
             <h3 className="text-lg font-semibold text-foreground">{formatFullDate(date)}</h3>
           </div>
           <div className="space-y-3">
-            {dayTests.map((toets, idx) => (
+            {dayTests.map((test, idx) => (
               <div
                 key={idx}
                 className="rounded-md border border-border border-l-4 bg-background p-3"
               >
                 <div className="mb-1 flex items-start justify-between gap-3">
-                  <span className="font-semibold text-foreground">{toets.vak}</span>
-                  <span className="shrink-0 text-sm text-muted-foreground">{toets.tijd}</span>
+                  <span className="font-semibold text-foreground">{test.subject}</span>
+                  <span className="shrink-0 text-sm text-muted-foreground">{test.tijd}</span>
                 </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">{toets.stof}</p>
+                <p className="text-sm leading-relaxed text-muted-foreground">{test.stof}</p>
               </div>
             ))}
           </div>
@@ -192,17 +192,17 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
   const renderTimelineView = () => (
     <div className="relative">
       <div className="absolute bottom-0 left-4 top-0 w-0.5 bg-border" />
-      {toetsen.map((toets, idx) => (
+      {tests.map((test, idx) => (
         <div key={idx} className="relative pb-6 pl-10">
           <div className="absolute left-2.5 top-1 h-3 w-3 rounded-full border-2 border-background bg-foreground" />
           <div className="rounded-lg border border-border bg-card p-4 shadow-sm">
             <div className="mb-2 flex items-start justify-between gap-3">
-              <span className="font-semibold text-foreground">{toets.vak}</span>
+              <span className="font-semibold text-foreground">{test.subject}</span>
               <span className="shrink-0 text-sm text-muted-foreground">
-                {formatShortDate(toets.datum)} - {toets.tijd}
+                {formatShortDate(test.log_date)} - {test.tijd}
               </span>
             </div>
-            <p className="text-sm leading-relaxed text-muted-foreground">{toets.stof}</p>
+            <p className="text-sm leading-relaxed text-muted-foreground">{test.stof}</p>
           </div>
         </div>
       ))}
@@ -211,16 +211,16 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
 
   const renderCompactView = () => (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {toetsen.map((toets, idx) => (
+      {tests.map((test, idx) => (
         <div
           key={idx}
           className="rounded-lg border border-border bg-card p-4 shadow-sm transition-colors hover:bg-secondary/30"
         >
-          <div className="mb-1 font-semibold text-foreground">{toets.vak}</div>
+          <div className="mb-1 font-semibold text-foreground">{test.subject}</div>
           <div className="mb-2 text-sm text-muted-foreground">
-            {formatShortDate(toets.datum)} - {toets.tijd}
+            {formatShortDate(test.log_date)} - {test.tijd}
           </div>
-          <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">{toets.stof}</p>
+          <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">{test.stof}</p>
         </div>
       ))}
     </div>

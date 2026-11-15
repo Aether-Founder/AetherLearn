@@ -7,14 +7,14 @@ import { CalendarDays, Plus, Trash2, X } from 'lucide-react';
 import { logActivity } from '@/lib/activity';
 import { useTranslation } from '@/lib/useTranslation';
 
-type PlannerStatus = 'todo' | 'bezig' | 'review' | 'klaar';
+type PlannerStatus = 'todo' | 'in_progress' | 'review' | 'done';
 
 interface PlannerTask {
   id: string;
   title: string;
   description: string;
   status: PlannerStatus;
-  priority: 'laag' | 'normaal' | 'hoog';
+  priority: 'low' | 'normal' | 'high';
   estimate: string;
   due_date: string;
   tags: string;
@@ -26,7 +26,7 @@ interface PlannerFormState {
   title: string;
   description: string;
   status: PlannerStatus;
-  priority: 'laag' | 'normaal' | 'hoog';
+  priority: 'low' | 'normal' | 'high';
   estimate: string;
   due_date: string;
   tags: string;
@@ -34,26 +34,26 @@ interface PlannerFormState {
 
 const STORAGE_KEY = 'aether_planner_tasks';
 
-const TASK_COLUMNS: PlannerStatus[] = ['todo', 'bezig', 'review', 'klaar'];
+const TASK_COLUMNS: PlannerStatus[] = ['todo', 'in_progress', 'review', 'done'];
 
 const TASK_LABELS: Record<PlannerStatus, string> = {
   todo: 'plan_status_todo',
-  bezig: 'plan_status_bezig',
+  in_progress: 'plan_status_bezig',
   review: 'plan_status_review',
-  klaar: 'plan_status_klaar',
+  done: 'plan_status_klaar',
 };
 
 const PRIORITY_LABEL_KEYS: Record<PlannerTask['priority'], string> = {
-  laag: 'plan_prio_low',
-  normaal: 'plan_prio_normal',
-  hoog: 'plan_prio_high',
+  low: 'plan_prio_low',
+  normal: 'plan_prio_normal',
+  high: 'plan_prio_high',
 };
 
 const PRIORITY_STYLES: Record<PlannerTask['priority'], string> = {
-  laag: 'border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-200',
-  normaal:
+  low: 'border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-200',
+  normal:
     'border-blue-200 bg-blue-50 text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200',
-  hoog: 'border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-200',
+  high: 'border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-200',
 };
 
 const inputClass =
@@ -84,13 +84,13 @@ function normalizeTask(raw: unknown): PlannerTask | null {
   const now = new Date().toISOString();
   const rawStatus = record.status;
   const status: PlannerStatus =
-    rawStatus === 'bezig' || rawStatus === 'review' || rawStatus === 'klaar'
+    rawStatus === 'in_progress' || rawStatus === 'review' || rawStatus === 'done'
       ? rawStatus
       : 'todo';
 
   const rawPriority = record.priority;
   const priority: PlannerTask['priority'] =
-    rawPriority === 'laag' || rawPriority === 'hoog' ? rawPriority : 'normaal';
+    rawPriority === 'low' || rawPriority === 'high' ? rawPriority : 'normal';
 
   return {
     id: typeof record.id === 'string' && record.id ? record.id : createId(),
@@ -139,7 +139,7 @@ const emptyForm: PlannerFormState = {
   title: '',
   description: '',
   status: 'todo',
-  priority: 'normaal',
+  priority: 'normal',
   estimate: '',
   due_date: '',
   tags: '',
@@ -166,9 +166,9 @@ export default function PlannerPage() {
   const tasksByStatus = useMemo(() => {
     const grouped: Record<PlannerStatus, PlannerTask[]> = {
       todo: [],
-      bezig: [],
+      in_progress: [],
       review: [],
-      klaar: [],
+      done: [],
     };
 
     for (const task of tasks) {
@@ -427,9 +427,9 @@ export default function PlannerPage() {
                     }
                     className={inputClass}
                   >
-                    <option value="laag">{t('plan_prio_low')}</option>
-                    <option value="normaal">{t('plan_prio_normal')}</option>
-                    <option value="hoog">{t('plan_prio_high')}</option>
+                    <option value="low">{t('plan_prio_low')}</option>
+                    <option value="normal">{t('plan_prio_normal')}</option>
+                    <option value="high">{t('plan_prio_high')}</option>
                   </select>
                 </div>
               </div>

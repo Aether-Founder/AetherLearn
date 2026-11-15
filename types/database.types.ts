@@ -390,7 +390,7 @@ export interface Database {
           subject_id: string | null;
           title: string;
           description: string | null;
-          event_type: 'toets' | 'examen' | 'huiswerk' | 'les' | 'project' | 'other';
+          event_type: 'test' | 'exam' | 'homework' | 'lesson' | 'project' | 'other';
           event_date: string;
           event_time: string | null;
           end_time: string | null;
@@ -407,7 +407,7 @@ export interface Database {
           subject_id?: string | null;
           title: string;
           description?: string | null;
-          event_type: 'toets' | 'examen' | 'huiswerk' | 'les' | 'project' | 'other';
+          event_type: 'test' | 'exam' | 'homework' | 'lesson' | 'project' | 'other';
           event_date: string;
           event_time?: string | null;
           end_time?: string | null;
@@ -424,7 +424,7 @@ export interface Database {
           subject_id?: string | null;
           title?: string;
           description?: string | null;
-          event_type?: 'toets' | 'examen' | 'huiswerk' | 'les' | 'project' | 'other';
+          event_type?: 'test' | 'exam' | 'homework' | 'lesson' | 'project' | 'other';
           event_date?: string;
           event_time?: string | null;
           end_time?: string | null;

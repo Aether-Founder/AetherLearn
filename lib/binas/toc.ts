@@ -118,7 +118,7 @@ export const TOC_FLAT: TocFlatEntry[] = [
   ["B Trillingen, golven en optica", 74, 1],
   ["C Vloeistoffen, gassen en warmteleer", 76, 1],
   ["D Elektriciteit en magnetisme", 77, 1],
-  ["E Overige onderwerpen", 79, 1],
+  ["E Overige topics", 79, 1],
   ["36 Wiskundeformules", 82, 0],
   ["A Verbanden", 82, 1],
   ["B Lengte, oppervlakte en inhoud", 82, 1],

@@ -29,7 +29,7 @@ const TASK_KEYS: Record<number, string> = {
 const CONTENT_FILES = [
   { name: 'Aardrijkskunde H5', slug: 'aardrijkskunde-h5' },
   { name: 'Beeldende Vorming', slug: 'beeldende-vorming' },
-  { name: 'Biologie H4-5', slug: 'biologie-hoofdstuk-4-5' },
+  { name: 'Biologie H4-5', slug: 'biologie-chapter-4-5' },
   { name: 'Duits', slug: 'duits' },
   { name: 'Economie', slug: 'economie' },
   { name: 'Engels', slug: 'engels' },

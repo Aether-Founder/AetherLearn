@@ -124,23 +124,23 @@ ON CONFLICT (slug) WHERE user_id IS NULL DO UPDATE SET
 -- One chapter and paragraph per subject makes the catalog navigable immediately.
 INSERT INTO public.subject_chapters (id, subject_id, title, description, sort_order)
 SELECT uuid_generate_v5('6ba7b810-9dad-11d1-80b4-00c04fd430c8', 'aether:chapter:' || slug), id,
-  'Basis en examentraining', 'Startpunt voor begrippen, oefenen en examentraining.', 1
+  'Basics and exam training', 'Starting point for concepts, practice and exam training.', 1
 FROM public.subjects WHERE user_id IS NULL
 ON CONFLICT (subject_id, title) DO UPDATE SET description = EXCLUDED.description;
 INSERT INTO public.subject_topics (id, chapter_id, title, description, sort_order)
 SELECT uuid_generate_v5('6ba7b810-9dad-11d1-80b4-00c04fd430c8', 'aether:topic:' || s.slug), c.id,
-  'Kernbegrippen', 'Belangrijke begrippen voor dit vak.', 1
+  'Core concepts', 'Important concepts for this subject.', 1
 FROM public.subjects s JOIN public.subject_chapters c ON c.subject_id = s.id
-WHERE s.user_id IS NULL AND c.title = 'Basis en examentraining'
+WHERE s.user_id IS NULL AND c.title = 'Basics and exam training'
 ON CONFLICT (chapter_id, title) DO UPDATE SET description = EXCLUDED.description;
 
 -- Three public, Supabase-backed example sets for each subject. Flashcards are
 -- generated from the subject-specific core prompts below; no filesystem data or
 -- user account is involved. The seed keys make reruns safe.
 WITH templates(kind, suffix, description) AS (
-  VALUES ('begrippen','Kernbegrippen','Belangrijke definities en begrippen.'),
-         ('oefenen','Oefenvragen','Korte actieve-herhalingsoefeningen.'),
-         ('examen','Examentraining','Gerichte voorbereiding op toets en examen.')
+  VALUES ('concepts','Core concepts','Important definitions and concepts.'),
+         ('practice','Practice questions','Short active-recall exercises.'),
+         ('exam','Exam training','Focused preparation for tests and exams.')
 ), catalog AS (
   SELECT s.id AS subject_id, s.slug, s.name, t.kind, t.suffix, t.description
   FROM public.subjects s CROSS JOIN templates t WHERE s.user_id IS NULL
@@ -173,10 +173,10 @@ WITH bank(slug, prompts) AS (
   ('scheikunde', '[ ["Mol","Hoeveelheid stof met $6{,}02\\times10^{23}$ deeltjes."],["Molaire massa","Massa van één mol stof."],["pH","Maat voor de zuurgraad van een oplossing."],["Oxidatie","Afstaan van elektronen."],["Reductie","Opnemen van elektronen."],["Katalysator","Stof die een reactie versnelt zonder zelf verbruikt te worden."],["Evenwicht","Toestand waarin heen- en terugreactie even snel verlopen."],["Concentratie","Hoeveelheid opgeloste stof per volume."],["Covalente binding","Binding door het delen van elektronen."],["Ionbinding","Elektrostatische aantrekking tussen positieve en negatieve ionen."] ]'::jsonb),
   ('biologie', '[ ["Cel","Kleinste levende bouwsteen van organismen."],["DNA","Molecuul dat erfelijke informatie bevat."],["Ecosysteem","Samenhang van organismen en hun omgeving."],["Natuurlijke selectie","Beter aangepaste organismen krijgen gemiddeld meer nakomelingen."],["Homeostase","Het constant houden van het interne milieu."],["Fotosynthese","Vorming van glucose uit koolstofdioxide en water met licht."],["Celademhaling","Vrijmaken van energie uit glucose."],["Enzym","Eiwit dat een reactie versnelt."],["Chromosoom","Opgerold DNA met genen."],["Populatie","Groep organismen van dezelfde soort in één gebied."] ]'::jsonb),
   ('geschiedenis', '[ ["Bron","Overblijfsel of getuigenis uit het verleden."],["Continuïteit","Elementen die over langere tijd gelijk blijven."],["Verandering","Ontwikkeling waardoor een situatie anders wordt."],["Historisch perspectief","Kijken vanuit de normen en kennis van een bepaalde tijd."],["Propaganda","Gerichte beïnvloeding van opvattingen."],["Industrialisatie","Overgang naar productie met machines in fabrieken."],["Nationalisme","Sterke verbondenheid met de eigen natie."],["Imperialisme","Uitbreiding van macht over andere gebieden."],["Democratie","Bestuur waarbij burgers invloed hebben op besluitvorming."],["Koude Oorlog","Spanning tussen de VS en Sovjet-Unie na 1945."] ]'::jsonb),
-  ('economie', '[ ["Schaarste","Er zijn minder middelen dan behoeften."],["Marktwerking","Afstemming van vraag en aanbod via prijzen."],["Inflatie","Gemiddelde stijging van het prijspeil."],["BBP","Totale waarde van geproduceerde goederen en diensten."],["Vraag","Hoeveel consumenten willen kopen bij een prijs."],["Aanbod","Hoeveel producenten willen verkopen bij een prijs."],["Elasticiteit","Gevoeligheid van vraag of aanbod voor prijsverandering."],["Begroting","Overzicht van inkomsten en uitgaven."],["Rente","Vergoeding voor het lenen van geld."],["Conjunctuur","Schommelingen in economische groei."] ]'::jsonb),
+  ('economie', '[ ["Schaarste","Er zijn minder middelen dan behoeften."],["Marktwerking","Afstemming van question en aanbod via prijzen."],["Inflatie","Gemiddelde stijging van het prijspeil."],["BBP","Totale waarde van geproduceerde goederen en diensten."],["Vraag","Hoeveel consumenten willen kopen bij een prijs."],["Aanbod","Hoeveel producenten willen verkopen bij een prijs."],["Elasticiteit","Gevoeligheid van question of aanbod voor prijsverandering."],["Begroting","Overzicht van inkomsten en uitgaven."],["Rente","Vergoeding voor het lenen van geld."],["Conjunctuur","Schommelingen in economische groei."] ]'::jsonb),
   ('aardrijkskunde', '[ ["Platentektoniek","Beweging van platen in de aardkorst."],["Verwering","Uiteenvallen van gesteente door weer en klimaat."],["Erosie","Uitschuren en vervoeren van materiaal."],["Globalisering","Toenemende wereldwijde verbondenheid."],["Migratie","Verplaatsing van mensen over een grens."],["Demografische transitie","Verandering van geboorte- en sterftecijfers bij ontwikkeling."],["Klimaat","Gemiddeld weer over een lange periode."],["Waterkringloop","Kringloop van verdamping, condensatie en neerslag."],["Stedelijke spreiding","Verandering in de ruimtelijke verdeling van steden."],["Ruimtelijke ongelijkheid","Verschillen tussen gebieden in welvaart en kansen."] ]'::jsonb),
   ('informatica', '[ ["Algoritme","Stappenplan om een probleem op te lossen."],["Variabele","Naam die naar een veranderbare waarde verwijst."],["Database","Georganiseerde verzameling gegevens."],["Encryptie","Versleutelen van gegevens zodat alleen bevoegden ze lezen."],["API","Afspraak waarmee software met andere software communiceert."],["Boolean","Datatype met alleen waar of onwaar."],["Loop","Code die herhaald wordt uitgevoerd."],["Functie","Herbruikbaar blok code met een taak."],["Versiebeheer","Bijhouden van wijzigingen in broncode."],["Privacy","Controle over persoonlijke gegevens."] ]'::jsonb),
-  ('filosofie', '[ ["Ethiek","Filosofie over goed handelen."],["Epistemologie","Filosofie over kennis."],["Metafysica","Onderzoek naar wat werkelijk bestaat."],["Argument","Reden ter ondersteuning van een conclusie."],["Dilemma","Keuze tussen twee lastige mogelijkheden."],["Autonomie","Zelf kunnen bepalen volgens eigen redelijke regels."],["Utilitarisme","Ethiek die het grootste geluk voor het grootste aantal nastreeft."],["Empirisme","Kennisleer die ervaring centraal stelt."],["Rationalisme","Kennisleer die rede centraal stelt."],["Socratische methode","Onderzoeken door kritische vragen te stellen."] ]'::jsonb),
+  ('filosofie', '[ ["Ethiek","Filosofie over goed handelen."],["Epistemologie","Filosofie over kennis."],["Metafysica","Onderzoek naar wat werkelijk bestaat."],["Argument","Reden ter ondersteuning van een conclusie."],["Dilemma","Keuze tussen twee lastige mogelijkheden."],["Autonomie","Zelf kunnen bepalen volgens eigen redelijke regels."],["Utilitarisme","Ethiek die het grootste geluk voor het grootste aantal nastreeft."],["Empirisme","Kennisleer die ervaring centraal stelt."],["Rationalisme","Kennisleer die rede centraal stelt."],["Socratische methode","Onderzoeken door kritische questions te stellen."] ]'::jsonb),
   ('kunst-algemeen', '[ ["Compositie","Ordening van beeldelementen in een kunstwerk."],["Perspectief","Manier om ruimte en diepte weer te geven."],["Symboliek","Gebruik van beelden met een extra betekenis."],["Renaissance","Kunstperiode met herwaardering van de klassieke oudheid."],["Barok","Dramatische kunststijl met beweging en contrast."],["Modernisme","Verzameling vernieuwende kunststromingen uit de 20e eeuw."],["Architectuur","Kunst en techniek van het ontwerpen van gebouwen."],["Mise-en-scène","Alles wat in beeld wordt geplaatst bij film of toneel."],["Motief","Terugkerend element in een kunstwerk."],["Kunstbeschouwing","Systematisch kijken, beschrijven en interpreteren van kunst."] ]'::jsonb)
 ), target_sets AS (
   SELECT ss.id, bank.prompts
@@ -214,7 +214,7 @@ WITH bank(slug, prompts) AS (
     ('economie','[["Schaarste","Minder middelen dan behoeften."],["Marktwerking","Vraag en aanbod via prijs."],["Inflatie","Stijging algemeen prijspeil."],["BBP","Waarde van productie."],["Vraag","Wat consumenten willen kopen."],["Aanbod","Wat producenten willen verkopen."],["Elasticiteit","Gevoeligheid voor prijs."],["Begroting","Inkomsten en uitgaven."],["Rente","Vergoeding voor lenen."],["Conjunctuur","Schommelingen in groei."]]'),
     ('aardrijkskunde','[["Platentektoniek","Beweging aardplaten."],["Verwering","Uiteenvallen gesteente."],["Erosie","Uitschuren en vervoer."],["Globalisering","Wereldwijde verbondenheid."],["Migratie","Verplaatsing over grens."],["Demografische transitie","Verandering geboorte en sterfte."],["Klimaat","Gemiddeld weer lange termijn."],["Waterkringloop","Verdamping, condensatie, neerslag."],["Stedelijke spreiding","Verdeling steden in ruimte."],["Ruimtelijke ongelijkheid","Verschillen tussen gebieden."]]'),
     ('informatica','[["Algoritme","Stappenplan voor probleem."],["Variabele","Naam voor veranderbare waarde."],["Database","Georganiseerde gegevens."],["Encryptie","Versleutelen van data."],["API","Afspraak tussen software."],["Boolean","Waar of onwaar."],["Loop","Herhaalde code."],["Functie","Herbruikbare taak."],["Versiebeheer","Wijzigingen bijhouden."],["Privacy","Controle over persoonsgegevens."]]'),
-    ('filosofie','[["Ethiek","Goed handelen."],["Epistemologie","Kennisleer."],["Metafysica","Wat bestaat."],["Argument","Reden voor conclusie."],["Dilemma","Moeilijke keuze."],["Autonomie","Zelf bepalen volgens rede."],["Utilitarisme","Grootste geluk."],["Empirisme","Ervaring centraal."],["Rationalisme","Rede centraal."],["Socratische methode","Onderzoek met vragen."]]'),
+    ('filosofie','[["Ethiek","Goed handelen."],["Epistemologie","Kennisleer."],["Metafysica","Wat bestaat."],["Argument","Reden voor conclusie."],["Dilemma","Moeilijke keuze."],["Autonomie","Zelf bepalen volgens rede."],["Utilitarisme","Grootste geluk."],["Empirisme","Ervaring centraal."],["Rationalisme","Rede centraal."],["Socratische methode","Onderzoek met questions."]]'),
     ('kunst-algemeen','[["Compositie","Ordening van beeldelementen."],["Perspectief","Ruimte en diepte weergeven."],["Symboliek","Beeld met extra betekenis."],["Renaissance","Herwaardering klassieke oudheid."],["Barok","Dramatiek en contrast."],["Modernisme","Vernieuwende stromingen."],["Architectuur","Ontwerpen van gebouwen."],["Mise-en-scène","Alles in beeld bij film/theater."],["Motief","Terugkerend element."],["Kunstbeschouwing","Kijken en interpreteren."]]')
   ) AS other_bank(slug,prompts)
 ), cards AS (
@@ -231,20 +231,20 @@ SELECT study_set_id, question, answer, (order_index + 1)::text, 'medium', order_
 
 INSERT INTO public.calendar_events (id, user_id, title, description, event_type, event_date, is_completed)
 VALUES
-  (uuid_generate_v5('6ba7b810-9dad-11d1-80b4-00c04fd430c8','aether:event:toetsweek-start'),NULL,'Toetsweek: planning maken','Plan je leerwerk en rustmomenten.','toets',CURRENT_DATE + 7,FALSE),
-  (uuid_generate_v5('6ba7b810-9dad-11d1-80b4-00c04fd430c8','aether:event:toetsweek-oefenen'),NULL,'Toetsweek: oefentoets','Maak een oefentoets onder tijdsdruk.','toets',CURRENT_DATE + 10,FALSE),
-  (uuid_generate_v5('6ba7b810-9dad-11d1-80b4-00c04fd430c8','aether:event:toetsweek-evaluatie'),NULL,'Toetsweek: evaluatie','Kijk terug op je planning en resultaten.','toets',CURRENT_DATE + 14,FALSE)
+  (uuid_generate_v5('6ba7b810-9dad-11d1-80b4-00c04fd430c8','aether:event:test-week-start'),NULL,'Test week: make a plan','Plan your study work and rest moments.','test',CURRENT_DATE + 7,FALSE),
+  (uuid_generate_v5('6ba7b810-9dad-11d1-80b4-00c04fd430c8','aether:event:test-week-practice'),NULL,'Test week: practice test','Take a practice test under time pressure.','test',CURRENT_DATE + 10,FALSE),
+  (uuid_generate_v5('6ba7b810-9dad-11d1-80b4-00c04fd430c8','aether:event:test-week-review'),NULL,'Test week: review','Look back on your planning and results.','test',CURRENT_DATE + 14,FALSE)
 ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.description, event_date = EXCLUDED.event_date;
 
 INSERT INTO public.achievement_definitions (code, title, description, icon, requirement) VALUES
- ('eerste-stap','Eerste stap','Voltooi je eerste leersessie.','Sparkles','1 leersessie'),
- ('kaartkenner','Kaartkenner','Beantwoord 50 kaarten.','Layers','50 kaarten'),
- ('weekritme','Weekritme','Leer zeven dagen achter elkaar.','CalendarCheck','7 dagen'),
- ('foutendetective','Foutendetective','Voeg tien fouten toe aan je foutenlogboek.','Search','10 fouten'),
- ('focus','Focus','Voltooi een sessie van 30 minuten.','Timer','30 minuten'),
- ('toetsklaar','Toetsklaar','Rond een toetsweekplanning af.','GraduationCap','1 planning'),
- ('veelzijdig','Veelzijdig','Leer in vijf verschillende vakken.','Compass','5 vakken'),
- ('meester','Meester','Behaal 90% in een oefentoets.','Trophy','90% score'),
- ('bouwer','Bouwer','Maak je eerste eigen leerset.','NotebookPen','1 leerset'),
- ('doorzetter','Doorzetter','Voltooi 25 leersessies.','Flame','25 sessies')
+ ('first-step','First step','Complete your first study session.','Sparkles','1 study session'),
+ ('card-knower','Card knower','Answer 50 cards.','Layers','50 cards'),
+ ('week-rhythm','Week rhythm','Study seven days in a row.','CalendarCheck','7 days'),
+ ('error-detective','Error detective','Add ten errors to your error log.','Search','10 errors'),
+ ('focus','Focus','Complete a 30-minute session.','Timer','30 minutes'),
+ ('test-ready','Test ready','Finish a test week plan.','GraduationCap','1 plan'),
+ ('versatile','Versatile','Study in five different subjects.','Compass','5 subjects'),
+ ('master','Master','Score 90% on a practice test.','Trophy','90% score'),
+ ('builder','Builder','Create your first study set.','NotebookPen','1 study set'),
+ ('perseverer','Perseverer','Complete 25 study sessions.','Flame','25 sessions')
 ON CONFLICT (code) DO UPDATE SET title=EXCLUDED.title, description=EXCLUDED.description, icon=EXCLUDED.icon, requirement=EXCLUDED.requirement;

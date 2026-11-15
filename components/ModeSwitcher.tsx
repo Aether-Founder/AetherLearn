@@ -18,9 +18,9 @@ export type ViewMode =
   | 'book'
   | 'study'
   | 'simple'
-  | 'samenvatting'
+  | 'summary'
   | 'quiz'
-  | 'alles-leren-2-dagen'
+  | 'alles-learning-2-dagen'
   | 'complete-oefentoets'
   | 'alle-leerdoelen-opdrachten'
   | 'vragenlijst';
@@ -107,7 +107,7 @@ export function ModeSwitcher({ currentMode, availableModes, onModeChange }: Mode
       description: t('study_mode_description', "Flashcard mode"),
     },
     {
-      id: 'samenvatting',
+      id: 'summary',
       label: t('summary_mode', "Summary mode"),
       icon: <BookOpen className="w-4 h-4" />,
       description: t('summary_mode_description', "Summary of the material"),
@@ -119,7 +119,7 @@ export function ModeSwitcher({ currentMode, availableModes, onModeChange }: Mode
       description: t('quiz_mode_description', "Test yourself with questions"),
     },
     {
-      id: 'alles-leren-2-dagen',
+      id: 'alles-learning-2-dagen',
       label: t('mode_all_learn_2days'),
       icon: <Clock className="w-4 h-4" />,
       description: t('mode_all_learn_2days_desc'),

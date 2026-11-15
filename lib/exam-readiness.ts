@@ -1,6 +1,6 @@
 interface SubjectMastery {
   percentage: number;
-  status: 'beheerst' | 'redelijk' | 'let_op' | 'gevaar';
+  status: 'mastered' | 'redelijk' | 'let_op' | 'gevaar';
   trend: 'up' | 'stable' | 'down';
 }
 
@@ -13,7 +13,7 @@ interface StudyConsistency {
 interface TestInfo {
   date: Date;
   requiredGrade?: number;
-  type: 'normal' | 'herkansing' | 'examen';
+  type: 'normal' | 'retake' | 'exam';
 }
 
 interface ReadinessResult {
@@ -51,7 +51,7 @@ export function calculateExamReadiness(
                            Math.min(1, consistency.streakDays / 7) * 0.5;
 
   // Adjust for test type
-  const typeMultiplier = test.type === 'examen' ? 0.9 : test.type === 'herkansing' ? 0.95 : 1;
+  const typeMultiplier = test.type === 'exam' ? 0.9 : test.type === 'retake' ? 0.95 : 1;
 
   const readinessScore = (masteryScore * 0.4 + timeScore * 0.3 + consistencyScore * 0.3) * typeMultiplier;
 
@@ -77,7 +77,7 @@ export function calculateExamReadiness(
   const recommendations: string[] = [];
 
   if (mastery.status === 'gevaar') {
-    recommendations.push('Je meesterschap is laag. Overweeg om dit onderwerp opnieuw te bestuderen.');
+    recommendations.push('Je meesterschap is low. Overweeg om dit topic opnieuw te bestuderen.');
   }
 
   if (consistency.averageDailyMinutes < 30) {
@@ -88,15 +88,15 @@ export function calculateExamReadiness(
     recommendations.push('Je hebt weinig studietijd laatst. Probeer een studiestreak op te bouwen.');
   }
 
-  if (test.type === 'examen' && readinessScore < 0.7) {
-    recommendations.push('Voor een examen is een hogere voorbereiding noodzakelijk. Overweeg om extra oefeningen te doen.');
+  if (test.type === 'exam' && readinessScore < 0.7) {
+    recommendations.push('Voor een exam is een hogere voorbereiding noodzakelijk. Overweeg om extra oefeningen te doen.');
   }
 
   if (test.requiredGrade && mastery.percentage < test.requiredGrade * 10) {
-    recommendations.push(`Je huidige niveau is onder het gewenste cijfer (${test.requiredGrade}/10). Focus extra op dit onderwerp.`);
+    recommendations.push(`Je huidige niveau is onder het gewenste cijfer (${test.requiredGrade}/10). Focus extra op dit topic.`);
   }
 
-  if (daysUntilTest > 14 && mastery.status === 'beheerst') {
+  if (daysUntilTest > 14 && mastery.status === 'mastered') {
     recommendations.push('Je bent goed voorbereid. Houd dit niveau vast met onderhoudsoefeningen.');
   }
 

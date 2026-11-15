@@ -19,7 +19,7 @@ type CalendarEventInput = {
   eventType?: unknown;
 };
 
-const eventTypes = new Set(['toets', 'examen', 'huiswerk', 'les', 'project', 'other']);
+const eventTypes = new Set(['test', 'exam', 'homework', 'lesson', 'project', 'other']);
 
 function isRecord(value: Json | null | undefined): value is Record<string, Json | undefined> {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);

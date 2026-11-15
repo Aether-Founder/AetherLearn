@@ -13,7 +13,7 @@ interface Test {
   id: string;
   subject: string;
   date: string;
-  type: 'normal' | 'herkansing' | 'examen';
+  type: 'normal' | 'retake' | 'exam';
   requiredGrade?: number;
   completed: boolean;
   actualGrade?: number;
@@ -36,7 +36,7 @@ export default function TestPlanningPage() {
   const [form, setForm] = useState({
     subject: '',
     date: '',
-    type: 'normal' as 'normal' | 'herkansing' | 'examen',
+    type: 'normal' as 'normal' | 'retake' | 'exam',
     requiredGrade: '',
   });
 
@@ -204,8 +204,8 @@ export default function TestPlanningPage() {
 
   const getTestTypeColor = (type: string) => {
     switch (type) {
-      case 'examen': return 'text-red-500 bg-red-500/10';
-      case 'herkansing': return 'text-orange-500 bg-orange-500/10';
+      case 'exam': return 'text-red-500 bg-red-500/10';
+      case 'retake': return 'text-orange-500 bg-orange-500/10';
       default: return 'text-blue-500 bg-blue-500/10';
     }
   };
@@ -282,9 +282,9 @@ export default function TestPlanningPage() {
                           {test.subject}
                         </h3>
                         <span className={`px-2 py-0.5 rounded text-xs font-medium ${getTestTypeColor(test.type)}`}>
-                          {test.type === 'herkansing'
+                          {test.type === 'retake'
                             ? t('exam_type_retake')
-                            : test.type === 'examen'
+                            : test.type === 'exam'
                               ? t('exam_type_exam')
                               : t('exam_type_normal')}
                         </span>
@@ -423,12 +423,12 @@ export default function TestPlanningPage() {
               <select
                 id="type"
                 value={form.type}
-                onChange={(e) => setForm({ ...form, type: e.target.value as 'normal' | 'herkansing' | 'examen' })}
+                onChange={(e) => setForm({ ...form, type: e.target.value as 'normal' | 'retake' | 'exam' })}
                 className="w-full h-10 rounded-md border border-input bg-background px-3"
               >
                 <option value="normal">{t('exam_type_normal')}</option>
-                <option value="herkansing">{t('exam_type_retake')}</option>
-                <option value="examen">{t('exam_type_exam')}</option>
+                <option value="retake">{t('exam_type_retake')}</option>
+                <option value="exam">{t('exam_type_exam')}</option>
               </select>
             </div>
             <div>

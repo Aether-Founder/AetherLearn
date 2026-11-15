@@ -6,7 +6,7 @@ CREATE TABLE public.tasks (
   user_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
   title TEXT NOT NULL,
   description TEXT,
-  status TEXT NOT NULL CHECK (status IN ('todo', 'bezig', 'review', 'klaar')),
+  status TEXT NOT NULL CHECK (status IN ('todo', 'in_progress', 'review', 'done')),
   subject TEXT,
   due_date DATE,
   priority TEXT DEFAULT 'medium' CHECK (priority IN ('low', 'medium', 'high')),

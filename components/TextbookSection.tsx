@@ -77,9 +77,9 @@ export type ViewMode =
   | 'book'
   | 'study'
   | 'simple'
-  | 'samenvatting'
+  | 'summary'
   | 'quiz'
-  | 'alles-leren-2-dagen'
+  | 'alles-learning-2-dagen'
   | 'complete-oefentoets'
   | 'alle-leerdoelen-opdrachten'
   | 'vragenlijst';

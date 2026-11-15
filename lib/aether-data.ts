@@ -117,7 +117,7 @@ export const SUBJECTS: Subject[] = [
             slug: 'arbeid-energie',
             name: 'Kracht, arbeid en energie',
             kind: 'set',
-            description: 'Formules en begrippen hoofdstuk 4',
+            description: 'Formules en begrippen chapter 4',
             cards: cards([
               ['Arbeid (W)', 'W = F · s · cos α, uitgedrukt in joule.'],
               ['Kinetische energie', 'E_k = ½ · m · v²'],
@@ -198,7 +198,7 @@ export function countSets(nodes: TreeNode[] = []): number {
 
 export const LESSONS = [
   { title: "Argumentatieschema's ontleden", subject: 'Nederlands', minutes: 18, level: 'Basis' },
-  { title: 'Formeel schrijven zonder clichés', subject: 'Engels', minutes: 22, level: 'Gevorderd' },
+  { title: 'Formeel writing zonder clichés', subject: 'Engels', minutes: 22, level: 'Gevorderd' },
   {
     title: 'Energiebehoud in bewegende systemen',
     subject: 'Natuurkunde',
@@ -218,7 +218,7 @@ export const GROUPS = [
 
 /* ------------------------------- calendar -------------------------------- */
 
-export type EventType = 'toets' | 'examen' | 'les' | 'deadline' | 'vakantie' | 'activiteit';
+export type EventType = 'test' | 'exam' | 'lesson' | 'deadline' | 'vakantie' | 'activiteit';
 
 export type SchoolEvent = {
   date: string; // YYYY-MM-DD
@@ -231,9 +231,9 @@ export type SchoolEvent = {
 };
 
 export const EVENT_LABELS: Record<EventType, string> = {
-  toets: 'Toets',
-  examen: 'Examen',
-  les: 'Les',
+  test: 'Toets',
+  exam: 'Examen',
+  lesson: 'Les',
   deadline: 'Deadline',
   vakantie: 'Vakantie',
   activiteit: 'Activiteit',
@@ -244,10 +244,10 @@ export const EVENT_LABELS: Record<EventType, string> = {
 export const SCHOOL_EVENTS: SchoolEvent[] = [];
 
 export const AGENDA_TONES: Record<EventType, string> = {
-  toets: 'tint-warning',
-  examen: 'tint-warning',
+  test: 'tint-warning',
+  exam: 'tint-warning',
   deadline: 'tint-streak',
-  les: 'bg-secondary text-muted-foreground',
+  lesson: 'bg-secondary text-muted-foreground',
   vakantie: 'tint-success',
   activiteit: 'bg-secondary text-muted-foreground',
 };

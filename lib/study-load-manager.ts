@@ -196,7 +196,7 @@ export class StudyLoadManager {
     }
 
     if (stats.weeklyAverage > 90) {
-      suggestions.push('Je wekelijkse gemiddelde is hoog. Overweeg om meer rust in te plannen.');
+      suggestions.push('Je wekelijkse gemiddelde is high. Overweeg om meer rust in te plannen.');
     }
 
     if (stats.streakDays > 10) {

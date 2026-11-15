@@ -80,12 +80,12 @@ describe('classes', () => {
       cls.id,
       'set-1',
       'Opdracht 1',
-      'Maak hoofdstuk 2',
+      'Maak chapter 2',
       new Date('2026-01-20T00:00:00Z')
     );
     expect(assignment.title).toBe('Opdracht 1');
     expect(await getAssignmentsByClass(cls.id)).toHaveLength(1);
-    expect((await getAssignmentById(assignment.id))?.description).toBe('Maak hoofdstuk 2');
+    expect((await getAssignmentById(assignment.id))?.description).toBe('Maak chapter 2');
 
     const updated = await updateAssignment(
       assignment.id,
