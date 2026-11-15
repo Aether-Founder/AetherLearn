@@ -5,7 +5,7 @@
 export type Grade = {
   id: string;
   name: string;
-  type: 'SO' | 'PW' | 'PO' | 'Mondeling' | 'Praktisch';
+  type: 'SO' | 'PW' | 'PO' | 'Oral' | 'Practical';
   date: string;
   weight: number;
   grade: number | null;
@@ -15,7 +15,6 @@ export type Grade = {
 export type SubjectGrades = {
   slug: string;
   name: string;
-  teacher: string;
   target: number;
   grades: Grade[];
 };
@@ -33,8 +32,7 @@ const g = (
 export const GRADEBOOK: SubjectGrades[] = [
   {
     slug: 'nederlands',
-    name: 'Nederlands',
-    teacher: 'mw. De Vries',
+    name: 'Dutch',
     target: 7.5,
     grades: [
       g('nl1', 'SO stijlfiguren', 'SO', '2026-09-12', 1, 6.8),
@@ -44,8 +42,7 @@ export const GRADEBOOK: SubjectGrades[] = [
   },
   {
     slug: 'engels',
-    name: 'Engels',
-    teacher: 'dhr. Bakker',
+    name: 'English',
     target: 8,
     grades: [
       g('en1', 'SO irregular verbs', 'SO', '2026-09-05', 1, 8.4),
@@ -55,8 +52,7 @@ export const GRADEBOOK: SubjectGrades[] = [
   },
   {
     slug: 'natuurkunde',
-    name: 'Natuurkunde',
-    teacher: 'dhr. Jansen',
+    name: 'Physics',
     target: 7,
     grades: [
       g('na1', 'SO krachten', 'SO', '2026-09-19', 1, 5.2),
@@ -65,18 +61,16 @@ export const GRADEBOOK: SubjectGrades[] = [
   },
   {
     slug: 'scheikunde',
-    name: 'Scheikunde',
-    teacher: 'mw. Willems',
+    name: 'Chemistry',
     target: 7,
     grades: [
       g('sk1', 'SO zuren & basen', 'SO', '2026-09-26', 1, 6.4),
-      g('sk2', 'Practicum titraties', 'Praktisch', '2026-10-30', 2, 7.8),
+      g('sk2', 'Practicum titraties', 'Practical', '2026-10-30', 2, 7.8),
     ],
   },
   {
     slug: 'wiskunde-b',
-    name: 'Wiskunde B',
-    teacher: 'dhr. Smit',
+    name: 'Mathematics B',
     target: 6.5,
     grades: [
       g('wi1', 'SO functies', 'SO', '2026-09-08', 1, 4.8),
@@ -85,8 +79,7 @@ export const GRADEBOOK: SubjectGrades[] = [
   },
   {
     slug: 'biologie',
-    name: 'Biologie',
-    teacher: 'mw. Peters',
+    name: 'Biology',
     target: 8.5,
     grades: [
       g('bi1', 'SO celbiologie', 'SO', '2026-09-15', 1, 9.1),
@@ -212,8 +205,8 @@ export const REMINDERS: Reminder[] = [
 ];
 
 export const TIMETABLE = [
-  { period: '1', time: '08:30', subject: 'Wiskunde B', room: '3.02', teacher: 'dhr. Smit' },
-  { period: '2', time: '09:20', subject: 'Nederlands', room: '1.14', teacher: 'mw. De Vries' },
-  { period: '3', time: '10:30', subject: 'Scheikunde', room: '2.14', teacher: 'mw. Willems' },
-  { period: '4', time: '11:20', subject: 'Engels', room: '1.05', teacher: 'dhr. Bakker' },
+  { period: '1', time: '08:30', subject: 'Wiskunde B', room: '3.02' },
+  { period: '2', time: '09:20', subject: 'Nederlands', room: '1.14' },
+  { period: '3', time: '10:30', subject: 'Scheikunde', room: '2.14' },
+  { period: '4', time: '11:20', subject: 'Engels', room: '1.05' },
 ];

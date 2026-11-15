@@ -536,6 +536,46 @@
   font-size: 14px;
 }
 
+.binas-root .pdf-error-hint {
+  color: #9aa3af;
+  font-size: 12px;
+  margin-top: 0.35rem;
+}
+
+.binas-root .pdf-error-actions {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.binas-root .pdf-error-btn {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--binas-border);
+  background: var(--binas-card);
+  color: var(--binas-foreground);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.binas-root .pdf-error-btn:hover {
+  background: var(--binas-secondary);
+}
+
+.binas-root .pdf-error-btn-primary {
+  background: var(--binas-primary);
+  border-color: transparent;
+  color: var(--binas-primary-foreground);
+}
+
+.binas-root .pdf-error-btn-primary:hover {
+  background: var(--binas-primary-hover, var(--binas-primary));
+}
+
 /* ==========================================================================
    9. FAB
    ========================================================================== */

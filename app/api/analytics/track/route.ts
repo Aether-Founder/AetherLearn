@@ -1,113 +1,51 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { createClient } from '@supabase/supabase-js';
 
-const DATA_DIR = path.join(process.cwd(), 'data', 'analytics');
-
-// Ensure data directory exists
-async function ensureDataDir() {
-  try {
-    await fs.access(DATA_DIR);
-  } catch {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-  }
-}
-
-// Read JSON file
-async function readJsonFile(filename: string) {
-  const filePath = path.join(DATA_DIR, filename);
-  try {
-    const data = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    // File doesn't exist or is empty
-    return filename === 'events.json' ? [] : {};
-  }
-}
-
-// Write JSON file
-async function writeJsonFile(filename: string, data: any) {
-  const filePath = path.join(DATA_DIR, filename);
-  await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
-}
-
+/**
+ * Analytics beacon — appends events to public.analytics_events (Supabase).
+ * Replaces the old data/analytics/*.json file store (read-only FS on Vercel).
+ *
+ * The client sends an anonymous analytics_user_id (not an auth user), so the
+ * Supabase user_id FK column stays NULL and the anonymous id travels inside
+ * event_data. Anonymous inserts (user_id NULL) are already permitted by the
+ * RLS policy created in migration 001.
+ */
 export async function POST(request: NextRequest) {
   try {
-    await ensureDataDir();
-
     const event = await request.json();
 
-    // Validate event structure
     if (!event.userId || !event.sessionId || !event.eventType || !event.timestamp) {
       return NextResponse.json({ error: 'Invalid event structure' }, { status: 400 });
     }
 
-    // Update user data
-    const users = await readJsonFile('users.json');
-    if (!users[event.userId]) {
-      users[event.userId] = {
-        id: event.userId,
-        name: event.userName || 'Anonymous',
-        email: event.userEmail,
-        firstSeen: event.timestamp,
-        lastSeen: event.timestamp,
-        sessionCount: 0,
-        totalDuration: 0,
-      };
-    } else {
-      // Update name/email if provided
-      if (event.userName) {
-        users[event.userId].name = event.userName;
-      }
-      if (event.userEmail) {
-        users[event.userId].email = event.userEmail;
-      }
-      users[event.userId].lastSeen = event.timestamp;
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!url || !anonKey) {
+      return NextResponse.json({ error: 'Analytics storage not configured' }, { status: 503 });
     }
 
-    // Update session data
-    const sessions = await readJsonFile('sessions.json');
-    if (!sessions[event.sessionId]) {
-      sessions[event.sessionId] = {
-        id: event.sessionId,
-        userId: event.userId,
-        startTime: event.timestamp,
-        endTime: null,
-        duration: 0,
-        events: [],
-      };
-      users[event.userId].sessionCount++;
-    }
-
-    // Update session based on event type
-    if (event.eventType === 'session_end' && event.data?.duration) {
-      sessions[event.sessionId].endTime = event.timestamp;
-      sessions[event.sessionId].duration = event.data.duration;
-      users[event.userId].totalDuration += event.data.duration;
-    }
-
-    sessions[event.sessionId].events.push({
-      eventType: event.eventType,
-      timestamp: event.timestamp,
-      data: event.data,
+    const supabase = createClient(url, anonKey, {
+      auth: { persistSession: false, autoRefreshToken: false },
     });
 
-    // Add event to events array
-    const events = await readJsonFile('events.json');
-    events.push({
-      userId: event.userId,
-      sessionId: event.sessionId,
-      eventType: event.eventType,
-      timestamp: event.timestamp,
-      data: event.data,
+    const { error } = await (supabase as any).from('analytics_events').insert({
+      user_id: null,
+      event_type: String(event.eventType).slice(0, 100),
+      session_id: String(event.sessionId).slice(0, 100),
+      event_data: {
+        anonymousId: event.userId,
+        userName: event.userName ?? null,
+        userEmail: event.userEmail ?? null,
+        timestamp: event.timestamp,
+        data: event.data ?? null,
+      },
+      created_at: event.timestamp,
     });
 
-    // Write all files
-    await Promise.all([
-      writeJsonFile('users.json', users),
-      writeJsonFile('sessions.json', sessions),
-      writeJsonFile('events.json', events),
-    ]);
+    if (error) {
+      console.error('Analytics insert error:', error);
+      return NextResponse.json({ error: 'Failed to store event' }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

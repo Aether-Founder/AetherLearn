@@ -5,12 +5,14 @@ import {
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { SubjectProgressBar } from '@/components/SubjectProgressBar';
 import Link from 'next/link';
-import { listContentPagesForSubject, getLocalContentForSubject } from '@/lib/json-content-pages';
+import { getLocalContentForSubject } from '@/lib/json-content-pages';
+import { listContentPagesForSubjectAsync } from '@/lib/content-pages-registry';
 import fs from 'fs';
 import path from 'path';
 import ButtonSection from '@/components/ButtonSection';
 import { ArrowLeft, BookOpen, Calendar, Award, Target } from 'lucide-react';
-import { getServerT } from '@/lib/i18n-server';
+import { getServerT, getServerLanguage } from '@/lib/i18n-server';
+import { getSubjectDisplayName } from '@/lib/subject-i18n';
 
 export default async function SubjectDetailPage({ params }: { params: { subjectId: string } }) {
   const subjectId = decodeURIComponent(params.subjectId);
@@ -29,11 +31,12 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
 
   // Use subject data if available, otherwise use subjectId as fallback
   const subjectName = oldJsonContent?.siteMetadata?.title || subject?.name || subjectId.charAt(0).toUpperCase() + subjectId.slice(1);
+  const displayName = getSubjectDisplayName({ slug: subjectId, name: subjectName }, await getServerLanguage());
   const subjectDescription = oldJsonContent?.siteMetadata?.description || subject?.description || '';
 
   // Load chapters from JSON
   const chapters = await loadChapters(subjectId);
-  const contentPages = listContentPagesForSubject(subjectId);
+  const contentPages = await listContentPagesForSubjectAsync(subjectId);
   const localContentPages = getLocalContentForSubject(subjectName);
   const itemCount = chapters.length + contentPages.length + localContentPages.length;
 
@@ -67,7 +70,7 @@ export default async function SubjectDetailPage({ params }: { params: { subjectI
     <AppShell>
       <PageHeader
         compact
-        title={subjectName}
+        title={displayName}
         description={subjectDescription}
         action={
           <Link

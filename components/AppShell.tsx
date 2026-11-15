@@ -342,6 +342,7 @@ export function AppShell({
 
   useEffect(() => {
     setMounted(true);
+    import('@/lib/dev-commands').then((m) => m.registerDevCommands());
   }, []);
 
   const visiblePages = getVisiblePages();

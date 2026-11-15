@@ -305,7 +305,7 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
               <DialogTrigger asChild>
                 <Button size="sm">
                   <Plus className="w-4 h-4 mr-2" />
-                  Nieuwe Map
+                  {t('notes_new_folder')}
                 </Button>
               </DialogTrigger>
               <DialogContent>

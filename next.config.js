@@ -44,6 +44,33 @@ console.log(
   process.env.SUPABASE_SERVICE_ROLE_KEY ? 'set' : 'MISSING'
 );
 
+// Collect every App Router page/route path so we can tell Next's output file
+// tracer which functions need the JSON content + locale files they read via
+// fs at runtime. Without this, Vercel serverless functions ship without
+// content/ and public/locales and those routes 500 in production.
+function collectAppRoutes(dir, prefix = '') {
+  const routes = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      const isGroup = entry.name.startsWith('(') && entry.name.endsWith(')');
+      routes.push(...collectAppRoutes(full, isGroup ? prefix : `${prefix}/${entry.name}`));
+    } else if (entry.name === 'page.tsx' || entry.name === 'route.ts') {
+      routes.push(prefix || '/');
+    }
+  }
+  return routes;
+}
+
+const appRoutes = [...new Set(collectAppRoutes(path.join(__dirname, 'app')))];
+const outputFileTracingIncludes = {};
+for (const route of appRoutes) {
+  const needsContent = route.startsWith('/api/') || route.startsWith('/subjects/');
+  outputFileTracingIncludes[route] = needsContent
+    ? ['./public/locales/**/*', './content/**/*', './public/admin-*.json']
+    : ['./public/locales/**/*'];
+}
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -53,6 +80,7 @@ const nextConfig = {
     // Rewrites named imports from large packages to direct module imports,
     // significantly shrinking the client bundle (lucide-react ships ~1500 icons).
     optimizePackageImports: ['lucide-react'],
+    outputFileTracingIncludes,
   },
   env: {
     NEXT_PUBLIC_SUPABASE_URL: resolvedSupabaseUrl,
@@ -102,13 +130,17 @@ const nextConfig = {
 // PWA configuration for offline support and mobile responsiveness
 let withPWA = (config) => config;
 try {
+  // @ducanh2912/next-pwa emits an empty pages-manifest on Next 14.2, which
+  // crashes `next build` at "Collecting page data" (/_document ENOENT).
+  // PWA is therefore opt-in via ENABLE_PWA=1 until the plugin is upgraded.
+  if (process.env.ENABLE_PWA !== '1') throw new Error('PWA disabled (set ENABLE_PWA=1 to enable)');
   const pwaModule = require('@ducanh2912/next-pwa');
   const createPWAConfig = pwaModule.default || pwaModule;
   withPWA = createPWAConfig({
     dest: 'public',
     register: true,
     skipWaiting: true,
-    disable: process.env.NODE_ENV === 'development',
+    disable: process.env.ENABLE_PWA !== '1',
     buildExcludes: [/middleware-manifest-json$/],
     // public/binas holds ~413 MB of PDF chunks. Precached files are fully
     // downloaded on first visit, which saturated the network and left

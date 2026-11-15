@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { AppShell, PageHeader, Meter } from '@/components/AppShell';
 import { useUser, useUserProfile } from '@/hooks/useAuth';
 import { useTranslation } from '@/lib/useTranslation';
+import { getSubjectDisplayName } from '@/lib/subject-i18n';
 import { useEffect, useMemo, useState } from 'react';
 import { GradeOnboardingModal } from '@/components/GradeOnboardingModal';
 import { Plus, BookOpen, Lock } from 'lucide-react';
@@ -22,7 +23,6 @@ type Subject = {
   color: string;
   icon: string;
   description?: string;
-  teacher?: string;
   exam_relevance: string;
   mastery_percentage?: number;
   status?: string;
@@ -39,7 +39,6 @@ type SubjectForm = {
   name: string;
   color: string;
   description: string;
-  teacher: string;
 };
 
 const DEFAULT_SUBJECTS = [
@@ -105,7 +104,7 @@ function SubjectTile({
   onHide: () => void;
   onPrioritize: () => void;
 }) {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [open, setOpen] = useState(false);
   const mastery = subject.mastery_percentage || 0;
   const topicsDone = subject.topics_done || 0;
@@ -126,9 +125,9 @@ function SubjectTile({
         href={`/subjects/${subject.id}`}
         className="flex h-full flex-col p-6"
       >
-        <h2 className="font-display text-2xl font-semibold">{subject.name}</h2>
+        <h2 className="font-display text-2xl font-semibold">{getSubjectDisplayName(subject, currentLanguage)}</h2>
         <p className="mt-1 text-xs text-muted-foreground">
-          {t('subject_chapters_sets', undefined, { chapters: chapterCount, sets: setCount })}{subject.teacher ? ` · ${subject.teacher}` : ''}
+          {t('subject_chapters_sets', undefined, { chapters: chapterCount, sets: setCount })}
         </p>
 
         <div className="mt-5">
@@ -184,7 +183,7 @@ function SubjectTile({
 }
 
 export default function VakkenIndex() {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const { user, loading: userLoading } = useUser();
   const { profile, loading: profileLoading } = useUserProfile();
   const { createNode } = useFilesystem();
@@ -200,7 +199,6 @@ export default function VakkenIndex() {
     name: '',
     color: '#3b82f6',
     description: '',
-    teacher: '',
   });
   const [saving, setSaving] = useState(false);
   const [secretSubjects, setSecretSubjects] = useState<Subject[]>([]);
@@ -296,7 +294,6 @@ export default function VakkenIndex() {
           color,
           icon,
           description,
-          teacher,
           exam_relevance,
           subject_chapters (
             id,
@@ -506,8 +503,7 @@ export default function VakkenIndex() {
           name: '',
           color: '#3b82f6',
           description: '',
-          teacher: '',
-        });
+              });
         return;
       }
 
@@ -531,7 +527,6 @@ export default function VakkenIndex() {
             slug: subjectData.slug,
             color: subjectData.color,
             icon: subjectData.icon,
-            description: form.description,
           },
         });
       }
@@ -544,8 +539,7 @@ export default function VakkenIndex() {
         name: '',
         color: '#3b82f6',
         description: '',
-        teacher: '',
-      });
+          });
     } catch (error) {
       console.error('Error creating subject:', error);
     } finally {
@@ -660,10 +654,10 @@ export default function VakkenIndex() {
                   >
                     <div className="flex items-center gap-2 mb-2">
                       <Lock className="h-4 w-4 text-muted-foreground" />
-                      <h2 className="font-display text-lg font-semibold">{subject.name}</h2>
+                      <h2 className="font-display text-lg font-semibold">{getSubjectDisplayName(subject, currentLanguage)}</h2>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      {subject.description || t('subject_special_default_desc')}
+                      {subject.description}
                     </p>
                   </Link>
                 ))}
@@ -704,24 +698,6 @@ export default function VakkenIndex() {
               <p className="text-xs text-muted-foreground mt-1">
                 {t('subject_name_or_code_hint')}
               </p>
-            </div>
-            <div>
-              <Label htmlFor="subject-teacher">{t('subject_teacher_label')}</Label>
-              <Input
-                id="subject-teacher"
-                value={form.teacher}
-                onChange={(e) => setForm({ ...form, teacher: e.target.value })}
-                placeholder={t('subject_teacher_placeholder')}
-              />
-            </div>
-            <div>
-              <Label htmlFor="subject-description">{t('subject_desc_label')}</Label>
-              <Input
-                id="subject-description"
-                value={form.description}
-                onChange={(e) => setForm({ ...form, description: e.target.value })}
-                placeholder={t('subject_desc_placeholder')}
-              />
             </div>
             <Button type="submit" disabled={saving || verifyingCode} className="w-full">
               {verifyingCode ? t('subject_verifying') : saving ? t('subject_saving') : t('subject_add_submit')}

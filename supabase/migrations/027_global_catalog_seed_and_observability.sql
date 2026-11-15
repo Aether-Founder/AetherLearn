@@ -93,24 +93,24 @@ CREATE POLICY "Anyone can read subject topics" ON public.subject_topics FOR SELE
 -- color_hex/icon_name are the explicit catalog fields for new clients.
 WITH seed(name, slug, color_hex, icon_name, description, is_core) AS (
   VALUES
-  ('Nederlands','nederlands','#E76F51','BookOpen','Taalvaardigheid, literatuur en argumentatie.',true),
-  ('Engels','engels','#457B9D','Languages','Engelse taalvaardigheid en literatuur.',true),
-  ('Frans','frans','#6D597A','Languages','Franse woordenschat en communicatie.',false),
-  ('Duits','duits','#264653','Languages','Duitse taalvaardigheid en grammatica.',false),
-  ('Spaans','spaans','#E9C46A','Languages','Spaanse woordenschat en communicatie.',false),
-  ('Wiskunde A','wiskunde-a','#3A86FF','Calculator','Statistiek, kansrekening en analyse.',true),
-  ('Wiskunde B','wiskunde-b','#4361EE','Sigma','Functies, algebra en meetkunde.',true),
-  ('Wiskunde C','wiskunde-c','#4CC9F0','ChartNoAxesCombined','Wiskunde voor maatschappijprofielen.',false),
-  ('Wiskunde D','wiskunde-d','#7209B7','FunctionSquare','Verdiepende wiskunde.',false),
-  ('Natuurkunde','natuurkunde','#0077B6','Atom','Kracht, energie, golven en elektriciteit.',true),
-  ('Scheikunde','scheikunde','#2A9D8F','FlaskConical','Stoffen, reacties en evenwichten.',true),
-  ('Biologie','biologie','#588157','Dna','Leven, cellen, ecologie en evolutie.',true),
-  ('Geschiedenis','geschiedenis','#9B5DE5','Landmark','Historische processen en bronnen.',true),
-  ('Economie','economie','#F4A261','TrendingUp','Markten, groei en overheidsbeleid.',true),
-  ('Aardrijkskunde','aardrijkskunde','#2A9D8F','Globe2','Aarde, klimaat en ruimtelijke ontwikkeling.',true),
-  ('Informatica','informatica','#118AB2','Code2','Programmeren, data en digitale systemen.',false),
-  ('Filosofie','filosofie','#8338EC','Brain','Denken, kennis en ethiek.',false),
-  ('Kunst Algemeen','kunst-algemeen','#FF006E','Palette','Kunstgeschiedenis en cultuur.',false)
+  ('Dutch','nederlands','#E76F51','BookOpen','Language proficiency, literature and argumentation.',true),
+  ('English','engels','#457B9D','Languages','English language proficiency and literature.',true),
+  ('French','frans','#6D597A','Languages','French vocabulary and communication.',false),
+  ('German','duits','#264653','Languages','German language proficiency and grammar.',false),
+  ('Spanish','spaans','#E9C46A','Languages','Spanish vocabulary and communication.',false),
+  ('Mathematics A','wiskunde-a','#3A86FF','Calculator','Statistics, probability and analysis.',true),
+  ('Mathematics B','wiskunde-b','#4361EE','Sigma','Functions, algebra and geometry.',true),
+  ('Mathematics C','wiskunde-c','#4CC9F0','ChartNoAxesCombined','Mathematics for social-science profiles.',false),
+  ('Mathematics D','wiskunde-d','#7209B7','FunctionSquare','Advanced mathematics.',false),
+  ('Physics','natuurkunde','#0077B6','Atom','Force, energy, waves and electricity.',true),
+  ('Chemistry','scheikunde','#2A9D8F','FlaskConical','Substances, reactions and equilibria.',true),
+  ('Biology','biologie','#588157','Dna','Life, cells, ecology and evolution.',true),
+  ('History','geschiedenis','#9B5DE5','Landmark','Historical processes and sources.',true),
+  ('Economics','economie','#F4A261','TrendingUp','Markets, growth and government policy.',true),
+  ('Geography','aardrijkskunde','#2A9D8F','Globe2','Earth, climate and spatial development.',true),
+  ('Computer Science','informatica','#118AB2','Code2','Programming, data and digital systems.',false),
+  ('Philosophy','filosofie','#8338EC','Brain','Thinking, knowledge and ethics.',false),
+  ('General Art','kunst-algemeen','#FF006E','Palette','Art history and culture.',false)
 )
 INSERT INTO public.subjects (id, user_id, name, slug, level, color, icon, color_hex, icon_name, description, is_core, is_system)
 SELECT uuid_generate_v5('6ba7b810-9dad-11d1-80b4-00c04fd430c8', 'aether:subject:' || slug), NULL, name, slug,

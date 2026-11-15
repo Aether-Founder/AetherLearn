@@ -155,13 +155,13 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
   const getGoalTypeLabel = (type: string) => {
     switch (type) {
       case 'daily':
-        return 'Dagelijks';
+        return t('shell_daily');
       case 'weekly':
-        return 'Wekelijks';
+        return t('shell_weekly');
       case 'monthly':
-        return 'Maandelijks';
+        return t('shell_monthly');
       case 'custom':
-        return 'Aangepast';
+        return t('shell_custom');
       default:
         return type;
     }
@@ -275,7 +275,7 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="deadline">Deadline</Label>
+                  <Label htmlFor="deadline">{t('common_deadline')}</Label>
                   <Input
                     id="deadline"
                     type="date"
@@ -285,7 +285,7 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
                 </div>
               </div>
               <Button onClick={handleAddGoal} className="w-full">
-                Doel Toevoegen
+                {t('goal_add_button')}
               </Button>
             </div>
           </DialogContent>
@@ -298,11 +298,11 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
             <Target className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
             <h3 className="text-lg font-semibold mb-2">{t('shell_no_study_goals')}</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Maak je eerste studie doel om je voortgang bij te houden
+              {t('goal_create_first_hint')}
             </p>
             <Button onClick={() => setShowAddDialog(true)}>
               <Plus className="w-4 h-4 mr-2" />
-              Maak Doel
+              {t('goal_create_button')}
             </Button>
           </CardContent>
         </Card>
@@ -323,7 +323,7 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
                         {goal.completed && (
                           <Badge variant="default" className="bg-green-500">
                             <CheckCircle2 className="w-3 h-3 mr-1" />
-                            Voltooid
+                            {t('completed')}
                           </Badge>
                         )}
                         <Badge variant="secondary">{getGoalTypeLabel(goal.goalType)}</Badge>

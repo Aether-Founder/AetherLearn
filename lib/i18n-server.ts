@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { DEFAULT_LANGUAGE, LANGUAGES, type Language } from './i18n-config';
+import { cookies } from 'next/headers';
+import { DEFAULT_LANGUAGE, LANGUAGES, STORAGE_KEY, type Language } from './i18n-config';
 
 export interface Translation {
   [key: string]: string;
@@ -15,8 +16,26 @@ const LOCALES_DIR = path.join(process.cwd(), 'public/locales');
  * is not available during server rendering. Server Components therefore resolve
  * the default language (nl) directly from the locale JSON files.
  */
-export async function getServerT(language: Language = DEFAULT_LANGUAGE): Promise<ServerT> {
-  const lang = (LANGUAGES as readonly string[]).includes(language) ? language : DEFAULT_LANGUAGE;
+/**
+ * Resolve the visitor's language on the server. The client mirrors the
+ * selected language into the `aether_language` cookie so Server Components
+ * can render the same language without access to localStorage.
+ */
+export async function getServerLanguage(): Promise<Language> {
+  try {
+    const value = cookies().get(STORAGE_KEY)?.value;
+    if (value && (LANGUAGES as readonly string[]).includes(value)) {
+      return value as Language;
+    }
+  } catch {
+    /* cookies unavailable outside request scope */
+  }
+  return DEFAULT_LANGUAGE;
+}
+
+export async function getServerT(language?: Language): Promise<ServerT> {
+  const resolved = language ?? (await getServerLanguage());
+  const lang = (LANGUAGES as readonly string[]).includes(resolved) ? resolved : DEFAULT_LANGUAGE;
   let dict: Translation = {};
 
   try {

@@ -22,6 +22,12 @@ import {
 } from 'lucide-react';
 import { MarkdownContent } from './shared/MarkdownContent';
 import { useTranslation } from '@/lib/useTranslation';
+import {
+  hydrateStudySetsFromCloud,
+  syncAllStudySetsToCloud,
+  fetchCloudStreak,
+  syncStreakToCloud,
+} from '@/lib/cloud-sync';
 import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
 import { LearnMode } from './modes/LearnMode';
 import { McqOnlyMode } from './modes/McqOnlyMode';
@@ -1416,11 +1422,17 @@ interface StudySetDetailPageProps {
   onBack: () => void;
   onDelete: () => void;
   onDuplicate: () => void;
+  initialMode?: StudyTab;
+  focus?: boolean;
 }
 
-function StudySetDetailPage({ set, onBack, onDelete, onDuplicate }: StudySetDetailPageProps) {
+const VALID_TABS: StudyTab[] = ['flashcards', 'learning', 'writing', 'multiple-choice', 'test'];
+
+function StudySetDetailPage({ set, onBack, onDelete, onDuplicate, initialMode, focus }: StudySetDetailPageProps) {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<StudyTab>('flashcards');
+  const [activeTab, setActiveTab] = useState<StudyTab>(
+    initialMode && VALID_TABS.includes(initialMode) ? initialMode : 'flashcards'
+  );
   const [storeReady, setStoreReady] = useState(false);
   const { init, studySet, setActiveMode, refreshPlayableTerms, saveSettingsToStorage } =
     useLearningPlatformStore();
@@ -1492,6 +1504,30 @@ function StudySetDetailPage({ set, onBack, onDelete, onDuplicate }: StudySetDeta
   const masteredCount =
     studySet?.terms.filter((term) => term.masteryStatus === 'mastered').length ?? 0;
   const totalTerms = set.cards.length;
+
+  // Immersive focus mode (book learn page): only the active mode, no chrome
+  if (focus) {
+    return (
+      <div className="mx-auto w-full max-w-5xl px-4 pb-24 pt-4 sm:px-6">
+        <div key={activeTab}>
+          {activeTab === 'flashcards' && <SimpleFlashcard cards={set.cards} />}
+          {activeTab !== 'flashcards' && !storeReady && (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+            </div>
+          )}
+          {activeTab !== 'flashcards' && storeReady && activeTab === 'learning' && <LearnMode />}
+          {activeTab !== 'flashcards' && storeReady && activeTab === 'multiple-choice' && (
+            <McqOnlyMode />
+          )}
+          {activeTab !== 'flashcards' && storeReady && activeTab === 'writing' && (
+            <WritingOnlyMode />
+          )}
+          {activeTab !== 'flashcards' && storeReady && activeTab === 'test' && <TestMode />}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-4xl px-6 pb-24">
@@ -1667,11 +1703,15 @@ const DEFAULT_PROFILE: UserAccountProfile = {
 export function StandaloneLearningPlatform({
   sourceSets: _sourceSets,
   autoSelectSetId,
+  initialMode,
   hideNavbar,
+  focusMode,
 }: {
   sourceSets: SourceLearningSet[];
   autoSelectSetId?: string | null;
+  initialMode?: string | null;
   hideNavbar?: boolean;
+  focusMode?: boolean;
 }) {
   const { t, currentLanguage } = useTranslation();
   const dateLocale = currentLanguage === 'nl' ? 'nl-NL' : 'en-US';
@@ -1693,6 +1733,25 @@ export function StandaloneLearningPlatform({
     setMounted(true);
     const storedSets = loadSets();
     setSets(storedSets);
+
+    // Hydrate study sets from Supabase (source of truth) and merge into the
+    // localStorage cache — remote wins when newer.
+    hydrateStudySetsFromCloud(storedSets).then((merged) => {
+      if (merged && merged.length > 0) {
+        saveSets(merged);
+        setSets(merged);
+      }
+    });
+
+    // Hydrate streak from Supabase when local is empty/behind
+    fetchCloudStreak().then((cloud) => {
+      if (!cloud) return;
+      const local = Number(localStorage.getItem('aether-streak') || '0');
+      if (cloud.currentStreak > local) {
+        localStorage.setItem('aether-streak', String(cloud.currentStreak));
+        localStorage.setItem('aether-streak-date', new Date().toDateString());
+      }
+    });
     const storedFolders = loadFolders();
     setFolders(storedFolders);
     const profile = loadUserProfile();
@@ -1713,6 +1772,8 @@ export function StandaloneLearningPlatform({
   const persistSets = (next: LocalStudySet[]) => {
     setSets(next);
     saveSets(next);
+    // Fire-and-forget cloud sync — Supabase is the source of truth
+    void syncAllStudySetsToCloud(next);
   };
   const persistFolders = (next: LocalFolder[]) => {
     setFolders(next);
@@ -1766,6 +1827,16 @@ export function StandaloneLearningPlatform({
       const next = last === yesterday ? cur + 1 : 1;
       localStorage.setItem('aether-streak', String(next));
       localStorage.setItem('aether-streak-date', today);
+      const longest = Math.max(
+        next,
+        Number(localStorage.getItem('aether-streak-longest') || '0')
+      );
+      localStorage.setItem('aether-streak-longest', String(longest));
+      void syncStreakToCloud({
+        currentStreak: next,
+        longestStreak: longest,
+        lastStudyDate: today,
+      });
     }
   }, [mounted]);
 
@@ -1950,6 +2021,8 @@ export function StandaloneLearningPlatform({
       {screen === 'study-detail' && selectedSet && (
         <StudySetDetailPage
           set={selectedSet}
+          initialMode={(initialMode as StudyTab | null) ?? undefined}
+          focus={focusMode === true}
           onBack={() => setScreen('library')}
           onDelete={() => {
             deleteSet(selectedSet.id);

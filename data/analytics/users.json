@@ -6,5 +6,13 @@
     "lastSeen": 1793057959216,
     "sessionCount": 11,
     "totalDuration": 3225593
+  },
+  "53d587b3-2d57-486c-adb9-3ed3975653a8": {
+    "id": "53d587b3-2d57-486c-adb9-3ed3975653a8",
+    "name": "Anonymous",
+    "firstSeen": 1794744638041,
+    "lastSeen": 1794745735253,
+    "sessionCount": 3,
+    "totalDuration": 0
   }
 }

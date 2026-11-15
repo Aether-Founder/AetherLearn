@@ -39,7 +39,7 @@ const VIEWS = ['subjects', 'matrix', 'periodes'] as const;
 type View = (typeof VIEWS)[number];
 
 export default function CijfersPage() {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [view, setView] = useState<View>('subjects');
   const [period, setPeriod] = useState<0 | 1 | 2 | 3 | 4>(0);
   const [grades, setGrades] = useState<Grade[]>([]);
@@ -468,7 +468,7 @@ export default function CijfersPage() {
                       <td className="px-5 py-4">{grade.test_name}</td>
                       <td className="px-5 py-4 text-muted-foreground">
                         {grade.test_date
-                          ? new Date(grade.test_date).toLocaleDateString('nl-NL')
+                          ? new Date(grade.test_date).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : 'en-US')
                           : '-'}
                       </td>
                       <td className="px-5 py-4">

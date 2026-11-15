@@ -53,7 +53,7 @@ interface StudentProgress {
 }
 
 export function TeacherDashboard({ userId }: TeacherDashboardProps) {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [classes, setClasses] = useState<Class[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [studentProgress, setStudentProgress] = useState<StudentProgress[]>([]);
@@ -111,7 +111,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
         <h1 className="text-3xl font-bold">{t('shell_teacher_dashboard')}</h1>
         <Button>
           <Plus className="w-4 h-4 mr-2" />
-          Nieuwe Klas
+          {t('teacher_new_class')}
         </Button>
       </div>
 
@@ -212,7 +212,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
             <h2 className="text-xl font-semibold">{t('shell_assignments')}</h2>
             <Button>
               <Plus className="w-4 h-4 mr-2" />
-              Nieuwe Opdracht
+              {t('teacher_new_assignment')}
             </Button>
           </div>
           <div className="space-y-3">
@@ -228,14 +228,14 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
                         <div className="flex items-center gap-2">
                           <h3 className="font-semibold">{assignment.title}</h3>
                           <Badge variant={isOverdue ? 'destructive' : 'secondary'}>
-                            {isOverdue ? 'Verlopen' : 'Actief'}
+                            {isOverdue ? t('time_overdue') : t('common_active')}
                           </Badge>
                         </div>
                         <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
                           <span>{assignment.className}</span>
                           <span className="flex items-center gap-1">
                             <Clock className="w-3 h-3" />
-                            {new Date(assignment.dueDate).toLocaleDateString('nl-NL')}
+                            {new Date(assignment.dueDate).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : 'en-US')}
                           </span>
                         </div>
                       </div>

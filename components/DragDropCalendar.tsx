@@ -82,7 +82,7 @@ export function DragDropCalendar({ onEventCreate, existingEvents = [] }: DragDro
         <h2 className="text-2xl font-bold">{t('shell_drag_drop_agenda')}</h2>
         <Button size="sm">
           <Plus className="w-4 h-4 mr-2" />
-          Event Toevoegen
+          {t('calendar_add_event')}
         </Button>
       </div>
 

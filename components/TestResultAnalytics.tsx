@@ -192,7 +192,7 @@ export function TestResultAnalytics({ userId: _userId }: TestResultAnalyticsProp
           </Select>
           <Button onClick={handleExportResults} variant="outline">
             <Download className="w-4 h-4 mr-2" />
-            Exporteer
+            {t('export')}
           </Button>
         </div>
       </div>

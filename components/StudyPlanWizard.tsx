@@ -18,6 +18,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Badge } from '@/components/ui/badge';
 import { ChevronLeft, ChevronRight, BookOpen, Clock, Target, Check } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
+import { getSubjectDisplayName } from '@/lib/subject-i18n';
 
 interface StudyPlanWizardProps {
   userId: string;
@@ -26,7 +27,7 @@ interface StudyPlanWizardProps {
 }
 
 export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: StudyPlanWizardProps) {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -41,11 +42,29 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
   });
 
   const steps = [
-    { number: 1, title: 'Doel', icon: Target },
-    { number: 2, title: 'Tijdsplanning', icon: Clock },
-    { number: 3, title: 'Studie Sets', icon: BookOpen },
-    { number: 4, title: 'Overzicht', icon: Check },
+    { number: 1, title: t('plan_step_goal'), icon: Target },
+    { number: 2, title: t('plan_step_schedule'), icon: Clock },
+    { number: 3, title: t('plan_step_sets'), icon: BookOpen },
+    { number: 4, title: t('shell_overview'), icon: Check },
   ];
+
+  const TIME_SLOTS = [
+    { value: 'morning', label: t('time_slot_morning') },
+    { value: 'afternoon', label: t('time_slot_afternoon') },
+    { value: 'evening', label: t('time_slot_evening') },
+    { value: 'night', label: t('time_slot_night') },
+  ];
+
+  const SUBJECT_OPTIONS = [
+    { value: 'Wiskunde', slug: 'wiskunde', name: 'Mathematics' },
+    { value: 'Natuurkunde', slug: 'natuurkunde', name: 'Physics' },
+    { value: 'Scheikunde', slug: 'scheikunde', name: 'Chemistry' },
+    { value: 'Biologie', slug: 'biologie', name: 'Biology' },
+    { value: 'Geschiedenis', slug: 'geschiedenis', name: 'History' },
+  ];
+
+  const timeSlotLabel = (value: string) =>
+    TIME_SLOTS.find((s) => s.value === value)?.label ?? value;
 
   const handleNext = () => {
     if (step < steps.length) {
@@ -173,20 +192,15 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
       <div>
         <Label>{t('shell_preferred_times')}</Label>
         <div className="grid grid-cols-2 gap-2 mt-2">
-          {[
-            'Ochtend (06:00-12:00)',
-            'Middag (12:00-18:00)',
-            'Avond (18:00-22:00)',
-            'Nacht (22:00-06:00)',
-          ].map((time) => (
-            <div key={time} className="flex items-center space-x-2">
+          {TIME_SLOTS.map((slot) => (
+            <div key={slot.value} className="flex items-center space-x-2">
               <Checkbox
-                id={time}
-                checked={planData.preferredTimes.includes(time)}
-                onCheckedChange={() => toggleTimeSlot(time)}
+                id={slot.value}
+                checked={planData.preferredTimes.includes(slot.value)}
+                onCheckedChange={() => toggleTimeSlot(slot.value)}
               />
-              <Label htmlFor={time} className="cursor-pointer">
-                {time}
+              <Label htmlFor={slot.value} className="cursor-pointer">
+                {slot.label}
               </Label>
             </div>
           ))}
@@ -200,25 +214,25 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
       <div>
         <Label>{t('shell_select_study_sets')}</Label>
         <p className="text-sm text-muted-foreground mb-4">
-          Kies de studie sets die je wilt opnemen in je plan
+          {t('studyplan_choose_sets')}
         </p>
         <div className="space-y-2">
-          {['Wiskunde', 'Natuurkunde', 'Scheikunde', 'Biologie', 'Geschiedenis'].map((subject) => (
-            <div key={subject} className="flex items-center space-x-2 p-3 border rounded-lg">
+          {SUBJECT_OPTIONS.map((subject) => (
+            <div key={subject.value} className="flex items-center space-x-2 p-3 border rounded-lg">
               <Checkbox
-                id={subject}
-                checked={planData.selectedStudySets.includes(subject)}
+                id={subject.value}
+                checked={planData.selectedStudySets.includes(subject.value)}
                 onCheckedChange={() => {
                   setPlanData((prev) => ({
                     ...prev,
-                    selectedStudySets: prev.selectedStudySets.includes(subject)
-                      ? prev.selectedStudySets.filter((s) => s !== subject)
-                      : [...prev.selectedStudySets, subject],
+                    selectedStudySets: prev.selectedStudySets.includes(subject.value)
+                      ? prev.selectedStudySets.filter((s) => s !== subject.value)
+                      : [...prev.selectedStudySets, subject.value],
                   }));
                 }}
               />
-              <Label htmlFor={subject} className="cursor-pointer flex-1">
-                {subject}
+              <Label htmlFor={subject.value} className="cursor-pointer flex-1">
+                {getSubjectDisplayName({ slug: subject.slug, name: subject.name }, currentLanguage)}
               </Label>
               <Badge variant="secondary">12 sets</Badge>
             </div>
@@ -242,7 +256,7 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
           {planData.goalType === 'exam' && (
             <div>
               <span className="font-medium">{t('shell_target_date_colon')}</span>{' '}
-              {planData.targetDate.toLocaleDateString('nl-NL')}
+              {planData.targetDate.toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : 'en-US')}
             </div>
           )}
           <div>
@@ -250,7 +264,7 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
           </div>
           <div>
             <span className="font-medium">{t('shell_preferred_times_colon')}</span>{' '}
-            {planData.preferredTimes.join(', ') || t('shell_none')}
+            {planData.preferredTimes.map(timeSlotLabel).join(', ') || t('shell_none')}
           </div>
           <div>
             <span className="font-medium">{t('shell_study_sets_colon')}</span> {planData.selectedStudySets.length}{' '}
@@ -309,24 +323,24 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
             {step > 1 && (
               <Button variant="outline" onClick={handlePrevious}>
                 <ChevronLeft className="w-4 h-4 mr-2" />
-                Vorige
+                {t('previous')}
               </Button>
             )}
             {onCancel && (
               <Button variant="ghost" onClick={onCancel}>
-                Annuleren
+                {t('cancel')}
               </Button>
             )}
           </div>
 
           {step < steps.length ? (
             <Button onClick={handleNext} disabled={!planData.title}>
-              Volgende
+              {t('next')}
               <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
           ) : (
             <Button onClick={handleSubmit} disabled={loading}>
-              {loading ? 'Maken...' : 'Plan Maken'}
+              {loading ? t('plan_creating') : t('plan_create')}
               <Check className="w-4 h-4 ml-2" />
             </Button>
           )}

@@ -23,6 +23,7 @@ import {
   Clock,
 } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
+import { getAchievementName, getAchievementDescription } from '@/lib/achievement-i18n';
 
 interface Achievement {
   id: string;
@@ -41,7 +42,7 @@ interface AchievementShowcaseProps {
 }
 
 export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'unlocked' | 'locked'>('all');
@@ -242,8 +243,8 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
                     {achievement.rarity}
                   </Badge>
                 </div>
-                <h3 className="font-semibold mb-1">{achievement.name}</h3>
-                <p className="text-sm text-muted-foreground mb-3">{achievement.description}</p>
+                <h3 className="font-semibold mb-1">{getAchievementName(achievement.id || achievement.name, currentLanguage, achievement.name)}</h3>
+                <p className="text-sm text-muted-foreground mb-3">{getAchievementDescription(achievement.id || achievement.name, currentLanguage, achievement.description)}</p>
 
                 {!isUnlocked && progress > 0 && (
                   <div className="space-y-1">
@@ -262,7 +263,7 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
 
                 {isUnlocked && (
                   <div className="text-xs text-muted-foreground mt-2">
-                    Ontgrendeld op {new Date(achievement.unlockedAt).toLocaleDateString('nl-NL')}
+                    {t('ach_unlocked_on')} {new Date(achievement.unlockedAt).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : 'en-US')}
                   </div>
                 )}
               </CardContent>

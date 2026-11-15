@@ -15,25 +15,8 @@ export interface LanguageMeta {
 }
 
 export const LANGUAGE_REGISTRY: readonly LanguageMeta[] = [
-  { code: 'nl', nativeName: 'Nederlands' },
   { code: 'en', nativeName: 'English' },
-  { code: 'ru', nativeName: 'Русский' },
-  { code: 'zh', nativeName: '中文' },
-  { code: 'fr', nativeName: 'Français' },
-  { code: 'es', nativeName: 'Español' },
-  { code: 'ar', nativeName: 'العربية' },
-  { code: 'de', nativeName: 'Deutsch' },
-  { code: 'ja', nativeName: '日本語' },
-  { code: 'ko', nativeName: '한국어' },
-  { code: 'hi', nativeName: 'हिन्दी' },
-  { code: 'pt', nativeName: 'Português' },
-  { code: 'it', nativeName: 'Italiano' },
-  { code: 'tr', nativeName: 'Türkçe' },
-  { code: 'id', nativeName: 'Bahasa Indonesia' },
-  { code: 'vi', nativeName: 'Tiếng Việt' },
-  { code: 'th', nativeName: 'ไทย' },
-  { code: 'pl', nativeName: 'Polski' },
-  { code: 'uk', nativeName: 'Українська' },
+  { code: 'nl', nativeName: 'Nederlands' },
 ];
 
 export type Language = (typeof LANGUAGE_REGISTRY)[number]['code'];
@@ -51,38 +34,7 @@ export const DEFAULT_LANGUAGE: Language = 'en';
  */
 export const REGIONAL_DEFAULTS: Record<string, Language> = {
   'nl': 'nl', // Netherlands
-  'be': 'nl', // Belgium (Dutch/French - Dutch as primary)
-  'de': 'de', // Germany
-  'at': 'de', // Austria
-  'ch': 'de', // Switzerland (German as primary)
-  'fr': 'fr', // France
-  'es': 'es', // Spain
-  'it': 'it', // Italy
-  'pt': 'pt', // Portugal
-  'br': 'pt', // Brazil
-  'ru': 'ru', // Russia
-  'ua': 'uk', // Ukraine
-  'pl': 'pl', // Poland
-  'tr': 'tr', // Turkey
-  'sa': 'ar', // Saudi Arabia
-  'ae': 'ar', // UAE
-  'eg': 'ar', // Egypt
-  'jp': 'ja', // Japan
-  'kr': 'ko', // South Korea
-  'cn': 'zh', // China
-  'tw': 'zh', // Taiwan
-  'in': 'hi', // India
-  'id': 'id', // Indonesia
-  'vn': 'vi', // Vietnam
-  'th': 'th', // Thailand
-  // English as fallback for many countries
-  'us': 'en',
-  'gb': 'en',
-  'ca': 'en',
-  'au': 'en',
-  'nz': 'en',
-  'ie': 'en',
-  'za': 'en',
+  'be': 'nl', // Belgium
 };
 
 export const STORAGE_KEY = 'aether_language';

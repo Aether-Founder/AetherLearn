@@ -78,9 +78,9 @@ class FilesystemService {
     const notesFolder: FilesystemNode = {
       id: 'notes_root',
       type: 'note_folder',
-      name: 'Mijn Notities',
+      name: 'My Notes',
       parentId: this.rootId,
-      path: '/Mijn Notities',
+      path: '/My Notes',
       metadata: {
         color: '#8B5CF6',
         icon: 'folder',

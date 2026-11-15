@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Trophy, Lock, Flame, BookOpen, Users, Target } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
+import { getAchievementName, getAchievementDescription, getAchievementCategory } from '@/lib/achievement-i18n';
 
 interface Achievement {
   id: string;
@@ -31,7 +32,7 @@ interface AchievementsProps {
 }
 
 export function Achievements({ userId }: AchievementsProps) {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [definitions, setDefinitions] = useState<AchievementDefinition[]>([]);
   const [filter, setFilter] = useState<'all' | 'unlocked' | 'locked'>('all');
@@ -147,7 +148,7 @@ export function Achievements({ userId }: AchievementsProps) {
           onClick={() => setFilter('unlocked')}
           size="sm"
         >
-          Ontgrendeld
+          {t('ach_unlocked')}
         </Button>
         <Button
           variant={filter === 'locked' ? 'default' : 'outline'}
@@ -164,7 +165,7 @@ export function Achievements({ userId }: AchievementsProps) {
           onClick={() => setCategoryFilter('all')}
           size="sm"
         >
-          Alle categorieën
+          {t('ui_all_categories')}
         </Button>
         <Button
           variant={categoryFilter === 'streak' ? 'default' : 'outline'}
@@ -172,7 +173,7 @@ export function Achievements({ userId }: AchievementsProps) {
           size="sm"
         >
           <Flame className="w-4 h-4 mr-1" />
-          Streak
+          {getAchievementCategory('streak', currentLanguage)}
         </Button>
         <Button
           variant={categoryFilter === 'study' ? 'default' : 'outline'}
@@ -180,7 +181,7 @@ export function Achievements({ userId }: AchievementsProps) {
           size="sm"
         >
           <BookOpen className="w-4 h-4 mr-1" />
-          Studie
+          {getAchievementCategory('study', currentLanguage)}
         </Button>
         <Button
           variant={categoryFilter === 'social' ? 'default' : 'outline'}
@@ -188,7 +189,7 @@ export function Achievements({ userId }: AchievementsProps) {
           size="sm"
         >
           <Users className="w-4 h-4 mr-1" />
-          Sociaal
+          {getAchievementCategory('social', currentLanguage)}
         </Button>
         <Button
           variant={categoryFilter === 'mastery' ? 'default' : 'outline'}
@@ -196,7 +197,7 @@ export function Achievements({ userId }: AchievementsProps) {
           size="sm"
         >
           <Target className="w-4 h-4 mr-1" />
-          Meesterschap
+          {getAchievementCategory('mastery', currentLanguage)}
         </Button>
       </div>
 
@@ -224,7 +225,7 @@ export function Achievements({ userId }: AchievementsProps) {
                 {isUnlocked ? (
                   <Badge className="bg-yellow-500 text-white">
                     <Trophy className="w-3 h-3 mr-1" />
-                    Ontgrendeld
+                    {t('ach_unlocked')}
                   </Badge>
                 ) : (
                   <Badge variant="secondary">
@@ -234,15 +235,15 @@ export function Achievements({ userId }: AchievementsProps) {
                 )}
               </div>
 
-              <h3 className="font-semibold mb-1">{definition.name}</h3>
-              <p className="text-sm text-muted-foreground mb-3">{definition.description}</p>
+              <h3 className="font-semibold mb-1">{getAchievementName(definition.id, currentLanguage, definition.name)}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{getAchievementDescription(definition.id, currentLanguage, definition.description)}</p>
 
               <div className="flex items-center gap-2 mb-2">
                 <div className={`p-1 rounded ${getCategoryColor(definition.category)} text-white`}>
                   {getCategoryIcon(definition.category)}
                 </div>
                 <span className="text-xs text-muted-foreground capitalize">
-                  {definition.category}
+                  {getAchievementCategory(definition.category, currentLanguage)}
                 </span>
               </div>
 
@@ -258,7 +259,7 @@ export function Achievements({ userId }: AchievementsProps) {
 
               {isUnlocked && achievement.unlockedAt && (
                 <div className="mt-3 text-xs text-muted-foreground">
-                  Ontgrendeld op: {new Date(achievement.unlockedAt).toLocaleDateString('nl-NL')}
+                  {t('ach_unlocked_on')}: {new Date(achievement.unlockedAt).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : 'en-US')}
                 </div>
               )}
             </div>

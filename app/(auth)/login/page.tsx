@@ -23,35 +23,11 @@ function LoginPageContent() {
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirectTo') || '/';
 
-  const [email, setEmail] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return sessionStorage.getItem('auth_draft_email') || '';
-    }
-    return '';
-  });
-  const [password, setPassword] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return sessionStorage.getItem('auth_draft_password') || '';
-    }
-    return '';
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleEmailChange = (val: string) => {
-    setEmail(val);
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('auth_draft_email', val);
-    }
-  };
-
-  const handlePasswordChange = (val: string) => {
-    setPassword(val);
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('auth_draft_password', val);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,15 +42,6 @@ function LoginPageContent() {
       return;
     }
 
-    // Clear draft on successful login
-    if (typeof window !== 'undefined') {
-      sessionStorage.removeItem('auth_draft_email');
-      sessionStorage.removeItem('auth_draft_password');
-    }
-
-    // Check if user needs setup (no grade level set)
-    // We'll let the dashboard handle this check and redirect to subjects if needed
-    // Redirect to dashboard initially
     router.push(redirectTo);
   };
 
@@ -102,7 +69,7 @@ function LoginPageContent() {
                 id="email"
                 type="email"
                 value={email}
-                onChange={(e) => handleEmailChange(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="email"
                 className="mt-1 block w-full rounded-md border border-border bg-background px-3 py-2 text-foreground shadow-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
@@ -119,7 +86,7 @@ function LoginPageContent() {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
-                  onChange={(e) => handlePasswordChange(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   autoComplete="current-password"
                   className="mt-1 block w-full rounded-md border border-border bg-background px-3 py-2 text-foreground shadow-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 pr-10"

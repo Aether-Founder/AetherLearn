@@ -62,7 +62,7 @@ export default function BookStudyPage() {
             className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-border rounded-lg bg-secondary hover:bg-secondary/80 transition-colors text-foreground mb-8"
           >
             <ChevronRight className="w-4 h-4 rotate-180" />
-            {t('books.back_to_library')}
+            {t('books.back_to_library', 'Back to Library')}
           </button>
 
           <div className="text-center space-y-6">
@@ -72,10 +72,10 @@ export default function BookStudyPage() {
               </div>
             </div>
 
-            <h1 className="text-2xl font-semibold">{t('books.book_not_found')}</h1>
+            <h1 className="text-2xl font-semibold">{t('books.book_not_found', 'Book not found')}</h1>
 
             <p className="text-muted-foreground">
-              {t('books.book_not_found_desc') || 'The book you are looking for does not exist or has been removed.'}
+              {t('books.book_not_found_desc', 'The book you are looking for does not exist or has been removed.') || 'The book you are looking for does not exist or has been removed.'}
             </p>
 
             <div className="pt-4">
@@ -85,7 +85,7 @@ export default function BookStudyPage() {
                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
               >
                 <ChevronRight className="w-4 h-4 rotate-180" />
-                {t('books.back_to_library')}
+                {t('books.back_to_library', 'Back to Library')}
               </button>
             </div>
           </div>
@@ -95,8 +95,8 @@ export default function BookStudyPage() {
   }
 
   if (hasLearningSet) {
-    // Redirect to learning platform with the book's learning set
-    router.push(`/learning-platform?book=${slug}`);
+    // Redirect to the book's learn page
+    router.push(`/books/${slug}/learn`);
     return null;
   }
 
@@ -109,7 +109,7 @@ export default function BookStudyPage() {
           className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-border rounded-lg bg-secondary hover:bg-secondary/80 transition-colors text-foreground mb-8"
         >
           <ChevronRight className="w-4 h-4 rotate-180" />
-          {t('books.back_to_book')}
+          {t('books.back_to_book', 'Back to Book')}
         </Link>
 
         {/* No Learning Set Message */}
@@ -120,14 +120,10 @@ export default function BookStudyPage() {
             </div>
           </div>
 
-          <h1 className="text-2xl font-semibold">{t('books.learning_not_available')}</h1>
+          <h1 className="text-2xl font-semibold">{t('books.learning_not_available', 'Learning not available yet')}</h1>
 
           <p className="text-muted-foreground">
-            {t('books.learning_not_available_desc')}
-          </p>
-
-          <p className="text-muted-foreground">
-            {t('books.learning_not_available_contact')}
+            {t('books.learning_not_available_desc', "This book doesn't have a learning set available yet.")}
           </p>
 
           <div className="pt-4">
@@ -136,7 +132,7 @@ export default function BookStudyPage() {
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
             >
               <ChevronRight className="w-4 h-4 rotate-180" />
-              {t('books.back_to_book')}
+              {t('books.back_to_book', 'Back to Book')}
             </Link>
           </div>
         </div>

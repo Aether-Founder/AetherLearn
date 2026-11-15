@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Award, X, Sparkles } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
+import { getAchievementName, getAchievementDescription } from '@/lib/achievement-i18n';
 
 interface Achievement {
   id: string;
@@ -25,7 +26,7 @@ function AchievementNotification({
   onDismiss,
   onShare,
 }: AchievementNotificationProps) {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -55,8 +56,8 @@ function AchievementNotification({
             <div className="flex items-center gap-2 mb-1">
               <h4 className="font-semibold text-sm">{t('shell_achievement_unlocked')}</h4>
             </div>
-            <p className="font-medium text-sm">{achievement.name}</p>
-            <p className="text-xs text-muted-foreground mt-1">{achievement.description}</p>
+            <p className="font-medium text-sm">{getAchievementName(achievement.id || achievement.name, currentLanguage, achievement.name)}</p>
+            <p className="text-xs text-muted-foreground mt-1">{getAchievementDescription(achievement.id || achievement.name, currentLanguage, achievement.description)}</p>
           </div>
           <Button size="sm" variant="ghost" className="h-6 w-6 p-0" onClick={onDismiss}>
             <X className="w-4 h-4" />
@@ -77,7 +78,7 @@ interface AchievementNotificationsProps {
 }
 
 export function AchievementNotifications({ userId }: AchievementNotificationsProps) {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [notifications, setNotifications] = useState<Achievement[]>([]);
   const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set());
 
@@ -120,8 +121,8 @@ export function AchievementNotifications({ userId }: AchievementNotificationsPro
   const handleShare = (achievement: Achievement) => {
     if (navigator.share) {
       navigator.share({
-        title: t('shell_achievement_share_title', undefined, { name: achievement.name }),
-        text: achievement.description,
+        title: t('shell_achievement_share_title', undefined, { name: getAchievementName(achievement.id || achievement.name, currentLanguage, achievement.name) }),
+        text: getAchievementDescription(achievement.id || achievement.name, currentLanguage, achievement.description),
         url: window.location.href,
       });
     }

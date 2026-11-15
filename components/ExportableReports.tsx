@@ -71,7 +71,7 @@ export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Download className="w-5 h-5" />
-          Exporteer Rapporten
+          {t('reports_export_title')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -161,7 +161,7 @@ export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
           ) : (
             <>
               <Download className="w-4 h-4 mr-2" />
-              Exporteer Rapport
+              {t('report_export_button')}
             </>
           )}
         </Button>

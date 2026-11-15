@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import { findContentPage, getJsonPath } from '@/lib/json-content-pages';
+import { getJsonPath } from '@/lib/json-content-pages';
+import { findContentPageAsync } from '@/lib/content-pages-registry';
 
 export async function GET(_req: NextRequest, { params }: { params: { page: string } }) {
   // Sanitize: only allow alphanumeric, hyphens, underscores
@@ -10,7 +11,7 @@ export async function GET(_req: NextRequest, { params }: { params: { page: strin
     return NextResponse.json({ error: 'Invalid page name' }, { status: 400 });
   }
 
-  const registeredPage = findContentPage(pageName);
+  const registeredPage = await findContentPageAsync(pageName);
   let filePath = registeredPage
     ? getJsonPath(registeredPage)
     : path.join(process.cwd(), 'content', `${pageName}.json`);

@@ -38,11 +38,11 @@ export function ContentPreview({ content, onEdit, onDelete, currentUserId }: Con
   const getTypeLabel = (type: string) => {
     switch (type) {
       case 'study_set':
-        return 'Studie Set';
+        return 'Study Set';
       case 'notes':
-        return 'Notities';
+        return 'Notes';
       case 'reference':
-        return 'Referentie';
+        return 'Reference';
       default:
         return type;
     }
@@ -79,12 +79,12 @@ export function ContentPreview({ content, onEdit, onDelete, currentUserId }: Con
             <div className="flex gap-2">
               {onEdit && (
                 <Button variant="outline" size="sm" onClick={() => onEdit(content.id)}>
-                  Bewerken
+                  {t('edit')}
                 </Button>
               )}
               {onDelete && (
                 <Button variant="destructive" size="sm" onClick={() => onDelete(content.id)}>
-                  Verwijderen
+                  {t('delete')}
                 </Button>
               )}
             </div>

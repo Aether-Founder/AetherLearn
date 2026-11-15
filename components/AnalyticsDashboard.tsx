@@ -275,7 +275,7 @@ export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps)
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5" />
-              Test Statistieken
+              {t('stats_test_statistics')}
             </CardTitle>
           </CardHeader>
           <CardContent>

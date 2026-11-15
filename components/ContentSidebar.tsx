@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronRight } from "lucide-react";
 import { getSectionTitle } from "@/lib/section-title";
+import { useTranslation } from "@/lib/useTranslation";
 
 export interface SectionBlock {
   id: string;
@@ -25,6 +26,7 @@ interface ContentSidebarProps {
 }
 
 export function ContentSidebar({ sections, pageTitle, className = "", hidden = false }: ContentSidebarProps) {
+  const { t } = useTranslation();
   const [activeSection, setActiveSection] = useState<string>("");
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
   const [sidebarStyle, setSidebarStyle] = useState<React.CSSProperties>({});
@@ -170,7 +172,7 @@ export function ContentSidebar({ sections, pageTitle, className = "", hidden = f
       <div className="flex flex-col">
         <div className="p-5 pb-3 flex-shrink-0">
           <h2 className="text-lg font-semibold text-foreground mb-3">
-            Inhoudsopgave
+            {t('table_of_contents')}
           </h2>
         </div>
 
@@ -209,7 +211,7 @@ export function ContentSidebar({ sections, pageTitle, className = "", hidden = f
                       const title =
                         block.title ||
                         block.content?.match(/^#+\s+(.+)$/m)?.[1] ||
-                        (block.type === 'questions' ? 'Opdrachten' : block.id);
+                        (block.type === 'questions' ? t('content_block_assignments') : block.id);
                       return (
                         <button
                           key={block.id}

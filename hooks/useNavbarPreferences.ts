@@ -6,6 +6,7 @@
 
 import { useEffect, useState } from 'react';
 import { useUser } from './useAuth';
+import { useTranslation } from '@/lib/useTranslation';
 
 export type NavPage =
   | 'dashboard'
@@ -46,22 +47,22 @@ const DEFAULT_VISIBILITY: NavVisibility = {
   books: true,
 };
 
-const PAGE_LABELS: Record<NavPage, string> = {
-  dashboard: 'Overzicht',
-  subjects: 'Vakken',
-  decks: 'Leersets',
-  notes: 'Notities',
-  groups: 'Groepen',
-  agenda: 'Agenda',
-  artisan: 'Artisan',
-  inbox: 'Inbox',
-  foutenlogboek: 'Foutenlogboek',
-  planner: 'Planner',
-  settings: 'Instellingen',
-  vandaag: 'Vandaag',
-  admin: 'Admin',
-  research: 'Research',
-  books: 'Books',
+const PAGE_LABEL_KEYS: Record<NavPage, string> = {
+  dashboard: 'nav_overview',
+  subjects: 'nav_subjects',
+  decks: 'nav_decks',
+  notes: 'nav_notes',
+  groups: 'nav_groups',
+  agenda: 'nav_agenda',
+  artisan: 'nav_artisan',
+  inbox: 'nav_inbox',
+  foutenlogboek: 'nav_error_log',
+  planner: 'nav_planner',
+  settings: 'nav_settings',
+  vandaag: 'nav_today',
+  admin: 'nav_admin',
+  research: 'nav_research',
+  books: 'nav_books',
 };
 
 const PAGE_HREFS: Record<NavPage, string> = {
@@ -84,8 +85,13 @@ const PAGE_HREFS: Record<NavPage, string> = {
 
 export function useNavbarPreferences() {
   const { user } = useUser();
+  const { t } = useTranslation();
   const [visibility, setVisibility] = useState<NavVisibility>(DEFAULT_VISIBILITY);
   const [loading, setLoading] = useState(true);
+
+  const PAGE_LABELS: Record<NavPage, string> = Object.fromEntries(
+    (Object.keys(PAGE_LABEL_KEYS) as NavPage[]).map((page) => [page, t(PAGE_LABEL_KEYS[page])])
+  ) as Record<NavPage, string>;
 
   useEffect(() => {
     const loadPreferences = () => {

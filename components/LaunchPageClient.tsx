@@ -13,7 +13,7 @@ const collectionCards = [
   {
     titleKey: 'launch_card_aether',
     descKey: 'launch_card_aether_desc',
-    href: '/learning-platform',
+    href: '/study-sets',
   },
   {
     titleKey: 'launch_card_testprep',

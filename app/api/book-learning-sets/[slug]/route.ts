@@ -17,17 +17,26 @@ export async function GET(
 
     const raw = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
+    // Support both flat `cards` and sectioned `sections[].cards` formats
+    const flatCards: any[] = raw.cards ?? (raw.sections ?? []).flatMap((s: any) => s.cards ?? []);
+    const toTerm = (card: any, index: number) => ({
+      id: card.id || `${slug}-${index}`,
+      term: card.front,
+      definition: card.back,
+      image: card.image,
+    });
+
     const learningSet = {
       id: raw.id,
       pageName: slug,
       pageTitle: raw.title,
       title: raw.title,
       description: raw.description,
-      terms: raw.cards.map((card: any, index: number) => ({
-        id: card.id || `${slug}-${index}`,
-        term: card.front,
-        definition: card.back,
-        image: card.image,
+      terms: flatCards.map(toTerm),
+      sections: (raw.sections ?? []).map((section: any) => ({
+        id: section.id,
+        title: section.title,
+        cards: (section.cards ?? []).map(toTerm),
       })),
     };
 

@@ -4,7 +4,7 @@ import { type Language } from './i18n-config';
  * Languages that use right-to-left (RTL) text direction.
  * Add more RTL languages here as needed.
  */
-export const RTL_LANGUAGES: Language[] = ['ar', 'he', 'fa', 'ur', 'yi'];
+export const RTL_LANGUAGES: readonly string[] = ['ar', 'he', 'fa', 'ur', 'yi'];
 
 /**
  * Check if a language uses right-to-left text direction.

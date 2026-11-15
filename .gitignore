@@ -41,3 +41,4 @@ htmlcov/
 # GitHub refuses blobs over 100 MiB, so the master file is kept out of git.
 # The deployable, lossless page chunks live in public/binas/ and *are* tracked.
 binas/binas.pdf
+tmp_i18n/

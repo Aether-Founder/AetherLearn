@@ -174,6 +174,7 @@ class I18n {
     this.currentLanguage = language;
     try {
       localStorage.setItem(STORAGE_KEY, language);
+      document.cookie = `${STORAGE_KEY}=${language};path=/;max-age=31536000;SameSite=Lax`;
     } catch {
       /* storage unavailable */
     }

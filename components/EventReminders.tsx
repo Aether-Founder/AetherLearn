@@ -142,7 +142,7 @@ export function EventReminders({ userId }: EventRemindersProps) {
         <h2 className="text-2xl font-bold">{t('shell_event_reminders')}</h2>
         <Button onClick={() => setShowAddDialog(true)}>
           <Plus className="w-4 h-4 mr-2" />
-          Herinnering Toevoegen
+          {t('reminder_add_button')}
         </Button>
       </div>
 
@@ -150,7 +150,7 @@ export function EventReminders({ userId }: EventRemindersProps) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Bell className="w-5 h-5" />
-            Actieve Herinneringen
+            {t('reminders_active_title')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -201,7 +201,7 @@ export function EventReminders({ userId }: EventRemindersProps) {
             <div>
               <h3 className="font-semibold mb-2">{t('shell_about_reminders')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Email: Ontvang herinneringen via e-mail</li>
+                <li>• {t('reminder_email_tip')}</li>
                 <li>• {t('shell_tip_push')}</li>
                 <li>• {t('shell_tip_inapp')}</li>
                 <li>• {t('shell_tip_toggle_reminders')}</li>
@@ -264,11 +264,11 @@ export function EventReminders({ userId }: EventRemindersProps) {
 
               <div className="flex gap-2 justify-end">
                 <Button variant="outline" onClick={() => setShowAddDialog(false)}>
-                  Annuleren
+                  {t('cancel')}
                 </Button>
                 <Button onClick={() => setShowAddDialog(false)}>
                   <CheckCircle2 className="w-4 h-4 mr-2" />
-                  Opslaan
+                  {t('save')}
                 </Button>
               </div>
             </CardContent>

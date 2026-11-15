@@ -211,7 +211,7 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
             <Languages className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
             <h3 className="text-lg font-semibold mb-2">{t('shell_no_translations')}</h3>
             <p className="text-sm text-muted-foreground">
-              Voeg vertalingen toe om de dekking te controleren
+              {t('i18n_coverage_empty')}
             </p>
           </CardContent>
         </Card>

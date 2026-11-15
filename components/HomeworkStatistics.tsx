@@ -253,7 +253,7 @@ export function HomeworkStatistics({ userId: _userId, testWeekId }: HomeworkStat
               : 'N/A'}
           </div>
           <p className="text-sm text-muted-foreground mt-2">
-            Gemiddelde tijd om een huiswerkopdracht te voltooien
+            {t('stats_avg_homework_time')}
           </p>
         </CardContent>
       </Card>

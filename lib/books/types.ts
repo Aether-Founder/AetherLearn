@@ -31,6 +31,12 @@ export interface Book {
   pinned?: boolean;
   position?: number;
   authorInfo?: string;
+  /** Optional per-language overrides for title/description/authorInfo (e.g. { en: { description: "..." } }) */
+  localized?: {
+    title?: Record<string, string>;
+    description?: Record<string, string>;
+    authorInfo?: Record<string, string>;
+  };
   learningModes?: {
     explanation?: boolean;
     learning?: boolean;

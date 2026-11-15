@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { type Subject } from '@/lib/curriculum-mapping';
 import { Check, BookOpen } from 'lucide-react';
+import { useTranslation } from '@/lib/useTranslation';
+import { getSubjectDisplayName } from '@/lib/subject-i18n';
 
 interface SubjectSelectionProps {
   subjects: Subject[];
@@ -18,10 +20,10 @@ export function SubjectSelection({
   className = '',
 }: SubjectSelectionProps) {
   const [searchQuery, setSearchQuery] = useState('');
+  const { currentLanguage } = useTranslation();
 
   const filteredSubjects = subjects.filter((subject) =>
-    subject.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    subject.description.toLowerCase().includes(searchQuery.toLowerCase())
+    subject.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const toggleSubject = (subjectId: string) => {
@@ -100,11 +102,13 @@ export function SubjectSelection({
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <BookOpen className="h-4 w-4 flex-shrink-0" style={{ color: subject.color }} />
-                  <div className="font-semibold truncate">{subject.name}</div>
+                  <div className="font-semibold truncate">{getSubjectDisplayName(subject, currentLanguage)}</div>
                 </div>
-                <div className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                  {subject.description}
-                </div>
+                {subject.description && (
+                  <div className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                    {subject.description}
+                  </div>
+                )}
               </div>
             </button>
           );

@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Plus, CheckCircle2, Clock, Calendar, Trash2, Edit } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
+import { fetchHomeworkItems, upsertHomeworkItem, deleteHomeworkItem } from '@/lib/cloud-sync';
 
 type Grade = 'red' | 'orange' | 'green' | 'not_graded';
 type Priority = 'low' | 'medium' | 'high';
@@ -53,7 +54,7 @@ const PRIORITY_COLORS: Record<Priority, string> = {
 };
 
 export default function HomeworkPage() {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [homework, setHomework] = useState<Homework[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -73,14 +74,28 @@ export default function HomeworkPage() {
   }, []);
 
   const loadHomework = () => {
+    let local: Homework[] = [];
     try {
       const stored = localStorage.getItem('aether_homework');
-      if (stored) {
-        setHomework(JSON.parse(stored));
-      }
+      if (stored) local = JSON.parse(stored);
+      setHomework(local);
     } catch {
       setHomework([]);
     }
+
+    // Merge Supabase homework (source of truth) into the local cache
+    fetchHomeworkItems().then((remote) => {
+      if (!remote?.length) return;
+      const byId = new Map<string, Homework>();
+      for (const item of local) byId.set(item.id, item);
+      for (const item of remote) {
+        const { data: _d, ...rest } = item as any;
+        byId.set(item.id, { ...(byId.get(item.id) || {}), ...rest } as Homework);
+      }
+      const merged = Array.from(byId.values());
+      localStorage.setItem('aether_homework', JSON.stringify(merged));
+      setHomework(merged);
+    });
   };
 
   const saveHomework = (data: Homework[]) => {
@@ -89,6 +104,8 @@ export default function HomeworkPage() {
     } catch {
       console.error('Failed to save homework');
     }
+    // Fire-and-forget cloud sync
+    void Promise.allSettled(data.map((item) => upsertHomeworkItem(item)));
   };
 
   const openCreate = () => {
@@ -152,6 +169,7 @@ export default function HomeworkPage() {
     const updated = homework.filter((item) => item.id !== id);
     setHomework(updated);
     saveHomework(updated);
+    void deleteHomeworkItem(id);
   };
 
   const toggleComplete = (id: string) => {
@@ -255,7 +273,7 @@ export default function HomeworkPage() {
                     <div className="flex items-center gap-4 text-xs text-muted-foreground">
                       <div className="flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
-                        {new Date(item.dueDate).toLocaleDateString('nl-NL')}
+                        {new Date(item.dueDate).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : 'en-US')}
                       </div>
                       {item.estimatedTime && (
                         <div className="flex items-center gap-1">

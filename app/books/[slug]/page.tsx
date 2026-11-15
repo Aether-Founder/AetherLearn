@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getBookBySlug, getAllBooks } from '@/lib/books/catalog';
+import { getBookBySlug, getAllBooks, getBookField } from '@/lib/books/catalog';
+import { setBookBookmark } from '@/lib/cloud-sync';
 import { loadBookContent } from '@/lib/books/content';
 import { Book, Chapter } from '@/lib/books/types';
 import { AppShell } from '@/components/AppShell';
@@ -140,11 +141,12 @@ export default function BookDetailPage() {
   }, [isLanguageDropdownOpen]);
 
   const handleStartReading = () => {
-    router.push(`/books/${slug}/read?lang=${selectedLanguage}`);
+    sessionStorage.setItem(`book-read-lang-${slug}`, selectedLanguage);
+    router.push(`/books/${slug}/read`);
   };
 
   const handleStartLearning = () => {
-    router.push(`/books/${slug}/read?mode=study&lang=${selectedLanguage}`);
+    router.push(`/books/${slug}/learn`);
   };
 
   const handleToggleSave = () => {
@@ -155,10 +157,12 @@ export default function BookDetailPage() {
         const newBookmarked = bookmarkedBookIds.filter((id: string) => id !== book?.id);
         localStorage.setItem('book-bookmarks', JSON.stringify(newBookmarked));
         setIsBookmarked(false);
+        void setBookBookmark(book?.slug || slug, false);
       } else {
         const newBookmarked = [...bookmarkedBookIds, book?.id];
         localStorage.setItem('book-bookmarks', JSON.stringify(newBookmarked));
         setIsBookmarked(true);
+        void setBookBookmark(book?.slug || slug, true);
       }
     } catch (error) {
       console.error('Error toggling bookmark:', error);
@@ -216,9 +220,9 @@ export default function BookDetailPage() {
     return (
       <AppShell>
         <div className="text-center py-12">
-          <p className="text-muted-foreground">{t('books.book_not_found')}</p>
+          <p className="text-muted-foreground">{t('books.book_not_found', 'Book not found')}</p>
           <Link href="/books" className="text-primary hover:underline mt-4 inline-block">
-            {t('books.back_to_library')}
+            {t('books.back_to_library', 'Back to Library')}
           </Link>
         </div>
       </AppShell>
@@ -227,6 +231,11 @@ export default function BookDetailPage() {
 
   const readingTime = book.readingTime.concise;
 
+  // Localized metadata: prefer the UI language, fall back to the book's base text
+  const displayTitle = getBookField(book, 'title', currentLanguage) || book.title;
+  const displayDescription = getBookField(book, 'description', currentLanguage) || book.description;
+  const displayAuthorInfo = getBookField(book, 'authorInfo', currentLanguage) || book.authorInfo;
+
   return (
     <AppShell>
       <div className="mx-auto max-w-5xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
@@ -234,8 +243,8 @@ export default function BookDetailPage() {
         <Link
           href="/books"
           className="inline-flex h-10 w-10 flex-shrink-0 box-border items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:bg-secondary/50 hover:text-foreground"
-          title={t('books.back_to_library')}
-          aria-label={t('books.back_to_library')}
+          title={t('books.back_to_library', 'Back to Library')}
+          aria-label={t('books.back_to_library', 'Back to Library')}
         >
           <ChevronRight className="h-4 w-4 rotate-180" />
         </Link>
@@ -265,7 +274,7 @@ export default function BookDetailPage() {
                 <BookOpen className="w-8 h-8" />
               </div>
               <div className="text-white text-center">
-                <h1 className="font-display font-normal text-lg line-clamp-2 mb-1">{book.title}</h1>
+                <h1 className="font-display font-normal text-lg line-clamp-2 mb-1">{displayTitle}</h1>
                 <p className="text-white/80 text-sm">{book.author}</p>
               </div>
             </div>
@@ -275,20 +284,20 @@ export default function BookDetailPage() {
           <div className="space-y-6 md:col-span-2">
             <div className="space-y-2">
               <h1 className="break-words font-display text-[36px] font-medium leading-tight text-foreground md:text-[48px]">
-                {book.title}
+                {displayTitle}
               </h1>
               <p className="mb-2 w-full text-[15px] leading-relaxed text-muted-foreground">
                 {book.author}
               </p>
               <p className="w-full text-[15px] leading-relaxed text-muted-foreground">
-                {book.description}
+                {displayDescription}
               </p>
             </div>
 
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2 text-sm">
                 <Clock className="h-4 w-4 text-muted-foreground" />
-                <span>{readingTime} {t('books.min_read')}</span>
+                <span>{readingTime} {t('books.min_read', 'min read')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Globe className="h-4 w-4 text-muted-foreground" />
@@ -296,7 +305,7 @@ export default function BookDetailPage() {
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <BookOpen className="h-4 w-4 text-muted-foreground" />
-                <span>{chapters.length} {t('books.chapters_count')}</span>
+                <span>{chapters.length} {t('books.chapters_count', 'chapters')}</span>
               </div>
             </div>
 
@@ -307,7 +316,7 @@ export default function BookDetailPage() {
                 className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg bg-primary px-4 py-3 text-sm text-primary-foreground transition-opacity hover:opacity-90"
               >
                 <Play className="h-5 w-5" />
-                {t('books.start_reading')}
+                {t('books.start_reading', 'Start Reading')}
               </button>
               <button
                 type="button"
@@ -315,7 +324,7 @@ export default function BookDetailPage() {
                 className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg bg-primary px-4 py-3 text-sm text-primary-foreground transition-opacity hover:opacity-90"
               >
                 <Brain className="h-5 w-5" />
-                {t('books.start_learning')}
+                {t('books.start_learning', 'Start Learning')}
               </button>
               <button
                 type="button"
@@ -323,7 +332,7 @@ export default function BookDetailPage() {
                 className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg bg-secondary px-4 py-3 text-sm transition-colors hover:bg-secondary/80"
               >
                 <Bookmark className={`h-5 w-5 transition-all duration-300 ${isBookmarked ? 'fill-current' : ''}`} />
-                {isBookmarked ? t('books.saved') : t('books.save')}
+                {isBookmarked ? t('books.saved', 'Saved') : t('books.save', 'Bookmark')}
               </button>
               <button
                 type="button"
@@ -331,7 +340,7 @@ export default function BookDetailPage() {
                 className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg bg-secondary px-4 py-3 text-sm transition-colors hover:bg-secondary/80"
               >
                 <Share2 className="h-5 w-5" />
-                {t('books.share')}
+                {t('books.share', 'Share')}
               </button>
             </div>
           </div>
@@ -339,7 +348,7 @@ export default function BookDetailPage() {
 
         {/* Language Selection */}
         <div>
-          <label className="mb-2 block text-sm font-medium">{t('books.language')}</label>
+          <label className="mb-2 block text-sm font-medium">{t('books.language', 'Language')}</label>
           <div className="relative language-dropdown-container w-48">
             {book.languages.length > 1 ? (
               <>
@@ -386,14 +395,14 @@ export default function BookDetailPage() {
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">
             {book.author.includes(',') || book.author.includes(' en ')
-              ? t('books.about_authors')
-              : t('books.about_author')
+              ? t('books.about_authors', 'About the authors')
+              : t('books.about_author', 'About the author')
             }
           </h2>
           <div className="max-w-2xl">
-            {book.authorInfo ? (
+            {displayAuthorInfo ? (
               <div className="prose prose-sm max-w-none text-muted-foreground">
-                <MarkdownRenderer>{book.authorInfo}</MarkdownRenderer>
+                <MarkdownRenderer>{displayAuthorInfo}</MarkdownRenderer>
               </div>
             ) : (
               <p className="text-muted-foreground">{book.author}</p>
@@ -403,7 +412,7 @@ export default function BookDetailPage() {
 
         {/* Related Books */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold">{t('books.you_might_also_like')}</h2>
+          <h2 className="text-xl font-semibold">{t('books.you_might_also_like', 'You might also like')}</h2>
           {relatedBooks.length > 0 ? (
             <div className="relative">
               <button
@@ -445,7 +454,7 @@ export default function BookDetailPage() {
               </div>
             </div>
           ) : (
-            <p className="text-sm text-muted-foreground">{t('books.related_unavailable')}</p>
+            <p className="text-sm text-muted-foreground">{t('books.related_unavailable', 'No recommendations are available yet.')}</p>
           )}
         </div>
       </div>

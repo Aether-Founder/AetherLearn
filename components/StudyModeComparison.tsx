@@ -194,7 +194,7 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
             <BarChart3 className="w-12 h-12 mx-auto mb-4 opacity-50" />
             <h3 className="text-lg font-semibold mb-2">{t('shell_no_data')}</h3>
             <p className="text-sm text-muted-foreground">
-              Voltooi studie sessies om prestatievergelijking te zien
+              {t('mode_compare_empty')}
             </p>
           </CardContent>
         </Card>

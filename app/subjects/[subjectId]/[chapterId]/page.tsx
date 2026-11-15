@@ -7,11 +7,13 @@ import {
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { ArrowLeft, Folder, FileText } from 'lucide-react';
 import Link from 'next/link';
-import { findContentPage, normalizeSubjectId } from '@/lib/json-content-pages';
+import { normalizeSubjectId } from '@/lib/json-content-pages';
+import { findContentPageAsync } from '@/lib/content-pages-registry';
 import JsonLessonPage from '@/app/[page]/page';
 import ButtonSection from '@/components/ButtonSection';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
-import { getServerT } from '@/lib/i18n-server';
+import { getServerT, getServerLanguage } from '@/lib/i18n-server';
+import { getSubjectDisplayName } from '@/lib/subject-i18n';
 
 export default async function ChapterDetailPage({
   params,
@@ -21,7 +23,7 @@ export default async function ChapterDetailPage({
   const { subjectId, chapterId } = params;
   const decodedSubjectId = decodeURIComponent(subjectId);
   const t = await getServerT();
-  const jsonLesson = findContentPage(chapterId);
+  const jsonLesson = await findContentPageAsync(chapterId);
   if (jsonLesson && normalizeSubjectId(jsonLesson.subjectId) === normalizeSubjectId(decodedSubjectId)) {
     return <JsonLessonPage params={{ page: chapterId }} />;
   }
@@ -31,6 +33,9 @@ export default async function ChapterDetailPage({
   const chapters = await loadChapters(decodedSubjectId);
   const chapter = chapters.find((c) => c.id === chapterId);
   const paragraphs = await loadParagraphs(decodedSubjectId, chapterId);
+  const subjectDisplayName = subject
+    ? getSubjectDisplayName(subject, await getServerLanguage())
+    : decodedSubjectId;
 
   if (!subject || !chapter) {
     return (
@@ -55,7 +60,7 @@ export default async function ChapterDetailPage({
       <AppShell>
         <PageHeader
           title={chapter.title}
-          description={`${subject.name} • ${chapter.description}`}
+          description={`${subjectDisplayName} • ${chapter.description}`}
           action={
             <Link
               href={`/subjects/${decodedSubjectId}`}
@@ -113,7 +118,7 @@ export default async function ChapterDetailPage({
     <AppShell>
       <PageHeader
         title={chapter.title}
-        description={`${subject.name} • ${chapter.description}`}
+        description={`${subjectDisplayName} • ${chapter.description}`}
         action={
           <Link
             href={`/subjects/${decodedSubjectId}`}

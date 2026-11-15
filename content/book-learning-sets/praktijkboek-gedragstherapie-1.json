@@ -1,0 +1,185 @@
+{
+  "id": "praktijkboek-gedragstherapie-1-learning",
+  "bookId": "praktijkboek-gedragstherapie-1",
+  "title": "Praktijkboek Gedragstherapie 1 - Hoofdstuk 1",
+  "description": "Leer de kernconcepten van cognitieve gedragstherapie: van klassieke conditionering tot derde generatie CGT",
+  "sections": [
+    {
+      "id": "inleiding",
+      "title": "Inleiding",
+      "cards": [
+        { "front": "Hedendaagse CGT", "back": "Heeft zich in drie fases ontwikkeld: laboratoriumonderzoek, toepassing in klinische praktijk en integratie van cognitieve therapie, gevolgd door derde generatie met mindfulness en ACT." },
+        { "front": "Eerste fase", "back": "Begin twintigste eeuw lag nadruk op laboratoriumonderzoek naar beïnvloeding van gedrag van dieren en mensen." },
+        { "front": "Toepassing jaren vijftig", "back": "Bevindingen uit onderzoek werden toegepast in de klinische praktijk; accent lag op aanleren en beïnvloeden van gedrag en emotionele reacties door omgevingsfactoren." },
+        { "front": "Cognitieve therapie", "back": "Stroming halverwege de twintigste eeuw die de invloed van gedachten of cognities op gedrag en emotionele reacties onderzocht." },
+        { "front": "Cognitieve gedragstherapie", "back": "Samensmelting van gedragstherapie en cognitieve therapie; ook tweede generatie gedragstherapie genoemd, met aandacht voor gedrags- en cognitieve factoren." },
+        { "front": "Derde generatie CGT", "back": "Ontwikkeling sinds het laatste decennium van de vorige eeuw met aandacht voor aanvaarding van psychische klachten als deze niet direct oplosbaar zijn; mindfulness en ACT deden hun intrede." },
+        { "front": "Hoofdstukopbouw", "back": "Eerst opkomst gedragstherapie vanuit dierenlaboratoria, daarna cognitieve therapie en samensmelting, ten slotte populariteit van mindfulness en ACT; relevantie wordt per paragraaf met klinische voorbeelden beschreven." }
+      ]
+    },
+    {
+      "id": "de-pioniers",
+      "title": "1.1 De pioniers",
+      "cards": [
+        { "front": "De pioniers", "back": "De gedragstherapie ontwikkelde zich langs twee lijnen: bestuderen en veranderen van emotionele reacties en bestuderen en veranderen van gedrag." },
+        { "front": "Pavlov", "back": "Russische fysioloog en onderzoeker die de geconditioneerde speekselreflex bij honden ontdekte." },
+        { "front": "Geconditioneerde reflex", "back": "Aangeleerde reflex waarbij een cue die voedsel voorspelt speekselproductie uitlokt." },
+        { "front": "Klassieke conditionering", "back": "Vorm van leren waarbij een associatie wordt gelegd tussen een neutrale stimulus en een ongeconditioneerde stimulus." },
+        { "front": "S-S-leren", "back": "Stimulus-stimulus-responsleren: een neutrale stimulus wordt gekoppeld aan een biologisch relevante stimulus en roept daarna een reflexmatige respons op." },
+        { "front": "UCS", "back": "Ongeconditioneerde of onvoorwaardelijke stimulus; biologisch relevante stimulus die automatisch een reactie oproept." },
+        { "front": "UCR", "back": "Ongeconditioneerde of onvoorwaardelijke respons; automatische fysiologische en/of emotionele reactie op de UCS." },
+        { "front": "CS", "back": "Conditionele of voorwaardelijke stimulus; oorspronkelijk neutrale stimulus die door associatie met de UCS een reactie uitlokt." },
+        { "front": "CR", "back": "Conditionele of voorwaardelijke respons; reflexmatige fysiologische of emotionele reactie op de CS." },
+        { "front": "Voorbeeld Jan", "back": "Klappen van vader als UCS gekoppeld aan het uiten van een andere mening als CS leidt tot angst en in elkaar kruipen als CR." },
+        { "front": "Voorbeeld Inez", "back": "Aandacht van oma als UCS gekoppeld aan station Apeldoorn als CS leidt tot blijdschap en herinneringen als CR." },
+        { "front": "Pavlov relevantie", "back": "Onderzoek naar geconditioneerde reflexen is relevant voor het begrijpen van emotionele reacties op schijnbaar neutrale stimuli." }
+      ]
+    },
+    {
+      "id": "watson",
+      "title": "Watson",
+      "cards": [
+        { "front": "Watson", "back": "Amerikaanse psycholoog die het pavloviaanse leren doortrok naar de bestudering van emotionele reacties en emoties als observeerbaar gedrag beschouwde." },
+        { "front": "Watson nurture", "back": "Extreme opvatting dat opvoeding de enige factor is die gedrag van kinderen en volwassenen bepaalt." },
+        { "front": "Little Albert", "back": "Experiment waarin Watson een baby angst leerde voor ratten, konijnen en zachte witte knuffelbeesten door een aaibaar dier te koppelen aan een hard gonggeluid." },
+        { "front": "Angstconditionering", "back": "Angst voor een neutrale stimulus ontstaat wanneer deze meerdere keren min of meer gelijktijdig met een aversieve stimulus wordt aangeboden." },
+        { "front": "Generalisatie", "back": "De angst breidt zich uit naar andere stimuli die lijken op de oorspronkelijke neutrale stimulus." }
+      ]
+    },
+    {
+      "id": "thorndike",
+      "title": "Thorndike",
+      "cards": [
+        { "front": "Thorndike", "back": "Amerikaanse psycholoog die het aanleren van complex gedrag bij dieren wetenschappelijk bestudeerde met puzzleboxen." },
+        { "front": "Puzzlebox", "back": "Kooi waarin een dier via trial-and-error een hendel of deur leert bedienen om zichzelf te bevrijden en beloning te krijgen." },
+        { "front": "Trial-and-error", "back": "Uitproberen totdat het gewenste effect optreedt; volgens Thorndike geen leren door observatie, imitatie of inzicht." },
+        { "front": "Law of Effect", "back": "Gedrag neemt toe als het door een positieve situatie wordt gevolgd en neemt af bij een negatieve situatie of het uitblijven van een positieve situatie." },
+        { "front": "S-R-leren", "back": "Stimulus-responsleren: in een bepaalde situatie treedt gedrag op omdat er een beloning op volgt." },
+        { "front": "Bekrachtiging of reinforcement", "back": "Beloning die volgt op gedrag en het gedrag versterkt." },
+        { "front": "Connectionisme", "back": "Theorie van Thorndike dat leren ontstaat door versterking van verbindingen tussen zenuwcellen door associaties tussen stimulus, gedrag en bekrachtiging." },
+        { "front": "Thorndike relevantie", "back": "De Law of Effect is belangrijk voor de hedendaagse gedragstherapie: beloond gedrag neemt toe en bestraft of frustrerend gedrag neemt af." }
+      ]
+    },
+    {
+      "id": "skinner",
+      "title": "Skinner",
+      "cards": [
+        { "front": "Skinner", "back": "Amerikaanse psycholoog, grondlegger van het radicale behaviorisme, die voortbouwde op Thorndike en Watson." },
+        { "front": "Behaviorisme", "back": "Filosofische stroming in de psychologie die zich uitsluitend richt op waarneembaar gedrag en waarneembare emotionele reacties." },
+        { "front": "Radicaal behaviorisme", "back": "Stroming die nadruk legt op consequenties van gedrag en gedrag ziet als alles wat een organisme doet, inclusief interne gedragingen zoals gevoelens en gedachten." },
+        { "front": "Operant", "back": "Gedrag dat op de omgeving inwerkt en positieve veranderingen in de omgeving bewerkstelligt." },
+        { "front": "Operante conditionering", "back": "Aanleren van gedrag in bepaalde situaties door te anticiperen op beloningen of consequenties." },
+        { "front": "S-R-C", "back": "Stimulus-respons-consequentie: gedrag in een context wordt gevolgd door consequenties die het gedrag beïnvloeden." },
+        { "front": "Skinnerbox", "back": "Afgesloten box waarin een proefdier een beloning kan krijgen voor bepaald gedrag of een vervelende stimulus kan stoppen." },
+        { "front": "Toenaderingsgedrag", "back": "Gedrag dat tot doel heeft iets prettigs te verkrijgen." },
+        { "front": "Ontsnappings- en vermijdingsgedrag", "back": "Gedrag dat tot doel heeft een vervelende prikkel te stoppen of te voorkomen." },
+        { "front": "Positieve bekrachtiging", "back": "Iets prettigs wordt toegevoegd, waardoor gedrag toeneemt." },
+        { "front": "Negatieve bekrachtiging", "back": "Iets vervelends verdwijnt, waardoor gedrag toeneemt." },
+        { "front": "Positieve straf", "back": "Iets vervelends wordt toegevoegd, waardoor gedrag afneemt." },
+        { "front": "Negatieve straf", "back": "Iets prettigs wordt weggenomen, waardoor gedrag afneemt." },
+        { "front": "Continue bekrachtiging", "back": "Het gewenste gedrag wordt iedere keer beloond; effect is een redelijk constante frequentie en het is effectief voor het aanleren van nieuw gedrag." },
+        { "front": "Vaste intervalbekrachtiging of fixed ratio", "back": "Er wordt beloond na een vaste hoeveelheid gedrag; effect is een golfbeweging in de frequentie van gedrag." },
+        { "front": "Variabele intervalbekrachtiging", "back": "Er wordt beloond na een steeds wisselend aantal gedragingen; onvoorspelbaarheid doet gedrag toenemen en dit schema is effectief om aangeleerd gedrag te versterken." },
+        { "front": "Skinner relevantie", "back": "Gedrag blijft bestaan door verwachte of daadwerkelijke beloningen; dit verklaart onder andere vermijdingsgedrag bij paniekaanvallen door negatieve bekrachtiging en de instandhouding van gokverslaving door variabele bekrachtiging." }
+      ]
+    },
+    {
+      "id": "eerste-generatie",
+      "title": "1.2 Eerste generatie gedragstherapie",
+      "cards": [
+        { "front": "Eerste generatie gedragstherapie", "back": "Klinische toepassing van principes van klassieke conditionering en operante conditionering van waarneembaar gedrag." },
+        { "front": "Wolpe", "back": "Zuid-Afrikaanse medisch legerofficier die soldaten met war neurosis behandelde en systematische desensitisatie ontwikkelde." },
+        { "front": "War neurosis", "back": "Vroegere term voor wat nu posttraumatische stressstoornis wordt genoemd." },
+        { "front": "Contraconditionering", "back": "Aanbieden van een prikkel die een tegengestelde reactie uitlokt dan de aversieve prikkel waarmee eerder is geconditioneerd." },
+        { "front": "Reciproque inhibitie", "back": "Het terugdringen of inhiberen van een angstrespons door gelijktijdig een incompatibele respons op te roepen." },
+        { "front": "Incompatibele respons", "back": "Emotionele reactie die niet verenigbaar is met gelijktijdige angst, zoals ontspanning, assertiviteit of seksuele arousal." },
+        { "front": "Systematische desensitisatie", "back": "Behandelmethode met geleidelijke blootstelling aan angstwekkende stimuli volgens een angsthiërarchie, gecombineerd met reciproque inhibitie." },
+        { "front": "Gradual exposure", "back": "Geleidelijke blootstelling aan een angstwekkende stimulus of situatie, opklimmend in angst." },
+        { "front": "Flooding", "back": "Ineens blootstellen aan de moeilijkste angstsituatie; Wolpe vond dit minder effectief dan geleidelijke blootstelling." },
+        { "front": "Mary Cover Jones", "back": "Amerikaanse psychologe die als eerste gradual exposure met contraconditionering bij kinderen toepaste en door Wolpe 'the mother of behavior therapy' werd genoemd." },
+        { "front": "Token economy", "back": "Klinische toepassing van operante conditionering waarbij patiënten tokens verdienen met gewenst gedrag en deze later inwisselen voor privileges." },
+        { "front": "Walden Two", "back": "Boek van Skinner waarin hij een samenleving beschrijft die bewust volgens behavioristische principes is georganiseerd." },
+        { "front": "Science and human behavior", "back": "Boek van Skinner over het beïnvloeden van menselijk gedrag met operante conditioneringsprincipes." },
+        { "front": "Eysenck", "back": "Brits psycholoog en voorvechter van gedragstherapie bij angststoornissen; oprichter van Behavior Research and Therapy." },
+        { "front": "Rachman", "back": "Brits psycholoog die met Eysenck samenwerkte en zich vooral ontwikkelde in de behandeling van de obsessief-compulsieve stoornis." },
+        { "front": "Eerste generatie kern", "back": "De principes van klassieke conditionering en operante conditionering van waarneembaar gedrag vormden de kern van de eerste generatie gedragstherapie." }
+      ]
+    },
+    {
+      "id": "s-r-model",
+      "title": "1.3 S-R-model",
+      "cards": [
+        { "front": "S-R-model", "back": "Behavioristisch model waarin een stimulus direct een respons produceert." },
+        { "front": "Kritiek op S-R-model", "back": "Proefdieren vertonen niet altijd dezelfde respons op een geconditioneerde stimulus en proefpersonen kunnen al angstreactie vertonen na instructie voordat een schok is gegeven." },
+        { "front": "Woodworth", "back": "Amerikaanse psycholoog die een eclectische psychologie voorstelde en het stimulus-organisme-responsmodel introduceerde." },
+        { "front": "Eclectisch", "back": "Gebruikmakend van verschillende theorieën." },
+        { "front": "S-O-R", "back": "Stimulus-organisme-responsmodel: om de respons te begrijpen moeten stimulus, contextfactoren en het organisme zelf worden begrepen." },
+        { "front": "S-O-R-C", "back": "Uitbreiding van S-O-R met consequenties: stimulus, organisme, respons en consequenties." },
+        { "front": "Tolman", "back": "Onderzoeker die vond dat ratten in een doolhof gebruik konden maken van mindmapping." },
+        { "front": "Mindmapping", "back": "Interne cognitieve kaart van een ruimte of route, waardoor een dier de weg moeiteloos kan vinden." },
+        { "front": "Hull", "back": "Psycholoog die motivatie en interne behoefte als interne staat betrok in gedragstheorieën." },
+        { "front": "Mowrer", "back": "Onderzoeker die de rol van emoties in stimulus-responsverbindingen benadrukte en een tweefactorenmodel van angstconditionering ontwikkelde." },
+        { "front": "Tweefactorenmodel", "back": "Model waarin een stimulus een emotionele respons oproept die vervolgens tot vermijdingsgedrag leidt." },
+        { "front": "Betekenis van O", "back": "Innerlijke, niet van buitenaf observeerbare factoren zoals interpretatie van stimuli en anticipatie op consequenties van gedrag." }
+      ]
+    },
+    {
+      "id": "cognitieve-therapie",
+      "title": "1.4 Cognitieve therapie",
+      "cards": [
+        { "front": "Cognitieve therapie", "back": "Therapie gericht op denkprocessen en de rol van gedachten als mediërende factor tussen stimulus en respons." },
+        { "front": "Ellis", "back": "Grondlegger van de cognitieve therapie en ontwikkelaar van rational emotive therapy." },
+        { "front": "Beck", "back": "Grondlegger van de cognitieve therapie en ontwikkelaar van cognitieve therapie met het gedachteschema of G-schema." },
+        { "front": "RET", "back": "Rational emotive therapy van Ellis, gericht op irrationele gedachten en gebruik van overtuigingskracht." },
+        { "front": "G-schema", "back": "Gedachteschema van Beck voor het in kaart brengen van gedachten." },
+        { "front": "Epictetus", "back": "Griekse wijsgeer die stelde dat mensen niet worden verstoord door zaken zelf, maar door hun visie erop." },
+        { "front": "Musturbation", "back": "Ellis' term voor het 'moeten' in irrationele gedachten." },
+        { "front": "Socratische dialoog", "back": "Vragenderwijs onderzoeken van de implicaties van en het bewijs voor bepaalde gedachten." },
+        { "front": "Disfunctionele gedachten", "back": "Irrationele gedachten die het functioneren belemmeren en waarop volgens Beck niet gemakkelijk een vrije keuze bestaat." },
+        { "front": "Denkfouten", "back": "Typen disfunctionele denkpatronen, zoals zwart-witdenken en letten op negatieve aspecten bij depressie, en overgeneraliseren en rampdenken bij angststoornissen." },
+        { "front": "Kernschema's", "back": "Rotsvaste overtuigingen die bij verschillende pathologieën actief zijn." }
+      ]
+    },
+    {
+      "id": "integratie",
+      "title": "1.5 Integratie",
+      "cards": [
+        { "front": "Integratie", "back": "CGT ontstond via twee routes: gedragstherapie betrok cognitieve inzichten en cognitieve therapie betrok gedrag en leertheoretische inzichten." },
+        { "front": "Breger en McGaugh", "back": "Schreven in 1965 een baanbrekend artikel dat pleitte voor cognitieve leertechnieken in gedragsveranderende therapieën." },
+        { "front": "Cognitief schema", "back": "Cognitief netwerk of impliciete betekenistructuren die gevormd zijn door leerervaringen en actief worden bij blootstelling aan overeenkomstige situaties." },
+        { "front": "Gedragsexperiment", "back": "Toetsen van een gedachte aan de werkelijkheid om irrationele cognities minder geloofwaardig te maken en nieuwe rationele cognities te bestendigen." },
+        { "front": "Evidence-based therapie", "back": "Therapie waarvan de effectiviteit wetenschappelijk is onderzocht in relatie tot andere werkzame therapieën en groot genoeg is bevonden." },
+        { "front": "Protocollering of standaardisering", "back": "Vaststaand protocol maakt therapie evalueerbaar, overdraagbaar en verspreidbaar onder een grote groep therapeuten." },
+        { "front": "CGT-driehoek", "back": "Model van wederzijdse beïnvloeding van gedrag, gedachten en gevoelens." }
+      ]
+    },
+    {
+      "id": "derde-generatie",
+      "title": "1.6 Derde generatie gedragstherapie",
+      "cards": [
+        { "front": "Derde generatie gedragstherapie", "back": "Integratie van mindfulness en acceptance and commitment therapy in de CGT, met aandacht voor aanvaarding van voorbijgaande ervaringen." },
+        { "front": "Mindfulness", "back": "Het vergroten van opmerkzaamheid, onder andere via meditatieoefeningen, om ervaringen de ruimte te geven." },
+        { "front": "Acceptatie", "back": "Houding waarin lastige gevoelens en gedachten ruimte krijgen en niet direct gewijzigd of gecontroleerd hoeven te worden." },
+        { "front": "ACT", "back": "Acceptance and commitment therapy; therapievorm uit de derde generatie gericht op acceptatie en commitment." },
+        { "front": "MBCT", "back": "Mindfulness-based cognitive therapy; therapievorm uit de derde generatie." },
+        { "front": "DBT", "back": "Dialectische gedragstherapie van Linehan voor borderlinepatiënten, met als kern het leren verdragen van heftige gevoelens en nare gedachten in plaats van vermijden of afreageren." },
+        { "front": "Voluit Leven", "back": "In Nederland ontwikkelde training binnen de derde generatie gedragstherapie." },
+        { "front": "Metacognitie", "back": "Gedachten over je gedachten; bewustwording van metacognities leidt tot een andere houding ten opzichte van nare gedachten of symptomen." },
+        { "front": "Detachment", "back": "Loskomen van je gedachten om ze vervolgens op hun inhoud te kunnen analyseren; Beck onderkende het belang hiervan al." },
+        { "front": "Zelfacceptatie", "back": "Houding die positief samenhangt met psychisch welzijn en interne locus of control en negatief met psychopathologie." },
+        { "front": "Interne locus of control", "back": "Persoonlijkheidseigenschap waarbij iemand de neiging heeft oorzaken van wat hem overkomt bij zichzelf te zoeken en het gevoel heeft zelf zijn leven te bepalen." },
+        { "front": "Derde generatie behandelvormen", "back": "ACT, MBCT, DBT en Voluit Leven." }
+      ]
+    },
+    {
+      "id": "cgt-definitie",
+      "title": "1.7 CGT-definitie",
+      "cards": [
+        { "front": "CGT-definitie", "back": "Psychotherapievorm en samensmelting van gedragstherapie en cognitieve therapie; een systematische methode waarin patiënt en therapeut disfunctionele gevoelens, gedachten en gedrag, hun verbanden en leergeschiedenis inventariseren en met bewezen effectieve methoden of vanuit leertheorie en cognitieve theorieën beïnvloeden." },
+        { "front": "Misverstand over CGT", "back": "Het misverstand dat CGT alleen symptoombestrijding en het hier en nu zou zijn; CGT behandelt ook patronen en leergeschiedenis zolang het verleden de huidige klachten beïnvloedt." },
+        { "front": "Affect bridge", "back": "Methode om via vragen zicht te krijgen op hoe en waarom bepaalde emotionele reacties en gedachten zijn ontstaan, onder andere door te vragen wanneer iemand een specifieke emotie voor het eerst voelde en wat er toen aan de hand was." },
+        { "front": "CGT-gerichtheid", "back": "CGT richt zich op het beïnvloeden van patronen van dysfunctionele gedragingen, gevoelens en gedachten die in het verleden zijn ontstaan en in het hier en nu in stand worden gehouden." }
+      ]
+    }
+  ]
+}

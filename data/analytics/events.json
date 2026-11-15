@@ -1,64 +1,63 @@
 [
   {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
-    "eventType": "session_start",
-    "timestamp": 1793057889805,
-    "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
-      "language": "nl-NL",
-      "screenResolution": "1280x800"
-    }
-  },
-  {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
+    "userId": "53d587b3-2d57-486c-adb9-3ed3975653a8",
+    "sessionId": "d0fdabea-4de2-4ca4-9184-f6d24c5a9805",
     "eventType": "mode_switch",
-    "timestamp": 1793057930830,
+    "timestamp": 1794744964731,
     "data": {
       "from": "simple",
       "to": "study"
     }
   },
   {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
+    "userId": "53d587b3-2d57-486c-adb9-3ed3975653a8",
+    "sessionId": "d0fdabea-4de2-4ca4-9184-f6d24c5a9805",
     "eventType": "mode_switch",
-    "timestamp": 1793057931893,
+    "timestamp": 1794744966463,
     "data": {
-      "from": "study",
-      "to": "simple"
+      "from": "simple",
+      "to": "study"
     }
   },
   {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
-    "eventType": "page_view",
-    "timestamp": 1793057959215,
+    "userId": "53d587b3-2d57-486c-adb9-3ed3975653a8",
+    "sessionId": "d0fdabea-4de2-4ca4-9184-f6d24c5a9805",
+    "eventType": "mode_switch",
+    "timestamp": 1794744967607,
     "data": {
-      "path": "/books/praktijkboek-gedragstherapie-1/read",
-      "referrer": "http://localhost:4422/books/praktijkboek-gedragstherapie-1"
+      "from": "simple",
+      "to": "summary"
     }
   },
   {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
+    "userId": "53d587b3-2d57-486c-adb9-3ed3975653a8",
+    "sessionId": "d0fdabea-4de2-4ca4-9184-f6d24c5a9805",
     "eventType": "session_start",
-    "timestamp": 1793057959214,
+    "timestamp": 1794745701623,
     "data": {
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
       "language": "nl-NL",
       "screenResolution": "1280x800"
     }
   },
   {
-    "userId": "3578da74-0538-4823-8973-813e9e170ac0",
-    "sessionId": "f11b3485-fb8e-44d1-b28a-0b685fa941ad",
-    "eventType": "page_view",
-    "timestamp": 1793057959216,
+    "userId": "53d587b3-2d57-486c-adb9-3ed3975653a8",
+    "sessionId": "d0fdabea-4de2-4ca4-9184-f6d24c5a9805",
+    "eventType": "mode_switch",
+    "timestamp": 1794745734505,
     "data": {
-      "path": "/books/praktijkboek-gedragstherapie-1/read",
-      "referrer": "http://localhost:4422/books/praktijkboek-gedragstherapie-1"
+      "from": "summary",
+      "to": "simple"
+    }
+  },
+  {
+    "userId": "53d587b3-2d57-486c-adb9-3ed3975653a8",
+    "sessionId": "d0fdabea-4de2-4ca4-9184-f6d24c5a9805",
+    "eventType": "mode_switch",
+    "timestamp": 1794745735253,
+    "data": {
+      "from": "simple",
+      "to": "study"
     }
   }
 ]

@@ -1,6 +1,7 @@
+import { getI18n } from './i18n-client';
 interface SubjectMastery {
   percentage: number;
-  status: 'mastered' | 'redelijk' | 'let_op' | 'gevaar';
+  status: 'mastered' | 'fair' | 'attention' | 'danger';
   trend: 'up' | 'stable' | 'down';
 }
 
@@ -76,28 +77,28 @@ export function calculateExamReadiness(
   // Generate recommendations
   const recommendations: string[] = [];
 
-  if (mastery.status === 'gevaar') {
-    recommendations.push('Je meesterschap is low. Overweeg om dit topic opnieuw te bestuderen.');
+  if (mastery.status === 'danger') {
+    recommendations.push(getI18n().t('er_low_mastery'));
   }
 
   if (consistency.averageDailyMinutes < 30) {
-    recommendations.push('Verhoog je dagelijk studeertijd naar minimaal 30 min voor betere resultaten.');
+    recommendations.push(getI18n().t('er_increase_time'));
   }
 
   if (daysUntilTest < 7 && consistency.streakDays < 3) {
-    recommendations.push('Je hebt weinig studietijd laatst. Probeer een studiestreak op te bouwen.');
+    recommendations.push(getI18n().t('er_build_streak'));
   }
 
   if (test.type === 'exam' && readinessScore < 0.7) {
-    recommendations.push('Voor een exam is een hogere voorbereiding noodzakelijk. Overweeg om extra oefeningen te doen.');
+    recommendations.push(getI18n().t('er_exam_prep'));
   }
 
   if (test.requiredGrade && mastery.percentage < test.requiredGrade * 10) {
-    recommendations.push(`Je huidige niveau is onder het gewenste cijfer (${test.requiredGrade}/10). Focus extra op dit topic.`);
+    recommendations.push(getI18n().t('er_below_grade', undefined, { grade: test.requiredGrade }));
   }
 
   if (daysUntilTest > 14 && mastery.status === 'mastered') {
-    recommendations.push('Je bent goed voorbereid. Houd dit niveau vast met onderhoudsoefeningen.');
+    recommendations.push(getI18n().t('er_well_prepared'));
   }
 
   return {

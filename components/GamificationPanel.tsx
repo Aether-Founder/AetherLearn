@@ -27,13 +27,13 @@ export function GamificationPanel({
       <div className="flex flex-wrap items-start justify-between gap-4 border-b border-border p-6">
         <div>
           <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-            Jouw ritme
+            {t('gamif_rhythm')}
           </p>
           <h2 className="mt-2 font-display text-2xl font-semibold">
-            Kleine stappen, grote voorsprong
+            {t('gamif_tagline')}
           </h2>
           <p className="mt-2 max-w-lg text-sm leading-relaxed text-muted-foreground">
-            Verdien XP met elke review en bouw een leergewoonte die blijft hangen.
+            {t('gamif_xp_subtitle')}
           </p>
         </div>
         <div className="flex items-center gap-2 rounded-full bg-secondary px-3 py-1.5 text-sm font-semibold">
@@ -50,7 +50,7 @@ export function GamificationPanel({
               <p className="mt-1 text-3xl font-semibold tabular-nums">{stats.xp} XP</p>
             </div>
             <p className="text-xs text-muted-foreground tabular-nums">
-              {progress.current} / {progress.required} naar level {progress.level + 1}
+              {t('gamif_to_level', undefined, { current: progress.current, required: progress.required, level: progress.level + 1 })}
             </p>
           </div>
           <div className="mt-4 h-2 overflow-hidden rounded-full bg-secondary">
@@ -65,7 +65,7 @@ export function GamificationPanel({
             className="mt-5 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
           >
             <Sparkles className="h-4 w-4" aria-hidden="true" />
-            Review een kaart (+{getXpReward('review_card')} XP)
+            {t('gamif_review_card', undefined, { xp: getXpReward('review_card') })}
           </button>
         </div>
 

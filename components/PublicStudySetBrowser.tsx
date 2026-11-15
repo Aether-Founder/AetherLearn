@@ -206,7 +206,7 @@ export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowser
             <h3 className="text-lg font-semibold mb-2">{t('shell_no_study_sets')}</h3>
             <p className="text-sm text-muted-foreground">
               {searchQuery || categoryFilter !== 'all'
-                ? 'Probeer andere filters'
+                ? t('shell_try_other_filters')
                 : t('shell_no_public_sets_desc')}
             </p>
           </CardContent>

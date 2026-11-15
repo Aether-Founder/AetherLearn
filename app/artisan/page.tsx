@@ -42,7 +42,7 @@ const FILE_TYPE_LABELS: Record<string, string> = {
 };
 
 export default function ArtisanPage() {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const { user } = useAuth();
   const supabase = createClient();
   const [dragActive, setDragActive] = useState(false);
@@ -546,7 +546,7 @@ export default function ArtisanPage() {
                         {item.file_name}
                       </p>
                       <p className="text-sm text-muted-foreground">
-                        {new Date(item.created_at).toLocaleDateString('nl-NL')}
+                        {new Date(item.created_at).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : 'en-US')}
                       </p>
                     </div>
                   </div>

@@ -223,11 +223,11 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
               <Flame className={`w-8 h-8 ${getStreakColor(streak.currentStreak)}`} />
               <div>
                 <div className="text-lg font-semibold">
-                  Ga zo door! Je bent op een {streak.currentStreak}-dagen streak!
+                  {t('streak_keep_going', undefined, { n: streak.currentStreak })}
                 </div>
                 <p className="text-sm text-muted-foreground">
                   {streak.longestStreak - streak.currentStreak > 0
-                    ? `Nog ${streak.longestStreak - streak.currentStreak} dagen om je record te breken`
+                    ? t('streak_days_to_record', undefined, { n: streak.longestStreak - streak.currentStreak })
                     : t('shell_record_broken')}
                 </p>
               </div>

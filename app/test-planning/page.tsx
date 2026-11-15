@@ -28,7 +28,7 @@ interface StudyPlan {
 }
 
 export default function TestPlanningPage() {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [tests, setTests] = useState<Test[]>([]);
   const [studyPlans, setStudyPlans] = useState<StudyPlan[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -297,7 +297,7 @@ export default function TestPlanningPage() {
                       <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
                         <div className="flex items-center gap-1">
                           <Calendar className="h-3 w-3" />
-                          {new Date(test.date).toLocaleDateString('nl-NL')}
+                          {new Date(test.date).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : 'en-US')}
                         </div>
                         {daysUntil >= 0 && (
                           <div className="flex items-center gap-1">

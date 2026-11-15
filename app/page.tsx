@@ -11,6 +11,7 @@ import { GradeOnboardingModal } from "@/components/GradeOnboardingModal";
 import { supabase } from "@/lib/supabase/client";
 import { useActivityTracking } from "@/hooks/useActivityTracking";
 import { useTranslation } from "@/lib/useTranslation";
+import { getSubjectDisplayName } from "@/lib/subject-i18n";
 
 function Stat({ value, label }: { value: string; label: string }) {
   return (
@@ -58,7 +59,7 @@ export default function Home() {
   const { profile, loading: profileLoading } = useUserProfile();
   const { user, loading: userLoading } = useUser();
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
 
   useEffect(() => {
     setMounted(true);
@@ -464,13 +465,12 @@ export default function Home() {
           </section>
 
           <div className="flex flex-wrap items-center gap-2 py-6">
-            <span className="mr-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{t('home_subject_short')}</span>
             <Chip active={subject === "All subjects"} onClick={() => setSubject("All subjects")}>
               {t('home_all_subjects')}
             </Chip>
             {sortedSubjects.filter((s) => !hidden.includes(s.name)).slice(0, showAllProgressSubjects ? undefined : 10).map((s) => (
               <Chip key={s.id} active={subject === s.name} onClick={() => setSubject(s.name)}>
-                {s.name}
+                {getSubjectDisplayName(s, currentLanguage)}
               </Chip>
             ))}
             {sortedSubjects.filter((s) => !hidden.includes(s.name)).length > 10 && !showAllProgressSubjects && (
@@ -514,10 +514,7 @@ export default function Home() {
                         }}
                       >
                         <div className="min-w-0">
-                          <p className="truncate text-[15px] font-semibold">{s.name}</p>
-                          <p className="mt-0.5 text-xs text-muted-foreground">
-                            {s.description}
-                          </p>
+                          <p className="truncate text-[15px] font-semibold">{getSubjectDisplayName(s, currentLanguage)}</p>
                         </div>
                         <div className="hidden sm:block">
                           <div className="mb-1.5 flex items-baseline justify-between text-xs text-muted-foreground">

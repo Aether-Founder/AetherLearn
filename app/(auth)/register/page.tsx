@@ -22,19 +22,13 @@ export default function RegisterPage() {
 
   const router = useRouter();
 
-  const [formData, setFormData] = useState(() => {
-    const draftEmail =
-      typeof window !== 'undefined' ? sessionStorage.getItem('auth_draft_email') || '' : '';
-    const draftPassword =
-      typeof window !== 'undefined' ? sessionStorage.getItem('auth_draft_password') || '' : '';
-    return {
-      email: draftEmail,
-      password: draftPassword,
-      confirmPassword: draftPassword,
-      name: '',
-      showPassword: false,
-      showConfirmPassword: false,
-    };
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    name: '',
+    showPassword: false,
+    showConfirmPassword: false,
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -53,11 +47,6 @@ export default function RegisterPage() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-
-    if (typeof window !== 'undefined') {
-      if (name === 'email') sessionStorage.setItem('auth_draft_email', value);
-      if (name === 'password') sessionStorage.setItem('auth_draft_password', value);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -106,12 +95,6 @@ export default function RegisterPage() {
         setLoading(false);
         return;
       }
-    }
-
-    // Clear drafts
-    if (typeof window !== 'undefined') {
-      sessionStorage.removeItem('auth_draft_email');
-      sessionStorage.removeItem('auth_draft_password');
     }
 
     // Show onboarding preferences instead of redirecting

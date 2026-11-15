@@ -117,7 +117,7 @@ export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSear
             <div className="space-y-2">
               <label className="text-sm font-medium flex items-center gap-2">
                 <Tag className="w-4 h-4" />
-                Categorie
+                {t('shell_category')}
               </label>
               <Select
                 value={filters.category || 'all'}

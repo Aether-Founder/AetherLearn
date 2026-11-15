@@ -1,49 +1,52 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { getAdminSetting, putAdminSetting, AdminSettingsUnavailable } from '@/lib/admin-settings';
+import { ADMIN_SESSION_COOKIE, isValidAdminSession } from '@/lib/admin-auth';
 
-const EVENTS_FILE = path.join(process.cwd(), 'public', 'admin-events.json');
+const KEY = 'admin-events';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isValidAdminSession(request.cookies.get(ADMIN_SESSION_COOKIE)?.value)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
-    const data = await fs.readFile(EVENTS_FILE, 'utf-8');
-    const eventsData = JSON.parse(data);
-    return NextResponse.json(eventsData);
+    const data = await getAdminSetting(KEY);
+    return NextResponse.json(
+      data ?? { events: [], lastUpdated: new Date().toISOString() }
+    );
   } catch (error) {
-    // If file doesn't exist, return empty events
-    const emptyData = {
-      events: [],
-      lastUpdated: new Date().toISOString()
-    };
-    return NextResponse.json(emptyData);
+    if (error instanceof AdminSettingsUnavailable) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
+    }
+    console.error('Error loading admin events:', error);
+    return NextResponse.json({ events: [], lastUpdated: new Date().toISOString() });
   }
 }
 
 export async function POST(request: NextRequest) {
+  if (!isValidAdminSession(request.cookies.get(ADMIN_SESSION_COOKIE)?.value)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const body = await request.json();
     const { events } = body;
 
     if (!Array.isArray(events)) {
-      return NextResponse.json(
-        { error: 'Invalid events data' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Invalid events data' }, { status: 400 });
     }
 
     const eventsData = {
       events,
-      lastUpdated: new Date().toISOString()
+      lastUpdated: new Date().toISOString(),
     };
 
-    await fs.writeFile(EVENTS_FILE, JSON.stringify(eventsData, null, 2), 'utf-8');
-
+    await putAdminSetting(KEY, eventsData);
     return NextResponse.json({ success: true, eventsData });
   } catch (error) {
+    if (error instanceof AdminSettingsUnavailable) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
+    }
     console.error('Error saving events:', error);
-    return NextResponse.json(
-      { error: 'Failed to save events' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to save events' }, { status: 500 });
   }
 }

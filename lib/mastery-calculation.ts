@@ -1,3 +1,4 @@
+import { getI18n } from './i18n-client';
 type GranularScore = 'good' | 'partial' | 'wrong' | 'not_done';
 
 interface QuizPerformance {
@@ -13,7 +14,7 @@ interface QuizPerformance {
 
 interface MasteryResult {
   percentage: number;
-  status: 'mastered' | 'redelijk' | 'let_op' | 'gevaar';
+  status: 'mastered' | 'fair' | 'attention' | 'danger';
   trend: 'up' | 'stable' | 'down';
   predictedScore: number;
   riskLevel: 'low' | 'medium' | 'high';
@@ -40,11 +41,11 @@ export function calculateMastery(performance: QuizPerformance, previousMastery?:
   const percentage = Math.round(finalScore * 100);
 
   // Determine status
-  let status: 'mastered' | 'redelijk' | 'let_op' | 'gevaar';
+  let status: 'mastered' | 'fair' | 'attention' | 'danger';
   if (percentage >= 85) status = 'mastered';
-  else if (percentage >= 65) status = 'redelijk';
-  else if (percentage >= 40) status = 'let_op';
-  else status = 'gevaar';
+  else if (percentage >= 65) status = 'fair';
+  else if (percentage >= 40) status = 'attention';
+  else status = 'danger';
 
   // Determine trend
   let trend: 'up' | 'stable' | 'down';
@@ -66,7 +67,7 @@ export function calculateMastery(performance: QuizPerformance, previousMastery?:
   let riskLevel: 'low' | 'medium' | 'high';
   if (status === 'mastered' && trend !== 'down') {
     riskLevel = 'low';
-  } else if (status === 'gevaar' || trend === 'down') {
+  } else if (status === 'danger' || trend === 'down') {
     riskLevel = 'high';
   } else {
     riskLevel = 'medium';
@@ -86,33 +87,33 @@ export function generatePerformanceInsights(performance: QuizPerformance, master
 
   // Confidence insights
   if (performance.averageConfidence < 2) {
-    insights.push('Je zekergheid is low. Probeer om meer zeker te zijn van je answers.');
+    insights.push(getI18n().t('mc_low_certainty'));
   } else if (performance.averageConfidence > 4) {
-    insights.push('Je hebt hoge zekergheid, maar let op: te zeker kunnen zijn overdreven.');
+    insights.push(getI18n().t('mc_high_certainty'));
   }
 
   // Time insights
   if (performance.averageTimePerQuestion > 45) {
-    insights.push('Je neemt meer tijd dan medium. Oefen met sneller beantwoorden.');
+    insights.push(getI18n().t('mc_too_slow'));
   } else if (performance.averageTimePerQuestion < 15) {
-    insights.push('Je antwoordt erg snel. Let op dat je niet overhaalt.');
+    insights.push(getI18n().t('mc_too_fast'));
   }
 
   // Hint usage insights
   if (performance.hintUsageRate > 0.5) {
-    insights.push('Je gebruikt vaak hints. Probeer questions eerst zelf op te lossen.');
+    insights.push(getI18n().t('mc_hint_usage'));
   }
 
   // Mastery-specific insights
-  if (mastery.status === 'gevaar') {
-    insights.push('Je meesterschap is low. Overweeg om dit topic opnieuw te bestuderen.');
+  if (mastery.status === 'danger') {
+    insights.push(getI18n().t('er_low_mastery'));
   } else if (mastery.status === 'mastered' && mastery.trend === 'up') {
-    insights.push('Uitstekend! Je maakt snelle vooruitgang in dit topic.');
+    insights.push(getI18n().t('mc_fast_progress'));
   }
 
   // Risk insights
   if (mastery.riskLevel === 'high') {
-    insights.push('Waarschuwing: Het risico op een low toetscijfer is high.');
+    insights.push(getI18n().t('mc_risk_high'));
   }
 
   return insights;

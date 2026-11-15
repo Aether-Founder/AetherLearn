@@ -1,26 +1,204 @@
 {
-  "version": "1.0",
-  "lastUpdated": "2024-08-19",
+  "version": "2.0",
+  "lastUpdated": "2026-01-01",
   "subjects": [
     {
       "id": "natuurkunde",
-      "name": "Natuurkunde",
+      "name": "Physics",
       "slug": "natuurkunde",
-      "description": "De studie van materie, energie en hun interacties",
       "color": "#3b82f6",
       "icon": "atom",
       "level": "VWO",
-      "chapters": ["mechanica", "thermodynamica", "elektriciteit-magnetisme"]
+      "chapters": []
     },
     {
       "id": "scheikunde",
-      "name": "Scheikunde",
+      "name": "Chemistry",
       "slug": "scheikunde",
-      "description": "De studie van materie, zijn eigenschappen, samenstelling en reacties",
       "color": "#10b981",
       "icon": "flask",
       "level": "VWO",
-      "chapters": ["hoofdstuk-1", "hoofdstuk-2"]
+      "chapters": []
+    },
+    {
+      "id": "biologie",
+      "name": "Biology",
+      "slug": "biologie",
+      "color": "#22c55e",
+      "icon": "leaf",
+      "level": "VWO",
+      "chapters": []
+    },
+    {
+      "id": "wiskunde-a",
+      "name": "Mathematics A",
+      "slug": "wiskunde-a",
+      "color": "#3A86FF",
+      "icon": "calculator",
+      "level": "VWO",
+      "chapters": []
+    },
+    {
+      "id": "wiskunde-b",
+      "name": "Mathematics B",
+      "slug": "wiskunde-b",
+      "color": "#4361EE",
+      "icon": "sigma",
+      "level": "VWO",
+      "chapters": []
+    },
+    {
+      "id": "wiskunde-d",
+      "name": "Mathematics D",
+      "slug": "wiskunde-d",
+      "color": "#7209B7",
+      "icon": "function",
+      "level": "VWO",
+      "chapters": []
+    },
+    {
+      "id": "aardrijkskunde",
+      "name": "Geography",
+      "slug": "aardrijkskunde",
+      "color": "#06b6d4",
+      "icon": "globe",
+      "level": "VWO",
+      "chapters": []
+    },
+    {
+      "id": "geschiedenis",
+      "name": "History",
+      "slug": "geschiedenis",
+      "color": "#f59e0b",
+      "icon": "scroll",
+      "level": "VWO",
+      "chapters": []
+    },
+    {
+      "id": "economie",
+      "name": "Economics",
+      "slug": "economie",
+      "color": "#84cc16",
+      "icon": "trending-up",
+      "level": "VWO",
+      "chapters": []
+    },
+    {
+      "id": "nederlands",
+      "name": "Dutch",
+      "slug": "nederlands",
+      "color": "#ec4899",
+      "icon": "book",
+      "level": "VWO",
+      "chapters": []
+    },
+    {
+      "id": "engels",
+      "name": "English",
+      "slug": "engels",
+      "color": "#6366f1",
+      "icon": "language",
+      "level": "VWO",
+      "chapters": []
+    },
+    {
+      "id": "frans",
+      "name": "French",
+      "slug": "frans",
+      "color": "#6D597A",
+      "icon": "languages",
+      "level": "VWO",
+      "chapters": []
+    },
+    {
+      "id": "duits",
+      "name": "German",
+      "slug": "duits",
+      "color": "#264653",
+      "icon": "languages",
+      "level": "VWO",
+      "chapters": []
+    },
+    {
+      "id": "informatica",
+      "name": "Computer Science",
+      "slug": "informatica",
+      "color": "#118AB2",
+      "icon": "code",
+      "level": "VWO",
+      "chapters": []
+    },
+    {
+      "id": "bewegen-sport-en-maatschappij",
+      "name": "Physical Education & Society",
+      "slug": "bewegen-sport-en-maatschappij",
+      "color": "#f97316",
+      "icon": "activity",
+      "level": "VMBO",
+      "chapters": []
+    },
+    {
+      "id": "culturele-en-kunstzinnige-vorming",
+      "name": "Cultural & Artistic Education",
+      "slug": "culturele-en-kunstzinnige-vorming",
+      "color": "#FF006E",
+      "icon": "palette",
+      "level": "VMBO",
+      "chapters": []
+    },
+    {
+      "id": "kunst-beeldende-vorming",
+      "name": "Visual Arts",
+      "slug": "kunst-beeldende-vorming",
+      "color": "#e11d48",
+      "icon": "image",
+      "level": "VMBO",
+      "chapters": []
+    },
+    {
+      "id": "kunst-muziek",
+      "name": "Music",
+      "slug": "kunst-muziek",
+      "color": "#a855f7",
+      "icon": "music",
+      "level": "VMBO",
+      "chapters": []
+    },
+    {
+      "id": "levensbeschouwing",
+      "name": "Worldview & Religion",
+      "slug": "levensbeschouwing",
+      "color": "#8338EC",
+      "icon": "brain",
+      "level": "VMBO",
+      "chapters": []
+    },
+    {
+      "id": "lichamelijke-opvoeding",
+      "name": "Physical Education",
+      "slug": "lichamelijke-opvoeding",
+      "color": "#16a34a",
+      "icon": "dumbbell",
+      "level": "VMBO",
+      "chapters": []
+    },
+    {
+      "id": "mentoraat",
+      "name": "Mentorship",
+      "slug": "mentoraat",
+      "color": "#0ea5e9",
+      "icon": "users",
+      "level": "ALL",
+      "chapters": []
+    },
+    {
+      "id": "decanaat",
+      "name": "Student Affairs",
+      "slug": "decanaat",
+      "color": "#64748b",
+      "icon": "graduation-cap",
+      "level": "ALL",
+      "chapters": []
     }
   ]
 }

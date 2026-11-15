@@ -152,3 +152,19 @@ export async function getPinnedBooks(): Promise<Book[]> {
 export function clearCatalogCache(): void {
   catalogCache = null;
 }
+
+/**
+ * Resolve a book metadata field, preferring a per-language override
+ * from `book.localized` and falling back to the base field.
+ */
+export function getBookField(
+  book: Book,
+  field: 'title' | 'description' | 'authorInfo',
+  language?: string
+): string | undefined {
+  if (language && book.localized?.[field]?.[language]) {
+    return book.localized[field]![language];
+  }
+  const value = book[field];
+  return typeof value === 'string' ? value : undefined;
+}

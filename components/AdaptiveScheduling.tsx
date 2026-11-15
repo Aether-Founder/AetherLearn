@@ -34,7 +34,7 @@ export function AdaptiveScheduling({
   userId: _userId,
   onScheduleSession,
 }: AdaptiveSchedulingProps) {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [schedules, setSchedules] = useState<AdaptiveSchedule[]>([]);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<'week' | 'month'>('week');
@@ -204,7 +204,7 @@ export function AdaptiveScheduling({
                   <div className="flex items-center gap-4 text-sm text-muted-foreground">
                     <div className="flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
-                      <span>{new Date(schedule.scheduledDate).toLocaleDateString('nl-NL')}</span>
+                      <span>{new Date(schedule.scheduledDate).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : 'en-US')}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />

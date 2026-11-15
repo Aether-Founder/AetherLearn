@@ -5,6 +5,7 @@ import { BookCard } from '@/components/books/BookCard';
 import { BookFilters } from '@/components/books/BookFilters';
 import { CollectionShelf } from '@/components/books/CollectionShelf';
 import { getAllBooks, getTopics, getCollections, searchBooks, getBooksByTopic, getBooksByCollection, getPinnedBooks } from '@/lib/books/catalog';
+import { fetchBookEngagement } from '@/lib/cloud-sync';
 import { Book, BookFilterOptions } from '@/lib/books/types';
 import { AppShell } from '@/components/AppShell';
 import { useTranslation } from '@/lib/useTranslation';
@@ -36,11 +37,24 @@ export default function BookLibraryPage() {
         setTopics(allTopics);
         setCollections(allCollections);
 
-        // Load bookmarked books from localStorage
+        // Load bookmarked books from localStorage, then merge cloud bookmarks
         const bookmarkedBookIds = JSON.parse(localStorage.getItem('book-bookmarks') || '[]');
         setBookmarkedBookIds(new Set(bookmarkedBookIds));
         const bookmarked = allBooks.filter(book => bookmarkedBookIds.includes(book.id));
         setBookmarkedBooks(bookmarked);
+
+        // Merge Supabase book engagement (cross-device bookmarks)
+        fetchBookEngagement().then((engagement) => {
+          if (!engagement) return;
+          const cloudBookmarkedIds = allBooks
+            .filter((b) => engagement.get(b.slug)?.isBookmarked || engagement.get(b.id)?.isBookmarked)
+            .map((b) => b.id);
+          if (cloudBookmarkedIds.length === 0) return;
+          const merged = Array.from(new Set([...bookmarkedBookIds, ...cloudBookmarkedIds]));
+          localStorage.setItem('book-bookmarks', JSON.stringify(merged));
+          setBookmarkedBookIds(new Set(merged));
+          setBookmarkedBooks(allBooks.filter((b) => merged.includes(b.id)));
+        });
       } catch (error) {
         console.error('Error loading books:', error);
       } finally {
@@ -185,9 +199,9 @@ export default function BookLibraryPage() {
       <div className="space-y-8 pt-10">
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold mb-2">{t('books.title')}</h1>
+          <h1 className="text-3xl font-bold mb-2">{t('books.title', 'Book Library')}</h1>
           <p className="text-muted-foreground">
-            {t('books.description')}
+            {t('books.description', 'Discover books, read summaries, and turn knowledge into learning sets')}
           </p>
         </div>
 
@@ -203,11 +217,11 @@ export default function BookLibraryPage() {
         {hasActiveFilters ? (
           <div>
             <h2 className="text-xl font-semibold mb-4">
-              {t('books.results')} ({books.length})
+              {t('books.results', 'Results')} ({books.length})
             </h2>
             {books.length === 0 ? (
               <div className="text-center py-12 text-muted-foreground">
-                {t('books.no_books_match')}
+                {t('books.no_books_match', 'No books match your filters. Try adjusting your search.')}
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12">
@@ -221,46 +235,46 @@ export default function BookLibraryPage() {
           <div className="space-y-8">
             {/* Pinned/Recommended Books */}
             {pinnedBooks.length > 0 && (
-              <CollectionShelf title={t('books.recommended')} books={pinnedBooks} />
+              <CollectionShelf title={t('books.recommended', 'Recommended')} books={pinnedBooks} />
             )}
 
             {/* Bookmarked Books */}
             {bookmarkedBooks.length > 0 && (
-              <CollectionShelf title={t('books.bookmarked')} books={bookmarkedBooks} />
+              <CollectionShelf title={t('books.bookmarked', 'Bookmarked')} books={bookmarkedBooks} />
             )}
 
             {/* Essential Books */}
             {essentialBooks.length > 0 && (
-              <CollectionShelf title={t('books.essential_books')} books={essentialBooks} />
+              <CollectionShelf title={t('books.essential_books', 'Essential Books')} books={essentialBooks} />
             )}
 
             {/* Psychology */}
             {psychologyBooks.length > 0 && (
-              <CollectionShelf title={t('books.psychology')} books={psychologyBooks} />
+              <CollectionShelf title={t('books.psychology', 'Psychology & Human Behaviour')} books={psychologyBooks} />
             )}
 
             {/* Business */}
             {businessBooks.length > 0 && (
-              <CollectionShelf title={t('books.business')} books={businessBooks} />
+              <CollectionShelf title={t('books.business', 'Business & Entrepreneurship')} books={businessBooks} />
             )}
 
             {/* Productivity */}
             {productivityBooks.length > 0 && (
-              <CollectionShelf title={t('books.productivity')} books={productivityBooks} />
+              <CollectionShelf title={t('books.productivity', 'Productivity & Self-Improvement')} books={productivityBooks} />
             )}
 
             {/* Science & History */}
             {scienceBooks.length > 0 && (
-              <CollectionShelf title={t('books.science_history')} books={scienceBooks} />
+              <CollectionShelf title={t('books.science_history', 'Science & History')} books={scienceBooks} />
             )}
 
             {/* Beginners */}
             {beginnersBooks.length > 0 && (
-              <CollectionShelf title={t('books.beginners')} books={beginnersBooks} />
+              <CollectionShelf title={t('books.beginners', 'Books for Beginners')} books={beginnersBooks} />
             )}
 
             {/* All Books */}
-            <CollectionShelf title={t('books.all_books')} books={books} />
+            <CollectionShelf title={t('books.all_books', 'All Books')} books={books} />
           </div>
         )}
       </div>

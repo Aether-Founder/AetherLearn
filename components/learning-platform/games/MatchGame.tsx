@@ -193,7 +193,7 @@ export function MatchGame({ onQuit }: GameShellProps) {
           return (
             <div className="rounded-2xl border border-border bg-card p-8 text-center">
               <p className="text-muted-foreground">
-                Minstens 2 begrippen nodig voor het koppelspel.
+                {t('match_min_terms')}
               </p>
             </div>
           );

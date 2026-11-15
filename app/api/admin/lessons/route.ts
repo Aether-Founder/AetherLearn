@@ -1,48 +1,52 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { getAdminSetting, putAdminSetting, AdminSettingsUnavailable } from '@/lib/admin-settings';
+import { ADMIN_SESSION_COOKIE, isValidAdminSession } from '@/lib/admin-auth';
 
-const LESSONS_FILE = path.join(process.cwd(), 'public', 'admin-lessons.json');
+const KEY = 'admin-lessons';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isValidAdminSession(request.cookies.get(ADMIN_SESSION_COOKIE)?.value)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
-    const data = await fs.readFile(LESSONS_FILE, 'utf-8');
-    const lessonsData = JSON.parse(data);
-    return NextResponse.json(lessonsData);
+    const data = await getAdminSetting(KEY);
+    return NextResponse.json(
+      data ?? { lessons: [], lastUpdated: new Date().toISOString() }
+    );
   } catch (error) {
-    const emptyData = {
-      lessons: [],
-      lastUpdated: new Date().toISOString()
-    };
-    return NextResponse.json(emptyData);
+    if (error instanceof AdminSettingsUnavailable) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
+    }
+    console.error('Error loading admin lessons:', error);
+    return NextResponse.json({ lessons: [], lastUpdated: new Date().toISOString() });
   }
 }
 
 export async function POST(request: NextRequest) {
+  if (!isValidAdminSession(request.cookies.get(ADMIN_SESSION_COOKIE)?.value)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const body = await request.json();
     const { lessons } = body;
 
     if (!Array.isArray(lessons)) {
-      return NextResponse.json(
-        { error: 'Invalid lessons data' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Invalid lessons data' }, { status: 400 });
     }
 
     const lessonsData = {
       lessons,
-      lastUpdated: new Date().toISOString()
+      lastUpdated: new Date().toISOString(),
     };
 
-    await fs.writeFile(LESSONS_FILE, JSON.stringify(lessonsData, null, 2), 'utf-8');
-
+    await putAdminSetting(KEY, lessonsData);
     return NextResponse.json({ success: true, lessonsData });
   } catch (error) {
+    if (error instanceof AdminSettingsUnavailable) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
+    }
     console.error('Error saving lessons:', error);
-    return NextResponse.json(
-      { error: 'Failed to save lessons' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to save lessons' }, { status: 500 });
   }
 }

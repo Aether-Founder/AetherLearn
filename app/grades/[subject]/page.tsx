@@ -6,6 +6,7 @@ import { AppShell, PageHeader } from '@/components/AppShell';
 import { Badge, Panel, fmt, gradeTone } from '@/components/ui-kit';
 import { GRADEBOOK, averageOf } from '@/lib/os-data';
 import { useTranslation } from '@/lib/useTranslation';
+import { getSubjectDisplayName } from '@/lib/subject-i18n';
 
 export default function SubjectGradesPage() {
   const { t, currentLanguage } = useTranslation();
@@ -38,9 +39,8 @@ export default function SubjectGradesPage() {
   return (
     <AppShell>
       <PageHeader
-        title={subject.name}
+        title={getSubjectDisplayName({ slug: subject.slug, name: subject.name }, currentLanguage)}
         description={t('grades_subject_desc', undefined, {
-          teacher: subject.teacher,
           target: fmt(subject.target),
         })}
         action={

@@ -24,7 +24,7 @@ interface SubjectsData {
 }
 
 export default function AdminSubjectsPage() {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -300,7 +300,7 @@ export default function AdminSubjectsPage() {
                     <p className="text-sm text-muted-foreground">{subject.description}</p>
                   )}
                   <p className="text-xs text-muted-foreground">
-                    {t('admin_created_at', undefined, { date: new Date(subject.createdAt).toLocaleDateString('nl-NL') })}
+                    {t('admin_created_at', undefined, { date: new Date(subject.createdAt).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : 'en-US') })}
                   </p>
                 </div>
               </CardContent>

@@ -263,9 +263,9 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
             <div>
               <h3 className="font-semibold mb-2">{t('shell_how_insights_work')}</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Sterktes: Onderwerpen waar je goed in presteert</li>
+                <li>• {t('insights_strengths_tip')}</li>
                 <li>• {t('shell_tip_weaknesses')}</li>
-                <li>• Kansen: Gebieden waar je snel vooruitgang kunt maken</li>
+                <li>• {t('insights_opportunities_tip')}</li>
                 <li>• {t('shell_tip_warnings')}</li>
               </ul>
             </div>

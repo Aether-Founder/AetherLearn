@@ -1,22 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { getAdminSetting, putAdminSetting, AdminSettingsUnavailable } from '@/lib/admin-settings';
+import { ADMIN_SESSION_COOKIE, isValidAdminSession } from '@/lib/admin-auth';
 
-const SECRET_SUBJECTS_FILE = path.join(process.cwd(), 'public', 'admin-secret-subjects.json');
+const KEY = 'admin-secret-subjects';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isValidAdminSession(request.cookies.get(ADMIN_SESSION_COOKIE)?.value)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
-    const data = await fs.readFile(SECRET_SUBJECTS_FILE, 'utf-8');
-    return NextResponse.json(JSON.parse(data));
+    const data = await getAdminSetting(KEY);
+    return NextResponse.json(
+      data ?? { lastUpdated: new Date().toISOString(), secretSubjects: [] }
+    );
   } catch (error) {
-    return NextResponse.json({
-      lastUpdated: new Date().toISOString(),
-      secretSubjects: [],
-    });
+    if (error instanceof AdminSettingsUnavailable) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
+    }
+    console.error('Error loading secret subjects:', error);
+    return NextResponse.json({ lastUpdated: new Date().toISOString(), secretSubjects: [] });
   }
 }
 
 export async function POST(request: NextRequest) {
+  if (!isValidAdminSession(request.cookies.get(ADMIN_SESSION_COOKIE)?.value)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const body = await request.json();
     const { secretSubjects } = body;
@@ -26,13 +36,13 @@ export async function POST(request: NextRequest) {
       secretSubjects: secretSubjects || [],
     };
 
-    await fs.writeFile(SECRET_SUBJECTS_FILE, JSON.stringify(data, null, 2));
+    await putAdminSetting(KEY, data);
     return NextResponse.json({ success: true, data });
   } catch (error) {
+    if (error instanceof AdminSettingsUnavailable) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 503 });
+    }
     console.error('Error saving secret subjects:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to save secret subjects' },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: 'Failed to save secret subjects' }, { status: 500 });
   }
 }

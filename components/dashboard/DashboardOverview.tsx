@@ -19,6 +19,7 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
+import { getSubjectDisplayName } from '@/lib/subject-i18n';
 
 type Recurrence = 'none' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'yearly';
 
@@ -452,7 +453,7 @@ function getActivityChart(entries: ActivityEntry[], now: Date) {
 }
 
 export default function DashboardOverview() {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [now, setNow] = useState(() => new Date());
@@ -542,18 +543,13 @@ export default function DashboardOverview() {
               .eq('id', user.id)
               .single();
 
-            if (!userError && userData && userData.selected_subjects && userData.selected_subjects.length > 0) {
-              // Load subjects from curriculum mapping based on user's selections
-              const { getSubjectsForCountryAndLevel } = await import('@/lib/curriculum-mapping');
-              const allSubjects = getSubjectsForCountryAndLevel(
-                userData.country_code || 'NL',
-                userData.educational_level || 'middle-school'
-              );
-              
-              fetchedSubjects = allSubjects.filter((s: Subject) => 
-                userData.selected_subjects.includes(s.id)
-              );
-            }
+            // Always show the full subject catalog for the user's country/level —
+            // no per-account subject selection.
+            const { getSubjectsForCountryAndLevel } = await import('@/lib/curriculum-mapping');
+            fetchedSubjects = getSubjectsForCountryAndLevel(
+              userData?.country_code || 'NL',
+              userData?.educational_level || 'middle-school'
+            );
           }
 
           // Fallback: load from subjects table if no user selections
@@ -1223,7 +1219,7 @@ export default function DashboardOverview() {
                   href={`/subjects/${subject.slug ?? subject.id}`}
                   className="rounded-lg border border-border bg-background/70 p-4 transition-colors hover:bg-secondary/30"
                 >
-                  <div className="truncate text-sm font-semibold">{subject.name}</div>
+                  <div className="truncate text-sm font-semibold">{getSubjectDisplayName(subject, currentLanguage)}</div>
 
                   {subject.description && (
                     <div className="mt-1 truncate text-xs text-muted-foreground">

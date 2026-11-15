@@ -3,7 +3,8 @@ import { NextResponse } from 'next/server';
 import { getProvider, getDefaultProvider } from '@/lib/ai/providers';
 import { checkRateLimit, logAIUsage } from '@/lib/ai/rate-limiter';
 import { searchRelevant } from '@/lib/ai/embeddings';
-import { SYSTEM_TUTOR, TUTOR_CHAT_WITH_CONTEXT, TUTOR_CHAT_NO_CONTEXT } from '@/lib/ai/prompts';
+import { getSystemTutor, TUTOR_CHAT_WITH_CONTEXT, TUTOR_CHAT_NO_CONTEXT } from '@/lib/ai/prompts';
+import { getServerLanguage } from '@/lib/i18n-server';
 
 export async function POST(request: Request) {
   try {
@@ -70,14 +71,16 @@ export async function POST(request: Request) {
       console.error('Error searching embeddings:', error);
     }
 
+    const lang = await getServerLanguage();
+
     // Build prompt
     const prompt = context
-      ? TUTOR_CHAT_WITH_CONTEXT(context, message)
-      : TUTOR_CHAT_NO_CONTEXT(message);
+      ? TUTOR_CHAT_WITH_CONTEXT(context, message, lang)
+      : TUTOR_CHAT_NO_CONTEXT(message, lang);
 
     // Generate response
     const response = await provider.generateText(prompt, {
-      system: SYSTEM_TUTOR,
+      system: getSystemTutor(lang),
       temperature: 0.7,
       maxTokens: 1500,
     });

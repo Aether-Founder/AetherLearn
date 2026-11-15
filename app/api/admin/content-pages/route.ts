@@ -1,15 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import {
-  findContentPage,
   getJsonPath,
-  loadContentPageRegistry,
   normalizeJsonPath,
   normalizePageId,
   normalizeSubjectId,
-  saveContentPageRegistry,
   type JsonContentPage,
 } from '@/lib/json-content-pages';
+import {
+  loadContentPagesRegistry,
+  saveContentPagesRegistry,
+} from '@/lib/content-pages-registry';
 import { ADMIN_SESSION_COOKIE, isValidAdminSession } from '@/lib/admin-auth';
 import { createClient } from '@supabase/supabase-js';
 
@@ -27,7 +28,8 @@ function requireAdmin(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   if (!requireAdmin(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  return NextResponse.json({ pages: loadContentPageRegistry().pages });
+  const registry = await loadContentPagesRegistry();
+  return NextResponse.json({ pages: registry.pages });
 }
 
 export async function POST(request: NextRequest) {
@@ -59,16 +61,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'The provided file does not contain valid JSON.' }, { status: 400 });
     }
 
-    const registry = loadContentPageRegistry();
-    if (findContentPage(id)) {
+    const registry = await loadContentPagesRegistry();
+    if (registry.pages.some((entry) => entry.id === id)) {
       return NextResponse.json({ error: 'Deze pagina-id bestaat al.' }, { status: 409 });
     }
     registry.pages.push(page);
-    saveContentPageRegistry(registry);
+    await saveContentPagesRegistry(registry);
     const client = getAdminClient();
     if (!client) {
       registry.pages = registry.pages.filter((entry) => entry.id !== id);
-      saveContentPageRegistry(registry);
+      await saveContentPagesRegistry(registry);
       return NextResponse.json({ error: 'SUPABASE_SERVICE_ROLE_KEY ontbreekt.' }, { status: 500 });
     }
     const { error: placementError } = await client.from('curriculum_content_items').insert({
@@ -77,7 +79,7 @@ export async function POST(request: NextRequest) {
     });
     if (placementError) {
       registry.pages = registry.pages.filter((entry) => entry.id !== id);
-      saveContentPageRegistry(registry);
+      await saveContentPagesRegistry(registry);
       return NextResponse.json({ error: placementError.message }, { status: 500 });
     }
     return NextResponse.json({ page }, { status: 201 });
@@ -90,7 +92,7 @@ export async function DELETE(request: NextRequest) {
   if (!requireAdmin(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const id = normalizePageId(request.nextUrl.searchParams.get('id') || '');
-  const registry = loadContentPageRegistry();
+  const registry = await loadContentPagesRegistry();
   const pageCount = registry.pages.length;
   registry.pages = registry.pages.filter((page) => page.id !== id);
 
@@ -98,7 +100,7 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: 'Page not found.' }, { status: 404 });
   }
 
-  saveContentPageRegistry(registry);
+  await saveContentPagesRegistry(registry);
   const client = getAdminClient();
   if (client) await client.from('curriculum_content_items').delete().eq('item_type', 'json_lesson').eq('item_id', id);
   return NextResponse.json({ success: true });

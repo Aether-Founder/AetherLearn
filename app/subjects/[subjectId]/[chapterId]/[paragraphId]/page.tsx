@@ -9,7 +9,8 @@ import { ArrowLeft, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import ButtonSection from '@/components/ButtonSection';
-import { getServerT } from '@/lib/i18n-server';
+import { getServerT, getServerLanguage } from '@/lib/i18n-server';
+import { getSubjectDisplayName } from '@/lib/subject-i18n';
 
 export default async function ParagraphDetailPage({
   params,
@@ -26,6 +27,9 @@ export default async function ParagraphDetailPage({
   const chapter = chapters.find((c) => c.id === chapterId);
   const paragraphs = await loadParagraphs(decodedSubjectId, chapterId);
   const paragraph = paragraphs.find((p) => p.id === paragraphId);
+  const subjectDisplayName = subject
+    ? getSubjectDisplayName(subject, await getServerLanguage())
+    : decodedSubjectId;
 
   if (!subject || !chapter || !paragraph) {
     return (
@@ -52,7 +56,7 @@ export default async function ParagraphDetailPage({
     <AppShell>
       <PageHeader
         title={paragraph.title}
-        description={paragraph.summary || `${subject.name} • ${chapter.title}`}
+        description={paragraph.summary || `${subjectDisplayName} • ${chapter.title}`}
         action={
           <Link
             href={`/subjects/${decodedSubjectId}/${chapterId}`}

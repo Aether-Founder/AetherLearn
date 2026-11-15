@@ -199,6 +199,10 @@ export default function BinasViewer() {
   const [pageInput, setPageInput] = useState('');
   const [showFab, setShowFab] = useState(false);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
+  // User-supplied PDF (object URL) — used when the hosted chunks are missing.
+  const [customPdfUrl, setCustomPdfUrl] = useState<string | null>(null);
+  const [reloadToken, setReloadToken] = useState(0);
+  const customPdfUrlRef = useRef<string | null>(null);
 
   const stateRef = useRef<ViewerState>(createViewerState());
   const pdfWrapRef = useRef<HTMLDivElement | null>(null);
@@ -586,38 +590,54 @@ export default function BinasViewer() {
         let chunks: ChunkInfo[];
         let totalPages: number;
 
-        try {
-          const response = await fetch(MANIFEST_URL, { cache: 'force-cache' });
-          if (!response.ok) throw new Error('manifest not available');
-          const manifest = (await response.json()) as {
-            totalPages: number;
-            chunks: Array<{
-              file: string;
-              startPage: number;
-              endPage: number;
-            }>;
-          };
-          chunks = manifest.chunks.map((chunk) => ({
-            file: chunk.file,
-            url: `/binas/${chunk.file}`,
-            startPage: chunk.startPage,
-            endPage: chunk.endPage,
-          }));
-          totalPages = manifest.totalPages;
-        } catch {
-          // Fallback: a single monolithic PDF (local development setup).
-          const doc = await pdfjs.getDocument(SINGLE_FILE_URL).promise;
+        if (customPdfUrl) {
+          // User-uploaded PDF: treat it as a single chunk.
+          const doc = await pdfjs.getDocument(customPdfUrl).promise;
           if (st.destroyed) return;
           chunks = [
             {
-              file: 'binas.pdf',
-              url: SINGLE_FILE_URL,
+              file: 'upload.pdf',
+              url: customPdfUrl,
               startPage: 1,
               endPage: doc.numPages,
             },
           ];
           totalPages = doc.numPages;
-          st.chunkDocs.set(SINGLE_FILE_URL, Promise.resolve(doc));
+          st.chunkDocs.set(customPdfUrl, Promise.resolve(doc));
+        } else {
+          try {
+            const response = await fetch(MANIFEST_URL, { cache: 'force-cache' });
+            if (!response.ok) throw new Error('manifest not available');
+            const manifest = (await response.json()) as {
+              totalPages: number;
+              chunks: Array<{
+                file: string;
+                startPage: number;
+                endPage: number;
+              }>;
+            };
+            chunks = manifest.chunks.map((chunk) => ({
+              file: chunk.file,
+              url: `/binas/${chunk.file}`,
+              startPage: chunk.startPage,
+              endPage: chunk.endPage,
+            }));
+            totalPages = manifest.totalPages;
+          } catch {
+            // Fallback: a single monolithic PDF (local development setup).
+            const doc = await pdfjs.getDocument(SINGLE_FILE_URL).promise;
+            if (st.destroyed) return;
+            chunks = [
+              {
+                file: 'binas.pdf',
+                url: SINGLE_FILE_URL,
+                startPage: 1,
+                endPage: doc.numPages,
+              },
+            ];
+            totalPages = doc.numPages;
+            st.chunkDocs.set(SINGLE_FILE_URL, Promise.resolve(doc));
+          }
         }
 
         st.chunks = chunks;
@@ -663,7 +683,7 @@ export default function BinasViewer() {
       });
       st.chunkDocs.clear();
     };
-  }, [buildViewer, getChunkDoc]);
+  }, [buildViewer, getChunkDoc, customPdfUrl, reloadToken]);
 
   /* ---------------------------------------------------------------- */
   /* Scroll / resize / wheel listeners                                 */
@@ -806,6 +826,38 @@ export default function BinasViewer() {
 
   const handleScrollTop = useCallback(() => {
     pdfWrapRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const handlePdfUpload = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      event.target.value = '';
+      if (!file) return;
+      const isPdf =
+        file.type === 'application/pdf' ||
+        file.name.toLowerCase().endsWith('.pdf');
+      if (!isPdf) return;
+
+      const url = URL.createObjectURL(file);
+      if (customPdfUrlRef.current) URL.revokeObjectURL(customPdfUrlRef.current);
+      customPdfUrlRef.current = url;
+      setCustomPdfUrl(url);
+      setStatus('loading');
+      setReloadToken((n) => n + 1);
+    },
+    []
+  );
+
+  const handleRetry = useCallback(() => {
+    setStatus('loading');
+    setReloadToken((n) => n + 1);
+  }, []);
+
+  // Revoke the last object URL when the component unmounts.
+  useEffect(() => {
+    return () => {
+      if (customPdfUrlRef.current) URL.revokeObjectURL(customPdfUrlRef.current);
+    };
   }, []);
 
   /* ---------------------------------------------------------------- */
@@ -1075,7 +1127,26 @@ export default function BinasViewer() {
             <div className="pdf-container" ref={pdfContRef} />
             {status === 'error' ? (
               <div className="pdf-error">
-                {t('binas_load_error')}
+                <p>{t('binas_load_error')}</p>
+                <p className="pdf-error-hint">{t('binas_upload_hint')}</p>
+                <div className="pdf-error-actions">
+                  <button
+                    type="button"
+                    className="pdf-error-btn"
+                    onClick={handleRetry}
+                  >
+                    {t('binas_retry')}
+                  </button>
+                  <label className="pdf-error-btn pdf-error-btn-primary">
+                    {t('binas_upload_pdf')}
+                    <input
+                      type="file"
+                      accept="application/pdf,.pdf"
+                      className="sr-only"
+                      onChange={handlePdfUpload}
+                    />
+                  </label>
+                </div>
               </div>
             ) : null}
           </div>

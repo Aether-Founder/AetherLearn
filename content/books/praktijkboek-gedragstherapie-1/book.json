@@ -5,8 +5,14 @@
   "author": "Bas van Heycop ten Ham, Bert de Vos, Monique Hulsbergen",
   "description": "Een praktisch handboek voor gedragstherapie, met concrete methoden en technieken voor de behandeling van psychologische problemen.",
   "topic": "psychology",
-  "languages": ["nl"],
-  "formats": ["original", "concise", "detailed"],
+  "languages": [
+    "nl"
+  ],
+  "formats": [
+    "original",
+    "concise",
+    "detailed"
+  ],
   "readingTime": {
     "concise": 20,
     "detailed": 55
@@ -15,7 +21,10 @@
     "type": "image",
     "imageUrl": "https://www.boom.nl/media/4/9789461051707.jpg"
   },
-  "collections": ["psychology", "essential"],
+  "collections": [
+    "psychology",
+    "essential"
+  ],
   "pinned": true,
   "position": 1,
   "authorInfo": "Het **Praktijkboek Gedragstherapie** is het resultaat van een intensieve samenwerking tussen drie vooraanstaande experts met een schat aan ervaring binnen de Nederlandse geestelijke gezondheidszorg (GGZ). De auteurs combineren hun diepgaande theoretische kennis met een jarenlange dagelijkse behandelpraktijk:\n\n* **Bas van Heycop ten Ham** is klinisch psycholoog, psychotherapeut en cognitief gedragstherapeut. Hij is al decennia actief in de specialistische GGZ en staat bekend om zijn expertise in complexe diagnostiek, functie- en betekenisanalyses en de concrete vertaling van psychotherapeutische richtlijnen naar de behandelkamer.\n* **Bert de Vos** is als ervaren cognitief gedragstherapeut en supervisor nauw betrokken bij het opleiden van professionals. Zijn specifieke expertise ligt op het gebied van evidence-based interventies bij angst- en stemmingsstoornissen en het helder overdraagbaar maken van therapeutische vaardigheden.\n* **Monique Hulsbergen** is psycholoog en auteur, gespecialiseerd in de derde generatie gedragstherapie. Zij heeft een grote bijdrage geleverd aan de integratie van mindfulness en Acceptance and Commitment Therapy (ACT) in de Nederlandstalige praktijkliteratuur.\n\nSamen hebben zij met dit handboek dé brug geslagen tussen de wetenschappelijke kaders van de cognitieve gedragstherapie en de dynamische, alledaagse praktijk van de cognitief gedragstherapeutisch werker.",
@@ -459,5 +468,11 @@
       ],
       "learningOutcomes": []
     }
-  ]
+  ],
+  "localized": {
+    "en": {
+      "description": "A practical handbook on behavior therapy, with concrete methods and techniques for treating psychological problems.",
+      "authorInfo": "The **Praktijkboek Gedragstherapie** (Practice Book on Behavior Therapy) is the result of an intensive collaboration between three leading experts with a wealth of experience in Dutch mental healthcare (GGZ). The authors combine their in-depth theoretical knowledge with many years of daily treatment practice:\n\n* **Bas van Heycop ten Ham** is a clinical psychologist, psychotherapist and cognitive behavioral therapist. He has been active in specialized mental healthcare for decades and is known for his expertise in complex diagnostics, functional and meaning analyses, and the concrete translation of psychotherapeutic guidelines into the treatment room.\n* **Bert de Vos** is an experienced cognitive behavioral therapist and supervisor closely involved in training professionals. His specific expertise lies in evidence-based interventions for anxiety and mood disorders and in making therapeutic skills clearly transferable.\n* **Monique Hulsbergen** is a psychologist and author specializing in third-generation behavior therapy. She made a major contribution to integrating mindfulness and Acceptance and Commitment Therapy (ACT) into Dutch-language practice literature.\n\nTogether, they have built the bridge between the scientific frameworks of cognitive behavior therapy and the dynamic, everyday practice of the cognitive behavioral therapist."
+    }
+  }
 }

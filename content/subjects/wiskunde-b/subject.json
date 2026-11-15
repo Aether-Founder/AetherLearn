@@ -1,8 +1,7 @@
 {
   "id": "wiskunde-b",
-  "name": "Wiskunde B",
+  "name": "Mathematics B",
   "slug": "wiskunde-b",
-  "description": "Wiskunde B - de studie van analyse, functies en grafieken.",
   "color": "#3b82f6",
   "icon": "book",
   "level": "vwo",

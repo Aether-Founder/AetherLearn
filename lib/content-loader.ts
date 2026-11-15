@@ -5,7 +5,7 @@ export interface Subject {
   id: string;
   name: string;
   slug: string;
-  description: string;
+  description?: string;
   color: string;
   icon: string;
   level: string;

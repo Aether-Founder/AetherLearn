@@ -74,7 +74,7 @@ type Flashcard = {
 };
 
 export default function DecksPage() {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const router = useRouter();
   const [studySets, setStudySets] = useState<StudySet[]>([]);
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -631,7 +631,7 @@ export default function DecksPage() {
                 )}
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
                   <span>{t('deck_views', undefined, { n: set.view_count })}</span>
-                  <span>{new Date(set.updated_at).toLocaleDateString('nl-NL')}</span>
+                  <span>{new Date(set.updated_at).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : 'en-US')}</span>
                 </div>
               </div>
             ))

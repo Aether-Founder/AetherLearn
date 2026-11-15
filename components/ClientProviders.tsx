@@ -15,6 +15,7 @@ export const dynamic = 'force-dynamic';
 export function ClientProviders({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     SyncManager.init();
+    import('@/lib/dev-commands').then((m) => m.registerDevCommands());
   }, []);
 
   return (

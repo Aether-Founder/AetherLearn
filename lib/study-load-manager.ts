@@ -1,3 +1,5 @@
+import { getI18n } from './i18n-client';
+
 interface StudySession {
   date: string;
   minutes: number;
@@ -185,22 +187,22 @@ export class StudyLoadManager {
     const suggestions: string[] = [];
 
     if (stats.burnoutRisk === 'high') {
-      suggestions.push('Neem minimaal één rustdag deze week');
-      suggestions.push('Verlaag je dagelijkse studeertijd met 30-50%');
-      suggestions.push('Schakel over naar Ziekte Modus of Vakantie Modus');
+      suggestions.push(getI18n().t('slm_rest_day'));
+      suggestions.push(getI18n().t('slm_reduce_time'));
+      suggestions.push(getI18n().t('slm_switch_mode'));
     }
 
     if (stats.overloadWarning) {
-      suggestions.push('Je bent bijna op je daglimiet. Stop met studeren voor vandaag.');
-      suggestions.push('Prioriteer alleen de meest dringende taken');
+      suggestions.push(getI18n().t('slm_near_limit'));
+      suggestions.push(getI18n().t('slm_prioritize'));
     }
 
     if (stats.weeklyAverage > 90) {
-      suggestions.push('Je wekelijkse gemiddelde is high. Overweeg om meer rust in te plannen.');
+      suggestions.push(getI18n().t('slm_weekly_high'));
     }
 
     if (stats.streakDays > 10) {
-      suggestions.push(`Je hebt ${stats.streakDays} dagen achter elkaar gestudeerd. Overweeg een pauze.`);
+      suggestions.push(getI18n().t('slm_streak_days', undefined, { days: stats.streakDays }));
     }
 
     return suggestions;

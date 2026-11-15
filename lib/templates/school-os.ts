@@ -1,5 +1,5 @@
 // School OS Template - Dutch Secondary Education System
-// Structure: Inbox, Taken, Vakken, Foutenlogboek, Herhaal Queue, Toetsen & Deadlines, Projecten
+// Structure: Inbox, Tasks, Subjects, Error log, Review queue, Tests & Deadlines, Projects
 
 export const schoolOsTemplate = {
   name: 'School OS 2026-2027',
@@ -15,17 +15,17 @@ export const schoolOsTemplate = {
       },
       {
         id: 'taken',
-        name: 'Taken',
+        name: 'Tasks',
         type: 'page',
         icon: '✅',
         children: [],
         databases: [
           {
-            name: 'Taken Database',
+            name: 'Tasks Database',
             properties: [
-              { name: 'Taak', type: 'text' },
+              { name: 'Task', type: 'text' },
               {
-                name: 'Vak',
+                name: 'Subject',
                 type: 'select',
                 options: [
                   'Wiskunde',
@@ -43,46 +43,46 @@ export const schoolOsTemplate = {
               {
                 name: 'Type',
                 type: 'select',
-                options: ['Huiswerk', 'Toets', 'Project', 'Presentatie'],
+                options: ['Homework', 'Test', 'Project', 'Presentation'],
               },
               { name: 'Deadline', type: 'date' },
-              { name: 'Status', type: 'select', options: ['Niet begonnen', 'Bezig', 'Afgerond'] },
+              { name: 'Status', type: 'select', options: ['Not started', 'In progress', 'Done'] },
               {
-                name: 'Prioriteit',
+                name: 'Priority',
                 type: 'select',
-                options: ['Laag', 'Gemiddeld', 'Hoog', 'P1 Dringend'],
+                options: ['Low', 'Medium', 'High', 'P1 Urgent'],
               },
-              { name: 'Energie', type: 'select', options: ['Laag', 'Gemiddeld', 'Hoog'] },
+              { name: 'Energy', type: 'select', options: ['Low', 'Medium', 'High'] },
               {
                 name: 'Tijd',
                 type: 'select',
                 options: ['< 30min', '30-60min', '1-2 uur', '> 2 uur'],
               },
-              { name: 'Toetsrelevant', type: 'checkbox' },
+              { name: 'Test-relevant', type: 'checkbox' },
             ],
             views: [
               {
-                name: 'Vandaag',
+                name: 'Today',
                 type: 'table',
                 filters: [{ property: 'Deadline', operator: 'is', value: 'today' }],
               },
               {
-                name: 'Deze week',
+                name: 'This week',
                 type: 'table',
                 filters: [{ property: 'Deadline', operator: 'is', value: 'this_week' }],
               },
               {
-                name: 'P1 Dringend',
+                name: 'P1 Urgent',
                 type: 'table',
-                filters: [{ property: 'Prioriteit', operator: 'is', value: 'P1 Dringend' }],
+                filters: [{ property: 'Priority', operator: 'is', value: 'P1 Urgent' }],
               },
-              { name: 'Toetsvoorbereiding', type: 'kanban', groupBy: 'Vak' },
+              { name: 'Test prep', type: 'kanban', groupBy: 'Subject' },
               {
-                name: 'Achterstand',
+                name: 'Backlog',
                 type: 'table',
                 filters: [
                   { property: 'Deadline', operator: 'before', value: 'today' },
-                  { property: 'Status', operator: 'is_not', value: 'Afgerond' },
+                  { property: 'Status', operator: 'is_not', value: 'Done' },
                 ],
               },
             ],
@@ -91,7 +91,7 @@ export const schoolOsTemplate = {
       },
       {
         id: 'subjects',
-        name: 'Vakken',
+        name: 'Subjects',
         type: 'page',
         icon: '📚',
         children: [
@@ -101,12 +101,12 @@ export const schoolOsTemplate = {
             type: 'page',
             icon: '📐',
             children: [
-              { id: 'wb-lopende', name: 'Lopende stof', type: 'page' },
-              { id: 'wb-homework', name: 'Huiswerk', type: 'page' },
-              { id: 'wb-tests', name: 'Toetsen', type: 'page' },
-              { id: 'wb-formules', name: 'Belangrijke formules/begrippen', type: 'page' },
+              { id: 'wb-lopende', name: 'Current material', type: 'page' },
+              { id: 'wb-homework', name: 'Homework', type: 'page' },
+              { id: 'wb-tests', name: 'Tests', type: 'page' },
+              { id: 'wb-formules', name: 'Key formulas/concepts', type: 'page' },
               { id: 'wb-active-recall', name: 'Active recall questions', type: 'page' },
-              { id: 'wb-fouten', name: 'Foutenlogboek', type: 'page' },
+              { id: 'wb-fouten', name: 'Error log', type: 'page' },
               { id: 'wb-hard', name: 'Moeilijke topics', type: 'page' },
               { id: 'wb-analyse', name: 'Laatste toetsanalyse', type: 'page' },
               { id: 'wb-questions', name: 'Wat moet ik questions aan docent?', type: 'page' },
@@ -122,12 +122,12 @@ export const schoolOsTemplate = {
               .map((_, i) => ({
                 id: `wd-${i}`,
                 name: [
-                  'Lopende stof',
-                  'Huiswerk',
-                  'Toetsen',
+                  'Current material',
+                  'Homework',
+                  'Tests',
                   'Formules',
                   'Active recall',
-                  'Foutenlogboek',
+                  'Error log',
                   'Moeilijk',
                   'Analyse',
                   'Vragen',
@@ -145,12 +145,12 @@ export const schoolOsTemplate = {
               .map((_, i) => ({
                 id: `nk-${i}`,
                 name: [
-                  'Lopende stof',
-                  'Huiswerk',
-                  'Toetsen',
+                  'Current material',
+                  'Homework',
+                  'Tests',
                   'Formules',
                   'Active recall',
-                  'Foutenlogboek',
+                  'Error log',
                   'Moeilijk',
                   'Analyse',
                   'Vragen',
@@ -168,12 +168,12 @@ export const schoolOsTemplate = {
               .map((_, i) => ({
                 id: `sk-${i}`,
                 name: [
-                  'Lopende stof',
-                  'Huiswerk',
-                  'Toetsen',
+                  'Current material',
+                  'Homework',
+                  'Tests',
                   'Formules',
                   'Active recall',
-                  'Foutenlogboek',
+                  'Error log',
                   'Moeilijk',
                   'Analyse',
                   'Vragen',
@@ -191,12 +191,12 @@ export const schoolOsTemplate = {
               .map((_, i) => ({
                 id: `bio-${i}`,
                 name: [
-                  'Lopende stof',
-                  'Huiswerk',
-                  'Toetsen',
+                  'Current material',
+                  'Homework',
+                  'Tests',
                   'Formules',
                   'Active recall',
-                  'Foutenlogboek',
+                  'Error log',
                   'Moeilijk',
                   'Analyse',
                   'Vragen',
@@ -214,12 +214,12 @@ export const schoolOsTemplate = {
               .map((_, i) => ({
                 id: `nl-${i}`,
                 name: [
-                  'Lopende stof',
-                  'Huiswerk',
-                  'Toetsen',
+                  'Current material',
+                  'Homework',
+                  'Tests',
                   'Formules',
                   'Active recall',
-                  'Foutenlogboek',
+                  'Error log',
                   'Moeilijk',
                   'Analyse',
                   'Vragen',
@@ -237,12 +237,12 @@ export const schoolOsTemplate = {
               .map((_, i) => ({
                 id: `fr-${i}`,
                 name: [
-                  'Lopende stof',
-                  'Huiswerk',
-                  'Toetsen',
+                  'Current material',
+                  'Homework',
+                  'Tests',
                   'Formules',
                   'Active recall',
-                  'Foutenlogboek',
+                  'Error log',
                   'Moeilijk',
                   'Analyse',
                   'Vragen',
@@ -260,12 +260,12 @@ export const schoolOsTemplate = {
               .map((_, i) => ({
                 id: `en-${i}`,
                 name: [
-                  'Lopende stof',
-                  'Huiswerk',
-                  'Toetsen',
+                  'Current material',
+                  'Homework',
+                  'Tests',
                   'Formules',
                   'Active recall',
-                  'Foutenlogboek',
+                  'Error log',
                   'Moeilijk',
                   'Analyse',
                   'Vragen',
@@ -283,12 +283,12 @@ export const schoolOsTemplate = {
               .map((_, i) => ({
                 id: `inf-${i}`,
                 name: [
-                  'Lopende stof',
-                  'Huiswerk',
-                  'Toetsen',
+                  'Current material',
+                  'Homework',
+                  'Tests',
                   'Formules',
                   'Active recall',
-                  'Foutenlogboek',
+                  'Error log',
                   'Moeilijk',
                   'Analyse',
                   'Vragen',
@@ -306,12 +306,12 @@ export const schoolOsTemplate = {
               .map((_, i) => ({
                 id: `ar-${i}`,
                 name: [
-                  'Lopende stof',
-                  'Huiswerk',
-                  'Toetsen',
+                  'Current material',
+                  'Homework',
+                  'Tests',
                   'Formules',
                   'Active recall',
-                  'Foutenlogboek',
+                  'Error log',
                   'Moeilijk',
                   'Analyse',
                   'Vragen',
@@ -323,7 +323,7 @@ export const schoolOsTemplate = {
       },
       {
         id: 'foutenlogboek',
-        name: 'Foutenlogboek',
+        name: 'Error log',
         type: 'page',
         icon: '📝',
         children: [],
@@ -332,7 +332,7 @@ export const schoolOsTemplate = {
             name: 'Fouten Database',
             properties: [
               { name: 'Datum', type: 'date' },
-              { name: 'Vak', type: 'select' },
+              { name: 'Subject', type: 'select' },
               { name: 'Onderwerp', type: 'text' },
               { name: 'Vraag/Opgave', type: 'text' },
               {
@@ -349,14 +349,14 @@ export const schoolOsTemplate = {
                 type: 'select',
                 options: ['Nieuw', 'In behandeling', 'Begrepen', 'Beheerst'],
               },
-              { name: 'Toetsrelevant', type: 'checkbox' },
+              { name: 'Test-relevant', type: 'checkbox' },
             ],
           },
         ],
       },
       {
         id: 'herhaal-queue',
-        name: 'Herhaal Queue',
+        name: 'Review queue',
         type: 'page',
         icon: '🔄',
         children: [],
@@ -365,9 +365,9 @@ export const schoolOsTemplate = {
             name: 'Herhaal Database',
             properties: [
               { name: 'Vraag', type: 'text' },
-              { name: 'Vak', type: 'select' },
+              { name: 'Subject', type: 'select' },
               { name: 'Onderwerp', type: 'text' },
-              { name: 'Niveau', type: 'select', options: ['Basis', 'Gemiddeld', 'Geavanceerd'] },
+              { name: 'Niveau', type: 'select', options: ['Basis', 'Medium', 'Geavanceerd'] },
               { name: 'Volgende herhaling', type: 'date' },
               {
                 name: 'Status',
@@ -386,25 +386,25 @@ export const schoolOsTemplate = {
       },
       {
         id: 'tests-deadlines',
-        name: 'Toetsen & Deadlines',
+        name: 'Tests & Deadlines',
         type: 'page',
         icon: '📅',
         children: [],
         databases: [
           {
-            name: 'Toetsen Database',
+            name: 'Tests Database',
             properties: [
-              { name: 'Toets/Deadline', type: 'text' },
-              { name: 'Vak', type: 'select' },
+              { name: 'Test/Deadline', type: 'text' },
+              { name: 'Subject', type: 'select' },
               { name: 'Datum', type: 'date' },
               { name: 'Hoofdstukken', type: 'text' },
               { name: 'Stof', type: 'text' },
               { name: 'Weging', type: 'number' },
-              { name: 'Status', type: 'select', options: ['Gepland', 'Bezig', 'Afgerond'] },
+              { name: 'Status', type: 'select', options: ['Gepland', 'In progress', 'Done'] },
               {
                 name: 'Type',
                 type: 'select',
-                options: ['Toets', 'Tentamen', 'Presentatie', 'Huiswerk', 'Project'],
+                options: ['Test', 'Tentamen', 'Presentation', 'Homework', 'Project'],
               },
               { name: 'T-7 Planning', type: 'text' },
               { name: 'T-3 Planning', type: 'text' },
@@ -419,21 +419,21 @@ export const schoolOsTemplate = {
       },
       {
         id: 'projecten',
-        name: 'Projecten',
+        name: 'Projects',
         type: 'page',
         icon: '🎯',
         children: [],
         databases: [
           {
-            name: 'Projecten Database',
+            name: 'Projects Database',
             properties: [
               { name: 'Project', type: 'text' },
-              { name: 'Vak', type: 'select' },
+              { name: 'Subject', type: 'select' },
               { name: 'Deadline', type: 'date' },
               {
                 name: 'Status',
                 type: 'select',
-                options: ['Idee', 'Planning', 'Uitvoering', 'Review', 'Afgerond'],
+                options: ['Idee', 'Planning', 'Uitvoering', 'Review', 'Done'],
               },
               { name: 'Stappen', type: 'text' },
               { name: 'Afhankelijkheden', type: 'text' },

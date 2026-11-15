@@ -1,23 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { getAdminSetting, putAdminSetting, AdminSettingsUnavailable } from '@/lib/admin-settings';
+import { ADMIN_SESSION_COOKIE, isValidAdminSession } from '@/lib/admin-auth';
 
-const BUTTONS_FILE = path.join(process.cwd(), 'public', 'admin-subject-buttons.json');
+const KEY = 'admin-subject-buttons';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isValidAdminSession(request.cookies.get(ADMIN_SESSION_COOKIE)?.value)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
-    const data = await fs.readFile(BUTTONS_FILE, 'utf-8');
-    return NextResponse.json(JSON.parse(data));
+    const data = await getAdminSetting(KEY);
+    return NextResponse.json(
+      data ?? { lastUpdated: new Date().toISOString(), buttons: [] }
+    );
   } catch (error) {
-    // Return empty structure if file doesn't exist
-    return NextResponse.json({
-      lastUpdated: new Date().toISOString(),
-      buttons: [],
-    });
+    if (error instanceof AdminSettingsUnavailable) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
+    }
+    console.error('Error loading subject buttons:', error);
+    return NextResponse.json({ lastUpdated: new Date().toISOString(), buttons: [] });
   }
 }
 
 export async function POST(request: NextRequest) {
+  if (!isValidAdminSession(request.cookies.get(ADMIN_SESSION_COOKIE)?.value)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const body = await request.json();
     const { buttons } = body;
@@ -27,13 +36,13 @@ export async function POST(request: NextRequest) {
       buttons: buttons || [],
     };
 
-    await fs.writeFile(BUTTONS_FILE, JSON.stringify(data, null, 2));
+    await putAdminSetting(KEY, data);
     return NextResponse.json({ success: true, data });
   } catch (error) {
+    if (error instanceof AdminSettingsUnavailable) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 503 });
+    }
     console.error('Error saving subject buttons:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to save buttons' },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: 'Failed to save buttons' }, { status: 500 });
   }
 }

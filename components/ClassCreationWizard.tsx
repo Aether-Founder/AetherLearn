@@ -150,12 +150,12 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
               <SelectValue placeholder={t('shell_select_class')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="1">1e Jaar</SelectItem>
-              <SelectItem value="2">2e Jaar</SelectItem>
-              <SelectItem value="3">3e Jaar</SelectItem>
-              <SelectItem value="4">4e Jaar</SelectItem>
-              <SelectItem value="5">5e Jaar</SelectItem>
-              <SelectItem value="6">6e Jaar</SelectItem>
+              <SelectItem value="1">{t('class_year', undefined, { n: 1 })}</SelectItem>
+              <SelectItem value="2">{t('class_year', undefined, { n: 2 })}</SelectItem>
+              <SelectItem value="3">{t('class_year', undefined, { n: 3 })}</SelectItem>
+              <SelectItem value="4">{t('class_year', undefined, { n: 4 })}</SelectItem>
+              <SelectItem value="5">{t('class_year', undefined, { n: 5 })}</SelectItem>
+              <SelectItem value="6">{t('class_year', undefined, { n: 6 })}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -191,7 +191,7 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
             }
           />
           <Label htmlFor="isPublic" className="cursor-pointer">
-            Maak klas openbaar (zoekbaar voor anderen)
+            {t('class_make_public')}
           </Label>
         </div>
 
@@ -204,7 +204,7 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
             }
           />
           <Label htmlFor="allowStudentJoin" className="cursor-pointer">
-            Sta leerlingen toe om zich aan te melden
+            {t('class_allow_join')}
           </Label>
         </div>
 
@@ -218,7 +218,7 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
             disabled={!classData.allowStudentJoin}
           />
           <Label htmlFor="requireApproval" className="cursor-pointer">
-            Vereist goedkeuring voor aanmeldingen
+            {t('class_require_approval')}
           </Label>
         </div>
       </div>
@@ -318,12 +318,12 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
             {step > 1 && (
               <Button variant="outline" onClick={handlePrevious}>
                 <ChevronLeft className="w-4 h-4 mr-2" />
-                Vorige
+                {t('previous')}
               </Button>
             )}
             {onCancel && (
               <Button variant="ghost" onClick={onCancel}>
-                Annuleren
+                {t('cancel')}
               </Button>
             )}
           </div>

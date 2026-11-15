@@ -1,8 +1,7 @@
 {
   "id": "scheikunde",
-  "name": "Scheikunde",
+  "name": "Chemistry",
   "slug": "scheikunde",
-  "description": "Scheikunde - de studie van materie, zijn eigenschappen, samenstelling en reacties.",
   "color": "#10b981",
   "icon": "flask",
   "level": "vwo",

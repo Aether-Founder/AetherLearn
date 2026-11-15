@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Plus, FileText, HelpCircle, Download, Trash2, Edit, CheckCircle2 } from 'lucide-react';
 import { useTranslation } from '@/lib/useTranslation';
+import { fetchLessonNotes, upsertLessonNote, deleteLessonNote } from '@/lib/cloud-sync';
 
 interface LessonNote {
   id: string;
@@ -35,23 +36,38 @@ export default function LessonNotesPage() {
   }, []);
 
   const loadNotes = () => {
+    let local: LessonNote[] = [];
     try {
       const stored = localStorage.getItem('aether_lesson_notes');
       if (stored) {
         const parsed = JSON.parse(stored);
         // Cast the status type properly
-        const typedNotes: LessonNote[] = parsed.map((note: any) => ({
+        local = parsed.map((note: any) => ({
           ...note,
           questions: note.questions.map((q: any) => ({
             ...q,
             status: q.status as 'pending' | 'answered',
           })),
         }));
-        setNotes(typedNotes);
+        setNotes(local);
       }
     } catch {
       setNotes([]);
     }
+
+    // Merge Supabase lesson notes (source of truth) into the local cache
+    fetchLessonNotes().then((remote) => {
+      if (!remote?.length) return;
+      const byId = new Map<string, LessonNote>();
+      for (const note of local) byId.set(note.id, note);
+      for (const note of remote) {
+        const { data: _d, ...rest } = note as any;
+        byId.set(note.id, { ...(byId.get(note.id) || {}), ...rest } as LessonNote);
+      }
+      const merged = Array.from(byId.values());
+      localStorage.setItem('aether_lesson_notes', JSON.stringify(merged));
+      setNotes(merged);
+    });
   };
 
   const saveNotes = (data: LessonNote[]) => {
@@ -60,6 +76,8 @@ export default function LessonNotesPage() {
     } catch {
       console.error('Failed to save lesson notes');
     }
+    // Fire-and-forget cloud sync
+    void Promise.allSettled(data.map((note) => upsertLessonNote(note)));
   };
 
   const openCreate = () => {
@@ -109,6 +127,7 @@ export default function LessonNotesPage() {
     const updated = notes.filter((note) => note.id !== id);
     setNotes(updated);
     saveNotes(updated);
+    void deleteLessonNote(id);
   };
 
   const addQuestion = (noteId: string) => {

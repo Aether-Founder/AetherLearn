@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { getBookBySlug } from '@/lib/books/catalog';
+import { setBookBookmark } from '@/lib/cloud-sync';
 import { loadBookContent } from '@/lib/books/content';
 import { Book as BookData, Chapter } from '@/lib/books/types';
 import { AppShell } from '@/components/AppShell';
@@ -39,6 +40,7 @@ function useBookSlugBookmark(slug: string, title: string) {
         newBookmarks.add(bookSlug);
       }
       localStorage.setItem('book-bookmarks', JSON.stringify(Array.from(newBookmarks)));
+      void setBookBookmark(bookSlug, newBookmarks.has(bookSlug));
       return newBookmarks;
     });
   }, []);
@@ -239,6 +241,16 @@ export default function BookReaderPage() {
   };
 
   const [focusMode, setFocusMode] = useState(false);
+  const [mobileTocOpen, setMobileTocOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)');
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
 
   const scrollToSection = (index: number) => {
     const element = document.getElementById(`section-${index}`);
@@ -292,9 +304,18 @@ export default function BookReaderPage() {
     const queryMode = searchParams.get('mode') as ViewMode | null;
     const queryFormat = searchParams.get('format') as 'original' | 'concise' | 'detailed' | null;
     const queryLang = searchParams.get('lang') as string | null;
+    const storedLang = sessionStorage.getItem(`book-read-lang-${slug}`);
+
+    if (queryMode === 'study') {
+      router.replace(`/books/${slug}/learn`);
+      return;
+    }
 
     if (queryMode && SUPPORTED_MODES.includes(queryMode)) {
       setViewMode(queryMode);
+    } else if (savedMode === 'study') {
+      router.replace(`/books/${slug}/learn`);
+      return;
     } else if (savedMode && SUPPORTED_MODES.includes(savedMode)) {
       setViewMode(savedMode);
     }
@@ -304,16 +325,21 @@ export default function BookReaderPage() {
     } else if (book?.formats?.includes('original')) {
       setSelectedFormat('original');
     }
-    if (queryLang) setSelectedLanguage(queryLang);
+    const lang = queryLang || storedLang;
+    if (lang) setSelectedLanguage(lang);
   }, [slug, searchParams, book?.formats]);
 
   const handleModeChange = useCallback(
     (mode: ViewMode) => {
+      if (mode === 'study') {
+        router.push(`/books/${slug}/learn`);
+        return;
+      }
       if (!availableModes.includes(mode)) return;
       setViewMode(mode);
       localStorage.setItem(`viewMode-book-${slug}`, mode);
     },
-    [availableModes, slug]
+    [availableModes, slug, router, selectedLanguage]
   );
 
   // Main data loader
@@ -422,14 +448,14 @@ export default function BookReaderPage() {
             className="absolute top-4 left-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <ChevronRight className="w-4 h-4 rotate-180" />
-            {t('books.back_to_library')}
+            {t('books.back_to_library', 'Back to Library')}
           </button>
           <div className="flex items-center justify-center h-screen">
             <div className="text-center space-y-4 max-w-md px-4">
               <XCircle className="w-16 h-16 text-muted-foreground mx-auto" />
-              <h2 className="text-xl font-semibold">{t('books.content_not_available') || 'Content not available'}</h2>
+              <h2 className="text-xl font-semibold">{t('books.content_not_available', 'Content not available') || 'Content not available'}</h2>
               <p className="text-muted-foreground">
-                {t('books.content_not_available_desc') || 'This book does not have any content available to read yet. Please check back later or contact support.'}
+                {t('books.content_not_available_desc', 'This book does not have any content available to read yet. Please check back later or contact support.') || 'This book does not have any content available to read yet. Please check back later or contact support.'}
               </p>
               <button
                 type="button"
@@ -437,7 +463,7 @@ export default function BookReaderPage() {
                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
               >
                 <ChevronRight className="w-4 h-4 rotate-180" />
-                {t('books.back_to_library')}
+                {t('books.back_to_library', 'Back to Library')}
               </button>
             </div>
           </div>
@@ -450,7 +476,7 @@ export default function BookReaderPage() {
     <AppShell>
       <div className="relative w-full">
         {/* Controls: top-right corner */}
-        <div className="absolute top-2 right-2 flex items-center gap-2 z-10">
+        <div className="absolute top-2 right-2 flex items-center gap-2 z-10 max-w-[calc(100vw-1rem)] overflow-x-auto">
           {!showSkeleton && (
             <>
               {/* Format and Language */}
@@ -462,9 +488,9 @@ export default function BookReaderPage() {
                     onChange={(e) => setSelectedFormat(e.target.value as 'original' | 'concise' | 'detailed')}
                     className="px-2 py-1 text-xs border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-primary/20"
                   >
-                    <option value="original">{t('books.original')}</option>
-                    {book.formats.includes('concise') && <option value="concise">{t('books.concise')}</option>}
-                    {book.formats.includes('detailed') && <option value="detailed">{t('books.detailed')}</option>}
+                    <option value="original">{t('books.original', 'Original')}</option>
+                    {book.formats.includes('concise') && <option value="concise">{t('books.concise', 'Summary - concise')}</option>}
+                    {book.formats.includes('detailed') && <option value="detailed">{t('books.detailed', 'Summary - detailed')}</option>}
                   </select>
                 )}
 
@@ -487,7 +513,7 @@ export default function BookReaderPage() {
               {/* Reading time */}
               {estimatedReadingTime > 0 && (
                 <div className="px-2 py-1 rounded border border-border/50 bg-secondary/30 text-xs text-muted-foreground">
-                  {estimatedReadingTime} {t('books.read_time')}
+                  {estimatedReadingTime} {t('books.read_time', 'min read')}
                 </div>
               )}
 
@@ -556,10 +582,7 @@ export default function BookReaderPage() {
         </div>
 
         {/* Header */}
-        <div
-          className="w-full px-4 sm:px-6 lg:px-8 pt-12 pb-6"
-          style={{ paddingRight: 'max(1rem, 280px)' }}
-        >
+        <div className="w-full px-0 sm:px-4 lg:px-8 pt-12 pb-6">
           {showSkeleton ? (
             <div className="space-y-3">
               <div className="skeleton-line h-12 w-1/3 rounded"></div>
@@ -571,8 +594,8 @@ export default function BookReaderPage() {
                 <Link
                   href="/books"
                   className="mt-2 p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0"
-                  title={t('books.back_to_library')}
-                  aria-label={t('books.back_to_library')}
+                  title={t('books.back_to_library', 'Back to Library')}
+                  aria-label={t('books.back_to_library', 'Back to Library')}
                 >
                   <ArrowLeft className="w-4 h-4" />
                 </Link>
@@ -595,19 +618,19 @@ export default function BookReaderPage() {
       <main className="json-lesson-page bg-background">
         {layoutMode === 'flip' ? (
           /* Flip Layout - centered, no sidebar */
-          <div className="relative flex flex-col mt-0 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex-1 px-5 py-10 min-w-0 transition-all duration-300 ease-in-out">
+          <div className="relative flex flex-col mt-0 max-w-[1400px] mx-auto px-0 sm:px-6 lg:px-8">
+            <div className="flex-1 py-8 sm:py-10 min-w-0 transition-all duration-300 ease-in-out">
               {/* Flip Layout */}
-              <div className="flex flex-col items-center justify-center min-h-[600px] px-4">
+              <div className="flex flex-col items-center justify-center min-h-[50vh] sm:min-h-[600px] px-4">
                 {showSkeleton ? (
                   <ContentSkeleton />
                 ) : (
                   <>
-                    <div className="relative w-full max-w-4xl bg-background border border-border rounded-lg shadow-lg p-8 md:p-12 min-h-[500px]" style={{ fontSize: `${fontSize}px`, lineHeight: '1.6' }}>
+                    <div className="relative w-full max-w-4xl bg-background border border-border rounded-lg shadow-lg p-5 sm:p-8 md:p-12 min-h-[60vh] sm:min-h-[500px]" style={{ fontSize: `${fontSize}px`, lineHeight: '1.6' }}>
                       <h2 className="font-display font-normal mb-6" style={{ fontSize: `${fontSize * 1.5}px` }}>
                         {chapters[currentPage]?.title || ''}
                       </h2>
-                      <div className="prose prose-slate dark:prose-invert max-w-none">
+                      <div className="prose prose-slate dark:prose-invert max-w-none overflow-x-auto">
                         <MarkdownRenderer className="text-foreground leading-relaxed">
                           {(() => {
                             const currentChapter = chapters[currentPage];
@@ -669,9 +692,21 @@ export default function BookReaderPage() {
         </div>
         ) : (
           /* Scroll Layout - with sidebar */
-          <div className="relative flex flex-col md:flex-row md:gap-4 mt-0 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Content Sidebar */}
+          <div className="relative flex flex-col md:flex-row md:gap-4 mt-0 max-w-[1400px] mx-auto px-0 sm:px-4 lg:px-8">
+            {/* Mobile TOC toggle */}
             {book && chapters.length > 0 && !focusMode && (
+              <button
+                type="button"
+                onClick={() => setMobileTocOpen((o) => !o)}
+                className="md:hidden mb-4 flex items-center gap-2 self-start px-3 py-2 text-sm text-muted-foreground border border-border rounded-lg hover:bg-secondary/50 transition-colors"
+              >
+                <ChevronRight className={`w-4 h-4 transition-transform ${mobileTocOpen ? 'rotate-90' : ''}`} />
+                {t('table_of_contents')}
+              </button>
+            )}
+
+            {/* Content Sidebar */}
+            {book && chapters.length > 0 && !focusMode && (isDesktop || mobileTocOpen) && (
               <div className="xl:w-[280px] lg:w-[250px] md:w-[220px] flex-shrink-0 relative transition-all duration-300 ease-in-out">
                 <ContentSidebar
                   sections={sections}
@@ -682,8 +717,8 @@ export default function BookReaderPage() {
             )}
 
             {/* Main content */}
-            <div className="flex-1 px-5 py-10 min-w-0 transition-all duration-300 ease-in-out">
-              <div className={`mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 ease-in-out ${focusMode ? 'max-w-5xl' : 'max-w-[900px]'}`} style={{ fontSize: `${fontSize}px`, lineHeight: '1.6' }}>
+            <div className="flex-1 min-w-0 py-8 sm:py-10 transition-all duration-300 ease-in-out">
+              <div className={`mx-auto transition-all duration-300 ease-in-out ${focusMode ? 'max-w-5xl' : 'max-w-[900px]'} px-0 sm:px-2 lg:px-4`} style={{ fontSize: `${fontSize}px`, lineHeight: '1.6' }}>
                 {showSkeleton ? (
                   <ContentSkeleton />
                 ) : (
@@ -696,7 +731,7 @@ export default function BookReaderPage() {
                             {chapter.title}
                           </h2>
                         </div>
-                        <div className="prose prose-slate dark:prose-invert max-w-none mb-16">
+                        <div className="prose prose-slate dark:prose-invert max-w-none mb-16 overflow-x-auto">
                           <MarkdownRenderer className="text-foreground leading-relaxed">
                             {displayContent}
                           </MarkdownRenderer>

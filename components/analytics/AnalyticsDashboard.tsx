@@ -7,7 +7,7 @@ import { useTranslation } from '@/lib/useTranslation';
 interface AnalyticsDashboardProps {
   mastery: {
     percentage: number;
-    status: 'mastered' | 'redelijk' | 'let_op' | 'gevaar';
+    status: 'mastered' | 'fair' | 'attention' | 'danger';
     trend: 'up' | 'stable' | 'down';
     predictedScore: number;
     riskLevel: 'low' | 'medium' | 'high';
@@ -25,9 +25,9 @@ export function AnalyticsDashboard({ mastery, insights, performance }: Analytics
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'mastered': return 'text-green-500 bg-green-500/10';
-      case 'redelijk': return 'text-yellow-500 bg-yellow-500/10';
-      case 'let op': return 'text-orange-500 bg-orange-500/10';
-      case 'gevaar': return 'text-red-500 bg-red-500/10';
+      case 'fair': return 'text-yellow-500 bg-yellow-500/10';
+      case 'attention': return 'text-orange-500 bg-orange-500/10';
+      case 'danger': return 'text-red-500 bg-red-500/10';
       default: return 'text-gray-500 bg-gray-500/10';
     }
   };
@@ -65,22 +65,22 @@ export function AnalyticsDashboard({ mastery, insights, performance }: Analytics
               <p className="text-2xl font-semibold">{mastery.percentage}%</p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Status</p>
+              <p className="text-sm text-muted-foreground">{t('common_status')}</p>
               <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-sm font-medium ${getStatusColor(mastery.status)}`}>
-                {mastery.status.charAt(0).toUpperCase() + mastery.status.slice(1)}
+                {t('mastery_status_'+mastery.status, mastery.status)}
               </span>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Trend</p>
+              <p className="text-sm text-muted-foreground">{t('common_trend')}</p>
               <div className="flex items-center gap-1">
                 {getTrendIcon(mastery.trend)}
-                <span className="text-sm font-medium capitalize">{mastery.trend}</span>
+                <span className="text-sm font-medium capitalize">{t('mastery_trend_'+mastery.trend, mastery.trend)}</span>
               </div>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">{t('comp_risk')}</p>
               <p className={`text-sm font-medium ${getRiskColor(mastery.riskLevel)}`}>
-                {mastery.riskLevel.charAt(0).toUpperCase() + mastery.riskLevel.slice(1)}
+                {t('mastery_risk_'+mastery.riskLevel, mastery.riskLevel)}
               </p>
             </div>
           </div>

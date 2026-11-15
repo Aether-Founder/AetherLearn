@@ -1,8 +1,7 @@
 {
   "id": "natuurkunde",
-  "name": "Natuurkunde",
+  "name": "Physics",
   "slug": "natuurkunde",
-  "description": "Natuurkunde - de studie van materie, energie en de fundamentele krachten die het universum beheersen.",
   "color": "#3b82f6",
   "icon": "atom",
   "level": "vwo",

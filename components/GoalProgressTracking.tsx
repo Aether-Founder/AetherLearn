@@ -33,7 +33,7 @@ interface GoalProgressTrackingProps {
 }
 
 export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [goals, setGoals] = useState<Goal[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'active' | 'completed' | 'expired'>('all');
@@ -93,9 +93,9 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
     const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
-    if (diffMs <= 0) return 'Verlopen';
-    if (diffDays > 0) return `${diffDays} dagen`;
-    return `${diffHours} uur`;
+    if (diffMs <= 0) return t('time_overdue');
+    if (diffDays > 0) return t('time_days_short', undefined, { n: diffDays });
+    return t('time_hours_short', undefined, { n: diffHours });
   };
 
   const getCategoryIcon = (category: string) => {
@@ -283,7 +283,7 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
                   <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Calendar className="w-4 h-4" />
-                      <span>Deadline: {new Date(goal.deadline).toLocaleDateString('nl-NL')}</span>
+                      <span>{t('common_deadline')}: {new Date(goal.deadline).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : 'en-US')}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Clock className="w-4 h-4 text-muted-foreground" />
@@ -306,7 +306,7 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
             <h3 className="text-lg font-semibold mb-2">{t('shell_no_goals')}</h3>
             <p className="text-sm text-muted-foreground">
               {filter !== 'all' || categoryFilter !== 'all'
-                ? 'Probeer andere filters'
+                ? t('shell_try_other_filters')
                 : t('shell_no_goals_desc')}
             </p>
           </CardContent>
